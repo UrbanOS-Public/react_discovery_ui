@@ -2,6 +2,6 @@ import './button.scss'
 
 export default (props) => (
   <button-element>
-    <button className='blarg' onClick={props.action}>{props.symbol}</button>
+    <button onClick={props.action}>{props.buttonText}</button>
   </button-element>
 )

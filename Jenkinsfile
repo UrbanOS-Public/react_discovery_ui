@@ -29,7 +29,6 @@ node('infrastructure') {
                 image.push('latest')
             }
             deployUiTo(environment: 'dev')
-            runSmokeTestAgainst('dev')
         }
 
 
@@ -37,7 +36,6 @@ node('infrastructure') {
             def promotionTag = scos.releaseCandidateNumber()
 
             deployUiTo(environment: 'staging')
-            runSmokeTestAgainst('staging')
 
             scos.applyAndPushGitHubTag(promotionTag)
 
@@ -52,7 +50,6 @@ node('infrastructure') {
 
             /* change internal to false when we're ready to release */
             deployUiTo(environment: 'prod', internal: true)
-            runSmokeTestAgainst('prod')
 
             scos.applyAndPushGitHubTag(promotionTag)
 
@@ -87,24 +84,9 @@ def deployUiTo(params = [:]) {
             export INGRESS_SCHEME=${ingressScheme}
             export CERTIFICATE_ARN="${certificateARN}"
 
-            kubectl apply -f k8s/configs/${environment}.yaml
-            for manifest in k8s/deployment/*; do
+            for manifest in k8s/*; do
                 cat \$manifest | envsubst | kubectl apply -f -
             done
         """.trim())
-    }
-}
-
-def runSmokeTestAgainst(environment) {
-    dir('smoke-test') {
-        def smoker = docker.build("cota-smoke-test")
-
-        retry(60) {
-            sleep(time: 5, unit: 'SECONDS')
-            smoker.withRun("-e ENDPOINT_URL=cota.${environment}.internal.smartcolumbusos.com") { container ->
-                sh "docker logs -f ${container.id}"
-                sh "exit \$(docker inspect ${container.id} --format='{{.State.ExitCode}}')"
-            }
-        }
     }
 }

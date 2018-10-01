@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: discovery-ui
-  namespace: default
-data:
-  env: "prod"

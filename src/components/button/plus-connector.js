@@ -4,7 +4,7 @@ import { addToCount } from '../../store/actions'
 import { connect } from 'react-redux'
 
 const mapStateToProps = () => ({
-  symbol: '➕'
+  buttonText: '➕'
 })
 
 const mapDispatchToProps = dispatch => ({
