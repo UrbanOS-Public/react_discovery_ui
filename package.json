@@ -64,7 +64,7 @@
   },
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack-dev-server  --mode development",
+    "start": "webpack-dev-server --mode development",
     "lint": "standard --fix",
     "test": "jest",
     "test-watch": "jest --watch"

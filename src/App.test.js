@@ -1,5 +1,6 @@
 import { shallow } from 'enzyme'
 import App from './App'
+import Title from './components/title'
 
 describe('App', () => {
   let subject
@@ -8,7 +9,7 @@ describe('App', () => {
     subject = shallow(<App />)
   })
 
-  test('celebrates our success', () => {
-    expect(subject.find('.classy').text()).toEqual('We did it!')
+  test('informs you that you are looking at a count (in redux!)', () => {
+    expect(subject.find(Title).props().title).toEqual('Your Current Count (in redux!)')
   })
 })

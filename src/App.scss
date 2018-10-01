@@ -1,6 +1,13 @@
 main-app-element {
-  div {
-    background-color: black;
-    color: #ff00ff;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
