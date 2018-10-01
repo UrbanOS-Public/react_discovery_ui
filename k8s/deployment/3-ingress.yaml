@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: discovery-ui
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: ${INGRESS_SCHEME}
+    alb.ingress.kubernetes.io/subnets: ${SUBNETS}
+    alb.ingress.kubernetes.io/security-groups: ${SECURITY_GROUPS}
+    alb.ingress.kubernetes.io/tags: scos.delete.on.teardown=true
+    alb.ingress.kubernetes.io/certificate-arn: ${CERTIFICATE_ARN}
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80,"HTTPS": 443}]'
+spec:
+  rules:
+  - host: discovery.${DNS_ZONE}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: discovery-ui
+          servicePort: 80

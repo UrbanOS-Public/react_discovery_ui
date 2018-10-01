@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: discovery-ui
+  labels:
+    app: discovery-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discovery-ui
+  template:
+    metadata:
+      labels:
+        app: discovery-ui
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: discovery-ui
+        image: 199837183662.dkr.ecr.us-east-2.amazonaws.com/scos/discovery-ui:${VERSION}
+        envFrom:
+        - configMapRef:
+            name: discovery-ui
