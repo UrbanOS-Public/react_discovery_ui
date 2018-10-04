@@ -1,6 +1,9 @@
+@import '../../styles/variables.scss';
+
 count-element {
   height: 5rem;
   width: 5rem;
+  color: $almost-black;
   text-align: center;
   font-size: 5rem;
   margin-bottom: 1rem;

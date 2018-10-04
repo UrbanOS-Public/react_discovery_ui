@@ -70,23 +70,22 @@ def deployUiTo(params = [:]) {
 
     scos.withEksCredentials(environment) {
         def terraformOutputs = scos.terraformOutput(environment)
-        def subnets = terraformOutputs.public_subnets.value.join(', ')
+        def subnets = terraformOutputs.public_subnets.value.join(/\\,/)
         def allowInboundTrafficSG = terraformOutputs.allow_all_security_group.value
         def certificateARN = terraformOutputs.tls_certificate_arn.value
-
         def ingressScheme = internal ? 'internal' : 'internet-facing'
+
         sh("""#!/bin/bash
             set -e
-            export VERSION="${env.GIT_COMMIT_HASH}"
-            export DNS_ZONE="${environment}.internal.smartcolumbusos.com"
-            export SUBNETS="${subnets}"
-            export SECURITY_GROUPS="${allowInboundTrafficSG}"
-            export INGRESS_SCHEME=${ingressScheme}
-            export CERTIFICATE_ARN="${certificateARN}"
-
-            for manifest in k8s/*; do
-                cat \$manifest | envsubst | kubectl apply -f -
-            done
+            helm init --client-only
+            helm upgrade --install discovery-ui ./chart \
+                --namespace=discovery \
+                --set ingress.scheme="${ingressScheme}" \
+                --set ingress.subnets="${subnets}" \
+                --set ingress.security_groups="${allowInboundTrafficSG}" \
+                --set ingress.dns_zone="${environment}.internal.smartcolumbusos.com" \
+                --set ingress.certificate_arn="${certificateARN}" \
+                --set image.tag="${env.GIT_COMMIT_HASH}"
         """.trim())
     }
 }

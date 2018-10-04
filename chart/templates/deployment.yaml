@@ -1,7 +1,8 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: discovery-ui
+  name: {{ .Chart.Name }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: discovery-ui
 spec:
@@ -18,7 +19,4 @@ spec:
       - name: regcred
       containers:
       - name: discovery-ui
-        image: 199837183662.dkr.ecr.us-east-2.amazonaws.com/scos/discovery-ui:${VERSION}
-        envFrom:
-        - configMapRef:
-            name: discovery-ui
+        image: {{ .Values.image.name }}:{{ .Values.image.tag }}
