@@ -1,11 +1,15 @@
-export const ADD_TO_COUNT = 'ADD_TO_COUNT'
+export const RETRIEVE_DATA_LIST = 'RETRIEVE_DATA_LIST'
+export const SELECT_DATA_LIST = 'SELECT_DATA_LIST'
+export const DISPLAY_ERROR = 'DISPLAY_ERROR'
 
-export const SUBTRACT_FROM_COUNT = 'SUBTRACT_FROM_COUNT'
-
-export const subtractFromCount = (value) => {
-  return { type: SUBTRACT_FROM_COUNT, value: value }
+export const retrieveDataList = () => {
+  return { type: RETRIEVE_DATA_LIST }
 }
 
-export const addToCount = (value) => {
-  return { type: ADD_TO_COUNT, value: value }
+export const selectDataList = (data) => {
+  return { type: SELECT_DATA_LIST, value: data }
+}
+
+export const displayError = () => {
+  return { type: DISPLAY_ERROR }
 }

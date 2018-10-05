@@ -1,19 +1,22 @@
 import { combineReducers } from 'redux'
-import { ADD_TO_COUNT, SUBTRACT_FROM_COUNT } from '../actions'
+import { SELECT_DATA_LIST, DISPLAY_ERROR } from '../actions'
 
-const DEFAULT_STATE = { count: 0 }
+const defaultDatasetState = {
+  datasets: [],
+  datasetError: false
+}
 
-const countingReducer = (state = DEFAULT_STATE, action) => {
+const datasetReducer = (state = defaultDatasetState, action) => {
   switch (action.type) {
-    case ADD_TO_COUNT:
-      return Object.assign({}, state, { count: state.count + action.value })
-    case SUBTRACT_FROM_COUNT:
-      return Object.assign({}, state, { count: state.count - action.value })
+    case SELECT_DATA_LIST:
+      return Object.assign({}, state, { datasets: action.value })
+    case DISPLAY_ERROR:
+      return Object.assign({}, state, { datasetError: true })
     default:
       return state
   }
 }
 
 export default combineReducers({
-  counting: countingReducer
+  datasetReducer
 })

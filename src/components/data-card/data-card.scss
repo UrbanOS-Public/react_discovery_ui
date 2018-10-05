@@ -1,0 +1,30 @@
+@import '../../styles/variables.scss';
+
+data-card {
+    width: 100%;
+
+    .datacard-container  {
+        font-family: Arial, Helvetica, sans-serif;
+        color: $almost-black;
+        border-bottom: 1px solid $light-grey;
+        letter-spacing: .02rem;
+
+        .title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        .description{
+            width: 80%;
+            font-size: .875rem;
+        }
+        .file-types {
+            margin: 1rem 0;
+            font-size: .875rem;
+            .file-type {
+                color: $csv-green;
+                font-weight: bold;
+            }
+        }
+    }
+}

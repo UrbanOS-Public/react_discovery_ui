@@ -1,25 +1,23 @@
 import reducer from './index'
-import { ADD_TO_COUNT, SUBTRACT_FROM_COUNT } from '../actions'
+import { SELECT_DATA_LIST, DISPLAY_ERROR } from '../actions'
+import { dataStub } from '../../../stubs/data-stub'
 
-describe('Discovery App reducers', () => {
-  it('add the value to the count if it gets an ADD_TO_COUNT action', () => {
-    let currentState = { counting: { count: 3 } }
-    let newState = reducer(currentState, { type: ADD_TO_COUNT, value: 4 })
+describe('Dataset Reducer', () => {
+  it('SELECT_DATA_LIST places Dataset list in the state', () => {
+    let currentState = { }
+    let newState = reducer(currentState, { type: SELECT_DATA_LIST, value: dataStub })
 
-    expect(newState.counting.count).toEqual(7)
+    expect(newState.datasetReducer.dataset).toEqual(dataStub)
   })
 
-  it('subtracts the value from the count if it gets an SUBTRACT_FROM_COUNT action', () => {
-    let currentState = { counting: { count: 3 } }
-    let newState = reducer(currentState, { type: SUBTRACT_FROM_COUNT, value: 4 })
+  it('DISPLAY_ERROR sets datasetError to true', () => {
+    let currentState = {
+      datasetReducer: {
+        datasetError: false
+      }
+    }
+    let newState = reducer(currentState, { type: DISPLAY_ERROR })
 
-    expect(newState.counting.count).toEqual(-1)
-  })
-
-  it('returns the original state if it gets an unknown action', () => {
-    let currentState = { counting: { count: 3 } }
-    let newState = reducer(currentState, { type: 'WEIRD_ACTION' })
-
-    expect(newState).toEqual(currentState)
+    expect(newState.datasetReducer.datasetError).toEqual(true)
   })
 })
