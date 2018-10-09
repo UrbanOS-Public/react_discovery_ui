@@ -1,9 +1,9 @@
 ingress:
-  enabled: true
+  enabled: false
   scheme: ""
   subnets: ""
   security_groups: "" #Load balancer Security Group
-  dns_zone: ""
+  dns_zone: "localhost"
   certificate_arn: ""
 
 image:

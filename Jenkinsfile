@@ -80,6 +80,7 @@ def deployUiTo(params = [:]) {
             helm init --client-only
             helm upgrade --install discovery-ui ./chart \
                 --namespace=discovery \
+                --set ingress.enabled="true" \
                 --set ingress.scheme="${ingressScheme}" \
                 --set ingress.subnets="${subnets}" \
                 --set ingress.security_groups="${allowInboundTrafficSG}" \

@@ -18,3 +18,22 @@
 
 ## Running the Docker Image
 `docker run -d --rm -p <port>:80 <image name>:<tag>`
+
+## Deploying to minikube
+```bash
+# build to local Docker environment
+eval $(minikube docker-env)
+docker build -t discovery-ui:wip .
+
+# create namespace
+kubectl create ns discovery
+
+# deploy with helm
+helm upgrade --install discovery-ui ./chart \
+  --namespace=discovery \
+  --set image.name=discovery-ui \
+  --set image.tag=wip
+  
+# open browser to ui
+minikube service discovery-ui -n discovery
+```
