@@ -1,0 +1,27 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+dataset-list-view{
+    @include flex-column();
+    justify-content: flex-start;
+    align-items: flex-start;
+    border-top: 2px dotted $medium-grey;
+
+    .loader {
+        align-self: center;
+        animation-name: spin;
+        animation-duration: 5000ms;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
