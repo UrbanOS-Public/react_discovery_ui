@@ -74,9 +74,11 @@ def deployUiTo(params = [:]) {
         def allowInboundTrafficSG = terraformOutputs.allow_all_security_group.value
         def certificateARN = terraformOutputs.tls_certificate_arn.value
         def ingressScheme = internal ? 'internal' : 'internet-facing'
+        def VERSION="${env.GIT_COMMIT_HASH}"
 
         sh("""#!/bin/bash
             set -e
+
             helm init --client-only
             helm upgrade --install discovery-ui ./chart \
                 --namespace=discovery \
@@ -86,7 +88,8 @@ def deployUiTo(params = [:]) {
                 --set ingress.security_groups="${allowInboundTrafficSG}" \
                 --set ingress.dns_zone="${environment}.internal.smartcolumbusos.com" \
                 --set ingress.certificate_arn="${certificateARN}" \
-                --set image.tag="${env.GIT_COMMIT_HASH}"
+                --set image.tag="${VERSION}" \
+                --set image.environment="${environment}"
         """.trim())
     }
 }

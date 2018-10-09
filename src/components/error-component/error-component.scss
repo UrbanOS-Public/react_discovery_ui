@@ -2,7 +2,8 @@
 @import '../../styles/mixins.scss';
 
 error-component {
+  align-self: center;
   .error-container {
-    color: red;
+    color: $error-color;
   }
 }

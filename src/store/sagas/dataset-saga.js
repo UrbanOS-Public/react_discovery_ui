@@ -4,7 +4,7 @@ import axios from 'axios'
 
 export function * retrieveData () {
   try {
-    const response = yield call(axios.get, 'http://localhost:3000')
+    const response = yield call(axios.get, window.API_HOST)
     if (response.status !== 200) {
       yield put(displayError())
     } else {

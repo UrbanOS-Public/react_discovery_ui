@@ -7,4 +7,6 @@ RUN npm test
 
 FROM nginx
 COPY --from=builder /app/src/dist /usr/share/nginx/html
-WORKDIR /etc/nginx
+COPY --from=builder /app/src/run.sh /run.sh
+WORKDIR /usr/share/nginx/html
+CMD ["/run.sh"]
