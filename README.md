@@ -7,6 +7,9 @@
 ## Run Unit Tests in Watch Mode
 `npm run test-watch`
 
+Unit tests will output warnings relate to accessibility. Configurations
+are found in `test-start-point.js`
+
 ## Lint the Code
 `npm run lint`
 
