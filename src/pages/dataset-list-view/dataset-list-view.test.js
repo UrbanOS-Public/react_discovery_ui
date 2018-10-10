@@ -11,12 +11,12 @@ describe('dataset list view', () => {
     subject = mount(<DatasetListView datasets={expectedDatasetList} retrieveDataset={retrieveSpy} />)
   })
 
-  it('displays info for a data item', () => {
-    expect(subject.find('data-card').length).toEqual(10)
-  })
-
   it('calls retrieve data callback on mount', () => {
     expect(retrieveSpy).toHaveBeenCalled()
+  })
+
+  it('displays the proper number of datacards based on datasets prop', () => {
+    expect(subject.find('data-card').length).toEqual(10)
   })
 
   it('displays loading component if there are no datasets', () => {

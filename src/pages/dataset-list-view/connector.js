@@ -4,12 +4,10 @@ import { getDataSetList, getDataSetError } from '../../store/selectors'
 
 import { connect } from 'react-redux'
 
-const mapStateToProps = state => {
-  return {
-    datasets: getDataSetList(state),
-    displayNetworkError: getDataSetError(state)
-  }
-}
+const mapStateToProps = state => ({
+  datasets: getDataSetList(state),
+  displayNetworkError: getDataSetError(state)
+})
 
 const mapDispatchToProps = dispatch => ({
   retrieveDataset: () => dispatch(retrieveDataList())

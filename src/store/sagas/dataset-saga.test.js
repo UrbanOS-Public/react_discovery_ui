@@ -33,7 +33,7 @@ describe('dataset saga', () => {
       }))
     )
     store.dispatch({ type: RETRIEVE_DATA_LIST })
-    expect(mockAxios.get).toHaveBeenCalledWith('http://localhost:3000')
+    expect(mockAxios.get).toHaveBeenCalled()
   })
 
   it('does the right thing when the network fails with an error', () => {
@@ -47,7 +47,7 @@ describe('dataset saga', () => {
   it('dispatches a display error if the status code is not 200', () => {
     mockAxios.get.mockImplementationOnce(() =>
       ({
-        status: 420,
+        status: 421,
         data: fakeDataSetResponse
       })
     )
