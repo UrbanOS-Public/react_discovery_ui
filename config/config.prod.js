@@ -1,1 +1,1 @@
-window.API_HOST = 'https://discovery-api.smartcolumbusos.com'
+window.API_HOST = 'https://discoveryapi.smartcolumbusos.com'
