@@ -4,7 +4,7 @@ import axios from 'axios'
 
 export function * retrieveData () {
   try {
-    const response = yield call(axios.get, window.API_HOST)
+    const response = yield call(axios.get, `${window.API_HOST}/api/fetchDatasetSummaries`)
     if (response.status !== 200) {
       yield put(displayError())
     } else {

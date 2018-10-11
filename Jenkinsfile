@@ -77,7 +77,7 @@ def deployUiTo(params = [:]) {
         def VERSION="${env.GIT_COMMIT_HASH}"
 
         sh("""#!/bin/bash
-            set -e
+            set -xe
 
             helm init --client-only
             helm upgrade --install discovery-ui ./chart \
