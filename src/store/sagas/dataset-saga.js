@@ -7,5 +7,5 @@ export default function * theRealDatasetSaga () {
 }
 
 const invokeApiWithParameter = ({ value }) => {
-  return apiInvoker(`/api/dataset/${value}`, datasetDetails)()
+  return apiInvoker(`/v1/api/dataset/${value}`, datasetDetails)()
 }

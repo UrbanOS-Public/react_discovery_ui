@@ -3,5 +3,5 @@ import { RETRIEVE_DATA_LIST, selectDataList } from '../actions'
 import apiInvoker from './api-invoker'
 
 export default function * theRealDatasetSaga () {
-  yield takeEvery(RETRIEVE_DATA_LIST, apiInvoker('/api/fetchDatasetSummaries', selectDataList))
+  yield takeEvery(RETRIEVE_DATA_LIST, apiInvoker('/v1/api/datasets', selectDataList))
 }
