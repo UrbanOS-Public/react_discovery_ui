@@ -1,0 +1,14 @@
+network-loading-element {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  text-align: center;
+  background-color: white;
+  overflow: hidden;
+
+  &.hidden {
+    display: none;
+  }
+}

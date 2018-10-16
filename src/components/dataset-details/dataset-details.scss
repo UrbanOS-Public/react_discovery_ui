@@ -1,0 +1,34 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
+
+dataset-details {
+  @include custom-element();
+
+  .name, .data-and-resources-header {
+    @include header();
+    margin-bottom: 0.5rem;
+  }
+
+  .tags {
+    @include flex-row();
+    height: 50px;
+    justify-content: flex-start;
+    margin: 1rem 0;
+  }
+
+  .tag-label {
+    font-weight: bold;
+    margin-right: 0.75rem;
+  }
+
+  .tag {
+    color: $dark-grey;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid $light-grey;
+    border-radius: 1.5rem;
+
+    &:not(:last-child) {
+      margin-right: 0.5rem;
+    }
+  }
+}

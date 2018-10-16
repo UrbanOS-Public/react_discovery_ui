@@ -2,8 +2,10 @@
 @import '../../styles/mixins.scss';
 
 loading-element{
+  @include custom-element();
   align-self: center;
   margin-top: 5rem;
+
   .loader {
       height: 5rem;
   }

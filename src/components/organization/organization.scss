@@ -1,0 +1,22 @@
+@import '../../styles/mixins.scss';
+
+dataset-organization {
+  @include custom-element();
+  @include flex-column();
+  align-items: flex-start;
+
+  .header, .name {
+    @include header-small();
+  }
+
+  .logo {
+    width: 100%;
+    max-width: 200px;
+    align-self: center;
+    margin: 2rem 0;
+  }
+
+  .name {
+    margin-bottom: 0.75rem;
+  }
+}

@@ -1,20 +1,11 @@
-import { put, takeEvery, call } from 'redux-saga/effects'
-import { RETRIEVE_DATA_LIST, selectDataList, displayError } from '../actions'
-import axios from 'axios'
+import { takeEvery } from 'redux-saga/effects'
+import { RETRIEVE_DATASET, datasetDetails } from '../actions'
+import apiInvoker from './api-invoker'
 
-export function * retrieveData () {
-  try {
-    const response = yield call(axios.get, `${window.API_HOST}/api/fetchDatasetSummaries`)
-    if (response.status !== 200) {
-      yield put(displayError())
-    } else {
-      yield put(selectDataList(response.data))
-    }
-  } catch (e) {
-    yield put(displayError())
-  }
+export default function * theRealDatasetSaga () {
+  yield takeEvery(RETRIEVE_DATASET, invokeApiWithParameter)
 }
 
-export function * datasetSaga () {
-  yield takeEvery(RETRIEVE_DATA_LIST, retrieveData)
+const invokeApiWithParameter = ({ value }) => {
+  return apiInvoker(`/api/dataset/${value}`, datasetDetails)()
 }

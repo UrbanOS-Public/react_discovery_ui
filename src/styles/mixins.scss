@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 @mixin flex-row() {
     display: flex;
     flex-direction: row;
@@ -10,4 +12,53 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+@mixin custom-element() {
+    display: block;
+}
+
+@mixin page-with-left-bar() {
+    @include custom-element();
+    @include flex-row();
+    $padding: 2rem;
+
+    height: calc(100% - (#{$padding} * 2));
+    width: calc(100% - (#{$padding} * 2));
+    max-width: $break-max;
+    min-width: $break-min;
+
+    padding: $padding;
+    align-items: flex-start;
+    justify-content: space-between;
+    overflow: scroll;
+
+    @media #{$above-max-break} {
+        padding-left: calc((100% - #{$break-max}) / 2);
+        padding-right: calc((100% - #{$break-max}) / 2);
+    }
+
+    & > * {
+        flex-shrink: 0;
+    }
+
+    & > :first-child {
+        width: 18%;
+    }
+
+    & > :last-child  {
+        width: 78%;
+    }
+}
+
+@mixin header() {
+    font-size: 1.7rem;
+    line-height: 1.15em;
+    font-weight: bold;
+}
+
+@mixin header-small() {
+    font-size: 1.3rem;
+    line-height: 1.15em;
+    font-weight: bold;
 }

@@ -1,0 +1,15 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+dataset-list {
+  @include custom-element();
+  @include flex-column();
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .search-placeholder {
+    width: 100%;
+    border-top: 2px dotted $medium-grey;
+    margin-top: 3rem;
+  }
+}

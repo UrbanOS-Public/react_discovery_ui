@@ -1,17 +1,19 @@
 import './data-card.scss'
+import { Link } from 'react-router-dom'
 
 const DataCard = props => {
   const fileTypes = (fileTypes) => {
     return fileTypes.map(fileType => <span key={fileType} className='file-type'>{fileType} </span>)
   }
 
+  const dataset = props.dataset
   return (
     <data-card>
-      <div className='datacard-container'>
-        <div className='title'>{props.title}</div>
-        <div className='description'>{props.description}</div>
-        <div className='file-types'>FILE TYPE: {fileTypes(props.fileTypes)} </div>
-      </div>
+      <Link to={`/dataset/${dataset.id}`}>
+        <div className='title'>{dataset.title}</div>
+      </Link>
+      <div className='description'>{dataset.description}</div>
+      <div className='file-types'>FILE TYPE: {fileTypes(dataset.fileTypes)} </div>
     </data-card>
   )
 }

@@ -8,7 +8,7 @@ import 'normalize.css'
 import reducers from './store/reducers'
 import App from './App'
 import 'regenerator-runtime/runtime'
-import { datasetSaga } from './store/sagas/dataset-saga'
+import allSagas from './store/sagas'
 
 window.React = React
 
@@ -18,7 +18,7 @@ const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(reducers, composeEnhancers(applyMiddleware(sagaMiddleware)))
 
-sagaMiddleware.run(datasetSaga)
+sagaMiddleware.run(allSagas)
 
 ReactDOM.render(
   <Provider store={store}>

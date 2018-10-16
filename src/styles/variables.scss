@@ -5,8 +5,13 @@ $dark-grey: #636466;
 
 $csv-green: #8FD400;
 $error-color: red;
+$light-blue: #00AEEF;
 
 $light-gray: $light-grey;
 $medium-gray: $medium-grey;
 $dark-gray: $dark-grey;
 
+$break-max: 1140px;
+$break-min: 768px;
+$above-max-break: "only screen and (min-width: #{$break-max})";
+$below-min-break: "only screen and (max-width: #{$break-min})";
