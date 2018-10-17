@@ -9,6 +9,10 @@ dataset-organization {
     @include header-small();
   }
 
+  .header {
+    text-transform: uppercase;
+  }
+
   .logo {
     width: 100%;
     max-width: 200px;
