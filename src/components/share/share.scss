@@ -1,0 +1,55 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
+
+share-zone {
+    @include custom-element();
+    width: 100%;
+    padding: 1.125rem 0;
+    margin-top: 1rem;
+    border-top: 1px solid $light-grey;
+
+    .header, .name {
+        @include header-small();
+        margin-bottom: 1rem;
+    }
+
+    .button {
+        margin-bottom: 0.25rem;
+        width: 10rem;
+        border-radius: 5px;
+        border-style: none;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        cursor: pointer;
+        padding: 0;
+
+        img {
+            margin: 0 0.75rem;
+        }
+
+        .share, .share-count {
+            color: white;
+            font-weight: bold;
+        }
+
+        .share-count {  
+            width: 100%;
+            text-align: right;
+            margin-right: 0.75rem;
+        }
+    }
+
+    .facebook {
+        background-color: #3b5998;
+    }
+    .twitter {
+        background-color: #00aced;
+    }
+    .linkedin {
+        background-color: #007fb1;
+    }
+    .clipboard {
+        background-color: $light-blue;
+    }
+}
