@@ -8,7 +8,7 @@ const DatasetDetails = props => {
       <div className='name'>{props.dataset.name}</div>
       <div className='description'>{props.dataset.description}</div>
       <div className='tags'>
-      <div className='tag-label'>TAGS</div>
+        <div className='tag-label'>TAGS</div>
         {props.dataset.tags.map(createTag)}
       </div>
       <div className='data-and-resources-header'>Data & Resources</div>
@@ -17,6 +17,6 @@ const DatasetDetails = props => {
   )
 }
 
-const createTag = ({name}) => <div key={`dataset-tag-${name}`} className='tag'>{name}</div>
+const createTag = ({ name }) => <div key={`dataset-tag-${name}`} className='tag'>{name}</div>
 
 export default DatasetDetails
