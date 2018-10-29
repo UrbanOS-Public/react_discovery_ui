@@ -14,29 +14,28 @@ share-zone {
     }
 
     .button {
-        margin-bottom: 0.25rem;
-        width: 10rem;
+        margin-bottom: 0.5rem;
+        width: 6rem;
         border-radius: 5px;
         border-style: none;
         display: flex;
         align-items: center;
+        text-align: center;
         overflow: hidden;
         cursor: pointer;
         padding: 0;
 
-        img {
-            margin: 0 0.75rem;
-        }
-
-        .share, .share-count {
+        .share {
             color: white;
             font-weight: bold;
+            font-size: 0.9em;
+            margin-left: 0.5rem;
         }
-
-        .share-count {  
-            width: 100%;
-            text-align: right;
-            margin-right: 0.75rem;
+        .icon {
+            margin-left: 0.25rem;
+        }
+        &:hover {
+            opacity: 0.5;
         }
     }
 
@@ -51,5 +50,13 @@ share-zone {
     }
     .clipboard {
         background-color: $light-blue;
+        text-align: center;
+        display: block;
+
+        .copy {
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
     }
 }

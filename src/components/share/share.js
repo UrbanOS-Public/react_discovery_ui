@@ -23,33 +23,31 @@ class Share extends React.Component {
 
   render() {
     const shareLocation = location.href
-    const iconSize = 40
-    const iconRound = true
+    const iconSize = 24
+    const iconBgStyle = {fill: 'none'}
 
     return (
       <share-zone>
         <div className='header'>SHARE DATASET</div>
 
         <TwitterShareButton url={shareLocation} className="twitter button">
-          <TwitterIcon round={iconRound} size={iconSize} />
+          <TwitterIcon iconBgStyle={iconBgStyle} className='icon' size={iconSize} />
           <div className="share">Tweet</div>
         </TwitterShareButton>
 
         <FacebookShareButton url={shareLocation} className="facebook button">
-          <FacebookIcon round={iconRound} size={iconSize} />
+          <FacebookIcon iconBgStyle={iconBgStyle} className='icon' size={iconSize} />
           <div className="share">Share</div>
-          <FacebookShareCount url={shareLocation} className="share-count"/>
         </FacebookShareButton>
 
         <LinkedinShareButton url={shareLocation} className="linkedin button">
-          <LinkedinIcon round={iconRound} size={iconSize} />
+          <LinkedinIcon iconBgStyle={iconBgStyle} className='icon' size={iconSize} />
           <div className="share">Share</div>
         </LinkedinShareButton>
 
-        <CopyToClipboard text={shareLocation} onCopy={() => this.setState({copyMessage:"Copied!"})}>
+        <CopyToClipboard style={{height: `${iconSize}px`}} text={shareLocation} onCopy={() => this.setState({copyMessage:"Copied!"})}>
           <button tabIndex="0" className='clipboard button'>
-            <img style={{width: `${iconSize/2}px`, height: `${iconSize}px`}} src={linkIcon}/>
-            <div className="share">{this.state.copyMessage}</div>
+            <div className="copy">{this.state.copyMessage}</div>
           </button>
         </CopyToClipboard>
       </share-zone>
