@@ -4,13 +4,25 @@
 dataset-list-view {
   @include page-with-left-bar();
 
-  .search-placeholder {
-    width: 100%;
-    border-top: 2px dotted $medium-grey;
-    margin-top: 3rem;
-  }
-
   .paginator {
     margin-top: 2rem;
+  }
+  
+  .list-header {
+    @include flex-row();
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 2px dotted $medium-grey;
+    padding: 2rem 0;
+
+    .result-count {
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+
+    .sort-select {
+      height: 2.5rem;
+      width: 18rem;
+    }
   }
 }

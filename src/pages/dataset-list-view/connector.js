@@ -11,12 +11,12 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  retrieveDataset: ({ page, pageSize }) => dispatch(createRetrieveAction(page, pageSize))
+  retrieveDataset: ({ page, pageSize, sort }) => dispatch(createRetrieveAction(page, pageSize, sort))
 })
 
-const createRetrieveAction = (page, pageSize) => {
+const createRetrieveAction = (page, pageSize, sort) => {
   const offset = (page - 1) * pageSize
-  return retrieveDataList(offset, pageSize)
+  return retrieveDataList(offset, pageSize, sort)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DatasetListView)

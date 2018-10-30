@@ -19,11 +19,18 @@ data-card {
 
     .file-types {
         margin-top: 1.125rem;
+        float: left;
 
         .file-type {
             color: $csv-green;
             font-weight: bold;
             text-transform: uppercase;
         }
+    }
+
+    .last-modified {
+        margin-top: 1.125rem;
+        margin-left: 1.125rem;
+        float: left;
     }
 }

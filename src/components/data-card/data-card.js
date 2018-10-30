@@ -14,6 +14,7 @@ const DataCard = props => {
       </Link>
       <div className='description'>{dataset.description}</div>
       <div className='file-types'>FILE TYPE: {fileTypes(dataset.fileTypes)} </div>
+      <div className='last-modified'>LAST MODIFIED: {dataset.modifiedTime} </div>
     </data-card>
   )
 }

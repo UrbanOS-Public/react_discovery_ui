@@ -38,14 +38,20 @@ module.exports = {
         use: [ { loader: 'svg-inline-loader' } ]
       },
       {
-        test: /\.css$/,
-        use: [ { loader: MiniCssExtractPlugin.loader }, 'css-loader' ]
-      },
-      {
-        test: /\.scss$/,
+        test: /\.(css|scss)$/,
         use: [
           'style-loader',
+          { loader: MiniCssExtractPlugin.loader },
           'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: [require('autoprefixer')({
+                browsers: ['> 1%', 'last 2 versions']
+              })]
+            }
+          },
           'sass-loader'
         ]
       }

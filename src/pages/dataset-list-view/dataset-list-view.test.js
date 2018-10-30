@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme'
 import DatasetListView from './dataset-list-view'
 import Paginator from '../../components/generic-elements/paginator'
+import Select from '../../components/generic-elements/select'
 
 describe('dataset list view', () => {
   let expectedDatasetList, retrieveSpy, subject
@@ -24,6 +25,12 @@ describe('dataset list view', () => {
     subject.find(Paginator).props().pageChangeCallback(2)
 
     expect(subject.find(Paginator).props().currentPage).toEqual(2)
+  })
+
+  it('informs the selector of the current sort order when the selector element invokes the callback', () => {
+    subject.find(Select).props().selectChangeCallback('name_des')
+
+    expect(subject.find(Select).props().options.selected).toEqual('name_des')
   })
 
   it('fetches more data with the new page number and default page size', () => {

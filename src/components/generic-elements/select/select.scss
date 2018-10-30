@@ -1,0 +1,22 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/variables.scss';
+
+select-element {
+  @include custom-element();
+  @include flex-row();
+
+  .selector {
+    height: 100%;
+    outline: 1px solid $dark-grey;
+    background-color: white;
+    border: 0;
+    text-align: left;
+    cursor: pointer;
+    flex-grow: 1;
+  }
+
+  .label {
+    padding-right: 0.5em;
+    text-transform: uppercase;
+  }
+}

@@ -8,7 +8,8 @@ describe('data card element', () => {
     id: 'c21e1562-c44b-4d65-b8ec-cac3dcbb133b',
     title: 'someTitle',
     description: 'somedescription',
-    fileTypes: ['foo', 'bar']
+    fileTypes: ['foo', 'bar'],
+    modifiedTime: '2018-06-21'
   }
 
   beforeEach(() => {
@@ -19,6 +20,7 @@ describe('data card element', () => {
     expect(subject.find('.title').text()).toEqual(dataset.title)
     expect(subject.find('.description').text()).toEqual(dataset.description)
     expect(subject.find('.file-type').length).toEqual(dataset.fileTypes.length)
+    expect(subject.find('.last-modified').text()).toContain(dataset.modifiedTime)
     expect(subject.find(Link).props().to).toEqual(`/dataset/${dataset.id}`)
   })
 })

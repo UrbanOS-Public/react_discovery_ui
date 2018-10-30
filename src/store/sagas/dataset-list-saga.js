@@ -7,6 +7,7 @@ export default function * theRealDatasetSaga () {
 }
 
 const queryParamBuilder = action => ({
-  offset: action.value.offset,
-  limit: action.value.limit
+  offest: action.value.offset,
+  limit: action.value.limit,
+  sort: action.value.sort
 })
