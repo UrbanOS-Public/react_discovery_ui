@@ -16,7 +16,7 @@ share-zone {
     .button {
         margin-bottom: 0.5rem;
         width: 6rem;
-        border-radius: 5px;
+        border-radius: 2px;
         border-style: none;
         display: flex;
         align-items: center;
@@ -35,7 +35,7 @@ share-zone {
             margin-left: 0.25rem;
         }
         &:hover {
-            opacity: 0.5;
+            background-color: black;
         }
     }
 
