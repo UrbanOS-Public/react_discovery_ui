@@ -1,14 +1,19 @@
 import reducer from './index'
 import { SELECT_DATA_LIST, DISPLAY_ERROR, DATASET_DETAILS } from '../actions'
-import dataStub from '../../../stubs/data-stub'
-import datasetStub from '../../../stubs/dataset-stub'
+import datasetListStub from '../../../stubs/dataset-list-stub'
+import datasetStub from '../../../stubs/dataset-details-stub'
 
 describe('Dataset Reducer', () => {
   it('SELECT_DATA_LIST places Dataset list in the state', () => {
-    let currentState = { }
-    let newState = reducer(currentState, { type: SELECT_DATA_LIST, value: dataStub })
+    let currentState = {
+      datasetReducer: {
+        total: 0
+      }
+    }
+    let newState = reducer(currentState, { type: SELECT_DATA_LIST, value: datasetListStub })
 
-    expect(newState.datasetReducer.datasets).toEqual(dataStub)
+    expect(newState.datasetReducer.datasets).toEqual(datasetListStub.results)
+    expect(newState.datasetReducer.total).toEqual(datasetListStub.metadata.totalDatasets)
   })
 
   it('DISPLAY_ERROR sets datasetError to true', () => {

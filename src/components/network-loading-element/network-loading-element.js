@@ -1,5 +1,5 @@
-import LoadingElement from '../loading-element'
-import ErrorComponent from '../error-component'
+import LoadingElement from '../generic-elements/loading-element'
+import ErrorComponent from '../generic-elements/error-component'
 import './network-loading-element.scss'
 
 const NETWORK_ERROR_TEXT = 'We were unable to fetch the datasets, please refresh the page to try again'

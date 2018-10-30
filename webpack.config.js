@@ -26,12 +26,16 @@ module.exports = {
         }
       },
       {
-        test: /\.(pdf|jpg|png|gif|svg|ico)$/,
+        test: /\.(pdf|jpg|png|gif|ico)$/,
         use: [
           {
             loader: 'file-loader'
           }
         ]
+      },
+      {
+        test: /\.svg$/,
+        use: [ { loader: 'svg-inline-loader' } ]
       },
       {
         test: /\.css$/,

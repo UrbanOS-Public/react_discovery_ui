@@ -8,7 +8,6 @@ const createDatasetCard = dataset => {
 export default ({ datasets = [] }) => {
   return (
     <dataset-list>
-      <div className='search-placeholder' />
       {datasets.map(createDatasetCard) || <div />}
     </dataset-list>
   )

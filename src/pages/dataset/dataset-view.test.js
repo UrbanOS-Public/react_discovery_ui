@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import DatasetView from './dataset-view'
 import DatasetDetails from '../../components/dataset-details'
-import datasetStub from '../../../stubs/dataset-stub'
+import datasetStub from '../../../stubs/dataset-details-stub'
 
 describe('dataset view', () => {
   let subject, expectedDataset, retrieveSpy

@@ -2,10 +2,16 @@ import { put, call } from 'redux-saga/effects'
 import { displayError } from '../actions'
 import axios from 'axios'
 
-export default (endpoint, actionator) => {
-  return function * retrieveData () {
+const defaultParamFunction = () => ({})
+
+export default (endpoint, actionator, queryParameterBuilder = defaultParamFunction) => {
+  return function * retrieveData (action) {
     try {
-      const response = yield call(axios.get, url(endpoint))
+      const response = yield call(axios.get, endpoint, {
+        baseURL: window.API_HOST,
+        params: queryParameterBuilder(action)
+      })
+
       if (response.status !== 200) {
         yield put(displayError())
       } else {
@@ -15,10 +21,4 @@ export default (endpoint, actionator) => {
       yield put(displayError())
     }
   }
-}
-
-const url = endpoint => {
-  const apiHost = new URL(window.API_HOST)
-  const fullURL = new URL(endpoint, apiHost)
-  return fullURL.href
 }

@@ -1,0 +1,9 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+
+loading-element{
+  @include custom-element();
+  align-self: center;
+  margin-top: 5rem;
+}
+

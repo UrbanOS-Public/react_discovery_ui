@@ -3,18 +3,21 @@ import apiInvoker from './api-invoker'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import mockAxios from 'axios'
-import fakeDataSetResponse from '../../../stubs/data-stub'
 
 jest.mock('axios')
 
-const reducer = (state = [], action) => {
-  return [...state, action]
-}
-
 describe('api-invoker', () => {
+  const reducer = (state = [], action) => {
+    return [...state, action]
+  }
+
+  const fakeDataSetResponse = { name: 'I am a fake response' }
+
   let store, sagaMiddleware, actionator
 
   beforeEach(() => {
+    window.API_HOST = 'http://fake.com/'
+
     sagaMiddleware = createSagaMiddleware()
     store = createStore(reducer, applyMiddleware(sagaMiddleware))
     actionator = jest.fn().mockReturnValue({ type: 'unused' })
@@ -24,36 +27,34 @@ describe('api-invoker', () => {
     jest.resetAllMocks()
   })
 
-  describe('invokes api with valid url when', () => {
-    const validUrl = 'http://fake.com/gohome'
+  it('invokes axios with the correct object when no query parameter function is passed in', () => {
+    sagaMiddleware.run(apiInvoker('/gohome', actionator))
 
-    it('host and path have slashes', () => {
-      window.API_HOST = 'http://fake.com/'
-      sagaMiddleware.run(apiInvoker('/gohome', actionator))
-
-      expect(mockAxios.get).toHaveBeenCalledWith(validUrl)
+    expect(mockAxios.get).toHaveBeenCalledWith('/gohome', {
+      baseURL: window.API_HOST,
+      params: {}
     })
+  })
 
-    it('host has a slash', () => {
-      window.API_HOST = 'http://fake.com/'
-      sagaMiddleware.run(apiInvoker('gohome', actionator))
+  it('passes query parameters when passed in', () => {
+    const mockQueryParam = { some: 'param' }
+    const queryParameterBuilder = jest.fn().mockReturnValue(mockQueryParam)
 
-      expect(mockAxios.get).toHaveBeenCalledWith(validUrl)
+    sagaMiddleware.run(apiInvoker('my-url', actionator, queryParameterBuilder))
+
+    expect(mockAxios.get).toHaveBeenCalledWith('my-url', {
+      baseURL: window.API_HOST,
+      params: mockQueryParam
     })
+  })
 
-    it('neither have slashes', () => {
-      window.API_HOST = 'http://fake.com'
-      sagaMiddleware.run(apiInvoker('gohome', actionator))
+  it('gets query parameters from the query param function', () => {
+    const mockEvent = { type: 'some type' }
+    const queryParameterBuilder = jest.fn()
 
-      expect(mockAxios.get).toHaveBeenCalledWith(validUrl)
-    })
+    sagaMiddleware.run(apiInvoker('', actionator, queryParameterBuilder), mockEvent)
 
-    it('host has multiple slashes and endpoint has slash', () => {
-      window.API_HOST = 'http://fake.com////'
-      sagaMiddleware.run(apiInvoker('/gohome', actionator))
-
-      expect(mockAxios.get).toHaveBeenCalledWith(validUrl)
-    })
+    expect(queryParameterBuilder).toHaveBeenCalledWith(mockEvent)
   })
 
   it('calls actionator when successfull', () => {

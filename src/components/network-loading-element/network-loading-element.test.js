@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import NetworkLoadingElement from './network-loading-element'
-import LoadingElement from '../loading-element'
-import ErrorComponent from '../error-component'
+import LoadingElement from '../generic-elements/loading-element'
+import ErrorComponent from '../generic-elements/error-component'
 
 describe('Network Loading Element', () => {
   it('shows the loading element when loading', () => {

@@ -1,0 +1,38 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/variables.scss';
+
+paginator-element {
+  @include flex-row();
+
+  .pagination-box {
+    @include flex-column();
+    height: 2.875rem;
+    width: 2.875rem;
+    border: 1px solid #D2D4D6;
+
+    &:not(:last-child) {
+      border-right: none;
+    }
+  }
+
+  .page-number, .arrow {
+    &:hover:not(.selected):not(.disabled) {
+      background-color: rgba(235,237,240,0.4);
+      color: $light-blue;
+      cursor: pointer;
+    }
+  }
+
+  .right-arrow {
+    transform: rotate(180deg);
+  }
+
+  .right-arrow, .left-arrow {
+    height: 1rem;
+  }
+
+  .selected {
+    font-weight: bold;
+    background-color: #f7f7f7;
+  }
+}

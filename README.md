@@ -16,6 +16,9 @@ are found in `test-start-point.js`
 ## Start the UI Locally
 `npm run start`
 
+### Pointing the UI at your local backend
+Edit config/config.js and change `window.API_HOST` to point to your local backend stack
+
 ## Build Docker Image
 `docker build . -t <image name>:<tag>`
 
