@@ -2,11 +2,18 @@ import './dataset-list-view.scss'
 import { Component, createRef } from 'react'
 import DatasetList from '../../components/dataset-list'
 import Paginator from '../../components/generic-elements/paginator'
+import Select from '../../components/generic-elements/select'
+
+const sortOptions = [
+  {value: "name_asc", label: "Name Ascending", default: true},
+  {value: "name_desc", label: "Name Descending"},
+  {value: "last_mod", label: "Last Modified"}
+]
 
 export default class extends Component {
   constructor (props) {
     super(props)
-    this.state = { currentPage: 1, pageSize: 10 }
+    this.state = { currentPage: 1, pageSize: 10, sort: "name_asc" }
     this.pageRef = createRef()
   }
 
@@ -16,7 +23,7 @@ export default class extends Component {
 
   onPageChange (page) {
     this.setState({ currentPage: page })
-    this.fetchData(page)
+    this.fetchData(page, this.state.sort)
 
     // Shallow rendering does not play nice with refs
     if (this.pageRef.current) {
@@ -24,8 +31,13 @@ export default class extends Component {
     }
   }
 
-  fetchData (pageNumber) {
-    this.props.retrieveDataset({ page: pageNumber, pageSize: this.state.pageSize })
+  onSortChange (sort) {
+    this.setState({ currentPage: 1, sort: sort})
+    this.fetchData(1, sort)
+  }
+
+  fetchData (pageNumber, sort = 'name_asc') {
+    this.props.retrieveDataset({ page: pageNumber, pageSize: this.state.pageSize, sort: sort })
   }
 
   get numberOfPages () {
@@ -37,7 +49,10 @@ export default class extends Component {
       <dataset-list-view ref={this.pageRef}>
         <div className='left-section' />
         <div className='right-section'>
-          <div className='search-placeholder' />
+          <div className='list-header'>
+            <div className='result-count'>{this.props.totalDatasets} datasets found</div>
+            <Select className='sort-select' label='order by' options={sortOptions} selectChangeCallback={sort => this.onSortChange(sort)} />
+          </div>
           <DatasetList datasets={this.props.datasets} />
           <Paginator className='paginator' numberOfPages={this.numberOfPages} currentPage={this.state.currentPage} pageChangeCallback={page => this.onPageChange(page)} />
         </div>

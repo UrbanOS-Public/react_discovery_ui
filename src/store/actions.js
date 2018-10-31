@@ -4,11 +4,12 @@ export const DISPLAY_ERROR = 'DISPLAY_ERROR'
 export const RETRIEVE_DATASET = 'RETRIEVE_DATASET'
 export const DATASET_DETAILS = 'DATASET_DETAILS'
 
-export const retrieveDataList = (offset, limit) => ({
+export const retrieveDataList = (offset, limit, sort) => ({
   type: RETRIEVE_DATA_LIST,
   value: {
     offset: offset,
-    limit: limit
+    limit: limit,
+    sort: sort
   }
 })
 
