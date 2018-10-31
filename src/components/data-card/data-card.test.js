@@ -20,7 +20,7 @@ describe('data card element', () => {
     expect(subject.find('.title').text()).toEqual(dataset.title)
     expect(subject.find('.description').text()).toEqual(dataset.description)
     expect(subject.find('.file-type').length).toEqual(dataset.fileTypes.length)
-    expect(subject.find('.last-modified').text()).toContain('June 21, 2018')
+    expect(subject.find('.last-modified').text()).toContain('Jun 21, 2018')
     expect(subject.find(Link).props().to).toEqual(`/dataset/${dataset.id}`)
   })
 })

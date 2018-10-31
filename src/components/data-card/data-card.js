@@ -15,8 +15,9 @@ const DataCard = props => {
       </Link>
       <div className='description'>{dataset.description}</div>
       <div className='card-metadata'>
-        <div className='file-types'>FILE TYPE: {fileTypes(dataset.fileTypes)} </div>
-        <div className='last-modified'>Updated {moment(dataset.modifiedTime).format('MMMM D, YYYY')} </div>
+        <div className='last-modified'>Updated {moment(dataset.modifiedTime).format('MMM DD, YYYY')}</div>
+        <div className='separator'>•</div>
+        <div className='file-types'>File Type: {fileTypes(dataset.fileTypes)} </div>
       </div>
     </data-card>
   )
