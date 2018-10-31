@@ -17,20 +17,23 @@ data-card {
         width: 80%;
     }
 
-    .file-types {
-        margin-top: 1.125rem;
-        float: left;
+    .card-metadata {
+        display: flex;
+        flex-direction: row;
 
-        .file-type {
-            color: $csv-green;
-            font-weight: bold;
-            text-transform: uppercase;
+        .file-types {
+            margin-top: 1.125rem;
+
+            .file-type {
+                color: $csv-green;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
         }
-    }
 
-    .last-modified {
-        margin-top: 1.125rem;
-        margin-left: 1.125rem;
-        float: left;
+        .last-modified {
+            margin-top: 1.125rem;
+            margin-left: 1.125rem;
+        }
     }
 }

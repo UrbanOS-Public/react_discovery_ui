@@ -27,10 +27,10 @@ describe('dataset list view', () => {
     expect(subject.find(Paginator).props().currentPage).toEqual(2)
   })
 
-  it('informs the selector of the current sort order when the selector element invokes the callback', () => {
-    subject.find(Select).props().selectChangeCallback('name_des')
+  it('fetches data with the requested sort and returns to page one when sort order changed', () => {
+    subject.find(Select).props().selectChangeCallback('name_desc')
 
-    expect(subject.find(Select).props().options.selected).toEqual('name_des')
+    expect(retrieveSpy).toHaveBeenCalledWith({page: 1, pageSize: 10, sort: 'name_desc'})
   })
 
   it('fetches more data with the new page number and default page size', () => {

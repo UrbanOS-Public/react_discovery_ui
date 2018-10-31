@@ -6,7 +6,7 @@ import Select from '../../components/generic-elements/select'
 
 const sortOptions = [
   {value: "name_asc", label: "Name Ascending", default: true},
-  {value: "name_des", label: "Name Descending"},
+  {value: "name_desc", label: "Name Descending"},
   {value: "last_mod", label: "Last Modified"}
 ]
 

@@ -2,7 +2,7 @@ import './select.scss'
 import _ from 'lodash'
 
 const createOption = option => {
-  return <option key={option.label} value={option.value}>{option.label}</option>
+  return <option key={option.value} value={option.value}>{option.label}</option>
 }
 
 export default ({options, label, selectChangeCallback, className}) => {
