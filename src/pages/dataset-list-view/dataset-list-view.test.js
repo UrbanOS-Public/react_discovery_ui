@@ -13,7 +13,7 @@ describe('dataset list view', () => {
   })
 
   it('calls retrieve data callback on mount with page number 1 and default page size', () => {
-    expect(retrieveSpy).toHaveBeenCalledWith({ page: 1, pageSize: 10 })
+    expect(retrieveSpy).toHaveBeenCalledWith({ page: 1, pageSize: 10, sort: 'name_asc' })
   })
 
   it('sets paginator total page count based on total datasets and page size', () => {
@@ -36,6 +36,6 @@ describe('dataset list view', () => {
   it('fetches more data with the new page number and default page size', () => {
     subject.find(Paginator).props().pageChangeCallback(4)
 
-    expect(retrieveSpy).toHaveBeenCalledWith({ page: 4, pageSize: 10 })
+    expect(retrieveSpy).toHaveBeenCalledWith({ page: 4, pageSize: 10, sort: 'name_asc' })
   })
 })

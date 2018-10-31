@@ -21,8 +21,8 @@ export default class extends Component {
     this.fetchData(this.state.currentPage)
   }
 
-  onPageChange (page, sort) {
-    this.setState({ currentPage: page, sort: sort })
+  onPageChange (page) {
+    this.setState({ currentPage: page })
     this.fetchData(page, this.state.sort)
 
     // Shallow rendering does not play nice with refs
@@ -36,7 +36,7 @@ export default class extends Component {
     this.fetchData(1, sort)
   }
 
-  fetchData (pageNumber, sort) {
+  fetchData (pageNumber, sort = 'name_asc') {
     this.props.retrieveDataset({ page: pageNumber, pageSize: this.state.pageSize, sort: sort })
   }
 
