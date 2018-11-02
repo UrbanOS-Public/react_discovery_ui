@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme'
-import DatasetView from './dataset-view'
+import DatasetView from './dataset-detail-view'
 import DatasetDetails from '../../components/dataset-details'
 import datasetStub from '../../../stubs/dataset-details-stub'
 

@@ -1,0 +1,63 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+
+search-box {
+  @include custom-element();
+  position: relative;
+
+  $input-padding: 3.5rem;
+  color: $dark-grey;
+
+  &:hover {
+    color: black;
+  }
+
+  .search-bar {
+    height: 100%;
+    width: calc(100% - (#{$input-padding} * 2));
+    padding: 0 $input-padding;
+    background-color: white;
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.1);
+    border: 1px solid $light-grey;
+
+    &:hover {
+      border: 1px solid $medium-grey;
+    }
+  }
+
+  .clear, .search {
+    @include flex-column();
+    position: absolute;
+    height: 100%;
+    width: $input-padding;
+    top: 1px;
+  }
+
+  .clear {
+    pointer-events: none;
+    border: none;
+    right: -1px;
+  }
+
+  .search {
+    left: 0;
+  }
+
+  .clear-icon {
+    @include flex-column();
+    cursor: pointer;
+    font-size: 1.25rem;
+    height: 1.75rem;
+    width: 1.75rem;
+    pointer-events: initial;
+
+    &:hover {
+      background-color: $light-grey;
+      border-radius: 50%;
+    }
+  }
+
+  .disabled {
+    display: none;
+  }
+}

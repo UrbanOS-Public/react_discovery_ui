@@ -1,22 +1,23 @@
 import DatasetListView from './dataset-list-view'
 import { retrieveDataList } from '../../store/actions'
-import { getDataSetList, getDataSetError, getTotalNumberOfDatasets } from '../../store/selectors'
+import { getDataSetList, getDataSetError, getTotalNumberOfDatasets, determineIfLoading } from '../../store/selectors'
 
 import { connect } from 'react-redux'
 
 const mapStateToProps = state => ({
   datasets: getDataSetList(state),
   displayNetworkError: getDataSetError(state),
-  totalDatasets: getTotalNumberOfDatasets(state)
+  totalDatasets: getTotalNumberOfDatasets(state),
+  loading: determineIfLoading(state)
 })
 
 const mapDispatchToProps = dispatch => ({
-  retrieveDataset: ({ page, pageSize, sort }) => dispatch(createRetrieveAction(page, pageSize, sort))
+  retrieveDataset: (input) => dispatch(createRetrieveAction(input))
 })
 
-const createRetrieveAction = (page, pageSize, sort) => {
+const createRetrieveAction = ({ page, pageSize, sort, query }) => {
   const offset = (page - 1) * pageSize
-  return retrieveDataList(offset, pageSize, sort)
+  return retrieveDataList(offset, pageSize, sort, query)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DatasetListView)

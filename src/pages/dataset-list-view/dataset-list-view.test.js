@@ -2,23 +2,34 @@ import { shallow } from 'enzyme'
 import DatasetListView from './dataset-list-view'
 import Paginator from '../../components/generic-elements/paginator'
 import Select from '../../components/generic-elements/select'
+import Search from '../../components/generic-elements/search'
 
 describe('dataset list view', () => {
-  let expectedDatasetList, retrieveSpy, subject
+  let expectedDatasetList, retrieveSpy, navigationSpy, subject
 
   beforeEach(() => {
     expectedDatasetList = Array.from(Array(6)).map((unused, index) => ({ id: index }))
     retrieveSpy = jest.fn()
-    subject = shallow(<DatasetListView datasets={expectedDatasetList} totalDatasets={12} retrieveDataset={retrieveSpy} />)
+    navigationSpy = jest.fn()
+    subject = shallow(<DatasetListView datasets={expectedDatasetList} totalDatasets={12} retrieveDataset={retrieveSpy} history={{ push: navigationSpy }} location={{ search: '?q=monkey&sort=default' }} />)
   })
 
-  it('calls retrieve data callback on mount with page number 1 and default page size', () => {
-    expect(retrieveSpy).toHaveBeenCalledWith({ page: 1, pageSize: 10, sort: 'name_asc' })
-  })
+  describe('fetching data', () => {
+    it('fetches data on mount with page number 1 and default page size', () => {
+      expect(retrieveSpy).toHaveBeenCalledWith({ page: 1, pageSize: 10, sort: 'default', query: 'monkey' })
+    })
 
-  it('sets paginator total page count based on total datasets and page size', () => {
-    const expectedNumberOfPages = 2 // 12 datasets with page size of 10
-    expect(subject.find(Paginator).props().numberOfPages).toEqual(expectedNumberOfPages)
+    it('fetches data with specified query parameters when props are updated', () => {
+      subject.setProps({ location: { search: '?q=newsearch&sort=name_desc' } })
+
+      expect(retrieveSpy).toHaveBeenCalledWith({ page: 1, pageSize: 10, sort: 'name_desc', query: 'newsearch' })
+    })
+
+    it('fetches data with the new page number and specified query parameters when the page is changed', () => {
+      subject.find(Paginator).props().pageChangeCallback(4)
+
+      expect(retrieveSpy).toHaveBeenCalledWith({ page: 4, pageSize: 10, sort: 'default', query: 'monkey' })
+    })
   })
 
   it('informs the paginator of the current page when the paginator invokes the callback', () => {
@@ -27,15 +38,44 @@ describe('dataset list view', () => {
     expect(subject.find(Paginator).props().currentPage).toEqual(2)
   })
 
-  it('fetches data with the requested sort and returns to page one when sort order changed', () => {
-    subject.find(Select).props().selectChangeCallback('name_desc')
-
-    expect(retrieveSpy).toHaveBeenCalledWith({page: 1, pageSize: 10, sort: 'name_desc'})
+  it('sets paginator total page count based on total datasets and page size', () => {
+    const expectedNumberOfPages = 2 // 12 datasets with page size of 10
+    expect(subject.find(Paginator).props().numberOfPages).toEqual(expectedNumberOfPages)
   })
 
-  it('fetches more data with the new page number and default page size', () => {
-    subject.find(Paginator).props().pageChangeCallback(4)
+  it('adds search parameters when the search callback is invoked', () => {
+    subject.find(Search).props().callback('my search criteria')
 
-    expect(retrieveSpy).toHaveBeenCalledWith({ page: 4, pageSize: 10, sort: 'name_asc' })
+    expect(navigationSpy).toHaveBeenCalledWith({
+      search: 'q=my%20search%20criteria&sort=default'
+    })
+  })
+
+  it('adds search parameters when the sort callback is invoked', () => {
+    subject.find(Select).props().selectChangeCallback('stuff')
+
+    expect(navigationSpy).toHaveBeenCalledWith({
+      search: 'q=monkey&sort=stuff'
+    })
+  })
+
+  it('resets the page number to 1 on sort change', () => {
+    subject.find(Paginator).props().pageChangeCallback(2)
+    subject.find(Select).props().selectChangeCallback('stuff')
+
+    expect(subject.find(Paginator).props().currentPage).toEqual(1)
+  })
+
+  it('resets the page number to 1 on search change', () => {
+    subject.find(Paginator).props().pageChangeCallback(2)
+    subject.find(Search).props().callback('new search')
+
+    expect(subject.find(Paginator).props().currentPage).toEqual(1)
+  })
+
+  it('does not show the search box while the page is loading, to help with resetting the search criteria on data change', () => {
+    subject = shallow(<DatasetListView loading datasets={expectedDatasetList} totalDatasets={12} retrieveDataset={jest.fn()} history={{ push: navigationSpy }} location={{ search: '' }} />)
+
+    expect(subject.find(Search).length).toEqual(0)
   })
 })

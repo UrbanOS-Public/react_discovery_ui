@@ -2,7 +2,7 @@ import { Component } from 'react'
 import DatasetDetails from '../../components/dataset-details'
 import Organization from '../../components/organization'
 import Share from '../../components/share'
-import './dataset-view.scss'
+import './dataset-detail-view.scss'
 
 export default class extends Component {
   componentDidMount () {

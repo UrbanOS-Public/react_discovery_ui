@@ -12,10 +12,10 @@ export default (endpoint, actionator, queryParameterBuilder = defaultParamFuncti
         params: queryParameterBuilder(action)
       })
 
-      if (response.status !== 200) {
-        yield put(displayError())
-      } else {
+      if (response.status === 200) {
         yield put(actionator(response.data))
+      } else {
+        yield put(displayError())
       }
     } catch (e) {
       yield put(displayError())

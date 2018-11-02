@@ -2,13 +2,13 @@ import Select from './select'
 import { shallow } from 'enzyme'
 
 const sortOpts = [
-  {value: 'foo', label: 'Foo', default: true},
-  {value: 'bar', label: 'Bar'}
+  { value: 'foo', label: 'Foo', default: true },
+  { value: 'bar', label: 'Bar' }
 ]
 
 describe('Select', () => {
-  test('sets the value and text of the sort option',() => {
-    const subject = shallow(<Select options={sortOpts} /> )
+  test('sets the value and text of the sort option', () => {
+    const subject = shallow(<Select options={sortOpts} />)
 
     expect(subject.find('option').at(0).text()).toEqual('Foo')
     expect(subject.find('option').at(1).props().value).toEqual('bar')
@@ -27,7 +27,7 @@ describe('selecting an option', () => {
   test('clicking a different option', () => {
     const secondOpt = subject.find('select')
 
-    secondOpt.simulate('change', {target: {value: 'bar'}})
+    secondOpt.simulate('change', { target: { value: 'bar' } })
 
     expect(selectChangeCallback).toHaveBeenCalledWith('bar')
   })

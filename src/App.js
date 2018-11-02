@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import DataSetListView from './pages/dataset-list-view'
-import DatasetView from './pages/dataset'
+import DatasetView from './pages/dataset-detail-view'
 import NetworkLoadingElement from './components/network-loading-element'
 import './App.scss'
 

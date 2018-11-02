@@ -5,17 +5,17 @@ const createOption = option => {
   return <option key={option.value} value={option.value}>{option.label}</option>
 }
 
-export default ({options, label, selectChangeCallback, className}) => {
-  const defaultValue = _.find(options, it => it.default).value
+export default ({ options, label, selectChangeCallback, className }) => {
+  const defaultOption = _.find(options, it => it.default)
 
   return (
     <select-element class={className}>
       <label className='label' htmlFor={`select-${label}`}>{label}</label>
-      <select defaultValue={defaultValue} className='selector' name={`select-${label}`} onChange={(event) => onChange(event, selectChangeCallback)}>
+      <select defaultValue={defaultOption ? defaultOption.value : options[0].value} className='selector' name={`select-${label}`} onChange={(event) => onChange(event, selectChangeCallback)}>
         {options.map(createOption)}
       </select>
     </select-element>
-  );
+  )
 }
 
 const onChange = (event, selectChangeCallback) => {
