@@ -1,3 +1,7 @@
+service:
+  name: discovery-ui
+  port: 80
+
 ingress:
   enabled: false
   scheme: ""
