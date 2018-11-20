@@ -15,8 +15,8 @@ metadata:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
 spec:
   backend:
-    serviceName: discovery-ui
-    servicePort: 80
+    serviceName: {{ .Values.service.name }}
+    servicePort: {{ .Values.service.port }}
   rules:
   - host: discovery.{{ .Values.ingress.dns_zone }}
     http:
@@ -25,4 +25,3 @@ spec:
         backend:
           serviceName: redirect
           servicePort: use-annotation
-        
