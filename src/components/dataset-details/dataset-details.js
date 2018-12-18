@@ -15,6 +15,7 @@ const DatasetDetails = props => {
       }
       <div className='data-and-resources-header'>Data & Resources</div>
       <div className='resources'>{props.dataset.resources}</div>
+      <a className='download-dataset' href={`${window.API_HOST}/v1/api/dataset/${props.dataset.id}/csv`}>Download Dataset</a>
     </dataset-details>
   )
 }
