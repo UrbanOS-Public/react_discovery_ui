@@ -10,7 +10,7 @@ const defaultDatasetState = {
 const datasetReducer = (state = defaultDatasetState, action) => {
   switch (action.type) {
     case SELECT_DATA_LIST:
-      return Object.assign({}, state, { datasets: action.value.results, total: action.value.metadata.totalDatasets })
+      return Object.assign({}, state, { datasets: action.value.results, facets: action.value.metadata.facets, total: action.value.metadata.totalDatasets })
     case DISPLAY_ERROR:
       return Object.assign({}, state, { datasetError: true })
     case DATASET_DETAILS:

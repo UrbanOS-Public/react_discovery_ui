@@ -32,7 +32,8 @@ describe('api-invoker', () => {
 
     expect(mockAxios.get).toHaveBeenCalledWith('/gohome', {
       baseURL: window.API_HOST,
-      params: {}
+      params: {},
+      paramsSerializer: expect.anything()
     })
   })
 
@@ -44,7 +45,8 @@ describe('api-invoker', () => {
 
     expect(mockAxios.get).toHaveBeenCalledWith('my-url', {
       baseURL: window.API_HOST,
-      params: mockQueryParam
+      params: mockQueryParam,
+      paramsSerializer: expect.anything()
     })
   })
 
