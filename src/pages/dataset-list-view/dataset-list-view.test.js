@@ -3,6 +3,7 @@ import DatasetListView from './dataset-list-view'
 import Paginator from '../../components/generic-elements/paginator'
 import Select from '../../components/generic-elements/select'
 import Search from '../../components/generic-elements/search'
+import FacetList from '../../components/facet-list'
 
 describe('dataset list view', () => {
   let expectedDatasetList, retrieveSpy, navigationSpy, subject
@@ -77,5 +78,40 @@ describe('dataset list view', () => {
     subject = shallow(<DatasetListView loading datasets={expectedDatasetList} totalDatasets={12} retrieveDataset={jest.fn()} history={{ push: navigationSpy }} location={{ search: '' }} />)
 
     expect(subject.find(Search).length).toEqual(0)
+  })
+
+  it('adds facets to query string when facet is clicked', () => {
+    subject.find(FacetList).props().clickHandler('organization', 'stuff')
+
+    expect(navigationSpy).toHaveBeenCalledWith({
+      search: encodeURI('q=monkey&sort=default&facets[organization][]=stuff')
+    })
+  })
+
+  it('adds additional facets to query string when a new facet is clicked', () => {
+    subject.setProps({ location: { search: encodeURI('?q=newsearch&sort=name_desc&facets[organization][]=stuff') } })
+    subject.find(FacetList).props().clickHandler('organization', 'things')
+
+    expect(navigationSpy).toHaveBeenCalledWith({
+      search: encodeURI('q=newsearch&sort=name_desc&facets[organization][]=stuff&facets[organization][]=things')
+    })
+  })
+
+  it('removes facets in query string when a lone facet is toggled', () => {
+    subject.setProps({ location: { search: encodeURI('?q=newsearch&sort=name_desc&facets[organization][]=stuff') } })
+    subject.find(FacetList).props().clickHandler('organization', 'stuff')
+
+    expect(navigationSpy).toHaveBeenCalledWith({
+      search: encodeURI('q=newsearch&sort=name_desc')
+    })
+  })
+
+  it('toggles facets in query string when facet is clicked and other facets exist', () => {
+    subject.setProps({ location: { search: encodeURI('?q=newsearch&sort=name_desc&facets[organization][]=stuff&facets[foo][]=bar') } })
+    subject.find(FacetList).props().clickHandler('organization', 'stuff')
+
+    expect(navigationSpy).toHaveBeenCalledWith({
+      search: encodeURI('q=newsearch&sort=name_desc&facets[foo][]=bar')
+    })
   })
 })

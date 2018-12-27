@@ -10,5 +10,6 @@ const queryParamBuilder = action => ({
   offset: action.value.offset,
   limit: action.value.limit,
   sort: action.value.sort,
-  query: action.value.query
+  query: action.value.query,
+  facets: action.value.facets
 })

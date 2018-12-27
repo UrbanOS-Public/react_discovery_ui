@@ -19,7 +19,6 @@ a11y(React, ReactDOM, {
     'onclick-uses-role': 'warn',
     'onclick-uses-tabindex': 'warn',
     'tabindex-uses-button': 'warn',
-    'use-onblur-not-onchange': 'warn',
     'valid-aria-role': 'warn'
   }
 })
