@@ -31,7 +31,7 @@ export default class extends Component {
     return (
       <dataset-list-view ref={this.pageRef}>
         <div className='left-section'>
-          <FacetList availableFacets={this.props.facets} appliedFacets={this.facets} clickHandler={(facetName, facetValue) => this.onFacetClick(facetName, facetValue)}/>
+          <FacetList availableFacets={this.props.facets} appliedFacets={this.facets} clickHandler={(facetName, facetValue) => this.onFacetClick(facetName, facetValue)} />
         </div>
         <div className='right-section'>
           {!this.props.loading && <Search className='search' defaultText={this.searchParams} placeholder='Search datasets' callback={searchCriteria => this.onSearchChange(searchCriteria)} />}
@@ -60,7 +60,7 @@ export default class extends Component {
     this.props.retrieveDataset({ page: pageNumber, pageSize: this.state.pageSize, sort: this.sort, query: this.searchParams, facets: this.facets })
   }
 
-  onFacetClick(facetName, facetValue) {
+  onFacetClick (facetName, facetValue) {
     this.setState({ currentPage: 1 })
 
     const updatedFacets = this.toggleFacetValue(facetName, facetValue)
@@ -72,9 +72,9 @@ export default class extends Component {
     )
   }
 
-  toggleFacetValue(facetName, facetValue) {
+  toggleFacetValue (facetName, facetValue) {
     const facetValues = _.get(this.facets, facetName)
-    return Object.assign(this.facets || {}, {[facetName]: _.xor(facetValues, [facetValue])})
+    return Object.assign(this.facets || {}, { [facetName]: _.xor(facetValues, [facetValue]) })
   }
 
   onSortChange (sort) {
@@ -89,7 +89,7 @@ export default class extends Component {
 
   updateQueryParameters (searchCriteria, sort, facets) {
     this.props.history.push({
-      search: qs.stringify({ q: searchCriteria, sort: sort, facets: facets}, { arrayFormat: 'brackets' })
+      search: qs.stringify({ q: searchCriteria, sort: sort, facets: facets }, { arrayFormat: 'brackets' })
     })
   }
 

@@ -42,7 +42,7 @@ export default class extends Component {
 
   onClearClicked () {
     this.setState({ searchText: '' })
-    
+
     // Shallow rendering does not play nice with refs
     if (this.searchBox.current) {
       this.searchBox.current.focus()

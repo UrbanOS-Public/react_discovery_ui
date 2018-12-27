@@ -15,7 +15,7 @@ describe('data card element', () => {
   })
 
   test('download dataset button triggers a download', () => {
-    subject = shallow(<DatasetDetails dataset={{ tags: null, id: "12345" }}/>)
+    subject = shallow(<DatasetDetails dataset={{ tags: null, id: '12345' }} />)
 
     expect(subject.find('.download-dataset').prop('href')).toEqual(expect.stringMatching(new RegExp('/v1/api/dataset/12345/csv')))
   })

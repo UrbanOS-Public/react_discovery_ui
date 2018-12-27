@@ -4,7 +4,6 @@ import Paginator from '../../components/generic-elements/paginator'
 import Select from '../../components/generic-elements/select'
 import Search from '../../components/generic-elements/search'
 import FacetList from '../../components/facet-list'
-import { url } from 'inspector';
 
 describe('dataset list view', () => {
   let expectedDatasetList, retrieveSpy, navigationSpy, subject

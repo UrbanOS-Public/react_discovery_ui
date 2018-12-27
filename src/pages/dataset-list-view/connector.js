@@ -16,7 +16,7 @@ const mapDispatchToProps = dispatch => ({
   retrieveDataset: (input) => dispatch(createRetrieveAction(input))
 })
 
-const createRetrieveAction = ({ page, pageSize, sort, query, facets}) => {
+const createRetrieveAction = ({ page, pageSize, sort, query, facets }) => {
   const offset = (page - 1) * pageSize
   return retrieveDataList(offset, pageSize, sort, query, facets)
 }

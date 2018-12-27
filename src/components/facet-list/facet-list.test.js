@@ -6,7 +6,7 @@ describe('facet list view', () => {
 
   let availableFacets = {
     organization: {
-      "neat COTA": 1,
+      'neat COTA': 1,
       Conduent: 2
     }
   }
@@ -33,10 +33,9 @@ describe('facet list view', () => {
     subject.setProps({
       appliedFacets: {
         organization: ['neat COTA', 'Conduent']
-      },
+      }
     })
 
     expect(subject.find('.neat-COTA').hasClass('selected')).toEqual(true)
   })
 })
-

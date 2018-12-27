@@ -2,39 +2,44 @@ import _ from 'lodash'
 import './facet-list.scss'
 
 const FacetList = props => {
+  const SPACEBAR = 32
+
   const createFacet = (facetValues, facetName) => {
-    const appliedFacets = props.appliedFacets && props.appliedFacets[facetName] || []
+    const appliedFacets = props.appliedFacets && (props.appliedFacets[facetName] || [])
 
     const createFacetValues = (facetValueCount, facetValue) => {
+      const keyHandler = e => {
+        if (e.keyCode === SPACEBAR) {
+          props.clickHandler(facetName, facetValue)
+          e.preventDefault()
+        }
+      }
 
       const isSelected = appliedFacets.includes(facetValue)
-        ? "selected"
-        : ""
+        ? 'selected'
+        : ''
 
       return (
-        props.availableFacets && <div
-          className='facet'
-          role="button"
-          tabIndex="0"
+        props.availableFacets &&
+        <div className='facet' role='button' tabIndex='0' key={facetValue}
           onClick={() => props.clickHandler(facetName, facetValue)}
-          onKeyDown={(e) => {
-            if (e.keyCode == 32) {
-              props.clickHandler(facetName, facetValue)
-              e.preventDefault()
-            }
-          }}
-          key={facetValue}>
-            <span className={`facet-indicator ${facetValue.replace(' ', '-')} ${isSelected}`}>
-            {isSelected && <div className="cool-check-mark" />}
+          onKeyDown={(e) => { keyHandler(e) }}
+        >
+
+          <span className={`facet-indicator ${facetValue.replace(' ', '-')} ${isSelected}`}>
+            {isSelected && <div className='cool-check-mark' />}
           </span>
-          <span className="facet-label">{facetValue || "Unorganized"} ({facetValueCount})</span>
+          <span className='facet-label'>
+            {facetValue || 'Unorganized'} ({facetValueCount})
+          </span>
+
         </div>
       )
     }
 
     return (
-      <div key={facetName} className="section">
-        <div className="section-header">{facetName}s</div>
+      <div key={facetName} className='section'>
+        <div className='section-header'>{facetName}s</div>
         {_.map(facetValues, createFacetValues)}
       </div>
     )
