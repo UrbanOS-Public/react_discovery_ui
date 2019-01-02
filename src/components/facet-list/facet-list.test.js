@@ -43,6 +43,17 @@ describe('facet list view', () => {
     expect(subject.find('.neat-COTA').hasClass('selected')).toEqual(true)
   })
 
+
+  it('doesnt freak out if applied facets is empty', () => {
+    expect(subject.find('.neat-COTA').hasClass('selected')).toEqual(false)
+
+    subject.setProps({
+      appliedFacets: undefined
+    })
+
+    expect(subject.find('.section-header').length).toEqual(2)
+  })
+
   it('pleasantly pluralizes', () => {
     expect(subject.find('.section-header').at(0).text()).toEqual('organizations')
     expect(subject.find('.section-header').at(1).text()).toEqual('tags')

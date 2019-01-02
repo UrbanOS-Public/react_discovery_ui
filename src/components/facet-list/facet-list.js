@@ -6,7 +6,7 @@ const FacetList = props => {
   const SPACEBAR = 32
 
   const createFacet = (facetValues, facetName) => {
-    const appliedFacets = props.appliedFacets ? props.appliedFacets[facetName] || [] : [] //thank the linter
+    const appliedFacets = _.get(props,`appliedFacets.${facetName}`, [])
 
     const createFacetValues = (facetValueCount, facetValue) => {
       const keyHandler = e => {
