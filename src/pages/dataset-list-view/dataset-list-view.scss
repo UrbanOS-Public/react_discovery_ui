@@ -7,7 +7,7 @@ dataset-list-view {
   .paginator {
     margin-top: 2rem;
   }
-  
+
   .list-header {
     @include flex-row();
     justify-content: space-between;
@@ -28,5 +28,5 @@ dataset-list-view {
   .search {
     height: 2.75rem;
   }
-  
+
 }

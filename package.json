@@ -22,6 +22,7 @@
     "moment": "^2.22.2",
     "node-sass": "^4.9.3",
     "normalize.css": "^8.0.0",
+    "pluralize": "^7.0.0",
     "qs": "^6.6.0",
     "react": "^16.5.2",
     "react-copy-to-clipboard": "^5.0.1",

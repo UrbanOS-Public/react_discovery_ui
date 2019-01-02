@@ -8,6 +8,10 @@ describe('facet list view', () => {
     organization: {
       'neat COTA': 1,
       Conduent: 2
+    },
+    tags: {
+      'foo': 1,
+      'bar': 2
     }
   }
 
@@ -37,5 +41,10 @@ describe('facet list view', () => {
     })
 
     expect(subject.find('.neat-COTA').hasClass('selected')).toEqual(true)
+  })
+
+  it('pleasantly pluralizes', () => {
+    expect(subject.find('.section-header').at(0).text()).toEqual('organizations')
+    expect(subject.find('.section-header').at(1).text()).toEqual('tags')
   })
 })
