@@ -35,18 +35,18 @@ share-zone {
             margin-left: 0.25rem;
         }
         &:hover {
-            background-color: black;
+            @include button-hover();
         }
     }
 
     .facebook {
-        background-color: #3b5998;
+        background-color: $facebook-blue;
     }
     .twitter {
-        background-color: #00aced;
+        background-color: $twitter-blue;
     }
     .linkedin {
-        background-color: #007fb1;
+        background-color: $linkedin-blue;
     }
     .clipboard {
         background-color: $light-blue;

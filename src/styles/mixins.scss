@@ -18,6 +18,12 @@
     display: block;
 }
 
+@mixin button-hover() {
+    color: white;
+    text-decoration: none;
+    background-color: $almost-black;
+}
+
 @mixin page-with-left-bar() {
     @include custom-element();
     @include flex-row();

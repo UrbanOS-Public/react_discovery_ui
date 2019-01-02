@@ -14,11 +14,11 @@ export default class extends Component {
 
     return (
       <dataset-view>
-        <div className='left-section'>
+        <div>
           {dataset && <Organization organization={dataset.organization} />}
           <Share />
         </div>
-        <div className='right-section'>
+        <div>
           <DatasetDetails dataset={dataset} />
         </div>
       </dataset-view>

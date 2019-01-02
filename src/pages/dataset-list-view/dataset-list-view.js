@@ -7,6 +7,7 @@ import Search from '../../components/generic-elements/search'
 import FacetList from '../../components/facet-list'
 import qs from 'qs'
 import _ from 'lodash'
+import { QueryStringBuilder } from '../../utils'
 
 export default class extends Component {
   constructor (props) {
@@ -89,7 +90,7 @@ export default class extends Component {
 
   updateQueryParameters (searchCriteria, sort, facets) {
     this.props.history.push({
-      search: qs.stringify({ q: searchCriteria, sort: sort, facets: facets }, { arrayFormat: 'brackets' })
+      search: QueryStringBuilder.createQueryString(facets, searchCriteria, sort)
     })
   }
 
