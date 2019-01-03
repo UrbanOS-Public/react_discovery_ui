@@ -30,9 +30,9 @@ export default class extends Component {
 
     return (
       <dataset-list-view ref={this.pageRef}>
-        <div className='left-section'>
-          <FacetList availableFacets={this.props.facets} appliedFacets={this.facets} clickHandler={(facetName, facetValue) => this.onFacetClick(facetName, facetValue)} />
-        </div>
+
+        <FacetList availableFacets={this.props.facets} appliedFacets={this.facets} clickHandler={(facetName, facetValue) => this.onFacetClick(facetName, facetValue)} />
+
         <div className='right-section'>
           {!this.props.loading && <Search className='search' defaultText={this.searchParams} placeholder='Search datasets' callback={searchCriteria => this.onSearchChange(searchCriteria)} />}
           <div className='list-header'>

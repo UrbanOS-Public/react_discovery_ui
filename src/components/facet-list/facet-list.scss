@@ -2,6 +2,9 @@
 
 facet-list {
 
+  display: flex;
+  flex-direction: column-reverse;
+
   .section-header {
     text-transform: uppercase;
     font-size: 1.3rem;
