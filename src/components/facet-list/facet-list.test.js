@@ -43,7 +43,6 @@ describe('facet list view', () => {
     expect(subject.find('.neat-COTA').hasClass('selected')).toEqual(true)
   })
 
-
   it('doesnt freak out if applied facets is empty', () => {
     expect(subject.find('.neat-COTA').hasClass('selected')).toEqual(false)
 

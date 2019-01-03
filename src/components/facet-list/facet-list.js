@@ -1,12 +1,15 @@
 import _ from 'lodash'
-import pluralize from 'pluralize'
 import './facet-list.scss'
+
+const simplePluralize = word => {
+  return word.endsWith('s') ? word : `${word}s`
+}
 
 const FacetList = props => {
   const SPACEBAR = 32
 
   const createFacet = (facetValues, facetName) => {
-    const appliedFacets = _.get(props,`appliedFacets.${facetName}`, [])
+    const appliedFacets = _.get(props, `appliedFacets.${facetName}`, [])
 
     const createFacetValues = (facetValueCount, facetValue) => {
       const keyHandler = e => {
@@ -40,7 +43,7 @@ const FacetList = props => {
 
     return (
       <div key={facetName} className='section'>
-        <div className='section-header'>{pluralize.plural(facetName)}</div>
+        <div className='section-header'>{simplePluralize(facetName)}</div>
         {_.map(facetValues, createFacetValues)}
       </div>
     )
