@@ -24,6 +24,7 @@ share-zone {
         overflow: hidden;
         cursor: pointer;
         padding: 0;
+        @include button();
 
         .share {
             color: white;
@@ -33,9 +34,6 @@ share-zone {
         }
         .icon {
             margin-left: 0.25rem;
-        }
-        &:hover {
-            @include button-hover();
         }
     }
 

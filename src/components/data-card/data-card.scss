@@ -7,8 +7,8 @@ data-card {
     padding: 1.125rem 0;
     margin-top: 0.125rem;
     border-bottom: 1px solid $light-grey;
-
     .title {
+        @include link();
         @include header();
         margin-bottom: 0.5rem;
     }
