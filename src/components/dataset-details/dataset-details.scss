@@ -26,6 +26,7 @@ dataset-details {
   }
 
   .tag {
+    @include button(white);
     color: $dark-grey;
     padding: 0.5rem 0.75rem;
     border: 1px solid $light-grey;
@@ -37,16 +38,12 @@ dataset-details {
   }
 
   .download-dataset {
+    @include button();
     display: inline-block;
     padding: 0.75rem 1.0rem;
     width: auto;
-    background-color: #00AEEF;
-    color: #FFFFFF;
+    background-color: $light-blue;
+    color: white;
     letter-spacing: 0.05rem;
-    &:hover {
-      color: #FFFFFF;
-      text-decoration: none;
-      background-color: black;
-    }
   }
 }

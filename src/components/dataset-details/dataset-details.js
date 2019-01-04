@@ -1,4 +1,5 @@
 import './dataset-details.scss'
+import { QueryStringBuilder } from '../../utils'
 
 const DatasetDetails = props => {
   if (!props.dataset) { return <div /> }
@@ -20,6 +21,6 @@ const DatasetDetails = props => {
   )
 }
 
-const createTag = ({ name }) => <div key={`dataset-tag-${name}`} className='tag'>{name}</div>
+const createTag = ({ name }) => <a key={`dataset-tag-${name}`} className='tag' href={`/?${QueryStringBuilder.createFilterQueryString('tags', name)}`}>{name}</a>
 
 export default DatasetDetails

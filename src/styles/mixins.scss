@@ -18,6 +18,28 @@
     display: block;
 }
 
+@mixin link() {
+    color: $almost-black;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+        color: $light-blue;
+    }
+}
+
+@mixin button($background-color: $light-blue) {
+    background-color: $background-color;
+    text-decoration: none;
+
+    &:hover {
+        color: white;
+        background-color: $almost-black;
+        text-decoration: underline;
+    }
+}
+
+
 @mixin page-with-left-bar() {
     @include custom-element();
     @include flex-row();

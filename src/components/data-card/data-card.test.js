@@ -17,7 +17,6 @@ describe('data card element', () => {
   })
 
   test('card to render text based on props', () => {
-    expect(subject.find('.title').text()).toEqual(dataset.title)
     expect(subject.find('.description').text()).toEqual(dataset.description)
     expect(subject.find('.file-type').length).toEqual(dataset.fileTypes.length)
     expect(subject.find('.last-modified').text()).toContain('Jun 21, 2018')
