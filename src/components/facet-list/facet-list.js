@@ -8,33 +8,35 @@ const simplePluralize = word => {
 const FacetList = props => {
   const SPACEBAR = 32
 
-  const createFacet = (facetValues, facetName) => {
-    const appliedFacets = _.get(props, `appliedFacets.${facetName}`, [])
+  const createFacet = (facetValues, facetType) => {
+    const appliedFacets = _.get(props, `appliedFacets.${facetType}`, [])
 
-    const createFacetValues = (facetValueCount, facetValue) => {
+    const createFacetValues = (facet) => {
+      const count = facet["count"]
+      const name = facet["name"]
       const keyHandler = e => {
         if (e.keyCode === SPACEBAR) {
-          props.clickHandler(facetName, facetValue)
+          props.clickHandler(facetType, name)
           e.preventDefault()
         }
       }
 
-      const isSelected = appliedFacets.includes(facetValue)
+      const isSelected = appliedFacets.includes(name)
         ? 'selected'
         : ''
 
       return (
         props.availableFacets &&
-        <div className='facet' role='button' tabIndex='0' key={facetValue}
-          onClick={() => props.clickHandler(facetName, facetValue)}
+        <div className='facet' role='button' tabIndex='0' key={name}
+          onClick={() => props.clickHandler(facetType, name)}
           onKeyDown={(e) => { keyHandler(e) }}
         >
 
-          <span className={`facet-indicator ${facetValue.replace(' ', '-')} ${isSelected}`}>
+          <span className={`facet-indicator ${name.replace(' ', '-')} ${isSelected}`}>
             {isSelected && <div className='cool-check-mark' />}
           </span>
           <span className='facet-label'>
-            {facetValue || 'Unorganized'} ({facetValueCount})
+            {name || 'Unorganized'} ({count})
           </span>
 
         </div>
@@ -42,9 +44,9 @@ const FacetList = props => {
     }
 
     return (
-      <div key={facetName} className='section'>
-        <div className='section-header'>{simplePluralize(facetName)}</div>
-        {_.map(facetValues, createFacetValues)}
+      <div key={facetType} className={`section ${facetType}`}>
+        <div className='section-header'>{simplePluralize(facetType)}</div>
+        {_.map(_.orderBy(facetValues, ['count', facet => facet.name.toLowerCase()], ['desc', 'asc']), createFacetValues)}
       </div>
     )
   }
