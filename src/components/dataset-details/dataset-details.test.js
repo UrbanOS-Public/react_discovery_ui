@@ -15,12 +15,6 @@ describe('data card element', () => {
   })
 
   test('download dataset button triggers a download', () => {
-    subject = shallow(<DatasetDetails dataset={{ tags: null, id: '12345' }} />)
-
-    expect(subject.find('.download-dataset').prop('href')).toMatch('/v1/api/dataset/12345/csv')
-  })
-
-  test('download dataset button triggers a download', () => {
     subject = shallow(<DatasetDetails dataset={{ tags: [{ name: 'COTA' }, { name: 'Transit Stops' }], id: '12345' }} />)
     expect(subject.find('.tag').filterWhere(n => { return n.text() === 'COTA' }).prop('href')).toMatch(encodeURI('/?facets[tags][]=COTA'))
   })

@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import DatasetDetails from '../../components/dataset-details'
+import DatasetPreview from '../../components/dataset-preview'
 import Organization from '../../components/organization'
 import Share from '../../components/share'
 import './dataset-detail-view.scss'
@@ -18,8 +19,9 @@ export default class extends Component {
           {dataset && <Organization organization={dataset.organization} />}
           <Share />
         </div>
-        <div>
+        <div className='dataset_details'>
           <DatasetDetails dataset={dataset} />
+          {dataset && <DatasetPreview dataset_id={dataset.id} />}
         </div>
       </dataset-view>
     )

@@ -3,6 +3,7 @@
 
 dataset-details {
   @include custom-element();
+  padding-bottom: 1.0rem;
 
   .name, .data-and-resources-header {
     @include header();
@@ -35,15 +36,5 @@ dataset-details {
     &:not(:last-child) {
       margin-right: 0.5rem;
     }
-  }
-
-  .download-dataset {
-    @include button();
-    display: inline-block;
-    padding: 0.75rem 1.0rem;
-    width: auto;
-    background-color: $light-blue;
-    color: white;
-    letter-spacing: 0.05rem;
   }
 }

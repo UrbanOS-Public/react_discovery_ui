@@ -1,5 +1,5 @@
 import reducer from './index'
-import { SELECT_DATA_LIST, DISPLAY_ERROR, DATASET_DETAILS } from '../actions'
+import { SELECT_DATA_LIST, DISPLAY_ERROR, DATASET_DETAILS, RETRIEVE_DATASET_PREVIEW, DATASET_PREVIEW } from '../actions'
 import datasetListStub from '../../../stubs/dataset-list-stub'
 import datasetStub from '../../../stubs/dataset-details-stub'
 
@@ -32,5 +32,43 @@ describe('Dataset Reducer', () => {
     let newState = reducer(currentState, { type: DATASET_DETAILS, value: datasetStub })
 
     expect(newState.datasetReducer.dataset).toEqual(datasetStub)
+  })
+})
+
+describe('UI Reducer', () => {
+  it('RETRIEVE_DATASET_PREIVEW sets loading to true', () => {
+    let currentState = {
+      presentation: {
+        isLoading: false
+      }
+    }
+    let newState = reducer(currentState, { type: RETRIEVE_DATASET_PREVIEW })
+
+    expect(newState.presentation.isLoading).toEqual(true)
+  })
+
+  it('DATASET_PREIVEW sets loading to false', () => {
+    let currentState = {
+      presentation: {
+        isLoading: true
+      }
+    }
+    let newState = reducer(currentState, { type: DATASET_PREVIEW })
+
+    expect(newState.presentation.isLoading).toEqual(false)
+  })
+
+  it('DATASET_PREIVEW sets dataset_preivew', () => {
+    let currentState = {
+      presentation: {
+      }
+    }
+    const expectedData = {
+      firstName: 'Joe',
+      lastName: 'Smith'
+    }
+    let newState = reducer(currentState, { type: DATASET_PREVIEW, value: expectedData })
+
+    expect(newState.presentation.dataset_preview).toEqual(expectedData)
   })
 })

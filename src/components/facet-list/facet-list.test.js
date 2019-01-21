@@ -6,18 +6,18 @@ describe('facet list view', () => {
 
   let availableFacets = {
     organization: [
-      {name: 'neat COTA', count: 1},
-      {name: 'Apple', count: 1},
-      {name: 'Massive Data', count: 5},
-      {name: 'Interesting Things', count: 3},
-      {name: 'Conduent', count: 2}
+      { name: 'neat COTA', count: 1 },
+      { name: 'Apple', count: 1 },
+      { name: 'Massive Data', count: 5 },
+      { name: 'Interesting Things', count: 3 },
+      { name: 'Conduent', count: 2 }
     ],
-    tags:[
-      {name: 'foo', count: 5},
-      {name: 'dilbert', count: 10},
-      {name: 'jimmy', count: 1},
-      {name: 'bar', count: 2},
-      {name: 'Zoo', count: 2}
+    tags: [
+      { name: 'foo', count: 5 },
+      { name: 'dilbert', count: 10 },
+      { name: 'jimmy', count: 1 },
+      { name: 'bar', count: 2 },
+      { name: 'Zoo', count: 2 }
     ]
   }
 
@@ -65,7 +65,7 @@ describe('facet list view', () => {
   })
 
   it('sorts the organizations in descending order by count and name', () => {
-    const organizationFacets = subject.find('.organization').find('.facet').map( item => item.text())
+    const organizationFacets = subject.find('.organization').find('.facet').map(item => item.text())
 
     expect(organizationFacets).toEqual([
       'Massive Data (5)',
@@ -77,7 +77,7 @@ describe('facet list view', () => {
   })
 
   it('sorts the tags in descending order by count and name', () => {
-    const tagFacets = subject.find('.tags').find('.facet').map( item => item.text())
+    const tagFacets = subject.find('.tags').find('.facet').map(item => item.text())
 
     expect(tagFacets).toEqual([
       'dilbert (10)',
@@ -86,6 +86,5 @@ describe('facet list view', () => {
       'Zoo (2)',
       'jimmy (1)'
     ])
-
   })
 })

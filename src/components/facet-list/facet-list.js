@@ -12,8 +12,8 @@ const FacetList = props => {
     const appliedFacets = _.get(props, `appliedFacets.${facetType}`, [])
 
     const createFacetValues = (facet) => {
-      const count = facet["count"]
-      const name = facet["name"]
+      const count = facet['count']
+      const name = facet['name']
       const keyHandler = e => {
         if (e.keyCode === SPACEBAR) {
           props.clickHandler(facetType, name)

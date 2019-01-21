@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { SELECT_DATA_LIST, DISPLAY_ERROR, DATASET_DETAILS, RETRIEVE_DATA_LIST, RETRIEVE_DATASET } from '../actions'
+import { SELECT_DATA_LIST, DISPLAY_ERROR, DATASET_DETAILS, RETRIEVE_DATA_LIST, RETRIEVE_DATASET, RETRIEVE_DATASET_PREVIEW, DATASET_PREVIEW } from '../actions'
 
 const defaultDatasetState = {
   datasets: [],
@@ -25,6 +25,10 @@ const presentationReducer = (state = { isLoading: false }, action) => {
     case RETRIEVE_DATA_LIST:
     case RETRIEVE_DATASET:
       return Object.assign({}, state, { isLoading: true })
+    case RETRIEVE_DATASET_PREVIEW:
+      return Object.assign({}, state, { isLoading: true })
+    case DATASET_PREVIEW:
+      return Object.assign({}, state, { dataset_preview: action.value, isLoading: false })
     case SELECT_DATA_LIST:
     case DATASET_DETAILS:
       return Object.assign({}, state, { isLoading: false })
