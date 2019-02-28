@@ -1,5 +1,5 @@
 import reducer from './index'
-import { SELECT_DATA_LIST, DISPLAY_ERROR, DATASET_DETAILS, RETRIEVE_DATASET_PREVIEW, DATASET_PREVIEW } from '../actions'
+import { SELECT_DATA_LIST, DISPLAY_ERROR, DATASET_DETAILS, RETRIEVE_DATASET_PREVIEW, DATASET_PREVIEW, CLEAR_DATASET_DETAILS } from '../actions'
 import datasetListStub from '../../../stubs/dataset-list-stub'
 import datasetStub from '../../../stubs/dataset-details-stub'
 
@@ -70,5 +70,17 @@ describe('UI Reducer', () => {
     let newState = reducer(currentState, { type: DATASET_PREVIEW, value: expectedData })
 
     expect(newState.presentation.dataset_preview).toEqual(expectedData)
+  })
+
+  it('CLEAR_DATASET_DETAILS', () => {
+    let currentState = {
+      datasetReducer: {
+        dataset: {id: 123}
+      }
+    }
+
+    let newState = reducer(currentState, {type: CLEAR_DATASET_DETAILS})
+
+    expect(newState.datasetReducer.dataset).toEqual(undefined)
   })
 })

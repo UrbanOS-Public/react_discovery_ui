@@ -5,6 +5,7 @@ export const RETRIEVE_DATASET = 'RETRIEVE_DATASET'
 export const DATASET_DETAILS = 'DATASET_DETAILS'
 export const RETRIEVE_DATASET_PREVIEW = 'RETRIEVE_DATASET_PREVIEW'
 export const DATASET_PREVIEW = 'DATASET_PREVIEW'
+export const CLEAR_DATASET_DETAILS = 'CLEAR_DATASET_DETAILS'
 
 export const retrieveDataList = (offset, limit, sort, query, facets) => ({
   type: RETRIEVE_DATA_LIST,
@@ -39,4 +40,8 @@ export const retrieveDatasetPreview = id => ({
 
 export const datasetPreview = (data) => ({
   type: DATASET_PREVIEW, value: data
+})
+
+export const clearDatasetDetails = () => ({
+  type: CLEAR_DATASET_DETAILS
 })

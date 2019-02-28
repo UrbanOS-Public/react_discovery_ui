@@ -12,22 +12,19 @@ describe('dataset preview', () => {
         '12345'
       }
         retrieveDatasetPreview={
-        jest.fn()
-      }
+          jest.fn()
+        }
         datasetPreview={
-        {
-          content: {
+          {
             data: [{
               firstName: 'Joe',
               lastName: 'Smith'
             }, {
               firstName: 'Jane',
               lastName: 'Doe'
-            }],
-            columns: ['firstName', 'lastName']
+            }]
           }
         }
-      }
       />)
     })
 
@@ -60,16 +57,13 @@ describe('dataset preview', () => {
         '12345'
       }
         retrieveDatasetPreview={
-        retrieveDatasetPreviewMock
-      }
+          retrieveDatasetPreviewMock
+        }
         datasetPreview={
-        {
-          content: {
-            data: [],
-            columns: []
+          {
+            data: []
           }
         }
-      }
       />)
     })
 

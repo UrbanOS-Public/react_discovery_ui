@@ -5,17 +5,16 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 
 export default class extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.retrieveDatasetPreview(this.props.dataset_id)
   }
 
-  render () {
+  render() {
     const { datasetPreview } = this.props
     if (!this.props.datasetPreview) { return <div /> }
 
-    const apiResponse = datasetPreview
-    const data = apiResponse.content.data.slice(0, 50)
-    const columns = apiResponse.content.columns.map((column) => {
+    const data = datasetPreview.data.slice(0, 50)
+    const columns = Object.keys(datasetPreview.data[0] || {}).map((column) => {
       return { Header: column, accessor: column, headerClassName: 'table-header' }
     })
 
