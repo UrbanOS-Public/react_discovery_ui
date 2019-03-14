@@ -75,11 +75,11 @@ describe('UI Reducer', () => {
   it('CLEAR_DATASET_DETAILS', () => {
     let currentState = {
       datasetReducer: {
-        dataset: {id: 123}
+        dataset: { id: 123 }
       }
     }
 
-    let newState = reducer(currentState, {type: CLEAR_DATASET_DETAILS})
+    let newState = reducer(currentState, { type: CLEAR_DATASET_DETAILS })
 
     expect(newState.datasetReducer.dataset).toEqual(undefined)
   })

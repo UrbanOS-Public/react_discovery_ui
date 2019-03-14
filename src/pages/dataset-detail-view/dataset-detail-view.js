@@ -6,15 +6,15 @@ import Share from '../../components/share'
 import './dataset-detail-view.scss'
 
 export default class extends Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.retrieveDatasetDetails(this.props.match.params.id)
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.props.clearDatasetDetails()
   }
 
-  render() {
+  render () {
     const { dataset } = this.props
 
     return (
