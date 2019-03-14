@@ -45,7 +45,7 @@ describe('dataset preview', () => {
     })
 
     test('download dataset button triggers a download', () => {
-      expect(subject.find('.download-dataset').prop('href')).toMatch('/v1/api/dataset/12345/csv')
+      expect(subject.find('.download-dataset').prop('href')).toMatch('/api/v1/dataset/12345/download')
     })
   })
 

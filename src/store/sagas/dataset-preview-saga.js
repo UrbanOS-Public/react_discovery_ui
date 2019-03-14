@@ -7,5 +7,5 @@ export default function * theRealDatasetSaga () {
 }
 
 const invokeApiWithId = ({ value }) => {
-  return apiInvoker(`/v1/api/dataset/${value}/preview`, datasetPreview)()
+  return apiInvoker(`/api/v1/dataset/${value}/preview`, datasetPreview)()
 }
