@@ -1,15 +1,14 @@
-import { Component } from 'react'
-import React from 'react'
+import React, { Component } from 'react'
 import './dataset-preview.scss'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 
 export default class extends Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.retrieveDatasetPreview(this.props.dataset_id)
   }
 
-  render() {
+  render () {
     const { datasetPreview } = this.props
     if (!this.props.datasetPreview) { return <div /> }
 

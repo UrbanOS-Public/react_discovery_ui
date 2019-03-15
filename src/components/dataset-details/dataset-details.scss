@@ -10,23 +10,27 @@ dataset-details {
     margin-bottom: 0.5rem;
   }
 
+  .description {
+    margin-bottom: 0.75rem;
+  }
+
   .resources {
     margin-bottom: 0.75rem
   }
 
-  .tags {
+  .keywords {
     @include flex-row();
     height: 50px;
     justify-content: flex-start;
-    margin: 0.75rem 0;
+    margin-bottom: 0.75rem;
   }
 
-  .tag-label {
+  .keyword-label {
     font-weight: bold;
     margin-right: 0.75rem;
   }
 
-  .tag {
+  .keyword {
     @include button(white);
     color: $dark-grey;
     padding: 0.5rem 0.75rem;
