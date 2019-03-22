@@ -9,14 +9,12 @@ const DatasetDetails = props => {
     <dataset-details>
       <div className='name'>{props.dataset.name}</div>
       <div className='description'>{props.dataset.description}</div>
-      { !_.isEmpty(props.dataset.keywords) &&
+      {!_.isEmpty(props.dataset.keywords) &&
         <div className='keywords'>
           <div className='keyword-label'>KEYWORDS</div>
           {props.dataset.keywords.map(createKeyword)}
         </div>
       }
-      <div className='data-and-resources-header'>Data & Resources</div>
-      <div className='resources'>{props.dataset.resources}</div>
     </dataset-details>
   )
 }

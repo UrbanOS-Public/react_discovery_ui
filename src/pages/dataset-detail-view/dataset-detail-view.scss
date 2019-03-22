@@ -2,4 +2,21 @@
 
 dataset-view {
   @include page-with-left-bar();
+
+  dataset-api-doc {
+    margin-top: 2.5rem
+  }
+
+  .resources {
+    margin-bottom: 0.75rem
+  }
+
+  .name, .data-and-resources-header {
+    @include header();
+    margin-bottom: 0.5rem;
+  }
+
+  .table-of-contents a {
+    @include link();
+  }
 }
