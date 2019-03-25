@@ -1,0 +1,21 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+dataset-remote-info {
+  border: 1px solid $light-grey;
+  display: block;
+  padding: 1rem;
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem
+  }
+
+  .remote-info-header {
+    @include header();
+  }
+
+  a {
+    @include link();
+  }
+}

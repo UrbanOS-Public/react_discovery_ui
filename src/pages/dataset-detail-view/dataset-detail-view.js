@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import DatasetDetails from '../../components/dataset-details'
 import DatasetPreview from '../../components/dataset-preview'
+import DatasetRemoteInfo from '../../components/dataset-remote-info'
 import Organization from '../../components/organization'
 import Share from '../../components/share'
 import './dataset-detail-view.scss'
@@ -17,29 +18,41 @@ export default class extends Component {
 
   render() {
     const { dataset } = this.props
+    if (!dataset) { return <div /> }
 
     return (
       <dataset-view>
         <div>
-          {dataset && <Organization organization={dataset.organization} />}
+          <Organization organization={dataset.organization} />
           <Share />
         </div>
 
-        <div className='dataset_details'>
+        <div className='dataset-details'>
           <DatasetDetails dataset={dataset} />
           <div className='data-and-resources-header'>Data & Resources</div>
-          <div>
-            <ul className="table-of-contents">
-              <li><a href="#Preview">Preview</a></li>
-              <li><a href="#APIDocs">API Docs</a></li>
-            </ul>
-          </div>
-          <a name="Preview"></a>
-          {dataset && <DatasetPreview dataset_id={dataset.id} />}
-          <a name="APIDocs"></a>
-          <DatasetApiDoc dataset={dataset} />
+          {renderAdditionalDetails(dataset)}
         </div>
       </dataset-view>
     )
   }
+}
+
+function renderAdditionalDetails (dataset) {
+  if (dataset.sourceType === 'remote') {
+    return (<DatasetRemoteInfo datasetSourceUrl={dataset.sourceUrl} />)
+  }
+  return (
+    <span>
+      <div>
+        <ul className="table-of-contents">
+          <li><a href="#Preview">Preview</a></li>
+          <li><a href="#APIDocs">API Docs</a></li>
+        </ul>
+      </div>
+      <a name="Preview"></a>
+      <DatasetPreview dataset_id={dataset.id} />
+      <a name="APIDocs"></a>
+      <DatasetApiDoc dataset={dataset} />
+    </span>
+  )
 }
