@@ -1,31 +1,102 @@
 import { shallow } from 'enzyme'
 import DatasetView from './dataset-detail-view'
 import DatasetDetails from '../../components/dataset-details'
-import datasetStub from '../../../stubs/dataset-details-stub'
+import DatasetPreview from '../../components/dataset-preview'
+import DatasetRemoteInfo from '../../components/dataset-remote-info'
 
-describe('dataset view', () => {
-  let subject, expectedDataset, retrieveSpy, clearDatasetDetailsSpy
+describe('dataset detail view', () => {
+  let subject
+  const routingProps = { params: { id: 1 } }
+  const batchDataset = {
+    id: '123',
+    name: 'COTA Streaming Busses',
+    description: '....',
+    sourceType: 'batch',
+    sourceUrl: 'http://example.com/sweet-data.json'
+  }
 
-  beforeEach(() => {
-    const routingProps = { params: { id: 1 } }
-    expectedDataset = datasetStub
-    retrieveSpy = jest.fn()
-    clearDatasetDetailsSpy = jest.fn()
-    subject = shallow(<DatasetView dataset={expectedDataset} retrieveDatasetDetails={retrieveSpy} clearDatasetDetails={clearDatasetDetailsSpy} match={routingProps} />)
-    // subject = shallow(<DatasetView dataset={expectedDataset} retrieveDatasetDetails={retrieveSpy} match={routingProps} />)
+  describe('required items with batch dataset', () => {
+    let retrieveSpy, clearDatasetDetailsSpy
+
+    beforeEach(() => {
+      retrieveSpy = jest.fn()
+      clearDatasetDetailsSpy = jest.fn()
+      subject = shallow(
+        <DatasetView
+          dataset={batchDataset}
+          retrieveDatasetDetails={retrieveSpy}
+          clearDatasetDetails={clearDatasetDetailsSpy}
+          match={routingProps}
+        />
+      )
+    })
+
+    it('calls retrieve data callback on mount', () => {
+      expect(retrieveSpy).toHaveBeenCalled()
+    })
+
+    it('loads dataset details with dataset information', () => {
+      expect(subject.find(DatasetDetails).props().dataset).toEqual(batchDataset)
+    })
+
+    it('clears dataset when unmounted to prevent caching issues especially with back space', () => {
+      subject.unmount()
+
+      expect(clearDatasetDetailsSpy).toHaveBeenCalled()
+    })
+
+    it('does not include component for displaying remote data info', () => {
+      expect(subject.find(DatasetRemoteInfo)).toHaveLength(0)
+    })
+
+    it('includes the component for previewing dataset', () => {
+      expect(subject.find(DatasetPreview).props().dataset_id).toEqual(batchDataset.id)
+    })
   })
 
-  it('calls retrieve data callback on mount', () => {
-    expect(retrieveSpy).toHaveBeenCalled()
+  describe('streaming dataset', () => {
+    const streamingDataset = Object.assign({}, batchDataset, { sourceType: 'streaming' })
+
+    beforeEach(() => {
+      subject = shallow(
+        <DatasetView
+          dataset={streamingDataset}
+          retrieveDatasetDetails={jest.fn()}
+          clearDatasetDetails={jest.fn()}
+          match={routingProps}
+        />
+      )
+    })
+
+    it('includes the component for previewing dataset', () => {
+      expect(subject.find(DatasetPreview).props().dataset_id).toEqual(streamingDataset.id)
+    })
+
+    it('does not include component for displaying remote data info', () => {
+      expect(subject.find(DatasetRemoteInfo)).toHaveLength(0)
+    })
   })
 
-  it('loads dataset details with dataset information', () => {
-    expect(subject.find(DatasetDetails).props().dataset).toEqual(expectedDataset)
-  })
+  describe('remote dataset', () => {
+    const remoteDataset = Object.assign({}, batchDataset, { sourceType: 'remote' })
 
-  it('clears dataset when unmounted to prevent caching issues especially with back space', () => {
-    subject.unmount()
+    beforeEach(() => {
+      subject = shallow(
+        <DatasetView
+          dataset={remoteDataset}
+          retrieveDatasetDetails={jest.fn()}
+          clearDatasetDetails={jest.fn()}
+          match={routingProps}
+        />
+      )
+    })
 
-    expect(clearDatasetDetailsSpy).toHaveBeenCalled()
+    it('includes the component for displaying remote dataset information', () => {
+      expect(subject.find(DatasetRemoteInfo).props().datasetSourceUrl).toEqual(remoteDataset.sourceUrl)
+    })
+
+    it('does not include component for displaying data preview', () => {
+      expect(subject.find(DatasetPreview)).toHaveLength(0)
+    })
   })
 })
