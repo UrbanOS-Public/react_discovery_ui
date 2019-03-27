@@ -6,6 +6,6 @@ export default ({ datasetSourceUrl }) => (
       <div class='remote-info-header'>Remote Dataset</div>
       <div>URL below will open in a new window</div>
     </div>
-    <a href={datasetSourceUrl} target='_blank' rel='noopener noreferrer'>{datasetSourceUrl}</a>
+    <b>Download URL:</b> <a href={datasetSourceUrl} target='_blank' rel='noopener noreferrer'>{datasetSourceUrl}</a>
   </dataset-remote-info>
 )
