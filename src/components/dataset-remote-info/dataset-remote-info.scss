@@ -16,6 +16,10 @@ dataset-remote-info {
   }
 
   a {
-    @include link();
+    color: $light-blue;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
