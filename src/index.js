@@ -9,8 +9,14 @@ import reducers from './store/reducers'
 import App from './App'
 import 'regenerator-runtime/runtime'
 import allSagas from './store/sagas'
-
+import TagManager from 'react-gtm-module'
 window.React = React
+
+const tagManagerArgs = {
+  gtmId: window.GTM_ID
+}
+
+TagManager.initialize(tagManagerArgs)
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
