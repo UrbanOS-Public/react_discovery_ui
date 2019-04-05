@@ -6,6 +6,9 @@ export const DATASET_DETAILS = 'DATASET_DETAILS'
 export const RETRIEVE_DATASET_PREVIEW = 'RETRIEVE_DATASET_PREVIEW'
 export const DATASET_PREVIEW = 'DATASET_PREVIEW'
 export const CLEAR_DATASET_DETAILS = 'CLEAR_DATASET_DETAILS'
+export const LOGIN = 'LOGIN'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 
 export const retrieveDataList = (offset, limit, sort, query, facets) => ({
   type: RETRIEVE_DATA_LIST,
@@ -44,4 +47,16 @@ export const datasetPreview = (data) => ({
 
 export const clearDatasetDetails = () => ({
   type: CLEAR_DATASET_DETAILS
+})
+
+export const login = (credentials) => ({
+  type: LOGIN, value: credentials
+})
+
+export const loginSuccess = (message) => ({
+  type: LOGIN_SUCCESS, value: message
+})
+
+export const loginFailure = (message) => ({
+  type: LOGIN_FAILURE, value: message
 })
