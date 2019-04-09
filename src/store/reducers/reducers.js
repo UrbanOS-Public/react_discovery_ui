@@ -37,7 +37,7 @@ const presentationReducer = (state = { isLoading: false }, action) => {
     case LOGIN:
       return Object.assign({}, state, { isLoading: true })
     case LOGIN_SUCCESS:
-      return Object.assign({}, state, { lastLoginAttemptFailed: false })
+      return Object.assign({}, state, { lastLoginAttemptFailed: false, isLoading: false })
     case LOGIN_FAILURE:
       return Object.assign({}, state, { lastLoginAttemptFailed: true, isLoading: false })
     default:

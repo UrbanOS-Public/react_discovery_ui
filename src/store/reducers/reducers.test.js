@@ -104,6 +104,7 @@ describe('UI Reducer', () => {
     let newState = reducer(currentState, { type: LOGIN_SUCCESS })
 
     expect(newState.presentation.lastLoginAttemptFailed).toEqual(false)
+    expect(newState.presentation.isLoading).toEqual(false)
   })
 
   it('LOGIN_FAILURE sets lastLoginAttemptFailed to true', () => {
