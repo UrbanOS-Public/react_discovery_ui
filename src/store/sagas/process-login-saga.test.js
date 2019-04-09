@@ -29,7 +29,10 @@ describe('process-login-saga', () => {
       push: jest.fn(),
       location: {
         state: {
-          from: '/somewhere-in-the-ui'
+          from: {
+            pathname: '/somewhere-in-the-ui',
+            search: ''
+          }
         }
       }
     }
@@ -37,7 +40,29 @@ describe('process-login-saga', () => {
     store.dispatch(loginSuccess({ token, history }))
 
     expect(sessionStorage.setItem).toHaveBeenCalledWith('api-token', token)
-    expect(history.push).toHaveBeenCalledWith(history.location.state.from)
+  })
+
+  it('redirects to the full url of the previous page correctly', () => {
+    const token = jest.fn()
+    const history = {
+      push: jest.fn(),
+      location: {
+        state: {
+          from: {
+            pathname: '/somwhere-in-the-ui',
+            search: '?a=query&param=true',
+            protocol: 'https'
+          }
+        }
+      }
+    }
+
+    store.dispatch(loginSuccess({ token, history }))
+
+    expect(history.push).toHaveBeenCalledWith({
+      pathname: '/somwhere-in-the-ui',
+      search: '?a=query&param=true'
+    })
   })
 
   it('navigates to home when there is no preceding page', () => {
@@ -50,6 +75,9 @@ describe('process-login-saga', () => {
     }
 
     store.dispatch(loginSuccess({ token, history }))
-    expect(history.push).toHaveBeenCalledWith('/')
+    expect(history.push).toHaveBeenCalledWith({
+      pathname: '/',
+      search: ''
+    })
   })
 })

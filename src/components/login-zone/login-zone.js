@@ -13,7 +13,12 @@ export default () => {
       <Link
         to={{
           pathname: '/login',
-          state: { from: window.location.pathname }
+          state: {
+            from: {
+              pathname: window.location.pathname,
+              search: window.location.search
+            }
+          }
         }}
       >
         LOG IN

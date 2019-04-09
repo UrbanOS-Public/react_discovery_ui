@@ -5,7 +5,11 @@ import _ from 'lodash'
 
 function * processLogin ({ value: { token, history } }) {
   yield sessionStorage.setItem('api-token', token)
-  yield history.push(_.get(history, 'location.state.from', '/'))
+  const location = _.get(history, 'location.state.from', { pathname: '/', search: '' })
+  yield history.push({
+    pathname: location.pathname,
+    search: location.search
+  })
 }
 
 export default function * processLoginSaga () {
