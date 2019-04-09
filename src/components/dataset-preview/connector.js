@@ -10,7 +10,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  retrieveDatasetPreview: dataset_id => dispatch(retrieveDatasetPreview(dataset_id))
+  retrieveDatasetPreview: datasetId => dispatch(retrieveDatasetPreview(datasetId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DatasetPreview)

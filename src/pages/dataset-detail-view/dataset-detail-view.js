@@ -50,7 +50,7 @@ function renderAdditionalDetails (dataset) {
         </ul>
       </div>
       <a name='Preview' />
-      <DatasetPreview dataset_id={dataset.id} />
+      <DatasetPreview datasetId={dataset.id} />
       <a name='APIDocs' />
       <DatasetApiDoc dataset={dataset} />
     </span>
