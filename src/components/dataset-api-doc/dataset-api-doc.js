@@ -16,7 +16,7 @@ const DatasetApiDoc = props => {
         <div className='example-code'><code>GET: {`${window.API_HOST}/api/v1/dataset/${props.dataset.id}/query?limit=200&orderBy=id asc&where=id=3`}</code></div>
         <div className='example-header'>Parameters</div>
         <div className='example-parameters'>
-          <table class='parameter-table'>
+          <table className='parameter-table'>
             <thead>
               <tr>
                 <th>Name</th>
@@ -28,8 +28,8 @@ const DatasetApiDoc = props => {
               {apiParams.map(i => {
                 return [
                   <tr key={`${i.name}`}>
-                    <td><span class='pill'>{i.name}</span></td>
-                    <td class='parameter-example'>{i.example}</td>
+                    <td><span className='pill'>{i.name}</span></td>
+                    <td className='parameter-example'>{i.example}</td>
                     <td>{i.description}</td>
                   </tr>
                 ]

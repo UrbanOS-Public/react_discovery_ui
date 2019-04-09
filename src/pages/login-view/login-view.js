@@ -16,7 +16,7 @@ const LoginView = props => {
         <div>This area of the operating system is restricted to authorized users only.</div>
         {props.lastAttemptFailed && <div className='error-message'>Username/ password invalid.</div>}
         <label htmlFor='username'>Username</label>
-        <input id='username' className='username' type='text' tabIndex={1} value={username} onChange={(e) => setUsername(e.target.value)} autoFocus="true" />
+        <input id='username' className='username' type='text' tabIndex={1} value={username} onChange={(e) => setUsername(e.target.value)} autoFocus />
         <label htmlFor='password'>Password</label>
         <input id='password' className='password' type='password' tabIndex={2} value={password} onChange={(e) => setPassword(e.target.value)} />
         <div className='submit' role='button' tabIndex={3} onClick={login} onKeyPress={spaceKeyLogin}>Login</div>
