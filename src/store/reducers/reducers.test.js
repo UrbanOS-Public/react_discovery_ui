@@ -1,5 +1,5 @@
 import reducer from './index'
-import { SELECT_DATA_LIST, DISPLAY_ERROR, DATASET_DETAILS, RETRIEVE_DATASET_PREVIEW, DATASET_PREVIEW, CLEAR_DATASET_DETAILS } from '../actions'
+import { SELECT_DATA_LIST, DISPLAY_ERROR, DATASET_DETAILS, RETRIEVE_DATASET_PREVIEW, DATASET_PREVIEW, CLEAR_DATASET_DETAILS, LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE } from '../actions'
 import datasetListStub from '../../../stubs/dataset-list-stub'
 import datasetStub from '../../../stubs/dataset-details-stub'
 
@@ -82,5 +82,40 @@ describe('UI Reducer', () => {
     let newState = reducer(currentState, { type: CLEAR_DATASET_DETAILS })
 
     expect(newState.datasetReducer.dataset).toEqual(undefined)
+  })
+
+  it('LOGIN sets loading to true', () => {
+    let currentState = {
+      presentation: {
+        isLoading: false
+      }
+    }
+    let newState = reducer(currentState, { type: LOGIN })
+
+    expect(newState.presentation.isLoading).toEqual(true)
+  })
+
+  it('LOGIN_SUCCESS sets lastLoginAttemptFailed to false', () => {
+    let currentState = {
+      presentation: {
+        lastLoginAttemptFailed: true
+      }
+    }
+    let newState = reducer(currentState, { type: LOGIN_SUCCESS })
+
+    expect(newState.presentation.lastLoginAttemptFailed).toEqual(false)
+    expect(newState.presentation.isLoading).toEqual(false)
+  })
+
+  it('LOGIN_FAILURE sets lastLoginAttemptFailed to true', () => {
+    let currentState = {
+      presentation: {
+        lastLoginAttemptFailed: false
+      }
+    }
+    let newState = reducer(currentState, { type: LOGIN_FAILURE })
+
+    expect(newState.presentation.lastLoginAttemptFailed).toEqual(true)
+    expect(newState.presentation.isLoading).toEqual(false)
   })
 })

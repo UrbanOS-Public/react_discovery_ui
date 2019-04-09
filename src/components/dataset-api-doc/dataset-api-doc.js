@@ -1,6 +1,4 @@
 import './dataset-api-doc.scss'
-import { QueryStringBuilder } from '../../utils'
-import _ from 'lodash'
 
 const DatasetApiDoc = props => {
   if (!props.dataset) { return <div /> }
@@ -18,7 +16,7 @@ const DatasetApiDoc = props => {
         <div className='example-code'><code>GET: {`${window.API_HOST}/api/v1/dataset/${props.dataset.id}/query?limit=200&orderBy=id asc&where=id=3`}</code></div>
         <div className='example-header'>Parameters</div>
         <div className='example-parameters'>
-          <table class='parameter-table'>
+          <table className='parameter-table'>
             <thead>
               <tr>
                 <th>Name</th>
@@ -30,8 +28,8 @@ const DatasetApiDoc = props => {
               {apiParams.map(i => {
                 return [
                   <tr key={`${i.name}`}>
-                    <td><span class='pill'>{i.name}</span></td>
-                    <td class='parameter-example'>{i.example}</td>
+                    <td><span className='pill'>{i.name}</span></td>
+                    <td className='parameter-example'>{i.example}</td>
                     <td>{i.description}</td>
                   </tr>
                 ]
@@ -44,32 +42,30 @@ const DatasetApiDoc = props => {
   )
 }
 
-const createKeyword = (name) => <a key={`dataset-keyword-${name}`} className='keyword' href={`/?${QueryStringBuilder.createFilterQueryString('keywords', name)}`}>{name}</a>
-
 const apiParams = [
   {
-    name: "columns",
-    description: "A list of columns from the dataset to be included in the query. Defaults to all columns.",
-    example: "column1,column2,column3"
+    name: 'columns',
+    description: 'A list of columns from the dataset to be included in the query. Defaults to all columns.',
+    example: 'column1,column2,column3'
   },
   {
-    name: "where",
-    description: "A set of conditions to filter rows by. Multiple conditions can be added, seperated by AND or OR",
+    name: 'where',
+    description: 'A set of conditions to filter rows by. Multiple conditions can be added, seperated by AND or OR',
     example: "column1='a value' OR column1='another value'"
   },
   {
-    name: "orderBy",
+    name: 'orderBy',
     description: "A column (or comma seperated list of columns) to order the results by and one of 'asc' or 'desc' to determine the direction of each.",
-    example: "column1 asc, column2 desc"
+    example: 'column1 asc, column2 desc'
   },
   {
-    name: "limit",
-    description: "A whole number limiting the total rows returned. The API does not guaruntee the same list of rows every time when limited this way.",
-    example: "100"
+    name: 'limit',
+    description: 'A whole number limiting the total rows returned. The API does not guaruntee the same list of rows every time when limited this way.',
+    example: '100'
   },
   {
-    name: "groupBy",
-    description: "A column (or space-separated list of columns) to group the results by.",
+    name: 'groupBy',
+    description: 'A column (or space-separated list of columns) to group the results by.',
     example: "column1='a value'"
   }
 ]
