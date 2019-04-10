@@ -8,6 +8,8 @@ export default class extends Component {
     const { dataset } = this.props
     if (!this.props.dataset) { return <div /> }
 
+    const referenceUrls = dataset.referenceUrls || []
+
     const data = [
     {
      Field: "Maintainer",
@@ -15,15 +17,11 @@ export default class extends Component {
     },
     {
       Field: "Last Updated",
-      Value: "" //TODO bring in modified date
+      Value: dataset.modified
     },
     {
       Field: "Data Last Updated",
       Value: dataset.lastUpdatedDate
-    },
-    {
-      Field: "Access Level",
-      Value: "" //TODO bring in private field
     },
     {
       Field: "Rights",
@@ -43,7 +41,7 @@ export default class extends Component {
     },
     {
       Field: "Frequency",
-      Value: dataset.publishFrequency //TODO: Why publish?
+      Value: dataset.publishFrequency
     },
     {
       Field: "Data Standard",
@@ -51,7 +49,7 @@ export default class extends Component {
     },
     {
       Field: "Data Dictionary URL",
-      Value: <a href={dataset.describedByUrl}>{dataset.describedByUrl}</a>
+      Value: <a href={dataset.describedByUrl} target="_blank">{dataset.describedByUrl}</a>
     },
     {
       Field: "Data Dictionary Type",
@@ -71,11 +69,11 @@ export default class extends Component {
     },
     {
       Field: "Related Documents",
-      Value: dataset.refereneceUrls //TODO render list of URLs as links
+      Value: referenceUrls.map((url) => <div><a href={url} target="_blank">{url}</a></div>)
     },
     {
       Field: "Source URL",
-      Value: <a href={dataset.sourceUrl}>{dataset.sourceUrl}</a>
+      Value: <a href={dataset.sourceUrl} target="_blank">{dataset.sourceUrl}</a>
     },
     {
       Field: "Source Type",

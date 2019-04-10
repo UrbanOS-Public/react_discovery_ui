@@ -1,68 +1,25 @@
-// import {
-//   render,
-//   mount
-// } from 'enzyme'
-// import DatasetMetadata from './dataset-metadata'
+import { shallow } from 'enzyme'
+import DatasetMetadata from './dataset-metadata'
 
-// describe('dataset metadata', () => {
-//   describe('ui', () => {
-//     let subject
-//     beforeEach(() => {
-//       subject = render(<DatasetMetadata dataset_id={'12345'}
-//         retrieveDatasetMetadata={
-//           jest.fn()
-//         }
-//         datasetMetadata={
-//           {
-//             data: [{
-//               firstName: 'Joe',
-//               lastName: 'Smith'
-//             }, {
-//               firstName: 'Jane',
-//               lastName: 'Doe'
-//             }]
-//           }
-//         }
-//       />)
-//     })
+describe('additional info element', () => {
 
-//     test('should render table headers', () => {
-//       const tableHeaderSelector = '.rt-resizable-header-content'
-//       expect(subject.find(tableHeaderSelector).get(0).children[0].data).toEqual('firstName')
-//       expect(subject.find(tableHeaderSelector).get(1).children[0].data).toEqual('lastName')
-//       expect(subject.find(tableHeaderSelector).length).toEqual(2)
-//     })
+  test('card to render text based on props', () => {
+    let subject = shallow(<DatasetMetadata dataset={{ spatial: "Ohio"}} />)
+    let table = subject.find("ReactTable")
+    expect(table.prop('data')[4]).toEqual({ Field: 'Spatial', Value: 'Ohio' })
+  })
 
-//     test('should render table rows', () => {
-//       const tableElementSelector = '.rt-tr .rt-td'
-//       expect(subject.find(tableElementSelector).get(0).children[0].data).toEqual('Joe')
-//       expect(subject.find(tableElementSelector).get(1).children[0].data).toEqual('Smith')
+  test('card renders mailto link correctly', () => {
+    let subject = shallow(<DatasetMetadata dataset={{ contactName: "John", contactEmail: "john@smith.com"}} />)
+    let actual = JSON.stringify(subject.find("ReactTable").prop('data')[0])
+    let expected = JSON.stringify({ Field: 'Maintainer', Value: <a href="mailto:john@smith.com">John</a>})
+    expect(actual).toEqual(expected)
+    })
 
-//       expect(subject.find(tableElementSelector).get(2).children[0].data).toEqual('Jane')
-//       expect(subject.find(tableElementSelector).get(3).children[0].data).toEqual('Doe')
-//     })
-
-//     test('download dataset button triggers a download', () => {
-//       expect(subject.find('.download-dataset').prop('href')).toMatch('/api/v1/dataset/12345/download')
-//     })
-//   })
-
-//   describe('mounting', () => {
-//     let retrieveDatasetPreviewMock
-//     beforeEach(() => {
-//       retrieveDatasetPreviewMock = jest.fn()
-//       mount(<DatasetPreview dataset_id={'12345'}
-//         retrieveDatasetPreview={retrieveDatasetPreviewMock}
-//         datasetPreview={
-//           {
-//             data: []
-//           }
-//         }
-//       />)
-//     })
-
-//     test('retrieveDatasetPreview should be called', () => {
-//       expect(retrieveDatasetPreviewMock).toBeCalled()
-//     })
-//   })
-// })
+  test('referenceUrls renders correctly', () => {
+    let subject = shallow(<DatasetMetadata dataset={{ referenceUrls: ["https://www.google.com","https://www.facebook.com"]}} />)
+    let actual = JSON.stringify(subject.find("ReactTable").prop('data')[14])
+    let expected = JSON.stringify({ Field: 'Related Documents', Value: [<div><a href="https://www.google.com" target="_blank">https://www.google.com</a></div>,<div><a href="https://www.facebook.com" target="_blank">https://www.facebook.com</a></div>]})
+    expect(actual).toEqual(expected)
+    })
+})
