@@ -48,12 +48,14 @@ function renderAdditionalDetails (dataset) {
         <ul className="table-of-contents">
           <li><a href="#Preview">Preview</a></li>
           <li><a href="#APIDocs">API Docs</a></li>
+          <li><a href="#AdditionalInforomation">Additional Information</a></li>
         </ul>
       </div>
       <a name="Preview"></a>
       <DatasetPreview dataset_id={dataset.id} />
       <a name="APIDocs"></a>
       <DatasetApiDoc dataset={dataset} />
+      <a name="AdditionalInforomation"></a>
       <DatasetMetadata dataset={dataset} />
     </span>
   )
