@@ -13,8 +13,8 @@ const LoginView = props => {
     <login-view>
       <div className='box' onKeyPress={enterKeyLogin}>
         <h3>Restricted Dataset Login</h3>
-        <div>This area of the operating system is restricted to authorized users only.</div>
-        {props.lastAttemptFailed && <div className='error-message'>Username/ password invalid.</div>}
+        <div>This area is restricted to authorized users only.</div>
+        {props.lastAttemptFailed && <div className='error-message'>Username and/or password invalid.</div>}
         <label htmlFor='username'>Username</label>
         <input id='username' className='username' type='text' tabIndex={1} value={username} onChange={(e) => setUsername(e.target.value)} autoFocus />
         <label htmlFor='password'>Password</label>
