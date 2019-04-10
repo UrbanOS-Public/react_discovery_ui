@@ -6,18 +6,18 @@ import DatasetRemoteInfo from '../../components/dataset-remote-info'
 import Organization from '../../components/organization'
 import Share from '../../components/share'
 import './dataset-detail-view.scss'
-import DatasetApiDoc from '../../components/dataset-api-doc/dataset-api-doc';
+import DatasetApiDoc from '../../components/dataset-api-doc/dataset-api-doc'
 
 export default class extends Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.retrieveDatasetDetails(this.props.match.params.id)
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.props.clearDatasetDetails()
   }
 
-  render() {
+  render () {
     const { dataset } = this.props
     if (!dataset) { return <div /> }
 
@@ -51,9 +51,9 @@ function renderAdditionalDetails (dataset) {
           <li><a href="#AdditionalInforomation">Additional Information</a></li>
         </ul>
       </div>
-      <a name="Preview"></a>
-      <DatasetPreview dataset_id={dataset.id} />
-      <a name="APIDocs"></a>
+      <a name='Preview' />
+      <DatasetPreview datasetId={dataset.id} />
+      <a name='APIDocs' />
       <DatasetApiDoc dataset={dataset} />
       <a name="AdditionalInforomation"></a>
       <DatasetMetadata dataset={dataset} />

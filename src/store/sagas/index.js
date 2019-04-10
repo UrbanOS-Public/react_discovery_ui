@@ -2,11 +2,15 @@ import { fork, all } from 'redux-saga/effects'
 import datasetListSaga from './dataset-list-saga'
 import datasetSaga from './dataset-saga'
 import datasetPreviewSaga from './dataset-preview-saga'
+import loginSaga from './login-saga'
+import processLoginSaga from './process-login-saga'
 
 export default function * allSagas () {
   yield all([
     fork(datasetListSaga),
     fork(datasetSaga),
-    fork(datasetPreviewSaga)
+    fork(datasetPreviewSaga),
+    fork(loginSaga),
+    fork(processLoginSaga)
   ])
 }

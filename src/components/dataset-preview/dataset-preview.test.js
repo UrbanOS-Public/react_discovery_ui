@@ -8,7 +8,7 @@ describe('dataset preview', () => {
   describe('ui', () => {
     let subject
     beforeEach(() => {
-      subject = render(<DatasetPreview dataset_id={'12345'}
+      subject = render(<DatasetPreview datasetId={'12345'}
         retrieveDatasetPreview={
           jest.fn()
         }
@@ -51,7 +51,7 @@ describe('dataset preview', () => {
     let retrieveDatasetPreviewMock
     beforeEach(() => {
       retrieveDatasetPreviewMock = jest.fn()
-      mount(<DatasetPreview dataset_id={'12345'}
+      mount(<DatasetPreview datasetId={'12345'}
         retrieveDatasetPreview={retrieveDatasetPreviewMock}
         datasetPreview={
           {

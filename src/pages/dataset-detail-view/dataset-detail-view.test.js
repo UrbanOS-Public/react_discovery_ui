@@ -50,7 +50,7 @@ describe('dataset detail view', () => {
     })
 
     it('includes the component for previewing dataset', () => {
-      expect(subject.find(DatasetPreview).props().dataset_id).toEqual(batchDataset.id)
+      expect(subject.find(DatasetPreview).props().datasetId).toEqual(batchDataset.id)
     })
   })
 
@@ -69,7 +69,7 @@ describe('dataset detail view', () => {
     })
 
     it('includes the component for previewing dataset', () => {
-      expect(subject.find(DatasetPreview).props().dataset_id).toEqual(streamingDataset.id)
+      expect(subject.find(DatasetPreview).props().datasetId).toEqual(streamingDataset.id)
     })
 
     it('does not include component for displaying remote data info', () => {

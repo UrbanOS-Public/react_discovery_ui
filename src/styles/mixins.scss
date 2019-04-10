@@ -39,7 +39,6 @@
     }
 }
 
-
 @mixin page-with-left-bar() {
     @include custom-element();
     @include flex-row();
@@ -65,11 +64,11 @@
     }
 
     & > :first-child {
-        width: 18%;
+        width: 24%;
     }
 
     & > :last-child  {
-        width: 78%;
+        width: 73%;
     }
 }
 
@@ -79,8 +78,12 @@
     font-weight: bold;
 }
 
+@mixin header-medium() {
+  @include header();
+  font-size: 1.5rem;
+}
+
 @mixin header-small() {
-    font-size: 1.3rem;
-    line-height: 1.15em;
-    font-weight: bold;
+  @include header();
+  font-size: 1.3rem;
 }

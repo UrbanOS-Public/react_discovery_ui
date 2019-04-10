@@ -4,6 +4,7 @@ import DatasetList from '../../components/dataset-list'
 import Paginator from '../../components/generic-elements/paginator'
 import Select from '../../components/generic-elements/select'
 import Search from '../../components/generic-elements/search'
+import LoginZone from '../../components/login-zone'
 import FacetList from '../../components/facet-list'
 import qs from 'qs'
 import _ from 'lodash'
@@ -31,9 +32,10 @@ export default class extends Component {
 
     return (
       <dataset-list-view ref={this.pageRef}>
-
-        <FacetList availableFacets={this.props.facets} appliedFacets={this.facets} clickHandler={(facetName, facetValue) => this.onFacetClick(facetName, facetValue)} />
-
+        <div>
+          <LoginZone />
+          <FacetList availableFacets={this.props.facets} appliedFacets={this.facets} clickHandler={(facetName, facetValue) => this.onFacetClick(facetName, facetValue)} />
+        </div>
         <div className='right-section'>
           {!this.props.loading && <Search className='search' defaultText={this.searchParams} placeholder='Search datasets' callback={searchCriteria => this.onSearchChange(searchCriteria)} />}
           <div className='list-header'>
