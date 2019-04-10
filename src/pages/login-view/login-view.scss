@@ -14,7 +14,7 @@ login-view {
     text-align: center;
     font-weight: bold;
     cursor: pointer;
-    margin: 1.75rem 0 0 auto;
+    margin-top: 1rem;
     padding: 0.6rem 1rem;
 
     &:hover {
@@ -22,6 +22,9 @@ login-view {
     }
   }
 
+  .login-row {
+    padding-top: 0.5rem;
+  }
   .box {
     display: flex;
     flex-direction: column;
