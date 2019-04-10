@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import DatasetDetails from '../../components/dataset-details'
 import DatasetPreview from '../../components/dataset-preview'
+import DatasetMetadata from '../../components/dataset-metadata'
 import DatasetRemoteInfo from '../../components/dataset-remote-info'
 import Organization from '../../components/organization'
 import Share from '../../components/share'
@@ -44,15 +45,18 @@ function renderAdditionalDetails (dataset) {
   return (
     <span>
       <div>
-        <ul className='table-of-contents'>
-          <li><a href='#Preview'>Preview</a></li>
-          <li><a href='#APIDocs'>API Docs</a></li>
+        <ul className="table-of-contents">
+          <li><a href="#Preview">Preview</a></li>
+          <li><a href="#APIDocs">API Docs</a></li>
+          <li><a href="#AdditionalInforomation">Additional Information</a></li>
         </ul>
       </div>
       <a name='Preview' />
       <DatasetPreview datasetId={dataset.id} />
       <a name='APIDocs' />
       <DatasetApiDoc dataset={dataset} />
+      <a name="AdditionalInforomation"></a>
+      <DatasetMetadata dataset={dataset} />
     </span>
   )
 }

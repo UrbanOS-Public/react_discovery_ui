@@ -1,0 +1,29 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+#dataset-metadata {
+  border: 1px solid $light-grey;
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .header-text-items {
+    margin: 1rem;
+  }
+
+  .metadata-header {
+    @include header();
+  }
+
+  #dataset-metadata-table {
+    color: $almost-black;
+    
+    .table-header {
+      background-color: $header-grey;
+      text-align: left;
+      font-weight: 800;
+    }
+  }
+  
+}
