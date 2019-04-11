@@ -12,7 +12,8 @@ describe('dataset detail view', () => {
     name: 'COTA Streaming Busses',
     description: '....',
     sourceType: 'batch',
-    sourceUrl: 'http://example.com/sweet-data.json'
+    sourceFormat: 'csv',
+    sourceUrl: 'http://example.com/sweet-data.csv'
   }
 
   describe('required items with batch dataset', () => {
@@ -51,6 +52,35 @@ describe('dataset detail view', () => {
 
     it('includes the component for previewing dataset', () => {
       expect(subject.find(DatasetPreview).props().datasetId).toEqual(batchDataset.id)
+    })
+  })
+
+  describe('DatasetView', () => {
+    let retrieveSpy, clearDatasetDetailsSpy
+
+    beforeEach(() => {
+      const notCsvDataset = {
+        id: '123',
+        name: 'COTA Streaming Busses',
+        description: '....',
+        sourceType: 'batch',
+        sourceFormat: 'json',
+        sourceUrl: 'http://example.com/sweet-data.json'
+      }
+      retrieveSpy = jest.fn()
+      clearDatasetDetailsSpy = jest.fn()
+      subject = shallow(
+        <DatasetView
+          dataset={notCsvDataset}
+          retrieveDatasetDetails={retrieveSpy}
+          clearDatasetDetails={clearDatasetDetailsSpy}
+          match={routingProps}
+        />
+      )
+    })
+
+    it('should not render preview when sourceFormat is not CSV', () => {
+      expect(subject.find(DatasetPreview)).toHaveLength(0)
     })
   })
 
