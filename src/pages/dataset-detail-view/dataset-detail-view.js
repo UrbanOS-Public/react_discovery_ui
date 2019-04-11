@@ -42,20 +42,21 @@ function renderAdditionalDetails (dataset) {
   if (dataset.sourceType === 'remote') {
     return (<DatasetRemoteInfo datasetSourceUrl={dataset.sourceUrl} />)
   }
+  const showPreview = dataset.sourceFormat && dataset.sourceFormat.toLowerCase() === 'csv'
   return (
     <span>
       <div>
         <ul className="table-of-contents">
-          <li><a href="#Preview">Preview</a></li>
+          {showPreview && <li><a href="#Preview">Preview</a></li>}
           <li><a href="#APIDocs">API Docs</a></li>
-          <li><a href="#AdditionalInforomation">Additional Information</a></li>
+          <li><a href="#AdditionalInformation">Additional Information</a></li>
         </ul>
       </div>
       <a name='Preview' />
-      <DatasetPreview datasetId={dataset.id} />
+      {showPreview && <DatasetPreview datasetId={dataset.id} />}
       <a name='APIDocs' />
       <DatasetApiDoc dataset={dataset} />
-      <a name="AdditionalInforomation"></a>
+      <a name="AdditionalInformation"></a>
       <DatasetMetadata dataset={dataset} />
     </span>
   )
