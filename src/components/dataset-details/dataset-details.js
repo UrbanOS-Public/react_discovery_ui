@@ -7,7 +7,7 @@ const DatasetDetails = props => {
 
   return (
     <dataset-details>
-      <div className='name'>{props.dataset.name}</div>
+      <div className='name'>{props.dataset.title}</div>
       <div className='description'>{props.dataset.description}</div>
       {!_.isEmpty(props.dataset.keywords) &&
         <div className='keywords'>

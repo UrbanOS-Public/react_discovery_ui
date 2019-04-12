@@ -11,7 +11,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  retrieveDatasetDetails: id => dispatch(retrieveDatasetDetails(id)),
+  retrieveDatasetDetails: (org_name, dataset_name) => dispatch(retrieveDatasetDetails(org_name, dataset_name)),
   clearDatasetDetails: () => dispatch(clearDatasetDetails())
 })
 

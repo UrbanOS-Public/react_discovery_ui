@@ -6,7 +6,9 @@ describe('data card element', () => {
   let subject
   const dataset = {
     id: 'c21e1562-c44b-4d65-b8ec-cac3dcbb133b',
+    name: 'someName',
     title: 'someTitle',
+    organization_name: 'org_name',
     description: 'somedescription',
     fileTypes: ['foo', 'bar'],
     modifiedTime: '2018-06-21'
@@ -20,6 +22,6 @@ describe('data card element', () => {
     expect(subject.find('.description').text()).toEqual(dataset.description)
     expect(subject.find('.file-type').length).toEqual(dataset.fileTypes.length)
     expect(subject.find('.last-modified').text()).toContain('Jun 21, 2018')
-    expect(subject.find(Link).props().to).toEqual(`/dataset/${dataset.id}`)
+    expect(subject.find(Link).props().to).toEqual(`/dataset/${dataset.organization_name}/${dataset.name}`)
   })
 })

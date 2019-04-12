@@ -29,8 +29,8 @@ export const displayError = () => ({
   type: DISPLAY_ERROR
 })
 
-export const retrieveDatasetDetails = id => ({
-  type: RETRIEVE_DATASET, value: id
+export const retrieveDatasetDetails = (org_name, dataset_name) => ({
+  type: RETRIEVE_DATASET, value: {organization_name: org_name, dataset_name: dataset_name}
 })
 
 export const datasetDetails = (data) => ({

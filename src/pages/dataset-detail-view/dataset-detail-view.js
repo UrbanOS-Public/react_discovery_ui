@@ -10,7 +10,7 @@ import DatasetApiDoc from '../../components/dataset-api-doc/dataset-api-doc'
 
 export default class extends Component {
   componentDidMount () {
-    this.props.retrieveDatasetDetails(this.props.match.params.id)
+      this.props.retrieveDatasetDetails(this.props.match.params.organization_name, this.props.match.params.dataset_name)
   }
 
   componentWillUnmount () {
