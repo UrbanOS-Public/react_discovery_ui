@@ -10,7 +10,7 @@ const DataCard = props => {
   const dataset = props.dataset
   return (
     <data-card>
-      <Link className='title' to={`/dataset/${dataset.id}`}>
+      <Link className='title' to={`/dataset/${dataset.organization_name}/${dataset.name}`}>
         {dataset.title}
       </Link>
       <div className='description'>{dataset.description}</div>

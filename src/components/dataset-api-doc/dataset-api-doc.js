@@ -13,7 +13,7 @@ const DatasetApiDoc = props => {
       </div>
       <div className='example-container'>
         <div className='example-header'>Example: Select all, limited to 200 records</div>
-        <div className='example-code'><code>GET: {`${window.API_HOST}/api/v1/dataset/${props.dataset.id}/query?limit=200&orderBy=id asc&where=id=3`}</code></div>
+        <div className='example-code'><code>GET: {`${window.API_HOST}/api/v1/organization/${props.dataset.organization.name}/dataset/${props.dataset.name}/query?limit=200`}</code></div>
         <div className='example-header'>Parameters</div>
         <div className='example-parameters'>
           <table className='parameter-table'>
