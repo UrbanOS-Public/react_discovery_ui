@@ -12,7 +12,7 @@ export default class extends Component {
     const { datasetPreview } = this.props
     if (!this.props.datasetPreview) { return <div /> }
 
-    const data = datasetPreview.data.slice(0, 50)
+    const data = this.cleanseData(datasetPreview.data.slice(0, 50))
     const columns = Object.keys(datasetPreview.data[0] || {}).map((column) => {
       return { Header: column, accessor: column, headerClassName: 'table-header' }
     })
@@ -39,5 +39,26 @@ export default class extends Component {
         </div>
       </div>
     )
+  }
+
+  cleanseData(data) {
+    return data.map(row => this.cleanseRow(row))
+  }
+
+  cleanseRow(row) {
+    const deconstructedObject = Object.entries(row)
+    const listOfKeyValues = deconstructedObject.map(field =>
+      ({[field[0]]: this.cleanseField(field[1])})
+    )
+    const reconstructedObject = Object.assign({}, ...listOfKeyValues)
+
+    return reconstructedObject
+  }
+
+  cleanseField(value) {
+    if (typeof value === "boolean") {
+      return value.toString()
+    }
+    return value
   }
 }
