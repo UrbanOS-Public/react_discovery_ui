@@ -22,7 +22,10 @@ describe('dataset preview', () => {
               firstName: 'Jane',
               lastName: 'Doe',
               enrolled: false
-            }]
+            }],
+            meta: {
+              columns: ['firstName', 'lastName', 'enrolled']
+            }
           }
         }
       />)
@@ -60,7 +63,8 @@ describe('dataset preview', () => {
         retrieveDatasetPreview={retrieveDatasetPreviewMock}
         datasetPreview={
           {
-            data: []
+            data: [],
+            meta: { columns: []}
           }
         }
       />)
