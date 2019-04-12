@@ -13,7 +13,7 @@ export default class extends Component {
     if (!this.props.datasetPreview) { return <div /> }
 
     const data = this.cleanseData(datasetPreview.data.slice(0, 50))
-    const columns = Object.keys(datasetPreview.data[0] || {}).map((column) => {
+    const columns = datasetPreview.meta.columns.map((column) => {
       return { Header: column, accessor: column, headerClassName: 'table-header' }
     })
 
