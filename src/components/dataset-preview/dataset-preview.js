@@ -41,22 +41,22 @@ export default class extends Component {
     )
   }
 
-  cleanseData(data) {
+  cleanseData (data) {
     return data.map(row => this.cleanseRow(row))
   }
 
-  cleanseRow(row) {
+  cleanseRow (row) {
     const deconstructedObject = Object.entries(row)
     const listOfKeyValues = deconstructedObject.map(field =>
-      ({[field[0]]: this.cleanseField(field[1])})
+      ({ [field[0]]: this.cleanseField(field[1]) })
     )
     const reconstructedObject = Object.assign({}, ...listOfKeyValues)
 
     return reconstructedObject
   }
 
-  cleanseField(value) {
-    if (typeof value === "boolean") {
+  cleanseField (value) {
+    if (typeof value === 'boolean') {
       return value.toString()
     }
     return value

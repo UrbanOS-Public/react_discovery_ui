@@ -30,7 +30,7 @@ export const displayError = () => ({
 })
 
 export const retrieveDatasetDetails = (org_name, dataset_name) => ({
-  type: RETRIEVE_DATASET, value: {organization_name: org_name, dataset_name: dataset_name}
+  type: RETRIEVE_DATASET, value: { organization_name: org_name, dataset_name: dataset_name }
 })
 
 export const datasetDetails = (data) => ({

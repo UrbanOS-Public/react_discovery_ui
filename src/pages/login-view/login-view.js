@@ -20,7 +20,7 @@ const LoginView = props => {
         <label htmlFor='password'>Password</label>
         <input id='password' className='password' type='password' tabIndex={2} value={password} onChange={(e) => setPassword(e.target.value)} />
         <div className='login-row'>
-          <a href="https://www.smartcolumbusos.com/reset-password">Forgot your password?</a>
+          <a href='https://www.smartcolumbusos.com/reset-password'>Forgot your password?</a>
         </div>
         <div className='submit' role='button' tabIndex={3} onClick={login} onKeyPress={spaceKeyLogin}>Login</div>
       </div>
