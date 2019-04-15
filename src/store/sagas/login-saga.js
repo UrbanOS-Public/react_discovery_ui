@@ -4,10 +4,10 @@ import axios from 'axios'
 
 function * login ({ value: { username, password, history } }) {
   try {
-    const encodedCredentials = Buffer.from(`${username}:${password}`).toString('base64')
     const response = yield call(axios.get, '/api/v1/login', {
       baseURL: window.API_HOST,
-      headers: { 'Authorization': `Basic ${encodedCredentials}` }
+      auth: { username, password },
+      withCredentials: true
     })
 
     if (response.status === 200) {

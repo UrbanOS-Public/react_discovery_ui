@@ -64,7 +64,7 @@ describe('dataset preview', () => {
         datasetPreview={
           {
             data: [],
-            meta: { columns: []}
+            meta: { columns: [] }
           }
         }
       />)

@@ -10,7 +10,7 @@ import DatasetApiDoc from '../../components/dataset-api-doc/dataset-api-doc'
 
 export default class extends Component {
   componentDidMount () {
-      this.props.retrieveDatasetDetails(this.props.match.params.organization_name, this.props.match.params.dataset_name)
+    this.props.retrieveDatasetDetails(this.props.match.params.organization_name, this.props.match.params.dataset_name)
   }
 
   componentWillUnmount () {
@@ -46,17 +46,17 @@ function renderAdditionalDetails (dataset) {
   return (
     <span>
       <div>
-        <ul className="table-of-contents">
-          {showPreview && <li><a href="#Preview">Preview</a></li>}
-          <li><a href="#APIDocs">API Docs</a></li>
-          <li><a href="#AdditionalInformation">Additional Information</a></li>
+        <ul className='table-of-contents'>
+          {showPreview && <li><a href='#Preview'>Preview</a></li>}
+          <li><a href='#APIDocs'>API Docs</a></li>
+          <li><a href='#AdditionalInformation'>Additional Information</a></li>
         </ul>
       </div>
       <a name='Preview' />
       {showPreview && <DatasetPreview datasetId={dataset.id} />}
       <a name='APIDocs' />
       <DatasetApiDoc dataset={dataset} />
-      <a name="AdditionalInformation"></a>
+      <a name='AdditionalInformation' />
       <DatasetMetadata dataset={dataset} />
     </span>
   )

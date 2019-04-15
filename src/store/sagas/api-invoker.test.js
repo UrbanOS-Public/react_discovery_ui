@@ -35,7 +35,8 @@ describe('api-invoker', () => {
     expect(mockAxios.get).toHaveBeenCalledWith('/gohome', {
       baseURL: window.API_HOST,
       params: {},
-      paramsSerializer: expect.anything()
+      paramsSerializer: expect.anything(),
+      withCredentials: true
     })
   })
 
@@ -48,7 +49,8 @@ describe('api-invoker', () => {
     expect(mockAxios.get).toHaveBeenCalledWith('my-url', {
       baseURL: window.API_HOST,
       params: mockQueryParam,
-      paramsSerializer: expect.anything()
+      paramsSerializer: expect.anything(),
+      withCredentials: true
     })
   })
 
@@ -95,30 +97,6 @@ describe('api-invoker', () => {
 
     expect(store.getState()).toContainEqual({
       type: DISPLAY_ERROR
-    })
-  })
-
-  it('invokes axios with authorization header when found in session storage', () => {
-    const token = 'my-super-sweet-token'
-    sessionStorage.getItem.mockImplementationOnce(() => token)
-    sagaMiddleware.run(apiInvoker('/gohome', actionator))
-
-    expect(mockAxios.get).toHaveBeenCalledWith('/gohome', {
-      baseURL: window.API_HOST,
-      params: {},
-      paramsSerializer: expect.anything(),
-      headers: { Authorization: `Bearer ${token}` }
-    })
-  })
-
-  it('invokes axios with no authorization header when token not found in session storage', () => {
-    sessionStorage.getItem.mockImplementationOnce(() => null)
-    sagaMiddleware.run(apiInvoker('/gohome', actionator))
-
-    expect(mockAxios.get).toHaveBeenCalledWith('/gohome', {
-      baseURL: window.API_HOST,
-      params: {},
-      paramsSerializer: expect.anything()
     })
   })
 })

@@ -47,11 +47,10 @@ describe('login-saga', () => {
     })
 
     it('calls login api with the correct credentials', () => {
-      const base64fun = Buffer.from(`${username}:${password}`).toString('base64')
-
       expect(mockAxios.get).toHaveBeenCalledWith('/api/v1/login', {
         baseURL: window.API_HOST,
-        headers: { 'Authorization': `Basic ${base64fun}` }
+        auth: { username, password },
+        withCredentials: true
       })
     })
 
