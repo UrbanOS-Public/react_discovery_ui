@@ -9,6 +9,9 @@ export const CLEAR_DATASET_DETAILS = 'CLEAR_DATASET_DETAILS'
 export const LOGIN = 'LOGIN'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+export const LOGOUT = 'LOGOUT'
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'
 
 export const retrieveDataList = (offset, limit, sort, query, facets) => ({
   type: RETRIEVE_DATA_LIST,
@@ -59,4 +62,16 @@ export const loginSuccess = (message) => ({
 
 export const loginFailure = (message) => ({
   type: LOGIN_FAILURE, value: message
+})
+
+export const logout = (credentials) => ({
+  type: LOGOUT, value: credentials
+})
+
+export const logoutSuccess = (message) => ({
+  type: LOGOUT_SUCCESS, value: message
+})
+
+export const logoutFailure = (message) => ({
+  type: LOGOUT_FAILURE, value: message
 })

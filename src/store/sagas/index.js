@@ -4,6 +4,7 @@ import datasetSaga from './dataset-saga'
 import datasetPreviewSaga from './dataset-preview-saga'
 import loginSaga from './login-saga'
 import processLoginSaga from './process-login-saga'
+import logoutSaga from './logout-saga'
 
 export default function * allSagas () {
   yield all([
@@ -11,6 +12,7 @@ export default function * allSagas () {
     fork(datasetSaga),
     fork(datasetPreviewSaga),
     fork(loginSaga),
-    fork(processLoginSaga)
+    fork(processLoginSaga),
+    fork(logoutSaga)
   ])
 }

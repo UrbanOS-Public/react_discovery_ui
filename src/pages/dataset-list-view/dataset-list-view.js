@@ -29,11 +29,12 @@ export default class extends Component {
   render () {
     const resultCountText = `${this.totalDatasets || 'No'} datasets found`
     const resultCountQueryText = this.searchParams ? ` for "${this.searchParams}"` : ''
+    const token = sessionStorage.getItem('api-token')
 
     return (
       <dataset-list-view ref={this.pageRef}>
         <div>
-          <LoginZone />
+          <LoginZone token={token} />
           <FacetList availableFacets={this.props.facets} appliedFacets={this.facets} clickHandler={(facetName, facetValue) => this.onFacetClick(facetName, facetValue)} />
         </div>
         <div className='right-section'>

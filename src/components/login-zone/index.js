@@ -1,3 +1,3 @@
-import LoginZone from './login-zone'
+import Connector from './connector'
 
-export default LoginZone
+export default Connector

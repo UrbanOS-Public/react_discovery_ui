@@ -17,7 +17,7 @@ const BasicExample = () => (
         <Route exact path='/' component={DataSetListView} />
         <Route exact path='/dataset/:organization_name/:dataset_name' component={DatasetView} />
         <Route exact path='/healthcheck' component={() => <div>Everything is fine</div>} />
-        <Route exact path='/login' component={LoginView} />
+        <Route exact path='/login' component={LoginView} /> :
         <Route component={noMatch} />
       </Switch>
     </Router>

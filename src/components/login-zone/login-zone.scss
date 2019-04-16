@@ -31,4 +31,24 @@ login-zone {
       text-decoration: underline;
     }
   }
+
+  button {
+    border:none;
+    cursor:pointer;
+    color: #00AEEF;
+    font-weight: bold;
+    font-size: 0.90rem;
+    line-height: 0.90rem;
+    text-align: left;
+    padding: 1px 0px 2px;
+  }
+  button:hover{
+    text-decoration:underline;
+    border:none;
+  }
+  button:focus{
+    text-decoration:underline;
+    border:none;
+    outline:none;
+  }
 }
