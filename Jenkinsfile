@@ -75,6 +75,10 @@ def deployUiTo(params = [:]) {
         def certificateARN = terraformOutputs.root_tls_certificate_arn.value
         def ingressScheme = internal ? 'internal' : 'internet-facing'
         def VERSION="${env.GIT_COMMIT_HASH}"
+        def dnsZone = "${environment}.internal.smartcolumbusos.com"
+        if("prod" == environment) {
+            dnsZone = "smartcolumbusos.com"
+        }
 
         sh("""#!/bin/bash
             set -xe
@@ -86,7 +90,7 @@ def deployUiTo(params = [:]) {
                 --set ingress.scheme="${ingressScheme}" \
                 --set ingress.subnets="${subnets}" \
                 --set ingress.security_groups="${allowInboundTrafficSG}" \
-                --set ingress.dns_zone="${environment}.internal.smartcolumbusos.com" \
+                --set ingress.dns_zone="${dnsZone}" \
                 --set ingress.certificate_arn="${certificateARN}" \
                 --set image.tag="${VERSION}" \
                 --set image.environment="${environment}"
