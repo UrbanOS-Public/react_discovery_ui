@@ -72,7 +72,7 @@ def deployUiTo(params = [:]) {
         def terraformOutputs = scos.terraformOutput(environment)
         def subnets = terraformOutputs.public_subnets.value.join(/\\,/)
         def allowInboundTrafficSG = terraformOutputs.allow_all_security_group.value
-        def certificateARN = terraformOutputs.tls_certificate_arn.value
+        def certificateARN = terraformOutputs.root_tls_certificate_arn.value
         def ingressScheme = internal ? 'internal' : 'internet-facing'
         def VERSION="${env.GIT_COMMIT_HASH}"
 
