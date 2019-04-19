@@ -72,13 +72,12 @@ def deployUiTo(params = [:]) {
         def terraformOutputs = scos.terraformOutput(environment)
         def subnets = terraformOutputs.public_subnets.value.join(/\\,/)
         def allowInboundTrafficSG = terraformOutputs.allow_all_security_group.value
-        def certificateARN = terraformOutputs.root_tls_certificate_arn.value
+        def certificateARNs = [terraformOutputs.root_tls_certificate_arn.value,terraformOutputs.tls_certificate_arn.value].join(/\\,/)
         def ingressScheme = internal ? 'internal' : 'internet-facing'
         def VERSION="${env.GIT_COMMIT_HASH}"
-        def dnsZone = "${environment}.internal.smartcolumbusos.com"
-        if("prod" == environment) {
-            dnsZone = "smartcolumbusos.com"
-        }
+        def dnsZone = terraformOutputs.internal_dns_zone_name.value
+        def rootDnsZone = terraformOutputs.root_dns_zone_name.value
+
 
         sh("""#!/bin/bash
             set -xe
@@ -91,7 +90,8 @@ def deployUiTo(params = [:]) {
                 --set ingress.subnets="${subnets}" \
                 --set ingress.security_groups="${allowInboundTrafficSG}" \
                 --set ingress.dns_zone="${dnsZone}" \
-                --set ingress.certificate_arn="${certificateARN}" \
+                --set ingress.root_dns_zone="${rootDnsZone}" \
+                --set ingress.certificate_arns="${certificateARNs}" \
                 --set image.tag="${VERSION}" \
                 --set image.environment="${environment}"
         """.trim())

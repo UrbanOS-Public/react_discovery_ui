@@ -8,7 +8,8 @@ ingress:
   subnets: ""
   security_groups: "" #Load balancer Security Group
   dns_zone: "localhost"
-  certificate_arn: ""
+  root_dns_zone: "localhost"
+  certificate_arns: ""
 
 image:
   name: 199837183662.dkr.ecr.us-east-2.amazonaws.com/scos/discovery-ui
