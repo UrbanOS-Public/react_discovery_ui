@@ -28,9 +28,9 @@ const presentationReducer = (state = { isLoading: false }, action) => {
     case RETRIEVE_DATASET:
       return Object.assign({}, state, { isLoading: true })
     case RETRIEVE_DATASET_PREVIEW:
-      return Object.assign({}, state, { isLoading: true })
+      return Object.assign({}, state, { previewLoading: true })
     case DATASET_PREVIEW:
-      return Object.assign({}, state, { dataset_preview: action.value, isLoading: false })
+      return Object.assign({}, state, { dataset_preview: action.value, previewLoading: false })
     case SELECT_DATA_LIST:
     case DATASET_DETAILS:
       return Object.assign({}, state, { isLoading: false })
