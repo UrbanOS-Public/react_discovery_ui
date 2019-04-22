@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 
 const DataCard = props => {
+  const max_description_length = 240;
   const fileTypes = fileTypes => {
     return fileTypes.map(fileType => (
       <span key={fileType} className="file-type">
@@ -21,8 +22,10 @@ const DataCard = props => {
         {dataset.title}
       </Link>
       <div className="description">
-        {dataset.description.substring(0, 240)}
-        {dataset.description.length > 240 && <span> ...</span>}
+        {dataset.description.substring(0, max_description_length)}
+        {dataset.description.length > max_description_length && (
+          <span> ...</span>
+        )}
       </div>
       <div className="card-metadata">
         <div className="last-modified">
