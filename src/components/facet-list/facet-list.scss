@@ -1,5 +1,5 @@
-@import '../../styles/variables.scss';
-@import '../../styles/mixins.scss';
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
 
 facet-list {
   display: flex;
@@ -36,8 +36,8 @@ facet-list {
     }
     .cool-check-mark {
       transform: rotate(45deg);
-      height: .75rem;
-      width: .35rem;
+      height: 0.75rem;
+      width: 0.35rem;
       border-bottom: 2px solid white;
       border-right: 2px solid white;
     }
@@ -45,5 +45,6 @@ facet-list {
   .facet-label {
     margin: 0 0.75rem;
     line-height: 1rem;
+    width: 80%;
   }
 }
