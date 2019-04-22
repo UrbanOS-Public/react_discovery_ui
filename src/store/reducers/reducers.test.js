@@ -36,26 +36,26 @@ describe('Dataset Reducer', () => {
 })
 
 describe('UI Reducer', () => {
-  it('RETRIEVE_DATASET_PREIVEW sets loading to true', () => {
+  it('RETRIEVE_DATASET_PREVIEW sets previewLoading to true', () => {
     let currentState = {
       presentation: {
-        isLoading: false
+        previewLoading: false
       }
     }
     let newState = reducer(currentState, { type: RETRIEVE_DATASET_PREVIEW })
 
-    expect(newState.presentation.isLoading).toEqual(true)
+    expect(newState.presentation.previewLoading).toEqual(true)
   })
 
-  it('DATASET_PREIVEW sets loading to false', () => {
+  it('DATASET_PREIVEW sets previewLoading to false', () => {
     let currentState = {
       presentation: {
-        isLoading: true
+        previewLoading: true
       }
     }
     let newState = reducer(currentState, { type: DATASET_PREVIEW })
 
-    expect(newState.presentation.isLoading).toEqual(false)
+    expect(newState.presentation.previewLoading).toEqual(false)
   })
 
   it('DATASET_PREIVEW sets dataset_preivew', () => {
