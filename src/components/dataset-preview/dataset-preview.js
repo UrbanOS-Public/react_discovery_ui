@@ -9,9 +9,7 @@ export default class extends Component {
   }
 
   render () {
-    const { datasetPreview } = this.props
-    if (!this.props.datasetPreview) { return <div /> }
-
+    const { datasetPreview = { data: [], meta: { columns: [] }} } = this.props
     const data = this.cleanseData(datasetPreview.data.slice(0, 50))
     const columns = datasetPreview.meta.columns.map((column) => {
       return { Header: column, accessor: column, headerClassName: 'table-header' }
@@ -30,6 +28,7 @@ export default class extends Component {
           <ReactTable
             data={data}
             columns={columns}
+            loading={this.props.previewLoading}
             defaultPageSize={50}
             style={{
               height: '400px'
