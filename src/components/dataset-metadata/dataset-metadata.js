@@ -102,6 +102,14 @@ export default class extends Component {
       {
         Field: "Category",
         Value: dataset.catagories
+      },
+      {
+        Field: "Count - Downloads",
+        Value: dataset.downloads
+      },
+      {
+        Field: "Count - API Queries",
+        Value: dataset.queries
       }
     ];
 
