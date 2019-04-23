@@ -1,73 +1,41 @@
-import { shallow } from 'enzyme'
 import FacetList from './facet-list'
+import { shallow } from 'enzyme'
 
-describe('facet list view', () => {
+describe('facet list', () => {
   let subject, mockClickHandler
 
-  let availableFacets = {
-    organization: [
-      { name: 'neat COTA', count: 1 },
-      { name: 'Apple', count: 1 },
-      { name: 'Massive Data', count: 5 },
-      { name: 'Interesting Things', count: 3 },
-      { name: 'Conduent', count: 2 }
-    ],
-    tags: [
-      { name: 'foo', count: 5 },
-      { name: 'dilbert', count: 10 },
-      { name: 'jimmy', count: 1 },
-      { name: 'bar', count: 2 },
-      { name: 'Zoo', count: 2 }
-    ]
-  }
+  let facets = [
+        { name: 'neat COTA', count: 1, selected: true },
+        { name: 'Apple', count: 1, selected: false  },
+        { name: 'Massive Data', count: 5, selected: false },
+        { name: 'Interesting Things', count: 3, selected: true },
+        { name: 'Conduent', count: 2, selected: false }
+      ]
 
   beforeEach(() => {
     mockClickHandler = jest.fn()
     subject = shallow(
       <FacetList
-        availableFacets={availableFacets}
-        appliedFacets={{}}
+        facets={facets}
         clickHandler={mockClickHandler}
+        title='Organization'
       />
     )
   })
 
-  it('calls its click handler when a facet is clicked on', () => {
-    subject.find('.section .facet').first().simulate('click')
-    expect(mockClickHandler).toBeCalledWith('organization', 'Massive Data')
+  it('renders the given facets', () => {
+    expect(subject.find('.facet')).toHaveLength(5)
   })
 
-  it('has a selected class if youve clicked on it', () => {
-    expect(subject.find('.neat-COTA').hasClass('selected')).toEqual(false)
-
-    subject.setProps({
-      appliedFacets: {
-        organization: ['neat COTA', 'Conduent']
-      }
-    })
-
-    expect(subject.find('.neat-COTA').hasClass('selected')).toEqual(true)
+  it('should call the click handler when a facet is clicked', () => {
+    subject.find('.facet').first().simulate('click')
+    expect(mockClickHandler).toBeCalledWith('Massive Data')
   })
 
-  it('doesnt freak out if applied facets is empty', () => {
-    expect(subject.find('.neat-COTA').hasClass('selected')).toEqual(false)
+  it('sorts the facets in descending order by count and name', () => {
+    const facets = subject.find('.facet').map(item => item.text())
 
-    subject.setProps({
-      appliedFacets: undefined
-    })
-
-    expect(subject.find('.section-header').length).toEqual(2)
-  })
-
-  it('pleasantly pluralizes', () => {
-    expect(subject.find('.section-header').at(0).text()).toEqual('organizations')
-    expect(subject.find('.section-header').at(1).text()).toEqual('tags')
-  })
-
-  it('sorts the organizations in descending order by count and name', () => {
-    const organizationFacets = subject.find('.organization').find('.facet').map(item => item.text())
-
-    expect(organizationFacets).toEqual([
+    expect(facets).toEqual([
       'Massive Data (5)',
       'Interesting Things (3)',
       'Conduent (2)',
@@ -76,15 +44,11 @@ describe('facet list view', () => {
     ])
   })
 
-  it('sorts the tags in descending order by count and name', () => {
-    const tagFacets = subject.find('.tags').find('.facet').map(item => item.text())
+  it('gives facets the selected class if the facet is selected', () => {
+    expect(subject.find('.selected')).toHaveLength(2)
+  })
 
-    expect(tagFacets).toEqual([
-      'dilbert (10)',
-      'foo (5)',
-      'bar (2)',
-      'Zoo (2)',
-      'jimmy (1)'
-    ])
+  it('renders the title of the facets', () => {
+    expect(subject.find('.section-header').text()).toEqual('Organizations')
   })
 })

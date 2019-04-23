@@ -1,0 +1,7 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.facet-sidebar {
+  display: flex;
+  flex-direction: column-reverse;
+}

@@ -1,9 +1,9 @@
 @import "../../styles/variables.scss";
 @import "../../styles/mixins.scss";
 
-facet-list {
+.facet-list {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 
   .section-header {
     @include header-small();
