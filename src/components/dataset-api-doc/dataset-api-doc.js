@@ -1,9 +1,15 @@
 import "./dataset-api-doc.scss";
 
 const DatasetApiDoc = props => {
-  if (!props.dataset) {
+  const dataset = props.dataset;
+
+  if (!dataset) {
     return <div />;
   }
+
+  const formats = {
+    gtfs: "json"
+  };
 
   return (
     <dataset-api-doc>
@@ -23,9 +29,7 @@ const DatasetApiDoc = props => {
         <div className="example-code">
           <code>
             GET:{" "}
-            {`${window.API_HOST}/api/v1/organization/${
-              props.dataset.organization.name
-            }/dataset/${props.dataset.name}/query?limit=200`}
+            {`${window.API_HOST}/api/v1/organization/${dataset.organization.name}/dataset/${dataset.name}/query?limit=200&_format=${formats[dataset.sourceFormat] || dataset.sourceFormat}`}
           </code>
         </div>
         <div className="example-header">Parameters</div>
@@ -88,6 +92,11 @@ const apiParams = [
     description:
       "A column (or space-separated list of columns) to group the results by.",
     example: "column1='a value'"
+  },
+  {
+    name: "_format",
+    description: "The format of data returned by a query. Optional. Defaults to CSV.",
+    example: "json"
   }
 ];
 
