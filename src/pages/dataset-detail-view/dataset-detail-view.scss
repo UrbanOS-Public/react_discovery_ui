@@ -15,7 +15,7 @@ dataset-view {
     margin-bottom: 0.75rem
   }
 
-  .name, .data-and-resources-header {
+  .name {
     @include header();
     margin-bottom: 0.5rem;
   }

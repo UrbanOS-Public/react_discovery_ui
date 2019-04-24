@@ -1,29 +1,42 @@
 import "./dataset-details.scss";
 import { QueryStringBuilder } from "../../utils";
 import _ from "lodash";
+import DownloadButton from '../generic-elements/download-button'
 
-const DatasetDetails = props => {
-  if (!props.dataset) {
+const DatasetDetails = ({dataset}) => {
+  if (!dataset) {
     return <div />;
   }
 
   return (
     <dataset-details>
-      <div className="name">{props.dataset.title}</div>
+      <div className="header">
+        <div className="name">{dataset.title}</div>
+        {renderDownloadButton(dataset)}
+      </div>
       <div
         className="description"
-        dangerouslySetInnerHTML={{ __html: props.dataset.description }}
+        dangerouslySetInnerHTML={{ __html: dataset.description }}
       />
-
-      {!_.isEmpty(props.dataset.keywords) && (
+      {!_.isEmpty(dataset.keywords) && (
         <div className="keywords">
           <div className="keyword-label">KEYWORDS</div>
-          {props.dataset.keywords.map(createKeyword)}
+          {dataset.keywords.map(createKeyword)}
         </div>
       )}
     </dataset-details>
   );
 };
+
+function renderDownloadButton(dataset) {
+  const formats = {
+    gtfs: "json"
+  }
+  let sourceFormat = formats[dataset.sourceFormat] || dataset.sourceFormat
+  let nonRemoteUrl = `${window.API_HOST}/api/v1/dataset/${dataset.id}/download?_format=${sourceFormat}`
+  let url = dataset.sourceType === 'remote' ? dataset.sourceUrl : nonRemoteUrl
+  return <DownloadButton url={url} />
+}
 
 const createKeyword = name => (
   <a

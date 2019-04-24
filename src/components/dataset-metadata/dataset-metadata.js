@@ -97,7 +97,11 @@ export default class extends Component {
       },
       {
         Field: "License",
-        Value: dataset.license
+        Value: (
+          <a href={dataset.license} target="_blank">
+            {dataset.license}
+          </a>
+        )
       },
       {
         Field: "Category",
@@ -128,9 +132,6 @@ export default class extends Component {
         <div className="header-container">
           <div className="header-text-items">
             <div className="metadata-header">Additional Information</div>
-            <a href={`${window.API_HOST}/api/v1/dataset/${dataset.id}/`}>
-              View full metadata JSON
-            </a>
           </div>
         </div>
         <div id="dataset-metadata-table">

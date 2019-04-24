@@ -1,0 +1,15 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+
+  .download-button {
+    @include button();
+    display: inline-block;
+    padding: 1.0rem;
+    width: auto;
+    background-color: $light-blue;
+    color: $super-light-grey;
+    letter-spacing: 0.05rem;
+    margin: 1rem;
+    align-self: flex-end;
+    float: right;
+  }

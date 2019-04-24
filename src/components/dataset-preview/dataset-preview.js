@@ -22,7 +22,6 @@ export default class extends Component {
             <div className='preview-header'>Dataset Sample</div>
             <div>This only shows the first 50 rows, to view the entire dataset please download</div>
           </div>
-          <a className='download-dataset' href={`${window.API_HOST}/api/v1/dataset/${this.props.datasetId}/download`}>Download Dataset</a>
         </div>
         <div id='dataset-preview-table'>
           <ReactTable

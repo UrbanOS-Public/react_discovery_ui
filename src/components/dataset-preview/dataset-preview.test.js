@@ -49,10 +49,6 @@ describe('dataset preview', () => {
       expect(subject.find(tableElementSelector).get(4).children[0].data).toEqual('Doe')
       expect(subject.find(tableElementSelector).get(5).children[0].data).toEqual('false')
     })
-
-    test('download dataset button triggers a download', () => {
-      expect(subject.find('.download-dataset').prop('href')).toMatch('/api/v1/dataset/12345/download')
-    })
   })
 
   describe('mounting', () => {

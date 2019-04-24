@@ -2,7 +2,6 @@ import { shallow } from 'enzyme'
 import DatasetView from './dataset-detail-view'
 import DatasetDetails from '../../components/dataset-details'
 import DatasetPreview from '../../components/dataset-preview'
-import DatasetRemoteInfo from '../../components/dataset-remote-info'
 
 describe('dataset detail view', () => {
   let subject
@@ -44,10 +43,6 @@ describe('dataset detail view', () => {
       subject.unmount()
 
       expect(clearDatasetDetailsSpy).toHaveBeenCalled()
-    })
-
-    it('does not include component for displaying remote data info', () => {
-      expect(subject.find(DatasetRemoteInfo)).toHaveLength(0)
     })
 
     it('includes the component for previewing dataset', () => {
@@ -102,9 +97,6 @@ describe('dataset detail view', () => {
       expect(subject.find(DatasetPreview).props().datasetId).toEqual(streamingDataset.id)
     })
 
-    it('does not include component for displaying remote data info', () => {
-      expect(subject.find(DatasetRemoteInfo)).toHaveLength(0)
-    })
   })
 
   describe('remote dataset', () => {
@@ -119,10 +111,6 @@ describe('dataset detail view', () => {
           match={routingProps}
         />
       )
-    })
-
-    it('includes the component for displaying remote dataset information', () => {
-      expect(subject.find(DatasetRemoteInfo).props().datasetSourceUrl).toEqual(remoteDataset.sourceUrl)
     })
 
     it('does not include component for displaying data preview', () => {

@@ -2,7 +2,6 @@ import { Component } from 'react'
 import DatasetDetails from '../../components/dataset-details'
 import DatasetPreview from '../../components/dataset-preview'
 import DatasetMetadata from '../../components/dataset-metadata'
-import DatasetRemoteInfo from '../../components/dataset-remote-info'
 import Organization from '../../components/organization'
 import Share from '../../components/share'
 import './dataset-detail-view.scss'
@@ -18,8 +17,10 @@ export default class extends Component {
   }
 
   render () {
-    const { dataset } = this.props
+    const dataset = this.props.dataset
     if (!dataset) { return <div /> }
+    const showPreview = dataset.sourceFormat && dataset.sourceFormat.toLowerCase() === 'csv'
+    const isRemote = dataset.sourceType === 'remote'
 
     return (
       <dataset-view>
@@ -27,37 +28,14 @@ export default class extends Component {
           <Organization organization={dataset.organization} />
           <Share />
         </div>
-
         <div className='dataset-details'>
           <DatasetDetails dataset={dataset} />
-          <div className='data-and-resources-header'>Data & Resources</div>
-          {renderAdditionalDetails(dataset)}
+            {showPreview && !isRemote && <DatasetPreview datasetId={dataset.id} />}
+            {!isRemote && <DatasetApiDoc dataset={dataset} />}
+          <a name='AdditionalInformation' />
+          <DatasetMetadata dataset={dataset} />
         </div>
       </dataset-view>
     )
   }
-}
-
-function renderAdditionalDetails (dataset) {
-  if (dataset.sourceType === 'remote') {
-    return (<DatasetRemoteInfo datasetSourceUrl={dataset.sourceUrl} />)
-  }
-  const showPreview = dataset.sourceFormat && dataset.sourceFormat.toLowerCase() === 'csv'
-  return (
-    <span>
-      <div>
-        <ul className='table-of-contents'>
-          {showPreview && <li><a href='#Preview'>Preview</a></li>}
-          <li><a href='#APIDocs'>API Docs</a></li>
-          <li><a href='#AdditionalInformation'>Additional Information</a></li>
-        </ul>
-      </div>
-      <a name='Preview' />
-      {showPreview && <DatasetPreview datasetId={dataset.id} />}
-      <a name='APIDocs' />
-      <DatasetApiDoc dataset={dataset} />
-      <a name='AdditionalInformation' />
-      <DatasetMetadata dataset={dataset} />
-    </span>
-  )
 }
