@@ -39,8 +39,8 @@ describe('facet sidebar', () => {
     )
   })
 
-  it('has two facet lists when given two types of facets', () => {
-    expect(subject.children()).toHaveLength(2)
+  it('has two facet lists and dialog when given two types of facets', () => {
+    expect(subject.children()).toHaveLength(3)
   })
 
   it('sets the selected facets based on the applied facets', () => {
@@ -60,7 +60,34 @@ describe('facet sidebar', () => {
       { name: 'Conduent', count: 2, selected: true }
     ]
 
-    expect(subject.children().last().prop('facets')).toEqual(expectedSelectedTags)
-    expect(subject.children().first().prop('facets')).toEqual(expectedSelectedOrgs)
+    expect(subject.childAt(0).prop('facets')).toEqual(expectedSelectedOrgs)
+    expect(subject.childAt(1).prop('facets')).toEqual(expectedSelectedTags)
+  })
+
+  it('sets the dialog state variables when showMoreHandler is called', () => {
+    const facets = [
+      { name: 'foo', count: 5, selected: true },
+      { name: 'dilbert', count: 10, selected: true },
+      { name: 'jimmy', count: 1, selected: false }
+    ]
+
+    subject.childAt(0).prop('showMoreHandler')('title', facets)
+    expect(subject.state('showDialog')).toBeTruthy()
+    expect(subject.state('dialogFacets')).toEqual(facets)
+    expect(subject.state('dialogTitle')).toEqual('title')
+  })
+
+  it('sets show dialog to false when the clickHander is invoked', () => {
+    subject.childAt(0).prop('clickHandler')('name')
+
+    expect(subject.state('showDialog')).toEqual(false)
+    expect(mockClickHandler).toBeCalledWith('organization', 'name')
+  })
+
+  it('sets showDialog to false when dialog is closed', () => {
+    subject.setState({showDialog: true})
+    subject.childAt(2).prop('onClose')()
+
+    expect(subject.state('showDialog')).toEqual(false)
   })
 })

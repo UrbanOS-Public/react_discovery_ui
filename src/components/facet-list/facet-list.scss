@@ -42,9 +42,14 @@
       border-right: 2px solid white;
     }
   }
+
   .facet-label {
     margin: 0 0.75rem;
     line-height: 1rem;
     width: 80%;
+  }
+
+  .show-more {
+    cursor: pointer;
   }
 }

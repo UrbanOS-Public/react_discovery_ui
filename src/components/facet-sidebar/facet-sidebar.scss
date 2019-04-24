@@ -3,5 +3,10 @@
 
 .facet-sidebar {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
+
+}
+
+.dialog-content {
+  padding: 2rem;
 }

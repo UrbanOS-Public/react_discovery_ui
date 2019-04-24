@@ -10,6 +10,8 @@ const FacetList = props => {
     }
   }
 
+  const showMore = props.facets.length > props.limit
+
   return (
     <div className='section facet-list'>
       <div className='section-header'>
@@ -17,7 +19,8 @@ const FacetList = props => {
       </div>
       {
         _.chain(props.facets)
-          .orderBy(['count', facet => facet.name.toLowerCase()], ['desc', 'asc'])
+          .orderBy(['selected', 'count', facet => facet.name.toLowerCase()], ['desc', 'desc', 'asc'])
+          .slice(0, props.limit)
           .map(({name, count, selected}) => (
             <div className='facet ' role='button' tabIndex='0' key={name}
               onClick={() => props.clickHandler(name)}
@@ -32,6 +35,7 @@ const FacetList = props => {
           ))
           .value()
       }
+      {showMore && <a className="show-more" onClick={() => props.showMoreHandler(props.title, props.facets)}>Show more</a>}
     </div>
   )
 }
