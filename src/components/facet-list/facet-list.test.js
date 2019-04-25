@@ -1,90 +1,81 @@
-import { shallow } from 'enzyme'
 import FacetList from './facet-list'
+import { shallow } from 'enzyme'
 
-describe('facet list view', () => {
-  let subject, mockClickHandler
+describe('facet list', () => {
+  let subject, mockClickHandler, mockShowMoreHandler
 
-  let availableFacets = {
-    organization: [
-      { name: 'neat COTA', count: 1 },
-      { name: 'Apple', count: 1 },
-      { name: 'Massive Data', count: 5 },
-      { name: 'Interesting Things', count: 3 },
-      { name: 'Conduent', count: 2 }
-    ],
-    tags: [
-      { name: 'foo', count: 5 },
-      { name: 'dilbert', count: 10 },
-      { name: 'jimmy', count: 1 },
-      { name: 'bar', count: 2 },
-      { name: 'Zoo', count: 2 }
-    ]
-  }
+  let facets = [
+        { name: 'neat COTA', count: 1, selected: true },
+        { name: 'Apple', count: 1, selected: false  },
+        { name: 'Massive Data', count: 5, selected: false },
+        { name: 'Interesting Things', count: 3, selected: true },
+        { name: 'Conduent', count: 2, selected: false },
+        { name: 'Weyland-Yutani', count: 1, selected: false }
+      ]
 
   beforeEach(() => {
     mockClickHandler = jest.fn()
+    mockShowMoreHandler = jest.fn()
     subject = shallow(
       <FacetList
-        availableFacets={availableFacets}
-        appliedFacets={{}}
+        facets={facets}
         clickHandler={mockClickHandler}
+        title='Organization'
+        limit={5}
+        showMoreHandler={mockShowMoreHandler}
       />
     )
   })
 
-  it('calls its click handler when a facet is clicked on', () => {
-    subject.find('.section .facet').first().simulate('click')
-    expect(mockClickHandler).toBeCalledWith('organization', 'Massive Data')
+  it('renders the given facets', () => {
+    expect(subject.find('.facet')).toHaveLength(5)
   })
 
-  it('has a selected class if youve clicked on it', () => {
-    expect(subject.find('.neat-COTA').hasClass('selected')).toEqual(false)
-
-    subject.setProps({
-      appliedFacets: {
-        organization: ['neat COTA', 'Conduent']
-      }
-    })
-
-    expect(subject.find('.neat-COTA').hasClass('selected')).toEqual(true)
+  it('should call the click handler when a facet is clicked', () => {
+    subject.find('.facet').first().simulate('click')
+    expect(mockClickHandler).toBeCalledWith('Interesting Things')
   })
 
-  it('doesnt freak out if applied facets is empty', () => {
-    expect(subject.find('.neat-COTA').hasClass('selected')).toEqual(false)
+  it('sorts the facets in descending order by selected, count and name and limits the number displayed', () => {
+    const facets = subject.find('.facet').map(item => item.text())
 
-    subject.setProps({
-      appliedFacets: undefined
-    })
-
-    expect(subject.find('.section-header').length).toEqual(2)
-  })
-
-  it('pleasantly pluralizes', () => {
-    expect(subject.find('.section-header').at(0).text()).toEqual('organizations')
-    expect(subject.find('.section-header').at(1).text()).toEqual('tags')
-  })
-
-  it('sorts the organizations in descending order by count and name', () => {
-    const organizationFacets = subject.find('.organization').find('.facet').map(item => item.text())
-
-    expect(organizationFacets).toEqual([
-      'Massive Data (5)',
+    expect(facets).toEqual([
       'Interesting Things (3)',
+      'neat COTA (1)',
+      'Massive Data (5)',
       'Conduent (2)',
-      'Apple (1)',
-      'neat COTA (1)'
+      'Apple (1)'
     ])
   })
 
-  it('sorts the tags in descending order by count and name', () => {
-    const tagFacets = subject.find('.tags').find('.facet').map(item => item.text())
+  it('gives facets the selected class if the facet is selected', () => {
+    expect(subject.find('.selected')).toHaveLength(2)
+  })
 
-    expect(tagFacets).toEqual([
-      'dilbert (10)',
-      'foo (5)',
-      'bar (2)',
-      'Zoo (2)',
-      'jimmy (1)'
-    ])
+  it('renders the title of the facets', () => {
+    expect(subject.find('.section-header').text()).toEqual('Organizations')
+  })
+
+  it('show more button appears when there are more facets than limit', () => {
+    expect(subject.find('.show-more')).toHaveLength(1)
+  })
+
+  it('show more button does not appear when there are fewer facets than limit', () => {
+    subject = shallow(
+      <FacetList
+        facets={facets}
+        clickHandler={mockClickHandler}
+        title='Organization'
+        limit={6}
+        showMoreHandler={mockShowMoreHandler}
+      />)
+
+    expect(subject.find('.show-more')).toHaveLength(0)
+  })
+
+  it('should call the showMoreHandler when the show more button is clicked', () => {
+    subject.find('.show-more').simulate('click')
+
+    expect(mockShowMoreHandler).toHaveBeenCalledWith('Organization', facets)
   })
 })
