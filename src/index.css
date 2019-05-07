@@ -15,6 +15,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.wrapped-text {
+  word-wrap: break-word;
+}
+
 #root {
   height: 100%;
   width: 100%;

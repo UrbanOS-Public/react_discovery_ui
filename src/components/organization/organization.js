@@ -7,7 +7,7 @@ export default ({ organization }) => (
     <a href={`/?${QueryStringBuilder.createFilterQueryString('organization', organization.title)}`}>
       <img className='logo' src={organization.image} />
     </a>
-    <div className='name'>{organization.title}</div>
-    <div className='description'>{organization.description}</div>
+    <div className='name wrapped-text'>{organization.title}</div>
+    <div className='description wrapped-text'>{organization.description}</div>
   </dataset-organization>
 )

@@ -21,14 +21,14 @@ const FacetList = props => {
         _.chain(props.facets)
           .orderBy(['selected', 'count', facet => facet.name.toLowerCase()], ['desc', 'desc', 'asc'])
           .slice(0, props.limit)
-          .map(({name, count, selected}) => (
+          .map(({ name, count, selected }) => (
             <div className='facet ' role='button' tabIndex='0' key={name}
               onClick={() => props.clickHandler(name)}
               onKeyDown={(e) => { keyHandler(e, name) }}>
               <span className={`facet-indicator ${selected ? 'selected' : ''}`}>
                 {selected && <div className='cool-check-mark' />}
               </span>
-              <span className='facet-label'>
+              <span className='facet-label wrapped-text'>
                 {name || 'Unorganized'} ({count})
               </span>
             </div>

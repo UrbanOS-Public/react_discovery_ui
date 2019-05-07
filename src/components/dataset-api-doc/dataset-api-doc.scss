@@ -27,7 +27,8 @@ dataset-api-doc {
     border: $medium-grey solid 1px;
     background-color: $super-light-grey;
     padding: 10px;
-    overflow-wrap: break-word
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
 
   .example-header {

@@ -35,11 +35,11 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        use: [ { loader: 'svg-inline-loader' } ]
+        use: [{ loader: 'svg-inline-loader' }]
       },
       {
         test: /\.(css|scss)$/,
-        use: [
+        use: [ 
           'style-loader',
           { loader: MiniCssExtractPlugin.loader },
           'css-loader',
