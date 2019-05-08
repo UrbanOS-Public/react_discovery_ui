@@ -1,21 +1,21 @@
-import FacetList from '../facet-list';
+import FacetList from '../facet-list'
 import _ from 'lodash'
 import './facet-sidebar.scss'
 import { Component } from 'react'
-import { Dialog} from '@material-ui/core'
+import { Dialog } from '@material-ui/core'
 
 export default class extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
       dialogFacets: [],
-      dialogTitle: "",
+      dialogTitle: '',
       showDialog: false
     }
   }
 
-  render() {
+  render () {
     return (
       <div className='facet-sidebar'>
         {_.map(this.props.availableFacets, (rawFacets, title) => {
@@ -33,7 +33,7 @@ export default class extends Component {
             key={title}
           />
         })}
-        <Dialog open={this.state.showDialog} onClose={() => {this.setState({showDialog: false})}} >
+        <Dialog open={this.state.showDialog} onClose={() => { this.setState({ showDialog: false }) }} >
           <div className='dialog-content'>
             <FacetList
               facets={this.state.dialogFacets}
@@ -46,7 +46,7 @@ export default class extends Component {
     )
   }
 
-  showMoreHandler(title, facets) {
+  showMoreHandler (title, facets) {
     this.setState({
       dialogTitle: title,
       dialogFacets: facets,
@@ -54,7 +54,7 @@ export default class extends Component {
     })
   }
 
-  clickHandler(title, name) {
+  clickHandler (title, name) {
     this.props.clickHandler(title, name)
     this.setState({
       showDialog: false

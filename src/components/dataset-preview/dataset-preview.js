@@ -9,7 +9,7 @@ export default class extends Component {
   }
 
   render () {
-    const { datasetPreview = { data: [], meta: { columns: [] }} } = this.props
+    const { datasetPreview = { data: [], meta: { columns: [] } } } = this.props
     const data = this.cleanseData(datasetPreview.data.slice(0, 50))
     const columns = datasetPreview.meta.columns.map((column) => {
       return { Header: column, accessor: column, headerClassName: 'table-header' }

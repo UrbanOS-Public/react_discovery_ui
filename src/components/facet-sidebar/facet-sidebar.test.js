@@ -85,7 +85,7 @@ describe('facet sidebar', () => {
   })
 
   it('sets showDialog to false when dialog is closed', () => {
-    subject.setState({showDialog: true})
+    subject.setState({ showDialog: true })
     subject.childAt(2).prop('onClose')()
 
     expect(subject.state('showDialog')).toEqual(false)
