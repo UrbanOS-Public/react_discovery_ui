@@ -10,12 +10,14 @@ login-zone {
     margin: 0.5rem 0;
   }
 
-  a {
-    @include link();
-    color: $light-blue;
+  a, button {
+    @include sub-link();
     font-weight: bold;
-    font-size: 0.90rem;
-    line-height: 0.90rem;
+
+    &:hover .login-arrow {
+      text-decoration: underline;
+      fill: $almost-black;
+    }
   }
 
   h3 {
@@ -27,9 +29,7 @@ login-zone {
     height: 0.6rem;
     margin-left: 0.5rem;
     line-height: 0.90rem;
-    &:hover {
-      text-decoration: underline;
-    }
+    fill: $light-blue;
   }
 
   button {
@@ -37,8 +37,6 @@ login-zone {
     cursor:pointer;
     color: #00AEEF;
     font-weight: bold;
-    font-size: 0.90rem;
-    line-height: 0.90rem;
     text-align: left;
     padding: 1px 0px 2px;
   }

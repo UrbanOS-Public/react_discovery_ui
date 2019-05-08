@@ -46,8 +46,10 @@ export default class extends Component {
         Value: dataset.publishFrequency
       },
       {
-        Field: "Data Standard",
-        Value: dataset.conformsToUri
+        Field: 'Data Standard',
+        Value: (<a href={dataset.conformsToUri} target='_blank'>
+          {dataset.conformsToUri}
+        </a>)
       },
       {
         Field: "Data Dictionary URL",
@@ -114,6 +116,9 @@ export default class extends Component {
       {
         Field: "Count - API Queries",
         Value: dataset.queries
+      {
+        Field: 'Access Level',
+        Value: dataset.accessLevel
       }
     ];
 

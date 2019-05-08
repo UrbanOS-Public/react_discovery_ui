@@ -34,7 +34,7 @@ const LoginZone = props => {
         </Link>
         : <button
           onClick={logout}>
-        LOGOUT
+        LOG OUT
           <InlineSVG
             className='login-arrow'
             svg={arrow}

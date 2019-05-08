@@ -25,5 +25,8 @@
       font-weight: 800;
     }
   }
-  
+
+  a {
+    @include sub-link();
+  }
 }
