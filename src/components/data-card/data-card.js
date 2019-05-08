@@ -27,7 +27,11 @@ const DataCard = props => {
         {dataset.title}
       </Link>
       <div className="description">
-        <SanitizedHTML html={truncatedDescription} />
+        <SanitizedHTML
+          allowedTags={[]}
+          allowedAttributes={{}}
+          html={truncatedDescription}
+        />
       </div>
       <div className="card-metadata">
         <div className="last-modified">
