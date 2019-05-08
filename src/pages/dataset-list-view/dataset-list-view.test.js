@@ -3,7 +3,7 @@ import DatasetListView from './dataset-list-view'
 import Paginator from '../../components/generic-elements/paginator'
 import Select from '../../components/generic-elements/select'
 import Search from '../../components/generic-elements/search'
-import FacetSidebar from '../../components/facet-sidebar';
+import FacetSidebar from '../../components/facet-sidebar'
 
 describe('dataset list view', () => {
   let expectedDatasetList, retrieveSpy, navigationSpy, subject

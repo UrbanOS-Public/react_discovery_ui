@@ -28,6 +28,16 @@
     }
 }
 
+@mixin sub-link() {
+    color: $light-blue;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+        color: $almost-black;
+    }
+}
+
 @mixin button($background-color: $light-blue) {
     background-color: $background-color;
     text-decoration: none;

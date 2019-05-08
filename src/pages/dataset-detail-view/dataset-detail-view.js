@@ -30,8 +30,8 @@ export default class extends Component {
         </div>
         <div className='dataset-details'>
           <DatasetDetails dataset={dataset} />
-            {showPreview && !isRemote && <DatasetPreview datasetId={dataset.id} />}
-            {!isRemote && <DatasetApiDoc dataset={dataset} />}
+          {showPreview && !isRemote && <DatasetPreview datasetId={dataset.id} />}
+          {!isRemote && <DatasetApiDoc dataset={dataset} />}
           <a name='AdditionalInformation' />
           <DatasetMetadata dataset={dataset} />
         </div>

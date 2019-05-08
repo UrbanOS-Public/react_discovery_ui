@@ -1,36 +1,36 @@
-import "./dataset-details.scss";
-import { QueryStringBuilder } from "../../utils";
-import _ from "lodash";
+import './dataset-details.scss'
+import { QueryStringBuilder } from '../../utils'
+import _ from 'lodash'
 import DownloadButton from '../generic-elements/download-button'
 
-const DatasetDetails = ({dataset}) => {
+const DatasetDetails = ({ dataset }) => {
   if (!dataset) {
-    return <div />;
+    return <div />
   }
 
   return (
     <dataset-details>
-      <div className="header">
-        <div className="name">{dataset.title}</div>
+      <div className='header'>
+        <div className='name'>{dataset.title}</div>
         {renderDownloadButton(dataset)}
       </div>
       <div
-        className="description"
+        className='description'
         dangerouslySetInnerHTML={{ __html: dataset.description }}
       />
       {!_.isEmpty(dataset.keywords) && (
-        <div className="keywords">
-          <div className="keyword-label">KEYWORDS</div>
+        <div className='keywords'>
+          <div className='keyword-label'>KEYWORDS</div>
           {dataset.keywords.map(createKeyword)}
         </div>
       )}
     </dataset-details>
-  );
-};
+  )
+}
 
-function renderDownloadButton(dataset) {
+function renderDownloadButton (dataset) {
   const formats = {
-    gtfs: "json"
+    gtfs: 'json'
   }
   let sourceFormat = formats[dataset.sourceFormat] || dataset.sourceFormat
   let nonRemoteUrl = `${window.API_HOST}/api/v1/dataset/${dataset.id}/download?_format=${sourceFormat}`
@@ -41,11 +41,11 @@ function renderDownloadButton(dataset) {
 const createKeyword = name => (
   <a
     key={`dataset-keyword-${name}`}
-    className="keyword"
-    href={`/?${QueryStringBuilder.createFilterQueryString("keywords", name)}`}
+    className='keyword'
+    href={`/?${QueryStringBuilder.createFilterQueryString('keywords', name)}`}
   >
     {name}
   </a>
-);
+)
 
-export default DatasetDetails;
+export default DatasetDetails
