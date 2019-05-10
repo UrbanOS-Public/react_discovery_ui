@@ -5,13 +5,13 @@ describe('facet list', () => {
   let subject, mockClickHandler, mockShowMoreHandler
 
   let facets = [
-        { name: 'neat COTA', count: 1, selected: true },
-        { name: 'Apple', count: 1, selected: false  },
-        { name: 'Massive Data', count: 5, selected: false },
-        { name: 'Interesting Things', count: 3, selected: true },
-        { name: 'Conduent', count: 2, selected: false },
-        { name: 'Weyland-Yutani', count: 1, selected: false }
-      ]
+    { name: 'neat COTA', count: 1, selected: true },
+    { name: 'Apple', count: 1, selected: false },
+    { name: 'Massive Data', count: 5, selected: false },
+    { name: 'Interesting Things', count: 3, selected: true },
+    { name: 'Conduent', count: 2, selected: false },
+    { name: 'Weyland-Yutani', count: 1, selected: false }
+  ]
 
   beforeEach(() => {
     mockClickHandler = jest.fn()

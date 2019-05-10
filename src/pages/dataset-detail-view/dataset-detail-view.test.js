@@ -96,7 +96,6 @@ describe('dataset detail view', () => {
     it('includes the component for previewing dataset', () => {
       expect(subject.find(DatasetPreview).props().datasetId).toEqual(streamingDataset.id)
     })
-
   })
 
   describe('remote dataset', () => {

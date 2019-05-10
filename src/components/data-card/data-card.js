@@ -4,14 +4,14 @@ import moment from "moment";
 import SanitizedHTML from "react-sanitized-html";
 
 const DataCard = props => {
-  const max_description_length = 240;
+  const max_description_length = 240
   const fileTypes = fileTypes => {
     return fileTypes.map(fileType => (
-      <span key={fileType} className="file-type">
-        {fileType}{" "}
+      <span key={fileType} className='file-type'>
+        {fileType}{' '}
       </span>
-    ));
-  };
+    ))
+  }
 
   const dataset = props.dataset;
   const truncatedDescription = truncateDescription(
@@ -21,7 +21,7 @@ const DataCard = props => {
   return (
     <data-card>
       <Link
-        className="title"
+        className='title'
         to={`/dataset/${dataset.organization_name}/${dataset.name}`}
       >
         {dataset.title}
@@ -33,18 +33,18 @@ const DataCard = props => {
           html={truncatedDescription}
         />
       </div>
-      <div className="card-metadata">
-        <div className="last-modified">
-          Updated {moment(dataset.modifiedTime).format("MMM DD, YYYY")}
+      <div className='card-metadata'>
+        <div className='last-modified'>
+          Updated {moment(dataset.modifiedTime).format('MMM DD, YYYY')}
         </div>
-        <div className="separator">•</div>
-        <div className="file-types">
-          File Type: {fileTypes(dataset.fileTypes)}{" "}
+        <div className='separator'>•</div>
+        <div className='file-types'>
+          File Type: {fileTypes(dataset.fileTypes)}{' '}
         </div>
       </div>
     </data-card>
-  );
-};
+  )
+}
 
 function truncateDescription(description, max_length) {
   if (description.length > max_length) {

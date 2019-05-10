@@ -6,13 +6,13 @@ import SanitizedHTML from "react-sanitized-html";
 
 const DatasetDetails = ({ dataset }) => {
   if (!dataset) {
-    return <div />;
+    return <div />
   }
 
   return (
     <dataset-details>
-      <div className="header">
-        <div className="name">{dataset.title}</div>
+      <div className='header'>
+        <div className='name'>{dataset.title}</div>
         {renderDownloadButton(dataset)}
       </div>
       <div className="description">
@@ -25,16 +25,16 @@ const DatasetDetails = ({ dataset }) => {
         />
       </div>
       {!_.isEmpty(dataset.keywords) && (
-        <div className="keywords">
-          <div className="keyword-label">KEYWORDS</div>
+        <div className='keywords'>
+          <div className='keyword-label'>KEYWORDS</div>
           {dataset.keywords.map(createKeyword)}
         </div>
       )}
     </dataset-details>
-  );
-};
+  )
+}
 
-function renderDownloadButton(dataset) {
+function renderDownloadButton (dataset) {
   const formats = {
     gtfs: "json"
   };
@@ -49,11 +49,11 @@ function renderDownloadButton(dataset) {
 const createKeyword = name => (
   <a
     key={`dataset-keyword-${name}`}
-    className="keyword"
-    href={`/?${QueryStringBuilder.createFilterQueryString("keywords", name)}`}
+    className='keyword'
+    href={`/?${QueryStringBuilder.createFilterQueryString('keywords', name)}`}
   >
     {name}
   </a>
-);
+)
 
-export default DatasetDetails;
+export default DatasetDetails
