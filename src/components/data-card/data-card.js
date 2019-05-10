@@ -1,6 +1,7 @@
-import './data-card.scss'
-import { Link } from 'react-router-dom'
-import moment from 'moment'
+import "./data-card.scss";
+import { Link } from "react-router-dom";
+import moment from "moment";
+import SanitizedHTML from "react-sanitized-html";
 
 const DataCard = props => {
   const max_description_length = 240
@@ -12,7 +13,11 @@ const DataCard = props => {
     ))
   }
 
-  const dataset = props.dataset
+  const dataset = props.dataset;
+  const truncatedDescription = truncateDescription(
+    dataset.description,
+    max_description_length
+  );
   return (
     <data-card>
       <Link
@@ -21,11 +26,12 @@ const DataCard = props => {
       >
         {dataset.title}
       </Link>
-      <div className='description'>
-        {dataset.description.substring(0, max_description_length)}
-        {dataset.description.length > max_description_length && (
-          <span> ...</span>
-        )}
+      <div className="description">
+        <SanitizedHTML
+          allowedTags={[]}
+          allowedAttributes={{}}
+          html={truncatedDescription}
+        />
       </div>
       <div className='card-metadata'>
         <div className='last-modified'>
@@ -40,4 +46,12 @@ const DataCard = props => {
   )
 }
 
-export default DataCard
+function truncateDescription(description, max_length) {
+  if (description.length > max_length) {
+    return `${description.substring(0, max_length)}...`;
+  }
+
+  return description;
+}
+
+export default DataCard;

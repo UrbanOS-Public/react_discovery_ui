@@ -1,7 +1,8 @@
-import './dataset-details.scss'
-import { QueryStringBuilder } from '../../utils'
-import _ from 'lodash'
-import DownloadButton from '../generic-elements/download-button'
+import "./dataset-details.scss";
+import { QueryStringBuilder } from "../../utils";
+import _ from "lodash";
+import DownloadButton from "../generic-elements/download-button";
+import SanitizedHTML from "react-sanitized-html";
 
 const DatasetDetails = ({ dataset }) => {
   if (!dataset) {
@@ -14,10 +15,15 @@ const DatasetDetails = ({ dataset }) => {
         <div className='name'>{dataset.title}</div>
         {renderDownloadButton(dataset)}
       </div>
-      <div
-        className='description'
-        dangerouslySetInnerHTML={{ __html: dataset.description }}
-      />
+      <div className="description">
+        <SanitizedHTML
+          allowedAttributes={{
+            a: ["href"]
+          }}
+          allowedTags={["b", "a", "ul", "li", "ol", "p", "em", "i"]}
+          html={dataset.description}
+        />
+      </div>
       {!_.isEmpty(dataset.keywords) && (
         <div className='keywords'>
           <div className='keyword-label'>KEYWORDS</div>
@@ -30,12 +36,14 @@ const DatasetDetails = ({ dataset }) => {
 
 function renderDownloadButton (dataset) {
   const formats = {
-    gtfs: 'json'
-  }
-  let sourceFormat = formats[dataset.sourceFormat] || dataset.sourceFormat
-  let nonRemoteUrl = `${window.API_HOST}/api/v1/dataset/${dataset.id}/download?_format=${sourceFormat}`
-  let url = dataset.sourceType === 'remote' ? dataset.sourceUrl : nonRemoteUrl
-  return <DownloadButton url={url} />
+    gtfs: "json"
+  };
+  let sourceFormat = formats[dataset.sourceFormat] || dataset.sourceFormat;
+  let nonRemoteUrl = `${window.API_HOST}/api/v1/dataset/${
+    dataset.id
+  }/download?_format=${sourceFormat}`;
+  let url = dataset.sourceType === "remote" ? dataset.sourceUrl : nonRemoteUrl;
+  return <DownloadButton url={url} />;
 }
 
 const createKeyword = name => (
