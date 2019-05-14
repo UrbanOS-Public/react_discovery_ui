@@ -30,7 +30,7 @@ export default class extends Component {
         </div>
         <div className='dataset-details'>
           <DatasetDetails dataset={dataset} />
-          {isRemote && <div class="remote-explanation">This dataset is hosted remotely and therefore does not have the ability to be previewed or queried via the API</div>}
+          {isRemote && <div class='remote-explanation'>This dataset is hosted remotely and therefore does not have the ability to be previewed or queried via the API</div>}
           {showPreview && !isRemote && <DatasetPreview datasetId={dataset.id} />}
           {!isRemote && <DatasetApiDoc dataset={dataset} />}
           <a name='AdditionalInformation' />
