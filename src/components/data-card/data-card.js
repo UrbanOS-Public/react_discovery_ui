@@ -34,15 +34,11 @@ const DataCard = props => {
         />
       </div>
       <div className='card-metadata'>
-        <div className='last-modified main-info'>
+        <div className='last-modified'>
           Updated {moment(dataset.modifiedTime).format('MMM DD, YYYY')}
         </div>
         <div className='separator'>•</div>
-        <div className='extra-info'>
-          Data Location: {dataset.sourceType === 'remote' ? 'Remote' : 'Local' }
-        </div>
-        <div className='separator'>•</div>
-        <div className='extra-info'>
+        <div className='file-types'>
           File Type: {fileTypes(dataset.fileTypes)}{' '}
         </div>
       </div>

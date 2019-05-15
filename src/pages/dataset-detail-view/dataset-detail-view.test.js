@@ -79,6 +79,34 @@ describe('dataset detail view', () => {
     })
   })
 
+  describe('DatasetView Remote Dataset', () => {
+    it('should show not show remote explanation when dataset is not remote', () => {
+      const subject = renderDatasetWithSourceType('batch')
+
+      expect(subject.find('.remote-explanation').length).toEqual(0)
+    })
+
+    it('should show remote explanation when dataset is remote', () => {
+      const subject = renderDatasetWithSourceType('remote')
+
+      expect(subject.find('.remote-explanation').length).toEqual(1)
+    })
+
+    const renderDatasetWithSourceType = (sourceType) => {
+      const dataset = {
+        id: '123',
+        sourceType: sourceType
+      }
+      return shallow(
+        <DatasetView
+          dataset={dataset}
+          retrieveDatasetDetails={jest.fn()}
+          match={routingProps}
+        />
+      )
+    }
+  })
+
   describe('streaming dataset', () => {
     const streamingDataset = Object.assign({}, batchDataset, { sourceType: 'streaming' })
 
