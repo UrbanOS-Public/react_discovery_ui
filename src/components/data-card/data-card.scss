@@ -21,26 +21,24 @@ data-card {
         display: flex;
         flex-direction: row;
 
+        div {
+            margin-top: 1.125rem;
+            margin-right: .5rem;
+        }
+
         .separator {
-          margin-top: 1.125rem;
           margin-left: .25rem;
           margin-right: .25rem;
         }
 
         .file-types {
-            margin-top: 1.125rem;
             margin-left: .5rem;
-
-            .file-type {
-                color: $csv-green;
-                font-weight: bold;
-                text-transform: uppercase;
-            }
         }
 
-        .last-modified {
-            margin-top: 1.125rem;
-            margin-right: .5rem;
+        .file-type {
+            color: $csv-green;
+            font-weight: bold;
+            text-transform: uppercase;
         }
     }
 }
