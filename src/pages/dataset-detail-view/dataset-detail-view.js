@@ -5,22 +5,27 @@ import DatasetMetadata from '../../components/dataset-metadata'
 import Organization from '../../components/organization'
 import Share from '../../components/share'
 import './dataset-detail-view.scss'
-import DatasetApiDoc from '../../components/dataset-api-doc/dataset-api-doc'
+import DatasetApiDoc from '../../components/dataset-api-doc'
+import StreamingApiDoc from '../../components/streaming-api-doc'
+
 
 export default class extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.retrieveDatasetDetails(this.props.match.params.organization_name, this.props.match.params.dataset_name)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.props.clearDatasetDetails()
   }
 
-  render () {
+  render() {
     const dataset = this.props.dataset
     if (!dataset) { return <div /> }
     const showPreview = dataset.sourceFormat && dataset.sourceFormat.toLowerCase() === 'csv'
     const isRemote = dataset.sourceType === 'remote'
+    const isStreaming = dataset.sourceType === 'stream'
+    const streamingExpanded = !showPreview || isRemote
+    const apiDocExpanded = !showPreview && !isStreaming
 
     return (
       <dataset-view>
@@ -32,7 +37,8 @@ export default class extends Component {
           <DatasetDetails dataset={dataset} />
           {isRemote && <div className='remote-explanation'>This dataset is hosted remotely and cannot be previewed or queried via the API.</div>}
           {showPreview && !isRemote && <DatasetPreview datasetId={dataset.id} />}
-          {!isRemote && <DatasetApiDoc dataset={dataset} />}
+          {isStreaming && <StreamingApiDoc dataset={dataset} expanded={streamingExpanded} />}
+          {!isRemote && <DatasetApiDoc dataset={dataset} expanded={apiDocExpanded} />}
           <a name='AdditionalInformation' />
           <DatasetMetadata dataset={dataset} />
         </div>

@@ -1,66 +1,84 @@
 import './dataset-api-doc.scss'
+import { Collapse } from 'react-collapse';
+import { Component } from 'react'
+import DetailToggleIcon from '../detail-toggle-icon';
 
-const DatasetApiDoc = props => {
-  const dataset = props.dataset
+export default class extends Component {
 
-  if (!dataset) {
-    return <div />
+  constructor(props) {
+    super(props);
+    this.state = { expanded: props.expanded || false };
   }
 
-  const formats = {
-    gtfs: 'json'
+  toggleCollapsed() {
+    this.setState({ expanded: !this.state.expanded })
   }
 
-  return (
-    <dataset-api-doc>
-      <div className='header-container'>
-        <div className='header-text-items'>
-          <div className='api-doc-header'>Dataset API Example</div>
-          <div>
-            Access Operating System data with supported queries. All supported
-            clauses follow standard ANSI SQL standards.
+  render() {
+    const dataset = this.props.dataset
+    if (!dataset) {
+      return <div />
+    }
+
+    const formats = {
+      gtfs: 'json'
+    }
+
+    return (
+      <dataset-api-doc >
+        <div className='header-container' onClick={e => { this.toggleCollapsed() }} >
+          <div className='header-text-items'>
+            <div className='api-doc-header'>Dataset API Example</div>
+            <div>
+              Access Operating System data with supported queries. All supported
+              clauses follow standard ANSI SQL standards.
           </div>
+          </div>
+          <DetailToggleIcon expanded={this.state.expanded} />
         </div>
-      </div>
-      <div className='example-container'>
-        <div className='example-header'>
-          Example: Select all, limited to 200 records
-        </div>
-        <div className='example-code'>
-          <code>
-            GET:{' '}
-            {`${window.API_HOST}/api/v1/organization/${dataset.organization.name}/dataset/${dataset.name}/query?limit=200&_format=${formats[dataset.sourceFormat] || dataset.sourceFormat}`}
-          </code>
-        </div>
-        <div className='example-header'>Parameters</div>
-        <div className='example-parameters'>
-          <table className='parameter-table'>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Example</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              {apiParams.map(i => {
-                return [
-                  <tr key={`${i.name}`}>
-                    <td>
-                      <span className='pill'>{i.name}</span>
-                    </td>
-                    <td className='parameter-example'>{i.example}</td>
-                    <td>{i.description}</td>
+        <Collapse isOpened={this.state.expanded}>
+          <div className='example-container'>
+            <div className='example-header'>
+              Example: Select all, limited to 200 records
+          </div>
+            <div className='example-code'>
+              <code>
+                GET:{' '}
+                {`${window.API_HOST}/api/v1/organization/${dataset.organization.name}/dataset/${dataset.name}/query?limit=200&_format=${formats[dataset.sourceFormat] || dataset.sourceFormat}`}
+              </code>
+            </div>
+            <div className='example-header'>Parameters</div>
+            <div className='example-parameters'>
+              <table className='parameter-table'>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Example</th>
+                    <th>Description</th>
                   </tr>
-                ]
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </dataset-api-doc>
-  )
+                </thead>
+                <tbody>
+                  {apiParams.map(i => {
+                    return [
+                      <tr key={`${i.name}`}>
+                        <td>
+                          <span className='pill'>{i.name}</span>
+                        </td>
+                        <td className='parameter-example'>{i.example}</td>
+                        <td>{i.description}</td>
+                      </tr>
+                    ]
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </Collapse>
+      </dataset-api-doc >
+    )
+  }
 }
+
 
 const apiParams = [
   {
@@ -99,5 +117,3 @@ const apiParams = [
     example: 'json'
   }
 ]
-
-export default DatasetApiDoc

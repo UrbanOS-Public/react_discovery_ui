@@ -1,7 +1,7 @@
 @import '../../styles/mixins.scss';
 @import '../../styles/variables.scss';
 
-dataset-api-doc {
+streaming-api-doc {
   @include custom-element();
 
   .header-container {
@@ -39,41 +39,7 @@ dataset-api-doc {
   .example-header {
     font-weight: bold;
     margin-top: 1rem
-  }
-  
-  .collapse-icon {
-    font-size: 30px;
-    color: $medium-grey;
-    margin: 10px 10px 0 0;
-  }
-
-  .pill {
-    background-color: $super-light-grey;
-    border: $medium-grey solid 1px;
-    color: $almost-black;
-    padding: 2px 4px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 5px;
-    font-family: 'Courier New', Courier, monospace
-  }
-
-  .parameter-example {
-    white-space:nowrap
-  }
-
-  .parameter-table {
-    border-collapse: collapse;
-  }
-
-  .parameter-table td {
-    padding: 5px
-  }
-
-  .parameter-table td, th{
-    border: 1px solid $light-grey;
-  }
+  } 
 
   border: 1px solid $light-grey;
   width: 100%

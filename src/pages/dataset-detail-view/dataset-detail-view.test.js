@@ -2,6 +2,8 @@ import { shallow } from 'enzyme'
 import DatasetView from './dataset-detail-view'
 import DatasetDetails from '../../components/dataset-details'
 import DatasetPreview from '../../components/dataset-preview'
+import StreamingApiDoc from '../../components/streaming-api-doc'
+import DatasetApiDoc from '../../components/dataset-api-doc'
 
 describe('dataset detail view', () => {
   let subject
@@ -13,6 +15,16 @@ describe('dataset detail view', () => {
     sourceType: 'batch',
     sourceFormat: 'csv',
     sourceUrl: 'http://example.com/sweet-data.csv'
+  }
+
+  const createDatasetView = function (dataset) {
+    return shallow(
+      <DatasetView
+        dataset={dataset}
+        retrieveDatasetDetails={jest.fn()}
+        clearDatasetDetails={jest.fn()}
+        match={routingProps}
+      />)
   }
 
   describe('required items with batch dataset', () => {
@@ -48,6 +60,11 @@ describe('dataset detail view', () => {
     it('includes the component for previewing dataset', () => {
       expect(subject.find(DatasetPreview).props().datasetId).toEqual(batchDataset.id)
     })
+
+    it('should NOT display streaming api doc component', () => {
+      expect(subject.find(StreamingApiDoc).length).toEqual(0)
+    })
+
   })
 
   describe('DatasetView', () => {
@@ -64,14 +81,7 @@ describe('dataset detail view', () => {
       }
       retrieveSpy = jest.fn()
       clearDatasetDetailsSpy = jest.fn()
-      subject = shallow(
-        <DatasetView
-          dataset={notCsvDataset}
-          retrieveDatasetDetails={retrieveSpy}
-          clearDatasetDetails={clearDatasetDetailsSpy}
-          match={routingProps}
-        />
-      )
+      subject = createDatasetView(notCsvDataset)
     })
 
     it('should not render preview when sourceFormat is not CSV', () => {
@@ -92,6 +102,11 @@ describe('dataset detail view', () => {
       expect(subject.find('.remote-explanation').length).toEqual(1)
     })
 
+    it('should NOT display streaming api doc component', () => {
+      const subject = renderDatasetWithSourceType('remote')
+      expect(subject.find(StreamingApiDoc).length).toEqual(0)
+    })
+
     const renderDatasetWithSourceType = (sourceType) => {
       const dataset = {
         id: '123',
@@ -108,21 +123,18 @@ describe('dataset detail view', () => {
   })
 
   describe('streaming dataset', () => {
-    const streamingDataset = Object.assign({}, batchDataset, { sourceType: 'streaming' })
+    const streamingDataset = Object.assign({}, batchDataset, { sourceType: 'stream' })
 
     beforeEach(() => {
-      subject = shallow(
-        <DatasetView
-          dataset={streamingDataset}
-          retrieveDatasetDetails={jest.fn()}
-          clearDatasetDetails={jest.fn()}
-          match={routingProps}
-        />
-      )
+      subject = createDatasetView(streamingDataset)
     })
 
     it('includes the component for previewing dataset', () => {
       expect(subject.find(DatasetPreview).props().datasetId).toEqual(streamingDataset.id)
+    })
+
+    it('should display streaming api doc component when dataset is streaming', () => {
+      expect(subject.find(StreamingApiDoc).props().dataset.id).toEqual(streamingDataset.id)
     })
   })
 
@@ -130,18 +142,44 @@ describe('dataset detail view', () => {
     const remoteDataset = Object.assign({}, batchDataset, { sourceType: 'remote' })
 
     beforeEach(() => {
-      subject = shallow(
-        <DatasetView
-          dataset={remoteDataset}
-          retrieveDatasetDetails={jest.fn()}
-          clearDatasetDetails={jest.fn()}
-          match={routingProps}
-        />
-      )
+      subject = createDatasetView(remoteDataset)
     })
 
     it('does not include component for displaying data preview', () => {
       expect(subject.find(DatasetPreview)).toHaveLength(0)
     })
+
+    it('does not include component for displaying streaming api example', () => {
+      expect(subject.find(StreamingApiDoc)).toHaveLength(0)
+    })
+  })
+
+  describe('streaming api doc by default is', () => {
+    it('expanded when type is not csv', () => {
+      const streamingDataset = Object.assign({}, batchDataset, { sourceType: 'stream', sourceFormat: 'json' })
+      subject = createDatasetView(streamingDataset)
+      expect(subject.find(StreamingApiDoc).props().expanded).toEqual(true)
+    })
+
+    it('is collapsed when source is local csv', () => {
+      const streamingDataset = Object.assign({}, batchDataset, { sourceType: 'stream', sourceFormat: 'csv' })
+      subject = createDatasetView(streamingDataset)
+      expect(subject.find(StreamingApiDoc).props().expanded).toEqual(false)
+    })
+  })
+
+  describe('api doc by default is', () => {
+    it('expanded when type is json and source is batch', () => {
+      const streamingDataset = Object.assign({}, batchDataset, { sourceType: 'batch', sourceFormat: 'json' })
+      subject = createDatasetView(streamingDataset)
+      expect(subject.find(DatasetApiDoc).props().expanded).toEqual(true)
+    })
+
+    it('collapsed when type is csv and source is streaming', () => {
+      const streamingDataset = Object.assign({}, batchDataset, { sourceType: 'stream', sourceFormat: 'csv' })
+      subject = createDatasetView(streamingDataset)
+      expect(subject.find(DatasetApiDoc).props().expanded).toEqual(false)
+    })
   })
 })
+
