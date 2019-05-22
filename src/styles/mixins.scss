@@ -62,7 +62,7 @@
     padding: $padding;
     align-items: flex-start;
     justify-content: space-between;
-    overflow: hidden;
+    overflow: auto;
 
     @media #{$above-max-break} {
         padding-left: calc((100% - #{$break-max}) / 2);
