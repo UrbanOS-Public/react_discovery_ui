@@ -73,7 +73,7 @@ export default class extends Component {
       },
       {
         Field: 'Homepage URL',
-        Value: <a href={dataset.homepage}>{dataset.homepage}</a>
+        Value: <a href={dataset.homepage} target='_blank'>{dataset.homepage}</a>
       },
       {
         Field: 'Related Documents',
