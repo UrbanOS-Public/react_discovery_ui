@@ -2,41 +2,31 @@ import './dataset-api-doc.scss'
 import { Collapse } from 'react-collapse';
 import { Component } from 'react'
 import DetailToggleIcon from '../detail-toggle-icon';
+import CollapsableBox from  '../../components/collapsable-box'
 
 export default class extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = { expanded: props.expanded || false };
+  streamingHeader() {
+    return (
+      <div>
+        <div className='api-doc-header'>Dataset API Example</div>
+        <div>
+          Access Operating System data with supported queries. All supported
+          clauses follow standard ANSI SQL standards.
+        </div>
+      </div>
+    )
   }
 
-  toggleCollapsed() {
-    this.setState({ expanded: !this.state.expanded })
-  }
-
-  render() {
+  streamingBody() {
     const dataset = this.props.dataset
-    if (!dataset) {
-      return <div />
-    }
 
     const formats = {
       gtfs: 'json'
     }
 
-    return (
-      <dataset-api-doc >
-        <div className='header-container' onClick={e => { this.toggleCollapsed() }} >
-          <div className='header-text-items'>
-            <div className='api-doc-header'>Dataset API Example</div>
-            <div>
-              Access Operating System data with supported queries. All supported
-              clauses follow standard ANSI SQL standards.
-          </div>
-          </div>
-          <DetailToggleIcon expanded={this.state.expanded} />
-        </div>
-        <Collapse isOpened={this.state.expanded}>
+    return(
+      <div>
           <div className='example-container'>
             <div className='example-header'>
               Example: Select all, limited to 200 records
@@ -73,7 +63,18 @@ export default class extends Component {
               </table>
             </div>
           </div>
-        </Collapse>
+        </div>
+    )
+  }
+
+  render() {
+    if (!this.props.dataset) {
+      return <div />
+    }
+
+    return (
+      <dataset-api-doc >
+        <CollapsableBox headerHtml={this.streamingHeader()} bodyHtml={this.streamingBody()} expanded={this.props.expanded} />
       </dataset-api-doc >
     )
   }
