@@ -9,11 +9,8 @@ export default class extends Component {
   streamingHeader() {
     return (
       <div>
-        <div className='api-doc-header'>Dataset API Example</div>
-        <div>
-          Access Operating System data with supported queries. All supported
-          clauses follow standard ANSI SQL standards.
-        </div>
+        Access Operating System data with supported queries. All supported
+        clauses follow standard ANSI SQL standards.
       </div>
     )
   }
@@ -68,13 +65,9 @@ export default class extends Component {
   }
 
   render() {
-    if (!this.props.dataset) {
-      return <div />
-    }
-
     return (
       <dataset-api-doc >
-        <CollapsableBox headerHtml={this.streamingHeader()} bodyHtml={this.streamingBody()} expanded={this.props.expanded} />
+        <CollapsableBox title="Dataset API Example" headerHtml={this.streamingHeader()} bodyHtml={this.streamingBody()} expanded={this.props.expanded} />
       </dataset-api-doc >
     )
   }

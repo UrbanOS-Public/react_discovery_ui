@@ -4,6 +4,9 @@
 collapsable-box {
   @include custom-element();
 
+  border: 1px solid $light-grey;
+  width: 100%;
+
   .header-container {
     display: flex;
     justify-content: space-between;
@@ -18,27 +21,8 @@ collapsable-box {
     margin: 1rem;
   }
 
-  .api-doc-header {
+  .title {
     @include header();
-  }
-
-  .example-container {
-    justify-content: space-between;
-    padding: 0px 20px 20px 20px
-  }
-
-  .example-code {
-    border-radius: 5px;
-    border: $medium-grey solid 1px;
-    background-color: $super-light-grey;
-    padding: 10px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-  }
-
-  .example-header {
-    font-weight: bold;
-    margin-top: 1rem
   }
 
   .collapse-icon {
@@ -46,36 +30,4 @@ collapsable-box {
     color: $medium-grey;
     margin: 10px 10px 0 0;
   }
-
-  .pill {
-    background-color: $super-light-grey;
-    border: $medium-grey solid 1px;
-    color: $almost-black;
-    padding: 2px 4px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 5px;
-    font-family: 'Courier New', Courier, monospace
-  }
-
-  .parameter-example {
-    white-space:nowrap
-  }
-
-  .parameter-table {
-    border-collapse: collapse;
-  }
-
-  .parameter-table td {
-    padding: 5px
-  }
-
-  .parameter-table td, th{
-    border: 1px solid $light-grey;
-  }
-
-  border: 1px solid $light-grey;
-  width: 100%
-
 }

@@ -19,6 +19,7 @@ export default class extends Component {
       <collapsable-box>
         <div className='header-container' onClick={e => { this.toggleCollapsed() }} >
           <div className='header-text-items'>
+            <div className='title'>{this.props.title}</div>
             {this.props.headerHtml}
           </div>
           <DetailToggleIcon expanded={this.state.expanded} />

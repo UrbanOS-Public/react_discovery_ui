@@ -2,26 +2,6 @@
 @import '../../styles/variables.scss';
 
 streaming-api-doc {
-  @include custom-element();
-
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-  }
-
-  .header-container:hover { 
-    background-color: $super-light-grey;
-  }
-
-  .header-text-items {
-    margin: 1rem;
-  }
-
-  .api-doc-header {
-    @include header();
-  }
-
   .example-container {
     justify-content: space-between;
     padding: 0px 20px 20px 20px
@@ -39,9 +19,5 @@ streaming-api-doc {
   .example-header {
     font-weight: bold;
     margin-top: 1rem
-  } 
-
-  border: 1px solid $light-grey;
-  width: 100%
-
+  }
 }

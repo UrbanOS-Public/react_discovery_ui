@@ -8,10 +8,7 @@ export default class extends Component {
 
     streamingHeader() {
       return (
-        <div>
-          <div className='api-doc-header'>Websocket Streaming Example</div>
           <div>Access Operating System data through a websocket.</div>
-        </div>
       )
     }
 
@@ -46,7 +43,7 @@ export default class extends Component {
 
         return (
             <streaming-api-doc>
-              <CollapsableBox headerHtml={this.streamingHeader()} bodyHtml={this.streamingBody()} expanded={this.props.expanded} />
+            <CollapsableBox title="Websocket Streaming Example" headerHtml={this.streamingHeader()} bodyHtml={this.streamingBody()} expanded={this.props.expanded} />
             </streaming-api-doc>
         )
     }
