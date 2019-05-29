@@ -1,2 +1,24 @@
 @import '../../styles/mixins.scss';
 @import '../../styles/variables.scss';
+
+dataset-quality {
+
+  .completeness-score {
+    color: $csv-green;
+    font-size: 3em;
+  }
+
+  .quality-header {
+    @include flex-row();
+    margin: 1rem 1rem 1rem 0;
+  }
+
+  .completeness-score {
+    @include flex-column();
+    margin-right: 1rem;
+  }
+
+  .completeness-description {
+    @include flex-column();
+  }
+}
