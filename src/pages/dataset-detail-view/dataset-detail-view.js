@@ -40,7 +40,7 @@ export default class extends Component {
           {showPreview && !isRemote && <DatasetPreview datasetId={dataset.id} />}
           {isStreaming && <StreamingApiDoc dataset={dataset} expanded={streamingExpanded} />}
           {!isRemote && <DatasetApiDoc dataset={dataset} expanded={apiDocExpanded} />}
-          <DatasetQuality completeness={dataset.completeness} expanded={false} />
+          {!isRemote && <DatasetQuality completeness={dataset.completeness} expanded={false} />}
           <a name='AdditionalInformation' />
           <DatasetMetadata dataset={dataset} />
         </div>

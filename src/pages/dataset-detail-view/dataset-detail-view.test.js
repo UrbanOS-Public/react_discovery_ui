@@ -4,6 +4,7 @@ import DatasetDetails from '../../components/dataset-details'
 import DatasetPreview from '../../components/dataset-preview'
 import StreamingApiDoc from '../../components/streaming-api-doc'
 import DatasetApiDoc from '../../components/dataset-api-doc'
+import DatasetQuality from '../../components/dataset-quality'
 
 describe('dataset detail view', () => {
   let subject
@@ -65,6 +66,9 @@ describe('dataset detail view', () => {
       expect(subject.find(StreamingApiDoc).length).toEqual(0)
     })
 
+    it('should display dataset quality component', () => {
+      expect(subject.find(DatasetQuality).length).toEqual(1)
+    })
   })
 
   describe('DatasetView', () => {
@@ -107,6 +111,11 @@ describe('dataset detail view', () => {
       expect(subject.find(StreamingApiDoc).length).toEqual(0)
     })
 
+    it('should NOT display dataset quality component', () => {
+      const subject = renderDatasetWithSourceType('remote')
+      expect(subject.find(DatasetQuality).length).toEqual(0)
+    })
+
     const renderDatasetWithSourceType = (sourceType) => {
       const dataset = {
         id: '123',
@@ -135,6 +144,10 @@ describe('dataset detail view', () => {
 
     it('should display streaming api doc component when dataset is streaming', () => {
       expect(subject.find(StreamingApiDoc).props().dataset.id).toEqual(streamingDataset.id)
+    })
+
+    it('should display dataset quality component', () => {
+      expect(subject.find(DatasetQuality).length).toEqual(1)
     })
   })
 
@@ -182,4 +195,3 @@ describe('dataset detail view', () => {
     })
   })
 })
-
