@@ -7,6 +7,7 @@ import Share from '../../components/share'
 import './dataset-detail-view.scss'
 import DatasetApiDoc from '../../components/dataset-api-doc'
 import StreamingApiDoc from '../../components/streaming-api-doc'
+import DatasetQuality from '../../components/dataset-quality'
 
 
 export default class extends Component {
@@ -39,6 +40,7 @@ export default class extends Component {
           {showPreview && !isRemote && <DatasetPreview datasetId={dataset.id} />}
           {isStreaming && <StreamingApiDoc dataset={dataset} expanded={streamingExpanded} />}
           {!isRemote && <DatasetApiDoc dataset={dataset} expanded={apiDocExpanded} />}
+          <DatasetQuality completeness={dataset.completeness} expanded={false} />
           <a name='AdditionalInformation' />
           <DatasetMetadata dataset={dataset} />
         </div>
