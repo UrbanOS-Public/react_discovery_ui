@@ -1,0 +1,33 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
+
+collapsable-box {
+  @include custom-element();
+
+  border: 1px solid $light-grey;
+  width: 100%;
+  margin-top: 2.5rem;
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  .header-container:hover {
+    background-color: $super-light-grey;
+  }
+
+  .header-text-items {
+    margin: 1rem;
+  }
+
+  .title {
+    @include header();
+  }
+
+  .collapse-icon {
+    font-size: 30px;
+    color: $medium-grey;
+    margin: 10px 10px 0 0;
+  }
+}

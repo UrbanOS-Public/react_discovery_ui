@@ -2,26 +2,6 @@
 @import '../../styles/variables.scss';
 
 dataset-api-doc {
-  @include custom-element();
-
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-  }
-
-  .header-container:hover { 
-    background-color: $super-light-grey;
-  }
-
-  .header-text-items {
-    margin: 1rem;
-  }
-
-  .api-doc-header {
-    @include header();
-  }
-
   .example-container {
     justify-content: space-between;
     padding: 0px 20px 20px 20px
@@ -40,24 +20,6 @@ dataset-api-doc {
     font-weight: bold;
     margin-top: 1rem
   }
-  
-  .collapse-icon {
-    font-size: 30px;
-    color: $medium-grey;
-    margin: 10px 10px 0 0;
-  }
-
-  .pill {
-    background-color: $super-light-grey;
-    border: $medium-grey solid 1px;
-    color: $almost-black;
-    padding: 2px 4px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 5px;
-    font-family: 'Courier New', Courier, monospace
-  }
 
   .parameter-example {
     white-space:nowrap
@@ -74,8 +36,4 @@ dataset-api-doc {
   .parameter-table td, th{
     border: 1px solid $light-grey;
   }
-
-  border: 1px solid $light-grey;
-  width: 100%
-
 }
