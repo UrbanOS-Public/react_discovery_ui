@@ -15,7 +15,7 @@ export default class extends Component {
         <div className="completeness-score">
           {Math.round(this.props.completeness * 100)}%
         </div>
-        <div className="completeness-description">The percentage of relevant non empty fields contained in the dataset</div>
+        <div className="completeness-description">The percentage of relevant non-empty fields contained in the dataset.</div>
       </div>
     )
   }
