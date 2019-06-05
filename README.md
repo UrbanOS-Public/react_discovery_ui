@@ -1,3 +1,7 @@
+# discovery_ui
+
+Front-end application for interacting with datasets within the platform.
+
 ## Install Dependencies
 `npm install`
 
@@ -13,33 +17,26 @@ are found in `test-start-point.js`
 ## Lint the Code
 `npm run lint`
 
+## Configuration
+Runtime configurations are stored in config/config.js.
+### API_HOST
+This application is designed to be used with [discovery-api](https://github.com/smartcitiesdata/discovery_api) as the backend.  Set this value to the URL of the local `discovery-api` endpoint.
+
+
+### GTM_ID
+Set this value to the Google Tag Manager ID to enable analytics.
+
+### BASE_URL
+The domain that the site will be hosted on
+
+
 ## Start the UI Locally
 `npm run start`
 
-### Pointing the UI at your local backend
-Edit config/config.js and change `window.API_HOST` to point to your local backend stack
+You can view the UI in your web browser at `http://localhost:9001`
 
 ## Build Docker Image
 `docker build . -t <image name>:<tag>`
 
 ## Running the Docker Image
 `docker run -d --rm -p <port>:80 <image name>:<tag>`
-
-## Deploying to minikube
-```bash
-# build to local Docker environment
-eval $(minikube docker-env)
-docker build -t discovery-ui:wip .
-
-# create namespace
-kubectl create ns discovery
-
-# deploy with helm
-helm upgrade --install discovery-ui ./chart \
-  --namespace=discovery \
-  --set image.name=discovery-ui \
-  --set image.tag=wip
-  
-# open browser to ui
-minikube service discovery-ui -n discovery
-```
