@@ -1,5 +1,9 @@
 #!/bin/bash
 
-cp /usr/share/nginx/html/config.${env}.js /usr/share/nginx/html/config.js
-rm /usr/share/nginx/html/config.*.js
+cat > /usr/share/nginx/html/config.js <<EOL
+window.API_HOST = '${API_HOST}'
+window.GTM_ID = '${GTM_ID}'
+window.BASE_URL = '${BASE_URL}'
+EOL
+
 nginx -g "daemon off;"
