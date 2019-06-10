@@ -26,7 +26,7 @@ export default class extends Component {
             <code>{`
                               wsta -I --ping 50 --ping-msg
                               '{"topic": "phoenix","event":"heartbeat","payload":{},"ref":"1"}'
-                              'wss://streams.${window.BASE_URL}.com/socket/websocket'
+                              'wss://streams.${window.BASE_URL}/socket/websocket'
                               '{"topic": "streaming:${systemName}","event":"phx_join","payload":{},"ref":"1"}'
                           `}
             </code>
