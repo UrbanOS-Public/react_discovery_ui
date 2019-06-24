@@ -20,33 +20,42 @@ const DataCard = props => {
   )
   return (
     <data-card>
-      <Link
-        className='title'
-        to={`/dataset/${dataset.organization_name}/${dataset.name}`}
-      >
-        {dataset.title}
-      </Link>
-      <div className='description'>
-        <SanitizedHTML
-          allowedTags={[]}
-          allowedAttributes={{}}
-          html={truncatedDescription}
-        />
+      <div className="logo">
+        <Link
+          to={`/dataset/${dataset.organization_name}/${dataset.name}`}
+        >
+          <img src={dataset.organization_image_url} alt={`The logo for ${dataset.organization_title}`} />
+        </Link>
       </div>
-      <div className='card-metadata'>
-        <div className='last-modified'>
-          Updated {moment(dataset.modifiedTime).format('MMM DD, YYYY')}
+      <div>
+        <Link
+          className='title'
+          to={`/dataset/${dataset.organization_name}/${dataset.name}`}
+        >
+          {dataset.title}
+        </Link>
+        <div className='description'>
+          <SanitizedHTML
+            allowedTags={[]}
+            allowedAttributes={{}}
+            html={truncatedDescription}
+          />
         </div>
-        <div className='separator'>•</div>
-        <div className='file-types'>
-          File Type: {fileTypes(dataset.fileTypes)}{' '}
+        <div className='card-metadata'>
+          <div className='last-modified'>
+            Updated {moment(dataset.modifiedTime).format('MMM DD, YYYY')}
+          </div>
+          <div className='separator'>•</div>
+          <div className='file-types'>
+            File Type: {fileTypes(dataset.fileTypes)}{' '}
+          </div>
         </div>
       </div>
     </data-card>
   )
 }
 
-function truncateDescription (description, max_length) {
+function truncateDescription(description, max_length) {
   if (description.length > max_length) {
     return `${description.substring(0, max_length)}...`
   }

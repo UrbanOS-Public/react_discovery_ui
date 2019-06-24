@@ -9,6 +9,8 @@ const dataset = {
   name: 'someName',
   title: 'someTitle',
   organization_name: 'org_name',
+  organization_title: 'Organization Title',
+  organization_image_url: 'logo.png',
   description: 'somedescription',
   fileTypes: ['foo', 'bar'],
   modifiedTime: '2018-06-21'
@@ -29,9 +31,20 @@ describe('data card element', () => {
     ).toEqual(dataset.description)
     expect(subject.find('.file-type').length).toEqual(dataset.fileTypes.length)
     expect(subject.find('.last-modified').text()).toContain('Jun 21, 2018')
-    expect(subject.find(Link).props().to).toEqual(
+    expect(subject.find(Link).at(1).props().to).toEqual(
       `/dataset/${dataset.organization_name}/${dataset.name}`
     )
+  })
+})
+
+describe('data card element with logo', () => {
+  beforeEach(() => {
+    subject = shallow(<DataCard dataset={dataset} />)
+  })
+
+  test('card to render logo with correct url and alt text', () => {
+    expect(subject.find("img").prop("alt")).toEqual(`The logo for Organization Title`);
+    expect(subject.find("img").prop("src")).toEqual(dataset.organization_image_url);
   })
 })
 
@@ -54,7 +67,7 @@ describe('data card element with html description', () => {
     ).toEqual(dataset.description)
     expect(subject.find('.file-type').length).toEqual(dataset.fileTypes.length)
     expect(subject.find('.last-modified').text()).toContain('Jun 21, 2018')
-    expect(subject.find(Link).props().to).toEqual(
+    expect(subject.find(Link).at(1).props().to).toEqual(
       `/dataset/${dataset.organization_name}/${dataset.name}`
     )
   })
