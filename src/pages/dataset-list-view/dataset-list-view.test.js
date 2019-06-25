@@ -2,6 +2,8 @@ import { shallow } from 'enzyme'
 import DatasetListView from './dataset-list-view'
 import Search from '../../components/generic-elements/search'
 import mockAxios from 'axios'
+import ErrorComponent from '../../components/generic-elements/error-component'
+import LoadingElement from '../../components/generic-elements/loading-element';
 
 describe('dataset list view', () => {
   let expectedDatasetList, retrieveSpy, navigationSpy, subject
@@ -10,7 +12,7 @@ describe('dataset list view', () => {
     expectedDatasetList = Array.from(Array(6)).map((unused, index) => ({ id: index }))
     retrieveSpy = jest.fn()
     navigationSpy = jest.fn()
-    subject = shallow(<DatasetListView  history={{ push: navigationSpy }} location={{ search: '?q=monkey&sort=default' }} />)
+    subject = shallow(<DatasetListView history={{ push: navigationSpy }} location={{ search: '?q=monkey&sort=default' }} />)
   })
 
   describe('fetching data', () => {
@@ -128,5 +130,30 @@ describe('dataset list view', () => {
     expect(navigationSpy).toHaveBeenCalledWith({
       search: encodeURI('q=newsearch&sort=name_desc&facets[foo][]=bar')
     })
+  })
+
+  it('shows error message when failing to retrieve dataset', done => {
+    mockAxios.get.mockImplementationOnce(() => Promise.resolve({ status: 500 }));
+    subject = shallow(<DatasetListView history={{ push: navigationSpy }} location={{ search: '' }} />)
+
+    setTimeout(function () {
+      expect(subject.instance().state.error).toEqual(true)
+      expect(subject.find(ErrorComponent)).toHaveLength(1)
+      done()
+    }, 10);
+  })
+
+  it('shows a loading spinner before data is returned', done => {
+    // A promise that never resolves
+    mockAxios.get.mockImplementationOnce(() => new Promise(function (resolve, reject) {
+      [{ resolve: resolve, reject: reject }];
+    }));
+    subject = shallow(<DatasetListView history={{ push: navigationSpy }} location={{ search: '' }} />)
+
+    setTimeout(function () {
+      expect(subject.instance().state.loading).toEqual(true)
+      expect(subject.find(LoadingElement)).toHaveLength(1)
+      done()
+    }, 10);
   })
 })

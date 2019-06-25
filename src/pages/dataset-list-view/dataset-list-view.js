@@ -81,7 +81,7 @@ export default class extends Component {
       if (response.status === 200) {
         this.setSearchState(response.data)
       } else {
-        throw `Could not fetch datasets with response code ${response.code}`
+        throw `Could not fetch datasets with response code ${response.status}`
       }
     } catch (e) {
       this.setState({ error: true })
