@@ -7,5 +7,10 @@ error-component {
 
   .error-container {
     color: $error-color;
+    padding: 5rem;
+  }
+
+  .error-icon {
+    font-size: 32pt;
   }
 }

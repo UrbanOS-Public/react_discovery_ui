@@ -74,24 +74,28 @@ export default class extends Component {
 
   async fetchData(pageNumber) {
     const offset = (pageNumber - 1) * this.state.pageSize
-    let params = { offset, pageSize: this.state.pageSize, sort: this.sort, query: this.searchParams, facets: this.facets }
+    const params = { offset, pageSize: this.state.pageSize, sort: this.sort, query: this.searchParams, facets: this.facets }
     try {
-      let query = {
-        baseURL: window.API_HOST,
-        params: params,
-        paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'brackets' }),
-        withCredentials: true
-      }
-
-      const response = await axios.get("/api/v1/dataset/search", query)
+      const response = await this.getDatasets(params)
       if (response.status === 200) {
         this.setSearchState(response.data)
       } else {
-        this.setState({ error: true })
+        throw `Could not fetch datasets with response code ${response.code}`
       }
     } catch (e) {
       this.setState({ error: true })
     }
+  }
+
+  getDatasets(params) {
+    const query = {
+      baseURL: window.API_HOST,
+      params: params,
+      paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'brackets' }),
+      withCredentials: true
+    }
+
+    return axios.get("/api/v1/dataset/search", query)
   }
 
   setSearchState(searchResponse) {

@@ -10,7 +10,7 @@ describe('dataset list view', () => {
     expectedDatasetList = Array.from(Array(6)).map((unused, index) => ({ id: index }))
     retrieveSpy = jest.fn()
     navigationSpy = jest.fn()
-    subject = shallow(<DatasetListView datasets={expectedDatasetList} totalDatasets={12} retrieveDataset={retrieveSpy} history={{ push: navigationSpy }} location={{ search: '?q=monkey&sort=default' }} />)
+    subject = shallow(<DatasetListView  history={{ push: navigationSpy }} location={{ search: '?q=monkey&sort=default' }} />)
   })
 
   describe('fetching data', () => {
