@@ -73,6 +73,7 @@ export default class extends Component {
   }
 
   async fetchData(pageNumber) {
+    this.setState({ loading: true })
     const offset = (pageNumber - 1) * this.state.pageSize
     const params = { offset, pageSize: this.state.pageSize, sort: this.sort, query: this.searchParams, facets: this.facets }
     try {
