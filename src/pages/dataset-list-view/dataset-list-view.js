@@ -49,10 +49,16 @@ export default class extends Component {
             <FacetSidebar availableFacets={this.state.facets} appliedFacets={this.facets} clickHandler={(facetName, facetValue) => this.onFacetClick(facetName, facetValue)} />
           </div>
           <div className='right-section'>
-            {!this.state.loading && <Search className='search' defaultText={this.searchParams} placeholder='Search datasets' callback={searchCriteria => this.onSearchChange(searchCriteria)} />}
+            <Search className='search'
+                    defaultText={this.searchParams}
+                    placeholder='Search datasets'
+                    callback={searchCriteria => this.onSearchChange(searchCriteria)} />
             <div className='list-header'>
               <div className='result-count'>{`${resultCountText}${resultCountQueryText}`}</div>
-              <Select className='sort-select' label='order by' options={this.createSortOptions} selectChangeCallback={sort => this.onSortChange(sort)} />
+              <Select className='sort-select'
+                      label='order by'
+                      options={this.createSortOptions}
+                      selectChangeCallback={sort => this.onSortChange(sort)} />
             </div>
             <DatasetList datasets={this.state.datasets} />
             <Paginator className='paginator' numberOfPages={this.numberOfPages} currentPage={this.state.currentPage} pageChangeCallback={page => this.onPageChange(page)} />
