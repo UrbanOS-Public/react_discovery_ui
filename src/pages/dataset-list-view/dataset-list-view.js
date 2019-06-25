@@ -19,7 +19,7 @@ import LoadingElement from '../../components/generic-elements/loading-element';
 export default class extends Component {
   constructor(props) {
     super(props)
-    this.state = { currentPage: 1, pageSize: 10, loading: true }
+    this.state = { currentPage: 1, pageSize: 10, loading: true}
     this.pageRef = createRef()
   }
 

@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme'
 import DatasetListView from './dataset-list-view'
 import Search from '../../components/generic-elements/search'
+import Paginator from '../../components/generic-elements/paginator';
 import mockAxios from 'axios'
 import ErrorComponent from '../../components/generic-elements/error-component'
 import LoadingElement from '../../components/generic-elements/loading-element';
@@ -48,17 +49,10 @@ describe('dataset list view', () => {
     })
   })
 
-  it('informs the paginator of the current page when the paginator invokes the callback', () => {
-    subject.instance().onPageChange(2)
-
-    expect(subject.instance().state.currentPage).toEqual(2)
-  })
-
   it('sets paginator total page count based on total datasets and page size', () => {
     const expectedNumberOfPages = 2 // 12 datasets with page size of 10
-    subject.instance().setState({ totalDatasets: 12 })
-
-    expect(subject.instance().numberOfPages).toEqual(expectedNumberOfPages)
+    expect(subject.find(Paginator)).toHaveLength(1)
+    expect(subject.find(Paginator).props().numberOfPages).toEqual(expectedNumberOfPages)
   })
 
   it('adds search parameters when the search callback is invoked', () => {
