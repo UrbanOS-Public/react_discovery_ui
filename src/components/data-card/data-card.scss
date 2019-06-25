@@ -7,6 +7,12 @@ data-card {
     padding: 1.125rem 0;
     margin-top: 0.125rem;
     border-bottom: 1px solid $light-grey;
+    display: flex;
+
+    img {
+        width: 10rem;
+    }
+
     .title {
         @include link();
         @include header();
@@ -15,6 +21,13 @@ data-card {
 
     .description{
         width: 80%;
+    }
+
+    .logo {
+        padding: 0px 30px;
+        width: 10rem;
+        text-align: center;
+
     }
 
     .card-metadata {
