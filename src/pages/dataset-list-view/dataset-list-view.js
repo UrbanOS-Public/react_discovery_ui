@@ -76,20 +76,17 @@ export default class extends Component {
     }
   }
 
-  async fetchData(pageNumber) {
+  fetchData(pageNumber) {
     this.setState({ loading: true })
     const offset = (pageNumber - 1) * this.state.pageSize
     const params = { offset, pageSize: this.state.pageSize, sort: this.sort, query: this.searchParams, facets: this.facets }
-    try {
-      const response = await this.getDatasets(params)
-      if (response.status === 200) {
-        this.setSearchState(response.data)
-      } else {
-        throw new Error(`Could not fetch datasets with response code ${response.status}`)
-      }
-    } catch (e) {
+
+    this.getDatasets(params).then(response => {
+      this.setSearchState(response.data)
+    }).catch(error => {
+      console.error(`Could not fetch datasets with response code ${error.status}`)
       this.setState({ error: true })
-    }
+    })
   }
 
   getDatasets(params) {
