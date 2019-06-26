@@ -14,7 +14,7 @@ login-zone {
     @include sub-link();
     font-weight: bold;
 
-    &:hover .login-arrow {
+    &:hover .login-arrow, &:hover .user-icon {
       text-decoration: underline;
       fill: $almost-black;
     }
@@ -30,6 +30,13 @@ login-zone {
     margin-left: 0.5rem;
     line-height: 0.90rem;
     fill: $light-blue;
+  }
+
+  .user-icon {
+    height: 1.4rem;
+    margin-right: 0.25rem;
+    fill: $light-blue;
+    vertical-align: sub;
   }
 
   button {
