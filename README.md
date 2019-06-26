@@ -1,3 +1,4 @@
+[![Master](https://travis-ci.org/smartcitiesdata/discovery_ui.svg?branch=master)](https://travis-ci.org/smartcitiesdata/discovery_ui)
 # discovery_ui
 
 Front-end application for interacting with datasets within the platform.
