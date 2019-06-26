@@ -1,108 +1,27 @@
 import './dataset-list-view.scss'
-import { Component, createRef } from 'react'
+import { Component } from 'react'
 import DatasetList from '../../components/dataset-list'
 import Paginator from '../../components/generic-elements/paginator'
 import Select from '../../components/generic-elements/select'
 import Search from '../../components/generic-elements/search'
 import LoginZone from '../../components/login-zone'
 import FacetSidebar from '../../components/facet-sidebar'
+import ErrorComponent from '../../components/generic-elements/error-component'
+import LoadingElement from '../../components/generic-elements/loading-element'
 import qs from 'qs'
 import _ from 'lodash'
 import { QueryStringBuilder } from '../../utils'
-import ErrorComponent from '../../components/generic-elements/error-component'
-
-import axios from 'axios'
-import LoadingElement from '../../components/generic-elements/loading-element'
 
 export default class extends Component {
   constructor(props) {
     super(props)
-    this.state = { currentPage: 1, pageSize: 10, loading: true }
-    this.pageRef = createRef()
-  }
-
-  componentDidMount() {
-    this.fetchData(this.state.currentPage)
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.location !== this.props.location) {
-      this.fetchData(this.state.currentPage)
-    }
-  }
-  render() {
-    const resultCountText = `${this.state.totalDatasets || 'No'} datasets found`
-    const resultCountQueryText = this.searchParams ? ` for "${this.searchParams}"` : ''
-    const token = sessionStorage.getItem('api-token')
-
-    if (this.state.error) {
-      return <ErrorComponent errorText={'We were unable to fetch the datasets, please refresh the page to try again'} />
-    } else if (this.state.loading) {
-      return <LoadingElement className='spinner' />
-    } else {
-      return (
-        <dataset-list-view ref={this.pageRef}>
-          <div>
-            <LoginZone token={token} />
-            <FacetSidebar availableFacets={this.state.facets} appliedFacets={this.facets} clickHandler={(facetName, facetValue) => this.onFacetClick(facetName, facetValue)} />
-          </div>
-          <div className='right-section'>
-            <Search className='search'
-              defaultText={this.searchParams}
-              placeholder='Search datasets'
-              callback={searchCriteria => this.onSearchChange(searchCriteria)} />
-            <div className='list-header'>
-              <div className='result-count'>{`${resultCountText}${resultCountQueryText}`}</div>
-              <Select className='sort-select'
-                label='order by'
-                options={this.createSortOptions}
-                selectChangeCallback={sort => this.onSortChange(sort)} />
-            </div>
-            <DatasetList datasets={this.state.datasets} />
-            <Paginator className='paginator' numberOfPages={this.numberOfPages} currentPage={this.state.currentPage} pageChangeCallback={page => this.onPageChange(page)} />
-          </div>
-        </dataset-list-view>
-      )
-    }
+    this.state = { currentPage: 1, pageSize: 10 }
+    this.refreshDatasets(this.searchParams, this.sort, this.facets, this.pageNumber)
   }
 
   onPageChange(page) {
     this.setState({ currentPage: page })
-    console.log(this.fetchData(page))
-
-    // Shallow rendering does not play nice with refs
-    if (this.pageRef.current) {
-      this.pageRef.current.scrollTop = 0
-    }
-  }
-
-  fetchData(pageNumber) {
-    this.setState({ loading: true })
-    const offset = (pageNumber - 1) * this.state.pageSize
-    const params = { offset, pageSize: this.state.pageSize, sort: this.sort, query: this.searchParams, facets: this.facets }
-
-    this.getDatasets(params).then(response => {
-      this.setSearchState(response.data)
-    }).catch(error => {
-      console.error(`Could not fetch datasets with response code ${error.status}`)
-      this.setState({ error: true })
-    })
-  }
-
-  getDatasets(params) {
-    const query = {
-      baseURL: window.API_HOST,
-      params: params,
-      paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'brackets' }),
-      withCredentials: true
-    }
-
-    return axios.get('/api/v1/dataset/search', query)
-  }
-
-  setSearchState(searchResponse) {
-    let metadata = searchResponse.metadata
-    this.setState({ loading: false, error: false, datasets: searchResponse.results, ...metadata })
+    this.refreshDatasets(this.searchParams, this.sort, this.facets, page)
   }
 
   onFacetClick(facetName, facetValue) {
@@ -110,11 +29,22 @@ export default class extends Component {
 
     const updatedFacets = this.toggleFacetValue(facetName, facetValue)
 
-    this.updateQueryParameters(
+    this.refreshDatasets(
       this.searchParams,
       this.sort,
-      updatedFacets
+      updatedFacets,
+      1
     )
+  }
+
+  onSortChange(sort) {
+    this.setState({ currentPage: 1 })
+    this.refreshDatasets(this.searchParams, sort, this.facets, 1)
+  }
+
+  onSearchChange(criteria) {
+    this.setState({ currentPage: 1 })
+    this.refreshDatasets(criteria, this.sort, this.facets, 1)
   }
 
   toggleFacetValue(facetName, facetValue) {
@@ -122,14 +52,9 @@ export default class extends Component {
     return Object.assign(this.facets || {}, { [facetName]: _.xor(facetValues, [facetValue]) })
   }
 
-  onSortChange(sort) {
-    this.setState({ currentPage: 1 })
-    this.updateQueryParameters(this.searchParams, sort, this.facets)
-  }
-
-  onSearchChange(criteria) {
-    this.setState({ currentPage: 1 })
-    this.updateQueryParameters(criteria, this.sort, this.facets)
+  refreshDatasets(criteria, sort, facets, pageNumber) {
+    this.updateQueryParameters(criteria, sort, facets)
+    this.props.fetchData(pageNumber, this.state.pageSize, sort, criteria, facets)
   }
 
   updateQueryParameters(searchCriteria, sort, facets) {
@@ -139,7 +64,7 @@ export default class extends Component {
   }
 
   get numberOfPages() {
-    return Math.ceil(this.state.totalDatasets / this.state.pageSize)
+    return Math.ceil(this.props.totalDatasets / this.state.pageSize)
   }
 
   get searchParams() {
@@ -164,5 +89,40 @@ export default class extends Component {
       { value: 'name_desc', label: 'Name Descending', default: this.sort === 'name_desc' },
       { value: 'last_mod', label: 'Last Modified', default: this.sort === 'last_mod' }
     ]
+  }
+
+  render() {
+    const resultCountText = `${this.props.totalDatasets || 'No'} datasets found`
+    const resultCountQueryText = this.searchParams ? ` for "${this.searchParams}"` : ''
+    const token = sessionStorage.getItem('api-token')
+    if (this.props.error) {
+      return <ErrorComponent errorText={'We were unable to fetch the datasets, please refresh the page to try again'} />
+    } else if (this.props.loading) {
+      return <LoadingElement className='spinner' />
+    } else {
+      return (
+        <dataset-list-view ref={this.pageRef}>
+          <div>
+            <LoginZone token={token} />
+            <FacetSidebar availableFacets={this.props.facets} appliedFacets={this.facets} clickHandler={(facetName, facetValue) => this.onFacetClick(facetName, facetValue)} />
+          </div>
+          <div className='right-section'>
+            <Search className='search'
+              defaultText={this.searchParams}
+              placeholder='Search datasets'
+              callback={searchCriteria => this.onSearchChange(searchCriteria)} />
+            <div className='list-header'>
+              <div className='result-count'>{`${resultCountText}${resultCountQueryText}`}</div>
+              <Select className='sort-select'
+                label='order by'
+                options={this.createSortOptions}
+                selectChangeCallback={sort => this.onSortChange(sort)} />
+            </div>
+            <DatasetList datasets={this.props.datasets} />
+            <Paginator className='paginator' numberOfPages={this.numberOfPages} currentPage={this.state.currentPage} pageChangeCallback={page => this.onPageChange(page)} />
+          </div>
+        </dataset-list-view>
+      )
+    }
   }
 }
