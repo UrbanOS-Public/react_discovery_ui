@@ -16,6 +16,9 @@ export default class extends Component {
   constructor(props) {
     super(props)
     this.state = { currentPage: 1, pageSize: 10 }
+  }
+
+  componentDidMount() {
     this.refreshDatasets(this.searchParams, this.sort, this.facets, this.pageNumber)
   }
 

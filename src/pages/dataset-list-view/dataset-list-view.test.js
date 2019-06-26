@@ -103,6 +103,7 @@ describe('dataset list view', () => {
       history={{ push: navigationSpy }}
       location={{ search: '' }}
       error={true}
+      fetchData={fetchData}
     />)
 
     expect(subject.find(ErrorComponent)).toHaveLength(1)
@@ -112,7 +113,8 @@ describe('dataset list view', () => {
     subject = shallow(<DatasetListView
       history={{ push: navigationSpy }}
       location={{ search: '' }}
-      loading={true} />)
+      loading={true}
+      fetchData={fetchData} />)
 
     expect(subject.find(LoadingElement)).toHaveLength(1)
   })

@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-import DataSetListViewWrapper from './pages/dataset-list-view-wrapper'
+import { DataSetListViewWrapper } from './pages/dataset-list-view'
 import DatasetView from './pages/dataset-detail-view'
 import LoginView from './pages/login-view'
 import NetworkLoadingElement from './components/network-loading-element'
