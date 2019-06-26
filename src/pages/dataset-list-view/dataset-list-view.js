@@ -11,20 +11,18 @@ import _ from 'lodash'
 import { QueryStringBuilder } from '../../utils'
 import ErrorComponent from '../../components/generic-elements/error-component'
 
-
 import axios from 'axios'
-import LoadingElement from '../../components/generic-elements/loading-element';
-
+import LoadingElement from '../../components/generic-elements/loading-element'
 
 export default class extends Component {
   constructor(props) {
     super(props)
-    this.state = { currentPage: 1, pageSize: 10, loading: true}
+    this.state = { currentPage: 1, pageSize: 10, loading: true }
     this.pageRef = createRef()
   }
 
   componentDidMount() {
-    this.fetchData(this.state.currentPage).results
+    this.fetchData(this.state.currentPage)
   }
 
   componentDidUpdate(prevProps) {
@@ -38,9 +36,9 @@ export default class extends Component {
     const token = sessionStorage.getItem('api-token')
 
     if (this.state.error) {
-      return <ErrorComponent errorText={"We were unable to fetch the datasets, please refresh the page to try again"} />
+      return <ErrorComponent errorText={'We were unable to fetch the datasets, please refresh the page to try again'} />
     } else if (this.state.loading) {
-      return <LoadingElement className="spinner" />
+      return <LoadingElement className='spinner' />
     } else {
       return (
         <dataset-list-view ref={this.pageRef}>
@@ -50,15 +48,15 @@ export default class extends Component {
           </div>
           <div className='right-section'>
             <Search className='search'
-                    defaultText={this.searchParams}
-                    placeholder='Search datasets'
-                    callback={searchCriteria => this.onSearchChange(searchCriteria)} />
+              defaultText={this.searchParams}
+              placeholder='Search datasets'
+              callback={searchCriteria => this.onSearchChange(searchCriteria)} />
             <div className='list-header'>
               <div className='result-count'>{`${resultCountText}${resultCountQueryText}`}</div>
               <Select className='sort-select'
-                      label='order by'
-                      options={this.createSortOptions}
-                      selectChangeCallback={sort => this.onSortChange(sort)} />
+                label='order by'
+                options={this.createSortOptions}
+                selectChangeCallback={sort => this.onSortChange(sort)} />
             </div>
             <DatasetList datasets={this.state.datasets} />
             <Paginator className='paginator' numberOfPages={this.numberOfPages} currentPage={this.state.currentPage} pageChangeCallback={page => this.onPageChange(page)} />
@@ -70,7 +68,7 @@ export default class extends Component {
 
   onPageChange(page) {
     this.setState({ currentPage: page })
-    this.fetchData(page)
+    console.log(this.fetchData(page))
 
     // Shallow rendering does not play nice with refs
     if (this.pageRef.current) {
@@ -87,7 +85,7 @@ export default class extends Component {
       if (response.status === 200) {
         this.setSearchState(response.data)
       } else {
-        throw `Could not fetch datasets with response code ${response.status}`
+        throw new Error(`Could not fetch datasets with response code ${response.status}`)
       }
     } catch (e) {
       this.setState({ error: true })
@@ -102,7 +100,7 @@ export default class extends Component {
       withCredentials: true
     }
 
-    return axios.get("/api/v1/dataset/search", query)
+    return axios.get('/api/v1/dataset/search', query)
   }
 
   setSearchState(searchResponse) {

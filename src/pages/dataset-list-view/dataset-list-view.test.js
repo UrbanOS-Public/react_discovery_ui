@@ -5,7 +5,7 @@ import Select from '../../components/generic-elements/select'
 import Search from '../../components/generic-elements/search'
 import mockAxios from 'axios'
 import ErrorComponent from '../../components/generic-elements/error-component'
-import LoadingElement from '../../components/generic-elements/loading-element';
+import LoadingElement from '../../components/generic-elements/loading-element'
 import FacetSidebar from '../../components/facet-sidebar'
 
 describe('dataset list view', () => {
@@ -20,7 +20,7 @@ describe('dataset list view', () => {
 
   describe('fetching data', () => {
     it('fetches data on mount with page number 1 and default page size', () => {
-      expect(mockAxios.get).toHaveBeenCalledWith("/api/v1/dataset/search", {
+      expect(mockAxios.get).toHaveBeenCalledWith('/api/v1/dataset/search', {
         baseURL: undefined,
         params: { facets: undefined, offset: 0, pageSize: 10, sort: 'default', query: 'monkey' },
         paramsSerializer: expect.any(Function),
@@ -31,7 +31,7 @@ describe('dataset list view', () => {
     it('fetches data with specified query parameters when props are updated', () => {
       subject.setProps({ location: { search: '?q=newsearch&sort=name_desc' } })
 
-      expect(mockAxios.get).toHaveBeenCalledWith("/api/v1/dataset/search", {
+      expect(mockAxios.get).toHaveBeenCalledWith('/api/v1/dataset/search', {
         baseURL: undefined,
         params: { facets: undefined, offset: 0, pageSize: 10, sort: 'name_desc', query: 'newsearch' },
         paramsSerializer: expect.any(Function),
@@ -42,7 +42,7 @@ describe('dataset list view', () => {
     it('fetches data with the new page number and specified query parameters when the page is changed', () => {
       subject.instance().onPageChange(4)
 
-      expect(mockAxios.get).toHaveBeenCalledWith("/api/v1/dataset/search", {
+      expect(mockAxios.get).toHaveBeenCalledWith('/api/v1/dataset/search', {
         baseURL: undefined,
         params: { facets: undefined, offset: 30, pageSize: 10, sort: 'default', query: 'monkey' },
         paramsSerializer: expect.any(Function),
@@ -80,7 +80,7 @@ describe('dataset list view', () => {
       subject.find(Select).props().selectChangeCallback('stuff')
       expect(subject.find(Paginator).props().currentPage).toEqual(1)
       done()
-    }, 10);
+    }, 10)
   })
 
   it('resets the page number to 1 on search change', done => {
@@ -90,7 +90,7 @@ describe('dataset list view', () => {
       subject.find(Search).props().callback('new search')
       expect(subject.find(Paginator).props().currentPage).toEqual(1)
       done()
-    }, 10);
+    }, 10)
   })
 
   it('does not show the search box while the page is loading, to help with resetting the search criteria on data change', () => {
@@ -116,7 +116,7 @@ describe('dataset list view', () => {
         search: encodeURI('q=newsearch&sort=name_desc&facets[organization][]=stuff&facets[organization][]=things')
       })
       done()
-    }, 10);
+    }, 10)
   })
 
   it('removes facets in query string when a lone facet is toggled', done => {
@@ -128,7 +128,7 @@ describe('dataset list view', () => {
         search: encodeURI('q=newsearch&sort=name_desc')
       })
       done()
-    }, 10);
+    }, 10)
   })
 
   it('toggles facets in query string when facet is clicked and other facets exist', done => {
@@ -140,30 +140,30 @@ describe('dataset list view', () => {
         search: encodeURI('q=newsearch&sort=name_desc&facets[foo][]=bar')
       })
       done()
-    }, 10);
+    }, 10)
   })
 
   it('shows error message when failing to retrieve dataset', done => {
-    mockAxios.get.mockImplementationOnce(() => Promise.resolve({ status: 500 }));
+    mockAxios.get.mockImplementationOnce(() => Promise.resolve({ status: 500 }))
     subject = shallow(<DatasetListView history={{ push: navigationSpy }} location={{ search: '' }} />)
 
     setTimeout(function () {
       expect(subject.find(ErrorComponent)).toHaveLength(1)
       done()
-    }, 100);
+    }, 100)
   })
 
   it('shows a loading spinner before data is returned', done => {
     // A promise that never resolves
     mockAxios.get.mockImplementationOnce(() => new Promise(function (resolve, reject) {
-      [{ resolve: resolve, reject: reject }];
-    }));
+      [{ resolve: resolve, reject: reject }]
+    }))
     subject = shallow(<DatasetListView history={{ push: navigationSpy }} location={{ search: '' }} />)
 
     setTimeout(function () {
       expect(subject.instance().state.loading).toEqual(true)
       expect(subject.find(LoadingElement)).toHaveLength(1)
       done()
-    }, 10);
+    }, 10)
   })
 })

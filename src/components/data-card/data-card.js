@@ -4,7 +4,7 @@ import moment from 'moment'
 import SanitizedHTML from 'react-sanitized-html'
 
 const DataCard = props => {
-  const max_description_length = 240
+  const maxDescriptionLength = 240
   const fileTypes = fileTypes => {
     return fileTypes.map(fileType => (
       <span key={fileType} className='file-type'>
@@ -16,11 +16,11 @@ const DataCard = props => {
   const dataset = props.dataset
   const truncatedDescription = truncateDescription(
     dataset.description,
-    max_description_length
+    maxDescriptionLength
   )
   return (
     <data-card>
-      <div className="logo">
+      <div className='logo'>
         <Link
           to={`/dataset/${dataset.organization_name}/${dataset.name}`}
         >
@@ -55,9 +55,9 @@ const DataCard = props => {
   )
 }
 
-function truncateDescription(description, max_length) {
-  if (description.length > max_length) {
-    return `${description.substring(0, max_length)}...`
+function truncateDescription (description, maxLength) {
+  if (description.length > maxLength) {
+    return `${description.substring(0, maxLength)}...`
   }
 
   return description

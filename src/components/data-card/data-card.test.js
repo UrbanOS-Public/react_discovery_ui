@@ -43,8 +43,8 @@ describe('data card element with logo', () => {
   })
 
   test('card to render logo with correct url and alt text', () => {
-    expect(subject.find("img").prop("alt")).toEqual(`The logo for Organization Title`);
-    expect(subject.find("img").prop("src")).toEqual(dataset.organization_image_url);
+    expect(subject.find('img').prop('alt')).toEqual(`The logo for Organization Title`)
+    expect(subject.find('img').prop('src')).toEqual(dataset.organization_image_url)
   })
 })
 
