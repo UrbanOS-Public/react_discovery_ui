@@ -1,6 +1,6 @@
 @import '../../styles/mixins.scss';
 @import '../../styles/variables.scss';
-
+$logo-width: 10rem;
 data-card {
     @include custom-element();
     width: 100%;
@@ -10,7 +10,7 @@ data-card {
     display: flex;
 
     img {
-        width: 10rem;
+        width: $logo-width;
     }
 
     .title {
@@ -25,9 +25,9 @@ data-card {
 
     .logo {
         padding: 0px 30px;
-        width: 10rem;
+        width: $logo-width;
         text-align: center;
-
+        min-width: $logo-width;
     }
 
     .card-metadata {

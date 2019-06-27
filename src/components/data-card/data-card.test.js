@@ -2,6 +2,7 @@ import { shallow } from 'enzyme'
 import DataCard from './data-card'
 import { Link } from 'react-router-dom'
 import SanitizedHTML from 'react-sanitized-html'
+import ReactImageFallback from 'react-image-fallback';
 
 let subject
 const dataset = {
@@ -43,8 +44,8 @@ describe('data card element with logo', () => {
   })
 
   test('card to render logo with correct url and alt text', () => {
-    expect(subject.find('img').prop('alt')).toEqual(`The logo for Organization Title`)
-    expect(subject.find('img').prop('src')).toEqual(dataset.organization_image_url)
+    expect(subject.find(ReactImageFallback).prop('alt')).toEqual(`The logo for Organization Title`)
+    expect(subject.find(ReactImageFallback).prop('src')).toEqual(dataset.organization_image_url)
   })
 })
 
