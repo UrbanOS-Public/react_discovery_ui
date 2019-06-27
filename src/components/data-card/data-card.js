@@ -2,9 +2,11 @@ import './data-card.scss'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import SanitizedHTML from 'react-sanitized-html'
+import ReactImageFallback from 'react-image-fallback';
+import fallbackImage from '../../assets/org_image_unavailable.svg';
 
 const DataCard = props => {
-  const max_description_length = 240
+  const maxDescriptionLength = 240
   const fileTypes = fileTypes => {
     return fileTypes.map(fileType => (
       <span key={fileType} className='file-type'>
@@ -16,15 +18,19 @@ const DataCard = props => {
   const dataset = props.dataset
   const truncatedDescription = truncateDescription(
     dataset.description,
-    max_description_length
+    maxDescriptionLength
   )
   return (
     <data-card>
-      <div className="logo">
+      <div className='logo'>
         <Link
           to={`/dataset/${dataset.organization_name}/${dataset.name}`}
         >
-          <img src={dataset.organization_image_url} alt={`The logo for ${dataset.organization_title}`} />
+          <ReactImageFallback
+            src={dataset.organization_image_url}
+            fallbackImage={fallbackImage}
+            initialImage={fallbackImage}
+            alt={`The logo for ${dataset.organization_title}`} />
         </Link>
       </div>
       <div>
@@ -55,9 +61,9 @@ const DataCard = props => {
   )
 }
 
-function truncateDescription(description, max_length) {
-  if (description.length > max_length) {
-    return `${description.substring(0, max_length)}...`
+function truncateDescription(description, maxLength) {
+  if (description.length > maxLength) {
+    return `${description.substring(0, maxLength)}...`
   }
 
   return description

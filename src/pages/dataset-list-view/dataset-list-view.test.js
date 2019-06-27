@@ -3,44 +3,34 @@ import DatasetListView from './dataset-list-view'
 import Paginator from '../../components/generic-elements/paginator'
 import Select from '../../components/generic-elements/select'
 import Search from '../../components/generic-elements/search'
+import ErrorComponent from '../../components/generic-elements/error-component'
+import LoadingElement from '../../components/generic-elements/loading-element'
 import FacetSidebar from '../../components/facet-sidebar'
 
 describe('dataset list view', () => {
-  let expectedDatasetList, retrieveSpy, navigationSpy, subject
+  let expectedDatasetList, retrieveSpy, navigationSpy, fetchData, subject
 
   beforeEach(() => {
     expectedDatasetList = Array.from(Array(6)).map((unused, index) => ({ id: index }))
     retrieveSpy = jest.fn()
     navigationSpy = jest.fn()
-    subject = shallow(<DatasetListView datasets={expectedDatasetList} totalDatasets={12} retrieveDataset={retrieveSpy} history={{ push: navigationSpy }} location={{ search: '?q=monkey&sort=default' }} />)
-  })
-
-  describe('fetching data', () => {
-    it('fetches data on mount with page number 1 and default page size', () => {
-      expect(retrieveSpy).toHaveBeenCalledWith({ page: 1, pageSize: 10, sort: 'default', query: 'monkey' })
-    })
-
-    it('fetches data with specified query parameters when props are updated', () => {
-      subject.setProps({ location: { search: '?q=newsearch&sort=name_desc' } })
-
-      expect(retrieveSpy).toHaveBeenCalledWith({ page: 1, pageSize: 10, sort: 'name_desc', query: 'newsearch' })
-    })
-
-    it('fetches data with the new page number and specified query parameters when the page is changed', () => {
-      subject.find(Paginator).props().pageChangeCallback(4)
-
-      expect(retrieveSpy).toHaveBeenCalledWith({ page: 4, pageSize: 10, sort: 'default', query: 'monkey' })
-    })
-  })
-
-  it('informs the paginator of the current page when the paginator invokes the callback', () => {
-    subject.find(Paginator).props().pageChangeCallback(2)
-
-    expect(subject.find(Paginator).props().currentPage).toEqual(2)
+    fetchData = jest.fn()
+    subject =
+      shallow(<DatasetListView
+        datasets={[]}
+        facets={[]}
+        totalDatasets={12}
+        error={false}
+        loading={false}
+        history={{ push: navigationSpy }}
+        fetchData={fetchData}
+        location={{ search: '?q=monkey&sort=default' }}
+      />)
   })
 
   it('sets paginator total page count based on total datasets and page size', () => {
     const expectedNumberOfPages = 2 // 12 datasets with page size of 10
+    expect(subject.find(Paginator)).toHaveLength(1)
     expect(subject.find(Paginator).props().numberOfPages).toEqual(expectedNumberOfPages)
   })
 
@@ -70,14 +60,7 @@ describe('dataset list view', () => {
   it('resets the page number to 1 on search change', () => {
     subject.find(Paginator).props().pageChangeCallback(2)
     subject.find(Search).props().callback('new search')
-
     expect(subject.find(Paginator).props().currentPage).toEqual(1)
-  })
-
-  it('does not show the search box while the page is loading, to help with resetting the search criteria on data change', () => {
-    subject = shallow(<DatasetListView loading datasets={expectedDatasetList} totalDatasets={12} retrieveDataset={jest.fn()} history={{ push: navigationSpy }} location={{ search: '' }} />)
-
-    expect(subject.find(Search).length).toEqual(0)
   })
 
   it('adds facets to query string when facet is clicked', () => {
@@ -113,5 +96,26 @@ describe('dataset list view', () => {
     expect(navigationSpy).toHaveBeenCalledWith({
       search: encodeURI('q=newsearch&sort=name_desc&facets[foo][]=bar')
     })
+  })
+
+  it('shows error message when the error property is true', () => {
+    subject = shallow(<DatasetListView
+      history={{ push: navigationSpy }}
+      location={{ search: '' }}
+      error={true}
+      fetchData={fetchData}
+    />)
+
+    expect(subject.find(ErrorComponent)).toHaveLength(1)
+  })
+
+  it('shows a loading spinner when the loading property is true', () => {
+    subject = shallow(<DatasetListView
+      history={{ push: navigationSpy }}
+      location={{ search: '' }}
+      loading={true}
+      fetchData={fetchData} />)
+
+    expect(subject.find(LoadingElement)).toHaveLength(1)
   })
 })

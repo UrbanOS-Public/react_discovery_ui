@@ -1,3 +1,3 @@
-import DatasetListView from './connector'
+import DatasetListViewWrapper from "./dataset-list-view-wrapper.js"
 
-export default DatasetListView
+export default DatasetListViewWrapper
