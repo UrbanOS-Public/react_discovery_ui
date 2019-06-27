@@ -2,6 +2,8 @@ import './data-card.scss'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import SanitizedHTML from 'react-sanitized-html'
+import ReactImageFallback from "react-image-fallback";
+import fallbackImage from '../../assets/org_image_unavailable.png'
 
 const DataCard = props => {
   const maxDescriptionLength = 240
@@ -24,7 +26,13 @@ const DataCard = props => {
         <Link
           to={`/dataset/${dataset.organization_name}/${dataset.name}`}
         >
-          <img src={dataset.organization_image_url} alt={`The logo for ${dataset.organization_title}`} />
+          {/* <img src={dataset.organization_image_url} alt={`The logo for ${dataset.organization_title}`} /> */}
+          <ReactImageFallback
+            src={dataset.organization_image_url}
+            fallbackImage={fallbackImage}
+            initialImage={fallbackImage}
+            alt={`The logo for ${dataset.organization_title}`}
+            className="my-image" />
         </Link>
       </div>
       <div>
@@ -55,7 +63,7 @@ const DataCard = props => {
   )
 }
 
-function truncateDescription (description, maxLength) {
+function truncateDescription(description, maxLength) {
   if (description.length > maxLength) {
     return `${description.substring(0, maxLength)}...`
   }
