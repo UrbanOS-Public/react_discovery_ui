@@ -12,9 +12,9 @@ export default class extends Component {
     render() {
         return (
             <login-svgs-and-text>
-                <InlineSVG className='user-icon' svg={user} height='inherit' accessibilityDesc='User' />
-                {this.props.text}
-                <InlineSVG className='login-arrow' svg={arrow} height='inherit' accessibilityDesc='Arrow' />
+                <InlineSVG svg={user} className='user-icon' accessibilityDesc='User' />
+                <span>{this.props.text}</span>
+                <InlineSVG className='login-arrow' svg={arrow} accessibilityDesc='Arrow' />
             </login-svgs-and-text>
         )
     }

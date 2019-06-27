@@ -2,9 +2,8 @@
 @import '../../styles/mixins.scss';
 
 login-zone {
-  display: flex;
-  flex-direction: column;
   margin-bottom: 1rem;
+  display: flex;
 
   p {
     margin: 0.5rem 0;
@@ -14,7 +13,7 @@ login-zone {
     @include sub-link();
     font-weight: bold;
 
-    &:hover .login-arrow, &:hover .user-icon {
+    &:hover .login-arrow-svg, &:hover .user-icon-svg {
       text-decoration: underline;
       fill: $almost-black;
     }
@@ -26,7 +25,11 @@ login-zone {
   }
 
   .login-arrow {
-    height: 0.6rem;
+    vertical-align: middle;
+  }
+  .login-arrow-svg {
+    height: 0.9rem;
+    width: 1.2rem;
     margin-left: 0.5rem;
     line-height: 0.90rem;
     fill: $light-blue;
@@ -34,9 +37,16 @@ login-zone {
 
   .user-icon {
     height: 1.4rem;
+    width: 1.4rem;
     margin-right: 0.25rem;
+    vertical-align: top;
+    vertical-align: -webkit-baseline-middle;
+  }
+
+  .user-icon-svg {
+    height: 1.4rem;
+    width: 1.4rem;
     fill: $light-blue;
-    vertical-align: sub;
   }
 
   button {
@@ -46,6 +56,7 @@ login-zone {
     font-weight: bold;
     text-align: left;
     padding: 1px 0px 2px;
+    background-color: transparent;
   }
   button:hover{
     text-decoration:underline;
