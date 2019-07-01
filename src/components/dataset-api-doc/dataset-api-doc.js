@@ -84,13 +84,13 @@ const apiParams = [
   {
     name: 'where',
     description:
-      'A set of conditions to filter rows by. Multiple conditions can be added, seperated by AND or OR',
+      'A set of conditions to filter rows by. Multiple conditions can be added, separated by AND or OR',
     example: "column1='a value' OR column1='another value'"
   },
   {
     name: 'orderBy',
     description:
-      "A column (or comma seperated list of columns) to order the results by and one of 'asc' or 'desc' to determine the direction of each.",
+      "A column (or comma separated list of columns) to order the results by and one of 'asc' or 'desc' to determine the direction of each.",
     example: 'column1 asc, column2 desc'
   },
   {
