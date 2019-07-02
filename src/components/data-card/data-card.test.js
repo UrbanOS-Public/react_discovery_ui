@@ -14,7 +14,7 @@ const dataset = {
   organization_image_url: 'logo.png',
   description: 'somedescription',
   fileTypes: ['foo', 'bar'],
-  modifiedTime: '2018-06-21'
+  modified: '2018-06-21'
 }
 
 describe('data card element', () => {

@@ -49,7 +49,7 @@ const DataCard = props => {
         </div>
         <div className='card-metadata'>
           <div className='last-modified'>
-            Updated {moment(dataset.modifiedTime).format('MMM DD, YYYY')}
+            Updated {moment(dataset.modified).format('MMM DD, YYYY')}
           </div>
           <div className='separator'>•</div>
           <div className='file-types'>
