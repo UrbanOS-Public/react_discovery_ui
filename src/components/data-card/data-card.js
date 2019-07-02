@@ -49,7 +49,7 @@ const DataCard = props => {
         </div>
         <div className='card-metadata'>
           <div className='last-modified'>
-            Updated {moment(dataset.modified).format('MMM DD, YYYY')}
+            {dataset && updatedDate(dataset)}
           </div>
           <div className='separator'>•</div>
           <div className='file-types'>
@@ -59,6 +59,16 @@ const DataCard = props => {
       </div>
     </data-card>
   )
+}
+
+function updatedDate(dataset) {
+  if (dataset.sourceType === "remote") {
+    return (<span>Updates to remote datasets are not tracked</span>)
+  } else if (dataset.modified) {
+    return (<span>Updated {moment(dataset.modified).format('MMM DD, YYYY')}</span>)
+  } else {
+    return (<span>Update pending</span>)
+  }
 }
 
 function truncateDescription(description, maxLength) {
