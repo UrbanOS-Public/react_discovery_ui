@@ -14,11 +14,18 @@ describe('dataset list view', () => {
 
   describe('fetching data', () => {
     it('fetches data with specified query parameters', () => {
-      subject.instance().fetchData(2, 10, "name_desc", "newsearch", [{ "keyword": "bob" }])
+      subject.instance().fetchData(2, 10, "name_desc", "newsearch", [{ "keyword": "bob" }], true)
 
       expect(mockAxios.get).toHaveBeenCalledWith('/api/v1/dataset/search', {
         baseURL: undefined,
-        params: { facets: [{ "keyword": "bob" }], offset: 10, sort: 'name_desc', query: 'newsearch', limit: 10 },
+        params: {
+          facets: [{ "keyword": "bob" }],
+          offset: 10,
+          sort: 'name_desc',
+          query: 'newsearch',
+          limit: 10,
+          includeRemote: "true"
+        },
         paramsSerializer: expect.any(Function),
         withCredentials: true
       })

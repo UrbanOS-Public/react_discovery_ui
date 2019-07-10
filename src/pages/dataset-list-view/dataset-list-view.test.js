@@ -6,6 +6,7 @@ import Search from '../../components/generic-elements/search'
 import ErrorComponent from '../../components/generic-elements/error-component'
 import LoadingElement from '../../components/generic-elements/loading-element'
 import FacetSidebar from '../../components/facet-sidebar'
+import Checkbox from '../../components/generic-elements/checkbox'
 
 describe('dataset list view', () => {
   let expectedDatasetList, retrieveSpy, navigationSpy, fetchData, subject
@@ -37,17 +38,13 @@ describe('dataset list view', () => {
   it('adds search parameters when the search callback is invoked', () => {
     subject.find(Search).props().callback('my search criteria')
 
-    expect(navigationSpy).toHaveBeenCalledWith({
-      search: 'q=my%20search%20criteria&sort=default'
-    })
+    expectSearchStringContains(navigationSpy, "q=my%20search%20criteria")
   })
 
-  it('adds search parameters when the sort callback is invoked', () => {
+  it('adds sort parameters when the sort callback is invoked', () => {
     subject.find(Select).props().selectChangeCallback('stuff')
 
-    expect(navigationSpy).toHaveBeenCalledWith({
-      search: 'q=monkey&sort=stuff'
-    })
+    expectSearchStringContains(navigationSpy, "&sort=stuff")
   })
 
   it('resets the page number to 1 on sort change', () => {
@@ -66,18 +63,14 @@ describe('dataset list view', () => {
   it('adds facets to query string when facet is clicked', () => {
     subject.find(FacetSidebar).props().clickHandler('organization', 'stuff')
 
-    expect(navigationSpy).toHaveBeenCalledWith({
-      search: encodeURI('q=monkey&sort=default&facets[organization][]=stuff')
-    })
+    expectSearchStringContains(navigationSpy, '&facets[organization][]=stuff')
   })
 
   it('adds additional facets to query string when a new facet is clicked', () => {
     subject.setProps({ location: { search: encodeURI('?q=newsearch&sort=name_desc&facets[organization][]=stuff') } })
     subject.find(FacetSidebar).props().clickHandler('organization', 'things')
 
-    expect(navigationSpy).toHaveBeenCalledWith({
-      search: encodeURI('q=newsearch&sort=name_desc&facets[organization][]=stuff&facets[organization][]=things')
-    })
+    expectSearchStringContains(navigationSpy, '&facets[organization][]=stuff&facets[organization][]=things')
   })
 
   it('removes facets in query string when a lone facet is toggled', () => {
@@ -85,7 +78,7 @@ describe('dataset list view', () => {
     subject.find(FacetSidebar).props().clickHandler('organization', 'stuff')
 
     expect(navigationSpy).toHaveBeenCalledWith({
-      search: encodeURI('q=newsearch&sort=name_desc')
+      search: encodeURI('q=newsearch&sort=name_desc&includeRemote=true')
     })
   })
 
@@ -93,9 +86,7 @@ describe('dataset list view', () => {
     subject.setProps({ location: { search: encodeURI('?q=newsearch&sort=name_desc&facets[organization][]=stuff&facets[foo][]=bar') } })
     subject.find(FacetSidebar).props().clickHandler('organization', 'stuff')
 
-    expect(navigationSpy).toHaveBeenCalledWith({
-      search: encodeURI('q=newsearch&sort=name_desc&facets[foo][]=bar')
-    })
+    expectSearchStringContains(navigationSpy, '&facets[foo][]=bar')
   })
 
   it('shows error message when the error property is true', () => {
@@ -118,4 +109,21 @@ describe('dataset list view', () => {
 
     expect(subject.find(LoadingElement)).toHaveLength(1)
   })
+
+  describe('includeRemoteDatasets checkbox', () => {
+    it('defaults includeRemoteDatasets to true', () => {
+      expect(subject.find(Checkbox).props().selected).toBeTruthy()
+    })
+
+    it('update search results when clicked', () => {
+      subject.find(Checkbox).props().clickHandler()
+
+      expect(fetchData).toHaveBeenCalledTimes(2)
+      expect(fetchData).lastCalledWith(1, 10, 'default', 'monkey', undefined, false)
+    })
+  })
 })
+
+function expectSearchStringContains(navigationSpy, string) {
+  expect(navigationSpy.mock.calls[0][0].search.indexOf(encodeURI(string)) >= 0)
+}
