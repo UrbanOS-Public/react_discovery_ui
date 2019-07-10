@@ -1,0 +1,38 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+
+.checkbox {
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkbox-indicator {
+    border-width: 1px;
+    border-style: solid;
+
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-left: 0.25rem;
+    display: flex;
+    justify-content: center;
+
+    &.selected {
+        background-color: $light-blue;
+            border-color: $light-blue;
+        }
+        .checkmark {
+            transform: rotate(45deg);
+            height: 0.75rem;
+            width: 0.35rem;
+            border-bottom: 2px solid white;
+            border-right: 2px solid white;
+        }
+    }
+
+    .checkbox-label {
+        margin: 0 0.75rem;
+        line-height: 1rem;
+        width: 80%;
+    }

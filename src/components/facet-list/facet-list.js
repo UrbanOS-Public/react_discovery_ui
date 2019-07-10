@@ -1,13 +1,15 @@
 import _ from 'lodash'
+import Checkbox from '../generic-elements/checkbox'
 import './facet-list.scss'
 
+
 const FacetList = props => {
-  const keyHandler = (e, name) => {
-    const SPACEBAR = 32
-    if (e.keyCode === SPACEBAR) {
-      props.clickHandler(name)
-      e.preventDefault()
-    }
+  const getText = (name, count) => {
+    return `${name || 'Unorganized'} (${count})`
+  }
+
+  const simplePluralize = word => {
+    return word.endsWith('s') ? word : `${word}s`
   }
 
   const showMore = props.facets.length > props.limit
@@ -22,26 +24,17 @@ const FacetList = props => {
           .orderBy(['selected', 'count', facet => facet.name.toLowerCase()], ['desc', 'desc', 'asc'])
           .slice(0, props.limit)
           .map(({ name, count, selected }) => (
-            <div className='facet ' role='button' tabIndex='0' key={name}
-              onClick={() => props.clickHandler(name)}
-              onKeyDown={(e) => { keyHandler(e, name) }}>
-              <span className={`facet-indicator ${selected ? 'selected' : ''}`}>
-                {selected && <div className='cool-check-mark' />}
-              </span>
-              <span className='facet-label wrapped-text'>
-                {name || 'Unorganized'} ({count})
-              </span>
-            </div>
+            <Checkbox
+              clickHandler={() => props.clickHandler(name)}
+              text={getText(name, count)}
+              selected={selected}
+              key={name}/>
           ))
           .value()
       }
       {showMore && <a className='show-more' onClick={() => props.showMoreHandler(props.title, props.facets)}>Show more</a>}
     </div>
   )
-}
-
-const simplePluralize = word => {
-  return word.endsWith('s') ? word : `${word}s`
 }
 
 export default FacetList
