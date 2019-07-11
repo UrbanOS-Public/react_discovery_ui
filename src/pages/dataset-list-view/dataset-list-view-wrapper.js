@@ -11,10 +11,10 @@ export default class extends Component {
     this.fetchData = this.fetchData.bind(this);
   }
 
-  fetchData(pageNumber, pageSize, sort, searchParams, facets, includeRemote) {
+  fetchData(pageNumber, pageSize, sort, searchParams, facets, apiAccessible) {
     this.setState({ loading: true })
     const offset = (pageNumber - 1) * pageSize
-    let params = { offset, limit: pageSize, sort, query: searchParams, facets, includeRemote: includeRemote.toString() }
+    let params = { offset, limit: pageSize, sort, query: searchParams, facets, apiAccessible: apiAccessible.toString() }
 
     this.getDatasets(params).then(response => {
       this.setSearchState(response.data)

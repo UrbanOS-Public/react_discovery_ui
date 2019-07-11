@@ -24,7 +24,7 @@ describe('dataset list view', () => {
           sort: 'name_desc',
           query: 'newsearch',
           limit: 10,
-          includeRemote: "true"
+          apiAccessible: "true"
         },
         paramsSerializer: expect.any(Function),
         withCredentials: true

@@ -78,7 +78,7 @@ describe('dataset list view', () => {
     subject.find(FacetSidebar).props().clickHandler('organization', 'stuff')
 
     expect(navigationSpy).toHaveBeenCalledWith({
-      search: encodeURI('q=newsearch&sort=name_desc&includeRemote=true')
+      search: encodeURI('q=newsearch&sort=name_desc&apiAccessible=false')
     })
   })
 
@@ -110,16 +110,16 @@ describe('dataset list view', () => {
     expect(subject.find(LoadingElement)).toHaveLength(1)
   })
 
-  describe('includeRemoteDatasets checkbox', () => {
-    it('defaults includeRemoteDatasets to true', () => {
-      expect(subject.find(Checkbox).props().selected).toBeTruthy()
+  describe('apiAccessible checkbox', () => {
+    it('defaults apiAccessible to false', () => {
+      expect(subject.find(Checkbox).props().selected).toBeFalsy()
     })
 
     it('update search results when clicked', () => {
       subject.find(Checkbox).props().clickHandler()
 
       expect(fetchData).toHaveBeenCalledTimes(2)
-      expect(fetchData).lastCalledWith(1, 10, 'default', 'monkey', undefined, false)
+      expect(fetchData).lastCalledWith(1, 10, 'default', 'monkey', undefined, true)
     })
   })
 })

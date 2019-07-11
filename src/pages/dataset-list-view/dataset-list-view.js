@@ -21,16 +21,16 @@ export default class extends Component {
   }
 
   componentDidMount() {
-    this.refreshDatasets(this.searchParams, this.sort, this.facets, this.pageNumber, this.includeRemote)
+    this.refreshDatasets(this.searchParams, this.sort, this.facets, this.pageNumber, this.apiAccessible)
   }
 
   onPageChange(page) {
     this.setState({ currentPage: page })
-    this.refreshDatasets(this.searchParams, this.sort, this.facets, page, this.includeRemote)
+    this.refreshDatasets(this.searchParams, this.sort, this.facets, page, this.apiAccessible)
   }
 
   onRemoteToggleClick() {
-    this.refreshDatasets(this.searchParams, this.sort, this.facets, 1, !this.includeRemote)
+    this.refreshDatasets(this.searchParams, this.sort, this.facets, 1, !this.apiAccessible)
   }
 
   onFacetClick(facetName, facetValue) {
@@ -43,18 +43,18 @@ export default class extends Component {
       this.sort,
       updatedFacets,
       1,
-      this.includeRemote
+      this.apiAccessible
     )
   }
 
   onSortChange(sort) {
     this.setState({ currentPage: 1 })
-    this.refreshDatasets(this.searchParams, sort, this.facets, 1, this.includeRemote)
+    this.refreshDatasets(this.searchParams, sort, this.facets, 1, this.apiAccessible)
   }
 
   onSearchChange(criteria) {
     this.setState({ currentPage: 1 })
-    this.refreshDatasets(criteria, this.sort, this.facets, 1, this.includeRemote)
+    this.refreshDatasets(criteria, this.sort, this.facets, 1, this.apiAccessible)
   }
 
   toggleFacetValue(facetName, facetValue) {
@@ -62,14 +62,14 @@ export default class extends Component {
     return Object.assign(this.facets || {}, { [facetName]: _.xor(facetValues, [facetValue]) })
   }
 
-  refreshDatasets(criteria, sort, facets, pageNumber, includeRemote) {
-    this.updateQueryParameters(criteria, sort, facets, includeRemote)
-    this.props.fetchData(pageNumber, this.state.pageSize, sort, criteria, facets, includeRemote)
+  refreshDatasets(criteria, sort, facets, pageNumber, apiAccessible) {
+    this.updateQueryParameters(criteria, sort, facets, apiAccessible)
+    this.props.fetchData(pageNumber, this.state.pageSize, sort, criteria, facets, apiAccessible)
   }
 
-  updateQueryParameters(searchCriteria, sort, facets, includeRemote) {
+  updateQueryParameters(searchCriteria, sort, facets, apiAccessible) {
     this.props.history.push({
-      search: QueryStringBuilder.createQueryString(facets, searchCriteria, sort, includeRemote)
+      search: QueryStringBuilder.createQueryString(facets, searchCriteria, sort, apiAccessible)
     })
   }
 
@@ -93,10 +93,13 @@ export default class extends Component {
     return this.getQueryParam("facets")
   }
 
-  get includeRemote() {
-    const includeRemote = this.getQueryParam("includeRemote")
-    // Convert to boolean with a default of true
-    return includeRemote == undefined ? true : _.lowerCase(includeRemote) == "true"
+  get apiAccessible() {
+    const apiAccessible = this.getQueryParam("apiAccessible")
+    return this.convertStringToBooleanWithDefault(apiAccessible, false)
+  }
+
+  convertStringToBooleanWithDefault(value, defaultValue) {
+    return value == undefined ? defaultValue : _.lowerCase(value) == "true"
   }
 
   get totalDatasets() {
@@ -126,8 +129,8 @@ export default class extends Component {
             <LoginZone token={token} />
             <Checkbox
               clickHandler={() => this.onRemoteToggleClick()}
-              text="Include Remote Datasets"
-              selected={this.includeRemote} />
+              text="API Accessible"
+              selected={this.apiAccessible} />
             <FacetSidebar
               availableFacets={this.props.facets}
               appliedFacets={this.facets}
