@@ -79,7 +79,7 @@ describe('dataset detail view', () => {
         id: '123',
         name: 'COTA Streaming Busses',
         description: '....',
-        sourceType: 'batch',
+        sourceType: 'ingest',
         sourceFormat: 'json',
         sourceUrl: 'http://example.com/sweet-data.json'
       }
