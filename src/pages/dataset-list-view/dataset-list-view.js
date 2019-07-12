@@ -8,6 +8,8 @@ import LoginZone from '../../components/login-zone'
 import FacetSidebar from '../../components/facet-sidebar'
 import ErrorComponent from '../../components/generic-elements/error-component'
 import LoadingElement from '../../components/generic-elements/loading-element'
+import RemoteToggle from '../../components/remote-toggle'
+import Checkbox from '../../components/generic-elements/checkbox'
 import qs from 'qs'
 import _ from 'lodash'
 import { QueryStringBuilder } from '../../utils'
@@ -19,12 +21,16 @@ export default class extends Component {
   }
 
   componentDidMount() {
-    this.refreshDatasets(this.searchParams, this.sort, this.facets, this.pageNumber)
+    this.refreshDatasets(this.searchParams, this.sort, this.facets, this.pageNumber, this.apiAccessible)
   }
 
   onPageChange(page) {
     this.setState({ currentPage: page })
-    this.refreshDatasets(this.searchParams, this.sort, this.facets, page)
+    this.refreshDatasets(this.searchParams, this.sort, this.facets, page, this.apiAccessible)
+  }
+
+  onRemoteToggleClick() {
+    this.refreshDatasets(this.searchParams, this.sort, this.facets, 1, !this.apiAccessible)
   }
 
   onFacetClick(facetName, facetValue) {
@@ -36,18 +42,19 @@ export default class extends Component {
       this.searchParams,
       this.sort,
       updatedFacets,
-      1
+      1,
+      this.apiAccessible
     )
   }
 
   onSortChange(sort) {
     this.setState({ currentPage: 1 })
-    this.refreshDatasets(this.searchParams, sort, this.facets, 1)
+    this.refreshDatasets(this.searchParams, sort, this.facets, 1, this.apiAccessible)
   }
 
   onSearchChange(criteria) {
     this.setState({ currentPage: 1 })
-    this.refreshDatasets(criteria, this.sort, this.facets, 1)
+    this.refreshDatasets(criteria, this.sort, this.facets, 1, this.apiAccessible)
   }
 
   toggleFacetValue(facetName, facetValue) {
@@ -55,15 +62,19 @@ export default class extends Component {
     return Object.assign(this.facets || {}, { [facetName]: _.xor(facetValues, [facetValue]) })
   }
 
-  refreshDatasets(criteria, sort, facets, pageNumber) {
-    this.updateQueryParameters(criteria, sort, facets)
-    this.props.fetchData(pageNumber, this.state.pageSize, sort, criteria, facets)
+  refreshDatasets(criteria, sort, facets, pageNumber, apiAccessible) {
+    this.updateQueryParameters(criteria, sort, facets, apiAccessible)
+    this.props.fetchData(pageNumber, this.state.pageSize, sort, criteria, facets, apiAccessible)
   }
 
-  updateQueryParameters(searchCriteria, sort, facets) {
+  updateQueryParameters(searchCriteria, sort, facets, apiAccessible) {
     this.props.history.push({
-      search: QueryStringBuilder.createQueryString(facets, searchCriteria, sort)
+      search: QueryStringBuilder.createQueryString(facets, searchCriteria, sort, apiAccessible)
     })
+  }
+
+  getQueryParam(param) {
+    return qs.parse(this.props.location.search, { ignoreQueryPrefix: true })[param]
   }
 
   get numberOfPages() {
@@ -71,15 +82,24 @@ export default class extends Component {
   }
 
   get searchParams() {
-    return qs.parse(this.props.location.search.slice(1)).q
+    return this.getQueryParam("q")
   }
 
   get sort() {
-    return qs.parse(this.props.location.search.slice(1)).sort
+    return this.getQueryParam("sort")
   }
 
   get facets() {
-    return qs.parse(this.props.location.search.slice(1)).facets
+    return this.getQueryParam("facets")
+  }
+
+  get apiAccessible() {
+    const apiAccessible = this.getQueryParam("apiAccessible")
+    return this.convertStringToBooleanWithDefault(apiAccessible, false)
+  }
+
+  convertStringToBooleanWithDefault(value, defaultValue) {
+    return value == undefined ? defaultValue : _.lowerCase(value) == "true"
   }
 
   get totalDatasets() {
@@ -107,7 +127,14 @@ export default class extends Component {
         <dataset-list-view ref={this.pageRef}>
           <div>
             <LoginZone token={token} />
-            <FacetSidebar availableFacets={this.props.facets} appliedFacets={this.facets} clickHandler={(facetName, facetValue) => this.onFacetClick(facetName, facetValue)} />
+            <Checkbox
+              clickHandler={() => this.onRemoteToggleClick()}
+              text="API Accessible"
+              selected={this.apiAccessible} />
+            <FacetSidebar
+              availableFacets={this.props.facets}
+              appliedFacets={this.facets}
+              clickHandler={(facetName, facetValue) => this.onFacetClick(facetName, facetValue)} />
           </div>
           <div className='right-section'>
             <Search className='search'

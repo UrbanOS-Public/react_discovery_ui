@@ -59,6 +59,7 @@
     "babel-jest": "^24.6.0",
     "babel-loader": "^8.0.5",
     "copy-webpack-plugin": "^4.6.0",
+    "create-react-component-folder": "^0.1.30",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
     "faker": "^4.1.0",

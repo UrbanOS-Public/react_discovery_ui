@@ -4,12 +4,18 @@ describe('query string builder', () => {
   describe('createQueryString', () => {
     test.each(
       [
-        ['sort=name_desc&facets%5Btags%5D%5B%5D=stuff&facets%5Btags%5D%5B%5D=things', { tags: ['stuff', 'things'] }, undefined, 'name_desc'],
-        ['sort=last_mod&facets%5Borganization%5D%5B%5D=Slime%20Jime', { organization: ['Slime Jime'] }, undefined, 'last_mod'],
-        ['q=GREG&sort=last_mod&facets%5Borganization%5D%5B%5D=Slime%20Jime&facets%5Btags%5D%5B%5D=stuff', { organization: ['Slime Jime'], tags: ['stuff'] }, 'GREG', 'last_mod']
+        ['sort=name_desc&facets%5Btags%5D%5B%5D=stuff&facets%5Btags%5D%5B%5D=things&apiAccessible=false',
+         { tags: ['stuff', 'things'] }, undefined, 'name_desc', false
+        ],
+        ['sort=last_mod&facets%5Borganization%5D%5B%5D=Slime%20Jime&apiAccessible=true',
+         { organization: ['Slime Jime'] }, undefined, 'last_mod', true
+        ],
+        ['q=GREG&sort=last_mod&facets%5Borganization%5D%5B%5D=Slime%20Jime&facets%5Btags%5D%5B%5D=stuff&apiAccessible=true',
+         { organization: ['Slime Jime'], tags: ['stuff'] }, 'GREG', 'last_mod', true
+        ]
       ]
-    )('properly encodes facets=%s, search=%s, sort=%s to a URL of %s', (expected, facets, searchCriteria, sort) => {
-      expect(QueryStringBuilder.createQueryString(facets, searchCriteria, sort)).toBe(expected)
+    )('properly encodes facets=%s, search=%s, sort=%s to a URL of %s', (expected, facets, searchCriteria, sort, apiAccessible) => {
+      expect(QueryStringBuilder.createQueryString(facets, searchCriteria, sort, apiAccessible)).toBe(expected)
     })
   })
 
