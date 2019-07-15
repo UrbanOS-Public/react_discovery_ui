@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 import SanitizedHTML from 'react-sanitized-html'
 import ReactImageFallback from 'react-image-fallback';
-import fallbackImage from '../../assets/org_image_unavailable.svg';
+import fallbackImage from '../../assets/no_image.png';
+import loadingImage from '../../assets/loading.gif';
 
 const DataCard = props => {
   const maxDescriptionLength = 240
@@ -29,7 +30,7 @@ const DataCard = props => {
           <ReactImageFallback
             src={dataset.organization_image_url}
             fallbackImage={fallbackImage}
-            initialImage={fallbackImage}
+            initialImage={loadingImage}
             alt={`The logo for ${dataset.organization_title}`} />
         </Link>
       </div>

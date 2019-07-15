@@ -84,6 +84,7 @@
       "<rootDir>/test-helpers/test-start-point.js"
     ],
     "moduleNameMapper": {
+      ".+\\.(jpg|jpeg|png|gif)$": "<rootDir>/test-helpers/image-mock.js",
       "\\.(css|scss)$": "identity-obj-proxy",
       "\\.(svg)$": "<rootDir>/test-helpers/mock-svg-string.js"
     }
