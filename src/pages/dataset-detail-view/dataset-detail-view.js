@@ -8,7 +8,7 @@ import './dataset-detail-view.scss'
 import DatasetApiDoc from '../../components/dataset-api-doc'
 import StreamingApiDoc from '../../components/streaming-api-doc'
 import DatasetQuality from '../../components/dataset-quality'
-
+import GeoJSONVisualization from '../../components/visualizations/geojson'
 
 export default class extends Component {
   componentDidMount() {
@@ -27,6 +27,7 @@ export default class extends Component {
     const isStreaming = dataset.sourceType === 'stream'
     const streamingExpanded = !showPreview || isRemote
     const apiDocExpanded = !showPreview && !isStreaming
+    const isGeoJSON = dataset.sourceFormat === 'geojson'
 
     return (
       <dataset-view>
@@ -39,6 +40,7 @@ export default class extends Component {
           {isRemote && <div className='remote-explanation'>This dataset is hosted remotely and cannot be previewed or queried via the API.</div>}
           {showPreview && !isRemote && <DatasetPreview datasetId={dataset.id} />}
           {isStreaming && <StreamingApiDoc dataset={dataset} expanded={streamingExpanded} />}
+          {isGeoJSON && <GeoJSONVisualization datasetId={dataset.id} format={dataset.sourceFormat} />}
           {!isRemote && <DatasetApiDoc dataset={dataset} expanded={apiDocExpanded} />}
           {!isRemote && <DatasetQuality completeness={dataset.completeness} expanded={false} />}
           <a name='AdditionalInformation' />

@@ -7,3 +7,4 @@ export const getDataSetPreview = state => state.presentation.dataset_preview
 export const determineIfLoading = state => state.presentation.isLoading
 export const lastLoginAttemptFailed = state => state.presentation.lastLoginAttemptFailed
 export const lastLogoutAttemptFailed = state => state.presentation.lastLogoutAttemptFailed
+export const getDownloadedDataset = state => state.datasetReducer.downloadedDataset

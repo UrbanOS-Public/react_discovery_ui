@@ -1,5 +1,5 @@
 import reducer from './index'
-import { SELECT_DATA_LIST, DISPLAY_ERROR, DATASET_DETAILS, RETRIEVE_DATASET_PREVIEW, DATASET_PREVIEW, CLEAR_DATASET_DETAILS, LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE } from '../actions'
+import { SELECT_DATA_LIST, DISPLAY_ERROR, DATASET_DETAILS, RETRIEVE_DATASET_PREVIEW, DATASET_PREVIEW, CLEAR_DATASET_DETAILS, LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, DOWNLOAD_DATASET_SUCCEEDED } from '../actions'
 import datasetListStub from '../../../stubs/dataset-list-stub'
 import datasetStub from '../../../stubs/dataset-details-stub'
 
@@ -117,5 +117,14 @@ describe('UI Reducer', () => {
 
     expect(newState.presentation.lastLoginAttemptFailed).toEqual(true)
     expect(newState.presentation.isLoading).toEqual(false)
+  })
+
+  it('DOWNLOAD_DATASET_SUCCEEDED', () => {
+    let currentState = {}
+    const response = {id: 123}
+
+    let newState = reducer(currentState, {type: DOWNLOAD_DATASET_SUCCEEDED, value: response})
+
+    expect(newState.datasetReducer.downloadedDataset).toEqual(response)
   })
 })

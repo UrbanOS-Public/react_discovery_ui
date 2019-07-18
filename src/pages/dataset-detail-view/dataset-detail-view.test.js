@@ -5,6 +5,7 @@ import DatasetPreview from '../../components/dataset-preview'
 import StreamingApiDoc from '../../components/streaming-api-doc'
 import DatasetApiDoc from '../../components/dataset-api-doc'
 import DatasetQuality from '../../components/dataset-quality'
+import GeoJSONVisualization from '../../components/visualizations/geojson'
 
 describe('dataset detail view', () => {
   let subject
@@ -192,6 +193,27 @@ describe('dataset detail view', () => {
       const streamingDataset = Object.assign({}, ingestDataset, { sourceType: 'stream', sourceFormat: 'csv' })
       subject = createDatasetView(streamingDataset)
       expect(subject.find(DatasetApiDoc).props().expanded).toEqual(false)
+    })
+  })
+
+
+  describe('geojson visualization', () => {
+    it('should not be displayed by default', () => {
+      const dataset = Object.assign({}, ingestDataset, { sourceFormat: 'json' })
+
+      subject = createDatasetView(dataset)
+
+      expect(subject.find(GeoJSONVisualization).length).toEqual(0)
+    })
+
+    it('should not be displayed by default', () => {
+      const dataset = Object.assign({}, ingestDataset, { sourceFormat: 'geojson' })
+
+      subject = createDatasetView(dataset)
+
+      expect(subject.find(GeoJSONVisualization).length).toEqual(1)
+      expect(subject.find(GeoJSONVisualization).props().datasetId).toEqual(dataset.id)
+      expect(subject.find(GeoJSONVisualization).props().format).toEqual(dataset.sourceFormat)
     })
   })
 })
