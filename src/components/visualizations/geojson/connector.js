@@ -5,7 +5,7 @@ import { getDownloadedDataset } from '../../../store/selectors'
 
 const mapStateToProps = state => {
   return {
-    downloadedDataset: getDownloadedDataset(state)
+    geoJsonData: getDownloadedDataset(state)
   }
 }
 
