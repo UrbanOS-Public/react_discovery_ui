@@ -1,6 +1,7 @@
 import React from 'react'
 import { Map, TileLayer, GeoJSON } from 'react-leaflet'
 import './geojson-visualization.scss'
+import LoadingElement from '../../../components/generic-elements/loading-element'
 
 const ohioBoundingBox = [ -84.811309, 38.483320, -80.541532, 41.971108]
 
@@ -17,8 +18,9 @@ export default class GeoJSONVisualization extends React.Component {
     const geoJsonData = this.props.geoJsonData
     const bbox = geoJsonData ? this.determineBbox(geoJsonData) : ohioBoundingBox
     return (
-      <Map bounds={ this.formatBboxToLeafletBounds(bbox) }>
-        <TileLayer url={window.STREETS_TILE_LAYER_URL} />
+      <Map bounds={ this.formatBboxToLeafletBounds(bbox) } >
+        {!geoJsonData && <LoadingElement className='spinner' /> }
+        {geoJsonData && <TileLayer url={window.STREETS_TILE_LAYER_URL} />}
         {geoJsonData && <GeoJSON data={geoJsonData} />}
       </Map>
     )
