@@ -25,6 +25,7 @@ export default class extends Component {
     const showPreview = dataset.sourceFormat && dataset.sourceFormat.toLowerCase() === 'csv'
     const isRemote = dataset.sourceType === 'remote'
     const isStreaming = dataset.sourceType === 'stream'
+    const isIngest = dataset.sourceType === 'ingest' || isStreaming
     const streamingExpanded = !showPreview || isRemote
     const apiDocExpanded = !showPreview && !isStreaming
     const isGeoJSON = dataset.sourceFormat === 'geojson'
@@ -38,11 +39,11 @@ export default class extends Component {
         <div className='dataset-details'>
           <DatasetDetails dataset={dataset} />
           {isRemote && <div className='remote-explanation'>This dataset is hosted remotely and cannot be previewed or queried via the API.</div>}
-          {showPreview && !isRemote && <DatasetPreview datasetId={dataset.id} />}
+          {showPreview && isIngest && <DatasetPreview datasetId={dataset.id} />}
           {isStreaming && <StreamingApiDoc dataset={dataset} expanded={streamingExpanded} />}
           {isGeoJSON && <GeoJSONVisualization datasetId={dataset.id} format={dataset.sourceFormat} />}
-          {!isRemote && <DatasetApiDoc dataset={dataset} expanded={apiDocExpanded} />}
-          {!isRemote && <DatasetQuality completeness={dataset.completeness} expanded={false} />}
+          {isIngest && <DatasetApiDoc dataset={dataset} expanded={apiDocExpanded} />}
+          {isIngest && <DatasetQuality completeness={dataset.completeness} expanded={false} />}
           <a name='AdditionalInformation' />
           <DatasetMetadata dataset={dataset} />
         </div>

@@ -94,8 +94,8 @@ describe('dataset detail view', () => {
     })
   })
 
-  describe('DatasetView Remote Dataset', () => {
-    it('should show not show remote explanation when dataset is not remote', () => {
+  describe('visibility of children with different source types', () => {
+    it('should not show remote explanation when dataset is not remote', () => {
       const subject = renderDatasetWithSourceType('ingest')
 
       expect(subject.find('.remote-explanation').length).toEqual(0)
@@ -165,6 +165,30 @@ describe('dataset detail view', () => {
 
     it('does not include component for displaying streaming api example', () => {
       expect(subject.find(StreamingApiDoc)).toHaveLength(0)
+    })
+  })
+
+  describe('hosted dataset', () => {
+    const remoteDataset = Object.assign({}, ingestDataset, { sourceType: 'host' })
+
+    beforeEach(() => {
+      subject = createDatasetView(remoteDataset)
+    })
+
+    it('does not include component for displaying data preview', () => {
+      expect(subject.find(DatasetPreview)).toHaveLength(0)
+    })
+
+    it('does not include component for displaying api documentation', () => {
+      expect(subject.find(DatasetApiDoc)).toHaveLength(0)
+    })
+
+    it('does not include component for displaying streaming api example', () => {
+      expect(subject.find(StreamingApiDoc)).toHaveLength(0)
+    })
+
+    it('does not include component for displaying quality component', () => {
+      expect(subject.find(DatasetQuality)).toHaveLength(0)
     })
   })
 
