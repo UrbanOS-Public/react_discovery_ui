@@ -17,11 +17,13 @@ export default class GeoJSONVisualization extends React.Component {
   render() {
     const geoJsonData = this.props.geoJsonData
     const bbox = geoJsonData ? this.determineBbox(geoJsonData) : ohioBoundingBox
+    if(!geoJsonData) {
+      return (<div className='map-placeholder'><LoadingElement className='spinner'/></div>)
+    }
     return (
-      <Map bounds={ this.formatBboxToLeafletBounds(bbox) } >
-        {!geoJsonData && <LoadingElement className='spinner' /> }
-        {geoJsonData && <TileLayer url={window.STREETS_TILE_LAYER_URL} />}
-        {geoJsonData && <GeoJSON data={geoJsonData} />}
+      <Map bounds={ this.formatBboxToLeafletBounds(bbox) }>
+        <TileLayer url={window.STREETS_TILE_LAYER_URL} className='geo-json'/>
+        <GeoJSON data={geoJsonData} className='geo-json' />
       </Map>
     )
   }

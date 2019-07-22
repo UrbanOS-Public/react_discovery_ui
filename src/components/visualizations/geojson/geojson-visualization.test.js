@@ -8,11 +8,10 @@ describe('<GeoJSONVisualization />', () => {
 
   describe('render', () => {
 
-    it('renders map with default values when no geoJsonData', () => {
+    it('renders loader when no geoJsonData', () => {
       wrapper = shallow(<GeoJSONVisualization downloadDataset={downloadDataset} />)
 
-      expect(wrapper.find('Map').length).toEqual(1)
-      expect(wrapper.find('Map').props().bounds).toEqual([[38.483320,-84.811309], [41.971108, -80.541532]])
+      expect(wrapper.find('LoadingElement').length).toEqual(1)
     })
 
     it('renders map with data values when geoJsonData is present', () => {
@@ -21,6 +20,7 @@ describe('<GeoJSONVisualization />', () => {
 
       expect(wrapper.find('Map').length).toEqual(1)
       expect(wrapper.find('Map').props().bounds).toEqual([[2, 1], [4, 3]])
+      expect(wrapper.find('LoadingElement').length).toEqual(0)
     })
   })
 
