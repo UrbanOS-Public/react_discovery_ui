@@ -1,0 +1,16 @@
+@import '../../../styles/variables.scss';
+
+.leaflet-container, .map-placeholder {
+    height: 425px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+.map-placeholder {
+    background-color: $light-gray;
+  }
+
+.map-placeholder loading-element {
+  margin-top: 0;
+  padding-top: 20%;
+}
