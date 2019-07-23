@@ -39,7 +39,7 @@ export default class extends Component {
         </div>
         <div className='dataset-details'>
           <DatasetDetails dataset={dataset} />
-          {!isIngest && <div className='hosted-explanation'>This dataset is hosted and cannot be previewed or queried via the API.</div>}
+          {!isIngest && !isGeoJSON && <div className='hosted-explanation'>This dataset is hosted as a static file and cannot be previewed or queried via the API.</div>}
           {isCsv && isIngest && <DatasetPreview datasetId={dataset.id} />}
           {isStreaming && <StreamingApiDoc dataset={dataset} expanded={streamingExpanded} />}
           {isGeoJSON && <GeoJSONVisualization datasetId={dataset.id} format={dataset.sourceFormat} />}
