@@ -63,7 +63,7 @@ module.exports = {
     compress: true,
     open: true,
     port: 9001,
-    host: "0.0.0.0"
+    host: '0.0.0.0'
   },
   plugins: [
     new HtmlWebpackPlugin({
