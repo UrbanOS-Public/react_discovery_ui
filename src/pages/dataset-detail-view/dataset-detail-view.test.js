@@ -95,16 +95,22 @@ describe('dataset detail view', () => {
   })
 
   describe('visibility of children with different source types', () => {
-    it('should not show remote explanation when dataset is not remote', () => {
+    it('should not show hosted explanation when dataset is not remote or hosted', () => {
       const subject = renderDatasetWithSourceType('ingest')
 
-      expect(subject.find('.remote-explanation').length).toEqual(0)
+      expect(subject.find('.hosted-explanation').length).toEqual(0)
     })
 
-    it('should show remote explanation when dataset is remote', () => {
+    it('should show hosted explanation when dataset is remote', () => {
       const subject = renderDatasetWithSourceType('remote')
 
-      expect(subject.find('.remote-explanation').length).toEqual(1)
+      expect(subject.find('.hosted-explanation').length).toEqual(1)
+    })
+
+    it('should show hosted explanation when dataset is hosted', () => {
+      const subject = renderDatasetWithSourceType('host')
+
+      expect(subject.find('.hosted-explanation').length).toEqual(1)
     })
 
     it('should NOT display streaming api doc component', () => {
