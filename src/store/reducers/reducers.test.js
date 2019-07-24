@@ -121,9 +121,9 @@ describe('UI Reducer', () => {
 
   it('DOWNLOAD_DATASET_SUCCEEDED', () => {
     let currentState = {}
-    const response = {id: 123}
+    const response = { id: 123 }
 
-    let newState = reducer(currentState, {type: DOWNLOAD_DATASET_SUCCEEDED, value: response})
+    let newState = reducer(currentState, { type: DOWNLOAD_DATASET_SUCCEEDED, value: response })
 
     expect(newState.datasetReducer.downloadedDataset).toEqual(response)
   })
