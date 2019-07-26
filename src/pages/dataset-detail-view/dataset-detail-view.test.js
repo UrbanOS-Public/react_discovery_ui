@@ -90,19 +90,19 @@ describe('dataset detail view', () => {
     it('should not show hosted explanation when dataset is not remote or hosted', () => {
       const subject = createDatasetView(ingestDataset)
 
-      expect(subject.find('.hosted-explanation')).toHaveLength(0)
+      expect(subject.find('.static-file-explanation')).toHaveLength(0)
     })
 
     it('should show hosted explanation when dataset is remote', () => {
       const subject = createDatasetView(remoteDataset)
 
-      expect(subject.find('.hosted-explanation')).toHaveLength(1)
+      expect(subject.find('.static-file-explanation')).toHaveLength(1)
     })
 
     it('should show hosted explanation when dataset is hosted', () => {
       const subject = createDatasetView(hostedDataset)
 
-      expect(subject.find('.hosted-explanation')).toHaveLength(1)
+      expect(subject.find('.static-file-explanation')).toHaveLength(1)
     })
 
     it('should NOT display streaming api doc component', () => {
