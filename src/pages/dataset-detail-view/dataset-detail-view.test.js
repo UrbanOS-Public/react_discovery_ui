@@ -18,6 +18,9 @@ describe('dataset detail view', () => {
     sourceFormat: 'csv',
     sourceUrl: 'http://example.com/sweet-data.csv'
   }
+  const hostedDataset = Object.assign({}, ingestDataset, { sourceType: 'host' })
+  const remoteDataset = Object.assign({}, ingestDataset, { sourceType: 'remote' })
+  const streamingDataset = Object.assign({}, ingestDataset, { sourceType: 'stream' })
 
   const createDatasetView = function (dataset) {
     return shallow(
@@ -64,28 +67,17 @@ describe('dataset detail view', () => {
     })
 
     it('should NOT display streaming api doc component', () => {
-      expect(subject.find(StreamingApiDoc).length).toEqual(0)
+      expect(subject.find(StreamingApiDoc)).toHaveLength(0)
     })
 
     it('should display dataset quality component', () => {
-      expect(subject.find(DatasetQuality).length).toEqual(1)
+      expect(subject.find(DatasetQuality)).toHaveLength(1)
     })
   })
 
   describe('DatasetView', () => {
-    let retrieveSpy, clearDatasetDetailsSpy
-
     beforeEach(() => {
-      const notCsvDataset = {
-        id: '123',
-        name: 'COTA Streaming Busses',
-        description: '....',
-        sourceType: 'ingest',
-        sourceFormat: 'json',
-        sourceUrl: 'http://example.com/sweet-data.json'
-      }
-      retrieveSpy = jest.fn()
-      clearDatasetDetailsSpy = jest.fn()
+      const notCsvDataset = Object.assign({}, ingestDataset, {sourceFormat: 'json'})
       subject = createDatasetView(notCsvDataset)
     })
 
@@ -96,51 +88,35 @@ describe('dataset detail view', () => {
 
   describe('visibility of children with different source types', () => {
     it('should not show hosted explanation when dataset is not remote or hosted', () => {
-      const subject = renderDatasetWithSourceType('ingest')
+      const subject = createDatasetView(ingestDataset)
 
-      expect(subject.find('.hosted-explanation').length).toEqual(0)
+      expect(subject.find('.hosted-explanation')).toHaveLength(0)
     })
 
     it('should show hosted explanation when dataset is remote', () => {
-      const subject = renderDatasetWithSourceType('remote')
+      const subject = createDatasetView(remoteDataset)
 
-      expect(subject.find('.hosted-explanation').length).toEqual(1)
+      expect(subject.find('.hosted-explanation')).toHaveLength(1)
     })
 
     it('should show hosted explanation when dataset is hosted', () => {
-      const subject = renderDatasetWithSourceType('host')
+      const subject = createDatasetView(hostedDataset)
 
-      expect(subject.find('.hosted-explanation').length).toEqual(1)
+      expect(subject.find('.hosted-explanation')).toHaveLength(1)
     })
 
     it('should NOT display streaming api doc component', () => {
-      const subject = renderDatasetWithSourceType('remote')
-      expect(subject.find(StreamingApiDoc).length).toEqual(0)
+      const subject = createDatasetView(remoteDataset)
+      expect(subject.find(StreamingApiDoc)).toHaveLength(0)
     })
 
     it('should NOT display dataset quality component', () => {
-      const subject = renderDatasetWithSourceType('remote')
-      expect(subject.find(DatasetQuality).length).toEqual(0)
+      const subject = createDatasetView(remoteDataset)
+      expect(subject.find(DatasetQuality)).toHaveLength(0)
     })
-
-    const renderDatasetWithSourceType = (sourceType) => {
-      const dataset = {
-        id: '123',
-        sourceType: sourceType
-      }
-      return shallow(
-        <DatasetView
-          dataset={dataset}
-          retrieveDatasetDetails={jest.fn()}
-          match={routingProps}
-        />
-      )
-    }
   })
 
   describe('streaming dataset', () => {
-    const streamingDataset = Object.assign({}, ingestDataset, { sourceType: 'stream' })
-
     beforeEach(() => {
       subject = createDatasetView(streamingDataset)
     })
@@ -154,13 +130,11 @@ describe('dataset detail view', () => {
     })
 
     it('should display dataset quality component', () => {
-      expect(subject.find(DatasetQuality).length).toEqual(1)
+      expect(subject.find(DatasetQuality)).toHaveLength(1)
     })
   })
 
   describe('remote dataset', () => {
-    const remoteDataset = Object.assign({}, ingestDataset, { sourceType: 'remote' })
-
     beforeEach(() => {
       subject = createDatasetView(remoteDataset)
     })
@@ -175,10 +149,8 @@ describe('dataset detail view', () => {
   })
 
   describe('hosted dataset', () => {
-    const remoteDataset = Object.assign({}, ingestDataset, { sourceType: 'host' })
-
     beforeEach(() => {
-      subject = createDatasetView(remoteDataset)
+      subject = createDatasetView(hostedDataset)
     })
 
     it('does not include component for displaying data preview', () => {
@@ -233,7 +205,7 @@ describe('dataset detail view', () => {
 
       subject = createDatasetView(dataset)
 
-      expect(subject.find(GeoJSONVisualization).length).toEqual(0)
+      expect(subject.find(GeoJSONVisualization)).toHaveLength(0)
     })
 
     it('should not be displayed by default', () => {
@@ -241,9 +213,17 @@ describe('dataset detail view', () => {
 
       subject = createDatasetView(dataset)
 
-      expect(subject.find(GeoJSONVisualization).length).toEqual(1)
+      expect(subject.find(GeoJSONVisualization)).toHaveLength(1)
       expect(subject.find(GeoJSONVisualization).props().datasetId).toEqual(dataset.id)
       expect(subject.find(GeoJSONVisualization).props().format).toEqual(dataset.sourceFormat)
+    })
+
+    it('should not be displayed for remote datasets', () => {
+      const dataset = Object.assign({}, remoteDataset, { sourceFormat: 'geojson' })
+
+      subject = createDatasetView(dataset)
+
+      expect(subject.find(GeoJSONVisualization)).toHaveLength(0)
     })
   })
 })
