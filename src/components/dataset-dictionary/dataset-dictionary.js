@@ -12,7 +12,6 @@ export default class extends Component {
       return <div />
     }
 
-
     return (
       <CollapsableBox title="Dataset Dictionary" expanded={false}>
         <DatasetSchema depth={0} schema={schema} />

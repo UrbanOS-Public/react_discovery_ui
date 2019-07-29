@@ -34,7 +34,7 @@ export default class extends Component {
       <div id='dataset-schema'>
         <div id='dataset-schema-table'>
           <ReactTable
-            style={{ marginLeft: this.props.depth == 0 ? null : `35px`, borderLeft: '0px' }}
+            style={{ marginLeft: this.props.depth == 0 ? null : `35px`, borderWidth: '1px 0 0' }}
             data={schema}
             columns={columns}
             defaultPageSize={schema.length}

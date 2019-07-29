@@ -5,6 +5,8 @@ import DatasetPreview from '../../components/dataset-preview'
 import StreamingApiDoc from '../../components/streaming-api-doc'
 import DatasetApiDoc from '../../components/dataset-api-doc'
 import DatasetQuality from '../../components/dataset-quality'
+import DatasetDictionary from '../../components/dataset-dictionary'
+import DatasetMetadata from '../../components/dataset-metadata';
 import GeoJSONVisualization from '../../components/visualizations/geojson'
 
 describe('dataset detail view', () => {
@@ -77,7 +79,7 @@ describe('dataset detail view', () => {
 
   describe('DatasetView', () => {
     beforeEach(() => {
-      const notCsvDataset = Object.assign({}, ingestDataset, {sourceFormat: 'json'})
+      const notCsvDataset = Object.assign({}, ingestDataset, { sourceFormat: 'json' })
       subject = createDatasetView(notCsvDataset)
     })
 
@@ -224,6 +226,29 @@ describe('dataset detail view', () => {
       subject = createDatasetView(dataset)
 
       expect(subject.find(GeoJSONVisualization)).toHaveLength(0)
+    })
+  })
+
+  describe('dataset dictionary', () => {
+    it('has the provided dataset schema', () => {
+      const schema = { 'id': 'id' }
+      const dataset = Object.assign({}, ingestDataset, { schema })
+
+      subject = createDatasetView(dataset)
+
+      const dictionary = subject.find(DatasetDictionary)
+      expect(dictionary).toHaveLength(1)
+      expect(dictionary.props().schema).toEqual(schema)
+    })
+  })
+
+  describe('dataset metadata', () => {
+    it('has the provided dataset', () => {
+      subject = createDatasetView(ingestDataset)
+
+      const metadata = subject.find(DatasetMetadata)
+      expect(metadata).toHaveLength(1)
+      expect(metadata.props().dataset).toEqual(ingestDataset)
     })
   })
 })

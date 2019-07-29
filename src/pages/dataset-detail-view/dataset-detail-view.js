@@ -49,7 +49,7 @@ export default class extends Component {
           {isIngest && <DatasetApiDoc dataset={dataset} expanded={apiDocExpanded} />}
           {isIngest && <DatasetQuality completeness={dataset.completeness} expanded={false} />}
           <a name='AdditionalInformation' />
-          <DatasetDictionary class="dataset-info-box" schema={dataset.schema} />
+          <DatasetDictionary schema={dataset.schema} />
           <DatasetMetadata dataset={dataset} />
 
         </div>
