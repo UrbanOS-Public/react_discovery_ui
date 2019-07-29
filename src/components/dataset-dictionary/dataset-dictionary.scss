@@ -1,0 +1,32 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+#dataset-dictionary {
+  border: 1px solid $light-grey;
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .header-text-items {
+    margin: 1rem;
+  }
+
+  .dictionary-header {
+    @include header();
+  }
+
+  #dataset-dictionary-table {
+    color: $almost-black;
+
+    .table-header {
+      background-color: $header-grey;
+      text-align: left;
+      font-weight: 800;
+    }
+  }
+
+  a {
+    @include sub-link();
+  }
+}

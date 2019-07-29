@@ -2,7 +2,7 @@ import './dataset-api-doc.scss'
 import { Collapse } from 'react-collapse';
 import { Component } from 'react'
 import DetailToggleIcon from '../detail-toggle-icon';
-import CollapsableBox from  '../../components/collapsable-box'
+import CollapsableBox from '../../components/collapsable-box'
 
 export default class extends Component {
 
@@ -22,52 +22,52 @@ export default class extends Component {
       gtfs: 'json'
     }
 
-    return(
+    return (
       <div>
-          <div className='example-container'>
-            <div className='example-header'>
-              Example: Select all, limited to 200 records
+        <div className='example-container'>
+          <div className='example-header'>
+            Example: Select all, limited to 200 records
           </div>
-            <div className='example-code'>
-              <code>
-                GET:{' '}
-                {`${window.API_HOST}/api/v1/organization/${dataset.organization.name}/dataset/${dataset.name}/query?limit=200&_format=${formats[dataset.sourceFormat] || dataset.sourceFormat}`}
-              </code>
-            </div>
-            <div className='example-header'>Parameters</div>
-            <div className='example-parameters'>
-              <table className='parameter-table'>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Example</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {apiParams.map(i => {
-                    return [
-                      <tr key={`${i.name}`}>
-                        <td>
-                          <span className='pill'>{i.name}</span>
-                        </td>
-                        <td className='parameter-example'>{i.example}</td>
-                        <td>{i.description}</td>
-                      </tr>
-                    ]
-                  })}
-                </tbody>
-              </table>
-            </div>
+          <div className='example-code'>
+            <code>
+              GET:{' '}
+              {`${window.API_HOST}/api/v1/organization/${dataset.organization.name}/dataset/${dataset.name}/query?limit=200&_format=${formats[dataset.sourceFormat] || dataset.sourceFormat}`}
+            </code>
+          </div>
+          <div className='example-header'>Parameters</div>
+          <div className='example-parameters'>
+            <table className='parameter-table'>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Example</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {apiParams.map(i => {
+                  return [
+                    <tr key={`${i.name}`}>
+                      <td>
+                        <span className='pill'>{i.name}</span>
+                      </td>
+                      <td className='parameter-example'>{i.example}</td>
+                      <td>{i.description}</td>
+                    </tr>
+                  ]
+                })}
+              </tbody>
+            </table>
           </div>
         </div>
+      </div>
     )
   }
 
   render() {
     return (
       <dataset-api-doc >
-        <CollapsableBox title="Dataset API Example" headerHtml={this.streamingHeader()} bodyHtml={this.streamingBody()} expanded={this.props.expanded} />
+        <CollapsableBox title="Dataset API Example" headerHtml={this.streamingHeader()} expanded={this.props.expanded}> {this.streamingBody()} </CollapsableBox>
       </dataset-api-doc >
     )
   }

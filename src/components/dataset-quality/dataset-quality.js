@@ -1,13 +1,13 @@
 import { Component } from 'react'
 import './dataset-quality.scss'
-import CollapsableBox from  '../../components/collapsable-box'
+import CollapsableBox from '../../components/collapsable-box'
 import DetailToggleIcon from '../detail-toggle-icon';
 
 export default class extends Component {
 
   streamingHeader() {
     if (!this.props.completeness) {
-      return(<div />)
+      return (<div />)
     }
 
     return (
@@ -23,7 +23,7 @@ export default class extends Component {
   render() {
     return (
       <dataset-quality>
-        <CollapsableBox title={"Dataset Completeness"} headerHtml={this.streamingHeader()} bodyHtml={<div />} expanded={false} />
+        <CollapsableBox title={"Dataset Completeness"} headerHtml={this.streamingHeader()} expanded={false}> <div /> </CollapsableBox>
       </dataset-quality>
     )
   }
