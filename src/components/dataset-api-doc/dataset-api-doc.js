@@ -67,7 +67,12 @@ export default class extends Component {
   render() {
     return (
       <dataset-api-doc >
-        <CollapsableBox title="Dataset API Example" headerHtml={this.streamingHeader()} expanded={this.props.expanded}> {this.streamingBody()} </CollapsableBox>
+        <CollapsableBox
+          title="Dataset API Example"
+          headerHtml={this.streamingHeader()}
+          expanded={this.props.expanded}>
+          {this.streamingBody()}
+        </CollapsableBox>
       </dataset-api-doc >
     )
   }

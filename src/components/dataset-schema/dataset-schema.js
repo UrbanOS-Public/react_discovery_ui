@@ -8,7 +8,7 @@ import DatasetSchema from '.';
 export default class extends Component {
   render() {
     const { schema, depth } = this.props
-    if (!this.props.schema) {
+    if (!schema) {
       return <div />
     }
 
@@ -38,7 +38,7 @@ export default class extends Component {
             data={schema}
             columns={columns}
             defaultPageSize={schema.length}
-            className='-highlight -striped'
+            className='-highlight'
             showPagination={false}
             sortable
             defaultSorted={[{ id: 'Field', desc: false }]}
