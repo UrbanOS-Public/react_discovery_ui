@@ -1,7 +1,5 @@
 import './streaming-api-doc.scss'
-import { Collapse } from 'react-collapse';
 import { Component } from 'react'
-import DetailToggleIcon from '../detail-toggle-icon'
 import CollapsableBox from '../../components/collapsable-box'
 
 export default class extends Component {
@@ -43,7 +41,9 @@ export default class extends Component {
 
     return (
       <streaming-api-doc>
-        <CollapsableBox title="Websocket Streaming Example" headerHtml={this.streamingHeader()} bodyHtml={this.streamingBody()} expanded={this.props.expanded} />
+        <CollapsableBox title="Websocket Streaming Example" headerHtml={this.streamingHeader()} expanded={this.props.expanded}>
+          {this.streamingBody()}
+        </CollapsableBox>
       </streaming-api-doc>
     )
   }

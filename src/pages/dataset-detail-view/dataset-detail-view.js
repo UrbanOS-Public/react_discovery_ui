@@ -2,6 +2,7 @@ import { Component } from 'react'
 import DatasetDetails from '../../components/dataset-details'
 import DatasetPreview from '../../components/dataset-preview'
 import DatasetMetadata from '../../components/dataset-metadata'
+import DatasetDictionary from '../../components/dataset-dictionary'
 import Organization from '../../components/organization'
 import Share from '../../components/share'
 import './dataset-detail-view.scss'
@@ -9,6 +10,7 @@ import DatasetApiDoc from '../../components/dataset-api-doc'
 import StreamingApiDoc from '../../components/streaming-api-doc'
 import DatasetQuality from '../../components/dataset-quality'
 import GeoJSONVisualization from '../../components/visualizations/geojson'
+
 
 export default class extends Component {
   componentDidMount() {
@@ -49,7 +51,9 @@ export default class extends Component {
           {isIngest && <DatasetApiDoc dataset={dataset} expanded={apiDocExpanded} />}
           {isIngest && <DatasetQuality completeness={dataset.completeness} expanded={false} />}
           <a name='AdditionalInformation' />
+          <DatasetDictionary schema={dataset.schema} />
           <DatasetMetadata dataset={dataset} />
+
         </div>
       </dataset-view>
     )

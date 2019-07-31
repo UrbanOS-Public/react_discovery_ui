@@ -25,7 +25,7 @@ export default class extends Component {
           <DetailToggleIcon expanded={this.state.expanded} />
         </div>
         <Collapse isOpened={this.state.expanded}>
-          {this.props.bodyHtml}
+          {this.props.children}
         </Collapse>
       </collapsable-box>
     )

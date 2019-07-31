@@ -1,7 +1,7 @@
 @import '../../styles/variables.scss';
 @import '../../styles/mixins.scss';
-#dataset-metadata {
-  border: 1px solid $light-grey;
+
+dataset-metadata {
 
   .header-container {
     display: flex;
@@ -16,14 +16,10 @@
     @include header();
   }
 
-  #dataset-metadata-table {
-    color: $almost-black;
-    
-    .table-header {
-      background-color: $header-grey;
-      text-align: left;
-      font-weight: 800;
-    }
+  .table-header {
+    background-color: $header-grey;
+    text-align: left;
+    font-weight: 800;
   }
 
   a {
