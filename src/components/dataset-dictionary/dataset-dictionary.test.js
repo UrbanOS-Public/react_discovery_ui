@@ -50,6 +50,17 @@ describe('dataset dictionary', () => {
       const table = subject.find(ReactTable)
       expect(table.props().defaultPageSize).toBe(Object.keys(basicSchema).length)
     })
+
+    it('is sortable', () => {
+      const table = subject.find(ReactTable)
+      expect(table.props().sortable).toBe(true)
+    })
+
+    it('has no left margin', () => {
+      const table = subject.find(ReactTable)
+
+      expect(table.props().style.marginLeft).toBeFalsy()
+    })
   })
 
   describe('with a schema containing a list type', () => {
@@ -136,6 +147,10 @@ describe('dataset dictionary', () => {
         expectedCellValues.forEach((expected, index) => {
           expect(subTableCells.at(index).text()).toBe(expected)
         })
+      })
+
+      it('indents the sub table', () => {
+        expect(subTable.find(ReactTable).props().style.marginLeft).toBe('35px')
       })
 
       it('toggles the direction of the arrow again when collapsed', () => {
