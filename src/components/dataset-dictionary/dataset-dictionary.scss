@@ -1,23 +1,25 @@
 @import '../../styles/variables.scss';
 @import '../../styles/mixins.scss';
 
-.dataset-schema-table {
-  color: $almost-black;
+dataset-dictionary {
+  .dataset-schema-table {
+    color: $almost-black;
 
-  .ReactTable {
-    border-width: 1px 0 0
-  }
+    .ReactTable {
+      border-width: 1px 0 0
+    }
 
-  .table-header {
-    text-align: left;
-    font-weight: 800;
-  }
+    .table-header {
+      text-align: left;
+      font-weight: 800;
+    }
 
-  .description-cell {
-    white-space: unset;
-  }
+    .description-cell {
+      white-space: unset;
+    }
 
-  .expander {
-    text-align: center;
+    .expander {
+      text-align: center;
+    }
   }
 }

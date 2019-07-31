@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './dataset-metadata.scss'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
+import CollapsableBox from '../../components/collapsable-box'
 
 export default class extends Component {
   render () {
@@ -134,24 +135,19 @@ export default class extends Component {
     ]
 
     return (
-      <div id='dataset-metadata'>
-        <div className='header-container'>
-          <div className='header-text-items'>
-            <div className='metadata-header'>Additional Information</div>
-          </div>
-        </div>
-        <div id='dataset-metadata-table'>
-          <ReactTable
-            data={data}
-            columns={columns}
-            defaultPageSize={data.length}
-            className='-striped -highlight'
-            showPagination={false}
-            sortable
-            defaultSorted={[{ id: 'Field', desc: false }]}
-          />
-        </div>
-      </div>
+      <dataset-metadata>
+        <CollapsableBox title='Additional Information' expanded>
+            <ReactTable
+              data={data}
+              columns={columns}
+              defaultPageSize={data.length}
+              className='-striped -highlight'
+              showPagination={false}
+              sortable
+              defaultSorted={[{ id: 'Field', desc: false }]}
+            />
+        </CollapsableBox>
+      </dataset-metadata>
     )
   }
 }

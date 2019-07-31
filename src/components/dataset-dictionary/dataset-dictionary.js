@@ -49,10 +49,8 @@ const columns = [
 ]
 
 const SchemaTable = ({ schema, parentFieldName = '', style }) => {
-  const classNames = `dataset-schema-table ${parentFieldName}`
-
   return (
-    <div className={classNames}>
+    <div className={`dataset-schema-table ${parentFieldName}`}>
       <ReactTable
         style={style}
         data={schema}
@@ -74,8 +72,10 @@ export default ({ schema, expanded = false }) => {
   if (!schema) { title = title + ' Unavailable' }
 
   return (
-    <CollapsableBox title={title} expanded={expanded}>
-      <SchemaTable schema={schema} />
-    </CollapsableBox>
+    <dataset-dictionary>
+      <CollapsableBox title={title} expanded={expanded}>
+        <SchemaTable schema={schema} />
+      </CollapsableBox>
+    </dataset-dictionary>
   )
 }
