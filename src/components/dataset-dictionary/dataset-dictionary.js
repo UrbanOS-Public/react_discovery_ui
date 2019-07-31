@@ -45,7 +45,7 @@ const columns = [
     Header: 'Type', accessor: 'type', headerClassName: 'table-header', width: 120,
     Cell: renderTypeCell
   },
-  { Header: 'Description', accessor: 'description', headerClassName: 'table-header' }
+  { Header: 'Description', accessor: 'description', headerClassName: 'table-header', className: 'description-cell' }
 ]
 
 const SchemaTable = ({ schema, parentFieldName = '', style }) => {
