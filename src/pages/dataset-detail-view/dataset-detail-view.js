@@ -50,7 +50,6 @@ export default class extends Component {
           {isGeoJSON && <GeoJSONVisualization datasetId={dataset.id} format={dataset.sourceFormat} />}
           {isIngest && <DatasetApiDoc dataset={dataset} expanded={apiDocExpanded} />}
           {isIngest && <DatasetQuality completeness={dataset.completeness} expanded={false} />}
-          <a name='AdditionalInformation' />
           <DatasetDictionary schema={dataset.schema} />
           <DatasetMetadata dataset={dataset} />
 
