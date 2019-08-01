@@ -3,10 +3,15 @@ import './dataset-dictionary.scss'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import CollapsableBox from '../../components/collapsable-box'
+import Tooltip from '../tooltip'
 
 const expanderWidth = 35
 const expandedArrow = '\u25BE'
 const collapsedArrow = '\u25B8'
+
+const renderFieldNameCell = schemaElement => (
+  <Tooltip text={schemaElement.value} />
+)
 
 const renderTypeCell = schemaElement => (
   <div>
@@ -39,13 +44,17 @@ const renderSubTable = ({ original: schemaElement }) => {
 
 const columns = [
   {
-    Header: 'Field', accessor: 'name', headerClassName: 'table-header', width: 240
+    Header: 'Field', accessor: 'name', headerClassName: 'table-header', width: 240,
+    className: 'field-name-cell', Cell: renderFieldNameCell
   },
   {
     Header: 'Type', accessor: 'type', headerClassName: 'table-header', width: 120,
     Cell: renderTypeCell
   },
-  { Header: 'Description', accessor: 'description', headerClassName: 'table-header', className: 'description-cell' }
+  {
+    Header: 'Description', accessor: 'description', headerClassName: 'table-header',
+    className: 'description-cell'
+  }
 ]
 
 const SchemaTable = ({ schema, parentFieldName = '', style }) => {

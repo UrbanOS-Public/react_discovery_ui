@@ -2,6 +2,7 @@ import { shallow, mount } from 'enzyme'
 import DatasetDictionary from './dataset-dictionary'
 import CollapsableBox from '../collapsable-box'
 import ReactTable from 'react-table'
+import Tooltip from '../tooltip';
 
 describe('dataset dictionary', () => {
   const basicSchema = [
@@ -36,9 +37,7 @@ describe('dataset dictionary', () => {
         expansionPlaceholder, 'age', 'integer', 'the age'
       ]
       expect(cells.length).toBe(expectedCellValues.length)
-      expectedCellValues.forEach((expected, index) => {
-        expect(cells.at(index).text()).toBe(expected)
-      })
+      expectCorrectCellValues(expectedCellValues, cells)
     })
 
     it('does not have pagination', () => {
@@ -110,9 +109,7 @@ describe('dataset dictionary', () => {
         expansionArrow, 'mother', 'map', 'the mother'
       ]
       expect(topLevelCells.length).toBe(expectedCellValues.length)
-      expectedCellValues.forEach((expected, index) => {
-        expect(topLevelCells.at(index).text()).toBe(expected)
-      })
+      expectCorrectCellValues(expectedCellValues, topLevelCells)
     })
 
     describe('with the map type expanded', () => {
@@ -144,9 +141,7 @@ describe('dataset dictionary', () => {
           expansionArrow, 'children', 'list of map', 'the chillins'
         ]
         expect(subTableCells.length).toBe(expectedCellValues.length)
-        expectedCellValues.forEach((expected, index) => {
-          expect(subTableCells.at(index).text()).toBe(expected)
-        })
+        expectCorrectCellValues(expectedCellValues, subTableCells)
       })
 
       it('indents the sub table', () => {
@@ -179,9 +174,7 @@ describe('dataset dictionary', () => {
             expansionPlaceholder, 'age', 'integer', 'the child\'s age'
           ]
           expect(subSubTableCells.length).toBe(expectedCellValues.length)
-          expectedCellValues.forEach((expected, index) => {
-            expect(subSubTableCells.at(index).text()).toBe(expected)
-          })
+          expectCorrectCellValues(expectedCellValues, subSubTableCells)
         })
       })
     })
@@ -204,4 +197,14 @@ describe('dataset dictionary', () => {
     expect(collapsableBox.length).toBe(1)
     expect(collapsableBox.props().expanded).toBe(false)
   })
+
+  const expectCorrectCellValues = (expectedCellValues, cells) => {
+    expectedCellValues.forEach((expected, index) => {
+      if (index % 4 == 1) { // handle special rendering for field name tooltip
+        expect(cells.at(index).find(Tooltip).props().text).toBe(expected)
+      } else {
+        expect(cells.at(index).text()).toBe(expected)
+      }
+    })
+  }
 })

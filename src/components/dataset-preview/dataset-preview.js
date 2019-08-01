@@ -19,7 +19,7 @@ export default class extends Component {
       <div id='dataset-preview'>
         <div className='header-container'>
           <div className='header-text-items'>
-            <div className='preview-header'>Dataset Sample</div>
+            <div className='preview-header'>Sample</div>
             <div>This only shows the first 50 rows, to view the entire dataset please download</div>
           </div>
         </div>
