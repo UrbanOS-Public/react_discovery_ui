@@ -24,12 +24,14 @@ export default class extends Component {
   render() {
     const dataset = this.props.dataset
     if (!dataset) { return <div /> }
-    const isCsv = dataset.sourceFormat && dataset.sourceFormat.toLowerCase() === 'csv'
-    const isGeoJSON = dataset.sourceFormat === 'geojson'
 
     const isStreaming = dataset.sourceType === 'stream'
     const isIngest = dataset.sourceType === 'ingest' || isStreaming
     const isRemote = dataset.sourceType === 'remote'
+    const isHost = dataset.sourceType === 'host'
+
+    const isCsv = dataset.sourceFormat && dataset.sourceFormat.toLowerCase() === 'csv'
+    const isGeoJSON = dataset.sourceFormat === 'geojson' && !isRemote
 
     const streamingExpanded = !isCsv && isStreaming
     const apiDocExpanded = !isCsv && !isStreaming
@@ -42,10 +44,10 @@ export default class extends Component {
         </div>
         <div className='dataset-details'>
           <DatasetDetails dataset={dataset} />
-          {!isIngest && !isGeoJSON && <div className='hosted-explanation'>This dataset is hosted as a static file and cannot be previewed or queried via the API.</div>}
+          {!isIngest && !isGeoJSON && <div className='static-file-explanation'>This dataset is hosted as a static file and cannot be previewed or queried via the API.</div>}
           {isCsv && isIngest && <DatasetPreview datasetId={dataset.id} />}
           {isStreaming && <StreamingApiDoc dataset={dataset} expanded={streamingExpanded} />}
-          {isGeoJSON && !isRemote && <GeoJSONVisualization datasetId={dataset.id} format={dataset.sourceFormat} />}
+          {isGeoJSON && <GeoJSONVisualization datasetId={dataset.id} format={dataset.sourceFormat} />}
           {isIngest && <DatasetApiDoc dataset={dataset} expanded={apiDocExpanded} />}
           {isIngest && <DatasetQuality completeness={dataset.completeness} expanded={false} />}
           <DatasetDictionary schema={dataset.schema} />
