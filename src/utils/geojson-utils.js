@@ -1,23 +1,24 @@
+import _ from 'lodash'
+
 const determineBBox = geoJsonData => {
   return geoJsonData.bbox ? geoJsonData.bbox : calculateBBox(geoJsonData)
 }
 
 const calculateBBox = geoJsonData => {
-  const bounds = geoJsonData.features
-    .map(flattenCoordinates)
-    .flat(1)
-    .reduce(
-      getNewBounds,
-      { minLong: 1000, minLat: 1000, maxLong: -1000, maxLat: -1000 }
-    )
+  const initial = { minLong: 1000, minLat: 1000, maxLong: -1000, maxLat: -1000 };
+  const bounds = _.chain(geoJsonData.features)
+    .map(flattenCoordinateLists)
+    .flatten()
+    .reduce(getNewBounds, initial)
+    .value()
 
   return [bounds.minLong, bounds.minLat, bounds.maxLong, bounds.maxLat]
 }
 
-const flattenCoordinates = feature => {
+const flattenCoordinateLists = feature => {
   switch (feature.geometry.type) {
     case 'MultiLineString':
-      return feature.geometry.coordinates.flat(1)
+      return _.flatten(feature.geometry.coordinates)
     case 'LineString':
       return feature.geometry.coordinates
     default:
