@@ -2,8 +2,9 @@ import React from 'react'
 import { Map, TileLayer, GeoJSON } from 'react-leaflet'
 import './geojson-visualization.scss'
 import LoadingElement from '../../../components/generic-elements/loading-element'
+import { GeoJsonUtils } from '../../../utils';
 
-const ohioBoundingBox = [ -84.811309, 38.483320, -80.541532, 41.971108]
+const ohioBoundingBox = [-84.811309, 38.483320, -80.541532, 41.971108]
 
 export default class GeoJSONVisualization extends React.Component {
   constructor(props) {
@@ -16,41 +17,21 @@ export default class GeoJSONVisualization extends React.Component {
 
   render() {
     const geoJsonData = this.props.geoJsonData
-    const bbox = geoJsonData ? this.determineBbox(geoJsonData) : ohioBoundingBox
-    if(!geoJsonData) {
-      return (<div className='map-placeholder'><LoadingElement className='spinner'/></div>)
+    if (!geoJsonData) {
+      return (<div className='map-placeholder'><LoadingElement className='spinner' /></div>)
     }
+    // const features = geoJsonData.features.filter(feature => {
+    //   return feature.geometry.type == "MultiLineString"
+    // })
+    // const newGeoJsonData = Object.assign({}, geoJsonData, {features})
+    const bbox = geoJsonData ? GeoJsonUtils.determineBoundingBox(geoJsonData) : ohioBoundingBox
     return (
-      <Map bounds={ this.formatBboxToLeafletBounds(bbox) }>
-        <TileLayer url={window.STREETS_TILE_LAYER_URL} className='geo-json'/>
+      <Map bounds={this.formatBboxToLeafletBounds(bbox)}>
+        {/* <Map> */}
+        <TileLayer url={window.STREETS_TILE_LAYER_URL} className='geo-json' />
         <GeoJSON data={geoJsonData} className='geo-json' />
       </Map>
     )
-  }
-
-  determineBbox(geoJsonData) {
-    return geoJsonData.bbox ? geoJsonData.bbox : this.calculateBbox(geoJsonData)
-  }
-
-  calculateBbox(geoJsonData) {
-    let minLat, minLong, maxLat, maxLong
-    minLat = minLong = 1000
-    maxLat = maxLong = -1000
-
-    geoJsonData.features.forEach((feature) => {
-      feature.geometry.coordinates.forEach((coordinates) => {
-        coordinates.forEach((coordinate) => {
-          const long = coordinate[0]
-          const lat = coordinate[1]
-
-          minLat = lat < minLat ? lat : minLat
-          maxLat = lat > maxLat ? lat : maxLat
-          minLong = long < minLong ? long : minLong
-          maxLong = long > maxLong ? long : maxLong
-        })
-      })
-    })
-    return [minLong, minLat, maxLong, maxLat]
   }
 
   formatBboxToLeafletBounds(bbox) {
