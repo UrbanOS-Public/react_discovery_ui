@@ -3,31 +3,28 @@ const determineBoundingBox = geoJsonData => {
 }
 
 const calculateBoundingBox = geoJsonData => {
-  // console.log('geoJson', geoJsonData)
-  let minLat, minLong, maxLat, maxLong
-  minLat = minLong = 1000
-  maxLat = maxLong = -1000
+  const bounds = geoJsonData.features.map(feature => {
+    if (feature.geometry.type === 'MultiLineString') {
+      return feature.geometry.coordinates.flat(1)
+    } else if (feature.geometry.type === 'LineString') {
+      return feature.geometry.coordinates
+    } else {
+      return []
+    }
+  }).flat(1).reduce(getNewBounds, { minLong: 1000, minLat: 1000, maxLong: -1000, maxLat: -1000 })
 
-  // console.log('some coordinates', geoJsonData.features[0].geometry.coordinates[0][0], geoJsonData.features[0].geometry.coordinates[0][1])
+return [bounds.minLong, bounds.minLat, bounds.maxLong, bounds.maxLat]
+}
 
-  geoJsonData.features.forEach((feature) => {
-    //if featureType === 'multiLineString' do this
-    // else featureType === 'lineString' just do one level
-    // combine both of these and do min/max
-    feature.geometry.coordinates.forEach((coordinates) => {
-      coordinates.forEach((coordinate) => {
-        const long = coordinate[0]
-        const lat = coordinate[1]
-
-        minLat = lat < minLat ? lat : minLat
-        maxLat = lat > maxLat ? lat : maxLat
-        minLong = long < minLong ? long : minLong
-        maxLong = long > maxLong ? long : maxLong
-      })
-    })
-  })
-  console.log('bounding', [minLong, minLat, maxLong, maxLat])
-  return [minLong, minLat, maxLong, maxLat]
+const getNewBounds = (bounds, coordinate) => {
+  const long = coordinate[0];
+  const lat = coordinate[1];
+  return {
+    minLat: Math.min(lat, bounds.minLat),
+    maxLat: Math.max(lat, bounds.maxLat),
+    minLong: Math.min(long, bounds.minLong),
+    maxLong: Math.max(long, bounds.maxLong)
+  }
 }
 
 export default { determineBoundingBox }
