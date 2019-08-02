@@ -20,9 +20,10 @@ export default class GeoJSONVisualization extends React.Component {
     if (!geoJsonData) {
       return (<div className='map-placeholder'><LoadingElement className='spinner' /></div>)
     }
-    const bbox = geoJsonData ? GeoJsonUtils.determineBoundingBox(geoJsonData) : ohioBoundingBox
+    let boundingBox = GeoJsonUtils.determineBoundingBox(geoJsonData)
+    boundingBox = GeoJsonUtils.isValidBoundingBox(boundingBox) ? boundingBox : ohioBoundingBox
     return (
-      <Map bounds={this.formatBboxToLeafletBounds(bbox)}>
+      <Map bounds={this.formatBboxToLeafletBounds(boundingBox)}>
         <TileLayer url={window.STREETS_TILE_LAYER_URL} className='geo-json' />
         <GeoJSON data={geoJsonData} className='geo-json' />
       </Map>

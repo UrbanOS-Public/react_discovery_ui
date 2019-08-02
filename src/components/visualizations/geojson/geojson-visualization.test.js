@@ -28,14 +28,21 @@ describe('<GeoJSONVisualization />', () => {
       })
 
       it('renders map', () => {
-        wrapper = shallow(<GeoJSONVisualization downloadDataset={downloadDataset} geoJsonData={geoJsonData} />)
-
         expect(wrapper.find(Map).length).toEqual(1)
         expect(wrapper.find('LoadingElement').length).toEqual(0)
       })
 
       it('transposes bounding value to appropriate format for leaflet', () => {
         expect(wrapper.find(Map).props().bounds).toEqual([[2, 1], [6, 5]])
+      })
+    })
+
+    describe('with geoJsonData with no coordinates', () => {
+      it('displays a default bounding box', () => {
+        const geoJsonData = { features: [] }
+        wrapper = shallow(<GeoJSONVisualization downloadDataset={downloadDataset} geoJsonData={geoJsonData} />)
+
+        expect(wrapper.find(Map).props().bounds).toEqual([[38.483320, -84.811309], [41.971108, -80.541532]])
       })
     })
   })

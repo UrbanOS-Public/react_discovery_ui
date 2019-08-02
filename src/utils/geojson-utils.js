@@ -3,17 +3,26 @@ const determineBoundingBox = geoJsonData => {
 }
 
 const calculateBoundingBox = geoJsonData => {
-  const bounds = geoJsonData.features.map(feature => {
-    if (feature.geometry.type === 'MultiLineString') {
-      return feature.geometry.coordinates.flat(1)
-    } else if (feature.geometry.type === 'LineString') {
-      return feature.geometry.coordinates
-    } else {
-      return []
-    }
-  }).flat(1).reduce(getNewBounds, { minLong: 1000, minLat: 1000, maxLong: -1000, maxLat: -1000 })
+  const bounds = geoJsonData.features
+    .map(flattenCoordinates)
+    .flat(1)
+    .reduce(
+      getNewBounds,
+      { minLong: 1000, minLat: 1000, maxLong: -1000, maxLat: -1000 }
+    )
 
-return [bounds.minLong, bounds.minLat, bounds.maxLong, bounds.maxLat]
+  return [bounds.minLong, bounds.minLat, bounds.maxLong, bounds.maxLat]
+}
+
+const flattenCoordinates = feature => {
+  switch (feature.geometry.type) {
+    case 'MultiLineString':
+      return feature.geometry.coordinates.flat(1)
+    case 'LineString':
+      return feature.geometry.coordinates
+    default:
+      return []
+  }
 }
 
 const getNewBounds = (bounds, coordinate) => {
@@ -27,4 +36,18 @@ const getNewBounds = (bounds, coordinate) => {
   }
 }
 
-export default { determineBoundingBox }
+const isValidBoundingBox = boundingBox => {
+  if (!boundingBox || boundingBox.length != 4) { return false }
+
+  const [minLong, minLat, maxLong, maxLat] = boundingBox
+  if (minLong > maxLong || minLat > maxLat
+    || minLong < -180 || minLong > 180
+    || minLat < -90 || minLat > 90
+    || maxLong < -180 || maxLong > 180
+    || maxLat < -90 || maxLat > 90) {
+    return false
+  }
+  return true
+}
+
+export default { determineBoundingBox, isValidBoundingBox }
