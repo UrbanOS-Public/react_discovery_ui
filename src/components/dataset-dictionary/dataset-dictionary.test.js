@@ -181,12 +181,34 @@ describe('dataset dictionary', () => {
   })
 
   describe('without a schema', () => {
-    it('renders the collapsable box with an informative message', () => {
-      subject = shallow(<DatasetDictionary />)
+    beforeEach(() => {
+      subject = shallow(<DatasetDictionary expanded />)
+    })
 
+    it('renders the collapsable box with an informative message', () => {
       const collapsableBox = subject.find(CollapsableBox)
       expect(collapsableBox.length).toBe(1)
       expect(collapsableBox.props().title).toBe("Data Dictionary Unavailable")
+    })
+
+    it('does not render the table', () => {
+      expect(subject.find('.dataset-schema-table').length).toBe(0)
+    })
+  })
+
+  describe('with an empty schema', () => {
+    beforeEach(() => {
+      subject = mount(<DatasetDictionary schema={[]} expanded />)
+    })
+
+    it('renders the collapsable box with an informative message', () => {
+      const collapsableBox = subject.find(CollapsableBox)
+      expect(collapsableBox.length).toBe(1)
+      expect(collapsableBox.props().title).toBe("Data Dictionary Unavailable")
+    })
+
+    it('does not render the table', () => {
+      expect(subject.find('.dataset-schema-table').length).toBe(0)
     })
   })
 

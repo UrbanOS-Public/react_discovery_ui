@@ -57,6 +57,8 @@ const columns = [
   }
 ]
 
+const isEmpty = schema => !schema || schema.length < 1
+
 const SchemaTable = ({ schema, parentFieldName = '', style }) => {
   return (
     <div className={`dataset-schema-table ${parentFieldName}`}>
@@ -78,12 +80,12 @@ const SchemaTable = ({ schema, parentFieldName = '', style }) => {
 
 export default ({ schema, expanded = false }) => {
   var title = 'Data Dictionary'
-  if (!schema) { title = title + ' Unavailable' }
+  if (isEmpty(schema)) { title = title + ' Unavailable' }
 
   return (
     <dataset-dictionary>
       <CollapsableBox title={title} expanded={expanded}>
-        <SchemaTable schema={schema} />
+        {!isEmpty(schema) && <SchemaTable schema={schema} />}
       </CollapsableBox>
     </dataset-dictionary>
   )
