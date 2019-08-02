@@ -1,8 +1,8 @@
-const determineBoundingBox = geoJsonData => {
-  return geoJsonData.bbox ? geoJsonData.bbox : calculateBoundingBox(geoJsonData)
+const determineBBox = geoJsonData => {
+  return geoJsonData.bbox ? geoJsonData.bbox : calculateBBox(geoJsonData)
 }
 
-const calculateBoundingBox = geoJsonData => {
+const calculateBBox = geoJsonData => {
   const bounds = geoJsonData.features
     .map(flattenCoordinates)
     .flat(1)
@@ -36,7 +36,7 @@ const getNewBounds = (bounds, coordinate) => {
   }
 }
 
-const isValidBoundingBox = boundingBox => {
+const isValidBBox = boundingBox => {
   if (!boundingBox || boundingBox.length != 4) { return false }
 
   const [minLong, minLat, maxLong, maxLat] = boundingBox
@@ -50,4 +50,4 @@ const isValidBoundingBox = boundingBox => {
   return true
 }
 
-export default { determineBoundingBox, isValidBoundingBox }
+export default { determineBBox, isValidBBox }

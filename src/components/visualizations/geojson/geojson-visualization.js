@@ -4,7 +4,7 @@ import './geojson-visualization.scss'
 import LoadingElement from '../../../components/generic-elements/loading-element'
 import { GeoJsonUtils } from '../../../utils';
 
-const ohioBoundingBox = [-84.811309, 38.483320, -80.541532, 41.971108]
+const ohioBBox = [-84.811309, 38.483320, -80.541532, 41.971108]
 
 export default class GeoJSONVisualization extends React.Component {
   constructor(props) {
@@ -18,12 +18,12 @@ export default class GeoJSONVisualization extends React.Component {
   render() {
     const geoJsonData = this.props.geoJsonData
     if (!geoJsonData) {
-      return (<div className='map-placeholder'><LoadingElement className='spinner' /></div>)
+      return <div className='map-placeholder'><LoadingElement className='spinner' /></div>
     }
-    let boundingBox = GeoJsonUtils.determineBoundingBox(geoJsonData)
-    boundingBox = GeoJsonUtils.isValidBoundingBox(boundingBox) ? boundingBox : ohioBoundingBox
+    let bBox = GeoJsonUtils.determineBBox(geoJsonData)
+    bBox = GeoJsonUtils.isValidBBox(bBox) ? bBox : ohioBBox
     return (
-      <Map bounds={this.formatBboxToLeafletBounds(boundingBox)}>
+      <Map bounds={this.formatBboxToLeafletBounds(bBox)}>
         <TileLayer url={window.STREETS_TILE_LAYER_URL} className='geo-json' />
         <GeoJSON data={geoJsonData} className='geo-json' />
       </Map>

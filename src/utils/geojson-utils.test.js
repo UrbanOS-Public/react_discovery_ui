@@ -5,7 +5,7 @@ describe('determine bounding box', () => {
     const bbox = [5, 4, 3, 2]
     const geoJsonData = { bbox: bbox }
 
-    const result = GeoJsonUtils.determineBoundingBox(geoJsonData)
+    const result = GeoJsonUtils.determineBBox(geoJsonData)
 
     expect(result).toEqual(bbox)
   })
@@ -29,7 +29,7 @@ describe('determine bounding box', () => {
         ]
       }
 
-      const result = GeoJsonUtils.determineBoundingBox(geoJsonData)
+      const result = GeoJsonUtils.determineBBox(geoJsonData)
 
       expect(result).toEqual([1, 2, 7, 8])
     })
@@ -49,7 +49,7 @@ describe('determine bounding box', () => {
         }]
       }
 
-      const result = GeoJsonUtils.determineBoundingBox(geoJsonData)
+      const result = GeoJsonUtils.determineBBox(geoJsonData)
 
       expect(result).toEqual([1, 2, 7, 8])
     })
@@ -72,7 +72,7 @@ describe('determine bounding box', () => {
         ]
       }
 
-      const result = GeoJsonUtils.determineBoundingBox(geoJsonData)
+      const result = GeoJsonUtils.determineBBox(geoJsonData)
 
       expect(result).toEqual([-1, -6, 10, 12])
     })
@@ -82,43 +82,43 @@ describe('determine bounding box', () => {
 
 describe('is valid bounding box', () => {
   it('returns false if bounding box is not provided', () => {
-    expect(GeoJsonUtils.isValidBoundingBox()).toBe(false)
+    expect(GeoJsonUtils.isValidBBox()).toBe(false)
   })
 
   it('returns false if bounding box does not have right number of values', () => {
-    expect(GeoJsonUtils.isValidBoundingBox([-180, -90, 180])).toBe(false)
-    expect(GeoJsonUtils.isValidBoundingBox([-180, -90, 180, 90, -180])).toBe(false)
+    expect(GeoJsonUtils.isValidBBox([-180, -90, 180])).toBe(false)
+    expect(GeoJsonUtils.isValidBBox([-180, -90, 180, 90, -180])).toBe(false)
   })
 
   it('returns false if minLong is out of range', () => {
-    expect(GeoJsonUtils.isValidBoundingBox([-190, -90, 180, 90])).toBe(false)
-    expect(GeoJsonUtils.isValidBoundingBox([190, -90, 180, 90])).toBe(false)
+    expect(GeoJsonUtils.isValidBBox([-190, -90, 180, 90])).toBe(false)
+    expect(GeoJsonUtils.isValidBBox([190, -90, 180, 90])).toBe(false)
   })
 
   it('returns false if minLat is out of range', () => {
-    expect(GeoJsonUtils.isValidBoundingBox([-180, -90.1, 180, 90])).toBe(false)
-    expect(GeoJsonUtils.isValidBoundingBox([-180, 90.5, 180, 90])).toBe(false)
+    expect(GeoJsonUtils.isValidBBox([-180, -90.1, 180, 90])).toBe(false)
+    expect(GeoJsonUtils.isValidBBox([-180, 90.5, 180, 90])).toBe(false)
   })
 
   it('returns false if maxLong is out of range', () => {
-    expect(GeoJsonUtils.isValidBoundingBox([-180, -90, -180.5, 90])).toBe(false)
-    expect(GeoJsonUtils.isValidBoundingBox([-180, -90, 180.2, 90])).toBe(false)
+    expect(GeoJsonUtils.isValidBBox([-180, -90, -180.5, 90])).toBe(false)
+    expect(GeoJsonUtils.isValidBBox([-180, -90, 180.2, 90])).toBe(false)
   })
 
   it('returns false if maxLat is out of range', () => {
-    expect(GeoJsonUtils.isValidBoundingBox([-180, -90, 180, -90.5])).toBe(false)
-    expect(GeoJsonUtils.isValidBoundingBox([-180, -90, 180, 90.2])).toBe(false)
+    expect(GeoJsonUtils.isValidBBox([-180, -90, 180, -90.5])).toBe(false)
+    expect(GeoJsonUtils.isValidBBox([-180, -90, 180, 90.2])).toBe(false)
   })
 
   it('returns false if minLong and maxLong are reversed', () => {
-    expect(GeoJsonUtils.isValidBoundingBox([0, -90, -1, 90])).toBe(false)
+    expect(GeoJsonUtils.isValidBBox([0, -90, -1, 90])).toBe(false)
   })
 
   it('returns false if minLat and maxLat are reversed', () => {
-    expect(GeoJsonUtils.isValidBoundingBox([-180, 1, 180, 0])).toBe(false)
+    expect(GeoJsonUtils.isValidBBox([-180, 1, 180, 0])).toBe(false)
   })
 
   it('returns true if all values are in range', () => {
-    expect(GeoJsonUtils.isValidBoundingBox([-180, -90, 180, 90])).toBe(true)
+    expect(GeoJsonUtils.isValidBBox([-180, -90, 180, 90])).toBe(true)
   })
 })
