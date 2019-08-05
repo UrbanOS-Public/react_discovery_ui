@@ -16,7 +16,7 @@ const datasetReducer = (state = defaultDatasetState, action) => {
     case DATASET_DETAILS:
       return Object.assign({}, state, { dataset: action.value })
     case CLEAR_DATASET_DETAILS:
-      return Object.assign({}, state, { dataset: undefined })
+      return Object.assign({}, state, { dataset: undefined, downloadedDataset: undefined })
     case DOWNLOAD_DATASET_SUCCEEDED:
       return Object.assign({}, state, { downloadedDataset: action.value })
     default:

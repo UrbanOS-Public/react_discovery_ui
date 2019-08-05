@@ -7,10 +7,6 @@ import { GeoJsonUtils } from '../../../utils';
 const ohioBBox = [-84.811309, 38.483320, -80.541532, 41.971108]
 
 export default class GeoJSONVisualization extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     this.props.downloadDataset(this.props.datasetId, this.props.format)
   }

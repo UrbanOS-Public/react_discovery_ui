@@ -28,10 +28,32 @@ describe('Dataset Reducer', () => {
   })
 
   it('DATASET_DETAILS places dataset in the state', () => {
-    let currentState = { }
+    let currentState = {}
     let newState = reducer(currentState, { type: DATASET_DETAILS, value: datasetStub })
 
     expect(newState.datasetReducer.dataset).toEqual(datasetStub)
+  })
+
+  describe('CLEAR_DATASET_DETAILS', () => {
+    const currentState = {
+      datasetReducer: {
+        dataset: { id: 123 },
+        downloadedDataset: { id: 123 }
+      }
+    }
+    let newState
+
+    beforeEach(() => {
+      newState = reducer(currentState, { type: CLEAR_DATASET_DETAILS })
+    })
+
+    it('clears dataset', () => {
+      expect(newState.datasetReducer.dataset).toEqual(undefined)
+    })
+
+    it('clears downloadedDataset', () => {
+      expect(newState.datasetReducer.downloadedDataset).toEqual(undefined)
+    })
   })
 })
 
@@ -70,18 +92,6 @@ describe('UI Reducer', () => {
     let newState = reducer(currentState, { type: DATASET_PREVIEW, value: expectedData })
 
     expect(newState.presentation.dataset_preview).toEqual(expectedData)
-  })
-
-  it('CLEAR_DATASET_DETAILS', () => {
-    let currentState = {
-      datasetReducer: {
-        dataset: { id: 123 }
-      }
-    }
-
-    let newState = reducer(currentState, { type: CLEAR_DATASET_DETAILS })
-
-    expect(newState.datasetReducer.dataset).toEqual(undefined)
   })
 
   it('LOGIN sets loading to true', () => {
