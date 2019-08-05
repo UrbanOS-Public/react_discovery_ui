@@ -1,74 +1,49 @@
 import { shallow } from 'enzyme'
+import { Map } from 'react-leaflet'
 import GeoJSONVisualization from './geojson-visualization'
 
 describe('<GeoJSONVisualization />', () => {
-
   const downloadDataset = jest.fn()
-  let instance, wrapper
+  let wrapper
 
-  describe('render', () => {
-
-    it('renders loader when no geoJsonData', () => {
+  describe('with no geoJsonData', () => {
+    it('renders loader', () => {
       wrapper = shallow(<GeoJSONVisualization downloadDataset={downloadDataset} />)
 
       expect(wrapper.find('LoadingElement').length).toEqual(1)
     })
 
-    it('renders map with data values when geoJsonData is present', () => {
-      const geoJsonData = {bbox: [1, 2, 3, 4], id: 123}
-      wrapper = shallow(<GeoJSONVisualization downloadDataset={downloadDataset} geoJsonData={geoJsonData} />)
-
-      expect(wrapper.find('Map').length).toEqual(1)
-      expect(wrapper.find('Map').props().bounds).toEqual([[2, 1], [4, 3]])
-      expect(wrapper.find('LoadingElement').length).toEqual(0)
-    })
-  })
-
-  describe('functions', () => {
-    const feature = {
-      "geometry": {
-        "coordinates": [
-          [
-            [1, 2],
-            [3, 4],
-            [5, 6]
-          ]
-        ]
+    describe('with geoJsonData present', () => {
+      const geoJsonData = {
+        features: [{
+          geometry: {
+            type: 'MultiLineString',
+            coordinates: [[[1, 2], [3, 4], [5, 6]]]
+          }
+        }]
       }
-    }
 
-    beforeAll(() => {
-      wrapper = shallow(<GeoJSONVisualization downloadDataset={downloadDataset} />)
-      instance = wrapper.instance()
-    })
+      beforeEach(() => {
+        wrapper = shallow(<GeoJSONVisualization downloadDataset={downloadDataset} geoJsonData={geoJsonData} />)
+      })
 
-    describe('formatBboxToLeafletBounds', () => {
-      it('transposes values to appropriate format for leaflet', () => {
-        const result = instance.formatBboxToLeafletBounds([1, 2, 5, 6])
+      it('renders map', () => {
+        expect(wrapper.find(Map).length).toEqual(1)
+        expect(wrapper.find('LoadingElement').length).toEqual(0)
+      })
 
-        expect(result).toEqual([[2, 1], [6, 5]])
+      it('transposes bounding value to appropriate format for leaflet', () => {
+        expect(wrapper.find(Map).props().bounds).toEqual([[2, 1], [6, 5]])
       })
     })
 
-    describe('determineBbox', () => {
+    describe('with geoJsonData with no coordinates', () => {
+      it('displays a default bounding box', () => {
+        const geoJsonData = { features: [] }
+        wrapper = shallow(<GeoJSONVisualization downloadDataset={downloadDataset} geoJsonData={geoJsonData} />)
 
-      it('returns bbox when present on the dataset', () => {
-        const bbox = [5, 4, 3, 2]
-        const geoJsonData = { bbox: bbox }
-
-        const result = instance.determineBbox(geoJsonData)
-
-        expect(result).toEqual(bbox)
+        expect(wrapper.find(Map).props().bounds).toEqual([[38.483320, -84.811309], [41.971108, -80.541532]])
       })
-
-      it('calculates bbox when bbox is not present on the dataset', () => {
-        const geoJsonData = { features: [feature] }
-
-        const result = instance.determineBbox(geoJsonData)
-
-        expect(result).toEqual([1, 2, 5, 6])
-      })
-
     })
   })
 })
