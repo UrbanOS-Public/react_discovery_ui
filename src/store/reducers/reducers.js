@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { SELECT_DATA_LIST, DISPLAY_ERROR, DATASET_DETAILS, RETRIEVE_DATA_LIST, RETRIEVE_DATASET, RETRIEVE_DATASET_PREVIEW, DATASET_PREVIEW, CLEAR_DATASET_DETAILS, LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, DOWNLOAD_DATASET_SUCCEEDED } from '../actions'
+import { SELECT_DATA_LIST, DISPLAY_ERROR, DATASET_DETAILS, RETRIEVE_DATA_LIST, RETRIEVE_DATASET, RETRIEVE_DATASET_PREVIEW, DATASET_PREVIEW, CLEAR_DATASET_DETAILS, LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, DOWNLOAD_DATASET_SUCCEEDED, QUERY_DATASET_SUCCEEDED } from '../actions'
 
 const defaultDatasetState = {
   datasets: [],
@@ -19,6 +19,8 @@ const datasetReducer = (state = defaultDatasetState, action) => {
       return Object.assign({}, state, { dataset: undefined, downloadedDataset: undefined })
     case DOWNLOAD_DATASET_SUCCEEDED:
       return Object.assign({}, state, { downloadedDataset: action.value })
+    case QUERY_DATASET_SUCCEEDED:
+      return Object.assign({}, state, { datasetQueryResult: action.value })
     default:
       return state
   }
