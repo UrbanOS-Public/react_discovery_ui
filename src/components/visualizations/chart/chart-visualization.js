@@ -1,4 +1,4 @@
-import PlotlyEditor from 'react-chart-editor'
+import PlotlyEditor, { DefaultEditor, SingleSidebarItem, Button } from 'react-chart-editor'
 import 'react-chart-editor/lib/react-chart-editor.ie.css'
 import plotly from 'plotly.js/dist/plotly'
 import { Component } from 'react'
@@ -35,7 +35,10 @@ export default class ChartVisualization extends Component {
             onUpdate={(data, layout, frames) => this.setState({ data, layout, frames })}
             useResizeHandler
             advancedTraceTypeSelector
-          />
+          >
+            <DefaultEditor logoSrc={window.LOGO_URL} />
+          </PlotlyEditor>
+
         }
       </chart-visualization>
     )
