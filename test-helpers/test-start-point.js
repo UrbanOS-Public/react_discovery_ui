@@ -5,3 +5,7 @@ import 'babel-polyfill'
 
 window.React = React
 Enzyme.configure({ adapter: new Adapter() })
+
+// suppress errors triggered by plotly
+window.URL.createObjectURL = jest.fn()
+window.HTMLCanvasElement.prototype.getContext = jest.fn()
