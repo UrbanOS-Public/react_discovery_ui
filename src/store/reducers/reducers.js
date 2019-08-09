@@ -1,5 +1,19 @@
 import { combineReducers } from 'redux'
-import { SELECT_DATA_LIST, DISPLAY_ERROR, DATASET_DETAILS, RETRIEVE_DATA_LIST, RETRIEVE_DATASET, RETRIEVE_DATASET_PREVIEW, DATASET_PREVIEW, CLEAR_DATASET_DETAILS, LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, DOWNLOAD_DATASET_SUCCEEDED, QUERY_DATASET_SUCCEEDED } from '../actions'
+import {
+  SELECT_DATA_LIST,
+  DISPLAY_ERROR,
+  DATASET_DETAILS,
+  RETRIEVE_DATA_LIST,
+  RETRIEVE_DATASET,
+  RETRIEVE_DATASET_PREVIEW,
+  DATASET_PREVIEW,
+  CLEAR_DATASET_DETAILS,
+  LOGIN, LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  DOWNLOAD_DATASET_SUCCEEDED,
+  QUERY_DATASET_SUCCEEDED,
+  QUERY_DATASET
+} from '../actions'
 
 const defaultDatasetState = {
   datasets: [],
@@ -30,12 +44,14 @@ const presentationReducer = (state = { isLoading: false }, action) => {
   switch (action.type) {
     case RETRIEVE_DATA_LIST:
     case RETRIEVE_DATASET:
+    case QUERY_DATASET:
       return Object.assign({}, state, { isLoading: true })
     case RETRIEVE_DATASET_PREVIEW:
       return Object.assign({}, state, { previewLoading: true })
     case DATASET_PREVIEW:
       return Object.assign({}, state, { dataset_preview: action.value, previewLoading: false })
     case SELECT_DATA_LIST:
+    case QUERY_DATASET_SUCCEEDED:
     case DATASET_DETAILS:
       return Object.assign({}, state, { isLoading: false })
     case LOGIN:

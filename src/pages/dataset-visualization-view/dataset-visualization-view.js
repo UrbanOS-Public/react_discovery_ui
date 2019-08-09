@@ -16,7 +16,7 @@ export default class extends Component {
   render() {
     return (
       <dataset-visualization>
-        <ChartVisualization plotly={plotly} dataSources={this.props.dataSources} />
+        <ChartVisualization dataSources={this.props.dataSources} />
       </dataset-visualization>
     )
   }

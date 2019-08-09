@@ -1,6 +1,7 @@
 import PlotlyEditor from 'react-chart-editor'
-import 'react-chart-editor/lib/react-chart-editor.ie.css';
-import { Component } from 'react';
+import 'react-chart-editor/lib/react-chart-editor.ie.css'
+import plotly from 'plotly.js/dist/plotly'
+import { Component } from 'react'
 
 const hasDataSources = dataSources => {
   return dataSources && Object.keys(dataSources).length > 0
@@ -34,7 +35,7 @@ export default class ChartVisualization extends Component {
             frames={this.state.frames}
             dataSources={this.props.dataSources}
             dataSourceOptions={getDataSourceOptions(this.props.dataSources)}
-            plotly={this.props.plotly}
+            plotly={plotly}
             onUpdate={(data, layout, frames) => this.setState({ data, layout, frames })}
             useResizeHandler
             debug

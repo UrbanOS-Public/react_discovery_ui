@@ -1,5 +1,18 @@
 import reducer from './index'
-import { SELECT_DATA_LIST, DISPLAY_ERROR, DATASET_DETAILS, RETRIEVE_DATASET_PREVIEW, DATASET_PREVIEW, CLEAR_DATASET_DETAILS, LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, DOWNLOAD_DATASET_SUCCEEDED } from '../actions'
+import {
+  SELECT_DATA_LIST,
+  DISPLAY_ERROR,
+  DATASET_DETAILS,
+  RETRIEVE_DATASET_PREVIEW,
+  DATASET_PREVIEW,
+  CLEAR_DATASET_DETAILS,
+  LOGIN,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  DOWNLOAD_DATASET_SUCCEEDED,
+  QUERY_DATASET_SUCCEEDED,
+  QUERY_DATASET
+} from '../actions'
 import datasetListStub from '../../../stubs/dataset-list-stub'
 import datasetStub from '../../../stubs/dataset-details-stub'
 
@@ -32,6 +45,24 @@ describe('Dataset Reducer', () => {
     let newState = reducer(currentState, { type: DATASET_DETAILS, value: datasetStub })
 
     expect(newState.datasetReducer.dataset).toEqual(datasetStub)
+  })
+
+  it('DOWNLOAD_DATASET_SUCCEEDED places downloaded data in state', () => {
+    let currentState = {}
+    const response = { id: 123 }
+
+    let newState = reducer(currentState, { type: DOWNLOAD_DATASET_SUCCEEDED, value: response })
+
+    expect(newState.datasetReducer.downloadedDataset).toEqual(response)
+  })
+
+  it('QUERY_DATASET_SUCCEEDED places query data in state', () => {
+    let currentState = {}
+    const response = { id: 123 }
+
+    let newState = reducer(currentState, { type: QUERY_DATASET_SUCCEEDED, value: response })
+
+    expect(newState.datasetReducer.datasetQueryResult).toEqual(response)
   })
 
   describe('CLEAR_DATASET_DETAILS', () => {
@@ -129,12 +160,19 @@ describe('UI Reducer', () => {
     expect(newState.presentation.isLoading).toEqual(false)
   })
 
-  it('DOWNLOAD_DATASET_SUCCEEDED', () => {
+  it('QUERY_DATASET sets loading to true', () => {
     let currentState = {}
-    const response = { id: 123 }
 
-    let newState = reducer(currentState, { type: DOWNLOAD_DATASET_SUCCEEDED, value: response })
+    let newState = reducer(currentState, { type: QUERY_DATASET })
 
-    expect(newState.datasetReducer.downloadedDataset).toEqual(response)
+    expect(newState.presentation.isLoading).toEqual(true)
+  })
+
+  it('QUERY_DATASET_SUCCEEDED sets loading to false', () => {
+    let currentState = { presentation: { isLoading: true } }
+
+    let newState = reducer(currentState, { type: QUERY_DATASET_SUCCEEDED, value: { id: 123 } })
+
+    expect(newState.presentation.isLoading).toEqual(false)
   })
 })
