@@ -1,6 +1,5 @@
 import { Component } from 'react'
-import plotly from 'plotly.js/dist/plotly';
-import ChartVisualization from '../../components/visualizations/chart/chart-visualization';
+import ChartVisualization from '../../components/visualizations/chart/chart-visualization'
 
 const config = { editable: true };
 

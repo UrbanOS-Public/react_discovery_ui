@@ -12,15 +12,11 @@ export const lastLogoutAttemptFailed = state => state.presentation.lastLogoutAtt
 export const getDownloadedDataset = state => state.datasetReducer.downloadedDataset
 export const getDatasetQueryResult = state => state.datasetReducer.datasetQueryResult
 
-// TODO: TEST ME
 export const getVisualizationDataSources = createSelector(getDatasetQueryResult, data => {
   var dataSources = {};
-
   if (data && data.length > 0) {
     Object.keys(data[0]).forEach(key => {
-      dataSources[key] = data.map(datum => {
-        return datum[key];
-      });
+      dataSources[key] = data.map(datum => datum[key])
     });
   }
   return dataSources

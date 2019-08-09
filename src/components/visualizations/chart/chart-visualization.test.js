@@ -37,5 +37,24 @@ describe('chart visualization', () => {
     it('renders a chart editor', () => {
       expect(subject.find(PlotlyEditor).length).toBe(1)
     })
+
+    it('configures the editor with empty data by default', () => {
+      expect(subject.find(PlotlyEditor).props().data).toEqual([])
+    })
+
+    it('configures the editor with empty layout by default', () => {
+      expect(subject.find(PlotlyEditor).props().layout).toEqual({})
+    })
+
+    it('configures the editor with empty frames by default', () => {
+      expect(subject.find(PlotlyEditor).props().frames).toEqual([])
+    })
+
+    it('converts data sources to options for editor', () => {
+      expect(subject.find(PlotlyEditor).props().dataSourceOptions).toEqual([
+        { value: 'col1', label: 'col1' },
+        { value: 'col2', label: 'col2' },
+      ])
+    })
   })
 })
