@@ -60,17 +60,15 @@ const freestyleApiParams = [
 function getFreestyleApiExamples(dataset) {
   return [
     {
-      body: `select * from ${dataset.system_name} limit 200`,
+      body: `select * from ${dataset.systemName} limit 200`,
       description: 'Get 200 records with all fields of data from the dataset.'
     },
     {
-      body: `select ${dataset.schema[0].name} from ${dataset.system_name} where ${dataset.schema[0].name} <> null limit 200`,
+      body: `select ${dataset.schema[0].name} from ${dataset.systemName} where ${dataset.schema[0].name} <> null limit 200`,
       description: `Get only the field ${dataset.schema[0].name} from the dataset where ${dataset.schema[0].name} contains data ("is not equal to null").`
     },
     {
-      body: `select t1.example_field, t2.joined_field from example_dataset_one t1 join example_dataset_two t2
-           on t1.example_id = t2.example_id 
-           limit 200`,
+      body: `select t1.example_field, t2.joined_field from example_dataset_one t1 join example_dataset_two t2 on t1.example_id = t2.example_id limit 200`,
       description: `Return records from two example datasets where the example_id fields match. Get example_field from one and joined_field from the other.`
     }
   ]
