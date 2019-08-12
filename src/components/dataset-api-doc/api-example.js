@@ -1,21 +1,21 @@
-import './dataset-api-doc.scss'
+import './api-example.scss'
 
-export default ({ title, description, action, url, params, examples }) => {
+export default ({ title, descriptionHtml, action, url, params, examples }) => {
   return (
-    <div className='example-container'>
-      <div className='example-header'>
-        <h3>{title}</h3>
+    <api-example>
+      <div className='example-container'>
+        <div className='example-title'>{title}</div>
+        {descriptionHtml}
+        <div className='example-code'>
+          <code>
+            {action}:{' '}
+            {url}
+          </code>
+        </div>
+        {params && renderParameters(params)}
+        {examples && renderExamples(examples)}
       </div>
-      {description}
-      <div className='example-code'>
-        <code>
-          {action}:{' '}
-          {url}
-        </code>
-      </div>
-      {params && renderParameters(params)}
-      {examples && renderExamples(examples)}
-    </div>
+    </api-example>
   )
 }
 

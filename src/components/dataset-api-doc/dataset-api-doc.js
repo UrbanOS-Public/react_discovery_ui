@@ -57,7 +57,7 @@ const freestyleApiParams = [
   }
 ]
 
-function getFrestyleApiExamples(dataset) {
+function getFreestyleApiExamples(dataset) {
   return [
     {
       body: `select * from ${dataset.system_name} limit 200`,
@@ -76,6 +76,20 @@ function getFrestyleApiExamples(dataset) {
   ]
 }
 
+function freestyleDescription() {
+  return (
+    <div>
+      This query supports the full SQL syntax, and only selects from the tables specified in the query.<br />
+      Queries use ANSI SQL syntax. Documentation can be found at:
+      <ul>
+        <li><a href='https://en.wikipedia.org/wiki/SQL_syntax'>SQL Syntax (Wikipedia)</a></li>
+        <li><a href='https://www.w3schools.com/sql/sql_quickref.asp'>Quick Reference (W3 Schools)</a></li>
+        <li><a href='https://prestodb.github.io/docs/current/sql.html'>PrestoDB Specific Syntax</a></li>
+      </ul>
+    </div>
+  )
+}
+
 function renderHeader() {
   return (
     <div>
@@ -90,18 +104,18 @@ function renderExamples(dataset) {
     <div>
       <ApiExample
         title={'Simple restricted query'}
-        description={'This query selects from all available records from a specific dataset, limited to 200 records returned.'}
+        descriptionHtml={<div>This query selects from all available records from a specific dataset, limited to 200 records returned.</div>}
         url={`${window.API_HOST}/api/v1/organization/${dataset.organization.name}/dataset/${dataset.name}/query?limit=200&_format=${formats[dataset.sourceFormat] || dataset.sourceFormat}`}
         action='GET'
         params={simpleApiParams}
       />
       <ApiExample
         title={'Freestyle query'}
-        description={'This query supports the full SQL syntax, and only selects from the tables specified in the query.'}
+        descriptionHtml={freestyleDescription()}
         url={`${window.API_HOST}/api/v1/query?limit=200&_format=${formats[dataset.sourceFormat] || dataset.sourceFormat}`}
         action='POST'
         params={freestyleApiParams}
-        examples={getFrestyleApiExamples(dataset)}
+        examples={getFreestyleApiExamples(dataset)}
       />
     </div>
   )

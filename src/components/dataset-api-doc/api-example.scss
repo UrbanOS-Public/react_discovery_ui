@@ -1,0 +1,50 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
+
+api-example {
+  .example-container {
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-top: $light-grey solid 1px;
+  }
+
+  .example-code {
+    border-radius: 5px;
+    border: $medium-grey solid 1px;
+    background-color: $super-light-grey;
+    padding: 10px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+
+  .example-title {
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
+
+  .example-header {
+    font-weight: bold;
+    margin-top: 2rem
+  }
+
+  .parameter-example {
+    white-space:nowrap;
+  }
+
+  .parameter-table {
+    border-collapse: collapse;
+    width: 100%
+  }
+
+  .parameter-table td {
+    padding: 5px
+  }
+
+  .parameter-table td, th{
+    border: 1px solid $light-grey;
+  }
+
+  .example-body {
+    padding-top: 1rem
+  }
+}
