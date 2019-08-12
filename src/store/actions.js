@@ -14,6 +14,7 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'
 export const DOWNLOAD_DATASET = 'DOWNLOAD_DATASET'
 export const DOWNLOAD_DATASET_SUCCEEDED = 'DOWNLOAD_DATASET_SUCCEEDED'
+export const DOWNLOAD_DATASET_FAILED = 'DOWNLOAD_DATASET_FAILED'
 export const QUERY_DATASET = 'QUERY_DATASET'
 export const QUERY_DATASET_SUCCEEDED = 'QUERY_DATASET_SUCCEEDED'
 
@@ -86,6 +87,10 @@ export const downloadDataset = (datasetId, format) => ({
 
 export const downloadDatasetSucceeded = (message) => ({
   type: DOWNLOAD_DATASET_SUCCEEDED, value: message
+})
+
+export const downloadDatasetFailed = (message) => ({
+  type: DOWNLOAD_DATASET_FAILED, value: message
 })
 
 export const queryDataset = (organizationName, datasetName, format, limit) => ({

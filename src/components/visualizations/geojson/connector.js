@@ -1,11 +1,12 @@
 import { connect } from 'react-redux'
 import GeoJSONVisualization from './geojson-visualization'
 import { downloadDataset } from '../../../store/actions'
-import { getDownloadedDataset } from '../../../store/selectors'
+import { getDownloadedDataset, getDownloadedDatasetError } from '../../../store/selectors'
 
 const mapStateToProps = state => {
   return {
-    geoJsonData: getDownloadedDataset(state)
+    geoJsonData: getDownloadedDataset(state),
+    downloadedDatasetError: getDownloadedDatasetError(state)
   }
 }
 

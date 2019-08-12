@@ -8,9 +8,11 @@ import {
   RETRIEVE_DATASET_PREVIEW,
   DATASET_PREVIEW,
   CLEAR_DATASET_DETAILS,
-  LOGIN, LOGIN_SUCCESS,
+  LOGIN,
+  LOGIN_SUCCESS,
   LOGIN_FAILURE,
   DOWNLOAD_DATASET_SUCCEEDED,
+  DOWNLOAD_DATASET_FAILED,
   QUERY_DATASET_SUCCEEDED,
   QUERY_DATASET
 } from '../actions'
@@ -33,6 +35,8 @@ const datasetReducer = (state = defaultDatasetState, action) => {
       return Object.assign({}, state, { dataset: undefined, downloadedDataset: undefined })
     case DOWNLOAD_DATASET_SUCCEEDED:
       return Object.assign({}, state, { downloadedDataset: action.value })
+    case DOWNLOAD_DATASET_FAILED:
+      return Object.assign({}, state, { downloadedDatasetError: true })
     case QUERY_DATASET_SUCCEEDED:
       return Object.assign({}, state, { datasetQueryResult: action.value })
     default:

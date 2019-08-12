@@ -5,8 +5,8 @@ import qs from 'qs'
 
 const defaultParamFunction = () => ({})
 
-export default (endpoint, actionator, queryParameterBuilder = defaultParamFunction) => {
-  return function * retrieveData (action) {
+export default ({ endpoint, actionator, errorAction = displayError(), queryParameterBuilder = defaultParamFunction }) => {
+  return function* retrieveData(action) {
     try {
       let query = {
         baseURL: window.API_HOST,
@@ -20,10 +20,10 @@ export default (endpoint, actionator, queryParameterBuilder = defaultParamFuncti
       if (response.status === 200) {
         yield put(actionator(response.data))
       } else {
-        yield put(displayError())
+        yield put(errorAction)
       }
     } catch (e) {
-      yield put(displayError())
+      yield put(errorAction)
     }
   }
 }

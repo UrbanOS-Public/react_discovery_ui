@@ -3,6 +3,7 @@ import { Map, TileLayer, GeoJSON } from 'react-leaflet'
 import './geojson-visualization.scss'
 import LoadingElement from '../../../components/generic-elements/loading-element'
 import { GeoJsonUtils } from '../../../utils';
+import ErrorComponent from '../../../components/generic-elements/error-component'
 
 const ohioBBox = [-84.811309, 38.483320, -80.541532, 41.971108]
 
@@ -12,6 +13,11 @@ export default class GeoJSONVisualization extends React.Component {
   }
 
   render() {
+    if (this.props.downloadedDatasetError) {
+      return (
+        <ErrorComponent errorText={'Unable to load GeoJson Data'} />
+      )
+    }
     const geoJsonData = this.props.geoJsonData
     if (!geoJsonData) {
       return <div className='map-placeholder'><LoadingElement className='spinner' /></div>
