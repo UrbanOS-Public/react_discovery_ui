@@ -4,7 +4,8 @@
 dataset-api-doc {
   .example-container {
     justify-content: space-between;
-    padding: 0px 20px 20px 20px
+    padding: 0px 20px 20px 20px;
+    border-top: $light-grey solid 1px;
   }
 
   .example-code {
@@ -22,11 +23,12 @@ dataset-api-doc {
   }
 
   .parameter-example {
-    white-space:nowrap
+    white-space:nowrap;
   }
 
   .parameter-table {
     border-collapse: collapse;
+    width: 100%
   }
 
   .parameter-table td {
@@ -35,5 +37,9 @@ dataset-api-doc {
 
   .parameter-table td, th{
     border: 1px solid $light-grey;
+  }
+
+  .example-body {
+    padding-top: 1rem
   }
 }
