@@ -7,8 +7,8 @@ export default function* datasetQuerySaga() {
 }
 
 const invokeApiWithParameter = ({ organizationName, datasetName, limit, format }) => {
+
   return apiInvoker(
-    `/api/v1/organization/${organizationName}/dataset/${datasetName}/query?limit=${limit}&_format=${format}`,
-    queryDatasetSucceeded
+    { endpoint: `/api/v1/organization/${organizationName}/dataset/${datasetName}/query?limit=${limit}&_format=${format}`, actionator: queryDatasetSucceeded }
   )()
 }
