@@ -1,0 +1,80 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
+
+api-example {
+  .example-container {
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-top: $light-grey solid 1px;
+  }
+
+  .example-code {
+    border-radius: 5px;
+    border: $medium-grey solid 1px;
+    background-color: $super-light-grey;
+    word-wrap: break-word;
+    word-break: break-word;
+    display: table;
+    width: 100%
+  }
+
+  .example-element {
+    display: table-cell;
+    padding: 10px;
+    vertical-align: middle;
+  }
+
+  .curl {
+    width: 3.5rem;
+    background-color: $light-blue;
+    color: white;
+    text-align: center;
+  }
+
+  .curl:hover {
+    background-color: $almost-black
+  }
+
+  .curl:active {
+    background-color: $dark-grey
+  }
+
+  .secret-curl-field {
+    display: none
+  }
+
+  .example-title {
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
+
+  .example-header {
+    font-weight: bold;
+    margin-top: 2rem
+  }
+
+  .parameter-example {
+    white-space:nowrap;
+  }
+
+  .parameter-table {
+    border-collapse: collapse;
+    width: 100%
+  }
+
+  .parameter-table td {
+    padding: 5px
+  }
+
+  .parameter-table td, th{
+    border: 1px solid $light-grey;
+  }
+
+  .example-body {
+    padding-top: 1.5rem
+  }
+
+  .example-description {
+    margin-bottom: 0.5rem
+  }
+}
