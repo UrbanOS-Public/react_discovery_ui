@@ -58,4 +58,23 @@ describe('api example', () => {
     expect(exampleDivs.at(1).find('.example-description').text()).toBe('This is how we query a bob with another bob')
     expect(exampleDivs.at(1).find('code').text()).toBe('select * from bob join bobi using (bob_id)')
   })
+
+  it('creates a curl command for each example', () => {
+    const examples = [
+      {
+        description: 'This is how we query a thing',
+        body: 'select * from thing'
+      },
+      {
+        description: 'This is how we query a bob with another bob',
+        body: 'select * from bob join bobi using (bob_id)'
+      }
+    ]
+
+    const wrapper = mount(<ApiExample examples={examples} url='localhost:5000/api' />)
+    const curlDivs = wrapper.find('div.secret-curl-field')
+    expect(curlDivs.length).toBe(2)
+    expect(curlDivs.at(0).text()).toBe("curl -X POST 'localhost:5000/api' -d 'select * from thing'")
+    expect(curlDivs.at(1).text()).toBe("curl -X POST 'localhost:5000/api' -d 'select * from bob join bobi using (bob_id)'")
+  })
 })

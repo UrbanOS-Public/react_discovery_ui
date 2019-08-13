@@ -5,7 +5,7 @@ import 'react-table/react-table.css'
 import CollapsableBox from '../../components/collapsable-box'
 
 export default class extends Component {
-  render () {
+  render() {
     const { dataset } = this.props
     if (!this.props.dataset) {
       return <div />
@@ -14,6 +14,10 @@ export default class extends Component {
     const referenceUrls = dataset.referenceUrls || []
 
     const data = [
+      {
+        Field: 'Table Name',
+        Value: dataset.systemName
+      },
       {
         Field: 'Maintainer',
         Value: mailto(dataset.contactEmail, dataset.contactName)
@@ -137,22 +141,22 @@ export default class extends Component {
     return (
       <dataset-metadata>
         <CollapsableBox title='Additional Information' expanded>
-            <ReactTable
-              data={data}
-              columns={columns}
-              defaultPageSize={data.length}
-              className='-striped -highlight'
-              showPagination={false}
-              sortable
-              defaultSorted={[{ id: 'Field', desc: false }]}
-            />
+          <ReactTable
+            data={data}
+            columns={columns}
+            defaultPageSize={data.length}
+            className='-striped -highlight'
+            showPagination={false}
+            sortable
+            defaultSorted={[{ id: 'Field', desc: false }]}
+          />
         </CollapsableBox>
       </dataset-metadata>
     )
   }
 }
 
-function mailto (email, name) {
+function mailto(email, name) {
   if (email) {
     return <a href={'mailto:' + email}>{name}</a>
   } else {

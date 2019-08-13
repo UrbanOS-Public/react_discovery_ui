@@ -1,4 +1,5 @@
 import './api-example.scss'
+import Icon from '@material-ui/core/Icon'
 
 export default ({ title, descriptionHtml, action, url, params, examples }) => {
   return (
@@ -7,13 +8,13 @@ export default ({ title, descriptionHtml, action, url, params, examples }) => {
         <div className='example-title'>{title}</div>
         {descriptionHtml}
         <div className='example-code'>
-          <code>
+          <code className='example-element'>
             {action}:{' '}
             {url}
           </code>
         </div>
         {params && renderParameters(params)}
-        {examples && renderExamples(examples)}
+        {examples && renderExamples(examples, url)}
       </div>
     </api-example>
   )
@@ -53,7 +54,11 @@ function renderParameter(parameter) {
   )
 }
 
-function renderExamples(examples) {
+function renderExamples(examples, url) {
+  examples = examples.map(example => {
+    example.curl = createCurlCommand(example, url)
+    return example
+  })
   return (
     <div>
       <div className='example-header'>Example Bodies</div>
@@ -63,14 +68,34 @@ function renderExamples(examples) {
 }
 
 function renderExample(example, index) {
+  const copyToClipboard = (e) => {
+    const textField = document.createElement('textarea');
+    textField.innerText = example.curl;
+    document.body.appendChild(textField);
+    textField.select();
+    document.execCommand('copy');
+    textField.remove();
+  };
+
   return (
     <div className='example-body' key={index}>
       <div className='example-description'>
         {example.description}
       </div>
       <div className='example-code'>
-        <code>{example.body}</code>
+        <code className='example-element'>{example.body}</code>
+        <div className='example-element curl' onClick={copyToClipboard}>
+          cURL
+          <Icon className="copy-icon">
+            filter_none
+          </Icon>
+          <div className='secret-curl-field'>{example.curl}</div>
+        </div>
       </div>
     </div>
   )
+}
+
+function createCurlCommand(example, url) {
+  return `curl -X POST '${url}' -d '${example.body}'`
 }
