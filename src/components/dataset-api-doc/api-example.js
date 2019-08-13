@@ -96,5 +96,5 @@ function renderExample(example, index) {
 }
 
 function createCurlCommand(example, url) {
-  return `curl -X POST '${url}' -d '${example.body}'`
+  return `curl -X POST '${url}' -H 'Content-Type: text/plain' -d '${example.body}'`
 }

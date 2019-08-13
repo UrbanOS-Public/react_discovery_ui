@@ -110,7 +110,7 @@ function renderExamples(dataset) {
       <ApiExample
         title={'Freestyle query'}
         descriptionHtml={freestyleDescription()}
-        url={`${window.API_HOST}/api/v1/query?limit=200&_format=${formats[dataset.sourceFormat] || dataset.sourceFormat}`}
+        url={`${window.API_HOST}/api/v1/query?_format=${formats[dataset.sourceFormat] || dataset.sourceFormat}`}
         action='POST'
         params={freestyleApiParams}
         examples={getFreestyleApiExamples(dataset)}
