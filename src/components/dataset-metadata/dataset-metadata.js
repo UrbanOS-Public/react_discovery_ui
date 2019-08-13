@@ -15,10 +15,6 @@ export default class extends Component {
 
     const data = [
       {
-        Field: 'Table Name',
-        Value: dataset.systemName
-      },
-      {
         Field: 'Maintainer',
         Value: mailto(dataset.contactEmail, dataset.contactName)
       },
@@ -125,6 +121,10 @@ export default class extends Component {
       {
         Field: 'Access Level',
         Value: dataset.accessLevel
+      },
+      {
+        Field: 'Table Name',
+        Value: dataset.systemName
       }
     ]
 
