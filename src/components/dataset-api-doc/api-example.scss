@@ -12,8 +12,8 @@ api-example {
     border-radius: 5px;
     border: $medium-grey solid 1px;
     background-color: $super-light-grey;
-    overflow-wrap: break-word;
     word-wrap: break-word;
+    word-break: break-word;
     display: table;
     width: 100%
   }

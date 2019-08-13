@@ -9,8 +9,7 @@ export default ({ title, descriptionHtml, action, url, params, examples }) => {
         {descriptionHtml}
         <div className='example-code'>
           <code className='example-element'>
-            {action}:{' '}
-            {url}
+            {`${action}: ${url}`}
           </code>
         </div>
         {params && renderParameters(params)}
