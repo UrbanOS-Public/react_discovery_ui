@@ -16,13 +16,13 @@ const renderFieldNameCell = schemaElement => (
 const renderTypeCell = schemaElement => (
   <div>
     {schemaElement.value === 'list'
-      ? `list of ${schemaElement.original.listType}`
+      ? `list of ${schemaElement.original.itemType}`
       : schemaElement.value}
   </div>
 )
 
 const isMap = schemaElement => {
-  return schemaElement.type === 'map' || schemaElement.listType === 'map'
+  return schemaElement.type === 'map' || schemaElement.itemType === 'map'
 }
 
 const renderExpander = ({ isExpanded, original: schemaElement }) => {
