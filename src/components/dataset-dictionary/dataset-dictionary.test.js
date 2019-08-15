@@ -65,7 +65,7 @@ describe('dataset dictionary', () => {
   describe('with a schema containing a list type', () => {
     it('displays the list type appropriately', () => {
       const schemaWithList = [
-        { name: 'names', type: 'list', description: 'all the names', listType: 'string' }
+        { name: 'names', type: 'list', description: 'all the names', itemType: 'string' }
       ]
 
       subject = mount(<DatasetDictionary schema={schemaWithList} expanded />)
@@ -74,7 +74,7 @@ describe('dataset dictionary', () => {
       const cells = table.find('.rt-td')
 
       const typeIndex = 2;
-      expect(cells.at(typeIndex).text()).toBe(`list of ${schemaWithList[0].listType}`)
+      expect(cells.at(typeIndex).text()).toBe(`list of ${schemaWithList[0].itemType}`)
     })
   })
 
@@ -85,7 +85,7 @@ describe('dataset dictionary', () => {
         name: 'mother', type: 'map', description: 'the mother', subSchema: [
           { name: 'name', type: 'string', description: 'mother\'s name' },
           {
-            name: 'children', type: 'list', description: 'the chillins', listType: 'map', subSchema: [
+            name: 'children', type: 'list', description: 'the chillins', itemType: 'map', subSchema: [
               { name: 'age', type: 'integer', description: 'the child\'s age' }
             ]
           }
