@@ -194,6 +194,10 @@ describe('dataset dictionary', () => {
     it('does not render the table', () => {
       expect(subject.find('.dataset-schema-table').length).toBe(0)
     })
+
+    it('does not render the view link', () => {
+      expect(subject.find('.view-link a').length).toBe(0)
+    })
   })
 
   describe('with an empty schema', () => {
@@ -210,6 +214,10 @@ describe('dataset dictionary', () => {
     it('does not render the table', () => {
       expect(subject.find('.dataset-schema-table').length).toBe(0)
     })
+
+    it('does not render the view link', () => {
+      expect(subject.find('.view-link a').length).toBe(0)
+    })
   })
 
   it('is rendered in a collapsed box by default', () => {
@@ -218,6 +226,14 @@ describe('dataset dictionary', () => {
     const collapsableBox = subject.find(CollapsableBox)
     expect(collapsableBox.length).toBe(1)
     expect(collapsableBox.props().expanded).toBe(false)
+  })
+
+  it('renders a view link', () => {
+    window.API_HOST = 'http://right.here.com'
+    subject = mount(<DatasetDictionary schema={basicSchema} datasetId={'all-the-datas'} />)
+
+    const link = subject.find('.view-link a')
+    expect(link.props().href).toBe(`${window.API_HOST}/api/v1/dataset/all-the-datas/dictionary`)
   })
 
   const expectCorrectCellValues = (expectedCellValues, cells) => {

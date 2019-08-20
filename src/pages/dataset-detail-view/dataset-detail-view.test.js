@@ -200,7 +200,6 @@ describe('dataset detail view', () => {
     })
   })
 
-
   describe('geojson visualization', () => {
     it('should not be displayed by default', () => {
       const dataset = Object.assign({}, ingestDataset, { sourceFormat: 'json' })
@@ -230,7 +229,7 @@ describe('dataset detail view', () => {
   })
 
   describe('dataset dictionary', () => {
-    it('has the provided dataset schema', () => {
+    it('has the provided dataset id and schema', () => {
       const schema = { 'id': 'id' }
       const dataset = Object.assign({}, ingestDataset, { schema })
 
@@ -238,6 +237,7 @@ describe('dataset detail view', () => {
 
       const dictionary = subject.find(DatasetDictionary)
       expect(dictionary).toHaveLength(1)
+      expect(dictionary.props().datasetId).toEqual(ingestDataset.id)
       expect(dictionary.props().schema).toEqual(schema)
     })
   })

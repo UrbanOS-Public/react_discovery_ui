@@ -2,6 +2,19 @@
 @import '../../styles/mixins.scss';
 
 dataset-dictionary {
+  .view-link {
+    padding: 1rem;
+    text-align: right;
+
+    .view-text {
+      font-size: 1.2rem;
+    }
+
+    a {
+      @include sub-link();
+    }
+  }
+
   .dataset-schema-table {
     color: $almost-black;
 

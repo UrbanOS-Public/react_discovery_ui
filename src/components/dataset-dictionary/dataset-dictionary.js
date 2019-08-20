@@ -78,14 +78,27 @@ const SchemaTable = ({ schema, parentFieldName = '', style }) => {
   )
 }
 
-export default ({ schema, expanded = false }) => {
+const viewLink = (datasetId) => (
+  <div className='view-link'>
+    <a href={`${window.API_HOST}/api/v1/dataset/${datasetId}/dictionary`} target="_blank">
+      <span className='view-text'>View as JSON</span>
+    </a>
+  </div>
+)
+
+export default ({ schema, datasetId, expanded = false }) => {
   var title = 'Data Dictionary'
   if (isEmpty(schema)) { title = title + ' Unavailable' }
 
   return (
     <dataset-dictionary>
       <CollapsableBox title={title} expanded={expanded}>
-        {!isEmpty(schema) && <SchemaTable schema={schema} />}
+        {!isEmpty(schema) &&
+          <div>
+            <SchemaTable schema={schema} />
+            {viewLink(datasetId)}
+          </div>
+        }
       </CollapsableBox>
     </dataset-dictionary>
   )
