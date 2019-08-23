@@ -11,7 +11,7 @@ import './App.scss'
 const noMatch = () => (
   <Redirect to='/' />
 )
-const BasicExample = () => (
+const DiscoveryUI = () => (
   <main-app-element>
     <NetworkLoadingElement />
     <Router>
@@ -29,4 +29,4 @@ const BasicExample = () => (
   </main-app-element>
 )
 
-export default BasicExample
+export default DiscoveryUI
