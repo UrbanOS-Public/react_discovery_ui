@@ -1,5 +1,6 @@
 import PlotlyEditor, { DefaultEditor, SingleSidebarItem, Button } from 'react-chart-editor'
 import 'react-chart-editor/lib/react-chart-editor.ie.css'
+import './chart-visualization.css'
 import plotly from 'plotly.js/dist/plotly'
 import { Component } from 'react'
 
