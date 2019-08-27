@@ -1,4 +1,7 @@
 import { mount } from 'enzyme'
+
+import { BrowserRouter } from 'react-router-dom'
+
 import DatasetVisualizationView from './dataset-visualization-view'
 import ChartVisualization from '../../components/visualizations/chart/chart-visualization';
 
@@ -16,7 +19,7 @@ describe('dataset visualization view', () => {
   beforeEach(() => {
     queryDatasetMock = jest.fn()
 
-    subject = mount(<DatasetVisualizationView match={routerProps} queryDataset={queryDatasetMock} dataSources={dataSources} />)
+    subject = mount(<BrowserRouter><DatasetVisualizationView match={routerProps} queryDataset={queryDatasetMock} dataSources={dataSources} /></BrowserRouter>)
   })
 
   it('queries the dataset using the organization and dataset names', () => {
