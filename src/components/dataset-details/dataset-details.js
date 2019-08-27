@@ -2,8 +2,6 @@ import './dataset-details.scss'
 import _ from 'lodash'
 import SanitizedHTML from 'react-sanitized-html'
 
-import { Link } from 'react-router-dom'
-
 import { QueryStringBuilder } from '../../utils'
 
 import DownloadButton from '../generic-elements/download-button'
@@ -56,7 +54,13 @@ function renderDownloadButton(dataset) {
   return <DownloadButton url={url} />
 }
 
-const renderVisualizeButton = (dataset) => 'isApiAccesible' && <VisualizeButton url={`${dataset.name}/visualization`} />
+const renderVisualizeButton = (dataset) => {
+  const isStreaming = dataset.sourceType === 'stream'
+  const isIngest = dataset.sourceType === 'ingest' || isStreaming
+
+  return isIngest && <VisualizeButton url={`${dataset.name}/visualization`} />
+}
+  
 
 const createKeyword = name => (
   <a
