@@ -12,8 +12,6 @@ export default class extends Component {
   }
 
   render() {
-    console.log(this.props)
-
     return (
       <dataset-visualization>
         <BackButton path={routes.datasetView} params={this.props.match.params}>Back to Dataset</BackButton>
