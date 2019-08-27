@@ -16,10 +16,12 @@ const DatasetDetails = ({ dataset }) => {
 
   return (
     <dataset-details>
-      < div className='header'>
+      <div className='header'>
         <div className='name'>{dataset.title}</div>
-        {renderDownloadButton(dataset)}
-        {renderVisualizeButton(dataset)}
+        <div className='buttons'>
+          {renderVisualizeButton(dataset)}
+          {renderDownloadButton(dataset)}
+        </div>
       </div>
       <div className='description'>
         <SanitizedHTML
@@ -54,11 +56,7 @@ function renderDownloadButton(dataset) {
   return <DownloadButton url={url} />
 }
 
-function renderVisualizeButton(dataset) {
-  return <Link to={`${dataset.name}/visualization`}>
-    <VisualizeButton />
-  </Link>
-}
+const renderVisualizeButton = (dataset) => 'isApiAccesible' && <VisualizeButton url={`${dataset.name}/visualization`} />
 
 const createKeyword = name => (
   <a

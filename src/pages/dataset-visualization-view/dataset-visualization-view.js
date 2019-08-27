@@ -1,5 +1,9 @@
 import { Component } from 'react'
+
 import ChartVisualization from '../../components/visualizations/chart/chart-visualization'
+import BackButton from '../../components/generic-elements/back-button'
+
+import routes from '../../routes';
 
 export default class extends Component {
   componentDidMount() {
@@ -8,8 +12,11 @@ export default class extends Component {
   }
 
   render() {
+    console.log(this.props)
+
     return (
       <dataset-visualization>
+        <BackButton path={routes.datasetView} params={this.props.match.params}>Back to Dataset</BackButton>
         <ChartVisualization dataSources={this.props.dataSources} />
       </dataset-visualization>
     )
