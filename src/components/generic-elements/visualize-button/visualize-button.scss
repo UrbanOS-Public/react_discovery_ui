@@ -1,7 +1,7 @@
 @import '../../../styles/variables.scss';
 @import '../../../styles/mixins.scss';
 
-  .download-button {
+  .visualize-button {
     @include button();
     display: inline-block;
     padding: 1.0rem;
@@ -9,7 +9,6 @@
     background-color: $light-blue;
     color: $super-light-grey;
     letter-spacing: 0.05rem;
-    margin: 1rem 1rem 1rem 0.5rem;
+    margin: 1rem 0rem 1rem 1rem;
     align-self: flex-end;
-    float: right;
   }
