@@ -1,17 +1,19 @@
 import { connect } from 'react-redux'
 import GeoJSONVisualization from './geojson-visualization'
-import { downloadDataset } from '../../../store/actions'
-import { getDownloadedDataset, getDownloadedDatasetError } from '../../../store/selectors'
+import { downloadDataset, retrieveDatasetPreview } from '../../../store/actions'
+import { getDownloadedDataset, getDataSetPreview, getDownloadedDatasetError } from '../../../store/selectors'
 
 const mapStateToProps = state => {
   return {
-    geoJsonData: getDownloadedDataset(state),
+    downloadedGeoJsonData: getDownloadedDataset(state),
+    previewedGeoJsonData: getDataSetPreview(state),
     downloadedDatasetError: getDownloadedDatasetError(state)
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  downloadDataset: (datasetId, format) => dispatch(downloadDataset(datasetId, format))
+  downloadDataset: (datasetId, format) => dispatch(downloadDataset(datasetId, format)),
+  previewDataset: (datasetId, format) => dispatch(retrieveDatasetPreview(datasetId, format))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GeoJSONVisualization)

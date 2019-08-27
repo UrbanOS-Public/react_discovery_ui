@@ -2,7 +2,7 @@ import { takeEvery } from 'redux-saga/effects'
 import { RETRIEVE_DATA_LIST, selectDataList, displayError } from '../actions'
 import apiInvoker from './api-invoker'
 
-export default function* theRealDatasetSaga() {
+export default function * theRealDatasetSaga () {
   yield takeEvery(RETRIEVE_DATA_LIST, apiInvoker({ endpoint: '/api/v1/dataset/search', actionator: selectDataList, queryParameterBuilder }))
 }
 

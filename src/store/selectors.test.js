@@ -1,4 +1,4 @@
-import { getVisualizationDataSources } from "./selectors";
+import { getVisualizationDataSources } from './selectors'
 
 describe('get visualization data sources', () => {
   it('returns empty data sources when data query result is missing', () => {

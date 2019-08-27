@@ -8,7 +8,7 @@ import logoutSaga from './logout-saga'
 import datasetDownloadSaga from './dataset-download-saga'
 import datasetQuerySaga from './dataset-query-saga'
 
-export default function* allSagas() {
+export default function * allSagas () {
   yield all([
     fork(datasetListSaga),
     fork(datasetSaga),

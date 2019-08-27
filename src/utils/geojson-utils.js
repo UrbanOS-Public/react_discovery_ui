@@ -5,7 +5,7 @@ const determineBBox = geoJsonData => {
 }
 
 const calculateBBox = geoJsonData => {
-  const initial = { minLong: 1000, minLat: 1000, maxLong: -1000, maxLat: -1000 };
+  const initial = { minLong: 1000, minLat: 1000, maxLong: -1000, maxLat: -1000 }
   const bounds = _.chain(geoJsonData.features)
     .map(flattenCoordinateLists)
     .flatten()
@@ -27,8 +27,8 @@ const flattenCoordinateLists = feature => {
 }
 
 const getNewBounds = (bounds, coordinate) => {
-  const long = coordinate[0];
-  const lat = coordinate[1];
+  const long = coordinate[0]
+  const lat = coordinate[1]
   return {
     minLat: Math.min(lat, bounds.minLat),
     maxLat: Math.max(lat, bounds.maxLat),
@@ -41,11 +41,11 @@ const isValidBBox = boundingBox => {
   if (!boundingBox || boundingBox.length != 4) { return false }
 
   const [minLong, minLat, maxLong, maxLat] = boundingBox
-  if (minLong > maxLong || minLat > maxLat
-    || minLong < -180 || minLong > 180
-    || minLat < -90 || minLat > 90
-    || maxLong < -180 || maxLong > 180
-    || maxLat < -90 || maxLat > 90) {
+  if (minLong > maxLong || minLat > maxLat ||
+    minLong < -180 || minLong > 180 ||
+    minLat < -90 || minLat > 90 ||
+    maxLong < -180 || maxLong > 180 ||
+    maxLat < -90 || maxLat > 90) {
     return false
   }
   return true

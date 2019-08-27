@@ -53,4 +53,20 @@ describe('checkbox', () => {
     expect(subject.exists('.selected')).toBeFalsy()
     expect(subject.exists('.checkmark')).toBeFalsy()
   })
+
+  test('is not clickable when disabled', () => {
+    subject = shallow(
+        <Checkbox
+      clickHandler={mockClickHandler}
+      text={"The Label"}
+      selected={false}
+      disabled={true}
+      />
+    )
+    subject.simulate('click')
+
+    expect(subject.exists('.disabled')).toBeTruthy()
+    expect(mockPreventDefault).not.toHaveBeenCalled()
+  })
+
 })

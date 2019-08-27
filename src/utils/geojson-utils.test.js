@@ -77,7 +77,6 @@ describe('determine bounding box', () => {
       expect(result).toEqual([-1, -6, 10, 12])
     })
   })
-
 })
 
 describe('is valid bounding box', () => {

@@ -14,11 +14,11 @@ export const getDownloadedDatasetError = state => state.datasetReducer.downloade
 export const getDatasetQueryResult = state => state.datasetReducer.datasetQueryResult
 
 export const getVisualizationDataSources = createSelector(getDatasetQueryResult, data => {
-  var dataSources = {};
+  var dataSources = {}
   if (data && data.length > 0) {
     Object.keys(data[0]).forEach(key => {
       dataSources[key] = data.map(datum => datum[key])
-    });
+    })
   }
   return dataSources
 })

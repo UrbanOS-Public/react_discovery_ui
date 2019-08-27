@@ -45,8 +45,8 @@ export const datasetDetails = (data) => ({
   type: DATASET_DETAILS, value: data
 })
 
-export const retrieveDatasetPreview = id => ({
-  type: RETRIEVE_DATASET_PREVIEW, value: id
+export const retrieveDatasetPreview = (id, format = 'json') => ({
+  type: RETRIEVE_DATASET_PREVIEW, value: { id, format }
 })
 
 export const datasetPreview = (data) => ({
@@ -81,8 +81,8 @@ export const logoutFailure = (message) => ({
   type: LOGOUT_FAILURE, value: message
 })
 
-export const downloadDataset = (datasetId, format) => ({
-  type: DOWNLOAD_DATASET, value: { datasetId: datasetId, format: format }
+export const downloadDataset = (id, format) => ({
+  type: DOWNLOAD_DATASET, value: { id, format }
 })
 
 export const downloadDatasetSucceeded = (message) => ({
