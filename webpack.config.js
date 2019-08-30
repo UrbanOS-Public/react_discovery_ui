@@ -5,9 +5,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const zopfli = require('@gfx/zopfli')
 
-
-
-
 module.exports = (env, argv) => {
 
   let plugins = [
@@ -16,8 +13,8 @@ module.exports = (env, argv) => {
       filename: './index.html'
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css'
+      filename: '[name].[hash].css',
+      chunkFilename: '[id].[hash].css'
     }),
     new CopyWebpackPlugin([
       { from: 'config' }
@@ -34,14 +31,14 @@ module.exports = (env, argv) => {
       },
     }))
   }
+
   return {
     entry: {
       main: ['babel-polyfill', path.join(__dirname, 'src', 'index.js')]
     },
     output: {
-      path: path.join(__dirname, 'dist'),
-      filename: 'bundle.js',
-      chunkFilename: '[name].bundle.js',
+      filename: '[name].[contenthash].js',
+      path: path.resolve(__dirname, 'dist'),
       publicPath: '/'
     },
     module: {
@@ -59,11 +56,7 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.(pdf|jpg|png|gif|ico)$/,
-          use: [
-            {
-              loader: 'file-loader'
-            }
-          ]
+          use: [{ loader: 'file-loader' }]
         },
         {
           test: /\.svg$/,
@@ -73,7 +66,9 @@ module.exports = (env, argv) => {
           test: /\.(css|scss)$/,
           use: [
             'style-loader',
-            { loader: MiniCssExtractPlugin.loader },
+            {
+              loader: MiniCssExtractPlugin.loader
+            },
             'css-loader',
             {
               loader: 'postcss-loader',
@@ -97,6 +92,19 @@ module.exports = (env, argv) => {
       port: 9001,
       host: '0.0.0.0'
     },
-    plugins: plugins
+    plugins: plugins,
+    optimization: {
+      moduleIds: 'hashed',
+      runtimeChunk: 'single',
+      splitChunks: {
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+          }
+        }
+      }
+    }
   }
 }
