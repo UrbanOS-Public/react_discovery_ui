@@ -5,6 +5,12 @@ login-zone {
   margin-bottom: 1rem;
   display: flex;
 
+  login-svgs-and-text {
+  display: flex;
+  line-height: 2rem;
+  align-items: center;
+  }
+
   p {
     margin: 0.5rem 0;
   }
@@ -36,11 +42,9 @@ login-zone {
   }
 
   .user-icon {
-    height: 1.4rem;
-    width: 1.4rem;
-    margin-right: 0.25rem;
+
     vertical-align: top;
-    vertical-align: -webkit-baseline-middle;
+
   }
 
   .user-icon-svg {

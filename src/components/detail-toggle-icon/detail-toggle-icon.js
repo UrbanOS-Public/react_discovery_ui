@@ -1,6 +1,7 @@
 import './detail-toggle-icon.scss'
 import { Component } from 'react'
-import Icon from '@material-ui/core/Icon'
+import ExpandLess from '@material-ui/icons/ExpandLess'
+import ExpandMore from '@material-ui/icons/ExpandMore'
 
 export default class extends Component {
     constructor(props) {
@@ -10,9 +11,7 @@ export default class extends Component {
     render() {
         return (
             <detail-toggle-icon >
-                <Icon className="collapse-icon">
-                    {this.props.expanded ? 'expand_less' : 'expand_more'}
-                </Icon>
+                {this.props.expanded ? <ExpandLess className="collapse-icon" /> : <ExpandMore className="collapse-icon" />}
             </detail-toggle-icon>
         )
     }

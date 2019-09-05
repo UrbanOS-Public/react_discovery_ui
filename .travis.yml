@@ -1,19 +1,15 @@
 language: node_js
 node_js:
-  - "7"
-services:
-  - docker
+  - "10"
 script:
-  - docker build -t discovery_ui:build .
+- npm run test
+before_deploy: npm run build:library
 deploy:
-- provider: script
+- provider: npm
   skip_cleanup: true
-  script: bash scripts/deploy.sh master
-  on:
-    branch: master
-- provider: script
-  skip_cleanup: true
-  script: bash scripts/deploy.sh release
+  email: "bbalser@pillartechnology.com"
+  api_key:
+    secure: $NPM_AUTH_TOKEN
   on:
     tags: true
 branches:

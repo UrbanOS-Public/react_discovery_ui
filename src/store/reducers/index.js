@@ -1,3 +1,8 @@
-import Reducer from './reducers'
+import Reducer, {
+  reducers
+} from './reducers'
 
-export default Reducer
+export {
+  Reducer as
+  default, reducers
+}

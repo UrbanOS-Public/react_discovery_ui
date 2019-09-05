@@ -1,13 +1,12 @@
 import './error-component.scss'
-import Icon from '@material-ui/core/Icon'
+import React from "react"
+import ErrorOutline from '@material-ui/icons/ErrorOutline'
 
 const ErrorComponent = props => {
   return (
     <error-component>
       <div className='error-container'>
-        <Icon className='error-icon'>
-          error_outline
-        </Icon>
+        <ErrorOutline className='error-icon' />
         <div className='error-text'>{props.errorText}</div>
       </div>
     </error-component>
