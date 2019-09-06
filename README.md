@@ -1,7 +1,7 @@
-[![Master](https://travis-ci.org/smartcitiesdata/discovery_ui.svg?branch=master)](https://travis-ci.org/smartcitiesdata/discovery_ui)
-# discovery_ui
+[![Master](https://travis-ci.org/smartcitiesdata/react_discovery_ui.svg?branch=master)](https://travis-ci.org/smartcitiesdata/react_discovery_ui)
+# react_discovery_ui
 
-Front-end application for interacting with datasets within the platform.
+A UI for consuming the [Discovery API](https://github.com/smartcitiesdata/discovery_api) of the SmartCitiesData platform. It is exported as a React Component, and must be imported into another site to be used.
 
 ## Install Dependencies
 `npm install`
@@ -12,32 +12,44 @@ Front-end application for interacting with datasets within the platform.
 ## Run Unit Tests in Watch Mode
 `npm run test-watch`
 
-Unit tests will output warnings relate to accessibility. Configurations
+Unit tests will output warnings related to accessibility. Configurations
 are found in `test-start-point.js`
 
 ## Lint the Code
 `npm run lint`
 
 ## Configuration
-Runtime configurations are stored in config/config.js.
-### API_HOST
-This application is designed to be used with [discovery-api](https://github.com/smartcitiesdata/discovery_api) as the backend.  Set this value to the URL of the local `discovery-api` endpoint.
+The component expects configuration to be on the `window` object i.e: `window.BASE_URL = 'example.com'`
+### `API_HOST`
+This application is designed to be used with [discovery-api](https://github.com/smartcitiesdata/discovery_api) as the backend.  Set this value to the URL of the local `discovery-api` endpoint. (Note: this can also be set to a known public discovery api endpoint, though certain features, such as user logins, are not guaranteed to work properly.)
 
-
-### GTM_ID
+### `GTM_ID`
 Set this value to the Google Tag Manager ID to enable analytics.
 
-### BASE_URL
+### `BASE_URL`
 The domain that the site will be hosted on
+
+### `STREETS_TILE_LAYER_URL`
+This is the url source of the mapbox tiles used in Leaflet. Example: `https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`
+
+### `LOGO_URL`
+The url of an image to be used as the site logo within the react components.
 
 
 ## Start the UI Locally
 `npm run start`
 
-You can view the UI in your web browser at `http://localhost:9001`
+This starts a simple React site with the main Discovery UI component as the sole content. You can view the UI in your web browser at `http://localhost:9001`
 
-## Build Docker Image
-`docker build . -t <image name>:<tag>`
+### Configuration
+Runtime configuration for running the test app locally is stored in `config/config.js`.
 
-## Running the Docker Image
-`docker run -d --rm -p <port>:80 <image name>:<tag>`
+## Build Package
+`npm run build:library`
+
+## Using the Package Locally
+- Run `npm link` in the component root directory.
+- Run `npm install $COMPONENT_ROOT` in the consuming application.
+
+Note that any changes to the component will require the package to be rebuilt.
+
