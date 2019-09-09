@@ -7,7 +7,7 @@ before_deploy: npm run build:library
 deploy:
 - provider: npm
   skip_cleanup: true
-  email: "bbalser@pillartechnology.com"
+  email: "johnson.denen@gmail.com"
   api_key:
     secure: $NPM_AUTH_TOKEN
   on:
