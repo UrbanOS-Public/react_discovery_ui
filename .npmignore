@@ -1,0 +1,8 @@
+*
+!/lib/**
+!package.json
+!README.md
+!LICENSE
+lib/index.*
+lib/*.test.js
+lib/__mocks__/*

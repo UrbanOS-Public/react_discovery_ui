@@ -1,5 +1,5 @@
 import './api-example.scss'
-import Icon from '@material-ui/core/Icon'
+import FilterNoneIcon from '@material-ui/icons/FilterNone'
 
 export default ({ title, descriptionHtml, action, url, params, examples }) => {
   return (
@@ -85,9 +85,9 @@ function renderExample(example, index) {
         <code className='example-element'>{example.body}</code>
         <div className='example-element curl' onClick={copyToClipboard}>
           cURL
-          <Icon className="copy-icon">
+          <FilterNoneIcon className="copy-FilterNoneIcon">
             filter_none
-          </Icon>
+          </FilterNoneIcon>
           <div className='secret-curl-field'>{example.curl}</div>
         </div>
       </div>

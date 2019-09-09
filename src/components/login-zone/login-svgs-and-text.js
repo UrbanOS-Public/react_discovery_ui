@@ -1,7 +1,7 @@
 import InlineSVG from 'react-svg-inline'
 import { Component } from 'react'
-import arrow from '../../assets/ic_arrow.svg'
-import user from '../../assets/user.svg'
+import PersonIcon from '@material-ui/icons/Person'
+import ArrowForwardIcon from '@material-ui/icons/ArrowRightAlt'
 
 export default class extends Component {
 
@@ -12,9 +12,9 @@ export default class extends Component {
     render() {
         return (
             <login-svgs-and-text>
-                <InlineSVG svg={user} className='user-icon' accessibilityDesc='User' />
+                <PersonIcon className='user-icon' />
                 <span>{this.props.text}</span>
-                <InlineSVG className='login-arrow' svg={arrow} accessibilityDesc='Arrow' />
+                <ArrowForwardIcon className='login-arrow' />
             </login-svgs-and-text>
         )
     }

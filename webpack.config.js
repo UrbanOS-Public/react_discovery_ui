@@ -2,8 +2,7 @@ const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const CompressionPlugin = require('compression-webpack-plugin')
-const zopfli = require('@gfx/zopfli')
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = (env, argv) => {
 
@@ -21,20 +20,9 @@ module.exports = (env, argv) => {
     ])
   ]
 
-  if (argv.mode === 'production') {
-    plugins.push(new CompressionPlugin({
-      compressionOptions: {
-        numiterations: 15,
-      },
-      algorithm(input, compressionOptions, callback) {
-        return zopfli.gzip(input, compressionOptions, callback);
-      },
-    }))
-  }
-
   return {
     entry: {
-      main: ['babel-polyfill', path.join(__dirname, 'src', 'index.js')]
+      main: ['@babel/polyfill', path.join(__dirname, 'src', 'index.js')]
     },
     output: {
       filename: '[name].[contenthash].js',
@@ -46,13 +34,7 @@ module.exports = (env, argv) => {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-              plugins: [require('@babel/plugin-proposal-object-rest-spread')]
-            }
-          }
+          use: [{ loader: 'babel-loader' }]
         },
         {
           test: /\.(pdf|jpg|png|gif|ico)$/,
@@ -74,9 +56,7 @@ module.exports = (env, argv) => {
               loader: 'postcss-loader',
               options: {
                 ident: 'postcss',
-                plugins: [require('autoprefixer')({
-                  browsers: ['> 1%', 'last 2 versions']
-                })]
+                plugins: [require('autoprefixer')()]
               }
             },
             'sass-loader'
@@ -94,6 +74,16 @@ module.exports = (env, argv) => {
     },
     plugins: plugins,
     optimization: {
+      minimize: true,
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            compress: {
+              typeofs: false
+            }
+          }
+        }),
+      ],
       moduleIds: 'hashed',
       runtimeChunk: 'single',
       splitChunks: {

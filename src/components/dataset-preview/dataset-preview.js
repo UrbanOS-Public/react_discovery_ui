@@ -4,11 +4,11 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 
 export default class extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.retrieveDatasetPreview(this.props.datasetId)
   }
 
-  render () {
+  render() {
     const { datasetPreview = { data: [], meta: { columns: [] } } } = this.props
     const data = this.cleanseData(datasetPreview.data.slice(0, 50))
     const columns = datasetPreview.meta.columns.map((column) => {
@@ -39,11 +39,11 @@ export default class extends Component {
     )
   }
 
-  cleanseData (data) {
+  cleanseData(data) {
     return data.map(row => this.cleanseRow(row))
   }
 
-  cleanseRow (row) {
+  cleanseRow(row) {
     const deconstructedObject = Object.entries(row)
     const listOfKeyValues = deconstructedObject.map(field =>
       ({ [field[0]]: this.cleanseField(field[1]) })
@@ -53,7 +53,7 @@ export default class extends Component {
     return reconstructedObject
   }
 
-  cleanseField (value) {
+  cleanseField(value) {
     if (typeof value === 'boolean') {
       return value.toString()
     }

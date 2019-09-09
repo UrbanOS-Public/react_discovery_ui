@@ -1,6 +1,7 @@
 import React from 'react'
 import { Map, TileLayer, GeoJSON } from 'react-leaflet'
 import './geojson-visualization.scss'
+import "!style-loader!css-loader!leaflet/dist/leaflet.css"
 import LoadingElement from '../../../components/generic-elements/loading-element'
 import { GeoJsonUtils } from '../../../utils';
 import ErrorComponent from '../../../components/generic-elements/error-component'
@@ -11,7 +12,7 @@ const ohioBBox = [-84.811309, 38.483320, -80.541532, 41.971108]
 export default class GeoJSONVisualization extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {showFullMap: false}
+    this.state = { showFullMap: false }
   }
 
   componentDidMount() {
@@ -41,7 +42,7 @@ export default class GeoJSONVisualization extends React.Component {
   }
 
   renderMap(geoJsonData, source, isHidden) {
-    if(geoJsonData) {
+    if (geoJsonData) {
       let bBox = GeoJsonUtils.determineBBox(geoJsonData)
       bBox = GeoJsonUtils.isValidBBox(bBox) ? bBox : ohioBBox
 
@@ -54,7 +55,7 @@ export default class GeoJSONVisualization extends React.Component {
         </div>
       )
     }
-    return(<div />)
+    return (<div />)
   }
 
   renderMapOrLoading() {
@@ -63,7 +64,7 @@ export default class GeoJSONVisualization extends React.Component {
     if (isLoading) {
       return (
         <div className='map-placeholder'>
-          <LoadingElement className='spinner'/>
+          <LoadingElement className='spinner' />
         </div>)
     } else {
       return (
@@ -88,7 +89,7 @@ export default class GeoJSONVisualization extends React.Component {
           clickHandler={() => this.onMapToggleClick()}
           text="Show Full Dataset"
           selected={this.state.showFullMap}
-          disabled={this.isMapToggleDisabled()}/>
+          disabled={this.isMapToggleDisabled()} />
         {this.renderMapOrLoading()}
       </div>
     )
