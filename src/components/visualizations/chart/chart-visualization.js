@@ -36,6 +36,7 @@ export default class ChartVisualization extends Component {
             onUpdate={(data, layout, frames) => this.setState({ data, layout, frames })}
             useResizeHandler
             advancedTraceTypeSelector
+            config={{ mapboxAccessToken: window.MAPBOX_ACCESS_TOKEN }}
           >
             <DefaultEditor logoSrc={window.LOGO_URL} />
           </PlotlyEditor>
