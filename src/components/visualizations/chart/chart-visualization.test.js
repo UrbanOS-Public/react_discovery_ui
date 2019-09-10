@@ -32,6 +32,7 @@ describe('chart visualization', () => {
     }
     beforeEach(() => {
       window.LOGO_URL = 'https://placekitten.com/530/530'
+      window.MAPBOX_ACCESS_TOKEN = 'secret key'
       subject = shallow(<ChartVisualization plotly={{}} dataSources={dataSources} />)
     })
 
@@ -61,6 +62,10 @@ describe('chart visualization', () => {
     it('configures the editor with the provided logo', () => {
       expect(subject.find(DefaultEditor).length).toBe(1)
       expect(subject.find(DefaultEditor).props().logoSrc).toBe(window.LOGO_URL)
+    })
+
+    it('configures the editor with the provided mapbox api token', () => {
+      expect(subject.find(PlotlyEditor).props().config.mapboxAccessToken).toBe('secret key')
     })
   })
 })
