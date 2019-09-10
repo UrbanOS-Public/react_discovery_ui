@@ -3,14 +3,15 @@ import moment from 'moment'
 const NO_DATE_MESSAGE = 'Date not provided'
 
 const createDateString = dataset => {
-    if (dataset.sourceType == "remote") {
-        return "Updates to remote datasets are not tracked"
-    } else if (dataset.sourceType == "ingest") {
-        return buildDate(dataset.modified, 'MMM D, YYYY') + ' (Last updated by provider)'
-    } else if (dataset.sourceType == "stream") {
-        return buildDate(dataset.lastUpdatedDate, 'MMM D, YYYY h:mm A') + ' (Last Ingested)'
-    } else {
-        return NO_DATE_MESSAGE
+    switch (dataset.sourceType) {
+        case "remote":
+            return "Updates to remote datasets are not tracked"
+        case "ingest":
+            return buildDate(dataset.modified, 'MMM D, YYYY') + ' (Last updated by provider)'
+        case "stream":
+            return buildDate(dataset.lastUpdatedDate, 'MMM D, YYYY h:mm A') + ' (Last Ingested)'
+        default:
+            return NO_DATE_MESSAGE
     }
 }
 

@@ -81,7 +81,7 @@ describe('create date string', () => {
     expect(result).toEqual("Date not provided")
   })
 
-  it('return update not provided message when date parsing fails', () => {
+  it('returns invalid date message when date parsing fails', () => {
     const dataset = {
       sourceType: "ingest",
       modified: "2019-08-06TImNotADateHAHA20:06:59.367752Z",

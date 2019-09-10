@@ -27,13 +27,7 @@ export default class extends Component {
 
   setSearchState(searchResponse) {
     let metadata = searchResponse.metadata
-    let datasets = this.addPresentationFields(searchResponse.results)
-    this.setState({ loading: false, error: false, datasets: datasets, ...metadata })
-  }
-
-  addPresentationFields(results) {
-    results.forEach((dataset) => { dataset.dateString = ModifiedDateStringBuilder.createDateString(dataset) })
-    return results
+    this.setState({ loading: false, error: false, datasets: searchResponse.results, ...metadata })
   }
 
   getDatasets(params) {

@@ -1,10 +1,10 @@
 import './data-card.scss'
 import { Link } from 'react-router-dom'
-import moment from 'moment'
 import SanitizedHTML from 'react-sanitized-html'
 import ReactImageFallback from 'react-image-fallback';
 import fallbackImage from '../../assets/no_image.png';
 import loadingImage from '../../assets/loading.gif';
+import { ModifiedDateStringBuilder } from '../../utils/';
 
 const DataCard = props => {
   const maxDescriptionLength = 240
@@ -50,7 +50,7 @@ const DataCard = props => {
         </div>
         <div className='card-metadata'>
           <div className='last-modified'>
-            {dataset && dataset.dateString}
+            {dataset && ModifiedDateStringBuilder.createDateString(dataset)}
           </div>
           <div className='separator'>•</div>
           <div className='file-types'>

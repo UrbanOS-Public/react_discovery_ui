@@ -15,8 +15,7 @@ const dataset = {
   organization_image_url: 'logo.png',
   description: 'somedescription',
   fileTypes: ['foo', 'bar'],
-  modified: '2018-06-21',
-  dateString: 'Jul 22, 2018'
+  modified: '2018-06-21'
 }
 
 describe('data card element', () => {
@@ -33,7 +32,7 @@ describe('data card element', () => {
         .text()
     ).toEqual(dataset.description)
     expect(subject.find('.file-type').length).toEqual(dataset.fileTypes.length)
-    expect(subject.find('.last-modified').text()).toContain('Jul 22, 2018')
+    expect(subject.find('.last-modified').text()).toContain('Jun 21, 2018 (Last updated by provider)')
     expect(subject.find(Link).at(1).props().to).toEqual(
       `/dataset/${dataset.organization_name}/${dataset.name}`
     )
@@ -69,9 +68,10 @@ describe('data card element with html description', () => {
         .text()
     ).toEqual(dataset.description)
     expect(subject.find('.file-type').length).toEqual(dataset.fileTypes.length)
-    expect(subject.find('.last-modified').text()).toContain('Jul 22, 2018')
+    expect(subject.find('.last-modified').text()).toContain('Jun 21, 2018 (Last updated by provider)')
     expect(subject.find(Link).at(1).props().to).toEqual(
       `/dataset/${dataset.organization_name}/${dataset.name}`
     )
   })
 })
+
