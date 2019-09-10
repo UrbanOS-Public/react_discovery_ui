@@ -9,6 +9,7 @@ const dataset = {
   id: 'c21e1562-c44b-4d65-b8ec-cac3dcbb133b',
   name: 'someName',
   title: 'someTitle',
+  sourceType: 'ingest',
   organization_name: 'org_name',
   organization_title: 'Organization Title',
   organization_image_url: 'logo.png',
@@ -31,7 +32,7 @@ describe('data card element', () => {
         .text()
     ).toEqual(dataset.description)
     expect(subject.find('.file-type').length).toEqual(dataset.fileTypes.length)
-    expect(subject.find('.last-modified').text()).toContain('Jun 21, 2018')
+    expect(subject.find('.last-modified').text()).toContain('Jun 21, 2018 (Last updated by provider)')
     expect(subject.find(Link).at(1).props().to).toEqual(
       `/dataset/${dataset.organization_name}/${dataset.name}`
     )
@@ -67,9 +68,10 @@ describe('data card element with html description', () => {
         .text()
     ).toEqual(dataset.description)
     expect(subject.find('.file-type').length).toEqual(dataset.fileTypes.length)
-    expect(subject.find('.last-modified').text()).toContain('Jun 21, 2018')
+    expect(subject.find('.last-modified').text()).toContain('Jun 21, 2018 (Last updated by provider)')
     expect(subject.find(Link).at(1).props().to).toEqual(
       `/dataset/${dataset.organization_name}/${dataset.name}`
     )
   })
 })
+

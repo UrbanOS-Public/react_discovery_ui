@@ -1,10 +1,10 @@
 import './data-card.scss'
 import { Link } from 'react-router-dom'
-import moment from 'moment'
 import SanitizedHTML from 'react-sanitized-html'
 import ReactImageFallback from 'react-image-fallback';
 import fallbackImage from '../../assets/no_image.png';
 import loadingImage from '../../assets/loading.gif';
+import { ModifiedDateStringBuilder } from '../../utils/';
 
 const DataCard = props => {
   const maxDescriptionLength = 240
@@ -50,7 +50,7 @@ const DataCard = props => {
         </div>
         <div className='card-metadata'>
           <div className='last-modified'>
-            {dataset && updatedDate(dataset)}
+            {dataset && ModifiedDateStringBuilder.createDateString(dataset)}
           </div>
           <div className='separator'>•</div>
           <div className='file-types'>
@@ -60,16 +60,6 @@ const DataCard = props => {
       </div>
     </data-card>
   )
-}
-
-function updatedDate(dataset) {
-  if (dataset.sourceType === "remote") {
-    return (<span>Updates to remote datasets are not tracked</span>)
-  } else if (dataset.modified) {
-    return (<span>Updated {moment(dataset.modified).format('MMM DD, YYYY')}</span>)
-  } else {
-    return (<span>Update pending</span>)
-  }
 }
 
 function truncateDescription(description, maxLength) {
