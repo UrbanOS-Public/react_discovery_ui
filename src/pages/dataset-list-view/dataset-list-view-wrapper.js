@@ -3,6 +3,7 @@ import { Component, createRef } from 'react'
 import qs from 'qs'
 import _ from 'lodash'
 import axios from 'axios'
+import { ModifiedDateStringBuilder } from '../../utils';
 
 export default class extends Component {
   constructor(props) {
@@ -26,7 +27,13 @@ export default class extends Component {
 
   setSearchState(searchResponse) {
     let metadata = searchResponse.metadata
-    this.setState({ loading: false, error: false, datasets: searchResponse.results, ...metadata })
+    let datasets = this.addPresentationFields(searchResponse.results)
+    this.setState({ loading: false, error: false, datasets: datasets, ...metadata })
+  }
+
+  addPresentationFields(results) {
+    results.forEach((dataset) => { dataset.dateString = ModifiedDateStringBuilder.createDateString(dataset) })
+    return results
   }
 
   getDatasets(params) {
