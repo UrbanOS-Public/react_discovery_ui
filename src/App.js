@@ -19,6 +19,7 @@ import LoginView from './pages/login-view'
 import NetworkLoadingElement from './components/network-loading-element'
 
 import routes from './routes'
+import Login from './Login'
 
 const Redux = {
   start: (reducerMap = {}) => {
@@ -39,6 +40,7 @@ const noMatch = () => (
 
 const DiscoveryUI = () => (
   <main-app-element>
+    <Login />
     <NetworkLoadingElement />
     <Router>
       <Switch>
