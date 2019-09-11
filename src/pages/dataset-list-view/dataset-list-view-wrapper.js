@@ -4,7 +4,6 @@ import qs from 'qs'
 import _ from 'lodash'
 import axios from 'axios'
 import { ModifiedDateStringBuilder } from '../../utils';
-import Login from '../../Login.js'
 
 export default class extends Component {
   constructor(props) {

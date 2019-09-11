@@ -4,23 +4,22 @@ import React from "react";
 import { useAuth0 } from "./react-auth0-wrapper";
 
 const Login = () => {
-  console.log("useAuth0", useAuth0())
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-
+  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+  console.log('user', user)
   return (
     <div>
-      {/* {!isAuthenticated && ( */}
+      {!isAuthenticated && (
         <button
           onClick={() =>
-            loginWithRedirect({})
+            loginWithRedirect()
           }
         >
           Log in
         </button>
-      {/* )} */}
+      )}
 
       {
-        // isAuthenticated &&
+        isAuthenticated &&
         <button onClick={() => logout()}>Log out</button>
         }
     </div>

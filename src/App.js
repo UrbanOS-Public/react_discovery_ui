@@ -8,6 +8,7 @@ import { reducers } from './store/reducers'
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux'
+import { Auth0Provider } from "./react-auth0-wrapper";
 
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
@@ -20,6 +21,20 @@ import NetworkLoadingElement from './components/network-loading-element'
 
 import routes from './routes'
 import Login from './Login'
+
+// A function that routes the user to the right place
+// after login
+const onRedirectCallback = appState => {
+  console.log("onRedirectCallback", appState, document.title, window.location.pathname)
+  window.history.replaceState(
+    {},
+    document.title,
+    appState && appState.targetUrl
+      ? appState.targetUrl
+      : window.location.pathname
+  );
+};
+
 
 const Redux = {
   start: (reducerMap = {}) => {
@@ -59,9 +74,17 @@ const WrappedApp = () => {
   const store = Redux.start()
 
   return (
-    <Provider store={store}>
-      <DiscoveryUI />
-    </Provider>)
+    <Auth0Provider
+      domain={"dev-smartos.auth0.com"}
+      client_id={"KKSxRc1Wjjr74I1KL2SlrmVIsuu7YREc"}
+      redirect_uri={window.location.origin}
+      onRedirectCallback={onRedirectCallback}
+    >
+      <Provider store={store}>
+        <DiscoveryUI />
+      </Provider>
+    </Auth0Provider>
+  )
 }
 
 export default WrappedApp

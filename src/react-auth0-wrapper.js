@@ -1,4 +1,3 @@
-// src/react-auth0-wrapper.js
 import React, { useState, useEffect, useContext } from "react";
 import createAuth0Client from "@auth0/auth0-spa-js";
 
@@ -20,9 +19,7 @@ export const Auth0Provider = ({
 
   useEffect(() => {
     const initAuth0 = async () => {
-      console.log('initOptions', initOptions);
       const auth0FromHook = await createAuth0Client(initOptions);
-      console.log('auth0FromHook', auth0FromHook);
       setAuth0(auth0FromHook);
 
       if (window.location.search.includes("code=")) {
@@ -31,7 +28,6 @@ export const Auth0Provider = ({
       }
 
       const isAuthenticated = await auth0FromHook.isAuthenticated();
-      console.log('isAuthenticated', isAuthenticated);
 
       setIsAuthenticated(isAuthenticated);
 
