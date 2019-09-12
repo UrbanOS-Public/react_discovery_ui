@@ -1,7 +1,7 @@
 // src/components/NavBar.js
 
 import React from "react";
-import { useAuth0 } from "./react-auth0-wrapper";
+import { useAuth0 } from "./auth/react-auth0-wrapper";
 
 const Login = () => {
   const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
