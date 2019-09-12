@@ -11,10 +11,9 @@ import StreamingApiDoc from '../../components/streaming-api-doc'
 import DatasetQuality from '../../components/dataset-quality'
 import GeoJSONVisualization from '../../components/visualizations/geojson'
 
-
 export default class extends Component {
   componentDidMount() {
-    this.props.retrieveDatasetDetails(this.props.match.params.organization_name, this.props.match.params.dataset_name)
+    this.props.retrieveDatasetDetails(this.props.match.params.organizationName, this.props.match.params.datasetName)
   }
 
   componentWillUnmount() {
@@ -52,7 +51,6 @@ export default class extends Component {
           {isIngest && <DatasetQuality completeness={dataset.completeness} expanded={false} />}
           <DatasetDictionary datasetId={dataset.id} schema={dataset.schema} />
           <DatasetMetadata dataset={dataset} />
-
         </div>
       </dataset-view>
     )

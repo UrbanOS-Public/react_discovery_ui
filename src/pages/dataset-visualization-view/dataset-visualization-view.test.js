@@ -1,32 +1,34 @@
-import { mount } from 'enzyme'
-
-import { BrowserRouter } from 'react-router-dom'
+import { shallow } from 'enzyme'
 
 import DatasetVisualizationView from './dataset-visualization-view'
-import ChartVisualization from '../../components/visualizations/chart/chart-visualization';
+import ChartVisualization from '../../components/visualizations/chart/chart-visualization'
+import { Collapse } from 'react-collapse'
 
 describe('dataset visualization view', () => {
   const routerProps = {
     params: {
-      organization_name: 'data \'r\' us',
-      dataset_name: 'some data'
+      organizationName: 'data \'r\' us',
+      datasetName: 'some data'
     }
   }
   const dataSources = { data: ['sources'] }
 
-  let subject, queryDatasetMock
+  let subject
 
   beforeEach(() => {
-    queryDatasetMock = jest.fn()
-
-    subject = mount(<BrowserRouter><DatasetVisualizationView match={routerProps} queryDataset={queryDatasetMock} dataSources={dataSources} /></BrowserRouter>)
-  })
-
-  it('queries the dataset using the organization and dataset names', () => {
-    expect(queryDatasetMock).toHaveBeenCalledWith(routerProps.params.organization_name, routerProps.params.dataset_name, 'json', 10000)
+    subject = shallow(
+      <DatasetVisualizationView
+        match={routerProps}
+        location={{ search: {} }}
+        dataSources={dataSources} />
+    )
   })
 
   it('displays a chart visualization with the provided data sources', () => {
     expect(subject.find(ChartVisualization).props().dataSources).toEqual(dataSources)
+  })
+
+  it('displays a chart header with an initially collapsed toggle', () => {
+    expect(subject.find(Collapse).props().isOpened).toEqual(false)
   })
 })

@@ -1,22 +1,38 @@
-import { Component } from 'react'
+import './dataset-visualization-view.scss'
+import { Component, useState } from 'react'
 
 import ChartVisualization from '../../components/visualizations/chart/chart-visualization'
-import BackButton from '../../components/generic-elements/back-button'
-
 import routes from '../../routes';
+import qs from 'qs'
+import DatasetQuery from '../../components/dataset-query'
+import { Collapse } from 'react-collapse'
+import { GeneratedLink } from '../../components/generic-elements/generated-link';
 
-export default class extends Component {
-  componentDidMount() {
-    const { organization_name, dataset_name } = this.props.match.params
-    this.props.queryDataset(organization_name, dataset_name, 'json', 10000)
-  }
+const DatasetVisualizationView = (props) => {
+  const [open, setOpened] = useState(false)
+  const toggleOpen = () => { setOpened(!open) }
 
-  render() {
-    return (
-      <dataset-visualization>
-        <BackButton path={routes.datasetView} params={this.props.match.params}>Back to Dataset</BackButton>
-        <ChartVisualization dataSources={this.props.dataSources} />
-      </dataset-visualization>
-    )
-  }
+  const { match: { params }, dataSources, location: { search } } = props
+  const { systemName } = qs.parse(search, { ignoreQueryPrefix: true })
+
+  return (
+    <dataset-visualization>
+      <div className="visualization-header">
+        <div className="header">
+          <GeneratedLink className="button" path={routes.datasetView} params={params}>
+            Back to Dataset
+          </GeneratedLink>
+          <button className='button' onClick={toggleOpen}>
+            {open ? 'Hide Query' : 'Edit Query'}
+          </button>
+        </div>
+        <Collapse isOpened={open}>
+          <DatasetQuery systemName={systemName} />
+        </Collapse>
+      </div>
+      <ChartVisualization dataSources={dataSources} />
+    </dataset-visualization>
+  )
 }
+
+export default DatasetVisualizationView
