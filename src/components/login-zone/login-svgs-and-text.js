@@ -1,4 +1,3 @@
-import InlineSVG from 'react-svg-inline'
 import { Component } from 'react'
 import PersonIcon from '@material-ui/icons/Person'
 import ArrowForwardIcon from '@material-ui/icons/ArrowRightAlt'

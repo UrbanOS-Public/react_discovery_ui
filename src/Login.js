@@ -1,5 +1,3 @@
-// src/components/NavBar.js
-
 import React from "react";
 import { useAuth0 } from "./auth/react-auth0-wrapper";
 
