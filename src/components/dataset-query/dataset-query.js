@@ -16,7 +16,7 @@ const DatasetQuery = props => {
   return (
     <div className='dataset-query'>
       <p>
-        Enter your query below. For best performance, you should limit your results to no more than 20,000 rows.
+        Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.
       </p>
       {textArea}
       <span>
