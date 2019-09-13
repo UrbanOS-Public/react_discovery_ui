@@ -22,21 +22,6 @@ import NetworkLoadingElement from './components/network-loading-element'
 
 import routes from './routes'
 
-// A function that routes the user to the right place
-// after login
-// TODO: put this some place else
-const onRedirectCallback = appState => {
-  console.log("onRedirectCallback", appState, document.title, window.location.pathname)
-  window.history.replaceState(
-    {},
-    document.title,
-    appState && appState.targetUrl
-      ? appState.targetUrl
-      : window.location.pathname
-  );
-};
-
-
 const Redux = {
   start: (reducerMap = {}) => {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -75,7 +60,7 @@ const WrappedApp = () => {
   const store = Redux.start()
 
   return (
-    <Auth0Provider onRedirectCallback={onRedirectCallback}>
+    <Auth0Provider>
       <Provider store={store}>
         <DiscoveryUI />
       </Provider>
