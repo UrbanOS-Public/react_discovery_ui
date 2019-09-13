@@ -11,7 +11,9 @@ import {
   LOGIN_FAILURE,
   DOWNLOAD_DATASET_SUCCEEDED,
   QUERY_DATASET_SUCCEEDED,
-  QUERY_DATASET
+  QUERY_DATASET,
+  QUERY_DATASET_FAILED,
+  FREESTYLE_QUERY_DATASET
 } from '../actions'
 import datasetListStub from '../../../stubs/dataset-list-stub'
 import datasetStub from '../../../stubs/dataset-details-stub'
@@ -168,11 +170,48 @@ describe('UI Reducer', () => {
     expect(newState.presentation.isLoading).toEqual(true)
   })
 
-  it('QUERY_DATASET_SUCCEEDED sets loading to false', () => {
-    let currentState = { presentation: { isLoading: true } }
+  it('FREESTYLE_QUERY_DATASET sets loading to true', () => {
+    let currentState = {}
 
-    let newState = reducer(currentState, { type: QUERY_DATASET_SUCCEEDED, value: { id: 123 } })
+    let newState = reducer(currentState, { type: FREESTYLE_QUERY_DATASET })
 
-    expect(newState.presentation.isLoading).toEqual(false)
+    expect(newState.presentation.isLoading).toEqual(true)
+  })
+
+
+  describe('QUERY_DATASET_SUCCEEDED', () => {
+    let newState
+
+    beforeEach(() => {
+      const currentState = { presentation: { isLoading: true } }
+
+      newState = reducer(currentState, { type: QUERY_DATASET_SUCCEEDED, value: { message: 'bad thing' } })
+    })
+
+    it('sets loading to false', () => {
+      expect(newState.presentation.isLoading).toEqual(false)
+    })
+
+    it('unsets query failure message', () => {
+      expect(newState.presentation.queryFailureMessage).toEqual('')
+    })
+  })
+
+  describe('QUERY_DATASET_FAILED', () => {
+    let newState
+
+    beforeEach(() => {
+      const currentState = { presentation: { isLoading: true } }
+
+      newState = reducer(currentState, { type: QUERY_DATASET_FAILED, value: { message: 'bad thing' } })
+    })
+
+    it('sets loading to false', () => {
+      expect(newState.presentation.isLoading).toEqual(false)
+    })
+
+    it('sets query failure message', () => {
+      expect(newState.presentation.queryFailureMessage).toEqual('bad thing')
+    })
   })
 })

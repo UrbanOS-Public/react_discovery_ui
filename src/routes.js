@@ -1,7 +1,7 @@
 export default {
   root: '/',
-  datasetView: '/dataset/:organization_name/:dataset_name',
-  datasetVisualizationView: '/dataset/:organization_name/:dataset_name/visualization',
+  datasetView: '/dataset/:organizationName/:datasetName',
+  datasetVisualizationView: '/dataset/:organizationName/:datasetName/visualization',
 
   healthCheck: '/healthcheck',
   login: '/login',

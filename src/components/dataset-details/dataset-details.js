@@ -58,9 +58,9 @@ const renderVisualizeButton = (dataset) => {
   const isStreaming = dataset.sourceType === 'stream'
   const isIngest = dataset.sourceType === 'ingest' || isStreaming
 
-  return isIngest && <VisualizeButton organizationName={dataset.organization.name} datasetName={dataset.name} />
+  return isIngest && <VisualizeButton organizationName={dataset.organization.name} datasetName={dataset.name} systemName={dataset.systemName} />
 }
-  
+
 
 const createKeyword = name => (
   <a

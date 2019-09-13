@@ -41,11 +41,13 @@
 @mixin button($background-color: $light-blue) {
     background-color: $background-color;
     text-decoration: none;
+    border-width: 0px;
 
     &:hover {
         color: white;
         background-color: $almost-black;
         text-decoration: underline;
+        cursor: pointer;
     }
 }
 

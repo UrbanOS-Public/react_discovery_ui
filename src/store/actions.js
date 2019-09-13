@@ -17,6 +17,8 @@ export const DOWNLOAD_DATASET_SUCCEEDED = 'DOWNLOAD_DATASET_SUCCEEDED'
 export const DOWNLOAD_DATASET_FAILED = 'DOWNLOAD_DATASET_FAILED'
 export const QUERY_DATASET = 'QUERY_DATASET'
 export const QUERY_DATASET_SUCCEEDED = 'QUERY_DATASET_SUCCEEDED'
+export const QUERY_DATASET_FAILED = 'QUERY_DATASET_FAILED'
+export const FREESTYLE_QUERY_DATASET = 'FREESTYLE_QUERY_DATASET'
 
 export const retrieveDataList = (offset, limit, sort, query, facets) => ({
   type: RETRIEVE_DATA_LIST,
@@ -97,6 +99,14 @@ export const queryDataset = (organizationName, datasetName, format, limit) => ({
   type: QUERY_DATASET, organizationName, datasetName, format, limit
 })
 
+export const freestyleQueryDataset = (queryText) => ({
+  type: FREESTYLE_QUERY_DATASET, value: { queryText }
+})
+
 export const queryDatasetSucceeded = (message) => ({
   type: QUERY_DATASET_SUCCEEDED, value: message
+})
+
+export const queryDatasetFailed = (message) => ({
+  type: QUERY_DATASET_FAILED, value: message
 })
