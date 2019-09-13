@@ -16,7 +16,9 @@ import {
   DOWNLOAD_DATASET_SUCCEEDED,
   DOWNLOAD_DATASET_FAILED,
   QUERY_DATASET_SUCCEEDED,
-  QUERY_DATASET
+  QUERY_DATASET,
+  QUERY_DATASET_FAILED,
+  FREESTYLE_QUERY_DATASET
 } from '../actions'
 
 const defaultDatasetState = {
@@ -51,24 +53,19 @@ const datasetReducer = (state = defaultDatasetState, action) => {
         downloadedDataset: action.value
       })
     case DOWNLOAD_DATASET_FAILED:
-      return Object.assign({}, state, {
-        downloadedDatasetError: true
-      })
+      return Object.assign({}, state, { downloadedDatasetError: true })
     case QUERY_DATASET_SUCCEEDED:
-      return Object.assign({}, state, {
-        datasetQueryResult: action.value
-      })
+      return Object.assign({}, state, { datasetQueryResult: action.value })
     default:
       return state
   }
 }
 
-const presentationReducer = (state = {
-  isLoading: false
-}, action) => {
+const presentationReducer = (state = { isLoading: false, queryFailureMessage: "" }, action) => {
   switch (action.type) {
     case RETRIEVE_DATA_LIST:
     case RETRIEVE_DATASET:
+    case FREESTYLE_QUERY_DATASET:
     case QUERY_DATASET:
       return Object.assign({}, state, {
         isLoading: true
@@ -78,12 +75,10 @@ const presentationReducer = (state = {
         previewLoading: true
       })
     case DATASET_PREVIEW:
-      return Object.assign({}, state, {
-        dataset_preview: action.value,
-        previewLoading: false
-      })
-    case SELECT_DATA_LIST:
+      return Object.assign({}, state, { dataset_preview: action.value, previewLoading: false })
     case QUERY_DATASET_SUCCEEDED:
+      return Object.assign({}, state, { isLoading: false, queryFailureMessage: '' })
+    case SELECT_DATA_LIST:
     case DATASET_DETAILS:
       return Object.assign({}, state, {
         isLoading: false
@@ -98,10 +93,9 @@ const presentationReducer = (state = {
         isLoading: false
       })
     case LOGIN_FAILURE:
-      return Object.assign({}, state, {
-        lastLoginAttemptFailed: true,
-        isLoading: false
-      })
+      return Object.assign({}, state, { lastLoginAttemptFailed: true, isLoading: false })
+    case QUERY_DATASET_FAILED:
+      return Object.assign({}, state, { queryFailureMessage: action.value.message, isLoading: false })
     default:
       return state
   }
@@ -115,5 +109,5 @@ const reducers = {
 const combined = combineReducers(reducers)
 export {
   combined as
-  default, reducers
+    default, reducers
 }
