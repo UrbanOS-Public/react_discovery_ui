@@ -5,5 +5,5 @@ export default {
 
   healthCheck: '/healthcheck',
   login: '/login',
-  oauthDemo: '/oauth-demo'
+  oauth: '/oauth'
 }

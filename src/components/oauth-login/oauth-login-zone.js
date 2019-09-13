@@ -4,7 +4,7 @@ import LoginSvgsAndText from "../login-zone/login-svgs-and-text"
 import { useAuth0 } from "../../auth/react-auth0-wrapper"
 
 const OauthLoginZone = () => {
-  const {isAuthenticated, loginWithRedirect, logout} = useAuth0()
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0()
   return (
     <login-zone>
       {

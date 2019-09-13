@@ -1,7 +1,7 @@
 import OauthLoginZone from "../../components/oauth-login"
 
-const OauthDemoView = () => {
+const OauthView = () => {
   return <OauthLoginZone />
 }
 
-export default OauthDemoView
+export default OauthView

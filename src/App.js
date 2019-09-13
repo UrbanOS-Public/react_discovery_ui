@@ -16,7 +16,7 @@ import DataSetListViewWrapper from './pages/dataset-list-view'
 import DatasetView from './pages/dataset-detail-view'
 import DatasetVisualizationView from './pages/dataset-visualization-view'
 import LoginView from './pages/login-view'
-import OauthDemoView from './pages/oauth-demo-view'
+import OauthView from './pages/oauth-view'
 
 import NetworkLoadingElement from './components/network-loading-element'
 
@@ -64,7 +64,7 @@ const DiscoveryUI = () => (
         <Route exact path={routes.datasetVisualizationView} component={DatasetVisualizationView} />
         <Route exact path={routes.healthCheck} component={() => <div>Everything is fine</div>} />
         <Route exact path={routes.login} component={LoginView} />
-        <Route exact path={routes.oauthDemo} component={OauthDemoView} />
+        <Route exact path={routes.oauth} component={OauthView} />
         <Route component={noMatch} />
       </Switch>
     </Router>
