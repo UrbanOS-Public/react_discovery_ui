@@ -7,7 +7,7 @@ const DEFAULT_REDIRECT_CALLBACK = () =>
 const auth0Options = {
   domain: window.AUTH0_DOMAIN,
   client_id: window.AUTH0_CLIENT_ID,
-  redirect_uri: window.location.origin
+  redirect_uri: `${window.location.origin}/oauth`
 }
 
 export const Auth0Context = React.createContext();
