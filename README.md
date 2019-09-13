@@ -49,7 +49,8 @@ Runtime configuration for running the test app locally is stored in `config/conf
 
 ## Using the Package Locally
 - Run `npm link` in the component root directory.
-- Run `npm install $COMPONENT_ROOT` in the consuming application.
+- Run `npm pack` in the component root directory.
+- Run `npm install $COMPONENT_ROOT/$COMPONENT_PACKAGE.tgz` in the consuming application.
 
 Note that any changes to the component will require the package to be rebuilt.
 
