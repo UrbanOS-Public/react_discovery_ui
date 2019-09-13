@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import createAuth0Client from '@auth0/auth0-spa-js'
+import routes from '../routes';
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname);
@@ -7,7 +8,7 @@ const DEFAULT_REDIRECT_CALLBACK = () =>
 const auth0Options = {
   domain: window.AUTH0_DOMAIN,
   client_id: window.AUTH0_CLIENT_ID,
-  redirect_uri: `${window.location.origin}/oauth`
+  redirect_uri: `${window.location.origin}${routes.oauth}`
 }
 
 export const Auth0Context = React.createContext();
