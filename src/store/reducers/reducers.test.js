@@ -13,7 +13,8 @@ import {
   QUERY_DATASET_SUCCEEDED,
   QUERY_DATASET,
   QUERY_DATASET_FAILED,
-  FREESTYLE_QUERY_DATASET
+  FREESTYLE_QUERY_DATASET,
+  CLEAR_DATASET_PREVIEW
 } from '../actions'
 import datasetListStub from '../../../stubs/dataset-list-stub'
 import datasetStub from '../../../stubs/dataset-details-stub'
@@ -125,6 +126,22 @@ describe('UI Reducer', () => {
     let newState = reducer(currentState, { type: DATASET_PREVIEW, value: expectedData })
 
     expect(newState.presentation.dataset_preview).toEqual(expectedData)
+  })
+
+  it('CLEAR_DATASET_PREVIEW clears out preview data', () => {
+    let currentState = {
+      presentation: {
+        dataset_preview: 'something',
+        previewLoading: true
+      }
+    }
+    const expectedData = {
+      dataset_preview: undefined,
+      previewLoading: false
+    }
+    let newState = reducer(currentState, { type: CLEAR_DATASET_PREVIEW})
+
+    expect(newState.presentation).toEqual(expectedData)
   })
 
   it('LOGIN sets loading to true', () => {

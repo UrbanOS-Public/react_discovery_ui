@@ -9,6 +9,7 @@ import {
   RETRIEVE_DATASET,
   RETRIEVE_DATASET_PREVIEW,
   DATASET_PREVIEW,
+  CLEAR_DATASET_PREVIEW,
   CLEAR_DATASET_DETAILS,
   LOGIN,
   LOGIN_SUCCESS,
@@ -75,7 +76,16 @@ const presentationReducer = (state = { isLoading: false, queryFailureMessage: ""
         previewLoading: true
       })
     case DATASET_PREVIEW:
-      return Object.assign({}, state, { dataset_preview: action.value, previewLoading: false })
+      return Object.assign({}, state, {
+        dataset_preview: action.value,
+        previewLoading: false
+      })
+    case CLEAR_DATASET_PREVIEW:
+      return Object.assign({}, state, {
+        dataset_preview: undefined,
+        previewLoading: false
+      })
+    case SELECT_DATA_LIST:
     case QUERY_DATASET_SUCCEEDED:
       return Object.assign({}, state, { isLoading: false, queryFailureMessage: '' })
     case SELECT_DATA_LIST:

@@ -30,21 +30,24 @@ describe('dataset detail view', () => {
         dataset={dataset}
         retrieveDatasetDetails={jest.fn()}
         clearDatasetDetails={jest.fn()}
+        clearDatasetPreview={jest.fn()}
         match={routingProps}
       />)
   }
 
   describe('required items with ingest dataset', () => {
-    let retrieveSpy, clearDatasetDetailsSpy
+    let retrieveSpy, clearDatasetDetailsSpy, clearDatasetPreviewSpy
 
     beforeEach(() => {
       retrieveSpy = jest.fn()
       clearDatasetDetailsSpy = jest.fn()
+      clearDatasetPreviewSpy = jest.fn()
       subject = shallow(
         <DatasetView
           dataset={ingestDataset}
           retrieveDatasetDetails={retrieveSpy}
           clearDatasetDetails={clearDatasetDetailsSpy}
+          clearDatasetPreview={clearDatasetPreviewSpy}
           match={routingProps}
         />
       )
@@ -62,6 +65,12 @@ describe('dataset detail view', () => {
       subject.unmount()
 
       expect(clearDatasetDetailsSpy).toHaveBeenCalled()
+    })
+
+    it('clears out preview when unmounted to prevent issues', () => {
+      subject.unmount()
+
+      expect(clearDatasetPreviewSpy).toHaveBeenCalled()
     })
 
     it('includes the component for previewing dataset', () => {
