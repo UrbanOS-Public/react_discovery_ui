@@ -8,7 +8,6 @@ import LoginZone from '../../components/login-zone'
 import FacetSidebar from '../../components/facet-sidebar'
 import ErrorComponent from '../../components/generic-elements/error-component'
 import LoadingElement from '../../components/generic-elements/loading-element'
-import RemoteToggle from '../../components/remote-toggle'
 import Checkbox from '../../components/generic-elements/checkbox'
 import qs from 'qs'
 import _ from 'lodash'
@@ -21,7 +20,7 @@ export default class extends Component {
   }
 
   componentDidMount() {
-    this.refreshDatasets(this.searchParams, this.sort, this.facets, this.pageNumber, this.apiAccessible)
+    this.props.fetchData(this.pageNumber, this.state.pageSize, this.sort, this.criteria, this.facets, this.apiAccessible)
   }
 
   onPageChange(page) {

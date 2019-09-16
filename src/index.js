@@ -14,4 +14,5 @@ const tagManagerArgs = {
 
 TagManager.initialize(tagManagerArgs)
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
+

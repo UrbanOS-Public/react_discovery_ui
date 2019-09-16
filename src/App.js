@@ -8,6 +8,7 @@ import { reducers } from './store/reducers'
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux'
+import { Auth0Provider } from "./auth/react-auth0-wrapper";
 
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
@@ -15,6 +16,7 @@ import DataSetListViewWrapper from './pages/dataset-list-view'
 import DatasetView from './pages/dataset-detail-view'
 import DatasetVisualizationView from './pages/dataset-visualization-view'
 import LoginView from './pages/login-view'
+import OauthView from './pages/oauth-view'
 
 import NetworkLoadingElement from './components/network-loading-element'
 
@@ -47,6 +49,7 @@ const DiscoveryUI = () => (
         <Route exact path={routes.datasetVisualizationView} component={DatasetVisualizationView} />
         <Route exact path={routes.healthCheck} component={() => <div>Everything is fine</div>} />
         <Route exact path={routes.login} component={LoginView} />
+        <Route exact path={routes.oauth} component={OauthView} />
         <Route component={noMatch} />
       </Switch>
     </Router>
@@ -57,9 +60,12 @@ const WrappedApp = () => {
   const store = Redux.start()
 
   return (
-    <Provider store={store}>
-      <DiscoveryUI />
-    </Provider>)
+    <Auth0Provider>
+      <Provider store={store}>
+        <DiscoveryUI />
+      </Provider>
+    </Auth0Provider>
+  )
 }
 
 export default WrappedApp
