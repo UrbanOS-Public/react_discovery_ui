@@ -13,9 +13,12 @@ import GeoJSONVisualization from '../../components/visualizations/geojson'
 
 export default class extends Component {
   componentDidMount() {
+    this.props.retrieveDatasetDetails(this.props.match.params.organizationName, this.props.match.params.datasetName)
+  }
+
+  componentWillUnmount() {
     this.props.clearDatasetPreview()
     this.props.clearDatasetDetails()
-    this.props.retrieveDatasetDetails(this.props.match.params.organizationName, this.props.match.params.datasetName)
   }
 
   render() {
