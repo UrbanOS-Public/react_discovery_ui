@@ -47,10 +47,10 @@ describe('login', () => {
       expect(button.text()).toBe("LOG OUT")
     })
 
-    it('logs out when the button is clicked', () => {
+    it('logs out with the correct "returnTo" URL when the button is clicked', () => {
       button.simulate('click')
 
-      expect(auth0State.logout).toHaveBeenCalled()
+      expect(auth0State.logout).toHaveBeenCalledWith({ returnTo: `${window.location.origin}/oauth` })
     })
   })
 })
