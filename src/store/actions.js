@@ -5,6 +5,7 @@ export const RETRIEVE_DATASET = 'RETRIEVE_DATASET'
 export const DATASET_DETAILS = 'DATASET_DETAILS'
 export const RETRIEVE_DATASET_PREVIEW = 'RETRIEVE_DATASET_PREVIEW'
 export const DATASET_PREVIEW = 'DATASET_PREVIEW'
+export const CLEAR_DATASET_PREVIEW = 'CLEAR_DATASET_PREVIEW'
 export const CLEAR_DATASET_DETAILS = 'CLEAR_DATASET_DETAILS'
 export const LOGIN = 'LOGIN'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -53,6 +54,10 @@ export const retrieveDatasetPreview = (id, format = 'json') => ({
 
 export const datasetPreview = (data) => ({
   type: DATASET_PREVIEW, value: data
+})
+
+export const clearDatasetPreview = () => ({
+  type: CLEAR_DATASET_PREVIEW
 })
 
 export const clearDatasetDetails = () => ({
