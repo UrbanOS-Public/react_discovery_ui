@@ -1,10 +1,11 @@
 import { connect } from 'react-redux'
 import DatasetVisualizationView from './dataset-visualization-view'
-import { getVisualizationDataSources } from '../../store/selectors'
+import { getVisualizationDataSources, getDatasetQueryResult} from '../../store/selectors'
 
 const mapStateToProps = state => {
   return {
-    dataSources: getVisualizationDataSources(state)
+    dataSources: getVisualizationDataSources(state),
+    queryData: getDatasetQueryResult(state)
   }
 }
 
