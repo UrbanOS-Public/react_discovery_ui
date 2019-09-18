@@ -139,7 +139,7 @@ describe('UI Reducer', () => {
       dataset_preview: undefined,
       previewLoading: false
     }
-    let newState = reducer(currentState, { type: CLEAR_DATASET_PREVIEW})
+    let newState = reducer(currentState, { type: CLEAR_DATASET_PREVIEW })
 
     expect(newState.presentation).toEqual(expectedData)
   })
@@ -184,15 +184,15 @@ describe('UI Reducer', () => {
 
     let newState = reducer(currentState, { type: QUERY_DATASET })
 
-    expect(newState.presentation.isLoading).toEqual(true)
+    expect(newState.presentation.isVisualizationQueryLoading).toEqual(true)
   })
 
-  it('FREESTYLE_QUERY_DATASET sets loading to true', () => {
+  it('FREESTYLE_QUERY_DATASET sets isVisualizationQueryLoading to true', () => {
     let currentState = {}
 
     let newState = reducer(currentState, { type: FREESTYLE_QUERY_DATASET })
 
-    expect(newState.presentation.isLoading).toEqual(true)
+    expect(newState.presentation.isVisualizationQueryLoading).toEqual(true)
   })
 
 
@@ -200,13 +200,13 @@ describe('UI Reducer', () => {
     let newState
 
     beforeEach(() => {
-      const currentState = { presentation: { isLoading: true } }
+      const currentState = { presentation: { isVisualizationQueryLoading: true } }
 
       newState = reducer(currentState, { type: QUERY_DATASET_SUCCEEDED, value: { message: 'bad thing' } })
     })
 
     it('sets loading to false', () => {
-      expect(newState.presentation.isLoading).toEqual(false)
+      expect(newState.presentation.isVisualizationQueryLoading).toEqual(false)
     })
 
     it('unsets query failure message', () => {
@@ -218,13 +218,13 @@ describe('UI Reducer', () => {
     let newState
 
     beforeEach(() => {
-      const currentState = { presentation: { isLoading: true } }
+      const currentState = { presentation: { isVisualizationQueryLoading: true } }
 
       newState = reducer(currentState, { type: QUERY_DATASET_FAILED, value: { message: 'bad thing' } })
     })
 
     it('sets loading to false', () => {
-      expect(newState.presentation.isLoading).toEqual(false)
+      expect(newState.presentation.isVisualizationQueryLoading).toEqual(false)
     })
 
     it('sets query failure message', () => {

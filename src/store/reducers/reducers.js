@@ -62,14 +62,20 @@ const datasetReducer = (state = defaultDatasetState, action) => {
   }
 }
 
-const presentationReducer = (state = { isLoading: false, queryFailureMessage: "" }, action) => {
+const defaultPresentationState = {
+  isLoading: false,
+  queryFailureMessage: "",
+  isVisualizationQueryLoading: false
+}
+
+const presentationReducer = (state = defaultPresentationState, action) => {
   switch (action.type) {
     case RETRIEVE_DATA_LIST:
     case RETRIEVE_DATASET:
     case FREESTYLE_QUERY_DATASET:
     case QUERY_DATASET:
       return Object.assign({}, state, {
-        isLoading: true
+        isVisualizationQueryLoading: true
       })
     case RETRIEVE_DATASET_PREVIEW:
       return Object.assign({}, state, {
@@ -87,7 +93,7 @@ const presentationReducer = (state = { isLoading: false, queryFailureMessage: ""
       })
     case SELECT_DATA_LIST:
     case QUERY_DATASET_SUCCEEDED:
-      return Object.assign({}, state, { isLoading: false, queryFailureMessage: '' })
+      return Object.assign({}, state, { isVisualizationQueryLoading: false, queryFailureMessage: '' })
     case SELECT_DATA_LIST:
     case DATASET_DETAILS:
       return Object.assign({}, state, {
@@ -105,7 +111,7 @@ const presentationReducer = (state = { isLoading: false, queryFailureMessage: ""
     case LOGIN_FAILURE:
       return Object.assign({}, state, { lastLoginAttemptFailed: true, isLoading: false })
     case QUERY_DATASET_FAILED:
-      return Object.assign({}, state, { queryFailureMessage: action.value.message, isLoading: false })
+      return Object.assign({}, state, { queryFailureMessage: action.value.message, isVisualizationQueryLoading: false })
     default:
       return state
   }
