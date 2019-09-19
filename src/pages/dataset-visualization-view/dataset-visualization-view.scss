@@ -1,32 +1,10 @@
 @import '../../styles/mixins.scss';
 @import '../../styles/variables.scss';
 
-dataset-visualization {
-  display: block;
-  height: 100%;
-#dataset-preview {
-  border: 1px solid $light-grey;
-
-  .header-container {
-    display: flex;
-    justify-content: space-between;
+  main-app-element {
+    overflow-y: scroll;
   }
 
-  .preview-header {
-    @include header();
-  }
-
-  #dataset-preview-table {
-    color: $almost-black;
-
-    .table-header {
-      background-color: $header-grey;
-      text-align: left;
-      font-weight: 800;
-    }
-  }
-
-}
   .visualization-header {
     .header {
       display: flex;
@@ -42,6 +20,25 @@ dataset-visualization {
       margin: 1rem;
       min-width: 9rem;
       text-align: center;
+      font-weight: bold;
+    }
+
+    #sqlIcon {
+      padding-left: 5px;
+      fill: $super-light-grey;
+    }
+
+    .backLink {
+      vertical-align: center;
+      padding-top: 0.75rem;
+      color: $light-blue;
+      margin: 1.0rem;
+      text-decoration: none;
+      font-size: 1.15rem;
+    }
+
+    .backLink :hover {
+      text-decoration: underline;
     }
 
     .header-container {
@@ -51,6 +48,7 @@ dataset-visualization {
 
     #dataset-preview-table {
       color: $almost-black;
+      padding: 1.0rem;
 
       .table-header {
         background-color: $header-grey;
@@ -64,4 +62,4 @@ dataset-visualization {
     display: block;
     height: 85%;
   }
-}
+
