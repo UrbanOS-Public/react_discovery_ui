@@ -5,6 +5,7 @@ import ReactImageFallback from 'react-image-fallback';
 import fallbackImage from '../../assets/no_image.png';
 import loadingImage from '../../assets/loading.gif';
 import { ModifiedDateStringBuilder } from '../../utils/';
+import LoadingElement from '../../components/generic-elements/loading-element'
 
 const DataCard = props => {
   const maxDescriptionLength = 240
@@ -30,7 +31,7 @@ const DataCard = props => {
           <ReactImageFallback
             src={dataset.organization_image_url}
             fallbackImage={fallbackImage}
-            initialImage={loadingImage}
+            initialImage={<LoadingElement />}
             alt={`The logo for ${dataset.organization_title}`} />
         </Link>
       </div>
