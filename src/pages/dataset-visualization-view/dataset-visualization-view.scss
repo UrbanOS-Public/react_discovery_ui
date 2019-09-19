@@ -6,25 +6,6 @@
     overflow-y: scroll;
   }
 
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .preview-header {
-    @include header();
-  }
-
-  #dataset-preview-table {
-    color: $almost-black;
-
-    .table-header {
-      background-color: $header-grey;
-      text-align: left;
-      font-weight: 800;
-    }
-  }
-
   .visualization-header {
     .header {
       display: flex;
@@ -69,21 +50,6 @@
     #dataset-preview-table {
       color: $almost-black;
       padding: 1.0rem;
-
-      .table-header {
-        background-color: $header-grey;
-        text-align: left;
-        font-weight: 800;
-      }
-    }
-
-    .header-container {
-      display: flex;
-      justify-content: space-between;
-     }
-
-    #dataset-preview-table {
-      color: $almost-black;
 
       .table-header {
         background-color: $header-grey;
