@@ -33,6 +33,6 @@ dataset-visualization {
   }
 
   loading-element {
-    @include full-page-loading();
+    @include default-loading-icon();
   }
 }

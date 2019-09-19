@@ -113,6 +113,13 @@ export default class extends Component {
     ]
   }
 
+  renderLoading() {
+    return (
+      <dataset-list-view>
+        <LoadingElement />
+      </dataset-list-view>)
+  }
+
   render() {
     const resultCountText = `${this.props.totalDatasets || 'No'} datasets found`
     const resultCountQueryText = this.searchParams ? ` for "${this.searchParams}"` : ''
@@ -120,11 +127,11 @@ export default class extends Component {
     if (this.props.error) {
       return <ErrorComponent errorText={'We were unable to fetch the datasets, please refresh the page to try again'} />
     } else if (this.props.loading) {
-      return <LoadingElement className='spinner' />
+      return this.renderLoading()
     } else {
       return (
         <dataset-list-view ref={this.pageRef}>
-          <div>
+          <div className='left-section'>
             <LoginZone token={token} />
             <Checkbox
               clickHandler={() => this.onRemoteToggleClick()}
