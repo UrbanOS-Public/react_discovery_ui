@@ -6,7 +6,7 @@ describe('DatasetQuery', () => {
   let subject, queryCallback
   const defaultQuery = "SELECT * FROM sky"
 
-  describe('on running query', () => {
+  describe('on initial running query', () => {
     beforeEach(() => {
       queryCallback = jest.fn()
       subject = mount(
@@ -19,6 +19,28 @@ describe('DatasetQuery', () => {
 
     test('shows loading component', () => {
       expect(subject.find(LoadingElement).length).toEqual(1)
+    })
+
+  })
+
+  describe('on user submitted running query', () => {
+    beforeEach(() => {
+      queryCallback = jest.fn()
+      subject = mount(
+        <DatasetQuery
+          onQueryDataset={queryCallback}
+          defaultQuery={defaultQuery}
+          hasUserSubmittedQuery={true}
+          isLoading />)
+    })
+
+    test('shows loading component', () => {
+      expect(subject.find(LoadingElement).length).toEqual(1)
+    })
+
+    test('hides success and error text', () => {
+      expect(subject.find('.success-message').length).toEqual(0)
+      expect(subject.find('.error-message').length).toEqual(0)
     })
   })
 
@@ -85,8 +107,12 @@ describe('DatasetQuery', () => {
           isLoading={false} />)
     })
 
-    test('it indicates that a query error occurred', () => {
+    test('shows error message', () => {
       expect(subject.find('.error-message')).toHaveLength(1)
+    })
+
+    test('hides success text', () => {
+      expect(subject.find('.success-message').length).toEqual(0)
     })
 
     test('hides loading element', () => {

@@ -5,7 +5,7 @@ import { determineIfVisualizationQueryLoading } from '../../store/selectors'
 const mapStateToProps = state => {
   return {
     queryFailureMessage: state.presentation.queryFailureMessage,
-    isLoading: determineIfVisualizationQueryLoading(state) // Replace with correct fn
+    isLoading: determineIfVisualizationQueryLoading(state)
   }
 }
 

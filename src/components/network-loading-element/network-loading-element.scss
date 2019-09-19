@@ -12,4 +12,9 @@ network-loading-element {
   &.hidden {
     display: none;
   }
+
+  loading-element {
+    width: 2rem;
+    height: 2rem;
+  }
 }

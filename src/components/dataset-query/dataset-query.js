@@ -14,6 +14,8 @@ const DatasetQuery = props => {
   const errorMessage = <span className='error-message'>Query failure.  There may be a syntax issue.</span>
   const successMessage = <span className='success-message'>Query successful.  To refesh the visualization, you must change an element in the trace</span>
 
+  const shouldShowQuerySuccessful = !props.queryFailureMessage && props.hasUserSubmittedQuery && !props.isLoading
+
 
   return (
     <div className='dataset-query'>
@@ -21,12 +23,12 @@ const DatasetQuery = props => {
         Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.
       </p>
       {textArea}
-      <span>
+      <div>
         {submitButton}
         {props.queryFailureMessage && errorMessage}
-        {!props.queryFailureMessage && props.hasUserSubmittedQuery && successMessage}
+        {shouldShowQuerySuccessful && successMessage}
         {props.isLoading && <LoadingElement />}
-      </span>
+      </div>
     </div>
   )
 }

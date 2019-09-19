@@ -1,28 +1,36 @@
-@import '../../styles/variables.scss';
-@import '../../styles/mixins.scss';
-.query-input {
-  width: 100%;
-  padding: .5rem;
-  color: $almost-black;
-  border-color: $almost-black;
-}
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
 
 .dataset-query {
   margin: 0 1.25rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-}
 
-.action-button {
-  @include button();
-  padding: 1.0rem;
-  background-color: $light-blue;
-  color: $super-light-grey;
-  letter-spacing: 0.05rem;
-  margin: 1rem 1rem 1rem 0rem;
-}
+  .query-input {
+    width: 100%;
+    padding: 0.5rem;
+    color: $almost-black;
+    border-color: $almost-black;
+  }
 
-.error-message {
-  color: $error-color;
+  .action-button {
+    @include button();
+    padding: 1rem;
+    background-color: $light-blue;
+    color: $super-light-grey;
+    letter-spacing: 0.05rem;
+    margin: 1rem 1rem 1rem 0rem;
+  }
+
+  .error-message {
+    color: $error-color;
+  }
+
+  loading-element {
+    display: inline-block;
+    width: 3rem;
+    margin: 0;
+    vertical-align: middle;
+  }
 }
