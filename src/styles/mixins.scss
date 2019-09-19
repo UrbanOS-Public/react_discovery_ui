@@ -99,3 +99,8 @@
   @include header();
   font-size: 1.3rem;
 }
+
+@mixin full-page-loading() {
+  width: 5rem;
+  margin: 5rem auto;
+}

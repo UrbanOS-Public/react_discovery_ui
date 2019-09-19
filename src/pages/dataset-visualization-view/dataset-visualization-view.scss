@@ -33,6 +33,6 @@ dataset-visualization {
   }
 
   loading-element {
-    width: 5rem;
+    @include full-page-loading();
   }
 }
