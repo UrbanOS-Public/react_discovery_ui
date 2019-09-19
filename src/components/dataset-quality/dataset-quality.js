@@ -1,7 +1,6 @@
 import { Component } from 'react'
 import './dataset-quality.scss'
 import CollapsableBox from '../../components/collapsable-box'
-import DetailToggleIcon from '../detail-toggle-icon';
 
 export default class extends Component {
 
@@ -13,7 +12,7 @@ export default class extends Component {
     return (
       <div className="quality-header">
         <div className="completeness-score">
-          {Math.round(this.props.completeness * 100)}%
+          {Math.round(this.props.completeness.total_score * 100)}%
         </div>
         <div className="completeness-description">The percentage of relevant non-empty fields contained in the dataset.</div>
       </div>

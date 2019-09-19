@@ -2,17 +2,19 @@ import { render } from 'enzyme'
 import DatasetQuality from './dataset-quality'
 
 describe('Dataset Quality ', () => {
-  describe ('Completeness', () => {
+  describe('Completeness', () => {
+
+
     test('should convert quality to a percentage', () => {
-      const subject = render(<DatasetQuality completeness={0.95} />)
+      const subject = render(<DatasetQuality completeness={{ total_score: 0.95 }} />)
       expect(subject.find(".completeness-score").text()).toEqual("95%")
     })
 
     test('rounds to nearest number', () => {
-      let subject = render(<DatasetQuality completeness={0.954312} />)
+      let subject = render(<DatasetQuality completeness={{ total_score: 0.954312 }} />)
       expect(subject.find(".completeness-score").text()).toEqual("95%")
 
-      subject = render(<DatasetQuality completeness={0.956312} />)
+      subject = render(<DatasetQuality completeness={{ total_score: 0.956312 }} />)
       expect(subject.find(".completeness-score").text()).toEqual("96%")
     })
 
