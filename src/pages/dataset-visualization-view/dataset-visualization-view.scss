@@ -1,11 +1,11 @@
 @import '../../styles/mixins.scss';
 @import '../../styles/variables.scss';
 
+main-app-element {
+  overflow-y: scroll;
+}
 
-  main-app-element {
-    overflow-y: scroll;
-  }
-
+dataset-visualization {
   .visualization-header {
     .header {
       display: flex;
@@ -14,7 +14,7 @@
 
     .button {
       @include button();
-      padding: 1.0rem;
+      padding: 1rem;
       background-color: $light-blue;
       color: $super-light-grey;
       letter-spacing: 0.05rem;
@@ -64,3 +64,11 @@
     height: 85%;
   }
 
+  .success-message {
+    color: $green;
+  }
+
+  loading-element {
+    @include default-loading-icon();
+  }
+}

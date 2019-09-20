@@ -1,3 +1,5 @@
+@import "../../styles/mixins.scss";
+
 network-loading-element {
   position: absolute;
   height: 100%;
@@ -11,5 +13,9 @@ network-loading-element {
 
   &.hidden {
     display: none;
+  }
+
+  loading-element {
+    @include default-loading-icon();
   }
 }

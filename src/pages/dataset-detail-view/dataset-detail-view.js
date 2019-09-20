@@ -38,11 +38,11 @@ export default class extends Component {
 
     return (
       <dataset-view>
-        <div>
+        <div className='left-section'>
           <Organization organization={dataset.organization} />
           <Share />
         </div>
-        <div className='dataset-details'>
+        <div className='dataset-details right-section'>
           <DatasetDetails dataset={dataset} />
           {!isIngest && !isGeoJSON && <div className='static-file-explanation'>This dataset is hosted as a static file and cannot be previewed or queried via the API.</div>}
           {isCsv && isIngest && <DatasetPreview datasetId={dataset.id} />}

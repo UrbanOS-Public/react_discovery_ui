@@ -1,5 +1,5 @@
-@import '../../styles/variables.scss';
-@import '../../styles/mixins.scss';
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
 
 dataset-list-view {
   @include page-with-left-bar();
@@ -28,8 +28,12 @@ dataset-list-view {
   .search {
     height: 2.75rem;
   }
+
+  loading-element {
+    @include default-loading-icon();
+  }
 }
 
-loading-element, error-component{
+error-component {
   text-align: center;
 }

@@ -1,17 +1,78 @@
 import { mount } from 'enzyme'
 import DatasetQuery from './dataset-query'
+import LoadingElement from '../generic-elements/loading-element';
 
 describe('DatasetQuery', () => {
   let subject, queryCallback
+  const defaultQuery = "SELECT * FROM sky"
+
+  describe('on initial running query', () => {
+    beforeEach(() => {
+      queryCallback = jest.fn()
+      subject = mount(
+        <DatasetQuery
+          onQueryDataset={queryCallback}
+          defaultQuery={defaultQuery}
+          hasUserSubmittedQuery={false}
+          isLoading />)
+    })
+
+    test('shows loading component', () => {
+      expect(subject.find(LoadingElement).length).toEqual(1)
+    })
+
+  })
+
+  describe('on user submitted running query', () => {
+    beforeEach(() => {
+      queryCallback = jest.fn()
+      subject = mount(
+        <DatasetQuery
+          onQueryDataset={queryCallback}
+          defaultQuery={defaultQuery}
+          hasUserSubmittedQuery={true}
+          isLoading />)
+    })
+
+    test('shows loading component', () => {
+      expect(subject.find(LoadingElement).length).toEqual(1)
+    })
+
+    test('hides success and error text', () => {
+      expect(subject.find('.success-message').length).toEqual(0)
+      expect(subject.find('.error-message').length).toEqual(0)
+    })
+  })
+
+  describe('after initial load', () => {
+    beforeEach(() => {
+      queryCallback = jest.fn()
+      subject = mount(
+        <DatasetQuery
+          onQueryDataset={queryCallback}
+          isLoading={false}
+          defaultQuery={defaultQuery}
+          hasUserSubmittedQuery={false} />)
+    })
+
+    test('do not show success text', () => {
+      expect(subject.find('.success-message').length).toEqual(0)
+    })
+
+    test('defaults the query input field to use the default query', () => {
+      expect(subject.find('textarea').render().text()).toEqual(defaultQuery)
+    })
+  })
 
   describe('on success', () => {
     beforeEach(() => {
       queryCallback = jest.fn()
-      subject = mount(<DatasetQuery systemName='org1__table2' queryDataset={queryCallback}></DatasetQuery>)
-    })
-
-    test('defaults the query text to use the systemName', () => {
-      expect(subject.find('textarea').render().text()).toEqual('SELECT * FROM org1__table2\nLIMIT 20000')
+      subject = mount(
+        <DatasetQuery
+          onQueryDataset={queryCallback}
+          isLoading={false}
+          defaultQuery={defaultQuery}
+          hasUserSubmittedQuery={true} />)
     })
 
     test('calls the submit handler on click of the submit button', () => {
@@ -24,18 +85,38 @@ describe('DatasetQuery', () => {
       expect(queryCallback).toHaveBeenCalledWith(newText)
     })
 
-    test('calls the submit handler on component mounting', () => {
-      expect(queryCallback).toHaveBeenCalledWith('SELECT * FROM org1__table2\nLIMIT 20000')
+
+    test('hides loading element', () => {
+      expect(subject.find(LoadingElement).length).toEqual(0)
+    })
+
+    test('shows success text', () => {
+      expect(subject.find('.success-message').length).toEqual(1)
     })
   })
+
   describe('on failure', () => {
     beforeEach(() => {
       queryCallback = jest.fn()
-      subject = mount(<DatasetQuery queryDataset={jest.fn()} queryFailureMessage='the bad thing happened'></DatasetQuery>)
+      subject = mount(
+        <DatasetQuery
+          onQueryDataset={jest.fn()}
+          defaultQuery={defaultQuery}
+          queryFailureMessage='the bad thing happened'
+          hasUserSubmittedQuery={false}
+          isLoading={false} />)
     })
 
-    test('it indicates that a query error occurred', () => {
+    test('shows error message', () => {
       expect(subject.find('.error-message')).toHaveLength(1)
+    })
+
+    test('hides success text', () => {
+      expect(subject.find('.success-message').length).toEqual(0)
+    })
+
+    test('hides loading element', () => {
+      expect(subject.find(LoadingElement).length).toEqual(0)
     })
   })
 })

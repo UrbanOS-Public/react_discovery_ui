@@ -32,7 +32,6 @@ describe('data card element', () => {
         .text()
     ).toEqual(dataset.description)
     expect(subject.find('.file-type').length).toEqual(dataset.fileTypes.length)
-    expect(subject.find('.last-modified').text()).toContain('Jun 21, 2018 (Last updated by provider)')
     expect(subject.find(Link).at(1).props().to).toEqual(
       `/dataset/${dataset.organization_name}/${dataset.name}`
     )
@@ -68,7 +67,6 @@ describe('data card element with html description', () => {
         .text()
     ).toEqual(dataset.description)
     expect(subject.find('.file-type').length).toEqual(dataset.fileTypes.length)
-    expect(subject.find('.last-modified').text()).toContain('Jun 21, 2018 (Last updated by provider)')
     expect(subject.find(Link).at(1).props().to).toEqual(
       `/dataset/${dataset.organization_name}/${dataset.name}`
     )
