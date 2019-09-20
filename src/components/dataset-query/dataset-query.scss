@@ -9,6 +9,7 @@
 
 .dataset-query {
   margin: 0 1.25rem;
+  margin-top: -1.25rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -20,7 +21,7 @@
   background-color: $light-blue;
   color: $super-light-grey;
   letter-spacing: 0.05rem;
-  margin: 1rem 1rem 1rem 0rem;
+  margin: 1rem 1rem 0rem 0rem;
 }
 
 .error-message {
