@@ -23,6 +23,7 @@ const DatasetVisualizationView = (props) => {
   const data = queryData ? cleanseData(queryData) : queryData
   const numRecords = queryData ? data.length+" records returned" : ""
 
+
   return (
     <dataset-visualization>
       <div className="visualization-header">
