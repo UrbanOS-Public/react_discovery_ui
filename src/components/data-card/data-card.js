@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import SanitizedHTML from 'react-sanitized-html'
 import ReactImageFallback from 'react-image-fallback';
 import fallbackImage from '../../assets/no_image.png';
-import loadingImage from '../../assets/loading.gif';
 import { ModifiedDateStringBuilder } from '../../utils/';
 import LoadingElement from '../../components/generic-elements/loading-element'
 
