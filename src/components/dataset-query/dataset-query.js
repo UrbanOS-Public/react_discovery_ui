@@ -4,9 +4,9 @@ import './dataset-query.scss'
 import LoadingElement from '../generic-elements/loading-element';
 
 
-const DatasetQuery = props => {
-  const [queryText, setQueryTextRaw] = useState(props.defaultQuery)
-  const submit = () => { props.onQueryDataset(queryText) }
+const DatasetQuery = ({ defaultQuery, onQueryDataset, queryFailureMessage, isLoading, hasUserSubmittedQuery}) => {
+  const [queryText, setQueryTextRaw] = useState(defaultQuery)
+  const submit = () => { onQueryDataset(queryText) }
   const setQueryText = (e) => setQueryTextRaw(e.target.value)
 
   const textArea = <textarea rows={5} type='text' value={queryText} onChange={setQueryText} className='query-input' />
@@ -14,7 +14,7 @@ const DatasetQuery = props => {
   const errorMessage = <span className='error-message'>Query failure.  There may be a syntax issue.</span>
   const successMessage = <span className='success-message'>Query successful.  To refesh the visualization, you must change an element in the trace</span>
 
-  const shouldShowQuerySuccessful = !props.queryFailureMessage && props.hasUserSubmittedQuery && !props.isLoading
+  const shouldShowQuerySuccessful = !queryFailureMessage && hasUserSubmittedQuery && !isLoading
 
 
   return (
@@ -25,9 +25,9 @@ const DatasetQuery = props => {
       {textArea}
       <div>
         {submitButton}
-        {props.queryFailureMessage && errorMessage}
+        {queryFailureMessage && errorMessage}
         {shouldShowQuerySuccessful && successMessage}
-        {props.isLoading && <LoadingElement />}
+        {isLoading && <LoadingElement />}
       </div>
     </div>
   )
