@@ -57,8 +57,6 @@
   $padding: 2rem;
 
   height: calc(100% - (#{$padding} * 2));
-  width: calc(100% - (#{$padding} * 2));
-  max-width: $break-max;
   min-width: $break-min;
 
   padding: $padding;
@@ -66,21 +64,17 @@
   justify-content: space-between;
   overflow: auto;
 
-  @media #{$above-max-break} {
-    padding-left: calc((100% - #{$break-max}) / 2);
-    padding-right: calc((100% - #{$break-max}) / 2);
-  }
 
   & > * {
     flex-shrink: 0;
   }
 
   .left-section {
-    width: 24%;
+    width: 17%;
   }
 
   .right-section {
-    width: 73%;
+    width: 80%;
   }
 }
 
