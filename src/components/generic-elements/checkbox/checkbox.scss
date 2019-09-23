@@ -2,11 +2,11 @@
 @import '../../../styles/mixins.scss';
 
 .checkbox {
-    margin: 1rem 0;
+    margin: .5rem 0;
     display: flex;
     align-items: center;
     cursor: pointer;
-    width: 12rem;
+    // width: 12rem;
 }
 
 .disabled {
@@ -40,6 +40,6 @@
 
     .checkbox-label {
         margin: 0 0.75rem;
-        line-height: 1rem;
+        line-height: 1.2rem;
         width: 80%;
     }
