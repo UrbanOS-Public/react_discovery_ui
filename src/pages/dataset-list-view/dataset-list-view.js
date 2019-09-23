@@ -20,7 +20,7 @@ export default class extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchData(this.pageNumber, this.state.pageSize, this.sort, this.criteria, this.facets, this.apiAccessible)
+    this.props.fetchData(this.pageNumber, this.state.pageSize, this.sort, this.searchParams, this.facets, this.apiAccessible)
   }
 
   onPageChange(page) {
