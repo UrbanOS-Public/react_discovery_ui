@@ -1,5 +1,5 @@
-@import '../../styles/mixins.scss';
-@import '../../styles/variables.scss';
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
 
 main-app-element {
   overflow-y: scroll;
@@ -33,7 +33,7 @@ dataset-visualization {
       vertical-align: center;
       padding-top: 0.75rem;
       color: $light-blue;
-      margin: 1.0rem;
+      margin: 1rem;
       text-decoration: none;
       font-size: 1.15rem;
     }
@@ -45,11 +45,11 @@ dataset-visualization {
     .header-container {
       display: flex;
       justify-content: space-between;
-     }
+    }
 
     #dataset-preview-table {
       color: $almost-black;
-      padding: 1.0rem;
+      padding: 1rem;
 
       .table-header {
         background-color: $header-grey;
@@ -61,7 +61,7 @@ dataset-visualization {
 
   chart-visualization {
     display: block;
-    height: 85%;
+    height: 85vh;
   }
 
   .success-message {
