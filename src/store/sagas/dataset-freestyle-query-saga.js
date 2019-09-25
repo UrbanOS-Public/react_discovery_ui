@@ -24,7 +24,7 @@ function* freestyleQuery({ value: { queryText } }) {
     if (response.status === 200) {
       yield put(queryDatasetSucceeded(response.data))
     } else {
-      yield put(queryDatasetFailed(response.data))
+      yield put(queryDatasetFailed(response.data.message))
     }
   } catch (e) {
     yield put(queryDatasetFailed(e.message))
@@ -33,10 +33,9 @@ function* freestyleQuery({ value: { queryText } }) {
 
 const cancelQuery = function* (_action) {
   const cancelToken = yield select(getDatasetQueryCancelToken)
-  return cancelToken.cancel()
+  return cancelToken.cancel('Query stopped by user')
 }
 
-// DOES THIS WORK?
 export default function* freestyleQuerySaga() {
   yield takeEvery(FREESTYLE_QUERY_DATASET, freestyleQuery)
   yield takeEvery(QUERY_DATASET_CANCELLED, cancelQuery)

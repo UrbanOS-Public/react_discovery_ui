@@ -24,6 +24,14 @@
     margin: 1rem 1rem 1rem 0rem;
   }
 
+  .disabled,
+  .disabled:hover {
+    background: #efefef;
+    border: 1px solid #b1bbc9;
+    color: #a2a9b3;
+    text-decoration: none;
+  }
+
   .error-message {
     color: $error-color;
   }

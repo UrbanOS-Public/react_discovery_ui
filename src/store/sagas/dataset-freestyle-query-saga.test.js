@@ -66,7 +66,7 @@ describe('dataset-freestyle-query-saga', () => {
 
   describe('failure', () => {
     it('dispatches a QUERY_DATASET_FAILED event based on 400 code', () => {
-      const data = "bad things happened"
+      const data = { message: "bad things happened" }
       const response = {
         status: 400,
         data
@@ -75,7 +75,7 @@ describe('dataset-freestyle-query-saga', () => {
 
       store.dispatch(freestyleQueryDataset(queryText))
 
-      expect(store.getState()).toContainEqual(queryDatasetFailed(data))
+      expect(store.getState()).toContainEqual(queryDatasetFailed(data.message))
     })
 
     it('dispatches a QUERY_DATASET_FAILED event on a catastrophic failure', () => {

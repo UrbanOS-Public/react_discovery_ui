@@ -251,7 +251,7 @@ describe('UI Reducer', () => {
     })
 
     it('sets query failure message', () => {
-      expect(newState.presentation.queryFailureMessage).toEqual('Your query has been stopped')
+      expect(newState.presentation.queryFailureMessage).toEqual('Query Stopped By User')
     })
   })
 
@@ -261,7 +261,7 @@ describe('UI Reducer', () => {
     beforeEach(() => {
       const currentState = { presentation: { isVisualizationQueryLoading: true } }
 
-      newState = reducer(currentState, { type: QUERY_DATASET_FAILED, value: { message: 'bad thing' } })
+      newState = reducer(currentState, { type: QUERY_DATASET_FAILED, value: 'bad thing' })
     })
 
     it('sets loading to false', () => {

@@ -4,17 +4,35 @@ import './dataset-query.scss'
 import LoadingElement from '../generic-elements/loading-element';
 
 
-const DatasetQuery = ({ defaultQuery, onQueryDataset, queryFailureMessage, isLoading, hasUserSubmittedQuery}) => {
+const DatasetQuery = ({ defaultQuery, onQueryDataset, onCancelQuery, queryFailureMessage, isLoading, hasUserSubmittedQuery }) => {
   const [queryText, setQueryTextRaw] = useState(defaultQuery)
-  const submit = () => { onQueryDataset(queryText) }
+  const [hasUserClickedCancelQuery, setHasUserClickedCancelQuery] = useState(false)
+
+  const submit = () => {
+    onQueryDataset(queryText)
+    setHasUserClickedCancelQuery(false)
+  }
+
+  const cancel = () => {
+    onCancelQuery()
+    setHasUserClickedCancelQuery(true)
+  }
+
   const setQueryText = (e) => setQueryTextRaw(e.target.value)
+  const errorText = hasUserClickedCancelQuery ? 'Your query has been stopped' : 'Query failure.  There may be a syntax issue.'
 
   const textArea = <textarea rows={5} type='text' value={queryText} onChange={setQueryText} className='query-input' />
-  const submitButton = <button className='action-button' onClick={submit}>Submit</button>
-  const errorMessage = <span className='error-message'>Query failure.  There may be a syntax issue.</span>
-  const successMessage = <span className='success-message'>Query successful.  To refesh the visualization, you must change an element in the trace</span>
+  const submitButton = <button className={`action-button ${isLoading && 'disabled'}`} onClick={submit}>Submit</button>
+  const cancelButton = <button className={`action-button ${!isLoading && 'disabled'}`} onClick={cancel}>Cancel</button>
+  const errorMessage = <span className='error-message'>{errorText}</span>
+  const successMessage = (
+    <span className='success-message'>
+      Query successful.  To refesh the visualization, you must change an element in the trace
+    </span>
+  )
 
   const shouldShowQuerySuccessful = !queryFailureMessage && hasUserSubmittedQuery && !isLoading
+  const shouldShowFailureMessage = queryFailureMessage && !isLoading
 
 
   return (
@@ -25,7 +43,8 @@ const DatasetQuery = ({ defaultQuery, onQueryDataset, queryFailureMessage, isLoa
       {textArea}
       <div>
         {submitButton}
-        {queryFailureMessage && errorMessage}
+        {cancelButton}
+        {shouldShowFailureMessage && errorMessage}
         {shouldShowQuerySuccessful && successMessage}
         {isLoading && <LoadingElement />}
       </div>

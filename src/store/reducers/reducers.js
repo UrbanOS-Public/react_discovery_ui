@@ -113,14 +113,12 @@ const presentationReducer = (state = defaultPresentationState, action) => {
     case LOGIN_FAILURE:
       return Object.assign({}, state, { lastLoginAttemptFailed: true, isLoading: false })
     case QUERY_DATASET_FAILED:
-      return Object.assign({}, state, { queryFailureMessage: action.value.message, isVisualizationQueryLoading: false })
+      return Object.assign({}, state, { queryFailureMessage: action.value, isVisualizationQueryLoading: false })
     case QUERY_DATASET_IN_PROGRESS:
-      console.log("In Progress")
       return Object.assign({}, state, { cancelToken: action.value })
     case QUERY_DATASET_CANCELLED:
-      console.log("Cancelled")
       return Object.assign({}, state, {
-        queryFailureMessage: 'Your query has been stopped', isVisualizationQueryLoading: false
+        queryFailureMessage: 'Query Stopped By User', isVisualizationQueryLoading: false
       })
     default:
       return state
