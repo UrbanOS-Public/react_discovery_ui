@@ -2,12 +2,14 @@ import React, { useState, useEffect, useContext } from 'react'
 import createAuth0Client from '@auth0/auth0-spa-js'
 import routes from '../routes'
 
-const DEFAULT_REDIRECT_CALLBACK = () =>
+const DEFAULT_REDIRECT_CALLBACK = () => {
   window.history.replaceState({}, document.title, window.location.pathname)
+}
 
 const auth0Options = {
   domain: window.AUTH0_DOMAIN,
   client_id: window.AUTH0_CLIENT_ID,
+  audience: window.AUTH0_AUDIENCE,
   redirect_uri: `${window.location.origin}${routes.oauth}`
 }
 
@@ -29,6 +31,7 @@ export const Auth0Provider = ({
 
       if (window.location.search.includes("code=")) {
         const { appState } = await auth0FromHook.handleRedirectCallback()
+        const token = await auth0FromHook.getTokenSilently()
         onRedirectCallback(appState)
       }
 

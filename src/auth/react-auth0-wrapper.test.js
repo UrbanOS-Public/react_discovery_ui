@@ -5,7 +5,9 @@ import createAuth0Client from '@auth0/auth0-spa-js'
 
 jest.mock('@auth0/auth0-spa-js', () => {
   return jest.fn(() => ({
-    isAuthenticated: jest.fn()
+    isAuthenticated: jest.fn(),
+    handleRedirectCallback: jest.fn(() => Promise.resolve({})),
+    getTokenSilently: jest.fn(() => Promise.resolve('long-token-from-auth0'))
   }))
 })
 
@@ -25,7 +27,6 @@ afterAll(() => {
 })
 
 describe('auth0 wrapper', () => {
-
   it('initializes with the correct domain and client ID', done => {
     act(() => {
       mount(<Auth0Provider />)
@@ -35,10 +36,28 @@ describe('auth0 wrapper', () => {
       expect(createAuth0Client).toBeCalledWith({
         domain: window.AUTH0_DOMAIN,
         client_id: window.AUTH0_CLIENT_ID,
+        audience: window.AUTH0_AUDIENCE,
         redirect_uri: `${window.location.origin}/oauth`
       })
 
       done()
     })
   })
+
+  describe('upon redirect from successful authentication', () => {
+    it('calls the logged-in API', done => {
+      setSearchString('code=access-is-granted')
+
+      act(() => {
+        mount(<Auth0Provider onRedirectCallback={() => {}} />)
+      })
+
+
+      done()
+    })
+  })
+
+  const setSearchString = searchString => {
+    Object.defineProperty(window, 'location', { value: { search: 'code=a'}})
+  }
 })
