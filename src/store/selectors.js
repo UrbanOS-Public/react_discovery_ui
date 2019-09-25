@@ -13,6 +13,7 @@ export const lastLogoutAttemptFailed = state => state.presentation.lastLogoutAtt
 export const getDownloadedDataset = state => state.datasetReducer.downloadedDataset
 export const getDownloadedDatasetError = state => state.datasetReducer.downloadedDatasetError
 export const getDatasetQueryResult = state => state.datasetReducer.datasetQueryResult
+export const getDatasetQueryCancelToken = state => state.presentation.cancelToken
 
 export const getVisualizationDataSources = createSelector(getDatasetQueryResult, data => {
   var dataSources = {}

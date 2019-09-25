@@ -19,6 +19,8 @@ import {
   QUERY_DATASET_SUCCEEDED,
   QUERY_DATASET,
   QUERY_DATASET_FAILED,
+  QUERY_DATASET_IN_PROGRESS,
+  QUERY_DATASET_CANCELLED,
   FREESTYLE_QUERY_DATASET
 } from '../actions'
 
@@ -112,6 +114,14 @@ const presentationReducer = (state = defaultPresentationState, action) => {
       return Object.assign({}, state, { lastLoginAttemptFailed: true, isLoading: false })
     case QUERY_DATASET_FAILED:
       return Object.assign({}, state, { queryFailureMessage: action.value.message, isVisualizationQueryLoading: false })
+    case QUERY_DATASET_IN_PROGRESS:
+      console.log("In Progress")
+      return Object.assign({}, state, { cancelToken: action.value })
+    case QUERY_DATASET_CANCELLED:
+      console.log("Cancelled")
+      return Object.assign({}, state, {
+        queryFailureMessage: 'Your query has been stopped', isVisualizationQueryLoading: false
+      })
     default:
       return state
   }
