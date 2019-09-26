@@ -24,6 +24,7 @@ describe('DatasetQuery', () => {
   })
 
   describe('on user submitted running query', () => {
+    let cancelCallback = jest.fn()
     beforeEach(() => {
       queryCallback = jest.fn()
       subject = mount(
@@ -31,6 +32,7 @@ describe('DatasetQuery', () => {
           onQueryDataset={queryCallback}
           defaultQuery={defaultQuery}
           hasUserSubmittedQuery={true}
+          onCancelQuery={cancelCallback}
           isLoading />)
     })
 
@@ -40,6 +42,49 @@ describe('DatasetQuery', () => {
 
     test('hides success and error text', () => {
       expect(subject.find('.success-message').length).toEqual(0)
+      expect(subject.find('.error-message').length).toEqual(0)
+    })
+
+    test('sets the cancel button to enabled', () => {
+      const button = getButton(subject, 'Cancel')
+      expect(button.hasClass('disabled')).toBeFalsy()
+    })
+
+    test('sets the submit button to disabled', () => {
+      const button = getButton(subject, 'Submit')
+      expect(button.hasClass('disabled')).toBeTruthy()
+    })
+
+    test('cancelling the query invokes a provided cancel handler', () => {
+      getButton(subject, 'Cancel').simulate('click')
+      expect(cancelCallback).toHaveBeenCalled()
+    })
+  })
+
+  describe('after cancel button click', () => {
+    beforeEach(() => {
+      const cancelCallback = jest.fn()
+      const queryCallback = jest.fn()
+      subject = mount(
+        <DatasetQuery
+          onQueryDataset={queryCallback}
+          defaultQuery={defaultQuery}
+          hasUserSubmittedQuery={true}
+          onCancelQuery={cancelCallback}
+          isLoading={false} />)
+
+      getButton(subject, 'Cancel').simulate('click')
+      subject.setProps({ queryFailureMessage: 'User has cancelled query.' })
+    })
+
+    test('cancelling the query sets the cancelled state to true', () => {
+      expect(subject.find('.error-message').text()).toEqual('Your query has been stopped')
+    })
+
+    test('resubmitting the query sets the cancelled state to false', () => {
+      getButton(subject, 'Submit').simulate('click')
+      subject.setProps({ isLoading: true })
+
       expect(subject.find('.error-message').length).toEqual(0)
     })
   })
@@ -62,6 +107,16 @@ describe('DatasetQuery', () => {
     test('defaults the query input field to use the default query', () => {
       expect(subject.find('textarea').render().text()).toEqual(defaultQuery)
     })
+
+    test('defaults the cancel button to disabled', () => {
+      const button = getButton(subject, 'Cancel')
+      expect(button.hasClass('disabled')).toBeTruthy()
+    })
+
+    test('defaults the submit button to enabled', () => {
+      const button = getButton(subject, 'Submit')
+      expect(button.hasClass('disabled')).toBeFalsy()
+    })
   })
 
   describe('on success', () => {
@@ -81,7 +136,7 @@ describe('DatasetQuery', () => {
       queryInput.instance().value = newText;
       queryInput.simulate('change');
 
-      subject.find('button').simulate('click')
+      getButton(subject, 'Submit').simulate('click')
       expect(queryCallback).toHaveBeenCalledWith(newText)
     })
 
@@ -120,3 +175,8 @@ describe('DatasetQuery', () => {
     })
   })
 })
+
+function getButton(subject, text) {
+  const isButton = x => x.type() === 'button' && x.text() === text
+  return subject.findWhere(isButton)
+}
