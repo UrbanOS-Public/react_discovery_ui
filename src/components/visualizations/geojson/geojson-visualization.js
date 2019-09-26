@@ -7,6 +7,15 @@ import { GeoJsonUtils } from '../../../utils';
 import ErrorComponent from '../../../components/generic-elements/error-component'
 import Checkbox from '../../../components/generic-elements/checkbox'
 
+// this one weird trick to make leaflet markers show up correctly when webpacked
+import L from 'leaflet'
+delete L.Icon.Default.prototype._getIconUrl
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+})
+
 const ohioBBox = [-84.811309, 38.483320, -80.541532, 41.971108]
 
 export default class GeoJSONVisualization extends React.Component {
