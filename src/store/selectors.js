@@ -7,11 +7,13 @@ export const getDataSetError = state => state.datasetReducer.datasetError
 export const getDataSet = state => state.datasetReducer.dataset
 export const getDataSetPreview = state => state.presentation.dataset_preview
 export const determineIfLoading = state => state.presentation.isLoading
+export const determineIfVisualizationQueryLoading = state => state.presentation.isVisualizationQueryLoading
 export const lastLoginAttemptFailed = state => state.presentation.lastLoginAttemptFailed
 export const lastLogoutAttemptFailed = state => state.presentation.lastLogoutAttemptFailed
 export const getDownloadedDataset = state => state.datasetReducer.downloadedDataset
 export const getDownloadedDatasetError = state => state.datasetReducer.downloadedDatasetError
 export const getDatasetQueryResult = state => state.datasetReducer.datasetQueryResult
+export const getDatasetQueryCancelToken = state => state.presentation.cancelToken
 
 export const getVisualizationDataSources = createSelector(getDatasetQueryResult, data => {
   var dataSources = {}

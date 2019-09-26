@@ -17,7 +17,7 @@ const createDateString = dataset => {
 
 const buildDate = (date, format) => {
     if (!date) return NO_DATE_MESSAGE
-    return moment.utc(date, moment.ISO_8601).format(format)
+    return moment.utc(date, moment.ISO_8601).local().format(format)
 }
 
 export default { createDateString }

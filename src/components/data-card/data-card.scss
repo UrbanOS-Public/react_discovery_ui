@@ -1,57 +1,68 @@
-@import '../../styles/mixins.scss';
-@import '../../styles/variables.scss';
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
 $logo-width: 10rem;
 data-card {
-    @include custom-element();
+  @include custom-element();
+  width: 100%;
+  padding: 1.125rem 0;
+  margin-top: 0.125rem;
+  border-bottom: 1px solid $light-grey;
+  display: flex;
+
+  img {
+    width: $logo-width;
+  }
+
+  .details {
     width: 100%;
-    padding: 1.125rem 0;
-    margin-top: 0.125rem;
-    border-bottom: 1px solid $light-grey;
+  }
+
+  .title {
+    @include link();
+    @include header();
+    margin-bottom: 0.5rem;
+  }
+
+  .description {
+    width: 80%;
+  }
+
+  .logo {
+    padding: 0px 30px;
+    width: $logo-width;
+    text-align: center;
+    min-width: $logo-width;
+  }
+
+  .card-metadata {
     display: flex;
+    flex-direction: row;
 
-    img {
-        width: $logo-width;
+    div {
+      margin-top: 1.125rem;
+      margin-right: 0.5rem;
     }
 
-    .title {
-        @include link();
-        @include header();
-        margin-bottom: 0.5rem;
+    .separator {
+      margin-left: 0.25rem;
+      margin-right: 0.25rem;
     }
 
-    .description{
-        width: 80%;
+    .file-types {
+      margin-left: 0.5rem;
     }
 
-    .logo {
-        padding: 0px 30px;
-        width: $logo-width;
-        text-align: center;
-        min-width: $logo-width;
+    .file-type {
+      color: $csv-green;
+      font-weight: bold;
+      text-transform: uppercase;
     }
+  }
 
-    .card-metadata {
-        display: flex;
-        flex-direction: row;
-
-        div {
-            margin-top: 1.125rem;
-            margin-right: .5rem;
-        }
-
-        .separator {
-          margin-left: .25rem;
-          margin-right: .25rem;
-        }
-
-        .file-types {
-            margin-left: .5rem;
-        }
-
-        .file-type {
-            color: $csv-green;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-    }
+  loading-element {
+    margin: 0 auto;
+    padding: 0;
+    padding-top: 1rem;
+    width: 5rem;
+  }
 }

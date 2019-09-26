@@ -18,7 +18,11 @@ describe('dataset detail view', () => {
     description: '....',
     sourceType: 'ingest',
     sourceFormat: 'csv',
-    sourceUrl: 'http://example.com/sweet-data.csv'
+    sourceUrl: 'http://example.com/sweet-data.csv',
+    completeness: {
+      recordCount: 50,
+      completeness: 0.5798
+    }
   }
   const hostedDataset = Object.assign({}, ingestDataset, { sourceType: 'host' })
   const remoteDataset = Object.assign({}, ingestDataset, { sourceType: 'remote' })

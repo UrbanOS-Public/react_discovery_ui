@@ -13,8 +13,10 @@ import {
   QUERY_DATASET_SUCCEEDED,
   QUERY_DATASET,
   QUERY_DATASET_FAILED,
+  QUERY_DATASET_CANCELLED,
   FREESTYLE_QUERY_DATASET,
-  CLEAR_DATASET_PREVIEW
+  CLEAR_DATASET_PREVIEW,
+  QUERY_DATASET_IN_PROGRESS
 } from '../actions'
 import datasetListStub from '../../../stubs/dataset-list-stub'
 import datasetStub from '../../../stubs/dataset-details-stub'
@@ -67,6 +69,8 @@ describe('Dataset Reducer', () => {
 
     expect(newState.datasetReducer.datasetQueryResult).toEqual(response)
   })
+
+
 
   describe('CLEAR_DATASET_DETAILS', () => {
     const currentState = {
@@ -139,7 +143,7 @@ describe('UI Reducer', () => {
       dataset_preview: undefined,
       previewLoading: false
     }
-    let newState = reducer(currentState, { type: CLEAR_DATASET_PREVIEW})
+    let newState = reducer(currentState, { type: CLEAR_DATASET_PREVIEW })
 
     expect(newState.presentation).toEqual(expectedData)
   })
@@ -184,15 +188,24 @@ describe('UI Reducer', () => {
 
     let newState = reducer(currentState, { type: QUERY_DATASET })
 
-    expect(newState.presentation.isLoading).toEqual(true)
+    expect(newState.presentation.isVisualizationQueryLoading).toEqual(true)
   })
 
-  it('FREESTYLE_QUERY_DATASET sets loading to true', () => {
+  it('QUERY_DATASET_IN_PROGRESS places a cancel token in state', () => {
+    let currentState = {}
+    const response = { token: {} }
+
+    let newState = reducer(currentState, { type: QUERY_DATASET_IN_PROGRESS, value: response })
+
+    expect(newState.presentation.cancelToken).toEqual({ token: {} })
+  })
+
+  it('FREESTYLE_QUERY_DATASET sets isVisualizationQueryLoading to true', () => {
     let currentState = {}
 
     let newState = reducer(currentState, { type: FREESTYLE_QUERY_DATASET })
 
-    expect(newState.presentation.isLoading).toEqual(true)
+    expect(newState.presentation.isVisualizationQueryLoading).toEqual(true)
   })
 
 
@@ -200,13 +213,13 @@ describe('UI Reducer', () => {
     let newState
 
     beforeEach(() => {
-      const currentState = { presentation: { isLoading: true } }
+      const currentState = { presentation: { isVisualizationQueryLoading: true } }
 
       newState = reducer(currentState, { type: QUERY_DATASET_SUCCEEDED, value: { message: 'bad thing' } })
     })
 
     it('sets loading to false', () => {
-      expect(newState.presentation.isLoading).toEqual(false)
+      expect(newState.presentation.isVisualizationQueryLoading).toEqual(false)
     })
 
     it('unsets query failure message', () => {
@@ -214,17 +227,45 @@ describe('UI Reducer', () => {
     })
   })
 
+  describe('QUERY_DATASET_CANCELLED', () => {
+    let newState
+    let cancelMock
+
+    beforeEach(() => {
+      cancelMock = jest.fn()
+      const cancelToken = { token: {}, cancel: cancelMock }
+
+      const currentState = {
+        presentation:
+        {
+          isVisualizationQueryLoading: true,
+          cancelToken: cancelToken
+        }
+      }
+
+      newState = reducer(currentState, { type: QUERY_DATASET_CANCELLED, value: null })
+    })
+
+    it('sets loading to false', () => {
+      expect(newState.presentation.isVisualizationQueryLoading).toEqual(false)
+    })
+
+    it('sets query failure message', () => {
+      expect(newState.presentation.queryFailureMessage).toEqual('Query Stopped By User')
+    })
+  })
+
   describe('QUERY_DATASET_FAILED', () => {
     let newState
 
     beforeEach(() => {
-      const currentState = { presentation: { isLoading: true } }
+      const currentState = { presentation: { isVisualizationQueryLoading: true } }
 
-      newState = reducer(currentState, { type: QUERY_DATASET_FAILED, value: { message: 'bad thing' } })
+      newState = reducer(currentState, { type: QUERY_DATASET_FAILED, value: 'bad thing' })
     })
 
     it('sets loading to false', () => {
-      expect(newState.presentation.isLoading).toEqual(false)
+      expect(newState.presentation.isVisualizationQueryLoading).toEqual(false)
     })
 
     it('sets query failure message', () => {

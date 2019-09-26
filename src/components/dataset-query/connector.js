@@ -1,15 +1,17 @@
 import { connect } from 'react-redux'
 import DatasetQuery from './dataset-query'
-import { FREESTYLE_QUERY_DATASET } from '../../store/actions'
+import { determineIfVisualizationQueryLoading } from '../../store/selectors'
+import { QUERY_DATASET_CANCELLED } from '../../store/actions';
 
 const mapStateToProps = state => {
   return {
-    queryFailureMessage: state.presentation.queryFailureMessage
+    queryFailureMessage: state.presentation.queryFailureMessage,
+    isLoading: determineIfVisualizationQueryLoading(state)
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  queryDataset: (queryText) => dispatch({ type: FREESTYLE_QUERY_DATASET, value: { queryText } })
+  onCancelQuery: () => dispatch({ type: QUERY_DATASET_CANCELLED, value: null })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DatasetQuery)

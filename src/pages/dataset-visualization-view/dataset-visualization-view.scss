@@ -1,29 +1,74 @@
-@import '../../styles/mixins.scss';
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+main-app-element {
+  overflow-y: scroll;
+}
 
 dataset-visualization {
-  display: block;
-  height: 100%;
-
   .visualization-header {
     .header {
       display: flex;
       justify-content: space-between;
     }
-    
+
     .button {
       @include button();
-      padding: 1.0rem;
+      padding: 1rem;
       background-color: $light-blue;
       color: $super-light-grey;
       letter-spacing: 0.05rem;
       margin: 1rem;
       min-width: 9rem;
       text-align: center;
+      font-weight: bold;
+    }
+
+    #sqlIcon {
+      padding-left: 5px;
+      fill: $super-light-grey;
+    }
+
+    .backLink {
+      vertical-align: center;
+      padding-top: 0.75rem;
+      color: $light-blue;
+      margin: 1rem;
+      text-decoration: none;
+      font-size: 1.15rem;
+    }
+
+    .backLink :hover {
+      text-decoration: underline;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    #dataset-preview-table {
+      color: $almost-black;
+      padding: 1rem;
+
+      .table-header {
+        background-color: $header-grey;
+        text-align: left;
+        font-weight: 800;
+      }
     }
   }
 
   chart-visualization {
     display: block;
-    height: 85%;
+    height: 85vh;
+  }
+
+  .success-message {
+    color: $green;
+  }
+
+  loading-element {
+    @include default-loading-icon();
   }
 }

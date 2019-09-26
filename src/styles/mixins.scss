@@ -1,93 +1,87 @@
-@import './variables.scss';
+@import "./variables.scss";
 
 @mixin flex-row() {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 @mixin flex-column() {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 @mixin custom-element() {
-    display: block;
+  display: block;
 }
 
 @mixin link() {
-    color: $almost-black;
-    text-decoration: none;
+  color: $almost-black;
+  text-decoration: none;
 
-    &:hover {
-        text-decoration: underline;
-        color: $light-blue;
-    }
+  &:hover {
+    text-decoration: underline;
+    color: $light-blue;
+  }
 }
 
 @mixin sub-link() {
-    color: $light-blue;
-    text-decoration: none;
+  color: $light-blue;
+  text-decoration: none;
 
-    &:hover {
-        text-decoration: underline;
-        color: $almost-black;
-    }
+  &:hover {
+    text-decoration: underline;
+    color: $almost-black;
+  }
 }
 
 @mixin button($background-color: $light-blue) {
-    background-color: $background-color;
-    text-decoration: none;
-    border-width: 0px;
+  background-color: $background-color;
+  text-decoration: none;
+  border-width: 0px;
 
-    &:hover {
-        color: white;
-        background-color: $almost-black;
-        text-decoration: underline;
-        cursor: pointer;
-    }
+  &:hover {
+    color: white;
+    background-color: $almost-black;
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 
 @mixin page-with-left-bar() {
-    @include custom-element();
-    @include flex-row();
-    $padding: 2rem;
+  @include custom-element();
+  @include flex-row();
+  $padding: 2rem;
 
-    height: calc(100% - (#{$padding} * 2));
-    width: calc(100% - (#{$padding} * 2));
-    max-width: $break-max;
-    min-width: $break-min;
+  height: calc(100% - (#{$padding} * 2));
+  min-width: $break-min;
 
-    padding: $padding;
-    align-items: flex-start;
-    justify-content: space-between;
-    overflow: auto;
+  padding: $padding;
+  align-items: flex-start;
+  justify-content: space-between;
+  overflow: auto;
 
-    @media #{$above-max-break} {
-        padding-left: calc((100% - #{$break-max}) / 2);
-        padding-right: calc((100% - #{$break-max}) / 2);
-    }
 
-    & > * {
-        flex-shrink: 0;
-    }
+  & > * {
+    flex-shrink: 0;
+  }
 
-    & > :first-child {
-        width: 24%;
-    }
+  .left-section {
+    width: 17%;
+  }
 
-    & > :last-child  {
-        width: 73%;
-    }
+  .right-section {
+    width: 80%;
+  }
 }
 
 @mixin header() {
-    font-size: 1.7rem;
-    line-height: 2rem;
-    font-weight: bold;
+  font-size: 1.7rem;
+  line-height: 2rem;
+  font-weight: bold;
 }
 
 @mixin header-medium() {
@@ -98,4 +92,9 @@
 @mixin header-small() {
   @include header();
   font-size: 1.3rem;
+}
+
+@mixin default-loading-icon() {
+  width: 5rem;
+  margin: 5rem auto;
 }

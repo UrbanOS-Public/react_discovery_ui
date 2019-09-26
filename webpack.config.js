@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = (env, argv) => {
+  const productionOptimizationsEnabled = argv.mode === 'production' ? true : false
 
   let plugins = [
     new HtmlWebpackPlugin({
@@ -68,13 +69,13 @@ module.exports = (env, argv) => {
     devServer: {
       historyApiFallback: true,
       contentBase: path.join(__dirname, 'dist'),
-      compress: true,
+      compress: productionOptimizationsEnabled,
       open: true,
       port: 9001
     },
     plugins: plugins,
     optimization: {
-      minimize: true,
+      minimize: productionOptimizationsEnabled,
       minimizer: [
         new TerserPlugin({
           terserOptions: {

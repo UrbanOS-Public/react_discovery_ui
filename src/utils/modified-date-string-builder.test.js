@@ -55,7 +55,7 @@ describe('create date string', () => {
     }
     const result = ModifiedDateStringBuilder.createDateString(dataset)
 
-    expect(result).toEqual("Sep 6, 2019 8:06 PM (Last Ingested)")
+    expect(result).toMatch(/Sep \d+, 2019 \d+:\d+ (AM|PM) \(Last Ingested\)/)
   })
 
   it('returns modified date as DATE (Last updated by provider) for ingest datasets', () => {

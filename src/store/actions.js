@@ -20,6 +20,8 @@ export const QUERY_DATASET = 'QUERY_DATASET'
 export const QUERY_DATASET_SUCCEEDED = 'QUERY_DATASET_SUCCEEDED'
 export const QUERY_DATASET_FAILED = 'QUERY_DATASET_FAILED'
 export const FREESTYLE_QUERY_DATASET = 'FREESTYLE_QUERY_DATASET'
+export const QUERY_DATASET_IN_PROGRESS = 'QUERY_DATASET_IN_PROGRESS'
+export const QUERY_DATASET_CANCELLED = 'QUERY_DATASET_CANCELLED'
 
 export const retrieveDataList = (offset, limit, sort, query, facets) => ({
   type: RETRIEVE_DATA_LIST,
@@ -114,4 +116,12 @@ export const queryDatasetSucceeded = (message) => ({
 
 export const queryDatasetFailed = (message) => ({
   type: QUERY_DATASET_FAILED, value: message
+})
+
+export const queryDatasetInProgress = (message) => ({
+  type: QUERY_DATASET_IN_PROGRESS, value: message
+})
+
+export const queryDatasetCancelled = (message) => ({
+  type: QUERY_DATASET_CANCELLED, value: message
 })
