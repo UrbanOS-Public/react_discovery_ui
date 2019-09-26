@@ -24,12 +24,13 @@
     margin: 1rem 1rem 1rem 0rem;
   }
 
-  .disabled,
-  .disabled:hover {
+  button:disabled,
+  button:disabled:hover {
     background: #efefef;
     border: 1px solid #b1bbc9;
     color: #a2a9b3;
     text-decoration: none;
+    cursor: default;
   }
 
   .error-message {

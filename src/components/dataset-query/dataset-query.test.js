@@ -47,12 +47,12 @@ describe('DatasetQuery', () => {
 
     test('sets the cancel button to enabled', () => {
       const button = getButton(subject, 'Cancel')
-      expect(button.hasClass('disabled')).toBeFalsy()
+      expect(button.find('[disabled=false]').length).toEqual(1)
     })
 
     test('sets the submit button to disabled', () => {
       const button = getButton(subject, 'Submit')
-      expect(button.hasClass('disabled')).toBeTruthy()
+      expect(button.find('[disabled=true]').length).toEqual(1)
     })
 
     test('cancelling the query invokes a provided cancel handler', () => {
@@ -71,13 +71,14 @@ describe('DatasetQuery', () => {
           defaultQuery={defaultQuery}
           hasUserSubmittedQuery={true}
           onCancelQuery={cancelCallback}
-          isLoading={false} />)
+          isLoading={true} />)
 
       getButton(subject, 'Cancel').simulate('click')
       subject.setProps({ queryFailureMessage: 'User has cancelled query.' })
     })
 
     test('cancelling the query sets the cancelled state to true', () => {
+      subject.setProps({ isLoading: false })
       expect(subject.find('.error-message').text()).toEqual('Your query has been stopped')
     })
 
@@ -110,12 +111,17 @@ describe('DatasetQuery', () => {
 
     test('defaults the cancel button to disabled', () => {
       const button = getButton(subject, 'Cancel')
-      expect(button.hasClass('disabled')).toBeTruthy()
+      expect(button.find('[disabled=true]').length).toEqual(1)
     })
 
     test('defaults the submit button to enabled', () => {
       const button = getButton(subject, 'Submit')
-      expect(button.hasClass('disabled')).toBeFalsy()
+      expect(button.find('[disabled=false]').length).toEqual(1)
+    })
+
+    test('disables cancel button', () => {
+      const button = getButton(subject, 'Cancel')
+      expect(button.find('[disabled=true]').length).toEqual(1)
     })
   })
 

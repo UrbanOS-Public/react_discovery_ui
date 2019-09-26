@@ -22,8 +22,8 @@ const DatasetQuery = ({ defaultQuery, onQueryDataset, onCancelQuery, queryFailur
   const errorText = hasUserClickedCancelQuery ? 'Your query has been stopped' : 'Query failure.  There may be a syntax issue.'
 
   const textArea = <textarea rows={5} type='text' value={queryText} onChange={setQueryText} className='query-input' />
-  const submitButton = <button className={`action-button ${isLoading && 'disabled'}`} onClick={submit}>Submit</button>
-  const cancelButton = <button className={`action-button ${!isLoading && 'disabled'}`} onClick={cancel}>Cancel</button>
+  const submitButton = <button className="action-button" disabled={isLoading} onClick={submit}>Submit</button>
+  const cancelButton = <button className="action-button" disabled={!isLoading} onClick={cancel}>Cancel</button>
   const errorMessage = <span className='error-message'>{errorText}</span>
   const successMessage = (
     <span className='success-message'>
