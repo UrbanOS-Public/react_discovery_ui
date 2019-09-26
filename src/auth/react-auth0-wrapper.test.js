@@ -1,5 +1,6 @@
 import { mount } from 'enzyme'
 import { act } from 'react-dom/test-utils'
+import axios from 'axios'
 import { Auth0Provider } from './react-auth0-wrapper'
 import createAuth0Client from '@auth0/auth0-spa-js'
 
@@ -10,6 +11,8 @@ jest.mock('@auth0/auth0-spa-js', () => {
     getTokenSilently: jest.fn(() => Promise.resolve('long-token-from-auth0'))
   }))
 })
+
+jest.mock('axios')
 
 const originalError = console.error
 
@@ -45,19 +48,30 @@ describe('auth0 wrapper', () => {
   })
 
   describe('upon redirect from successful authentication', () => {
-    it('calls the logged-in API', done => {
+    it('calls the "logged-in" API', done => {
       setSearchString('code=access-is-granted')
 
       act(() => {
         mount(<Auth0Provider onRedirectCallback={() => {}} />)
       })
 
+      setTimeout(() => {
+        expect(axios.post).toHaveBeenCalledWith(
+          '/api/v1/logged-in',
+          '',
+          {
+            baseURL: window.API_HOST,
+            headers: { Authorization: 'Bearer long-token-from-auth0' },
+            withCredentials: true
+          }
+        )
 
-      done()
+        done()
+      })
     })
   })
 
   const setSearchString = searchString => {
-    Object.defineProperty(window, 'location', { value: { search: 'code=a'}})
+    Object.defineProperty(window, 'location', { value: { search: searchString}})
   }
 })

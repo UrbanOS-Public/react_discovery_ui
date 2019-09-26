@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import createAuth0Client from '@auth0/auth0-spa-js'
 import routes from '../routes'
+import axios from 'axios'
 
 const DEFAULT_REDIRECT_CALLBACK = () => {
   window.history.replaceState({}, document.title, window.location.pathname)
@@ -11,6 +12,18 @@ const auth0Options = {
   client_id: window.AUTH0_CLIENT_ID,
   audience: window.AUTH0_AUDIENCE,
   redirect_uri: `${window.location.origin}${routes.oauth}`
+}
+
+const callLoggedIn = token => {
+  return axios.post(
+    '/api/v1/logged-in',
+    '',
+    {
+      baseURL: window.API_HOST,
+      headers: { Authorization: `Bearer ${token}` },
+      withCredentials: true
+    }
+  )
 }
 
 export const Auth0Context = React.createContext()
@@ -31,7 +44,7 @@ export const Auth0Provider = ({
 
       if (window.location.search.includes("code=")) {
         const { appState } = await auth0FromHook.handleRedirectCallback()
-        const token = await auth0FromHook.getTokenSilently()
+        auth0FromHook.getTokenSilently().then(callLoggedIn)
         onRedirectCallback(appState)
       }
 
