@@ -34,7 +34,7 @@ const DataCard = props => {
             alt={`The logo for ${dataset.organization_title}`} />
         </Link>
       </div>
-      <div>
+      <div className='details'>
         <Link
           className='title'
           to={`/dataset/${dataset.organization_name}/${dataset.name}`}
