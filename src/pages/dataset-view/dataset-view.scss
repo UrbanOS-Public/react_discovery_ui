@@ -1,0 +1,18 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+#chartIcon {
+    padding-left: 5px;
+    background-color: blue;
+    path {
+        fill: $dark-grey;
+    }
+
+    .SVGInline-svg {
+        vertical-align: bottom;
+    }
+}
+#sqlIcon {
+    padding-left: 5px;
+    fill: $super-light-grey;
+    }

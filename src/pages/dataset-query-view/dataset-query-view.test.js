@@ -1,10 +1,7 @@
 import { shallow } from 'enzyme'
-import qs from 'qs'
 
-import DatasetVisualizationView from './dataset-visualization-view'
-import ChartVisualization from '../../components/visualizations/chart/chart-visualization'
-import { Collapse } from 'react-collapse'
-import DatasetQuery from '../../components/dataset-query';
+import DatasetQueryView from './dataset-query-view'
+import DatasetQuery from '../../components/dataset-query'
 import LoadingElement from '../../components/generic-elements/loading-element'
 
 const tableName = 'org1__table2'
@@ -35,7 +32,7 @@ describe('dataset visualization view', () => {
       runUseEffect()
       queryCallback = jest.fn()
       subject = shallow(
-        <DatasetVisualizationView
+        <DatasetQueryView
           isLoading={true}
           match={routerProps}
           location={{ search: `?systemName=${tableName}` }}
@@ -59,7 +56,7 @@ describe('dataset visualization view', () => {
       queryCallback = jest.fn()
 
       subject = shallow(
-        <DatasetVisualizationView
+        <DatasetQueryView
           isLoading={false}
           match={routerProps}
           location={{ search: `?systemName=${tableName}` }}
@@ -74,14 +71,6 @@ describe('dataset visualization view', () => {
 
     it('does not show full page loading icon', () => {
       expect(subject.find(LoadingElement).length).toEqual(0)
-    })
-
-    it('displays a chart visualization with the provided data sources', () => {
-      expect(subject.find(ChartVisualization).props().dataSources).toEqual(dataSources)
-    })
-
-    it('displays a chart header with an initially collapsed toggle', () => {
-      expect(subject.find(Collapse).props().isOpened).toEqual(false)
     })
 
     describe('onQueryDataset handler', () => {
@@ -114,7 +103,7 @@ describe('dataset visualization view', () => {
     queryCallback = jest.fn()
 
     subject = shallow(
-      <DatasetVisualizationView
+      <DatasetQueryView
         isLoading={false}
         match={routerProps}
         location={{ search: `?systemName=${tableName}` }}
