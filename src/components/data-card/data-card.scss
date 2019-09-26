@@ -13,6 +13,10 @@ data-card {
     width: $logo-width;
   }
 
+  .details {
+    width: 100%;
+  }
+
   .title {
     @include link();
     @include header();
