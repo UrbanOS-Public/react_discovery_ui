@@ -23,6 +23,12 @@ export default class extends Component {
     this.props.fetchData(this.pageNumber, this.state.pageSize, this.sort, this.searchParams, this.facets, this.apiAccessible)
   }
 
+  componentDidUpdate() {
+    window.onpopstate = (e) => {
+      this.props.fetchData(this.pageNumber, this.state.pageSize, this.sort, this.searchParams, this.facets, this.apiAccessible)
+    }
+  }
+
   onPageChange(page) {
     this.setState({ currentPage: page })
     this.refreshDatasets(this.searchParams, this.sort, this.facets, page, this.apiAccessible)
