@@ -16,8 +16,6 @@ const DatasetVisualizationView = (props) => {
   const [hasUserSubmittedQuery, setHasUserSubmittedQuery] = useState(false)
   const toggleOpen = () => { setOpened(!open) }
 
-  console.log("Visualization props")
-  console.log(props)
   const { match: { params }, systemName, dataSources, location, queryData } = props
 
   //TODO: see if this is the right way to get the systemName
@@ -51,7 +49,7 @@ const DatasetVisualizationView = (props) => {
           </button>
         </div>
         <Collapse isOpened={open}>
-          <DatasetQueryView systemName={sysName} />
+          <DatasetQueryView systemName={sysName} freestyleQueryText={props.freestyleQueryText} />
         </Collapse>
       </div>
       <ChartVisualization dataSources={dataSources} />

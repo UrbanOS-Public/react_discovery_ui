@@ -7,6 +7,7 @@ const mapStateToProps = state => {
   return {
     dataSources: getVisualizationDataSources(state),
     isLoading: determineIfVisualizationQueryLoading(state),
+    freestyleQueryText: getFreestyleQueryText(state),
     queryData: getDatasetQueryResult(state)
   }
 }

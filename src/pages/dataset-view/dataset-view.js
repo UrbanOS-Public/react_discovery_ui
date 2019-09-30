@@ -11,12 +11,9 @@ import DatasetVisualizationView from '../dataset-visualization-view'
 import DatasetDetailView from '../dataset-detail-view'
 
 const DatasetView = (props) => {
-    console.log("View Props")
-    console.log(props)
     const { systemName } = qs.parse(props.location.search, { ignoreQueryPrefix: true })
-    console.log("system name " + systemName)
     return (
-        <Tabs className='dataset-view'>
+        <Tabs className='dataset-view' forceRenderTabPanel={true}>
             <TabList>
                 <Tab>Dataset Details</Tab>
                 <Tab>Visualize <InlineSVG id='chartIcon' svg={chart} height='20px' width='20px' accessibilityDesc='Chart' /></Tab>

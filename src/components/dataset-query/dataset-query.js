@@ -4,7 +4,7 @@ import './dataset-query.scss'
 import LoadingElement from '../generic-elements/loading-element';
 
 
-const DatasetQuery = ({ defaultQuery, onQueryDataset, onCancelQuery, queryFailureMessage, isLoading, hasUserSubmittedQuery }) => {
+const DatasetQuery = ({ freestyleQueryText, onQueryDataset, onCancelQuery, queryFailureMessage, isLoading, hasUserSubmittedQuery }) => {
   const [queryText, setQueryTextRaw] = useState(defaultQuery)
   const [hasUserClickedCancelQuery, setHasUserClickedCancelQuery] = useState(false)
 
@@ -20,6 +20,10 @@ const DatasetQuery = ({ defaultQuery, onQueryDataset, onCancelQuery, queryFailur
 
   const setQueryText = (e) => setQueryTextRaw(e.target.value)
   const errorText = hasUserClickedCancelQuery ? 'Your query has been stopped' : 'Query failure.  There may be a syntax issue.'
+
+  React.useEffect(() => {
+    setQueryTextRaw(freestyleQueryText);
+  }, [freestyleQueryText])
 
   const textArea = <textarea rows={5} type='text' value={queryText} onChange={setQueryText} className='query-input' />
   const submitButton = <button className="action-button" disabled={isLoading} onClick={submit}>Submit</button>
