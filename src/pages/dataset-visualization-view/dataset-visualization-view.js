@@ -1,61 +1,65 @@
 import './dataset-visualization-view.scss'
-import React, { Component, useState, useEffect } from 'react'
+import React from 'react'
+import { Component } from 'react'
 import sqlIcon from '../../assets/blk-database.svg'
 import InlineSVG from 'react-svg-inline'
-import qs from 'qs'
 
 import DatasetQueryView from '../dataset-query-view'
 import ChartVisualization from '../../components/visualizations/chart/chart-visualization'
-import routes from '../../routes'
 import { Collapse } from 'react-collapse'
-import { GeneratedLink } from '../../components/generic-elements/generated-link'
 import LoadingElement from '../../components/generic-elements/loading-element'
 
-const DatasetVisualizationView = (props) => {
-  const [open, setOpened] = useState(false)
-  const [hasUserSubmittedQuery, setHasUserSubmittedQuery] = useState(false)
-  const toggleOpen = () => { setOpened(!open) }
+export default class extends Component {
+  constructor(props) {
+    super(props)
+    this.toggleOpen = this.toggleOpen.bind(this)
+    this.state = { open: false, dataSources: this.props.dataSources }
+  }
 
-  const { match: { params }, systemName, dataSources, location, queryData } = props
+  componentDidUpdate() {
+    if (this.props.dataSources !== this.state.dataSources) {
+      this.setState({ dataSources: this.props.dataSources })
+    }
+  }
 
-  //TODO: see if this is the right way to get the systemName
-  const sysName = systemName ? systemName : qs.parse(location.search, { ignoreQueryPrefix: true }).systemName
+  toggleOpen() {
+    this.setState({ open: !this.state.open })
+  }
 
-  // const isPageLoadingForFirstTime = props.isLoading && !queryData
+  // componentDidUpdate(prevState) {
 
-  // // Using the react prefix as short term solution to allow
-  // // for shallow rendering of components
-  // const onInit = () => {
-  //   onQueryDataset(defaultQuery)
+  //   // console.log(this.props)
+  //   if (prevState.open) {
+  //     this.setState({ open: true })
+  //   }
   // }
 
-  // if (isPageLoadingForFirstTime) { //   return (
-  //     <dataset-visualization>
-  //       <LoadingElement />
-  //     </dataset-visualization>)
-  // }
+  render() {
+    if (this.props.isLoading && !this.props.queryData) {
+      return (
+        <dataset-visualization>
+          <LoadingElement />
+        </dataset-visualization>
+      )
+    }
 
-  return (
-    <dataset-visualization>
-      <div className="visualization-header">
-        <div className="header">
-          <GeneratedLink className='backLink' path={routes.datasetView} params={params}>
-            <strong>{'<'} BACK TO DATASET</strong>
-          </GeneratedLink>
-          <button className='button query-button' onClick={toggleOpen}>
-            {open ? 'HIDE QUERY' : 'EDIT QUERY'}
-            <InlineSVG id='sqlIcon' svg={sqlIcon} height='14px' width='14px' accessibilityDesc='Sql Icon' />
-          </button>
+    //do something on initial render to prevent axes from breaking?
+
+    return (
+      <dataset-visualization >
+        <div className="visualization-header">
+          <div className="header">
+            <button className='button query-button' onClick={this.toggleOpen} >
+              {this.state.open ? 'HIDE QUERY' : 'EDIT QUERY'}
+              <InlineSVG id='sqlIcon' svg={sqlIcon} height='14px' width='14px' accessibilityDesc='Sql Icon' />
+            </button>
+          </div>
+          <Collapse isOpened={this.state.open}>
+            <DatasetQueryView systemName={this.props.systemName} freestyleQueryText={this.props.freestyleQueryText} />
+          </Collapse>
         </div>
-        <Collapse isOpened={open}>
-          <DatasetQueryView systemName={sysName} freestyleQueryText={props.freestyleQueryText} />
-        </Collapse>
-      </div>
-      <ChartVisualization dataSources={dataSources} />
-    </dataset-visualization>
-  )
+        <ChartVisualization dataSources={this.state.dataSources} />
+      </dataset-visualization >
+    )
+  }
 }
-
-
-
-export default DatasetVisualizationView

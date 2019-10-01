@@ -5,8 +5,7 @@ import { getDataSet, getDataSetError } from '../../store/selectors'
 
 const mapStateToProps = state => {
   return {
-    dataset: getDataSet(state),
-    displayNetworkError: getDataSetError(state)
+    dataset: getDataSet(state)
   }
 }
 

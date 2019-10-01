@@ -1,11 +1,8 @@
 import './dataset-details.scss'
 import _ from 'lodash'
 import SanitizedHTML from 'react-sanitized-html'
-
 import { QueryStringBuilder } from '../../utils'
-
 import DownloadButton from '../generic-elements/download-button'
-import VisualizeButton from '../generic-elements/visualize-button';
 
 const DatasetDetails = ({ dataset }) => {
   if (!dataset) {
@@ -17,7 +14,6 @@ const DatasetDetails = ({ dataset }) => {
       <div className='header'>
         <div className='name'>{dataset.title}</div>
         <div className='buttons'>
-          {renderVisualizeButton(dataset)}
           {renderDownloadButton(dataset)}
         </div>
       </div>
@@ -53,14 +49,6 @@ function renderDownloadButton(dataset) {
   let url = dataset.sourceType === 'remote' ? dataset.sourceUrl : nonRemoteUrl
   return <DownloadButton url={url} />
 }
-
-const renderVisualizeButton = (dataset) => {
-  const isStreaming = dataset.sourceType === 'stream'
-  const isIngest = dataset.sourceType === 'ingest' || isStreaming
-
-  return isIngest && <VisualizeButton organizationName={dataset.organization.name} datasetName={dataset.name} systemName={dataset.systemName} />
-}
-
 
 const createKeyword = name => (
   <a

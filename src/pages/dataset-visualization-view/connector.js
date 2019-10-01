@@ -12,8 +12,4 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  onQueryDataset: (queryText) => dispatch({ type: FREESTYLE_QUERY_DATASET, value: { queryText } })
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(DatasetVisualizationView)
+export default connect(mapStateToProps)(DatasetVisualizationView)

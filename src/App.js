@@ -48,9 +48,7 @@ const DiscoveryUI = () => (
       <Switch>
         <Route exact path={routes.root} component={DataSetListViewWrapper} />
         <Route exact path={routes.datasetView} component={DatasetView} />
-        <Route exact path={routes.datasetQuery} component={DatasetQueryView} />
-        <Route exact path={routes.datasetDetailsView} component={DatasetDetailsView} />
-        <Route exact path={routes.datasetVisualizationView} component={DatasetVisualizationView} />
+        <Redirect exact path={routes.datasetVisualizationView} to={{ pathname: routes.datasetView, search: '?selectedIndex=1' }} />
         <Route exact path={routes.healthCheck} component={() => <div>Everything is fine</div>} />
         <Route exact path={routes.login} component={LoginView} />
         <Route exact path={routes.oauth} component={OauthView} />

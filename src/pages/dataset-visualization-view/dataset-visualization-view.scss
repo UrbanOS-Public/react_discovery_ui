@@ -8,12 +8,13 @@ main-app-element {
 dataset-visualization {
   .visualization-header {
     .header {
-      display: flex;
+      display: flow-root;
       justify-content: space-between;
     }
 
     .button {
       @include button();
+      float: right;
       padding: 1rem;
       background-color: $light-blue;
       color: $super-light-grey;
@@ -63,6 +64,7 @@ dataset-visualization {
     display: block;
     height: 85vh;
 
+  
   }
 
   .success-message {

@@ -1,16 +1,12 @@
 import './dataset-query-view.scss'
 import React, { useState } from 'react'
 
-import qs from 'qs'
 import DatasetQuery from '../../components/dataset-query'
 import ReactTable from 'react-table'
 import LoadingElement from '../../components/generic-elements/loading-element'
 
 const DatasetQueryView = (props) => {
   const { systemName, dataSources, queryData, freestyleQueryText } = props
-  // const { systemName } = location ? qs.parse(location.search, { ignoreQueryPrefix: true }) : ""
-
-  const sysName = systemName ? systemName : qs.parse(location.search, { ignoreQueryPrefix: true }).systemName
 
   const [hasUserSubmittedQuery, setHasUserSubmittedQuery] = useState(false)
 
@@ -26,7 +22,7 @@ const DatasetQueryView = (props) => {
     setHasUserSubmittedQuery(true)
   }
 
-  const defaultQuery = `SELECT * FROM ${sysName}\nLIMIT 20000`
+  const defaultQuery = `SELECT * FROM ${systemName}\nLIMIT 20000`
 
   const query = freestyleQueryText || defaultQuery
 

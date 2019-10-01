@@ -5,15 +5,12 @@ import { getDataSet, getDataSetError } from '../../store/selectors'
 
 const mapStateToProps = state => {
     return {
-        dataset: getDataSet(state),
-        displayNetworkError: getDataSetError(state)
+        dataset: getDataSet(state)
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    retrieveDatasetDetails: (org_name, dataset_name) => dispatch(retrieveDatasetDetails(org_name, dataset_name)),
-    clearDatasetDetails: () => dispatch(clearDatasetDetails()),
-    clearDatasetPreview: () => dispatch(clearDatasetPreview())
+    retrieveDatasetDetails: (org_name, dataset_name) => dispatch(retrieveDatasetDetails(org_name, dataset_name))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DatasetView)

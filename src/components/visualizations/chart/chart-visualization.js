@@ -22,8 +22,6 @@ export default class ChartVisualization extends Component {
   }
 
   render() {
-    console.log("chart state")
-    console.log(this.state)
     return (
       <chart-visualization>
         {
