@@ -8,7 +8,7 @@ import routes from '../../../routes'
 import { GeneratedLink } from '../generated-link'
 
 export default ({ organizationName, datasetName, systemName }) => (
-  <GeneratedLink path={routes.datasetVisualizationView} params={{ organizationName, datasetName }} queryStringParams={{ systemName }}>
-    <div className='visualize-button'>Visualize<InlineSVG style={{ 'marginLeft': '.3rem' }} svg={chart} height='inherit' width={'25'} accessibilityDesc='Chart' /></div>
+  <GeneratedLink path={routes.datasetView} params={{ organizationName, datasetName }} queryStringParams={{ systemName, selectedIndex: 1 }}>
+    <div className='visualize-button'>Visualize<InlineSVG style={{ 'marginLeft': '.3rem' }} svg={chart} height='inherit' width={'25px'} accessibilityDesc='Chart' /></div>
   </GeneratedLink>
 )

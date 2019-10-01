@@ -29,8 +29,7 @@ const DatasetVisualizationView = (props) => {
   //   onQueryDataset(defaultQuery)
   // }
 
-  // if (isPageLoadingForFirstTime) {
-  //   return (
+  // if (isPageLoadingForFirstTime) { //   return (
   //     <dataset-visualization>
   //       <LoadingElement />
   //     </dataset-visualization>)

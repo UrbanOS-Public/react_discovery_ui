@@ -21,6 +21,7 @@ const DatasetQuery = ({ freestyleQueryText, onQueryDataset, onCancelQuery, query
   const setQueryText = (e) => setQueryTextRaw(e.target.value)
   const errorText = hasUserClickedCancelQuery ? 'Your query has been stopped' : 'Query failure.  There may be a syntax issue.'
 
+  // Populate the text box after the page has rendered
   React.useEffect(() => {
     setQueryTextRaw(freestyleQueryText);
   }, [freestyleQueryText])

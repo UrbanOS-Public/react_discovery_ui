@@ -1,3 +1,3 @@
-import DatasetView from './dataset-view'
+import Connector from './connector'
 
-export default DatasetView
+export default Connector
