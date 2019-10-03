@@ -2,7 +2,7 @@ import { getVisualizationDataSources } from './selectors'
 
 describe('get visualization data sources', () => {
   it('returns empty data sources when data query result is missing', () => {
-    const state = { datasetReducer: {} }
+    const state = { queryReducer: {} }
 
     const dataSources = getVisualizationDataSources(state)
 
@@ -10,7 +10,7 @@ describe('get visualization data sources', () => {
   })
 
   it('returns empty data sources when data query result is empty', () => {
-    const state = { datasetReducer: { datasetQueryResult: [] } }
+    const state = { queryReducer: { datasetQueryResult: [] } }
 
     const dataSources = getVisualizationDataSources(state)
 
@@ -19,7 +19,7 @@ describe('get visualization data sources', () => {
 
   it('returns data sources as a list of values for each column in query result', () => {
     const state = {
-      datasetReducer: {
+      queryReducer: {
         datasetQueryResult: [
           {
             bob: "bob's bob",

@@ -64,7 +64,6 @@ const datasetReducer = (state = defaultDatasetState, action) => {
 
 const defaultPresentationState = {
   isLoading: false,
-  queryFailureMessage: "",
   isVisualizationQueryLoading: false
 }
 
@@ -108,19 +107,15 @@ const presentationReducer = (state = defaultPresentationState, action) => {
     case LOGIN_FAILURE:
       return Object.assign({}, state, { lastLoginAttemptFailed: true, isLoading: false })
 
-    case QUERY_DATASET_IN_PROGRESS:
-      return Object.assign({}, state, { cancelToken: action.value })
-    case QUERY_DATASET_CANCELLED:
-      return Object.assign({}, state, {
-        queryFailureMessage: 'Query Stopped By User', isVisualizationQueryLoading: false
-      })
+
     default:
       return state
   }
 }
 
 const defaultQueryState = {
-  isVisualizationQueryLoading: false
+  isVisualizationQueryLoading: false,
+  queryFailureMessage: ""
 }
 const queryReducer = (state = defaultQueryState, action) => {
   switch (action.type) {
@@ -137,6 +132,12 @@ const queryReducer = (state = defaultQueryState, action) => {
       return Object.assign({}, state, { isVisualizationQueryLoading: false, queryFailureMessage: '', datasetQueryResult: action.value })
     case QUERY_DATASET_FAILED:
       return Object.assign({}, state, { queryFailureMessage: action.value.message, isVisualizationQueryLoading: false })
+    case QUERY_DATASET_IN_PROGRESS:
+      return Object.assign({}, state, { cancelToken: action.value })
+    case QUERY_DATASET_CANCELLED:
+      return Object.assign({}, state, {
+        queryFailureMessage: 'Query Stopped By User', isVisualizationQueryLoading: false
+      })
     default: return state
   }
 }

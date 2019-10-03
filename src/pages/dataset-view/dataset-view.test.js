@@ -1,16 +1,23 @@
 import { shallow } from 'enzyme'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import { Tab, TabPanel } from 'react-tabs'
 
 import DatasetView from './dataset-view'
 import DatasetQueryView from '../dataset-query-view'
-import DatasetVisualizationView from '../dataset-visualization-view/dataset-visualization-view'
+import DatasetVisualizationView from '../dataset-visualization-view'
 import DatasetDetailView from '../dataset-detail-view'
 
 describe('dataset visualization view', () => {
     let subject
     beforeEach(() => {
         subject = shallow(
-            <DatasetView location={{ 'search': '?systemName=org__dataset' }} systemName={'org__dataset'} />)
+            <DatasetView
+                match={{ params: { organizationName: "org", datasetName: "dataset" } }}
+                dataset={{}}
+                location={{ 'search': '?systemName=org__dataset' }}
+                systemName={'org__dataset'}
+                retrieveDatasetDetails={jest.fn()}
+            />
+        )
     })
 
     it('has three tabs', () => {

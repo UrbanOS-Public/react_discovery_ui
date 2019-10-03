@@ -44,14 +44,14 @@ export default class extends Component {
         const systemName = this.props.dataset.systemName
 
         return (
-            <Tabs className='dataset-view' forceRenderTabPanel={true} selectedIndex={this.state.index} onSelect={tabIndex => this.setState({ index: tabIndex })}>
+            <Tabs className='dataset-view' selectedIndex={this.state.index} onSelect={tabIndex => this.setState({ index: tabIndex })}>
                 <TabList>
                     <Tab>Dataset Details</Tab>
                     <Tab>Visualize<InlineSVG id='chartIcon' style={{ 'marginLeft': '.3rem' }} svg={chart} height='inherit' width={'25px'} accessibilityDesc='Chart' /></Tab>
                     <Tab>Write SQL <InlineSVG id='sqlIcon' svg={sqlIcon} height='14px' width='14px' accessibilityDesc='Sql Icon' /></Tab>
                 </TabList>
 
-                <TabPanel>
+                <TabPanel forceRender={true}>
                     <DatasetDetailView match={this.props.match} />
                 </TabPanel>
                 <TabPanel>

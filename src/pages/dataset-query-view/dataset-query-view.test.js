@@ -16,12 +16,6 @@ const runUseEffect = () => {
 }
 
 describe('dataset visualization view', () => {
-  const routerProps = {
-    params: {
-      organizationName: 'data \'r\' us',
-      datasetName: 'some data'
-    }
-  }
   const dataSources = { data: ['sources'] }
 
   let subject
@@ -29,13 +23,12 @@ describe('dataset visualization view', () => {
 
   describe('before load', () => {
     beforeEach(() => {
-      runUseEffect()
       queryCallback = jest.fn()
       subject = shallow(
         <DatasetQueryView
           isLoading={true}
-          match={routerProps}
-          location={{ search: `?systemName=${tableName}` }}
+          queryData={[]}
+          systemName={tableName}
           onQueryDataset={queryCallback}
           dataSources={dataSources} />
       )
@@ -43,10 +36,6 @@ describe('dataset visualization view', () => {
 
     it('shows full page loading icon', () => {
       expect(subject.find(LoadingElement).length).toEqual(1)
-    })
-
-    test('calls the submit handler on component mounting', () => {
-      expect(queryCallback).toHaveBeenCalledWith(expectedQuery)
     })
   })
 
@@ -58,8 +47,8 @@ describe('dataset visualization view', () => {
       subject = shallow(
         <DatasetQueryView
           isLoading={false}
-          match={routerProps}
-          location={{ search: `?systemName=${tableName}` }}
+          queryData={[{ data: {} }]}
+          systemName={tableName}
           onQueryDataset={queryCallback}
           dataSources={dataSources} />
       )
@@ -105,8 +94,8 @@ describe('dataset visualization view', () => {
     subject = shallow(
       <DatasetQueryView
         isLoading={false}
-        match={routerProps}
-        location={{ search: `?systemName=${tableName}` }}
+        queryData={[{ data: {} }]}
+        systemName={tableName}
         onQueryDataset={queryCallback}
         dataSources={dataSources} />
     )
@@ -117,3 +106,4 @@ describe('dataset visualization view', () => {
     expect(subject.find(LoadingElement).length).toEqual(0)
   })
 })
+

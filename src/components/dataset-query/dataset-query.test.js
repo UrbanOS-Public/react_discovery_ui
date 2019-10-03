@@ -12,7 +12,7 @@ describe('DatasetQuery', () => {
       subject = mount(
         <DatasetQuery
           onQueryDataset={queryCallback}
-          defaultQuery={defaultQuery}
+          freestyleQueryText={defaultQuery}
           hasUserSubmittedQuery={false}
           isLoading />)
     })
@@ -30,7 +30,7 @@ describe('DatasetQuery', () => {
       subject = mount(
         <DatasetQuery
           onQueryDataset={queryCallback}
-          defaultQuery={defaultQuery}
+          freestyleQueryText={defaultQuery}
           hasUserSubmittedQuery={true}
           onCancelQuery={cancelCallback}
           isLoading />)
@@ -68,7 +68,7 @@ describe('DatasetQuery', () => {
       subject = mount(
         <DatasetQuery
           onQueryDataset={queryCallback}
-          defaultQuery={defaultQuery}
+          freestyleQueryText={defaultQuery}
           hasUserSubmittedQuery={true}
           onCancelQuery={cancelCallback}
           isLoading={true} />)
@@ -97,7 +97,7 @@ describe('DatasetQuery', () => {
         <DatasetQuery
           onQueryDataset={queryCallback}
           isLoading={false}
-          defaultQuery={defaultQuery}
+          freestyleQueryText={defaultQuery}
           hasUserSubmittedQuery={false} />)
     })
 
@@ -132,7 +132,7 @@ describe('DatasetQuery', () => {
         <DatasetQuery
           onQueryDataset={queryCallback}
           isLoading={false}
-          defaultQuery={defaultQuery}
+          freestyleQueryText={defaultQuery}
           hasUserSubmittedQuery={true} />)
     })
 
@@ -162,7 +162,7 @@ describe('DatasetQuery', () => {
       subject = mount(
         <DatasetQuery
           onQueryDataset={jest.fn()}
-          defaultQuery={defaultQuery}
+          freestyleQueryText={defaultQuery}
           queryFailureMessage='the bad thing happened'
           hasUserSubmittedQuery={false}
           isLoading={false} />)

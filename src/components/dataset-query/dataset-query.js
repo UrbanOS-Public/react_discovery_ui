@@ -5,7 +5,7 @@ import LoadingElement from '../generic-elements/loading-element';
 
 
 const DatasetQuery = ({ freestyleQueryText, onQueryDataset, onCancelQuery, queryFailureMessage, isLoading, hasUserSubmittedQuery }) => {
-  const [queryText, setQueryTextRaw] = useState(defaultQuery)
+  const [queryText, setQueryTextRaw] = useState(freestyleQueryText)
   const [hasUserClickedCancelQuery, setHasUserClickedCancelQuery] = useState(false)
 
   const submit = () => {
@@ -58,7 +58,7 @@ const DatasetQuery = ({ freestyleQueryText, onQueryDataset, onCancelQuery, query
 }
 
 DatasetQuery.propTypes = {
-  defaultQuery: PropTypes.string.isRequired,
+  freestyleQueryText: PropTypes.string.isRequired,
   onQueryDataset: PropTypes.func.isRequired,
   queryFailureMessage: PropTypes.string,
   isLoading: PropTypes.bool.isRequired,

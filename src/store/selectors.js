@@ -14,6 +14,8 @@ export const getDownloadedDataset = state => state.datasetReducer.downloadedData
 export const getDownloadedDatasetError = state => state.datasetReducer.downloadedDatasetError
 export const getDatasetQueryResult = state => state.queryReducer.datasetQueryResult
 export const getFreestyleQueryText = state => state.queryReducer.freestyleQueryText
+export const getDatasetQueryCancelToken = state => state.queryReducer.cancelToken
+
 
 export const getVisualizationDataSources = createSelector(getDatasetQueryResult, data => {
   var dataSources = {}

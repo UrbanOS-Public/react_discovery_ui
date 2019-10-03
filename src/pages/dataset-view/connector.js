@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import DatasetView from './dataset-view'
-import { retrieveDatasetDetails, clearDatasetDetails, clearDatasetPreview } from '../../store/actions'
-import { getDataSet, getDataSetError } from '../../store/selectors'
+import { retrieveDatasetDetails } from '../../store/actions'
+import { getDataSet } from '../../store/selectors'
 
 const mapStateToProps = state => {
     return {
