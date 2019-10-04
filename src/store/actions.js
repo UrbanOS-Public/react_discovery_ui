@@ -51,8 +51,8 @@ export const datasetDetails = (data) => ({
   type: DATASET_DETAILS, value: data
 })
 
-export const datasetRecommendations = (data) => ({
-  type: DATASET_RECOMMENDATIONS, value: data
+export const datasetRecommendations = (datasetId) => ({
+  type: DATASET_RECOMMENDATIONS, value: datasetId
 })
 
 export const retrieveDatasetPreview = (id, format = 'json') => ({

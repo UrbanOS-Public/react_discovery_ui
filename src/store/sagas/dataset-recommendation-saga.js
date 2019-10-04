@@ -2,7 +2,7 @@ import { takeEvery } from 'redux-saga/effects'
 import { DATASET_RECOMMENDATIONS, datasetRecommendations } from '../actions'
 import apiInvoker from './api-invoker'
 
-export default function* theRealDatasetSaga() {
+export default function* datasetRecommendationSaga() {
   yield takeEvery(DATASET_RECOMMENDATIONS, invokeApiWithParameter)
 }
 
