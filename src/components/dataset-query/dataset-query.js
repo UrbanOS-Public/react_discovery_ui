@@ -58,7 +58,7 @@ const DatasetQuery = ({ freestyleQueryText, onQueryDataset, onCancelQuery, query
 }
 
 DatasetQuery.propTypes = {
-  freestyleQueryText: PropTypes.string.isRequired,
+  freestyleQueryText: PropTypes.string,
   onQueryDataset: PropTypes.func.isRequired,
   queryFailureMessage: PropTypes.string,
   isLoading: PropTypes.bool.isRequired,

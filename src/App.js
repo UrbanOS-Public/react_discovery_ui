@@ -14,9 +14,6 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 
 import DataSetListViewWrapper from './pages/dataset-list-view'
 import DatasetView from './pages/dataset-view'
-import DatasetDetailsView from './pages/dataset-detail-view'
-import DatasetVisualizationView from './pages/dataset-visualization-view'
-import DatasetQueryView from './pages/dataset-query-view'
 import LoginView from './pages/login-view'
 import OauthView from './pages/oauth-view'
 
