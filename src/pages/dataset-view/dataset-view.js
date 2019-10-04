@@ -43,6 +43,10 @@ export default class extends Component {
 
         const systemName = this.props.dataset.systemName
 
+        if (this.props.dataset.sourceType == "remote") {
+            return (<DatasetDetailView match={this.props.match} />)
+        }
+
         return (
             <Tabs className='dataset-view' selectedIndex={this.state.index} onSelect={tabIndex => this.setState({ index: tabIndex })}>
                 <TabList>
