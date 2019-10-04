@@ -1,12 +1,11 @@
 import { connect } from 'react-redux'
-import DatasetView from './dataset-detail-view'
+import DatasetDetailView from './dataset-detail-view'
 import { retrieveDatasetDetails, clearDatasetDetails, clearDatasetPreview } from '../../store/actions'
 import { getDataSet, getDataSetError } from '../../store/selectors'
 
 const mapStateToProps = state => {
   return {
-    dataset: getDataSet(state),
-    displayNetworkError: getDataSetError(state)
+    dataset: getDataSet(state)
   }
 }
 
@@ -16,4 +15,4 @@ const mapDispatchToProps = dispatch => ({
   clearDatasetPreview: () => dispatch(clearDatasetPreview())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(DatasetView)
+export default connect(mapStateToProps, mapDispatchToProps)(DatasetDetailView)

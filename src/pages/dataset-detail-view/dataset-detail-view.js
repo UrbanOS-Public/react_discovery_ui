@@ -37,7 +37,7 @@ export default class extends Component {
     const apiDocExpanded = !isCsv && !isStreaming
 
     return (
-      <dataset-view>
+      <dataset-detail-view>
         <div className='left-section'>
           <Organization organization={dataset.organization} />
           <Share />
@@ -53,7 +53,7 @@ export default class extends Component {
           <DatasetDictionary datasetId={dataset.id} schema={dataset.schema} />
           <DatasetMetadata dataset={dataset} />
         </div>
-      </dataset-view>
+      </dataset-detail-view>
     )
   }
 }

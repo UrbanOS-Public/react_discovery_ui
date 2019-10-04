@@ -41,28 +41,4 @@ describe('data card element', () => {
     expect(subject.find('.keyword').filterWhere(n => { return n.text() === 'COTA' }).prop('href')).toMatch(encodeURI('/?facets[keywords][]=COTA'))
   })
 
-  describe('VisualizeButton', () => {
-    const makeComponent = dataset => shallow(<DatasetDetails dataset={dataset} />)
-
-    it('shows for ingest datasets', () => {
-      subject = makeComponent(ingestDataset)
-      expect(subject.find(VisualizeButton)).toHaveLength(1)
-    })
-
-    it('shows for streaming datasets', () => {
-      subject = makeComponent(streamingDataset)
-      expect(subject.find(VisualizeButton)).toHaveLength(1)
-    })
-
-    it('does not show for remote datasets', () => {
-      subject = makeComponent(remoteDataset)
-      expect(subject.find(VisualizeButton)).toHaveLength(0)
-    })
-
-    it('does not show for hosted datasets', () => {
-      subject = makeComponent(hostedDataset)
-      expect(subject.find(VisualizeButton)).toHaveLength(0)
-    })
-  })
-
 })

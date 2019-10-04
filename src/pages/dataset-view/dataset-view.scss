@@ -1,0 +1,65 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+#chartIcon {
+    padding-left: 5px;
+    path {
+        fill: $medium-grey;
+    }
+}
+
+#sqlIcon {
+    padding-left: 5px;
+    fill: $medium-grey;
+}
+
+.react-tabs__tab-list {
+    border-bottom: 0;
+    box-shadow: 0px 1px 3px $light-grey;
+    margin: 0 0 10px;
+    padding: 0;
+}
+
+
+.react-tabs__tab {
+    display: inline-block;
+    border: 0;
+    position: relative;
+    list-style: initial;
+    padding: 12px 24px;
+    cursor: pointer;
+    color: $medium-grey
+}
+
+.react-tabs__tab--selected {
+    background: transparent;
+    border-bottom: 5px solid;
+    border-color: $light-blue;
+    color: $almost-black;
+
+    #sqlIcon{
+        padding-left: 5px;
+        fill: $almost-black;
+    }
+
+    #chartIcon {
+        path {
+            fill: $almost-black;
+        }
+    }
+}
+
+.react-tabs__tab:hover {
+    color: $almost-black;
+
+    #sqlIcon{
+        padding-left: 5px;
+        fill: $almost-black;
+    }
+
+    #chartIcon {
+        path {
+            fill: $almost-black;
+        }
+    }
+}

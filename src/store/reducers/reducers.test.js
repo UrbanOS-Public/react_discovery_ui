@@ -67,7 +67,7 @@ describe('Dataset Reducer', () => {
 
     let newState = reducer(currentState, { type: QUERY_DATASET_SUCCEEDED, value: response })
 
-    expect(newState.datasetReducer.datasetQueryResult).toEqual(response)
+    expect(newState.queryReducer.datasetQueryResult).toEqual(response)
   })
 
 
@@ -100,6 +100,9 @@ describe('UI Reducer', () => {
     let currentState = {
       presentation: {
         previewLoading: false
+      },
+      queryReducer: {
+        isVisualizationQueryLoading: false
       }
     }
     let newState = reducer(currentState, { type: RETRIEVE_DATASET_PREVIEW })
@@ -184,11 +187,11 @@ describe('UI Reducer', () => {
   })
 
   it('QUERY_DATASET sets loading to true', () => {
-    let currentState = {}
+    let currentState = { queryReducer: { isVisualizationQueryLoading: false } }
 
     let newState = reducer(currentState, { type: QUERY_DATASET })
 
-    expect(newState.presentation.isVisualizationQueryLoading).toEqual(true)
+    expect(newState.queryReducer.isVisualizationQueryLoading).toEqual(true)
   })
 
   it('QUERY_DATASET_IN_PROGRESS places a cancel token in state', () => {
@@ -197,15 +200,23 @@ describe('UI Reducer', () => {
 
     let newState = reducer(currentState, { type: QUERY_DATASET_IN_PROGRESS, value: response })
 
-    expect(newState.presentation.cancelToken).toEqual({ token: {} })
+    expect(newState.queryReducer.cancelToken).toEqual({ token: {} })
   })
 
   it('FREESTYLE_QUERY_DATASET sets isVisualizationQueryLoading to true', () => {
-    let currentState = {}
+    let currentState = { queryReducer: { isVisualizationQueryLoading: false } }
 
-    let newState = reducer(currentState, { type: FREESTYLE_QUERY_DATASET })
+    let newState = reducer(currentState, { type: FREESTYLE_QUERY_DATASET, value: { queryText: "blah" } })
 
-    expect(newState.presentation.isVisualizationQueryLoading).toEqual(true)
+    expect(newState.queryReducer.isVisualizationQueryLoading).toEqual(true)
+  })
+
+  it('FREESTYLE_QUERY_DATASET stores query', () => {
+    let currentState = { queryReducer: { isVisualizationQueryLoading: false } }
+
+    let newState = reducer(currentState, { type: FREESTYLE_QUERY_DATASET, value: { queryText: 'select * from foo' } })
+
+    expect(newState.queryReducer.freestyleQueryText).toEqual('select * from foo')
   })
 
 
@@ -213,17 +224,17 @@ describe('UI Reducer', () => {
     let newState
 
     beforeEach(() => {
-      const currentState = { presentation: { isVisualizationQueryLoading: true } }
+      const currentState = { queryReducer: { isVisualizationQueryLoading: true } }
 
       newState = reducer(currentState, { type: QUERY_DATASET_SUCCEEDED, value: { message: 'bad thing' } })
     })
 
     it('sets loading to false', () => {
-      expect(newState.presentation.isVisualizationQueryLoading).toEqual(false)
+      expect(newState.queryReducer.isVisualizationQueryLoading).toEqual(false)
     })
 
     it('unsets query failure message', () => {
-      expect(newState.presentation.queryFailureMessage).toEqual('')
+      expect(newState.queryReducer.queryFailureMessage).toEqual('')
     })
   })
 
@@ -247,11 +258,11 @@ describe('UI Reducer', () => {
     })
 
     it('sets loading to false', () => {
-      expect(newState.presentation.isVisualizationQueryLoading).toEqual(false)
+      expect(newState.queryReducer.isVisualizationQueryLoading).toEqual(false)
     })
 
     it('sets query failure message', () => {
-      expect(newState.presentation.queryFailureMessage).toEqual('Query Stopped By User')
+      expect(newState.queryReducer.queryFailureMessage).toEqual('Query Stopped By User')
     })
   })
 
@@ -259,17 +270,17 @@ describe('UI Reducer', () => {
     let newState
 
     beforeEach(() => {
-      const currentState = { presentation: { isVisualizationQueryLoading: true } }
+      const currentState = { queryReducer: { isVisualizationQueryLoading: true } }
 
-      newState = reducer(currentState, { type: QUERY_DATASET_FAILED, value: 'bad thing' })
+      newState = reducer(currentState, { type: QUERY_DATASET_FAILED, value: { message: 'bad thing' } })
     })
 
     it('sets loading to false', () => {
-      expect(newState.presentation.isVisualizationQueryLoading).toEqual(false)
+      expect(newState.queryReducer.isVisualizationQueryLoading).toEqual(false)
     })
 
     it('sets query failure message', () => {
-      expect(newState.presentation.queryFailureMessage).toEqual('bad thing')
+      expect(newState.queryReducer.queryFailureMessage).toEqual('bad thing')
     })
   })
 })
