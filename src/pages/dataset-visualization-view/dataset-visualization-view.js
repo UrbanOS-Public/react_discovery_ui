@@ -8,12 +8,17 @@ import ChartVisualization from '../../components/visualizations/chart/chart-visu
 import { Collapse } from 'react-collapse'
 import LoadingElement from '../../components/generic-elements/loading-element'
 
+
 const DatasetVisualizationView = (props) => {
   const [open, setOpened] = useState(false)
   const toggleOpen = () => { setOpened(!open) }
   const { systemName, dataSources, queryData, recommendations } = props
 
-  props.getRecommendations("SYS_e65d8a26_e157_11e9_af0c_482ae31c4a29")
+  const onInit = () => {
+    console.log("this was an intentional call....")
+    props.getRecommendations("SYS_e65d8a26_e157_11e9_af0c_482ae31c4a29")
+  }
+  React.useEffect(onInit, [])
 
   if (!recommendations) {
     console.log('hes null')

@@ -47,11 +47,11 @@ const datasetReducer = (state = defaultDatasetState, action) => {
       return Object.assign({}, state, {
         dataset: action.value
       })
-    case DATASET_RECOMMENDATIONS:
-      console.log("we're reducing!!!!")
-      return Object.assign({}, state, {
-        recommendations: action.value
-      })
+    // case DATASET_RECOMMENDATIONS:
+    //   console.log("we're reducing!!!!")
+    //   return Object.assign({}, state, {
+    //     recommendations: "hello"
+    //   })
     case CLEAR_DATASET_DETAILS:
       return Object.assign({}, state, {
         dataset: undefined,
