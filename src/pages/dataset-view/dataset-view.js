@@ -42,6 +42,7 @@ export default class extends Component {
         }
 
         const systemName = this.props.dataset.systemName
+        const datasetId = this.props.dataset.id
 
         return (
             <Tabs className='dataset-view' selectedIndex={this.state.index} onSelect={tabIndex => this.setState({ index: tabIndex })}>
@@ -55,7 +56,7 @@ export default class extends Component {
                     <DatasetDetailView match={this.props.match} />
                 </TabPanel>
                 <TabPanel>
-                    <DatasetVisualizationView match={this.props.match} systemName={systemName} />
+                    <DatasetVisualizationView match={this.props.match} systemName={systemName} datasetId={datasetId} />
                 </TabPanel>
                 <TabPanel>
                     <DatasetQueryView systemName={systemName} />

@@ -11,7 +11,14 @@ import LoadingElement from '../../components/generic-elements/loading-element'
 const DatasetVisualizationView = (props) => {
   const [open, setOpened] = useState(false)
   const toggleOpen = () => { setOpened(!open) }
-  const { systemName, dataSources, queryData } = props
+  const { systemName, dataSources, queryData, recommendations } = props
+
+  props.getRecommendations()
+
+  if (!recommendations) {
+    console.log('hes null')
+    console.log(recommendations)
+  }
 
   const isPageLoading = props.isLoading && !queryData
 
@@ -35,6 +42,7 @@ const DatasetVisualizationView = (props) => {
         <Collapse isOpened={open}>
           <DatasetQueryView systemName={systemName} freestyleQueryText={props.freestyleQueryText} />
         </Collapse>
+        <div>{recommendations}</div>
       </div>
       <ChartVisualization dataSources={dataSources} />
     </dataset-visualization>
