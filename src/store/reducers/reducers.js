@@ -21,7 +21,8 @@ import {
   QUERY_DATASET_FAILED,
   QUERY_DATASET_IN_PROGRESS,
   QUERY_DATASET_CANCELLED,
-  FREESTYLE_QUERY_DATASET
+  FREESTYLE_QUERY_DATASET,
+  FREESTYLE_QUERY_UPDATE
 } from '../actions'
 
 const defaultDatasetState = {
@@ -123,6 +124,11 @@ const queryReducer = (state = defaultQueryState, action) => {
       return Object.assign({}, state, {
         freestyleQueryText: action.value.queryText,
         isVisualizationQueryLoading: true
+      })
+    case FREESTYLE_QUERY_UPDATE:
+      console.log(action)
+      return Object.assign({}, state, {
+        freestyleQueryText: action.value.queryText
       })
     case QUERY_DATASET:
       return Object.assign({}, state, {

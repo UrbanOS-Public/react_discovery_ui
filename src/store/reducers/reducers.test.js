@@ -15,6 +15,7 @@ import {
   QUERY_DATASET_FAILED,
   QUERY_DATASET_CANCELLED,
   FREESTYLE_QUERY_DATASET,
+  FREESTYLE_QUERY_UPDATE,
   CLEAR_DATASET_PREVIEW,
   QUERY_DATASET_IN_PROGRESS
 } from '../actions'
@@ -219,6 +220,13 @@ describe('UI Reducer', () => {
     expect(newState.queryReducer.freestyleQueryText).toEqual('select * from foo')
   })
 
+  describe('FREESTYLE_QUERY_UPDATE', () => {
+    let currentState = { queryReducer: {} }
+
+    let newState = reducer(currentState, { type: FREESTYLE_QUERY_UPDATE, value: { queryText: 'select * from bar' } })
+
+    expect(newState.queryReducer.freestyleQueryText).toEqual('select * from bar')
+  })
 
   describe('QUERY_DATASET_SUCCEEDED', () => {
     let newState
