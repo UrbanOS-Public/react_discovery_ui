@@ -1,0 +1,9 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
+
+dataset-recommendations {
+  @include custom-element();
+
+  border: 1px solid $light-grey;
+  width: 100%;
+}

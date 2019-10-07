@@ -5,6 +5,7 @@ import InlineSVG from 'react-svg-inline'
 
 import DatasetQueryView from '../dataset-query-view'
 import ChartVisualization from '../../components/visualizations/chart/chart-visualization'
+import DatasetRecommendations from '../../components/dataset-recommendations/dataset-recommendations'
 import { Collapse } from 'react-collapse'
 import LoadingElement from '../../components/generic-elements/loading-element'
 
@@ -15,26 +16,21 @@ const DatasetVisualizationView = (props) => {
   const { systemName, dataSources, queryData, recommendations } = props
 
   const onInit = () => {
-    console.log("this was an intentional call....")
     props.getRecommendations("SYS_e65d8a26_e157_11e9_af0c_482ae31c4a29")
   }
   React.useEffect(onInit, [])
 
-  if (!recommendations) {
-    console.log('hes null')
-    console.log(recommendations)
-  }
-
-  const isPageLoading = props.isLoading && !queryData
+  const isPageLoading = !recommendations
 
   if (isPageLoading) {
+    console.log("we're loading")
     return (
       <dataset-visualization>
         <LoadingElement />
       </dataset-visualization>
     )
   }
-
+  console.log('HERES A RECOMMENDATION FOR YOU', recommendations)
   return (
     <dataset-visualization>
       <div className="visualization-header">
@@ -47,8 +43,9 @@ const DatasetVisualizationView = (props) => {
         <Collapse isOpened={open}>
           <DatasetQueryView systemName={systemName} freestyleQueryText={props.freestyleQueryText} />
         </Collapse>
-        <div>{recommendations}</div>
       </div>
+      <DatasetRecommendations recommendations={recommendations} />
+
       <ChartVisualization dataSources={dataSources} />
     </dataset-visualization>
   )

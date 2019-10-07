@@ -1,5 +1,5 @@
 import { takeEvery, takeLast } from 'redux-saga/effects'
-import { DATASET_RECOMMENDATIONS, datasetRecommendations } from '../actions'
+import { DATASET_RECOMMENDATIONS, datasetRecommendationsSucceeded } from '../actions'
 import apiInvoker from './api-invoker'
 
 export default function* datasetRecommendationSaga() {
@@ -8,5 +8,5 @@ export default function* datasetRecommendationSaga() {
 
 const invokeApiWithParameter = ({ value }) => {
   console.log("calling api with" + value)
-  return apiInvoker({ endpoint: `/api/v1/dataset/${value}/recommendations`, actionator: datasetRecommendations })()
+  return apiInvoker({ endpoint: `/api/v1/dataset/${value}/recommendations`, actionator: datasetRecommendationsSucceeded })()
 }
