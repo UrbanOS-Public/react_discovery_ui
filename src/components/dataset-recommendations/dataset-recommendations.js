@@ -1,14 +1,18 @@
 import './dataset-recommendations.scss'
-import { Collapse } from 'react-collapse';
-import { Component } from 'react'
+import CollapsableBox from '../collapsable-box'
 
 
 export default (props) => {
   return (
     <dataset-recommendations>
-      <ul>
-        {props.recommendations.map(rc => <li key={rc.id}>{JSON.stringify(rc)}</li>)}
-      </ul>
-    </dataset-recommendations>
+      <CollapsableBox title={"Recommended Datasets"} expanded={false}>
+        {<ul>
+          {props.recommendations.map(rec =>
+            <li key={rec.id}>
+              rec.systemName
+            </li>)}
+        </ul>}
+      </CollapsableBox>
+    </dataset-recommendations >
   )
 }

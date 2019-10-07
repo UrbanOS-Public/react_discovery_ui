@@ -4,6 +4,10 @@
 dataset-recommendations {
   @include custom-element();
 
+  collapsable-box {
+    margin-top: 0px;
+  }
+
   border: 1px solid $light-grey;
   width: 100%;
 }
