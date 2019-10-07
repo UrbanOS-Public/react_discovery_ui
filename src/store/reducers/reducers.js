@@ -122,11 +122,9 @@ const queryReducer = (state = defaultQueryState, action) => {
   switch (action.type) {
     case FREESTYLE_QUERY_DATASET:
       return Object.assign({}, state, {
-        freestyleQueryText: action.value.queryText,
         isVisualizationQueryLoading: true
       })
     case FREESTYLE_QUERY_UPDATE:
-      console.log(action)
       return Object.assign({}, state, {
         freestyleQueryText: action.value.queryText
       })
@@ -137,7 +135,7 @@ const queryReducer = (state = defaultQueryState, action) => {
     case QUERY_DATASET_SUCCEEDED:
       return Object.assign({}, state, { isVisualizationQueryLoading: false, queryFailureMessage: '', datasetQueryResult: action.value })
     case QUERY_DATASET_FAILED:
-      return Object.assign({}, state, { queryFailureMessage: action.value.message, isVisualizationQueryLoading: false })
+      return Object.assign({}, state, { queryFailureMessage: action.value, isVisualizationQueryLoading: false })
     case QUERY_DATASET_IN_PROGRESS:
       return Object.assign({}, state, { cancelToken: action.value })
     case QUERY_DATASET_CANCELLED:

@@ -33,13 +33,12 @@ const DatasetQuery = ({ freestyleQueryText, onQueryDataset, onUpdateQuery, onCan
   const errorMessage = <span className='error-message'>{errorText}</span>
   const successMessage = (
     <span className='success-message'>
-      Query successful.  To refesh the visualization, you must change an element in the trace
+      Query successful.  To refresh the visualization, you must change an element in the trace
     </span>
   )
 
   const shouldShowQuerySuccessful = !queryFailureMessage && hasUserSubmittedQuery && !isLoading
   const shouldShowFailureMessage = queryFailureMessage && !isLoading
-
 
   return (
     <div className='dataset-query'>

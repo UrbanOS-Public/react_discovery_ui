@@ -13,9 +13,8 @@ export const lastLogoutAttemptFailed = state => state.presentation.lastLogoutAtt
 export const getDownloadedDataset = state => state.datasetReducer.downloadedDataset
 export const getDownloadedDatasetError = state => state.datasetReducer.downloadedDatasetError
 export const getDatasetQueryResult = state => state.queryReducer.datasetQueryResult
-export const getFreestyleQueryText = state => state.queryReducer.freestyleQueryText
+export const getFreestyleQueryText = state => state.queryReducer.freestyleQueryText || `SELECT * FROM ${state.datasetReducer.dataset.systemName}\nLIMIT 20000`
 export const getDatasetQueryCancelToken = state => state.queryReducer.cancelToken
-
 
 export const getVisualizationDataSources = createSelector(getDatasetQueryResult, data => {
   var dataSources = {}

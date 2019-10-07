@@ -212,15 +212,7 @@ describe('UI Reducer', () => {
     expect(newState.queryReducer.isVisualizationQueryLoading).toEqual(true)
   })
 
-  it('FREESTYLE_QUERY_DATASET stores query', () => {
-    let currentState = { queryReducer: { isVisualizationQueryLoading: false } }
-
-    let newState = reducer(currentState, { type: FREESTYLE_QUERY_DATASET, value: { queryText: 'select * from foo' } })
-
-    expect(newState.queryReducer.freestyleQueryText).toEqual('select * from foo')
-  })
-
-  describe('FREESTYLE_QUERY_UPDATE', () => {
+  describe('FREESTYLE_QUERY_UPDATE store the query in state', () => {
     let currentState = { queryReducer: {} }
 
     let newState = reducer(currentState, { type: FREESTYLE_QUERY_UPDATE, value: { queryText: 'select * from bar' } })

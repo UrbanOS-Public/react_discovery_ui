@@ -6,7 +6,7 @@ import ReactTable from 'react-table'
 import LoadingElement from '../../components/generic-elements/loading-element'
 
 const DatasetQueryView = (props) => {
-  const { systemName, dataSources, queryData, freestyleQueryText } = props
+  const { dataSources, queryData, freestyleQueryText } = props
 
   const [hasUserSubmittedQuery, setHasUserSubmittedQuery] = useState(false)
 
@@ -21,10 +21,6 @@ const DatasetQueryView = (props) => {
     props.onQueryDataset(query)
     setHasUserSubmittedQuery(true)
   }
-
-  const defaultQuery = `SELECT * FROM ${systemName}\nLIMIT 20000`
-
-  const query = freestyleQueryText || defaultQuery
 
   const onInit = () => {
     onQueryDataset(query)
@@ -47,7 +43,7 @@ const DatasetQueryView = (props) => {
   return (
     <dataset-query-page>
       <DatasetQuery
-        defaultQuery={query}
+        defaultQuery={freestyleQueryText}
         onQueryDataset={onQueryDataset}
         hasUserSubmittedQuery={hasUserSubmittedQuery}
       />

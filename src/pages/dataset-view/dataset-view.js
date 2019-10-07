@@ -21,6 +21,8 @@ export default class extends Component {
 
 
     componentDidMount() {
+        this.props.setQuery('')
+
         this.props.retrieveDatasetDetails(this.props.match.params.organizationName, this.props.match.params.datasetName)
 
         if (this.state.index != this.getIndexFromQueryParams()) {
