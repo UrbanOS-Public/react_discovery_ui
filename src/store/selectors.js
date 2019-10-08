@@ -19,11 +19,11 @@ export const selectVisualizationStruct = state => state.visualizationReducer.vis
 export const selectVisualizationLoading = state => state.visualizationReducer.visualizationLoading
 export const selectVisualizationFailureMessage = state => state.visualizationReducer.visualizationFailureMessage
 
-export const selectVisualization = createSelector(selectVisualizationStruct, selectVisualizationLoading, getFreestyleQueryText, selectVisualizationFailureMessage, (struct, loading, editedQuery, error) => {
-  return Object.assign({}, struct, {
+export const selectVisualization = createSelector(selectVisualizationStruct, selectVisualizationLoading, getFreestyleQueryText, selectVisualizationFailureMessage, (visualization, loading, localVersionOfQuery, error) => {
+  return Object.assign({}, visualization, {
     loading,
     error,
-    query: editedQuery || struct.query
+    query: localVersionOfQuery || visualization.query
   })
 })
 

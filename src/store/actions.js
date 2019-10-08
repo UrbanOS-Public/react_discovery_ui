@@ -28,6 +28,7 @@ export const GET_VISUALIZATION_FAILED = 'GET_VISUALIZATION_FAILED'
 export const CREATE_VISUALIZATION = 'CREATE_VISUALIZATION'
 export const CREATE_VISUALIZATION_SUCCEEDED = 'CREATE_VISUALIZATION_SUCCEEDED'
 export const CREATE_VISUALIZATION_FAILED = 'CREATE_VISUALIZATION_FAILED'
+export const RESET_VISUALIZATION = 'RESET_VISUALIZATION'
 
 export const retrieveDataList = (offset, limit, sort, query, facets) => ({
   type: RETRIEVE_DATA_LIST,
@@ -154,4 +155,8 @@ export const createVisualizationSucceeded = (visualization) => ({
 
 export const createVisualizationFailed = (failureMessage) => ({
   type: CREATE_VISUALIZATION_FAILED, value: failureMessage
+})
+
+export const resetVisualization = () => ({
+  type: RESET_VISUALIZATION
 })

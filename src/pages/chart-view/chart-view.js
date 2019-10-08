@@ -17,9 +17,9 @@ const ChartView = (props) => {
 
   if (isPageLoading) {
     return (
-      <dataset-visualization>
+      <chart-view>
         <LoadingElement />
-      </dataset-visualization>
+      </chart-view>
     )
   }
 

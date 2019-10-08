@@ -10,10 +10,10 @@ import QueryView from '../query-view'
 import ChartView from '../chart-view'
 import LoadingElement from '../../components/generic-elements/loading-element'
 
-const VisualizationView = ({ getVisualization, visualization, match }) => {
+const VisualizationView = ({ resetVisualization, getVisualization, visualization, match }) => {
   const { id } = match.params
 
-  useEffect(() => { getVisualization(id) }, [])
+  useEffect(() => { resetVisualization() && getVisualization(id) }, [])
 
   if (visualization.loading) {
     return (

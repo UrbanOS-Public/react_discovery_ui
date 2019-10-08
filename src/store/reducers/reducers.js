@@ -27,7 +27,8 @@ import {
   CREATE_VISUALIZATION_SUCCEEDED,
   GET_VISUALIZATION_SUCCEEDED,
   CREATE_VISUALIZATION_FAILED,
-  GET_VISUALIZATION_FAILED
+  GET_VISUALIZATION_FAILED,
+  RESET_VISUALIZATION
 } from '../actions'
 
 const defaultDatasetState = {
@@ -174,6 +175,8 @@ const visualizationReducer = (state = defaultVisualizationState, action) => {
         visualizationLoading: false,
         visualizationFailureMessage: action.value
       })
+    case RESET_VISUALIZATION:
+      return defaultVisualizationState
     default: return state
   }
 }
