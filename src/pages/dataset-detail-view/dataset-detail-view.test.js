@@ -68,10 +68,6 @@ describe("dataset detail view", () => {
       );
     });
 
-    it("calls retrieve data callback on mount", () => {
-      expect(retrieveSpy).toHaveBeenCalled();
-    });
-
     it("loads dataset details with dataset information", () => {
       expect(subject.find(DatasetDetails).props().dataset).toEqual(
         ingestDataset

@@ -5,8 +5,9 @@ import DatasetView from "./dataset-view";
 import DatasetQueryView from "../dataset-query-view";
 import DatasetVisualizationView from "../dataset-visualization-view";
 import DatasetDetailView from "../dataset-detail-view";
+import LoadingElement from "../../components/generic-elements/loading-element";
 
-describe("dataset visualization view", () => {
+describe("dataset view", () => {
   let subject;
   beforeEach(() => {
     subject = shallow(
@@ -18,6 +19,7 @@ describe("dataset visualization view", () => {
         retrieveDatasetDetails={jest.fn()}
         setQuery={jest.fn()}
         clearQuery={jest.fn()}
+        isDatasetLoaded={true}
       />
     );
   });
@@ -40,5 +42,85 @@ describe("dataset visualization view", () => {
 
   it("has a dataset query view component", () => {
     expect(subject.find(DatasetQueryView).length).toEqual(1);
-  });
-});
+  })
+})
+
+describe("dataset view when dataset is not loaded", () => {
+  let subject;
+  beforeEach(() => {
+    subject = shallow(
+      <DatasetView
+        match={{ params: { organizationName: "org", datasetName: "dataset" } }}
+        dataset={{}}
+        location={{ search: "?systemName=org__dataset" }}
+        systemName={"org__dataset"}
+        retrieveDatasetDetails={jest.fn()}
+        setQuery={jest.fn()}
+        clearQuery={jest.fn()}
+        isDatasetLoaded={false}
+      />
+    )
+  })
+
+  it("shows a loading element", () => {
+    expect(subject.find(LoadingElement)).toHaveLength(1)
+  })
+
+  it("does not have a dataset details component", () => {
+    expect(subject.find(DatasetDetailView)).toHaveLength(0)
+  })
+})
+
+describe("dataset view for a remote dataset", () => {
+  let subject;
+  beforeEach(() => {
+    subject = shallow(
+      <DatasetView
+        match={{ params: { organizationName: "org", datasetName: "dataset" } }}
+        dataset={{}}
+        location={{ search: "?systemName=org__dataset" }}
+        systemName={"org__dataset"}
+        retrieveDatasetDetails={jest.fn()}
+        setQuery={jest.fn()}
+        clearQuery={jest.fn()}
+        isDatasetLoaded={true}
+        isRemoteDataset={true}
+      />
+    )
+  })
+
+  it("shows a DatasetDetailView", () => {
+    expect(subject.find(DatasetDetailView)).toHaveLength(1)
+  })
+
+  it("does not show tabs", () => {
+    expect(subject.find(Tab)).toHaveLength(0)
+  })
+})
+
+describe("dataset view for a host dataset", () => {
+  let subject;
+  beforeEach(() => {
+    subject = shallow(
+      <DatasetView
+        match={{ params: { organizationName: "org", datasetName: "dataset" } }}
+        dataset={{}}
+        location={{ search: "?systemName=org__dataset" }}
+        systemName={"org__dataset"}
+        retrieveDatasetDetails={jest.fn()}
+        setQuery={jest.fn()}
+        clearQuery={jest.fn()}
+        isDatasetLoaded={true}
+        isHostDataset={true}
+      />
+    )
+  })
+
+  it("shows a DatasetDetailView", () => {
+    expect(subject.find(DatasetDetailView)).toHaveLength(1)
+  })
+
+  it("does not show tabs", () => {
+    expect(subject.find(Tab)).toHaveLength(0)
+  })
+})

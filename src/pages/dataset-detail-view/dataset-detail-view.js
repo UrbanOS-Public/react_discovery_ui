@@ -12,12 +12,7 @@ import DatasetQuality from "../../components/dataset-quality";
 import GeoJSONVisualization from "../../components/visualizations/geojson";
 
 export default class extends Component {
-  componentDidMount() {
-    this.props.retrieveDatasetDetails(
-      this.props.match.params.organizationName,
-      this.props.match.params.datasetName
-    );
-  }
+
 
   componentWillUnmount() {
     this.props.clearDatasetPreview();

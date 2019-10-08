@@ -8,6 +8,7 @@ const SOURCE_TYPE = {
 };
 
 const dataset = state => state.datasetReducer.dataset || {}
+const isDatasetLoaded = state => state.datasetReducer.dataset !== undefined
 const isStreamingDataset = state => dataset(state).sourceType === SOURCE_TYPE.STREAMING
 const isIngestDataset = state => dataset(state).sourceType === SOURCE_TYPE.INGEST
 const isRemoteDataset = state => dataset(state).sourceType === SOURCE_TYPE.REMOTE
@@ -29,6 +30,7 @@ const isGeoJSONDataset = createSelector(
 
 export {
   dataset as getDataset,
+  isDatasetLoaded,
   isStreamingDataset,
   isIngestDataset,
   isRemoteDataset,

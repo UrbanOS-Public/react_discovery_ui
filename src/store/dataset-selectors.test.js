@@ -1,4 +1,4 @@
-import { getDataset, isStreamingDataset, isIngestDataset, isRemoteDataset, isHostDataset, isCsvDataset, isGeoJSONDataset } from "./dataset-selectors"
+import { getDataset, isStreamingDataset, isIngestDataset, isRemoteDataset, isHostDataset, isCsvDataset, isGeoJSONDataset, isDatasetLoaded } from "./dataset-selectors"
 
 describe('datasetSelectors', () => {
     const createState = datasetOpts => {
@@ -17,6 +17,27 @@ describe('datasetSelectors', () => {
 
         const result = getDataset(state)
         expect(result).toEqual(expected)
+    })
+
+    it('getDataset returns {} if dataset is undefined', () => {
+        const state = { datasetReducer: {} }
+
+        const result = getDataset(state)
+        expect(result).toEqual({})
+    })
+
+    it('isDatasetLoaded returns the false if dataset is undefined', () => {
+        const state = { datasetReducer: {} }
+
+        const result = isDatasetLoaded(state)
+        expect(result).toBe(false)
+    })
+
+    it('isDatasetLoaded returns the true if dataset is defined', () => {
+        const state = createState()
+
+        const result = isDatasetLoaded(state)
+        expect(result).toBe(true)
     })
 
     it('isStreamingDataset returns true when sourceType is stream', () => {

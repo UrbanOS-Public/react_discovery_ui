@@ -40,7 +40,7 @@ export default class extends Component {
   }
 
   render() {
-    if (!this.props.dataset) {
+    if (!this.props.isDatasetLoaded) {
       return (
         <dataset-visualization>
           <LoadingElement />
@@ -50,7 +50,7 @@ export default class extends Component {
 
     const systemName = this.props.dataset.systemName;
 
-    if (this.props.isRemoteDataset) {
+    if (this.props.isRemoteDataset || this.props.isHostDataset) {
       return <DatasetDetailView match={this.props.match} />;
     }
 
