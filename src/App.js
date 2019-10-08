@@ -8,8 +8,7 @@ import { reducers } from './store/reducers'
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux'
-import { Auth0Provider, useAuth0 } from "./auth/react-auth0-wrapper";
-import { AuthenticatedHTTPClient } from './utils/http-clients'
+import { Auth0Provider } from "./auth/react-auth0-wrapper";
 
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
@@ -17,6 +16,7 @@ import DataSetListViewWrapper from './pages/dataset-list-view'
 import DatasetView from './pages/dataset-view'
 import LoginView from './pages/login-view'
 import OauthView from './pages/oauth-view'
+import VisualizationView from './pages/visualization-view'
 
 import NetworkLoadingElement from './components/network-loading-element'
 
@@ -40,20 +40,6 @@ const noMatch = () => (
 )
 
 const DiscoveryUI = () => {
-  // with authoprovider
-  //  if (isAuthenticated) {
-    //   let token = await authoprovider.getTokenSilently()
-    //   AuthenticatedHTTPClient.setClient(token)
-  //  }
-  // const auth0 = useAuth0()
-
-  // console.log("before check")
-  // if (auth0.isAuthenticated) {
-  //   console.log("logged in", auth0.token)
-  //   AuthenticatedHTTPClient.setClient(auth0.token)
-  // }
-  // console.log("after check")
-
   return (<main-app-element>
     <NetworkLoadingElement />
     <Router>
@@ -64,6 +50,7 @@ const DiscoveryUI = () => {
         <Route exact path={routes.healthCheck} component={() => <div>Everything is fine</div>} />
         <Route exact path={routes.login} component={LoginView} />
         <Route exact path={routes.oauth} component={OauthView} />
+        <Route exact path={routes.visualizationView} component={VisualizationView} />
         <Route component={noMatch} />
       </Switch>
     </Router>

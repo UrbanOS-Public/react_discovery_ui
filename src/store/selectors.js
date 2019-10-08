@@ -15,7 +15,17 @@ export const getDownloadedDatasetError = state => state.datasetReducer.downloade
 export const getDatasetQueryResult = state => state.queryReducer.datasetQueryResult
 export const getFreestyleQueryText = state => state.queryReducer.freestyleQueryText
 export const getDatasetQueryCancelToken = state => state.queryReducer.cancelToken
+export const selectVisualizationStruct = state => state.visualizationReducer.visualization
+export const selectVisualizationLoading = state => state.visualizationReducer.visualizationLoading
+export const selectVisualizationFailureMessage = state => state.visualizationReducer.visualizationFailureMessage
 
+export const selectVisualization = createSelector(selectVisualizationStruct, selectVisualizationLoading, getFreestyleQueryText, selectVisualizationFailureMessage, (struct, loading, editedQuery, error) => {
+  return Object.assign({}, struct, {
+    loading,
+    error,
+    query: editedQuery || struct.query
+  })
+})
 
 export const getVisualizationDataSources = createSelector(getDatasetQueryResult, data => {
   var dataSources = {}
