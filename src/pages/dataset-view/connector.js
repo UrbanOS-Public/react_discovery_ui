@@ -5,7 +5,7 @@ import {
   freestyleQueryUpdate
 } from "../../store/actions";
 import { getDataset } from "../../store/selectors";
-import { isRemoteDataset } from "../../store/selectors/dataset-selectors.js";
+import { isRemoteDataset } from "../../store/dataset-selectors.js";
 
 const mapStateToProps = state => {
   return {
