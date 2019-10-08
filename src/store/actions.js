@@ -20,6 +20,7 @@ export const QUERY_DATASET = 'QUERY_DATASET'
 export const QUERY_DATASET_SUCCEEDED = 'QUERY_DATASET_SUCCEEDED'
 export const QUERY_DATASET_FAILED = 'QUERY_DATASET_FAILED'
 export const FREESTYLE_QUERY_DATASET = 'FREESTYLE_QUERY_DATASET'
+export const FREESTYLE_QUERY_UPDATE = 'FREESTYLE_QUERY_UPDATE'
 export const QUERY_DATASET_IN_PROGRESS = 'QUERY_DATASET_IN_PROGRESS'
 export const QUERY_DATASET_CANCELLED = 'QUERY_DATASET_CANCELLED'
 
@@ -108,6 +109,10 @@ export const queryDataset = (organizationName, datasetName, format, limit) => ({
 
 export const freestyleQueryDataset = (queryText) => ({
   type: FREESTYLE_QUERY_DATASET, value: { queryText }
+})
+
+export const freestyleQueryUpdate = (queryText) => ({
+  type: FREESTYLE_QUERY_UPDATE, value: { queryText }
 })
 
 export const queryDatasetSucceeded = (message) => ({

@@ -1,4 +1,4 @@
-import reducer from './index'
+import reducer from "./index";
 import {
   SELECT_DATA_LIST,
   DISPLAY_ERROR,
@@ -15,88 +15,101 @@ import {
   QUERY_DATASET_FAILED,
   QUERY_DATASET_CANCELLED,
   FREESTYLE_QUERY_DATASET,
+  FREESTYLE_QUERY_UPDATE,
   CLEAR_DATASET_PREVIEW,
   QUERY_DATASET_IN_PROGRESS
-} from '../actions'
-import datasetListStub from '../../../stubs/dataset-list-stub'
-import datasetStub from '../../../stubs/dataset-details-stub'
+} from "../actions";
+import datasetListStub from "../../../stubs/dataset-list-stub";
+import datasetStub from "../../../stubs/dataset-details-stub";
 
-describe('Dataset Reducer', () => {
-  it('SELECT_DATA_LIST places Dataset list in the state', () => {
+describe("Dataset Reducer", () => {
+  it("SELECT_DATA_LIST places Dataset list in the state", () => {
     let currentState = {
       datasetReducer: {
         total: 0
       }
-    }
-    let newState = reducer(currentState, { type: SELECT_DATA_LIST, value: datasetListStub })
+    };
+    let newState = reducer(currentState, {
+      type: SELECT_DATA_LIST,
+      value: datasetListStub
+    });
 
-    expect(newState.datasetReducer.datasets).toEqual(datasetListStub.results)
-    expect(newState.datasetReducer.total).toEqual(datasetListStub.metadata.totalDatasets)
-  })
+    expect(newState.datasetReducer.datasets).toEqual(datasetListStub.results);
+    expect(newState.datasetReducer.total).toEqual(
+      datasetListStub.metadata.totalDatasets
+    );
+  });
 
-  it('DISPLAY_ERROR sets datasetError to true', () => {
+  it("DISPLAY_ERROR sets datasetError to true", () => {
     let currentState = {
       datasetReducer: {
         datasetError: false
       }
-    }
-    let newState = reducer(currentState, { type: DISPLAY_ERROR })
+    };
+    let newState = reducer(currentState, { type: DISPLAY_ERROR });
 
-    expect(newState.datasetReducer.datasetError).toEqual(true)
-  })
+    expect(newState.datasetReducer.datasetError).toEqual(true);
+  });
 
-  it('DATASET_DETAILS places dataset in the state', () => {
-    let currentState = {}
-    let newState = reducer(currentState, { type: DATASET_DETAILS, value: datasetStub })
+  it("DATASET_DETAILS places dataset in the state", () => {
+    let currentState = {};
+    let newState = reducer(currentState, {
+      type: DATASET_DETAILS,
+      value: datasetStub
+    });
 
-    expect(newState.datasetReducer.dataset).toEqual(datasetStub)
-  })
+    expect(newState.datasetReducer.dataset).toEqual(datasetStub);
+  });
 
-  it('DOWNLOAD_DATASET_SUCCEEDED places downloaded data in state', () => {
-    let currentState = {}
-    const response = { id: 123 }
+  it("DOWNLOAD_DATASET_SUCCEEDED places downloaded data in state", () => {
+    let currentState = {};
+    const response = { id: 123 };
 
-    let newState = reducer(currentState, { type: DOWNLOAD_DATASET_SUCCEEDED, value: response })
+    let newState = reducer(currentState, {
+      type: DOWNLOAD_DATASET_SUCCEEDED,
+      value: response
+    });
 
-    expect(newState.datasetReducer.downloadedDataset).toEqual(response)
-  })
+    expect(newState.datasetReducer.downloadedDataset).toEqual(response);
+  });
 
-  it('QUERY_DATASET_SUCCEEDED places query data in state', () => {
-    let currentState = {}
-    const response = { id: 123 }
+  it("QUERY_DATASET_SUCCEEDED places query data in state", () => {
+    let currentState = {};
+    const response = { id: 123 };
 
-    let newState = reducer(currentState, { type: QUERY_DATASET_SUCCEEDED, value: response })
+    let newState = reducer(currentState, {
+      type: QUERY_DATASET_SUCCEEDED,
+      value: response
+    });
 
-    expect(newState.queryReducer.datasetQueryResult).toEqual(response)
-  })
+    expect(newState.queryReducer.datasetQueryResult).toEqual(response);
+  });
 
-
-
-  describe('CLEAR_DATASET_DETAILS', () => {
+  describe("CLEAR_DATASET_DETAILS", () => {
     const currentState = {
       datasetReducer: {
         dataset: { id: 123 },
         downloadedDataset: { id: 123 }
       }
-    }
-    let newState
+    };
+    let newState;
 
     beforeEach(() => {
-      newState = reducer(currentState, { type: CLEAR_DATASET_DETAILS })
-    })
+      newState = reducer(currentState, { type: CLEAR_DATASET_DETAILS });
+    });
 
-    it('clears dataset', () => {
-      expect(newState.datasetReducer.dataset).toEqual(undefined)
-    })
+    it("clears dataset", () => {
+      expect(newState.datasetReducer.dataset).toEqual(undefined);
+    });
 
-    it('clears downloadedDataset', () => {
-      expect(newState.datasetReducer.downloadedDataset).toEqual(undefined)
-    })
-  })
-})
+    it("clears downloadedDataset", () => {
+      expect(newState.datasetReducer.downloadedDataset).toEqual(undefined);
+    });
+  });
+});
 
-describe('UI Reducer', () => {
-  it('RETRIEVE_DATASET_PREVIEW sets previewLoading to true', () => {
+describe("UI Reducer", () => {
+  it("RETRIEVE_DATASET_PREVIEW sets previewLoading to true", () => {
     let currentState = {
       presentation: {
         previewLoading: false
@@ -104,183 +117,209 @@ describe('UI Reducer', () => {
       queryReducer: {
         isVisualizationQueryLoading: false
       }
-    }
-    let newState = reducer(currentState, { type: RETRIEVE_DATASET_PREVIEW })
+    };
+    let newState = reducer(currentState, { type: RETRIEVE_DATASET_PREVIEW });
 
-    expect(newState.presentation.previewLoading).toEqual(true)
-  })
+    expect(newState.presentation.previewLoading).toEqual(true);
+  });
 
-  it('DATASET_PREIVEW sets previewLoading to false', () => {
+  it("DATASET_PREIVEW sets previewLoading to false", () => {
     let currentState = {
       presentation: {
         previewLoading: true
       }
-    }
-    let newState = reducer(currentState, { type: DATASET_PREVIEW })
+    };
+    let newState = reducer(currentState, { type: DATASET_PREVIEW });
 
-    expect(newState.presentation.previewLoading).toEqual(false)
-  })
+    expect(newState.presentation.previewLoading).toEqual(false);
+  });
 
-  it('DATASET_PREIVEW sets dataset_preivew', () => {
+  it("DATASET_PREIVEW sets dataset_preivew", () => {
     let currentState = {
-      presentation: {
-      }
-    }
+      presentation: {}
+    };
     const expectedData = {
-      firstName: 'Joe',
-      lastName: 'Smith'
-    }
-    let newState = reducer(currentState, { type: DATASET_PREVIEW, value: expectedData })
+      firstName: "Joe",
+      lastName: "Smith"
+    };
+    let newState = reducer(currentState, {
+      type: DATASET_PREVIEW,
+      value: expectedData
+    });
 
-    expect(newState.presentation.dataset_preview).toEqual(expectedData)
-  })
+    expect(newState.presentation.dataset_preview).toEqual(expectedData);
+  });
 
-  it('CLEAR_DATASET_PREVIEW clears out preview data', () => {
+  it("CLEAR_DATASET_PREVIEW clears out preview data", () => {
     let currentState = {
       presentation: {
-        dataset_preview: 'something',
+        dataset_preview: "something",
         previewLoading: true
       }
-    }
+    };
     const expectedData = {
       dataset_preview: undefined,
       previewLoading: false
-    }
-    let newState = reducer(currentState, { type: CLEAR_DATASET_PREVIEW })
+    };
+    let newState = reducer(currentState, { type: CLEAR_DATASET_PREVIEW });
 
-    expect(newState.presentation).toEqual(expectedData)
-  })
+    expect(newState.presentation).toEqual(expectedData);
+  });
 
-  it('LOGIN sets loading to true', () => {
+  it("LOGIN sets loading to true", () => {
     let currentState = {
       presentation: {
         isLoading: false
       }
-    }
-    let newState = reducer(currentState, { type: LOGIN })
+    };
+    let newState = reducer(currentState, { type: LOGIN });
 
-    expect(newState.presentation.isLoading).toEqual(true)
-  })
+    expect(newState.presentation.isLoading).toEqual(true);
+  });
 
-  it('LOGIN_SUCCESS sets lastLoginAttemptFailed to false', () => {
+  it("LOGIN_SUCCESS sets lastLoginAttemptFailed to false", () => {
     let currentState = {
       presentation: {
         lastLoginAttemptFailed: true
       }
-    }
-    let newState = reducer(currentState, { type: LOGIN_SUCCESS })
+    };
+    let newState = reducer(currentState, { type: LOGIN_SUCCESS });
 
-    expect(newState.presentation.lastLoginAttemptFailed).toEqual(false)
-    expect(newState.presentation.isLoading).toEqual(false)
-  })
+    expect(newState.presentation.lastLoginAttemptFailed).toEqual(false);
+    expect(newState.presentation.isLoading).toEqual(false);
+  });
 
-  it('LOGIN_FAILURE sets lastLoginAttemptFailed to true', () => {
+  it("LOGIN_FAILURE sets lastLoginAttemptFailed to true", () => {
     let currentState = {
       presentation: {
         lastLoginAttemptFailed: false
       }
-    }
-    let newState = reducer(currentState, { type: LOGIN_FAILURE })
+    };
+    let newState = reducer(currentState, { type: LOGIN_FAILURE });
 
-    expect(newState.presentation.lastLoginAttemptFailed).toEqual(true)
-    expect(newState.presentation.isLoading).toEqual(false)
-  })
+    expect(newState.presentation.lastLoginAttemptFailed).toEqual(true);
+    expect(newState.presentation.isLoading).toEqual(false);
+  });
 
-  it('QUERY_DATASET sets loading to true', () => {
-    let currentState = { queryReducer: { isVisualizationQueryLoading: false } }
+  it("QUERY_DATASET sets loading to true", () => {
+    let currentState = { queryReducer: { isVisualizationQueryLoading: false } };
 
-    let newState = reducer(currentState, { type: QUERY_DATASET })
+    let newState = reducer(currentState, { type: QUERY_DATASET });
 
-    expect(newState.queryReducer.isVisualizationQueryLoading).toEqual(true)
-  })
+    expect(newState.queryReducer.isVisualizationQueryLoading).toEqual(true);
+  });
 
-  it('QUERY_DATASET_IN_PROGRESS places a cancel token in state', () => {
-    let currentState = {}
-    const response = { token: {} }
+  it("QUERY_DATASET_IN_PROGRESS places a cancel token in state", () => {
+    let currentState = {};
+    const response = { token: {} };
 
-    let newState = reducer(currentState, { type: QUERY_DATASET_IN_PROGRESS, value: response })
+    let newState = reducer(currentState, {
+      type: QUERY_DATASET_IN_PROGRESS,
+      value: response
+    });
 
-    expect(newState.queryReducer.cancelToken).toEqual({ token: {} })
-  })
+    expect(newState.queryReducer.cancelToken).toEqual({ token: {} });
+  });
 
-  it('FREESTYLE_QUERY_DATASET sets isVisualizationQueryLoading to true', () => {
-    let currentState = { queryReducer: { isVisualizationQueryLoading: false } }
+  it("FREESTYLE_QUERY_DATASET sets isVisualizationQueryLoading to true", () => {
+    let currentState = { queryReducer: { isVisualizationQueryLoading: false } };
 
-    let newState = reducer(currentState, { type: FREESTYLE_QUERY_DATASET, value: { queryText: "blah" } })
+    let newState = reducer(currentState, {
+      type: FREESTYLE_QUERY_DATASET,
+      value: { queryText: "blah" }
+    });
 
-    expect(newState.queryReducer.isVisualizationQueryLoading).toEqual(true)
-  })
+    expect(newState.queryReducer.isVisualizationQueryLoading).toEqual(true);
+  });
 
-  it('FREESTYLE_QUERY_DATASET stores query', () => {
-    let currentState = { queryReducer: { isVisualizationQueryLoading: false } }
+  describe("FREESTYLE_QUERY_UPDATE store the query in state", () => {
+    let currentState = { queryReducer: {} };
 
-    let newState = reducer(currentState, { type: FREESTYLE_QUERY_DATASET, value: { queryText: 'select * from foo' } })
+    let newState = reducer(currentState, {
+      type: FREESTYLE_QUERY_UPDATE,
+      value: { queryText: "select * from bar" }
+    });
 
-    expect(newState.queryReducer.freestyleQueryText).toEqual('select * from foo')
-  })
+    expect(newState.queryReducer.freestyleQueryText).toEqual(
+      "select * from bar"
+    );
+  });
 
-
-  describe('QUERY_DATASET_SUCCEEDED', () => {
-    let newState
-
-    beforeEach(() => {
-      const currentState = { queryReducer: { isVisualizationQueryLoading: true } }
-
-      newState = reducer(currentState, { type: QUERY_DATASET_SUCCEEDED, value: { message: 'bad thing' } })
-    })
-
-    it('sets loading to false', () => {
-      expect(newState.queryReducer.isVisualizationQueryLoading).toEqual(false)
-    })
-
-    it('unsets query failure message', () => {
-      expect(newState.queryReducer.queryFailureMessage).toEqual('')
-    })
-  })
-
-  describe('QUERY_DATASET_CANCELLED', () => {
-    let newState
-    let cancelMock
+  describe("QUERY_DATASET_SUCCEEDED", () => {
+    let newState;
 
     beforeEach(() => {
-      cancelMock = jest.fn()
-      const cancelToken = { token: {}, cancel: cancelMock }
+      const currentState = {
+        queryReducer: { isVisualizationQueryLoading: true }
+      };
+
+      newState = reducer(currentState, {
+        type: QUERY_DATASET_SUCCEEDED,
+        value: { message: "bad thing" }
+      });
+    });
+
+    it("sets loading to false", () => {
+      expect(newState.queryReducer.isVisualizationQueryLoading).toEqual(false);
+    });
+
+    it("unsets query failure message", () => {
+      expect(newState.queryReducer.queryFailureMessage).toEqual("");
+    });
+  });
+
+  describe("QUERY_DATASET_CANCELLED", () => {
+    let newState;
+    let cancelMock;
+
+    beforeEach(() => {
+      cancelMock = jest.fn();
+      const cancelToken = { token: {}, cancel: cancelMock };
 
       const currentState = {
-        presentation:
-        {
+        presentation: {
           isVisualizationQueryLoading: true,
           cancelToken: cancelToken
         }
-      }
+      };
 
-      newState = reducer(currentState, { type: QUERY_DATASET_CANCELLED, value: null })
-    })
+      newState = reducer(currentState, {
+        type: QUERY_DATASET_CANCELLED,
+        value: null
+      });
+    });
 
-    it('sets loading to false', () => {
-      expect(newState.queryReducer.isVisualizationQueryLoading).toEqual(false)
-    })
+    it("sets loading to false", () => {
+      expect(newState.queryReducer.isVisualizationQueryLoading).toEqual(false);
+    });
 
-    it('sets query failure message', () => {
-      expect(newState.queryReducer.queryFailureMessage).toEqual('Query Stopped By User')
-    })
-  })
+    it("sets query failure message", () => {
+      expect(newState.queryReducer.queryFailureMessage).toEqual(
+        "Query Stopped By User"
+      );
+    });
+  });
 
-  describe('QUERY_DATASET_FAILED', () => {
-    let newState
+  describe("QUERY_DATASET_FAILED", () => {
+    let newState;
 
     beforeEach(() => {
-      const currentState = { queryReducer: { isVisualizationQueryLoading: true } }
+      const currentState = {
+        queryReducer: { isVisualizationQueryLoading: true }
+      };
 
-      newState = reducer(currentState, { type: QUERY_DATASET_FAILED, value: { message: 'bad thing' } })
-    })
+      newState = reducer(currentState, {
+        type: QUERY_DATASET_FAILED,
+        value: "bad thing"
+      });
+    });
 
-    it('sets loading to false', () => {
-      expect(newState.queryReducer.isVisualizationQueryLoading).toEqual(false)
-    })
+    it("sets loading to false", () => {
+      expect(newState.queryReducer.isVisualizationQueryLoading).toEqual(false);
+    });
 
-    it('sets query failure message', () => {
-      expect(newState.queryReducer.queryFailureMessage).toEqual('bad thing')
-    })
-  })
-})
+    it("sets query failure message", () => {
+      expect(newState.queryReducer.queryFailureMessage).toEqual("bad thing");
+    });
+  });
+});

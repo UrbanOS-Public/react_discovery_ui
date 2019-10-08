@@ -23,6 +23,25 @@ describe('DatasetQuery', () => {
 
   })
 
+  describe('on user editing query', () => {
+    let updateCallback
+    beforeEach(() => {
+      updateCallback = jest.fn()
+      subject = mount(
+        <DatasetQuery
+          onQueryDataset={jest.fn()}
+          onUpdateQuery={updateCallback}
+          freestyleQueryText={defaultQuery}
+          hasUserSubmittedQuery={true}
+          isLoading />)
+      subject.find('textarea').simulate('blur')
+    })
+
+    test('triggers query update callback', () => {
+      expect(updateCallback).toHaveBeenCalled()
+    })
+  })
+
   describe('on user submitted running query', () => {
     let cancelCallback = jest.fn()
     beforeEach(() => {

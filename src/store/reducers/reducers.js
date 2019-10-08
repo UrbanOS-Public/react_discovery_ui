@@ -21,7 +21,8 @@ import {
   QUERY_DATASET_FAILED,
   QUERY_DATASET_IN_PROGRESS,
   QUERY_DATASET_CANCELLED,
-  FREESTYLE_QUERY_DATASET
+  FREESTYLE_QUERY_DATASET,
+  FREESTYLE_QUERY_UPDATE
 } from '../actions'
 
 const defaultDatasetState = {
@@ -121,8 +122,11 @@ const queryReducer = (state = defaultQueryState, action) => {
   switch (action.type) {
     case FREESTYLE_QUERY_DATASET:
       return Object.assign({}, state, {
-        freestyleQueryText: action.value.queryText,
         isVisualizationQueryLoading: true
+      })
+    case FREESTYLE_QUERY_UPDATE:
+      return Object.assign({}, state, {
+        freestyleQueryText: action.value.queryText
       })
     case QUERY_DATASET:
       return Object.assign({}, state, {
@@ -131,7 +135,7 @@ const queryReducer = (state = defaultQueryState, action) => {
     case QUERY_DATASET_SUCCEEDED:
       return Object.assign({}, state, { isVisualizationQueryLoading: false, queryFailureMessage: '', datasetQueryResult: action.value })
     case QUERY_DATASET_FAILED:
-      return Object.assign({}, state, { queryFailureMessage: action.value.message, isVisualizationQueryLoading: false })
+      return Object.assign({}, state, { queryFailureMessage: action.value, isVisualizationQueryLoading: false })
     case QUERY_DATASET_IN_PROGRESS:
       return Object.assign({}, state, { cancelToken: action.value })
     case QUERY_DATASET_CANCELLED:
