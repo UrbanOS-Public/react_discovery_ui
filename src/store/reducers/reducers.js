@@ -21,7 +21,13 @@ import {
   QUERY_DATASET_FAILED,
   QUERY_DATASET_IN_PROGRESS,
   QUERY_DATASET_CANCELLED,
-  FREESTYLE_QUERY_DATASET
+  FREESTYLE_QUERY_DATASET,
+  CREATE_VISUALIZATION,
+  GET_VISUALIZATION,
+  CREATE_VISUALIZATION_SUCCEEDED,
+  GET_VISUALIZATION_SUCCEEDED,
+  CREATE_VISUALIZATION_FAILED,
+  GET_VISUALIZATION_FAILED
 } from '../actions'
 
 const defaultDatasetState = {
@@ -142,10 +148,40 @@ const queryReducer = (state = defaultQueryState, action) => {
   }
 }
 
+const defaultVisualizationState = {
+  visualization: {},
+  visualizationFailureMessage: '',
+  visualizationLoading: false
+}
+const visualizationReducer = (state = defaultVisualizationState, action) => {
+  switch (action.type) {
+    case GET_VISUALIZATION:
+    case CREATE_VISUALIZATION:
+      return Object.assign({}, state, {
+        visualizationLoading: true,
+        visualizationFailureMessage: ''
+      })
+    case CREATE_VISUALIZATION_SUCCEEDED:
+    case GET_VISUALIZATION_SUCCEEDED:
+      return Object.assign({}, state, {
+        visualizationLoading: false,
+        visualization: action.value
+      })
+    case CREATE_VISUALIZATION_FAILED:
+    case GET_VISUALIZATION_FAILED:
+      return Object.assign({}, state, {
+        visualizationLoading: false,
+        visualizationFailureMessage: action.value
+      })
+    default: return state
+  }
+}
+
 const reducers = {
   datasetReducer: datasetReducer,
   presentation: presentationReducer,
-  queryReducer: queryReducer
+  queryReducer: queryReducer,
+  visualizationReducer: visualizationReducer
 }
 
 const combined = combineReducers(reducers)

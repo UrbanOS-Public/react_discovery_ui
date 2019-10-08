@@ -9,30 +9,8 @@ const auth0Options = {
   }
 
 class Auth0Client {
-    constructor() {
-        this.semaphore = false
-    }
-
-    // async getClient() {
-    //     if (!this.client && !this.semaphore) {
-    //         this.semaphore = true
-    //         this.client = await createAuth0Client(auth0Options)
-    //         this.semaphore = false
-    //     } else if (this.semaphore) {
-    //         console.log("bad thing")
-    //         var myTimer = setInterval(() => {
-    //             console.log("in interval")
-    //             if (!this.semaphore) {
-    //                 clearInterval(myTimer)
-    //             }
-    //         }, 100);
-    //         clearInterval(myTimer);
-    //     }
-    //     return this.client
-    // }
     create() {
         if (this.auth0Promise) return this.auth0Promise
-        console.log("initting")
         this.auth0Promise = createAuth0Client(auth0Options)
         return this.auth0Promise
     }
@@ -40,4 +18,4 @@ class Auth0Client {
 
 const auth0Client = new Auth0Client()
 
-export { auth0Client as Auth0Client }
+export default auth0Client

@@ -22,6 +22,12 @@ export const QUERY_DATASET_FAILED = 'QUERY_DATASET_FAILED'
 export const FREESTYLE_QUERY_DATASET = 'FREESTYLE_QUERY_DATASET'
 export const QUERY_DATASET_IN_PROGRESS = 'QUERY_DATASET_IN_PROGRESS'
 export const QUERY_DATASET_CANCELLED = 'QUERY_DATASET_CANCELLED'
+export const GET_VISUALIZATION = 'GET_VISUALIZATION'
+export const GET_VISUALIZATION_SUCCEEDED = 'GET_VISUALIZATION_SUCCEEDED'
+export const GET_VISUALIZATION_FAILED = 'GET_VISUALIZATION_FAILED'
+export const CREATE_VISUALIZATION = 'CREATE_VISUALIZATION'
+export const CREATE_VISUALIZATION_SUCCEEDED = 'CREATE_VISUALIZATION_SUCCEEDED'
+export const CREATE_VISUALIZATION_FAILED = 'CREATE_VISUALIZATION_FAILED'
 
 export const retrieveDataList = (offset, limit, sort, query, facets) => ({
   type: RETRIEVE_DATA_LIST,
@@ -124,4 +130,28 @@ export const queryDatasetInProgress = (message) => ({
 
 export const queryDatasetCancelled = (message) => ({
   type: QUERY_DATASET_CANCELLED, value: message
+})
+
+export const getVisualization = (id) => ({
+  type: GET_VISUALIZATION, value: id
+})
+
+export const getVisualizationSucceeded = (visualization) => ({
+  type: GET_VISUALIZATION_SUCCEEDED, value: visualization
+})
+
+export const getVisualizationFailed = (failureMessage) => ({
+  type: GET_VISUALIZATION_FAILED, value: failureMessage
+})
+
+export const createVisualization = (title, query) => ({
+  type: CREATE_VISUALIZATION, value: {title, query}
+})
+
+export const createVisualizationSucceeded = (visualization) => ({
+  type: CREATE_VISUALIZATION_SUCCEEDED, value: visualization
+})
+
+export const createVisualizationFailed = (failureMessage) => ({
+  type: CREATE_VISUALIZATION_FAILED, value: failureMessage
 })
