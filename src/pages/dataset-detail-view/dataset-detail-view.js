@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { Component, useEffect } from 'react'
 import DatasetDetails from '../../components/dataset-details'
 import DatasetPreview from '../../components/dataset-preview'
 import DatasetMetadata from '../../components/dataset-metadata'
@@ -13,7 +13,8 @@ import GeoJSONVisualization from '../../components/visualizations/geojson'
 
 export default class extends Component {
   componentDidMount() {
-    this.props.retrieveDatasetDetails(this.props.match.params.organizationName, this.props.match.params.datasetName)
+    console.log("mounting the view")
+    this.props.retrieveDatasetDetails(this.props.match.params.organizationName, this.props.match.params.datasetName, )
   }
 
   componentWillUnmount() {
