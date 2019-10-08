@@ -17,6 +17,7 @@ describe("dataset visualization view", () => {
         systemName={"org__dataset"}
         retrieveDatasetDetails={jest.fn()}
         setQuery={jest.fn()}
+        clearQuery={jest.fn()}
       />
     );
   });

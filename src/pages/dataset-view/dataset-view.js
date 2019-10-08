@@ -20,7 +20,7 @@ export default class extends Component {
   }
 
   componentDidMount() {
-    this.props.setQuery("");
+    this.props.clearQuery();
 
     this.props.retrieveDatasetDetails(
       this.props.match.params.organizationName,
