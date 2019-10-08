@@ -10,7 +10,7 @@ import QueryView from '../query-view'
 import ChartView from '../chart-view'
 import LoadingElement from '../../components/generic-elements/loading-element'
 
-const VisualizationView = ({ resetVisualization, getVisualization, visualization, match }) => {
+const VisualizationView = ({ resetVisualization, getVisualization, createVisualization, visualization, match }) => {
   const { id } = match.params
 
   useEffect(() => { resetVisualization() && getVisualization(id) }, [])
@@ -29,6 +29,7 @@ const VisualizationView = ({ resetVisualization, getVisualization, visualization
         <TabList>
           <Tab>Visualize<InlineSVG id='chartIcon' style={{ 'marginLeft': '.3rem' }} svg={chart} height='inherit' width={'25px'} accessibilityDesc='Chart' /></Tab>
           <Tab>Write SQL <InlineSVG id='sqlIcon' svg={sqlIcon} height='14px' width='14px' accessibilityDesc='Sql Icon' /></Tab>
+          <li style={{float: 'right'}} className="react-tabs__tab" onClick={() => createVisualization(visualization.title, visualization.query)}>Save Visualization</li>
         </TabList>
         <TabPanel>
           <ChartView queryText={visualization.query} />

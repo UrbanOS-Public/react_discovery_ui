@@ -3,9 +3,9 @@ import { GET_VISUALIZATION, getVisualizationSucceeded, getVisualizationFailed } 
 import { CREATE_VISUALIZATION, createVisualizationSucceeded, createVisualizationFailed } from '../actions'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 
-function* callEndpoint(clientFunction, endpoint, successAction, failureAction) {
+function* callEndpoint(clientFunction, successAction, failureAction) {
   try {
-    const response = yield call(clientFunction, endpoint)
+    const response = yield call(clientFunction)
     if (response.status === 200) {
       yield put(successAction(response.data))
     } else {
@@ -17,11 +17,11 @@ function* callEndpoint(clientFunction, endpoint, successAction, failureAction) {
 }
 
 function* getVisualization({ value: id }) {
-  yield callEndpoint(AuthenticatedHTTPClient.get, `/api/v1/visualization/${id}`, getVisualizationSucceeded, getVisualizationFailed)
+  yield callEndpoint(() => AuthenticatedHTTPClient.get(`/api/v1/visualization/${id}`), getVisualizationSucceeded, getVisualizationFailed)
 }
 
-function* createVisualization({ value: { query, title } }) {
-  yield callEndpoint(AuthenticatedHTTPClient.post, '/api/v1/visualization', { query, title }, createVisualizationSucceeded, createVisualizationFailed)
+function* createVisualization({ value: visualization }) {
+  yield callEndpoint(() => AuthenticatedHTTPClient.post('/api/v1/visualization', visualization), createVisualizationSucceeded, createVisualizationFailed)
 }
 
 function* getVisualizationSaga() {
