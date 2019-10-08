@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import DatasetView from './dataset-view'
 import { retrieveDatasetDetails, freestyleQueryUpdate } from '../../store/actions'
-import { getDataset } from '../../store/dataset-selectors'
+import { getDataset, isRemoteDataset } from '../../store/dataset-selectors'
 
 const mapStateToProps = state => {
     return {

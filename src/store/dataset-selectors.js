@@ -7,16 +7,12 @@ const SOURCE_TYPE = {
   HOST: "host"
 };
 
-const dataset = state => state.datasetReducer.dataset;
-const isStreamingDataset = state =>
-  dataset(state).sourceType === SOURCE_TYPE.STREAMING;
-const isIngestDataset = state =>
-  dataset(state).sourceType === SOURCE_TYPE.INGEST;
-const isRemoteDataset = state =>
-  dataset(state).sourceType === SOURCE_TYPE.REMOTE;
+const dataset = state => state.datasetReducer.dataset || {}
+const isStreamingDataset = state => dataset(state).sourceType === SOURCE_TYPE.STREAMING
+const isIngestDataset = state => dataset(state).sourceType === SOURCE_TYPE.INGEST
+const isRemoteDataset = state => dataset(state).sourceType === SOURCE_TYPE.REMOTE
 const isHostDataset = state => dataset(state).sourceType === SOURCE_TYPE.HOST;
-const isQueryableDataset = state =>
-  isIngestDataset(state) || isStreamingDataset(state);
+const isQueryableDataset = state => isIngestDataset(state) || isStreamingDataset(state);
 
 const isCsvDataset = createSelector(
   dataset,
