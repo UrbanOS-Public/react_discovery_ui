@@ -1,0 +1,26 @@
+const SOURCE_TYPE = {
+  STREAMING: "stream",
+  INGEST: "ingest",
+  REMOTE: "remote",
+  HOST: "host"
+};
+
+const dataset = state => state.datasetReducer.dataset;
+const isStreamingDataset = state =>
+  dataset(state).sourceType === SOURCE_TYPE.STREAMING;
+const isIngestDataset = state =>
+  dataset(state).sourceType === SOURCE_TYPE.INGEST;
+const isRemoteDataset = state =>
+  dataset(state).sourceType === SOURCE_TYPE.REMOTE;
+const isHostDataset = state => dataset(state).sourceType === SOURCE_TYPE.HOST;
+const isQueryableDataset = state =>
+  isIngestDataset(state) || isStreamingDataset(state);
+
+export {
+  dataset as getDataset,
+  isStreamingDataset,
+  isIngestDataset,
+  isRemoteDataset,
+  isHostDataset,
+  isQueryableDataset
+};
