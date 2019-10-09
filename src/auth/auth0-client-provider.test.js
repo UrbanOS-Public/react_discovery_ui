@@ -1,9 +1,9 @@
 import { default as createAuth0Client } from '@auth0/auth0-spa-js'
-import auth0Client from './auth0-client'
+import auth0ClientProvider from './auth0-client-provider'
 
 jest.mock('@auth0/auth0-spa-js')
 
-describe('auth0-client', () => {
+describe('auth0-client-provider', () => {
   let client
 
   beforeEach(async () => {
@@ -11,7 +11,7 @@ describe('auth0-client', () => {
       .mockReturnValueOnce(Promise.resolve('first-instance'))
       .mockReturnValue(Promise.resolve('another-instance'))
 
-    client = await auth0Client.get()
+    client = await auth0ClientProvider.get()
   })
 
   it('initializes with the correct domain and client ID', () => {
@@ -25,7 +25,7 @@ describe('auth0-client', () => {
 
   describe('retrieving again', () => {
     it('gets the same instance', async () => {
-      const client2 = await auth0Client.get()
+      const client2 = await auth0ClientProvider.get()
 
       expect(client2).toBe(client)
     })

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import Auth0Client from '../auth/auth0-client'
+import Auth0ClientProvider from './auth0-client-provider'
 import axios from 'axios'
 
 const DEFAULT_REDIRECT_CALLBACK = () => {
@@ -31,7 +31,7 @@ export const Auth0Provider = ({
 
   useEffect(() => {
     const initAuth0 = async () => {
-      const auth0FromHook = await Auth0Client.get()
+      const auth0FromHook = await Auth0ClientProvider.get()
       setAuth0(auth0FromHook)
 
       if (window.location.search.includes("code=")) {

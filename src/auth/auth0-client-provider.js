@@ -8,13 +8,13 @@ const auth0Options = {
   redirect_uri: `${window.location.origin}${routes.oauth}`
 }
 
-class Auth0Client {
+class Auth0ClientProvider {
   get() {
     if (!this.auth0Promise) { this.auth0Promise = createAuth0Client(auth0Options) }
     return this.auth0Promise
   }
 }
 
-const auth0Client = new Auth0Client()
+const auth0ClientProvider = new Auth0ClientProvider()
 
-export default auth0Client
+export default auth0ClientProvider
