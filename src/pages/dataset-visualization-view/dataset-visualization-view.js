@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import './dataset-visualization-view.scss'
 import React, { useState } from 'react'
 import sqlIcon from '../../assets/blk-database.svg'
@@ -5,32 +6,15 @@ import InlineSVG from 'react-svg-inline'
 
 import DatasetQueryView from '../dataset-query-view'
 import ChartVisualization from '../../components/visualizations/chart/chart-visualization'
-import DatasetRecommendations from '../../components/dataset-recommendations/dataset-recommendations'
+import DatasetRecommendations from '../../components/dataset-recommendations'
 import { Collapse } from 'react-collapse'
-import LoadingElement from '../../components/generic-elements/loading-element'
 
 
 const DatasetVisualizationView = (props) => {
   const [open, setOpened] = useState(false)
   const toggleOpen = () => { setOpened(!open) }
-  const { systemName, dataSources, queryData, recommendations } = props
-
-  const onInit = () => {
-    props.getRecommendations("SYS_e65d8a26_e157_11e9_af0c_482ae31c4a29")
-  }
-  React.useEffect(onInit, [])
-
-  const isPageLoading = !recommendations
-
-  if (isPageLoading) {
-    console.log("we're loading")
-    return (
-      <dataset-visualization>
-        <LoadingElement />
-      </dataset-visualization>
-    )
-  }
-  console.log('HERES A RECOMMENDATION FOR YOU', recommendations)
+  const { systemName, dataSources, freestyleQueryText, datasetId } = props
+  
   return (
     <dataset-visualization>
       <div className="visualization-header">
@@ -41,15 +25,22 @@ const DatasetVisualizationView = (props) => {
           </button>
         </div>
         <Collapse isOpened={open}>
-          <DatasetQueryView systemName={systemName} freestyleQueryText={props.freestyleQueryText} />
+          <DatasetQueryView systemName={systemName} freestyleQueryText={freestyleQueryText} />
         </Collapse>
       </div>
-      <DatasetRecommendations recommendations={recommendations} />
+      <DatasetRecommendations datasetId={datasetId} />
 
       <ChartVisualization dataSources={dataSources} />
     </dataset-visualization>
   )
 }
 
+DatasetVisualizationView.propTypes = {
+  match: PropTypes.object.isRequired,
+  systemName: PropTypes.string.isRequired,
+  datasetId: PropTypes.string.isRequired,
+  dataSources: PropTypes.object.isRequired,
+  freestyleQueryText: PropTypes.string,
+}
 
 export default DatasetVisualizationView

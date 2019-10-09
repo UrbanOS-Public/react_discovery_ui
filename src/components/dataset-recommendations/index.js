@@ -1,3 +1,3 @@
-import DatasetRecommendations from './dataset-recommendations'
+import Connector from './connector'
 
-export default CollapsableBox
+export default Connector

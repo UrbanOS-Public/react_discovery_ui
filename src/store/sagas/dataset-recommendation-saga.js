@@ -7,6 +7,5 @@ export default function* datasetRecommendationSaga() {
 }
 
 const invokeApiWithParameter = ({ value }) => {
-  console.log("calling api with" + value)
   return apiInvoker({ endpoint: `/api/v1/dataset/${value}/recommendations`, actionator: datasetRecommendationsSucceeded })()
 }

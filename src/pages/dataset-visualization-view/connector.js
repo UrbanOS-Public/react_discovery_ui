@@ -6,15 +6,15 @@ import { datasetRecommendations } from '../../store/actions'
 const mapStateToProps = state => {
   return {
     dataSources: getVisualizationDataSources(state),
-    isLoading: determineIfVisualizationQueryLoading(state),
+    // isLoading: determineIfVisualizationQueryLoading(state),
     freestyleQueryText: getFreestyleQueryText(state),
-    queryData: getDatasetQueryResult(state),
-    recommendations: getDatasetRecommendations(state)
+    // queryData: getDatasetQueryResult(state),
+    // recommendations: getDatasetRecommendations(state)
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  getRecommendations: datasetId => dispatch(datasetRecommendations(datasetId))
+  // getRecommendations: datasetId => dispatch(datasetRecommendations(datasetId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DatasetVisualizationView)

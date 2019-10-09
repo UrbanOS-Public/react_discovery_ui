@@ -2,12 +2,11 @@
 @import '../../styles/variables.scss';
 
 dataset-recommendations {
-  @include custom-element();
+  .recommended-dataset {
+    margin: 0.5em 1em;
 
-  collapsable-box {
-    margin-top: 0px;
+    a {
+      @include link();
+    }
   }
-
-  border: 1px solid $light-grey;
-  width: 100%;
 }

@@ -10,6 +10,7 @@ import DatasetApiDoc from '../../components/dataset-api-doc'
 import StreamingApiDoc from '../../components/streaming-api-doc'
 import DatasetQuality from '../../components/dataset-quality'
 import GeoJSONVisualization from '../../components/visualizations/geojson'
+import DatasetRecommendations from '../../components/dataset-recommendations'
 
 export default class extends Component {
   componentDidMount() {
@@ -47,6 +48,7 @@ export default class extends Component {
           {!isIngest && !isGeoJSON && <div className='static-file-explanation'>This dataset is hosted as a static file and cannot be previewed or queried via the API.</div>}
           {isCsv && isIngest && <DatasetPreview datasetId={dataset.id} />}
           {isStreaming && <StreamingApiDoc dataset={dataset} expanded={streamingExpanded} />}
+          <DatasetRecommendations datasetId={dataset.id} />
           {isGeoJSON && <GeoJSONVisualization datasetId={dataset.id} format={dataset.sourceFormat} />}
           {isIngest && <DatasetApiDoc dataset={dataset} expanded={apiDocExpanded} />}
           {isIngest && <DatasetQuality completeness={dataset.completeness} expanded={false} />}

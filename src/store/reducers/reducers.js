@@ -48,8 +48,6 @@ const datasetReducer = (state = defaultDatasetState, action) => {
         dataset: action.value
       })
     case DATASET_RECOMMENDATIONS_SUCCEEDED:
-      console.log("we're reducing!!!!")
-      console.log(action.value)
       return Object.assign({}, state, {
         recommendations: action.value
       })
