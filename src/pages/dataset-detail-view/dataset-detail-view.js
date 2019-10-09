@@ -13,7 +13,6 @@ import GeoJSONVisualization from '../../components/visualizations/geojson'
 
 export default class extends Component {
   componentDidMount() {
-    console.log("mounting the view")
     this.props.retrieveDatasetDetails(this.props.match.params.organizationName, this.props.match.params.datasetName, )
   }
 
