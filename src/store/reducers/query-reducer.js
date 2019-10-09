@@ -1,4 +1,4 @@
-import { SET_QUERY_TEXT, CLEAR_QUERY_TEXT, SET_QUERY_SUCCESS, SET_QUERY_FAILURE, SET_QUERY_IN_PROGRESS } from "../actions"
+import { SET_QUERY_TEXT, CLEAR_QUERY_TEXT, SET_QUERY_SUCCESS, SET_QUERY_FAILURE, SET_QUERY_IN_PROGRESS, RESET_QUERY } from "../actions"
 
 const defaultQueryState = {
   queryText: "",
@@ -41,6 +41,10 @@ export default (state = defaultQueryState, action) => {
       return Object.assign({}, state, {
         isQueryLoading: true,
         cancelToken: action.cancelToken
+      })
+    case RESET_QUERY:
+      return Object.assign({}, state, {
+        ...defaultQueryState
       })
 
     default:

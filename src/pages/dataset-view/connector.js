@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import DatasetView from './dataset-view'
-import { retrieveDatasetDetails, freestyleQueryUpdate } from '../../store/actions'
+import { retrieveDatasetDetails, resetQuery } from '../../store/actions'
 import { getDataset, isRemoteDataset, isHostDataset, isDatasetLoaded } from '../../store/dataset-selectors'
 
 const mapStateToProps = state => {
@@ -14,8 +14,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     retrieveDatasetDetails: (org_name, dataset_name) => dispatch(retrieveDatasetDetails(org_name, dataset_name)),
-    setQuery: (query) => dispatch(freestyleQueryUpdate(query)),
-    clearQuery: () => dispatch(freestyleQueryUpdate(''))
+    resetQuery: () => dispatch(resetQuery())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DatasetView)

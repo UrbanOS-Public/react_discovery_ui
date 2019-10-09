@@ -55,10 +55,11 @@ export const setQueryFailure = failureMessage => ({
 export const SET_QUERY_IN_PROGRESS = 'SET_QUERY_IN_PROGRESS'
 export const setQueryInProgress = cancelToken => ({ type: SET_QUERY_IN_PROGRESS, cancelToken })
 
-
-
 export const CLEAR_QUERY_DATA = 'CLEAR_QUERY_DATA'
 export const clearQueryData = () => ({ type: CLEAR_QUERY_DATA })
+
+export const RESET_QUERY = 'RESET_QUERY'
+export const resetQuery = () => ({ type: RESET_QUERY })
 
 //-------------------------------------------------------------
 
@@ -147,10 +148,6 @@ export const queryDataset = (organizationName, datasetName, format, limit) => ({
 
 export const freestyleQueryDataset = (queryText) => ({
   type: FREESTYLE_QUERY_DATASET, value: { queryText }
-})
-
-export const freestyleQueryUpdate = (queryText) => ({
-  type: FREESTYLE_QUERY_UPDATE, value: { queryText }
 })
 
 export const queryDatasetSucceeded = (message) => ({
