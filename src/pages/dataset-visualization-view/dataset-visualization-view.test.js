@@ -33,7 +33,8 @@ describe('dataset visualization view', () => {
       runUseEffect()
       subject = shallow(
         <DatasetVisualizationView
-          isLoading={true}
+          queryData={[]}
+          isQueryLoading={true}
           match={routerProps}
           location={{ search: `?systemName=${tableName}` }}
           dataSources={dataSources} />

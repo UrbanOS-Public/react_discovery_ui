@@ -25,10 +25,10 @@ describe("dataset visualization view", () => {
       queryCallback = jest.fn();
       subject = shallow(
         <DatasetQueryView
-          isLoading={true}
+          isQueryLoading={true}
+          isQueryLoaded={false}
           queryData={[]}
-          systemName={tableName}
-          onQueryDataset={queryCallback}
+          executeQuery={queryCallback}
           dataSources={dataSources}
         />
       );
@@ -46,10 +46,9 @@ describe("dataset visualization view", () => {
 
       subject = shallow(
         <DatasetQueryView
-          isLoading={false}
+          isQueryLoading={false}
           queryData={[{ data: {} }]}
-          systemName={tableName}
-          onQueryDataset={queryCallback}
+          executeQuery={queryCallback}
           dataSources={dataSources}
         />
       );
@@ -59,47 +58,31 @@ describe("dataset visualization view", () => {
       expect(subject.find(LoadingElement).length).toEqual(0);
     });
 
-    describe("onQueryDataset handler", () => {
+    describe("executeQuery", () => {
       const newText = "SELECT * FROM great_org__awesome_dataset LIMIT 55";
 
       beforeEach(() => {
         subject
           .find(DatasetQuery)
           .props()
-          .onQueryDataset(newText);
-      });
+          .executeQuery(newText);
+      })
 
       test("runs query", () => {
         expect(queryCallback).toHaveBeenCalledWith(newText);
-      });
+      })
+    })
+  })
 
-      test("sets hasUserSubmittedQuery to true", () => {
-        const actual = subject.find(DatasetQuery).props().hasUserSubmittedQuery;
-        expect(actual).toBeTruthy();
-      });
-
-      test("once hasUserSubmittedQuery has been set to true it stays true", () => {
-        subject
-          .find(DatasetQuery)
-          .props()
-          .onQueryDataset(newText);
-
-        const actual = subject.find(DatasetQuery).props().hasUserSubmittedQuery;
-        expect(actual).toBeTruthy();
-      });
-    });
-  });
-
-  test("when user has submitted query, full page loading should not render", () => {
+  it("should not render full page loading when user has submitted query", () => {
     runUseEffect();
     queryCallback = jest.fn();
 
     subject = shallow(
       <DatasetQueryView
-        isLoading={false}
+        isQueryLoading={false}
         queryData={[{ data: {} }]}
-        systemName={tableName}
-        onQueryDataset={queryCallback}
+        executeQuery={queryCallback}
         dataSources={dataSources}
       />
     );
@@ -107,9 +90,9 @@ describe("dataset visualization view", () => {
     subject
       .find(DatasetQuery)
       .props()
-      .onQueryDataset("SELECT * FROM sky");
-    subject.setProps({ isLoading: true });
+      .executeQuery("SELECT * FROM sky");
+    subject.setProps({ isQueryLoading: true });
 
     expect(subject.find(LoadingElement).length).toEqual(0);
-  });
+  })
 });

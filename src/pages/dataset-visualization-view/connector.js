@@ -1,11 +1,12 @@
 import { connect } from 'react-redux'
 import DatasetVisualizationView from './dataset-visualization-view'
 import { getVisualizationDataSources, getDatasetQueryResult, determineIfVisualizationQueryLoading, getFreestyleQueryText } from '../../store/selectors'
+import { getQueryIsLoading } from '../../store/query-selectors'
 
 const mapStateToProps = state => {
   return {
     dataSources: getVisualizationDataSources(state),
-    isLoading: determineIfVisualizationQueryLoading(state),
+    isQueryLoading: getQueryIsLoading(state),
     freestyleQueryText: getFreestyleQueryText(state),
     queryData: getDatasetQueryResult(state)
   }

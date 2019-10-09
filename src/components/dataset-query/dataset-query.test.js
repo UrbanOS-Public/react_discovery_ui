@@ -11,10 +11,10 @@ describe('DatasetQuery', () => {
       queryCallback = jest.fn()
       subject = mount(
         <DatasetQuery
-          onQueryDataset={queryCallback}
-          freestyleQueryText={defaultQuery}
-          hasUserSubmittedQuery={false}
-          isLoading />)
+          executeQuery={queryCallback}
+          queryText={defaultQuery}
+          isQueryLoaded={false}
+          isQueryLoading={true} />)
     })
 
     test('shows loading component', () => {
@@ -29,11 +29,11 @@ describe('DatasetQuery', () => {
       updateCallback = jest.fn()
       subject = mount(
         <DatasetQuery
-          onQueryDataset={jest.fn()}
-          onUpdateQuery={updateCallback}
-          freestyleQueryText={defaultQuery}
-          hasUserSubmittedQuery={true}
-          isLoading />)
+          executeQuery={jest.fn()}
+          setQueryText={updateCallback}
+          queryText={defaultQuery}
+          isQueryLoaded={true}
+          isQueryLoading />)
       subject.find('textarea').simulate('blur')
     })
 
@@ -48,11 +48,11 @@ describe('DatasetQuery', () => {
       queryCallback = jest.fn()
       subject = mount(
         <DatasetQuery
-          onQueryDataset={queryCallback}
-          freestyleQueryText={defaultQuery}
-          hasUserSubmittedQuery={true}
-          onCancelQuery={cancelCallback}
-          isLoading />)
+          executeQuery={queryCallback}
+          queryText={defaultQuery}
+          isQueryLoaded={true}
+          cancelQuery={cancelCallback}
+          isQueryLoading />)
     })
 
     test('shows loading component', () => {
@@ -86,18 +86,18 @@ describe('DatasetQuery', () => {
       const queryCallback = jest.fn()
       subject = mount(
         <DatasetQuery
-          onQueryDataset={queryCallback}
-          freestyleQueryText={defaultQuery}
-          hasUserSubmittedQuery={true}
-          onCancelQuery={cancelCallback}
-          isLoading={true} />)
+          executeQuery={queryCallback}
+          queryText={defaultQuery}
+          isQueryLoaded={true}
+          cancelQuery={cancelCallback}
+          isQueryLoading={true} />)
 
       getButton(subject, 'Cancel').simulate('click')
       subject.setProps({ queryFailureMessage: 'User has cancelled query.' })
     })
 
     test('cancelling the query sets the cancelled state to true', () => {
-      subject.setProps({ isLoading: false })
+      subject.setProps({ isQueryLoading: false })
       expect(subject.find('.error-message').text()).toEqual('Your query has been stopped')
     })
 
@@ -114,10 +114,10 @@ describe('DatasetQuery', () => {
       queryCallback = jest.fn()
       subject = mount(
         <DatasetQuery
-          onQueryDataset={queryCallback}
-          isLoading={false}
-          freestyleQueryText={defaultQuery}
-          hasUserSubmittedQuery={false} />)
+          executeQuery={queryCallback}
+          isQueryLoading={false}
+          queryText={defaultQuery}
+          isQueryLoaded={false} />)
     })
 
     test('do not show success text', () => {
@@ -149,10 +149,10 @@ describe('DatasetQuery', () => {
       queryCallback = jest.fn()
       subject = mount(
         <DatasetQuery
-          onQueryDataset={queryCallback}
-          isLoading={false}
-          freestyleQueryText={defaultQuery}
-          hasUserSubmittedQuery={true} />)
+          executeQuery={queryCallback}
+          isQueryLoading={false}
+          queryText={defaultQuery}
+          isQueryLoaded={true} />)
     })
 
     test('calls the submit handler on click of the submit button', () => {
@@ -180,11 +180,11 @@ describe('DatasetQuery', () => {
       queryCallback = jest.fn()
       subject = mount(
         <DatasetQuery
-          onQueryDataset={jest.fn()}
-          freestyleQueryText={defaultQuery}
+          executeQuery={jest.fn()}
+          queryText={defaultQuery}
           queryFailureMessage='the bad thing happened'
-          hasUserSubmittedQuery={false}
-          isLoading={false} />)
+          isQueryLoaded={false}
+          isQueryLoading={false} />)
     })
 
     test('shows error message', () => {

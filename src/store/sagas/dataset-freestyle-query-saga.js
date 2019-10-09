@@ -4,7 +4,8 @@ import { getDatasetQueryCancelToken } from '../selectors'
 import axios from 'axios'
 
 function* executeQuery({ queryText }) {
-  const cancelToken = axios.CancelToken.source()
+  const CancelToken = axios.CancelToken
+  const cancelToken = CancelToken.source()
   yield put(setQueryInProgress(cancelToken))
   try {
     const response = yield call(
@@ -12,7 +13,7 @@ function* executeQuery({ queryText }) {
       '/api/v1/query',
       queryText,
       {
-        cancelToken,
+        cancelToken: cancelToken.token,
         baseURL: window.API_HOST,
         withCredentials: true,
         headers: { "Content-Type": "text/plain" },

@@ -13,7 +13,7 @@ const DatasetVisualizationView = (props) => {
   const toggleOpen = () => { setOpened(!open) }
   const { systemName, dataSources, queryData } = props
 
-  const isPageLoading = props.isLoading && !queryData
+  const isPageLoading = props.isQueryLoading && (queryData.length === 0)
 
   if (isPageLoading) {
     return (
@@ -33,7 +33,7 @@ const DatasetVisualizationView = (props) => {
           </button>
         </div>
         <Collapse isOpened={open}>
-          <DatasetQueryView systemName={systemName} freestyleQueryText={props.freestyleQueryText} />
+          <DatasetQueryView systemName={systemName} />
         </Collapse>
       </div>
       <ChartVisualization dataSources={dataSources} />
