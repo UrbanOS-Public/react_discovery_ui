@@ -2,7 +2,7 @@ import { SET_QUERY_TEXT, CLEAR_QUERY_TEXT, SET_QUERY_SUCCESS, SET_QUERY_FAILURE,
 
 const defaultQueryState = {
   queryText: "",
-  queryData: [],
+  queryData: null,
   queryFailureMessage: "",
   isQueryLoading: false,
   isQueryLoaded: false,
