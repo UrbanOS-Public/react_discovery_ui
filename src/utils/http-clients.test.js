@@ -1,67 +1,88 @@
-import { AuthenticatedHTTPClient } from "./http-clients"
-import createAuth0Client from '@auth0/auth0-spa-js'
-import axios from 'axios'
-
-jest.mock('@auth0/auth0-spa-js', () => {
-  return jest.fn(() => ({
-    isAuthenticated: jest.fn(),
-    handleRedirectCallback: jest.fn(() => Promise.resolve({})),
-    getTokenSilently: jest.fn(() => Promise.resolve('long-token-from-auth0'))
-  }))
-})
-jest.mock('axios')
+import { AuthenticatedHTTPClient } from './http-clients'
+import Auth0Client from './auth0-client'
+import mockAxios from 'axios'
 
 describe('http-clients', () => {
+  const url = '/api/v1/dog'
+
   describe('AuthenticatedHTTPClient', () => {
+    const token = 'token'
+    let fakeAuth0Client = {
+      isAuthenticated: (() => Promise.resolve(false)),
+      getTokenSilently: (() => Promise.resolve(token))
+    }
+    beforeEach(() => {
+      Auth0Client.get = jest.fn(() => Promise.resolve(fakeAuth0Client))
+    })
+
     describe('.get', () => {
-      describe('given a token available in auth0', () => {
-        let authenticatedClient
+      it('given a custom config, it passes it along to axios', async () => {
+        const config = {myCustomConfig: true}
 
-        beforeEach(() => {
-          
-          authenticatedClient = AuthenticatedHTTPClient.getClient()
-        })
+        await AuthenticatedHTTPClient.get(url, config)
 
-        it('defaults the base url to the value in global config', () => {
-          expect(authenticatedClient.defaults.baseUrl).not.toBe(undefined)
-          expect(authenticatedClient.defaults.baseUrl).toBe(window.BASE_URL)
-        })
-
-        it('does not set the client to send cross-domain auth headers, etc.', () => {
-          expect(authenticatedClient.defaults.withCredentials).not.toBe(true)
-        })
-
-        // TODO - we need to maybe not do the default mock of axios anymore, as it makes life hard :/
-        it('does not set an auth header', () => {
-          expect(authenticatedClient.defaults.headers).toBe(undefined)
-        })
+        expect(mockAxios.get).toHaveBeenCalledWith(url, config)
       })
-      describe('given a token stored in local storage', () => {
-        let authenticatedClient
-        const JWT = '123456789'
+      it('given no custom config, it defaults the config passed to axios', async () => {
+        await AuthenticatedHTTPClient.get(url)
 
-        beforeEach(() => {
-          window.localStorage.getItem = jest.fn(_ => JWT)
-          authenticatedClient = AuthenticatedHTTPClient.getClient()
+        expect(mockAxios.get).toHaveBeenCalledWith(url, {})
+      })
+    })
+
+    describe('.post', () => {
+      const body = {stuff: true}
+      it('given a custom config, it passes it along to axios', async () => {
+        const config = {myCustomConfig: true}
+
+        await AuthenticatedHTTPClient.post(url, body, config)
+
+        expect(mockAxios.post).toHaveBeenCalledWith(url, body, config)
+      })
+      it('given no custom config, it defaults the config passed to axios', async () => {
+        await AuthenticatedHTTPClient.post(url, body)
+
+        expect(mockAxios.post).toHaveBeenCalledWith(url, body, {})
+      })
+    })
+    
+    describe('.initializeClient', () => {
+      let client
+
+      describe('isAuthenticated is true', () => {
+        beforeEach(async () => {
+          fakeAuth0Client.isAuthenticated = (() => Promise.resolve(true))
+          client = await AuthenticatedHTTPClient.initializeClient()
         })
 
         it('defaults the base url to the value in global config', () => {
-          expect(authenticatedClient.defaults.baseUrl).not.toBe(undefined)
-          expect(authenticatedClient.defaults.baseUrl).toBe(window.BASE_URL)
+          expect(client.defaults.baseURL).not.toBe(undefined)
+          expect(client.defaults.baseURL).toBe(window.API_HOST)
         })
 
         it('sets the client to send cross-domain auth headers, etc.', () => {
-          expect(authenticatedClient.defaults.withCredentials).toBe(true)
+          expect(client.defaults.withCredentials).toBeTruthy()
         })
 
-        // TODO - we need to maybe not do the default mock of axios anymore, as it makes life hard :/
-        it('sets the auth header with the token', () => {
-          expect(authenticatedClient.defaults.headers['Authorization']).toBe(`Bearer ${JWT}`)
+        it('sends an auth header', () => {
+          expect(client.defaults.headers['Authorization']).toBe(`Bearer ${token}`)
+        })
+      })
+
+      describe('isAuthenticated is false', () => {        
+        beforeEach(async () => {
+          fakeAuth0Client.isAuthenticated = (() => Promise.resolve(false))
+          client = await AuthenticatedHTTPClient.initializeClient()
+        })
+
+        it('sets the client to send cross-domain auth headers, etc.', () => {
+          expect(client.defaults.withCredentials).toBeFalsy()
+        })
+
+        it('sends an auth header', () => {
+          expect(client.defaults.headers['Authorization']).toBe(undefined)
         })
       })
     })
-  })
-  describe('HTTPClient', () => {
-
   })
 })

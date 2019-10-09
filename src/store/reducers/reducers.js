@@ -122,7 +122,7 @@ const presentationReducer = (state = defaultPresentationState, action) => {
 
 const defaultQueryState = {
   isVisualizationQueryLoading: false,
-  queryFailureMessage: "",
+  queryFailureMessage: '',
   freestyleQueryText: ''
 }
 const queryReducer = (state = defaultQueryState, action) => {

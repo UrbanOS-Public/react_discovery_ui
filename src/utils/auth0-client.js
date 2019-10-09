@@ -9,7 +9,7 @@ const auth0Options = {
   }
 
 class Auth0Client {
-    create() {
+    get() {
         if (this.auth0Promise) return this.auth0Promise
         this.auth0Promise = createAuth0Client(auth0Options)
         return this.auth0Promise

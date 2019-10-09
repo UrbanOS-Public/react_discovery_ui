@@ -17,7 +17,7 @@ describe('dataset list view', () => {
       subject.instance().fetchData(2, 10, "name_desc", "newsearch", [{ "keyword": "bob" }], true)
 
       expect(mockAxios.get).toHaveBeenCalledWith('/api/v1/dataset/search', {
-        baseURL: undefined,
+        baseURL: window.API_HOST,
         params: {
           facets: [{ "keyword": "bob" }],
           offset: 10,
