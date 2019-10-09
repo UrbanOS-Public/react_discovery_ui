@@ -2,16 +2,9 @@ import { mount } from 'enzyme'
 import { act } from 'react-dom/test-utils'
 import axios from 'axios'
 import { Auth0Provider } from './react-auth0-wrapper'
-import createAuth0Client from '@auth0/auth0-spa-js'
+import { default as createAuth0Client } from '@auth0/auth0-spa-js'
 
-jest.mock('@auth0/auth0-spa-js', () => {
-  return jest.fn(() => ({
-    isAuthenticated: jest.fn(),
-    handleRedirectCallback: jest.fn(() => Promise.resolve({})),
-    getTokenSilently: jest.fn(() => Promise.resolve('long-token-from-auth0'))
-  }))
-})
-
+jest.mock('@auth0/auth0-spa-js')
 jest.mock('axios')
 
 const originalError = console.error
@@ -30,6 +23,17 @@ afterAll(() => {
 })
 
 describe('auth0 wrapper', () => {
+  const token = 'for-the-subway'
+  
+  beforeEach(() => {
+    createAuth0Client.mockImplementation(() => ({
+        isAuthenticated: jest.fn(() => Promise.resolve(false)),
+        handleRedirectCallback: jest.fn(() => Promise.resolve({})),
+        getTokenSilently: jest.fn(() => Promise.resolve(token))
+      })
+    )
+  })
+
   it('initializes with the correct domain and client ID', done => {
     act(() => {
       mount(<Auth0Provider />)
@@ -61,7 +65,7 @@ describe('auth0 wrapper', () => {
           '',
           {
             baseURL: window.API_HOST,
-            headers: { Authorization: 'Bearer long-token-from-auth0' },
+            headers: { Authorization: `Bearer ${token}` },
             withCredentials: true
           }
         )
