@@ -1,7 +1,7 @@
 import './chart-view.scss'
 import React, { useState } from 'react'
-import sqlIcon from '../../assets/blk-database.svg'
-import InlineSVG from 'react-svg-inline'
+
+import SQLIcon from '../../components/generic-elements/sql-icon'
 
 import QueryView from '../query-view'
 import ChartVisualization from '../../components/visualizations/chart/chart-visualization'
@@ -29,7 +29,7 @@ const ChartView = (props) => {
         <div className="header">
           <button className='button query-button' onClick={toggleOpen}>
             {open ? 'HIDE QUERY' : 'EDIT QUERY'}
-            <InlineSVG id='sqlIcon' svg={sqlIcon} height='14px' width='14px' accessibilityDesc='Sql Icon' />
+            <SQLIcon className='sqlIcon' />
           </button>
         </div>
         <Collapse isOpened={open}>

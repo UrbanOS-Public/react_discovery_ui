@@ -19,12 +19,16 @@ export const selectVisualizationStruct = state => state.visualizationReducer.vis
 export const selectVisualizationLoading = state => state.visualizationReducer.visualizationLoading
 export const selectVisualizationFailureMessage = state => state.visualizationReducer.visualizationFailureMessage
 
-export const selectVisualization = createSelector(selectVisualizationStruct, selectVisualizationLoading, getFreestyleQueryText, selectVisualizationFailureMessage, (visualization, loading, localVersionOfQuery, error) => {
-  return Object.assign({}, visualization, {
-    loading,
-    error,
-    query: localVersionOfQuery || visualization.query
-  })
+export const selectVisualization = createSelector(selectVisualizationStruct, selectVisualizationLoading, getFreestyleQueryText, selectVisualizationFailureMessage, (visualization, loading, locallyEditedQuery, error) => {
+  return Object.assign(
+    {},
+    visualization,
+    {
+      loading,
+      error,
+      query: locallyEditedQuery || visualization.query
+    }
+  )
 })
 
 export const getVisualizationDataSources = createSelector(getDatasetQueryResult, data => {
