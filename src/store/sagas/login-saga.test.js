@@ -4,8 +4,6 @@ import mockAxios from 'axios'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
-jest.mock('axios')
-
 describe('login-saga', () => {
   let store
   let sagaMiddleware

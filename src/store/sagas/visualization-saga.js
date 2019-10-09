@@ -1,27 +1,27 @@
 import { takeEvery, put, call, fork, all } from 'redux-saga/effects'
-import { GET_VISUALIZATION, getVisualizationSucceeded, getVisualizationFailed } from '../actions'
-import { CREATE_VISUALIZATION, createVisualizationSucceeded, createVisualizationFailed } from '../actions'
+import { GET_VISUALIZATION, CREATE_VISUALIZATION, visualizationAvailable, visualizationUnavailable } from '../actions'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 
-function* callEndpoint(clientFunction, successAction, failureAction) {
+function* callEndpoint(clientFunction) {
   try {
     const response = yield call(clientFunction)
+    
     if (response.status === 200) {
-      yield put(successAction(response.data))
+      yield put(visualizationAvailable(response.data))
     } else {
-      yield put(failureAction(response.data))
+      yield put(visualizationUnavailable(response.status))
     }
   } catch (e) {
-    yield put(failureAction(e.message))
+    yield put(visualizationUnavailable(e.message))
   }
 }
 
 function* getVisualization({ value: id }) {
-  yield callEndpoint(() => AuthenticatedHTTPClient.get(`/api/v1/visualization/${id}`), getVisualizationSucceeded, getVisualizationFailed)
+  yield callEndpoint(() => AuthenticatedHTTPClient.get(`/api/v1/visualization/${id}`))
 }
 
 function* createVisualization({ value: visualization }) {
-  yield callEndpoint(() => AuthenticatedHTTPClient.post('/api/v1/visualization', visualization), createVisualizationSucceeded, createVisualizationFailed)
+  yield callEndpoint(() => AuthenticatedHTTPClient.post('/api/v1/visualization', visualization))
 }
 
 function* getVisualizationSaga() {
@@ -31,6 +31,8 @@ function* getVisualizationSaga() {
 function* createVisualizationSaga() {
   yield takeEvery(CREATE_VISUALIZATION, createVisualization)
 }
+
+export { getVisualizationSaga, createVisualizationSaga }
 
 export default function* visualizationSaga() {
   yield all([

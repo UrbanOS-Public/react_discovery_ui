@@ -24,10 +24,8 @@ import {
   FREESTYLE_QUERY_DATASET,
   CREATE_VISUALIZATION,
   GET_VISUALIZATION,
-  CREATE_VISUALIZATION_SUCCEEDED,
-  GET_VISUALIZATION_SUCCEEDED,
-  CREATE_VISUALIZATION_FAILED,
-  GET_VISUALIZATION_FAILED,
+  VISUALIZATION_AVAILABLE,
+  VISUALIZATION_UNAVAILABLE,
   RESET_VISUALIZATION
 } from '../actions'
 
@@ -152,7 +150,7 @@ const queryReducer = (state = defaultQueryState, action) => {
 
 const defaultVisualizationState = {
   visualization: {},
-  visualizationFailureMessage: '',
+  visualizationErrorMessage: '',
   visualizationLoading: false
 }
 const visualizationReducer = (state = defaultVisualizationState, action) => {
@@ -161,19 +159,17 @@ const visualizationReducer = (state = defaultVisualizationState, action) => {
     case CREATE_VISUALIZATION:
       return Object.assign({}, state, {
         visualizationLoading: true,
-        visualizationFailureMessage: ''
+        visualizationErrorMessage: ''
       })
-    case CREATE_VISUALIZATION_SUCCEEDED:
-    case GET_VISUALIZATION_SUCCEEDED:
+    case VISUALIZATION_AVAILABLE:
       return Object.assign({}, state, {
         visualizationLoading: false,
         visualization: action.value
       })
-    case CREATE_VISUALIZATION_FAILED:
-    case GET_VISUALIZATION_FAILED:
+    case VISUALIZATION_UNAVAILABLE:
       return Object.assign({}, state, {
         visualizationLoading: false,
-        visualizationFailureMessage: action.value
+        visualizationErrorMessage: action.value
       })
     case RESET_VISUALIZATION:
       return defaultVisualizationState

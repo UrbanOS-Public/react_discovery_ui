@@ -1,5 +1,5 @@
 import { AuthenticatedHTTPClient } from './http-clients'
-import Auth0Client from './auth0-client'
+import Auth0Client from '../auth/auth0-client'
 import mockAxios from 'axios'
 
 describe('http-clients', () => {

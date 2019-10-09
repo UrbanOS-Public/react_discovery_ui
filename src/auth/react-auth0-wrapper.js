@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import Auth0Client from '../utils/auth0-client'
+import Auth0Client from '../auth/auth0-client'
 import axios from 'axios'
 
 const DEFAULT_REDIRECT_CALLBACK = () => {

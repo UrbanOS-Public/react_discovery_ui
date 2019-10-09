@@ -22,13 +22,6 @@ export const QUERY_DATASET_FAILED = 'QUERY_DATASET_FAILED'
 export const FREESTYLE_QUERY_DATASET = 'FREESTYLE_QUERY_DATASET'
 export const QUERY_DATASET_IN_PROGRESS = 'QUERY_DATASET_IN_PROGRESS'
 export const QUERY_DATASET_CANCELLED = 'QUERY_DATASET_CANCELLED'
-export const GET_VISUALIZATION = 'GET_VISUALIZATION'
-export const GET_VISUALIZATION_SUCCEEDED = 'GET_VISUALIZATION_SUCCEEDED'
-export const GET_VISUALIZATION_FAILED = 'GET_VISUALIZATION_FAILED'
-export const CREATE_VISUALIZATION = 'CREATE_VISUALIZATION'
-export const CREATE_VISUALIZATION_SUCCEEDED = 'CREATE_VISUALIZATION_SUCCEEDED'
-export const CREATE_VISUALIZATION_FAILED = 'CREATE_VISUALIZATION_FAILED'
-export const RESET_VISUALIZATION = 'RESET_VISUALIZATION'
 
 export const retrieveDataList = (offset, limit, sort, query, facets) => ({
   type: RETRIEVE_DATA_LIST,
@@ -133,30 +126,27 @@ export const queryDatasetCancelled = (message) => ({
   type: QUERY_DATASET_CANCELLED, value: message
 })
 
+export const GET_VISUALIZATION = 'GET_VISUALIZATION'
 export const getVisualization = (id) => ({
   type: GET_VISUALIZATION, value: id
 })
 
-export const getVisualizationSucceeded = (visualization) => ({
-  type: GET_VISUALIZATION_SUCCEEDED, value: visualization
-})
-
-export const getVisualizationFailed = (failureMessage) => ({
-  type: GET_VISUALIZATION_FAILED, value: failureMessage
-})
-
+export const CREATE_VISUALIZATION = 'CREATE_VISUALIZATION'
 export const createVisualization = (title, query) => ({
   type: CREATE_VISUALIZATION, value: {title, query}
 })
 
-export const createVisualizationSucceeded = (visualization) => ({
-  type: CREATE_VISUALIZATION_SUCCEEDED, value: visualization
+export const VISUALIZATION_AVAILABLE = 'VISUALIZATION_AVAILABLE'
+export const visualizationAvailable = (visualization) => ({
+  type: VISUALIZATION_AVAILABLE, value: visualization
 })
 
-export const createVisualizationFailed = (failureMessage) => ({
-  type: CREATE_VISUALIZATION_FAILED, value: failureMessage
+export const VISUALIZATION_UNAVAILABLE = 'VISUALIZATION_UNAVAILABLE'
+export const visualizationUnavailable = (errorMessage) => ({
+  type: VISUALIZATION_UNAVAILABLE, value: errorMessage
 })
 
+export const RESET_VISUALIZATION = 'RESET_VISUALIZATION'
 export const resetVisualization = () => ({
   type: RESET_VISUALIZATION
 })

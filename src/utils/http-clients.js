@@ -1,5 +1,5 @@
 import axios from 'axios'
-import Auth0Client from './auth0-client'
+import Auth0Client from '../auth/auth0-client'
 
 class AuthenticatedHTTPClient {
   static async initializeClient() {
