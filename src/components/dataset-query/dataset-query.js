@@ -4,32 +4,43 @@ import './dataset-query.scss'
 import LoadingElement from '../generic-elements/loading-element';
 
 
-const DatasetQuery = ({ freestyleQueryText, onQueryDataset, onUpdateQuery, onCancelQuery, queryFailureMessage, isLoading, hasUserSubmittedQuery }) => {
-  const [queryText, setQueryTextRaw] = useState(freestyleQueryText)
-  const [hasUserClickedCancelQuery, setHasUserClickedCancelQuery] = useState(false)
+const DatasetQuery = props => {
+  const {
+    queryText,
+    isQueryLoading,
+    isQueryLoaded,
+    queryFailureMessage,
+
+    executeQuery,
+    cancelQuery,
+    setQueryText
+  } = props
+
+  const [localQueryText, setLocalQueryText] = useState(queryText)
+  const [isCancelled, setIsCancelled] = useState(false)
+
+  React.useEffect(() => {
+    setLocalQueryText(queryText);
+  }, [queryText])
 
   const submit = () => {
-    onQueryDataset(queryText)
-    setHasUserClickedCancelQuery(false)
+    // I'd like to use the Redux queryText here, but this way makes a test pass -JBP 10/9/2019
+    executeQuery(localQueryText)
+    setIsCancelled(false)
   }
 
   const cancel = () => {
-    onCancelQuery()
-    setHasUserClickedCancelQuery(true)
+    cancelQuery()
+    setIsCancelled(true)
   }
 
-  const setQueryText = (e) => setQueryTextRaw(e.target.value)
-  const updateQueryText = (e) => onUpdateQuery(e.target.value)
-  const errorText = hasUserClickedCancelQuery ? 'Your query has been stopped' : 'Query failure.  There may be a syntax issue.'
+  const updateLocalQueryText = e => setLocalQueryText(e.target.value)
+  const updateReduxQueryText = (e) => setQueryText(e.target.value)
+  const errorText = isCancelled ? 'Your query has been stopped' : 'Query failure.  There may be a syntax issue.'
 
-  // Populate the text box after the page has rendered
-  React.useEffect(() => {
-    setQueryTextRaw(freestyleQueryText);
-  }, [freestyleQueryText])
-
-  const textArea = <textarea rows={5} type='text' value={queryText} onBlur={updateQueryText} onChange={setQueryText} className='query-input' />
-  const submitButton = <button className="action-button" disabled={isLoading} onClick={submit}>Submit</button>
-  const cancelButton = <button className="action-button" disabled={!isLoading} onClick={cancel}>Cancel</button>
+  const textArea = <textarea rows={5} type='text' value={localQueryText} onBlur={updateReduxQueryText} onChange={updateLocalQueryText} className='query-input' />
+  const submitButton = <button className="action-button" disabled={isQueryLoading} onClick={submit}>Submit</button>
+  const cancelButton = <button className="action-button" disabled={!isQueryLoading} onClick={cancel}>Cancel</button>
   const errorMessage = <span className='error-message'>{errorText}</span>
   const successMessage = (
     <span className='success-message'>
@@ -37,8 +48,8 @@ const DatasetQuery = ({ freestyleQueryText, onQueryDataset, onUpdateQuery, onCan
     </span>
   )
 
-  const shouldShowQuerySuccessful = !queryFailureMessage && hasUserSubmittedQuery && !isLoading
-  const shouldShowFailureMessage = queryFailureMessage && !isLoading
+  const showSuccessMessage = !queryFailureMessage && isQueryLoaded && !isQueryLoading
+  const showFailureMessage = queryFailureMessage && !isQueryLoading
 
   return (
     <div className='dataset-query'>
@@ -49,20 +60,24 @@ const DatasetQuery = ({ freestyleQueryText, onQueryDataset, onUpdateQuery, onCan
       <div>
         {submitButton}
         {cancelButton}
-        {shouldShowFailureMessage && errorMessage}
-        {shouldShowQuerySuccessful && successMessage}
-        {isLoading && <LoadingElement />}
+        {showFailureMessage && errorMessage}
+        {showSuccessMessage && successMessage}
+        {isQueryLoading && <LoadingElement />}
       </div>
     </div>
   )
 }
 
 DatasetQuery.propTypes = {
-  freestyleQueryText: PropTypes.string,
-  onQueryDataset: PropTypes.func.isRequired,
+  queryText: PropTypes.string,
   queryFailureMessage: PropTypes.string,
-  isLoading: PropTypes.bool.isRequired,
-  hasUserSubmittedQuery: PropTypes.bool.isRequired
+  isQueryLoading: PropTypes.bool.isRequired,
+  isQueryLoaded: PropTypes.bool.isRequired,
+
+  executeQuery: PropTypes.func.isRequired,
+  cancelQuery: PropTypes.func.isRequired,
+  setQueryText: PropTypes.func.isRequired,
+
 }
 
 export default DatasetQuery

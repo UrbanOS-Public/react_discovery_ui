@@ -23,7 +23,7 @@ describe("get visualization data sources", () => {
   it("returns data sources as a list of values for each column in query result", () => {
     const state = {
       queryReducer: {
-        datasetQueryResult: [
+        queryData: [
           {
             bob: "bob's bob",
             thing: "bob's thing"

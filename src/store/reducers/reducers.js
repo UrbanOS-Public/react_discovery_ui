@@ -16,14 +16,9 @@ import {
   LOGIN_FAILURE,
   DOWNLOAD_DATASET_SUCCEEDED,
   DOWNLOAD_DATASET_FAILED,
-  QUERY_DATASET_SUCCEEDED,
-  QUERY_DATASET,
-  QUERY_DATASET_FAILED,
-  QUERY_DATASET_IN_PROGRESS,
-  QUERY_DATASET_CANCELLED,
-  FREESTYLE_QUERY_DATASET,
-  FREESTYLE_QUERY_UPDATE
 } from '../actions'
+
+import queryReducer from './query-reducer'
 
 const defaultDatasetState = {
   datasets: [],
@@ -114,37 +109,6 @@ const presentationReducer = (state = defaultPresentationState, action) => {
   }
 }
 
-const defaultQueryState = {
-  isVisualizationQueryLoading: false,
-  queryFailureMessage: ""
-}
-const queryReducer = (state = defaultQueryState, action) => {
-  switch (action.type) {
-    case FREESTYLE_QUERY_DATASET:
-      return Object.assign({}, state, {
-        isVisualizationQueryLoading: true
-      })
-    case FREESTYLE_QUERY_UPDATE:
-      return Object.assign({}, state, {
-        freestyleQueryText: action.value.queryText
-      })
-    case QUERY_DATASET:
-      return Object.assign({}, state, {
-        isVisualizationQueryLoading: true
-      })
-    case QUERY_DATASET_SUCCEEDED:
-      return Object.assign({}, state, { isVisualizationQueryLoading: false, queryFailureMessage: '', datasetQueryResult: action.value })
-    case QUERY_DATASET_FAILED:
-      return Object.assign({}, state, { queryFailureMessage: action.value, isVisualizationQueryLoading: false })
-    case QUERY_DATASET_IN_PROGRESS:
-      return Object.assign({}, state, { cancelToken: action.value })
-    case QUERY_DATASET_CANCELLED:
-      return Object.assign({}, state, {
-        queryFailureMessage: 'Query Stopped By User', isVisualizationQueryLoading: false
-      })
-    default: return state
-  }
-}
 
 const reducers = {
   datasetReducer: datasetReducer,

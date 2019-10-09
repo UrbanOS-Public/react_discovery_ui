@@ -6,33 +6,31 @@ import ReactTable from "react-table";
 import LoadingElement from "../../components/generic-elements/loading-element";
 
 const DatasetQueryView = props => {
-  const { dataSources, queryData, freestyleQueryText } = props;
+  const { 
+    dataSources,
+    isQueryLoading,
+    isQueryLoaded,
+    freestyleQueryText,
+    queryData,
+    queryFailureMessage,
 
-  const [hasUserSubmittedQuery, setHasUserSubmittedQuery] = useState(false);
+    executeQuery,
+    cancelQuery,
+    setQueryText,
+  } = props;
 
-  const columns = Object.keys(dataSources).map(col => {
-    return { Header: col, accessor: col, headerClassName: "table-header" };
-  });
+  React.useEffect(() => {
+    if (!isQueryLoaded) {
+      executeQuery(freestyleQueryText)
+    }
+  }, [])
 
-  const data = queryData ? cleanseData(queryData) : queryData;
+  const columns = determineColumns(dataSources)
+  const data = getCleanData(queryData)
+  
   const numRecords = queryData ? data.length + " records returned" : "";
 
-  const onQueryDataset = query => {
-    props.onQueryDataset(query);
-    setHasUserSubmittedQuery(true);
-  };
-
-  const onInit = () => {
-    onQueryDataset(freestyleQueryText);
-  };
-
-  const isPageLoadingForFirstTime = props.isLoading && !hasUserSubmittedQuery;
-
-  // Using the react prefix as short term solution to allow
-  // for shallow rendering of components
-  React.useEffect(onInit, []);
-
-  if (isPageLoadingForFirstTime) {
+  if (isQueryLoading && queryData.length === 0) {
     return (
       <dataset-query-page>
         <LoadingElement />
@@ -43,9 +41,16 @@ const DatasetQueryView = props => {
   return (
     <dataset-query-page>
       <DatasetQuery
-        defaultQuery={freestyleQueryText}
-        onQueryDataset={onQueryDataset}
-        hasUserSubmittedQuery={hasUserSubmittedQuery}
+        onQueryDataset={executeQuery}
+
+        queryFailureMessage={queryFailureMessage}
+        isQueryLoading={isQueryLoading}
+        isQueryLoaded={isQueryLoaded}
+        queryText={freestyleQueryText}
+
+        executeQuery={executeQuery}
+        cancelQuery={cancelQuery}
+        setQueryText={setQueryText}
       />
       <div id="dataset-preview-table">
         <div id="numRecords">{numRecords}</div>
@@ -80,5 +85,15 @@ const cleanseField = value => {
   }
   return value;
 };
+
+const determineColumns = dataSources => {
+  return Object.keys(dataSources).map(col => {
+    return { Header: col, accessor: col, headerClassName: "table-header" };
+  })
+}
+
+const getCleanData = queryData => {
+  return queryData ? cleanseData(queryData) : queryData
+}
 
 export default DatasetQueryView;

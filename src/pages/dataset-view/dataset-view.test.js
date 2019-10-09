@@ -18,7 +18,7 @@ describe("dataset view", () => {
         systemName={"org__dataset"}
         retrieveDatasetDetails={jest.fn()}
         setQuery={jest.fn()}
-        clearQuery={jest.fn()}
+        resetQuery={jest.fn()}
         isDatasetLoaded={true}
       />
     );
@@ -56,7 +56,7 @@ describe("dataset view when dataset is not loaded", () => {
         systemName={"org__dataset"}
         retrieveDatasetDetails={jest.fn()}
         setQuery={jest.fn()}
-        clearQuery={jest.fn()}
+        resetQuery={jest.fn()}
         isDatasetLoaded={false}
       />
     )
@@ -82,7 +82,7 @@ describe("dataset view for a remote dataset", () => {
         systemName={"org__dataset"}
         retrieveDatasetDetails={jest.fn()}
         setQuery={jest.fn()}
-        clearQuery={jest.fn()}
+        resetQuery={jest.fn()}
         isDatasetLoaded={true}
         isRemoteDataset={true}
       />
@@ -109,7 +109,7 @@ describe("dataset view for a host dataset", () => {
         systemName={"org__dataset"}
         retrieveDatasetDetails={jest.fn()}
         setQuery={jest.fn()}
-        clearQuery={jest.fn()}
+        resetQuery={jest.fn()}
         isDatasetLoaded={true}
         isHostDataset={true}
       />

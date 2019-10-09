@@ -24,6 +24,45 @@ export const FREESTYLE_QUERY_UPDATE = 'FREESTYLE_QUERY_UPDATE'
 export const QUERY_DATASET_IN_PROGRESS = 'QUERY_DATASET_IN_PROGRESS'
 export const QUERY_DATASET_CANCELLED = 'QUERY_DATASET_CANCELLED'
 
+//-- Freestyle Query Actions ----------------------------------
+export const EXECUTE_FREESTYLE_QUERY = 'EXECUTE_FREESTYLE_QUERY'
+export const executeFreestyleQuery = queryText => ({ type: EXECUTE_FREESTYLE_QUERY, queryText })
+
+export const CANCEL_FREESTYLE_QUERY = 'CANCEL_FREESTYLE_QUERY'
+export const cancelFreestyleQuery = () => ({ type: CANCEL_FREESTYLE_QUERY })
+
+export const SET_QUERY_TEXT = 'SET_QUERY_TEXT'
+export const setQueryText = queryText => ({
+  type: SET_QUERY_TEXT,
+  queryText
+})
+
+export const CLEAR_QUERY_TEXT = 'CLEAR_QUERY_TEXT'
+export const clearQueryText = () => ({ type: CLEAR_QUERY_TEXT })
+
+export const SET_QUERY_SUCCESS = 'SET_QUERY_SUCCESS'
+export const setQuerySuccess = queryData => ({
+  type: SET_QUERY_SUCCESS,
+  queryData
+})
+
+export const SET_QUERY_FAILURE = 'SET_QUERY_FAILURE'
+export const setQueryFailure = failureMessage => ({
+  type: SET_QUERY_FAILURE,
+  failureMessage
+})
+
+export const SET_QUERY_IN_PROGRESS = 'SET_QUERY_IN_PROGRESS'
+export const setQueryInProgress = cancelToken => ({ type: SET_QUERY_IN_PROGRESS, cancelToken })
+
+export const CLEAR_QUERY_DATA = 'CLEAR_QUERY_DATA'
+export const clearQueryData = () => ({ type: CLEAR_QUERY_DATA })
+
+export const RESET_QUERY = 'RESET_QUERY'
+export const resetQuery = () => ({ type: RESET_QUERY })
+
+//-------------------------------------------------------------
+
 export const retrieveDataList = (offset, limit, sort, query, facets) => ({
   type: RETRIEVE_DATA_LIST,
   value: {
@@ -109,10 +148,6 @@ export const queryDataset = (organizationName, datasetName, format, limit) => ({
 
 export const freestyleQueryDataset = (queryText) => ({
   type: FREESTYLE_QUERY_DATASET, value: { queryText }
-})
-
-export const freestyleQueryUpdate = (queryText) => ({
-  type: FREESTYLE_QUERY_UPDATE, value: { queryText }
 })
 
 export const queryDatasetSucceeded = (message) => ({
