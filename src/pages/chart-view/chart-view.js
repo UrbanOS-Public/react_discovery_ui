@@ -1,13 +1,13 @@
-import './dataset-visualization-view.scss'
+import './chart-view.scss'
 import React, { useState } from 'react'
 import SQLIcon from '../../components/generic-elements/sql-icon'
 
-import DatasetQueryView from '../dataset-query-view'
+import QueryView from '../query-view'
 import ChartVisualization from '../../components/visualizations/chart/chart-visualization'
 import { Collapse } from 'react-collapse'
 import LoadingElement from '../../components/generic-elements/loading-element'
 
-const DatasetVisualizationView = (props) => {
+const ChartView = (props) => {
   const [open, setOpened] = useState(false)
   const toggleOpen = () => { setOpened(!open) }
 
@@ -33,7 +33,7 @@ const DatasetVisualizationView = (props) => {
           </button>
         </div>
         <Collapse isOpened={open}>
-          <DatasetQueryView systemName={systemName} />
+          <QueryView systemName={systemName} />
         </Collapse>
       </div>
       <ChartVisualization dataSources={dataSources} />
@@ -42,4 +42,4 @@ const DatasetVisualizationView = (props) => {
 }
 
 
-export default DatasetVisualizationView
+export default ChartView

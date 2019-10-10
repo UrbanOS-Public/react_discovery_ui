@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 
-import DatasetVisualizationView from './dataset-visualization-view'
+import ChartView from './chart-view'
 import ChartVisualization from '../../components/visualizations/chart/chart-visualization'
 import { Collapse } from 'react-collapse'
 import DatasetQuery from '../../components/dataset-query';
@@ -32,7 +32,7 @@ describe('dataset visualization view', () => {
     beforeEach(() => {
       runUseEffect()
       subject = shallow(
-        <DatasetVisualizationView
+        <ChartView
           queryData={[]}
           isQueryLoading={true}
           match={routerProps}
@@ -52,7 +52,7 @@ describe('dataset visualization view', () => {
       runUseEffect()
 
       subject = shallow(
-        <DatasetVisualizationView
+        <ChartView
           isLoading={false}
           match={routerProps}
           location={{ search: `?systemName=${tableName}` }}
@@ -80,7 +80,7 @@ describe('dataset visualization view', () => {
     runUseEffect()
 
     subject = shallow(
-      <DatasetVisualizationView
+      <ChartView
         isLoading={false}
         match={routerProps}
         location={{ search: `?systemName=${tableName}` }}

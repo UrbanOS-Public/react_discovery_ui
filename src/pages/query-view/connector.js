@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import DatasetQueryView from './dataset-query-view'
+import QueryView from './query-view'
 import { executeFreestyleQuery, cancelFreestyleQuery, setQueryText } from '../../store/actions'
 
 import { getVisualizationDataSources, getQueryIsLoading, getFreestyleQueryText, getQueryData, shouldAutoFetchQuery } from '../../store/query-selectors'
@@ -22,4 +22,4 @@ const mapDispatchToProps = dispatch => ({
   setQueryText: queryText => dispatch(setQueryText(queryText))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(DatasetQueryView)
+export default connect(mapStateToProps, mapDispatchToProps)(QueryView)

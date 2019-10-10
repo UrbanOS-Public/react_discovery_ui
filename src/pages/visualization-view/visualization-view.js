@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 
@@ -6,13 +6,13 @@ import './visualization-view.scss'
 import LoadingElement from '../../components/generic-elements/loading-element'
 import ChartIcon from '../../components/generic-elements/chart-icon'
 import SQLIcon from '../../components/generic-elements/sql-icon'
-import DatasetVisualizationView from '../dataset-visualization-view'
-import DatasetQueryView from '../dataset-query-view'
+import ChartView from '../chart-view'
+import QueryView from '../query-view'
 
 const VisualizationView = ({ resetVisualization, getVisualization, createVisualization, query, visualization, match }) => {
   const { id } = match.params
 
-  useEffect(() => { resetVisualization() && getVisualization(id) }, [])
+  React.useEffect(() => { resetVisualization() && getVisualization(id) }, [])
 
   if (visualization.loading) {
     return (
@@ -31,10 +31,10 @@ const VisualizationView = ({ resetVisualization, getVisualization, createVisuali
           <li style={{float: 'right'}} className="react-tabs__tab" onClick={() => createVisualization(visualization.title, query)}>Save Visualization</li>
         </TabList>
         <TabPanel>
-          <DatasetVisualizationView />
+          <ChartView />
         </TabPanel>
         <TabPanel>
-          <DatasetQueryView />
+          <QueryView />
         </TabPanel>
       </Tabs>
     </visualization-view>

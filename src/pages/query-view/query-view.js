@@ -1,11 +1,11 @@
-import "./dataset-query-view.scss";
+import "./query-view.scss";
 import React from "react";
 
 import DatasetQuery from "../../components/dataset-query";
 import ReactTable from "react-table";
 import LoadingElement from "../../components/generic-elements/loading-element";
 
-const DatasetQueryView = props => {
+const QueryView = props => {
   const { 
     dataSources,
     isQueryLoading,
@@ -97,4 +97,4 @@ const getCleanData = queryData => {
   return queryData ? cleanseData(queryData) : queryData
 }
 
-export default DatasetQueryView;
+export default QueryView;

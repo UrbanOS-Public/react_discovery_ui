@@ -38,7 +38,7 @@ const DatasetQuery = props => {
   const updateReduxQueryText = e => setQueryText(e.target.value)
   const errorText = isCancelled ? 'Your query has been stopped' : 'Query failure.  There may be a syntax issue.'
 
-  const textArea = <textarea rows={5} type='text' value={localQueryText} onBlur={updateReduxQueryText} onChange={updateLocalQueryText} className='query-input' />
+  const textArea = <textarea rows={5} type='text' placeholder='SELECT * FROM ...' value={localQueryText} onBlur={updateReduxQueryText} onChange={updateLocalQueryText} className='query-input' />
   const submitButton = <button className="action-button" disabled={isQueryLoading} onClick={submit}>Submit</button>
   const cancelButton = <button className="action-button" disabled={!isQueryLoading} onClick={cancel}>Cancel</button>
   const errorMessage = <span className='error-message'>{errorText}</span>

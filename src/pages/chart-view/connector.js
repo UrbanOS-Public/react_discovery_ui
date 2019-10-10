@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import DatasetVisualizationView from './dataset-visualization-view'
+import ChartView from './chart-view'
 import { getDatasetQueryResult, determineIfVisualizationQueryLoading } from '../../store/selectors'
 import { getFreestyleQueryText } from '../../store/query-selectors'
 import { getVisualizationDataSources, getQueryIsLoading, isQueryDataAvailable } from '../../store/query-selectors'
@@ -14,4 +14,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(DatasetVisualizationView)
+export default connect(mapStateToProps)(ChartView)

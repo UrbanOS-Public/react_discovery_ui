@@ -8,8 +8,8 @@ import qs from "qs";
 import "./dataset-view.scss";
 import chart from "../../assets/chart.svg";
 import sqlIcon from "../../assets/blk-database.svg";
-import DatasetQueryView from "../dataset-query-view";
-import DatasetVisualizationView from "../dataset-visualization-view";
+import QueryView from "../query-view";
+import ChartView from "../chart-view";
 import DatasetDetailView from "../dataset-detail-view";
 import LoadingElement from "../../components/generic-elements/loading-element";
 
@@ -89,13 +89,13 @@ export default class extends Component {
           <DatasetDetailView match={this.props.match} />
         </TabPanel>
         <TabPanel>
-          <DatasetVisualizationView
+          <ChartView
             match={this.props.match}
             systemName={systemName}
           />
         </TabPanel>
         <TabPanel>
-          <DatasetQueryView systemName={systemName} />
+          <QueryView systemName={systemName} />
         </TabPanel>
       </Tabs>
     );

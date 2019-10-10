@@ -2,8 +2,8 @@ import { shallow } from "enzyme";
 import { Tab, TabPanel } from "react-tabs";
 
 import DatasetView from "./dataset-view";
-import DatasetQueryView from "../dataset-query-view";
-import DatasetVisualizationView from "../dataset-visualization-view";
+import QueryView from "../query-view";
+import ChartView from "../chart-view";
 import DatasetDetailView from "../dataset-detail-view";
 import LoadingElement from "../../components/generic-elements/loading-element";
 
@@ -37,11 +37,11 @@ describe("dataset view", () => {
   });
 
   it("has a dataset visualization view component", () => {
-    expect(subject.find(DatasetVisualizationView).length).toEqual(1);
+    expect(subject.find(ChartView).length).toEqual(1);
   });
 
   it("has a dataset query view component", () => {
-    expect(subject.find(DatasetQueryView).length).toEqual(1);
+    expect(subject.find(QueryView).length).toEqual(1);
   })
 })
 

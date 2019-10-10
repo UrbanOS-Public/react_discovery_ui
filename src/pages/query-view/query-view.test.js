@@ -1,6 +1,6 @@
 import { shallow } from "enzyme";
 
-import DatasetQueryView from "./dataset-query-view";
+import QueryView from "./query-view";
 import DatasetQuery from "../../components/dataset-query";
 import LoadingElement from "../../components/generic-elements/loading-element";
 
@@ -24,7 +24,7 @@ describe("dataset visualization view", () => {
     beforeEach(() => {
       queryCallback = jest.fn();
       subject = shallow(
-        <DatasetQueryView
+        <QueryView
           isQueryLoading={true}
           isQueryLoaded={false}
           queryData={[]}
@@ -47,7 +47,7 @@ describe("dataset visualization view", () => {
       queryCallback = jest.fn();
 
       subject = shallow(
-        <DatasetQueryView
+        <QueryView
           isQueryLoading={false}
           queryData={[{ data: {} }]}
           executeQuery={queryCallback}
@@ -83,7 +83,7 @@ describe("dataset visualization view", () => {
     queryCallback = jest.fn();
 
     subject = shallow(
-      <DatasetQueryView
+      <QueryView
         isQueryLoading={false}
         queryData={[{ data: {} }]}
         executeQuery={queryCallback}
