@@ -31,7 +31,6 @@ export default (state = defaultQueryState, action) => {
       })
     case SET_QUERY_FAILURE:
       return Object.assign({}, state, {
-        queryData: [],
         queryFailureMessage: action.failureMessage,
         isQueryLoaded: true,
         isQueryLoading: false,
