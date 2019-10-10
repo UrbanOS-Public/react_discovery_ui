@@ -2,12 +2,11 @@ import React from "react";
 import { Component } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import InlineSVG from "react-svg-inline";
+import ChartIcon from '../../components/generic-elements/chart-icon'
+import SQLIcon from '../../components/generic-elements/sql-icon'
 import qs from "qs";
 
 import "./dataset-view.scss";
-import chart from "../../assets/chart.svg";
-import sqlIcon from "../../assets/blk-database.svg";
 import QueryView from "../query-view";
 import ChartView from "../chart-view";
 import DatasetDetailView from "../dataset-detail-view";
@@ -62,37 +61,15 @@ export default class extends Component {
       >
         <TabList>
           <Tab>Dataset Details</Tab>
-          <Tab>
-            Visualize
-            <InlineSVG
-              id="chartIcon"
-              style={{ marginLeft: ".3rem" }}
-              svg={chart}
-              height="inherit"
-              width={"25px"}
-              accessibilityDesc="Chart"
-            />
-          </Tab>
-          <Tab>
-            Write SQL{" "}
-            <InlineSVG
-              id="sqlIcon"
-              svg={sqlIcon}
-              height="14px"
-              width="14px"
-              accessibilityDesc="Sql Icon"
-            />
-          </Tab>
+          <Tab>Visualize <ChartIcon className='chartIcon' /></Tab>
+          <Tab>Write SQL <SQLIcon className='sqlIcon' /></Tab>
         </TabList>
 
         <TabPanel forceRender={true}>
           <DatasetDetailView match={this.props.match} />
         </TabPanel>
         <TabPanel>
-          <ChartView
-            match={this.props.match}
-            systemName={systemName}
-          />
+          <ChartView match={this.props.match} systemName={systemName} />
         </TabPanel>
         <TabPanel>
           <QueryView systemName={systemName} />

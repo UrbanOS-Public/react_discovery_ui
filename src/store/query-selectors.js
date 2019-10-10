@@ -6,9 +6,11 @@ export const getQueryIsLoading = state => state.queryReducer.isQueryLoading
 
 export const getQueryData = state => state.queryReducer.queryData || []
 export const isQueryDataAvailable = state => state.queryReducer.queryData !== null
-export const isQueryTextAvailable = state => !isEmpty(state.queryReducer.queryText)
+export const isQueryTextAvailable = state => !isEmpty(getFreestyleQueryText(state))
 
-export const shouldAutoFetchQuery = createSelector(isQueryDataAvailable, isQueryTextAvailable, (dataAvailable, textAvailable) => !dataAvailable && textAvailable)
+export const shouldAutoFetchQuery = createSelector(isQueryDataAvailable, isQueryTextAvailable, (dataAvailable, textAvailable) => {
+  return !dataAvailable && textAvailable
+})
 
 export const getVisualizationDataSources = createSelector(
   getQueryData,

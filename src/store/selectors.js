@@ -21,18 +21,3 @@ export const getDatasetQueryResult = state =>
   state.queryReducer.queryData;
 export const getDatasetQueryCancelToken = state =>
   state.queryReducer.cancelToken;
-
-export const selectVisualizationStruct = state => state.visualization.visualization
-export const selectVisualizationLoading = state => state.visualization.loading
-export const selectVisualizationFailureMessage = state => state.visualization.error
-
-export const selectVisualization = createSelector(selectVisualizationStruct, selectVisualizationLoading, selectVisualizationFailureMessage, (visualization, loading, error) => {
-  return Object.assign(
-    {},
-    visualization,
-    {
-      loading,
-      error
-    }
-  )
-})

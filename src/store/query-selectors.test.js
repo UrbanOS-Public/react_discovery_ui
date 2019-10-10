@@ -109,16 +109,22 @@ describe('shouldAutoFetchQuery', () => {
       state = {
         queryReducer: {
           queryData: null
-        }
+        },
+        datasetReducer: {}
       }
     })
 
     it('returns true when query text is set', () => {
-      state.queryReducer.queryText = 'select stars from lucky_charms'
+      state.datasetReducer = { dataset: { systemName: 'pablo' } }
 
       expect(shouldAutoFetchQuery(state)).toBe(true)
     })
 
+    it('returns true when dataset is present', () => {
+      state.queryReducer.queryText = 'select stars from lucky_charms'
+
+      expect(shouldAutoFetchQuery(state)).toBe(true)
+    })
 
     it('returns false when query text is not set', () => {
       state.queryReducer.queryText = undefined
@@ -136,12 +142,11 @@ describe('shouldAutoFetchQuery', () => {
   describe('with query data present', () => {
     beforeEach(() => {
       state = {
-        queryReducer: {
-          queryData: []
-        }
+        queryReducer: { queryData: [] },
+        datasetReducer: {}
       }
     })
-    
+
     it('returns false when query text is not set', () => {
       state.queryReducer.queryText = undefined
 
