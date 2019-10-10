@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect'
+import { createSelector } from "reselect";
 
 export const getDataSetList = state => state.datasetReducer.datasets
 export const getFacetList = state => state.datasetReducer.facets
@@ -13,17 +13,25 @@ export const lastLoginAttemptFailed = state => state.presentation.lastLoginAttem
 export const lastLogoutAttemptFailed = state => state.presentation.lastLogoutAttemptFailed
 export const getDownloadedDataset = state => state.datasetReducer.downloadedDataset
 export const getDownloadedDatasetError = state => state.datasetReducer.downloadedDatasetError
-export const getDatasetQueryResult = state => state.queryReducer.datasetQueryResult
-export const getFreestyleQueryText = state => state.queryReducer.freestyleQueryText
+export const getDatasetQueryResult = state => state.queryReducer.queryData
 export const getDatasetQueryCancelToken = state => state.queryReducer.cancelToken
 
-
-export const getVisualizationDataSources = createSelector(getDatasetQueryResult, data => {
-  var dataSources = {}
-  if (data && data.length > 0) {
-    Object.keys(data[0]).forEach(key => {
-      dataSources[key] = data.map(datum => datum[key])
-    })
+export const getVisualizationDataSources = createSelector(
+  getDatasetQueryResult,
+  data => {
+    var dataSources = {};
+    if (data && data.length > 0) {
+      Object.keys(data[0]).forEach(key => {
+        dataSources[key] = data.map(datum => datum[key]);
+      });
+    }
+    return dataSources;
   }
-  return dataSources
-})
+);
+
+const defaultQuery = tablename => `SELECT * FROM ${tablename}\nLIMIT 20000`;
+export const getFreestyleQueryText = createSelector(
+  state => state.queryReducer.freestyleQueryText,
+  state => state.datasetReducer.dataset.systemName,
+  (queryText, tablename) => queryText || defaultQuery(tablename)
+);

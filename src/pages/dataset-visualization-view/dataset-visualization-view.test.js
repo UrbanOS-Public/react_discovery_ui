@@ -41,8 +41,6 @@ describe('dataset visualization view', () => {
       )
     })
 
-
-
     it('does not show full page loading icon', () => {
       expect(subject.find(LoadingElement).length).toEqual(0)
     })

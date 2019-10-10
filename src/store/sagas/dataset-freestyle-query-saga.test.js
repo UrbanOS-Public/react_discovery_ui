@@ -1,5 +1,5 @@
 import {
-  freestyleQueryDataset, queryDatasetSucceeded, queryDatasetFailed, queryDatasetInProgress, queryDatasetCancelled
+  executeFreestyleQuery, setQuerySuccess, setQueryInProgress, setQueryFailure, cancelFreestyleQuery
 } from '../actions'
 import freestyleQuerySaga from './dataset-freestyle-query-saga'
 import mockAxios from 'axios'
@@ -42,7 +42,7 @@ describe('dataset-freestyle-query-saga', () => {
     beforeEach(() => {
       mockAxios.post.mockImplementationOnce(() => (response))
 
-      store.dispatch(freestyleQueryDataset(queryText))
+      store.dispatch(executeFreestyleQuery(queryText))
     })
 
     it('calls multiple query api with query', () => {
@@ -56,11 +56,11 @@ describe('dataset-freestyle-query-saga', () => {
     })
 
     it('dispatches a QUERY_DATASET_SUCCEEDED event', () => {
-      expect(store.getState()).toContainEqual(queryDatasetSucceeded(queryData))
+      expect(store.getState()).toContainEqual(setQuerySuccess(queryData))
     })
 
     it('dispatches a QUERY_DATASET_IN_PROGRESS event', () => {
-      expect(store.getState()).toContainEqual(queryDatasetInProgress({ token: {} }))
+      expect(store.getState()).toContainEqual(setQueryInProgress({ token: {} }))
     })
   })
 
@@ -73,18 +73,18 @@ describe('dataset-freestyle-query-saga', () => {
       }
       mockAxios.post.mockImplementationOnce(() => (response))
 
-      store.dispatch(freestyleQueryDataset(queryText))
+      store.dispatch(executeFreestyleQuery(queryText))
 
-      expect(store.getState()).toContainEqual(queryDatasetFailed(data.message))
+      expect(store.getState()).toContainEqual(setQueryFailure(data.message))
     })
 
     it('dispatches a QUERY_DATASET_FAILED event on a catastrophic failure', () => {
       const errorMsg = "It's all over"
       mockAxios.post.mockImplementationOnce(() => { throw new Error(errorMsg) })
 
-      store.dispatch(freestyleQueryDataset(queryText))
+      store.dispatch(executeFreestyleQuery(queryText))
 
-      expect(store.getState()).toContainEqual(queryDatasetFailed(errorMsg))
+      expect(store.getState()).toContainEqual(setQueryFailure(errorMsg))
     })
   })
 
@@ -106,8 +106,8 @@ describe('dataset-freestyle-query-saga QUERY_DATASET_CANCELLED event', () => {
     cancelMock = jest.fn()
     const cancelToken = { token: {}, cancel: cancelMock }
 
-    store.dispatch(queryDatasetInProgress(cancelToken))
-    store.dispatch(queryDatasetCancelled())
+    store.dispatch(setQueryInProgress(cancelToken))
+    store.dispatch(cancelFreestyleQuery())
   })
 
   it('cancels the query', () => {

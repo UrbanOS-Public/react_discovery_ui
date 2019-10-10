@@ -13,8 +13,18 @@ import { Collapse } from 'react-collapse'
 const DatasetVisualizationView = (props) => {
   const [open, setOpened] = useState(false)
   const toggleOpen = () => { setOpened(!open) }
-  const { systemName, dataSources, freestyleQueryText, datasetId } = props
-  
+  const { systemName, dataSources, queryDataInitialized, isQueryLoading, datasetId } = props
+
+  const isPageLoading = isQueryLoading && !queryDataInitialized
+
+  if (isPageLoading) {
+    return (
+      <dataset-visualization>
+        <LoadingElement />
+      </dataset-visualization>
+    )
+  }
+
   return (
     <dataset-visualization>
       <div className="visualization-header">
@@ -25,7 +35,7 @@ const DatasetVisualizationView = (props) => {
           </button>
         </div>
         <Collapse isOpened={open}>
-          <DatasetQueryView systemName={systemName} freestyleQueryText={freestyleQueryText} />
+          <DatasetQueryView systemName={systemName} />
         </Collapse>
       </div>
       <DatasetRecommendations datasetId={datasetId} />
@@ -36,11 +46,9 @@ const DatasetVisualizationView = (props) => {
 }
 
 DatasetVisualizationView.propTypes = {
-  match: PropTypes.object.isRequired,
   systemName: PropTypes.string.isRequired,
   datasetId: PropTypes.string.isRequired,
   dataSources: PropTypes.object.isRequired,
-  freestyleQueryText: PropTypes.string,
 }
 
 export default DatasetVisualizationView

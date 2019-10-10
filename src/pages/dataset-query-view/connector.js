@@ -1,19 +1,25 @@
 import { connect } from 'react-redux'
 import DatasetQueryView from './dataset-query-view'
-import { FREESTYLE_QUERY_DATASET } from '../../store/actions'
-import { getVisualizationDataSources, getFreestyleQueryText, getDatasetQueryResult, determineIfVisualizationQueryLoading } from '../../store/selectors'
+import { executeFreestyleQuery, cancelFreestyleQuery, setQueryText } from '../../store/actions'
+
+import { getVisualizationDataSources, getQueryIsLoading, getFreestyleQueryText, getQueryData, isQueryDataSet } from '../../store/query-selectors'
 
 const mapStateToProps = state => {
   return {
     dataSources: getVisualizationDataSources(state),
-    isLoading: determineIfVisualizationQueryLoading(state),
+    isQueryLoading: getQueryIsLoading(state),
+    isQueryLoaded: state.queryReducer.isQueryLoaded,
     freestyleQueryText: getFreestyleQueryText(state),
-    queryData: getDatasetQueryResult(state)
+    queryData: getQueryData(state),
+    queryFailureMessage: state.queryReducer.queryFailureMessage,
+    autoFetchQuery: !isQueryDataSet(state)
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  onQueryDataset: (queryText) => dispatch({ type: FREESTYLE_QUERY_DATASET, value: { queryText } })
+  executeQuery: queryText => dispatch(executeFreestyleQuery(queryText)),
+  cancelQuery: () => dispatch(cancelFreestyleQuery()),
+  setQueryText: queryText => dispatch(setQueryText(queryText))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DatasetQueryView)

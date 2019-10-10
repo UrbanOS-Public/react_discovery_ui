@@ -1,15 +1,15 @@
 import { connect } from 'react-redux'
 import DatasetVisualizationView from './dataset-visualization-view'
-import { getVisualizationDataSources, getDatasetQueryResult, determineIfVisualizationQueryLoading, getFreestyleQueryText, getDatasetRecommendations } from '../../store/selectors'
-import { datasetRecommendations } from '../../store/actions'
+import { getDatasetQueryResult,  getFreestyleQueryText  } from '../../store/selectors'
+import { getQueryIsLoading, isQueryDataSet, getVisualizationDataSources } from '../../store/query-selectors'
 
 const mapStateToProps = state => {
   return {
     dataSources: getVisualizationDataSources(state),
-    // isLoading: determineIfVisualizationQueryLoading(state),
+    isQueryLoading: getQueryIsLoading(state),
     freestyleQueryText: getFreestyleQueryText(state),
-    // queryData: getDatasetQueryResult(state),
-    // recommendations: getDatasetRecommendations(state)
+    queryData: getDatasetQueryResult(state),
+    queryDataInitialized: isQueryDataSet(state)
   }
 }
 
