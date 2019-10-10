@@ -1,85 +1,100 @@
-import './dataset-query-view.scss'
-import React, { useState } from 'react'
+import "./dataset-query-view.scss";
+import React, { useState } from "react";
 
-import DatasetQuery from '../../components/dataset-query'
-import ReactTable from 'react-table'
-import LoadingElement from '../../components/generic-elements/loading-element'
+import DatasetQuery from "../../components/dataset-query";
+import ReactTable from "react-table";
+import LoadingElement from "../../components/generic-elements/loading-element";
 
-const DatasetQueryView = (props) => {
-  const { systemName, dataSources, queryData, freestyleQueryText } = props
+const DatasetQueryView = props => {
+  const { 
+    dataSources,
+    isQueryLoading,
+    isQueryLoaded,
+    freestyleQueryText,
+    queryData,
+    queryFailureMessage,
+    autoFetchQuery,
 
-  const [hasUserSubmittedQuery, setHasUserSubmittedQuery] = useState(false)
+    executeQuery,
+    cancelQuery,
+    setQueryText,
+  } = props;
 
-  const columns = Object.keys(dataSources).map((col) => {
-    return { Header: col, accessor: col, headerClassName: 'table-header' }
-  })
+  React.useEffect(() => {
+    if (autoFetchQuery) {
+      executeQuery(freestyleQueryText)
+    }
+  }, [])
 
-  const data = queryData ? cleanseData(queryData) : queryData
-  const numRecords = queryData ? data.length + " records returned" : ""
+  const columns = determineColumns(dataSources)
+  const data = getCleanData(queryData)
+  
+  const numRecords = queryData ? data.length + " records returned" : "";
 
-  const onQueryDataset = (query) => {
-    props.onQueryDataset(query)
-    setHasUserSubmittedQuery(true)
-  }
-
-  const defaultQuery = `SELECT * FROM ${systemName}\nLIMIT 20000`
-
-  const query = freestyleQueryText || defaultQuery
-
-  const onInit = () => {
-    onQueryDataset(query)
-  }
-
-  const isPageLoadingForFirstTime = props.isLoading && !hasUserSubmittedQuery
-
-  // Using the react prefix as short term solution to allow
-  // for shallow rendering of components
-  React.useEffect(onInit, [])
-
-  if (isPageLoadingForFirstTime) {
+  if (isQueryLoading && queryData.length === 0) {
     return (
       <dataset-query-page>
         <LoadingElement />
       </dataset-query-page>
-    )
+    );
   }
 
   return (
     <dataset-query-page>
       <DatasetQuery
-        defaultQuery={query}
-        onQueryDataset={onQueryDataset}
-        hasUserSubmittedQuery={hasUserSubmittedQuery}
+        onQueryDataset={executeQuery}
+
+        queryFailureMessage={queryFailureMessage}
+        isQueryLoading={isQueryLoading}
+        isQueryLoaded={isQueryLoaded}
+        queryText={freestyleQueryText}
+
+        executeQuery={executeQuery}
+        cancelQuery={cancelQuery}
+        setQueryText={setQueryText}
       />
-      <div id='dataset-preview-table'>
-        <div id='numRecords'>{numRecords}</div>
-        <ReactTable data={data} defaultPageSize={10} columns={columns} className='-striped -highlight'></ReactTable>
+      <div id="dataset-preview-table">
+        <div id="numRecords">{numRecords}</div>
+        <ReactTable
+          data={data}
+          defaultPageSize={10}
+          columns={columns}
+          className="-striped -highlight"
+        ></ReactTable>
       </div>
     </dataset-query-page>
-  )
-}
+  );
+};
 
-const cleanseData = (data) => {
-  return data.map(row => cleanseRow(row))
-}
+const cleanseData = data => {
+  return data.map(row => cleanseRow(row));
+};
 
 const cleanseRow = row => {
-  const deconstructedObject = Object.entries(row)
-  const listOfKeyValues = deconstructedObject.map(field =>
-    ({ [field[0]]: cleanseField(field[1]) })
-  )
-  const reconstructedObject = Object.assign({}, ...listOfKeyValues)
+  const deconstructedObject = Object.entries(row);
+  const listOfKeyValues = deconstructedObject.map(field => ({
+    [field[0]]: cleanseField(field[1])
+  }));
+  const reconstructedObject = Object.assign({}, ...listOfKeyValues);
 
-  return reconstructedObject
-}
+  return reconstructedObject;
+};
 
 const cleanseField = value => {
-  if (typeof value === 'boolean') {
-    return value.toString()
+  if (typeof value === "boolean") {
+    return value.toString();
   }
-  return value
+  return value;
+};
+
+const determineColumns = dataSources => {
+  return Object.keys(dataSources).map(col => {
+    return { Header: col, accessor: col, headerClassName: "table-header" };
+  })
 }
 
+const getCleanData = queryData => {
+  return queryData ? cleanseData(queryData) : queryData
+}
 
-
-export default DatasetQueryView
+export default DatasetQueryView;

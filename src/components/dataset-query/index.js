@@ -1,3 +1,3 @@
-import Connector from './connector'
+import DatasetQuery from './dataset-query'
 
-export default Connector
+export default DatasetQuery

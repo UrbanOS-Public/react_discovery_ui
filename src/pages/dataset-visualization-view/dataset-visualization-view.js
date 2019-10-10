@@ -10,9 +10,10 @@ import LoadingElement from '../../components/generic-elements/loading-element'
 const DatasetVisualizationView = (props) => {
   const [open, setOpened] = useState(false)
   const toggleOpen = () => { setOpened(!open) }
-  const { systemName, dataSources, queryData } = props
 
-  const isPageLoading = props.isLoading && !queryData
+  const { systemName, dataSources, queryDataInitialized, isQueryLoading } = props
+
+  const isPageLoading = isQueryLoading && !queryDataInitialized
 
   if (isPageLoading) {
     return (
@@ -32,7 +33,7 @@ const DatasetVisualizationView = (props) => {
           </button>
         </div>
         <Collapse isOpened={open}>
-          <DatasetQueryView systemName={systemName} freestyleQueryText={props.freestyleQueryText} />
+          <DatasetQueryView systemName={systemName} />
         </Collapse>
       </div>
       <ChartVisualization dataSources={dataSources} />
