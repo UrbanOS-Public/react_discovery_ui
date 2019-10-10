@@ -14,7 +14,9 @@ describe('DatasetQuery', () => {
           executeQuery={queryCallback}
           queryText={defaultQuery}
           isQueryLoaded={false}
-          isQueryLoading={true} />)
+          isQueryLoading={true}
+          setQueryText={jest.fn()}
+          cancelQuery={jest.fn()} />)
     })
 
     test('shows loading component', () => {
@@ -33,7 +35,8 @@ describe('DatasetQuery', () => {
           setQueryText={updateCallback}
           queryText={defaultQuery}
           isQueryLoaded={true}
-          isQueryLoading />)
+          isQueryLoading
+          cancelQuery={jest.fn()} />)
       subject.find('textarea').simulate('blur')
     })
 
@@ -52,6 +55,7 @@ describe('DatasetQuery', () => {
           queryText={defaultQuery}
           isQueryLoaded={true}
           cancelQuery={cancelCallback}
+          setQueryText={jest.fn()}
           isQueryLoading />)
     })
 
@@ -90,6 +94,7 @@ describe('DatasetQuery', () => {
           queryText={defaultQuery}
           isQueryLoaded={true}
           cancelQuery={cancelCallback}
+          setQueryText={jest.fn()}
           isQueryLoading={true} />)
 
       getButton(subject, 'Cancel').simulate('click')
@@ -117,6 +122,8 @@ describe('DatasetQuery', () => {
           executeQuery={queryCallback}
           isQueryLoading={false}
           queryText={defaultQuery}
+          setQueryText={jest.fn()}
+          cancelQuery={jest.fn()}
           isQueryLoaded={false} />)
     })
 
@@ -152,6 +159,8 @@ describe('DatasetQuery', () => {
           executeQuery={queryCallback}
           isQueryLoading={false}
           queryText={defaultQuery}
+          setQueryText={jest.fn()}
+          cancelQuery={jest.fn()}
           isQueryLoaded={true} />)
     })
 
@@ -184,7 +193,9 @@ describe('DatasetQuery', () => {
           queryText={defaultQuery}
           queryFailureMessage='the bad thing happened'
           isQueryLoaded={false}
-          isQueryLoading={false} />)
+          isQueryLoading={false}
+          setQueryText={jest.fn()}
+          cancelQuery={jest.fn()} />)
     })
 
     test('shows error message', () => {

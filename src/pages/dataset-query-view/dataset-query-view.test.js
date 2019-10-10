@@ -30,6 +30,8 @@ describe("dataset visualization view", () => {
           queryData={[]}
           executeQuery={queryCallback}
           dataSources={dataSources}
+          setQueryText={jest.fn()}
+          cancelQuery={jest.fn()}
         />
       );
     });
@@ -50,6 +52,8 @@ describe("dataset visualization view", () => {
           queryData={[{ data: {} }]}
           executeQuery={queryCallback}
           dataSources={dataSources}
+          setQueryText={jest.fn()}
+          cancelQuery={jest.fn()}
         />
       );
     });
@@ -84,6 +88,8 @@ describe("dataset visualization view", () => {
         queryData={[{ data: {} }]}
         executeQuery={queryCallback}
         dataSources={dataSources}
+        setQueryText={jest.fn()}
+        cancelQuery={jest.fn()}
       />
     );
 

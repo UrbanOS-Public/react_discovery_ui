@@ -3,11 +3,11 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 
 import './visualization-view.scss'
-import QueryView from '../query-view'
-import ChartView from '../chart-view'
 import LoadingElement from '../../components/generic-elements/loading-element'
 import ChartIcon from '../../components/generic-elements/chart-icon'
 import SQLIcon from '../../components/generic-elements/sql-icon'
+import DatasetVisualizationView from '../dataset-visualization-view'
+import DatasetQueryView from '../dataset-query-view'
 
 const VisualizationView = ({ resetVisualization, getVisualization, createVisualization, visualization, match }) => {
   const { id } = match.params
@@ -31,10 +31,10 @@ const VisualizationView = ({ resetVisualization, getVisualization, createVisuali
           <li style={{float: 'right'}} className="react-tabs__tab" onClick={() => createVisualization(visualization.title, visualization.query)}>Save Visualization</li>
         </TabList>
         <TabPanel>
-          <ChartView queryText={visualization.query} />
+          <DatasetVisualizationView />
         </TabPanel>
         <TabPanel>
-          <QueryView queryText={visualization.query} />
+          <DatasetQueryView />
         </TabPanel>
       </Tabs>
     </visualization-view>

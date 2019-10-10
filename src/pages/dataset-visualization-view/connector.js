@@ -1,7 +1,8 @@
 import { connect } from 'react-redux'
 import DatasetVisualizationView from './dataset-visualization-view'
-import { getVisualizationDataSources, getDatasetQueryResult, determineIfVisualizationQueryLoading, getFreestyleQueryText } from '../../store/selectors'
-import { getQueryIsLoading, isQueryDataSet } from '../../store/query-selectors'
+import { getDatasetQueryResult, determineIfVisualizationQueryLoading } from '../../store/selectors'
+import { getFreestyleQueryText } from '../../store/query-selectors'
+import { getVisualizationDataSources, getQueryIsLoading, isQueryDataAvailable } from '../../store/query-selectors'
 
 const mapStateToProps = state => {
   return {
@@ -9,7 +10,7 @@ const mapStateToProps = state => {
     isQueryLoading: getQueryIsLoading(state),
     freestyleQueryText: getFreestyleQueryText(state),
     queryData: getDatasetQueryResult(state),
-    queryDataInitialized: isQueryDataSet(state)
+    queryDataInitialized: isQueryDataAvailable(state)
   }
 }
 

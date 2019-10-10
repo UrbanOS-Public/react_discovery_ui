@@ -22,38 +22,17 @@ export const getDatasetQueryResult = state =>
 export const getDatasetQueryCancelToken = state =>
   state.queryReducer.cancelToken;
 
-export const selectVisualizationStruct = state => state.visualizationReducer.visualization
-export const selectVisualizationLoading = state => state.visualizationReducer.visualizationLoading
-export const selectVisualizationFailureMessage = state => state.visualizationReducer.visualizationFailureMessage
+export const selectVisualizationStruct = state => state.visualization.visualization
+export const selectVisualizationLoading = state => state.visualization.loading
+export const selectVisualizationFailureMessage = state => state.visualization.error
 
-export const selectVisualization = createSelector(selectVisualizationStruct, selectVisualizationLoading, getFreestyleQueryText, selectVisualizationFailureMessage, (visualization, loading, locallyEditedQuery, error) => {
+export const selectVisualization = createSelector(selectVisualizationStruct, selectVisualizationLoading, selectVisualizationFailureMessage, (visualization, loading, error) => {
   return Object.assign(
     {},
     visualization,
     {
       loading,
-      error,
-      query: locallyEditedQuery || visualization.query
+      error
     }
   )
 })
-
-export const getVisualizationDataSources = createSelector(
-  getDatasetQueryResult,
-  data => {
-    var dataSources = {};
-    if (data && data.length > 0) {
-      Object.keys(data[0]).forEach(key => {
-        dataSources[key] = data.map(datum => datum[key]);
-      });
-    }
-    return dataSources;
-  }
-);
-
-const defaultQuery = tablename => `SELECT * FROM ${tablename}\nLIMIT 20000`;
-export const getFreestyleQueryText = createSelector(
-  state => state.queryReducer.freestyleQueryText,
-  state => state.datasetReducer.dataset.systemName,
-  (queryText, tablename) => queryText || defaultQuery(tablename)
-);

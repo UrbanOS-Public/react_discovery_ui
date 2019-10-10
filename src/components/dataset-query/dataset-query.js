@@ -35,7 +35,7 @@ const DatasetQuery = props => {
   }
 
   const updateLocalQueryText = e => setLocalQueryText(e.target.value)
-  const updateReduxQueryText = (e) => setQueryText(e.target.value)
+  const updateReduxQueryText = e => setQueryText(e.target.value)
   const errorText = isCancelled ? 'Your query has been stopped' : 'Query failure.  There may be a syntax issue.'
 
   const textArea = <textarea rows={5} type='text' value={localQueryText} onBlur={updateReduxQueryText} onChange={updateLocalQueryText} className='query-input' />
@@ -71,8 +71,8 @@ const DatasetQuery = props => {
 DatasetQuery.propTypes = {
   queryText: PropTypes.string,
   queryFailureMessage: PropTypes.string,
-  isQueryLoading: PropTypes.bool.isRequired,
-  isQueryLoaded: PropTypes.bool.isRequired,
+  isQueryLoading: PropTypes.bool,
+  isQueryLoaded: PropTypes.bool,
 
   executeQuery: PropTypes.func.isRequired,
   cancelQuery: PropTypes.func.isRequired,

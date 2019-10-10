@@ -1,5 +1,5 @@
 import { takeEvery, put, call, fork, all } from 'redux-saga/effects'
-import { GET_VISUALIZATION, CREATE_VISUALIZATION, visualizationAvailable, visualizationUnavailable } from '../actions'
+import { GET_VISUALIZATION, CREATE_VISUALIZATION, visualizationAvailable, visualizationUnavailable, setQueryText } from '../actions'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 
 function* callEndpoint(clientFunction) {
@@ -7,6 +7,7 @@ function* callEndpoint(clientFunction) {
     const response = yield call(clientFunction)
     
     if (response.status === 200) {
+      yield put(setQueryText(response.data.query))
       yield put(visualizationAvailable(response.data))
     } else {
       yield put(visualizationUnavailable(response.status))

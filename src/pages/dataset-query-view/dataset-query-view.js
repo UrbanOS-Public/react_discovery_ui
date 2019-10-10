@@ -1,5 +1,5 @@
 import "./dataset-query-view.scss";
-import React, { useState } from "react";
+import React from "react";
 
 import DatasetQuery from "../../components/dataset-query";
 import ReactTable from "react-table";
