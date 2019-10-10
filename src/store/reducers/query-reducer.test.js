@@ -50,7 +50,7 @@ describe("queryReducer", () => {
     const newState = reducer(currentState, setQueryFailure(expectedMessage))
 
     expect(newState.queryFailureMessage).toEqual(expectedMessage)
-    expect(newState.queryData).toEqual([])
+    expect(newState.queryData).toEqual(currentState.queryData)
     expect(newState.isQueryLoaded).toBe(true)
     expect(newState.isQueryLoading).toBe(false)
     expect(newState.cancelToken).toBe(null)
