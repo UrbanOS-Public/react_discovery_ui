@@ -4,10 +4,10 @@ import CollapsableBox from '../collapsable-box'
 
 const DatasetRecommendations = (props) => {
   const getUrl = (rec) => `/dataset/${rec.orgName}/${rec.dataName}`
-  const { datasetId, getRecommendations, recommendations } = props
+  const { dataset, getRecommendations, recommendations } = props
 
   const onInit = () => {
-    getRecommendations(datasetId)
+    getRecommendations(dataset.id)
   }
 
   React.useEffect(onInit, [])
@@ -35,7 +35,7 @@ const DatasetRecommendations = (props) => {
 }
 
 DatasetRecommendations.propTypes = {
-  datasetId: PropTypes.string.isRequired,
+  dataset: PropTypes.object.isRequired,
   getRecommendations: PropTypes.func.isRequired,
   recommendations: PropTypes.array
 }

@@ -57,7 +57,7 @@ export default class extends Component {
           {isStreaming && (
             <StreamingApiDoc dataset={dataset} expanded={streamingExpanded} />
           )}
-          <DatasetRecommendations datasetId={dataset.id} />
+          <DatasetRecommendations />
           {isGeoJSON && (
             <GeoJSONVisualization
               datasetId={dataset.id}
