@@ -28,24 +28,6 @@ describe('dataset visualization view', () => {
 
   let subject
 
-  describe('before load', () => {
-    beforeEach(() => {
-      runUseEffect()
-      subject = shallow(
-        <DatasetVisualizationView
-          isLoading={true}
-          match={routerProps}
-          location={{ search: `?systemName=${tableName}` }}
-          dataSources={dataSources} />
-      )
-    })
-
-    it('shows full page loading icon', () => {
-      expect(subject.find(LoadingElement).length).toEqual(1)
-    })
-
-  })
-
   describe('after load', () => {
     beforeEach(() => {
       runUseEffect()

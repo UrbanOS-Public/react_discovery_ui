@@ -3,10 +3,15 @@
 
 dataset-recommendations {
   .recommended-dataset {
-    margin: 0.5em 1em;
+    padding-top: 0.5em; 
+    padding-left: 1em;
 
     a {
       @include link();
     }
   }
+}
+
+.recommendation-content:last-child {
+  padding-bottom: 0.5em;
 }
