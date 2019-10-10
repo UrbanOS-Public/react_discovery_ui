@@ -9,7 +9,7 @@ import SQLIcon from '../../components/generic-elements/sql-icon'
 import DatasetVisualizationView from '../dataset-visualization-view'
 import DatasetQueryView from '../dataset-query-view'
 
-const VisualizationView = ({ resetVisualization, getVisualization, createVisualization, visualization, match }) => {
+const VisualizationView = ({ resetVisualization, getVisualization, createVisualization, query, visualization, match }) => {
   const { id } = match.params
 
   useEffect(() => { resetVisualization() && getVisualization(id) }, [])
@@ -28,7 +28,7 @@ const VisualizationView = ({ resetVisualization, getVisualization, createVisuali
         <TabList>
           <Tab>Visualize <ChartIcon className='chartIcon'/></Tab>
           <Tab>Write SQL <SQLIcon className='sqlIcon'/></Tab>
-          <li style={{float: 'right'}} className="react-tabs__tab" onClick={() => createVisualization(visualization.title, visualization.query)}>Save Visualization</li>
+          <li style={{float: 'right'}} className="react-tabs__tab" onClick={() => createVisualization(visualization.title, query)}>Save Visualization</li>
         </TabList>
         <TabPanel>
           <DatasetVisualizationView />
