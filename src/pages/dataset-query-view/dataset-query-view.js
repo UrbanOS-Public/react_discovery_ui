@@ -13,6 +13,7 @@ const DatasetQueryView = props => {
     freestyleQueryText,
     queryData,
     queryFailureMessage,
+    autoFetchQuery,
 
     executeQuery,
     cancelQuery,
@@ -20,7 +21,7 @@ const DatasetQueryView = props => {
   } = props;
 
   React.useEffect(() => {
-    if (!isQueryLoaded) {
+    if (autoFetchQuery) {
       executeQuery(freestyleQueryText)
     }
   }, [])

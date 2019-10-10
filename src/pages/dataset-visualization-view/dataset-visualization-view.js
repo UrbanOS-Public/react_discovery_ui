@@ -11,9 +11,10 @@ import LoadingElement from '../../components/generic-elements/loading-element'
 const DatasetVisualizationView = (props) => {
   const [open, setOpened] = useState(false)
   const toggleOpen = () => { setOpened(!open) }
-  const { systemName, dataSources, queryData } = props
 
-  const isPageLoading = props.isQueryLoading && (queryData.length === 0)
+  const { systemName, dataSources, queryDataInitialized, isQueryLoading } = props
+
+  const isPageLoading = isQueryLoading && !queryDataInitialized
 
   if (isPageLoading) {
     return (

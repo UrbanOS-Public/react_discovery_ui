@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import DatasetQueryView from './dataset-query-view'
 import { executeFreestyleQuery, cancelFreestyleQuery, setQueryText } from '../../store/actions'
 
-import { getVisualizationDataSources, getQueryIsLoading, getFreestyleQueryText, getQueryData } from '../../store/query-selectors'
+import { getVisualizationDataSources, getQueryIsLoading, getFreestyleQueryText, getQueryData, isQueryDataSet } from '../../store/query-selectors'
 
 const mapStateToProps = state => {
   return {
@@ -11,7 +11,8 @@ const mapStateToProps = state => {
     isQueryLoaded: state.queryReducer.isQueryLoaded,
     freestyleQueryText: getFreestyleQueryText(state),
     queryData: getQueryData(state),
-    queryFailureMessage: state.queryReducer.queryFailureMessage
+    queryFailureMessage: state.queryReducer.queryFailureMessage,
+    autoFetchQuery: !isQueryDataSet(state)
   }
 }
 

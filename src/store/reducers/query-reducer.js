@@ -2,7 +2,7 @@ import { SET_QUERY_TEXT, CLEAR_QUERY_TEXT, SET_QUERY_SUCCESS, SET_QUERY_FAILURE,
 
 const defaultQueryState = {
   queryText: "",
-  queryData: [],
+  queryData: null,
   queryFailureMessage: "",
   isQueryLoading: false,
   isQueryLoaded: false,
@@ -31,7 +31,6 @@ export default (state = defaultQueryState, action) => {
       })
     case SET_QUERY_FAILURE:
       return Object.assign({}, state, {
-        queryData: [],
         queryFailureMessage: action.failureMessage,
         isQueryLoaded: true,
         isQueryLoading: false,
