@@ -46,6 +46,7 @@ dataset-query {
 
   .recommended-dataset {
     width: 20em;
+    display: inline-block;
   }
 
   .recommendation-list {
@@ -56,22 +57,21 @@ dataset-query {
     border: 1px solid black;
     display: inline-block;
     padding: 0.5em;
-    flex-grow: 1
-  }
+    width: 23rem;
 
-  .recommendation-list::-webkit-scrollbar {
-      -webkit-appearance: none;
-  }
+    &::-webkit-scrollbar {
+        -webkit-appearance: none;
+    }
 
-  .recommendation-list::-webkit-scrollbar:vertical {
-      width: 11px;
-  }
+    &::-webkit-scrollbar:vertical {
+        width: 11px;
+    }
 
-  .recommendation-list::-webkit-scrollbar-thumb {
-      border-radius: 8px;
-      border: 2px solid white;
-      // background-color: rgba(0, 0, 0, .5);
-      background-color: $light-blue;
+    &::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        border: 2px solid white;
+        background-color: $light-blue;
+    }
   }
 
   .copy-table-name-icon {

@@ -61,7 +61,7 @@ const DatasetQuery = props => {
           <a className="recommended-dataset" href={getUrl(rec)} target='_blank'>
             {rec.dataTitle}
           </a>
-          <AssignmentOutlinedIcon />
+          <AssignmentOutlinedIcon className="copy-table-name-icon"/>
         </div>)
     })
   }
