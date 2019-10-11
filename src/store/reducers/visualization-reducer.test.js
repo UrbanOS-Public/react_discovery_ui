@@ -1,10 +1,14 @@
 import reducer from './visualization-reducer'
 import {
-  getVisualization,
-  createVisualization,
+  visualizationFetch,
+  visualizationCreate,
   visualizationAvailable,
   visualizationUnavailable,
-  resetVisualization
+  resetVisualization,
+  visualizationFetchFailure,
+  visualizationCreateFailure,
+  visualizationCreateSuccess,
+  visualizationFetchSuccess
 } from '../actions'
 
 describe('Visualization Reducer', () => {
@@ -17,7 +21,7 @@ describe('Visualization Reducer', () => {
         loading: false,
         error: true
       }
-      newState = reducer(previousState, getVisualization("viz_id"))
+      newState = reducer(previousState, visualizationFetch("viz_id"))
     })
 
     it('sets `loading` state to true', () => {
@@ -35,24 +39,25 @@ describe('Visualization Reducer', () => {
     beforeEach(() => {
       previousState = {
         visualization: { id: 'existing' },
-        loading: false,
+        loading: true,
+        saving: false,
         error: true
       }
-      newState = reducer(previousState, createVisualization("hello", "world"))
+      newState = reducer(previousState, visualizationCreate("hello", "world"))
     })
 
-    it('sets `loading` state to true', () => {
-      expect(newState.loading).toBeTruthy()
+    it('sets `saving` state to true', () => {
+      expect(newState.saving).toBeTruthy()
     })
 
     it('does not modify other properties', () => {
-      const { loading: _c, ...previousOthers } = previousState
-      const { loading: _n, ...newOthers } = newState
+      const { saving: _c, ...previousOthers } = previousState
+      const { saving: _n, ...newOthers } = newState
       expect(newOthers).toEqual(previousOthers)
     })
   })
 
-  describe('VISUALIZATION_AVAILABLE', () => {
+  describe('VISUALIZATION_CREATE_SUCCESS', () => {
     const newVisualization = { id: 'new' }
     beforeEach(() => {
       previousState = {
@@ -60,7 +65,31 @@ describe('Visualization Reducer', () => {
         loading: true,
         error: true
       }
-      newState = reducer(previousState, visualizationAvailable(newVisualization))
+      newState = reducer(previousState, visualizationCreateSuccess(newVisualization))
+    })
+
+    it('sets `visualization` state to the visualization', () => {
+      expect(newState.visualization).toEqual(newVisualization)
+    })
+
+    it('sets `saving` state to false', () => {
+      expect(newState.saving).toBeFalsy()
+    })
+
+    it('sets `error` state to false', () => {
+      expect(newState.error).toBeFalsy()
+    })
+  })
+
+  describe('VISUALIZATION_FETCH_SUCCESS', () => {
+    const newVisualization = { id: 'new' }
+    beforeEach(() => {
+      previousState = {
+        visualization: { id: 'existing' },
+        loading: true,
+        error: true
+      }
+      newState = reducer(previousState, visualizationFetchSuccess(newVisualization))
     })
 
     it('sets `visualization` state to the visualization', () => {
@@ -76,7 +105,7 @@ describe('Visualization Reducer', () => {
     })
   })
 
-  describe('VISUALIZATION_UNAVAILABLE', () => {
+  describe('VISUALIZATION_CREATE_FAILURE', () => {
     const errorMessage = 'bad stuff'
     const previousVisualization = { id: 'existing' }
 
@@ -86,7 +115,33 @@ describe('Visualization Reducer', () => {
         loading: true,
         error: false
       }
-      newState = reducer(previousState, visualizationUnavailable(errorMessage))
+      newState = reducer(previousState, visualizationCreateFailure(errorMessage))
+    })
+
+    it('does not modify the current visualization', () => {
+      expect(newState.visualization).toEqual(previousVisualization)
+    })
+
+    it('sets `saving` state to false', () => {
+      expect(newState.saving).toBeFalsy()
+    })
+
+    it('sets `error` state to true', () => {
+      expect(newState.error).toBeTruthy()
+    })
+  })
+
+  describe('VISUALIZATION_FETCH_FAILURE', () => {
+    const errorMessage = 'bad stuff'
+    const previousVisualization = { id: 'existing' }
+
+    beforeEach(() => {
+      previousState = {
+        visualization: previousVisualization,
+        loading: true,
+        error: false
+      }
+      newState = reducer(previousState, visualizationFetchFailure(errorMessage))
     })
 
     it('does not modify the current visualization', () => {

@@ -166,27 +166,37 @@ export const queryDatasetCancelled = (message) => ({
   type: QUERY_DATASET_CANCELLED, value: message
 })
 
-export const GET_VISUALIZATION = 'GET_VISUALIZATION'
-export const getVisualization = (id) => ({
-  type: GET_VISUALIZATION, value: id
+export const VISUALIZATION_FETCH = 'VISUALIZATION_FETCH'
+export const visualizationFetch = (id) => ({
+  type: VISUALIZATION_FETCH, value: id
 })
 
-export const CREATE_VISUALIZATION = 'CREATE_VISUALIZATION'
-export const createVisualization = (title, query) => ({
-  type: CREATE_VISUALIZATION, value: {title, query}
+export const VISUALIZATION_FETCH_SUCCESS = 'VISUALIZATION_FETCH_SUCCESS'
+export const visualizationFetchSuccess = (visualization) => ({
+  type: VISUALIZATION_FETCH_SUCCESS, value: visualization
 })
 
-export const VISUALIZATION_AVAILABLE = 'VISUALIZATION_AVAILABLE'
-export const visualizationAvailable = (visualization) => ({
-  type: VISUALIZATION_AVAILABLE, value: visualization
+export const VISUALIZATION_FETCH_FAILURE = 'VISUALIZATION_FETCH_FAILURE'
+export const visualizationFetchFailure = (errorMessage) => ({
+  type: VISUALIZATION_FETCH_FAILURE, value: errorMessage
 })
 
-export const VISUALIZATION_UNAVAILABLE = 'VISUALIZATION_UNAVAILABLE'
-export const visualizationUnavailable = (errorMessage) => ({
-  type: VISUALIZATION_UNAVAILABLE, value: errorMessage
+export const VISUALIZATION_CREATE = 'VISUALIZATION_CREATE'
+export const visualizationCreate = (title, query) => ({
+  type: VISUALIZATION_CREATE, value: {title, query}
 })
 
-export const RESET_VISUALIZATION = 'RESET_VISUALIZATION'
+export const VISUALIZATION_CREATE_SUCCESS = 'VISUALIZATION_CREATE_SUCCESS'
+export const visualizationCreateSuccess = (visualization) => ({
+  type: VISUALIZATION_CREATE_SUCCESS, value: visualization
+})
+
+export const VISUALIZATION_CREATE_FAILURE = 'VISUALIZATION_CREATE_FAILURE'
+export const visualizationCreateFailure = (errorMessage) => ({
+  type: VISUALIZATION_CREATE_FAILURE, value: errorMessage
+})
+
+export const VISUALIZATION_RESET = 'VISUALIZATION_RESET'
 export const resetVisualization = () => ({
-  type: RESET_VISUALIZATION
+  type: VISUALIZATION_RESET
 })

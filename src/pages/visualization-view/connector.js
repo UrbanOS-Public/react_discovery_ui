@@ -1,23 +1,24 @@
 import { connect } from 'react-redux'
 import VisualizationView from './visualization-view'
-import { getVisualization, resetVisualization, createVisualization } from '../../store/actions'
-import { selectVisualization } from '../../store/selectors'
+import { visualizationFetch, resetVisualization, visualizationCreate } from '../../store/actions'
 import { getFreestyleQueryText } from '../../store/query-selectors'
-import { visualizationTitle, visualizationLoading, visualizationError } from '../../store/visualization-selectors'
+import { visualizationTitle, visualizationSaving, visualizationLoading, visualizationError, isVisualizationSavable} from '../../store/visualization-selectors'
 
 const mapStateToProps = state => {
     return {
         title: visualizationTitle(state),
         isLoading: visualizationLoading(state),
         isError: visualizationError(state),
+        isSaving: visualizationSaving(state),
+        isSavable: isVisualizationSavable(state),
         query: getFreestyleQueryText(state)
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    getVisualization: (id) => dispatch(getVisualization(id)),
+    getVisualization: (id) => dispatch(visualizationFetch(id)),
     resetVisualization: () => dispatch(resetVisualization()),
-    createVisualization: (title, query) => dispatch(createVisualization(title, query))
+    createVisualization: (title, query) => dispatch(visualizationCreate(title, query))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(VisualizationView)

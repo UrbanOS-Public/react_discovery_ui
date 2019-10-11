@@ -1,43 +1,41 @@
 import { takeEvery, put, call, fork, all } from 'redux-saga/effects'
-import { GET_VISUALIZATION, CREATE_VISUALIZATION, visualizationAvailable, visualizationUnavailable, setQueryText } from '../actions'
+import { VISUALIZATION_CREATE, VISUALIZATION_FETCH, visualizationFetchSuccess, visualizationFetchFailure, visualizationCreateSuccess, visualizationCreateFailure, setQueryText } from '../actions'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 
-function* callEndpoint(clientFunction) {
+function* callEndpoint(clientFunction, successEvent, failureEvent) {
   try {
     const response = yield call(clientFunction)
     
     if (response.status === 200) {
       yield put(setQueryText(response.data.query))
-      yield put(visualizationAvailable(response.data))
+      yield put(successEvent(response.data))
     } else {
-      yield put(visualizationUnavailable(response.status))
+      yield put(failureEvent(response.status))
     }
   } catch (e) {
-    yield put(visualizationUnavailable(e.message))
+    yield put(failureEvent(e.message))
   }
 }
 
-function* getVisualization({ value: id }) {
-  yield callEndpoint(() => AuthenticatedHTTPClient.get(`/api/v1/visualization/${id}`))
+function* fetchVisualization({ value: id }) {
+  yield callEndpoint(() => AuthenticatedHTTPClient.get(`/api/v1/visualization/${id}`), visualizationFetchSuccess, visualizationFetchFailure)
 }
 
 function* createVisualization({ value: visualization }) {
-  yield callEndpoint(() => AuthenticatedHTTPClient.post('/api/v1/visualization', visualization))
+  yield callEndpoint(() => AuthenticatedHTTPClient.post('/api/v1/visualization', visualization), visualizationCreateSuccess, visualizationCreateFailure)
 }
 
-function* getVisualizationSaga() {
-  yield takeEvery(GET_VISUALIZATION, getVisualization)
+function* fetchVisualizationSaga() {
+  yield takeEvery(VISUALIZATION_FETCH, fetchVisualization)
 }
 
 function* createVisualizationSaga() {
-  yield takeEvery(CREATE_VISUALIZATION, createVisualization)
+  yield takeEvery(VISUALIZATION_CREATE, createVisualization)
 }
-
-export { getVisualizationSaga, createVisualizationSaga }
 
 export default function* visualizationSaga() {
   yield all([
-    fork(getVisualizationSaga),
+    fork(fetchVisualizationSaga),
     fork(createVisualizationSaga)
   ])
 }

@@ -6,6 +6,6 @@ describe('data card element', () => {
 
   test('card to render text based on props', () => {
     subject = shallow(<LoadingElement />)
-    expect(subject.find('.loading-container').length).toEqual(1)
+    expect(subject.find('loading-element').length).toEqual(1)
   })
 })

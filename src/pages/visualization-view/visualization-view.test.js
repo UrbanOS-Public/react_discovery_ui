@@ -6,7 +6,6 @@ import QueryView from "../query-view"
 import ChartView from "../chart-view"
 import LoadingElement from "../../components/generic-elements/loading-element"
 import ErrorComponent from "../../components/generic-elements/error-component"
-import TabButton from "../../components/generic-elements/tab-button"
 
 const runUseEffect = () => {
   const useEffect = jest.spyOn(React, "useEffect")
@@ -19,7 +18,6 @@ describe("visualization view", () => {
   describe('when visualization id is not provided along with nothing else', () => {
     const resetHandler = jest.fn(() => true)
     const getHandler = jest.fn()
-    const createHandler = jest.fn()
 
     beforeEach(() => {
       runUseEffect()
@@ -31,7 +29,6 @@ describe("visualization view", () => {
           query=''
           getVisualization={getHandler}
           resetVisualization={resetHandler}
-          createHandler={createHandler}
         />
       )
     })
@@ -42,12 +39,6 @@ describe("visualization view", () => {
 
     it("does not call the get function", () => {
       expect(getHandler).not.toHaveBeenCalled()
-    })
-
-    it("disables the save button", () => {
-      const saveButton = subject.find('.save-button')
-      saveButton.
-
     })
   })
 
@@ -86,6 +77,7 @@ describe("visualization view", () => {
         <VisualizationView
           match={{ params: { id: "123456" } }}
           isLoading={false}
+          isSaving={false}
           isError={false}
           title='my first visualization'
           query='SELECT the_thing FROM the_table'
@@ -107,6 +99,10 @@ describe("visualization view", () => {
 
     it("has a query view component", () => {
       expect(subject.find(QueryView).length).toEqual(1)
+    })
+
+    it("does not display a saving spinner", () => {
+      expect(subject.find('.saving-spinner').length).toEqual(0)
     })
   })
 
@@ -166,8 +162,72 @@ describe("visualization view", () => {
     })
   })
 
-  describe("when visualization is saving (?!?!)", () => {
-    
+  describe("when visualization is not able to be saved", () => {
+    let subject
+
+    beforeEach(() => {
+      subject = shallow(
+        <VisualizationView
+          match={{ params: { id: "123456" } }}
+          isLoading={false}
+          isError={false}
+          isSavable={false}
+          title='my first visualization'
+          query=''
+        />
+      )
+    })
+  
+    it("disables the save button", () => {
+      expect(subject.find('.save-button').props().disabled).toBeTruthy()
+    })
+  })
+
+  describe("when visualization is able to be saved", () => {
+    let subject
+    const createHandler = jest.fn()
+    const title = 'Placeholder Title'
+    const query = 'select * from stuff'
+
+    beforeEach(() => {
+      subject = shallow(
+        <VisualizationView
+          match={{ params: { id: "123456" } }}
+          isLoading={false}
+          isError={false}
+          isSavable={true}
+          createVisualization={createHandler}
+          title='my first visualization'
+          query='select * from stuff'
+        />
+      )
+    })
+  
+    it("enables the save button", () => {
+      expect(subject.find('.save-button').props().disabled).toBeFalsy()
+    })
+
+    it("send create visualization event with the query and a placeholder title on click of the save button", () => {
+      subject.find('.save-button').simulate('click')
+
+      expect(createHandler).toHaveBeenCalledWith(title, query)
+    })
+  })
+
+  describe("when visualiation is saving", () => {
+    let subject
+
+    beforeEach(() => {
+      subject = shallow(
+        <VisualizationView
+          isSaving={true}
+        />
+      )
+    })
+
+    it("displays a spinner to indicate that saving is in progress", () => {
+      expect(subject.find('.saving-spinner').length).toEqual(1)
+    })
   })
 })
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 
@@ -18,9 +18,10 @@ const VisualizationView = (props) => {
     getVisualization,
     createVisualization,
     query,
-    title,
     isLoading,
+    isSaving,
     isError,
+    isSavable,
     match
   } = props
 
@@ -30,10 +31,14 @@ const VisualizationView = (props) => {
     if (id) { getVisualization(id) }
   }, [])
 
+  const onSave = () => {
+    createVisualization("Placeholder Title", query)
+  }
+
   if (isLoading) {
     return (
       <visualization-view>
-        <LoadingElement />
+        <LoadingElement className='loading-spinner' />
       </visualization-view>
     )
   }
@@ -48,18 +53,26 @@ const VisualizationView = (props) => {
 
   // TODO
   // test driving save click
-  // - disabled
   // - save spinner
   // - link for where to get visualization
 
   return (
     <visualization-view>
-      <Tabs className='visualization-view' >
-        <TabList>
-          <Tab>Visualize <ChartIcon className='chartIcon' /></Tab>
-          <Tab>Write SQL <SQLIcon className='sqlIcon' /></Tab>
-          <TabButton style={{float: 'right'}} disabled={!query} className='save-button' onClick={() => createVisualization("Placeholder Title", query)} ><SaveIcon /></TabButton>
-          {/* onClick={() => createVisualization("Placeholder Title", query)} */}
+      <Tabs>
+        <TabList className='header'>
+          <span className='tab-area'>
+            <Tab className='header-item tab' selectedClassName='selected'>Visualize <ChartIcon className='chart-icon' /></Tab>
+            <Tab className='header-item tab' selectedClassName='selected'>Write SQL <SQLIcon className='sql-icon' /></Tab>
+          </span>
+          <span className='action-area'>
+            {
+              isSaving
+              ? <LoadingElement className='header-item saving-spinner' />
+              : <TabButton className='header-item save-button' disabled={!isSavable} onClick={onSave} >
+                <SaveIcon />
+              </TabButton>
+            }
+          </span>
         </TabList>
         <TabPanel>
           <ChartView />
