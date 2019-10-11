@@ -14,6 +14,7 @@ import ChartView from '../chart-view'
 import QueryView from '../query-view'
 import ErrorComponent from '../../components/generic-elements/error-component'
 import routes from '../../routes'
+import AutoAnchoringPopover from '../../components/auto-anchoring-popover'
 
 const VisualizationView = (props) => {
   const {
@@ -31,17 +32,10 @@ const VisualizationView = (props) => {
     isSaveable,
     match
   } = props
-  const [dialogAnchorRef, setDialogAnchorRef] = useState(null)
-
   React.useEffect(() => { reset() }, [])
-  React.useEffect(() => {
-    const { id } = match.params
-    if (id) { fetch(id) }
-  }, [])
-  React.useEffect(() => { setDialogAnchorRef(React.createRef()) }, [])
+  React.useEffect(() => { if (match.params.id) fetch(match.params.id) }, [])
 
   const handleSave = () => { create("Placeholder Title", query) }
-  const currentDialogAnchorElement = () => (dialogAnchorRef ? dialogAnchorRef.current : null)
 
   if (isLoading) {
     return (
@@ -69,14 +63,12 @@ const VisualizationView = (props) => {
           </span>
           <span className='action-area'>
             <React.Fragment>
-              <TabButton ref={dialogAnchorRef} className='header-item save-button' disabled={!(isSaveable)} onClick={handleSave} >
+              <TabButton className='header-item save-button' disabled={!(isSaveable)} onClick={handleSave} >
                 <SaveIcon />
               </TabButton>
-              <Popover
+              <AutoAnchoringPopover
                 open={isSaving}
                 onClose={finishCreation}
-                anchorEl={currentDialogAnchorElement}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 classes={{ paper: 'visualization-view-popover' }}
               >
                 <div className='saved-link-dialog'>
@@ -86,7 +78,7 @@ const VisualizationView = (props) => {
                     className="link-button" />
                   <SavingElement className='saving-spinner' success={isSaved} failure={isSaveError} />
                 </div>
-              </Popover>
+              </AutoAnchoringPopover>
             </React.Fragment>
           </span>
         </TabList>
