@@ -42,7 +42,7 @@ const DatasetQuery = props => {
   const updateReduxQueryText = (e) => setQueryText(e.target.value)
   const errorText = isCancelled ? 'Your query has been stopped' : 'Query failure.  There may be a syntax issue.'
 
-  const textArea = <textarea style={{height: '60%'}} rows={5} type='text' value={localQueryText} onBlur={updateReduxQueryText} onChange={updateLocalQueryText} className='query-input' />
+  const textArea = <textarea rows={5} type='text' value={localQueryText} onBlur={updateReduxQueryText} onChange={updateLocalQueryText} className='query-input' />
   const submitButton = <button className="action-button" disabled={isQueryLoading} onClick={submit}>Submit</button>
   const cancelButton = <button className="action-button" disabled={!isQueryLoading} onClick={cancel}>Cancel</button>
   const errorMessage = <span className='error-message'>{errorText}</span>
@@ -68,7 +68,7 @@ const DatasetQuery = props => {
 
   const recommendationList = () => {
     return (
-      <div style={{height: '60%'}} className="recommendation-list">
+      <div className="recommendation-list">
         {recommendationItems()}
       </div>
     )
@@ -81,11 +81,11 @@ const DatasetQuery = props => {
     <dataset-query>
       <div className="user-input">
         <div>
-          <div style={{height: '30%'}}>Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</div>
+          <div class="sql-title">Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</div>
           {textArea}
         </div>
-        <div style={{marginLeft: '3rem'}}>
-          <div style={{height: '30%'}}>Recommendations</div>
+        <div className="recommendation-section">
+          <div className="recommendation-title">Recommendations</div>
           {recommendations && recommendationList()}
         </div>
       </div>
