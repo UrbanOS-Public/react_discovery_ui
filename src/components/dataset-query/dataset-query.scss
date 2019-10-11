@@ -1,7 +1,7 @@
 @import "../../styles/variables.scss";
 @import "../../styles/mixins.scss";
 
-.dataset-query {
+dataset-query {
   margin: 0 1.25rem;
   margin-top: -1.25rem;
   display: flex;
@@ -9,8 +9,8 @@
   flex-wrap: wrap;
 
   .query-input {
-    width: 100%;
     padding: 0.5rem;
+    flex-grow: 2;
     color: $almost-black;
     border-color: $almost-black;
   }
@@ -42,5 +42,50 @@
     width: 3rem;
     margin: 0;
     vertical-align: middle;
+  }
+
+  .recommended-dataset {
+    width: 20em;
+  }
+
+  .recommendation-list {
+    border: 1px solid $light-grey;
+    margin-left: 3em;
+    max-height: 100%;
+    overflow-y: auto;
+    border: 1px solid black;
+    display: inline-block;
+    padding: 0.5em;
+    flex-grow: 1
+  }
+
+  .recommendation-list::-webkit-scrollbar {
+      -webkit-appearance: none;
+  }
+
+  .recommendation-list::-webkit-scrollbar:vertical {
+      width: 11px;
+  }
+
+  .recommendation-list::-webkit-scrollbar-thumb {
+      border-radius: 8px;
+      border: 2px solid white;
+      // background-color: rgba(0, 0, 0, .5);
+      background-color: $light-blue;
+  }
+
+  .copy-table-name-icon {
+    vertical-align: bottom;
+  }
+
+  .user-input {
+    height: 7em;
+    width: 100%;
+    display: flex;
+  }
+
+  a {
+    color: red;
+    @include link();
   }
 }

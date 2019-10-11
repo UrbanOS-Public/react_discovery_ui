@@ -6,7 +6,6 @@ import { datasetRecommendations } from '../../store/actions'
 const mapStateToProps = state => {
     return {
         recommendations: getDatasetRecommendations(state),
-        dataset: getDataSet(state)
     }
 }
 

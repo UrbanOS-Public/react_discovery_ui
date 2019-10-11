@@ -1,12 +1,16 @@
 import { useState } from 'react'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import './dataset-query.scss'
-import LoadingElement from '../generic-elements/loading-element';
+import LoadingElement from '../generic-elements/loading-element'
+import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined'
+
+
 
 
 const DatasetQuery = props => {
   const {
     queryText,
+    recommendations,
     isQueryLoading,
     isQueryLoaded,
     queryFailureMessage,
@@ -47,16 +51,41 @@ const DatasetQuery = props => {
       Query successful.  To refresh the visualization, you must change an element in the trace
     </span>
   )
+  // Duplicated this too, SAD!
+  const getUrl = (rec) => `/dataset/${rec.orgName}/${rec.dataName}`
+
+  const recommendationItems = () => {
+    return recommendations.map(rec => {
+      return (
+        <div key={rec.id}>
+          <a className="recommended-dataset" href={getUrl(rec)} target='_blank'>
+            {rec.dataTitle}
+          </a>
+          <AssignmentOutlinedIcon />
+        </div>)
+    })
+  }
+
+  const recommendationList = () => {
+    return (
+      <div className="recommendation-list">
+        {recommendationItems()}
+      </div>
+    )
+  }
 
   const showSuccessMessage = !queryFailureMessage && isQueryLoaded && !isQueryLoading
   const showFailureMessage = queryFailureMessage && !isQueryLoading
 
   return (
-    <div className='dataset-query'>
+    <dataset-query>
       <p>
         Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.
       </p>
-      {textArea}
+      <div className="user-input">
+        {textArea}
+        {recommendations && recommendationList()}
+      </div>
       <div>
         {submitButton}
         {cancelButton}
@@ -64,12 +93,13 @@ const DatasetQuery = props => {
         {showSuccessMessage && successMessage}
         {isQueryLoading && <LoadingElement />}
       </div>
-    </div>
+    </dataset-query>
   )
 }
 
 DatasetQuery.propTypes = {
   queryText: PropTypes.string,
+  recommendations: PropTypes.array,
   queryFailureMessage: PropTypes.string,
   isQueryLoading: PropTypes.bool.isRequired,
   isQueryLoaded: PropTypes.bool.isRequired,
@@ -77,7 +107,6 @@ DatasetQuery.propTypes = {
   executeQuery: PropTypes.func.isRequired,
   cancelQuery: PropTypes.func.isRequired,
   setQueryText: PropTypes.func.isRequired,
-
 }
 
 export default DatasetQuery

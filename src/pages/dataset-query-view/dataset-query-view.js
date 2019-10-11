@@ -8,6 +8,7 @@ import LoadingElement from "../../components/generic-elements/loading-element";
 const DatasetQueryView = props => {
   const { 
     dataSources,
+    recommendations,
     isQueryLoading,
     isQueryLoaded,
     freestyleQueryText,
@@ -43,6 +44,7 @@ const DatasetQueryView = props => {
     <dataset-query-page>
       <DatasetQuery
         onQueryDataset={executeQuery}
+        recommendations={recommendations}
 
         queryFailureMessage={queryFailureMessage}
         isQueryLoading={isQueryLoading}

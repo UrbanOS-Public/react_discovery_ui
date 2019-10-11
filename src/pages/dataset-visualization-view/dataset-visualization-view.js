@@ -6,8 +6,8 @@ import InlineSVG from 'react-svg-inline'
 
 import DatasetQueryView from '../dataset-query-view'
 import ChartVisualization from '../../components/visualizations/chart/chart-visualization'
-import DatasetRecommendations from '../../components/dataset-recommendations'
 import { Collapse } from 'react-collapse'
+import LoadingElement from '../../components/generic-elements/loading-element'
 
 
 const DatasetVisualizationView = (props) => {
@@ -38,8 +38,6 @@ const DatasetVisualizationView = (props) => {
           <DatasetQueryView systemName={systemName} />
         </Collapse>
       </div>
-      <DatasetRecommendations datasetId={datasetId} />
-
       <ChartVisualization dataSources={dataSources} />
     </dataset-visualization>
   )
