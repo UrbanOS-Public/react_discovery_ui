@@ -1,19 +1,38 @@
 @import "../../styles/mixins.scss";
 @import "../../styles/variables.scss";
 
+.visualization-view-popover {
+  .saved-link-dialog {
+    padding: 1rem;
+    width: 20rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .saving-spinner {
+    width: 2rem;
+    line-height: 0;
+  }
+}
+
 visualization-view {
   .header {
     border-bottom: 0;
     box-shadow: 0px 1px 3px $light-grey;
-    margin: 0 0 10px;
+    margin: 0;
     padding: 0;
     display: flex;
     justify-content: space-between;
   }
 
-  .tab-area, .action-area {
+  .tab-area,
+  .action-area {
     display: flex;
     align-items: center;
+  }
+
+  .action-area {
+    margin-right: 0.5rem;
   }
 
   .header-item {
@@ -62,9 +81,6 @@ visualization-view {
     }
   }
 
-  .saving-spinner {
-    width: 2rem;
-  }
 
   .chart-icon {
     padding-left: 5px;

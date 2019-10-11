@@ -1,39 +1,47 @@
 import React, { useState } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import 'react-tabs/style/react-tabs.css'
+import { Dialog, Popover } from '@material-ui/core'
 
 import './visualization-view.scss'
 import LoadingElement from '../../components/generic-elements/loading-element'
+import SavingElement from '../../components/generic-elements/saving-element'
 import ChartIcon from '../../components/generic-elements/chart-icon'
 import SQLIcon from '../../components/generic-elements/sql-icon'
 import TabButton from '../../components/generic-elements/tab-button'
+import { GeneratedLink } from '../../components/generic-elements/generated-link'
 import SaveIcon from '@material-ui/icons/Save'
 import ChartView from '../chart-view'
 import QueryView from '../query-view'
 import ErrorComponent from '../../components/generic-elements/error-component'
+import routes from '../../routes'
 
 const VisualizationView = (props) => {
   const {
     resetVisualization,
     getVisualization,
     createVisualization,
+    finishVisualizationCreation,
+    id,
     query,
     isLoading,
     isSaving,
-    isError,
+    isSaved,
+    isSaveError,
+    isLoadError,
     isSavable,
     match
   } = props
+  const [dialogAnchorRef, setDialogAnchorRef] = useState(null)
 
+  React.useEffect(() => { resetVisualization() }, [])
   React.useEffect(() => {
-    resetVisualization()
     const { id } = match.params
     if (id) { getVisualization(id) }
   }, [])
+  React.useEffect(() => { setDialogAnchorRef(React.createRef()) }, [])
 
-  const onSave = () => {
-    createVisualization("Placeholder Title", query)
-  }
+  const handleSave = () => { createVisualization("Placeholder Title", query) }
+  const currentDialogAnchorElement = () => (dialogAnchorRef ? dialogAnchorRef.current : null)
 
   if (isLoading) {
     return (
@@ -43,18 +51,13 @@ const VisualizationView = (props) => {
     )
   }
 
-  if (isError) {
+  if (isLoadError) {
     return (
       <visualization-view>
         <ErrorComponent errorText='We were unable to fetch the requested visualization' />
       </visualization-view>
     )
   }
-
-  // TODO
-  // test driving save click
-  // - save spinner
-  // - link for where to get visualization
 
   return (
     <visualization-view>
@@ -65,13 +68,26 @@ const VisualizationView = (props) => {
             <Tab className='header-item tab' selectedClassName='selected'>Write SQL <SQLIcon className='sql-icon' /></Tab>
           </span>
           <span className='action-area'>
-            {
-              isSaving
-              ? <LoadingElement className='header-item saving-spinner' />
-              : <TabButton className='header-item save-button' disabled={!isSavable} onClick={onSave} >
+            <React.Fragment>
+              <TabButton ref={dialogAnchorRef} className='header-item save-button' disabled={!(isSavable)} onClick={handleSave} >
                 <SaveIcon />
               </TabButton>
-            }
+              <Popover
+                open={isSaving}
+                onClose={finishVisualizationCreation}
+                anchorEl={currentDialogAnchorElement}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                classes={{ paper: 'visualization-view-popover' }}
+              >
+                <div className='saved-link-dialog'>
+                  <GeneratedLink
+                    path={routes.visualizationView}
+                    params={{ id }}
+                    className="link-button" />
+                  <SavingElement className='saving-spinner' success={isSaved} failure={isSaveError} />
+                </div>
+              </Popover>
+            </React.Fragment>
           </span>
         </TabList>
         <TabPanel>

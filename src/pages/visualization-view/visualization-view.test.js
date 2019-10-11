@@ -229,6 +229,26 @@ describe("visualization view", () => {
       expect(subject.find('.saving-spinner').length).toEqual(1)
     })
   })
+
+  describe("when visualiation is saved", () => {
+    let subject
+    const id = 'abcdefg'
+    const query = 'select * from saved_stuff'
+
+    beforeEach(() => {
+      subject = shallow(
+        <VisualizationView
+          isSaved={true}
+          query={query}
+          id={id}
+        />
+      )
+    })
+
+    it("displays a small visualization link dialog", () => {
+      expect(subject.find('.saved-link-dialog').length).toEqual(1)
+    })
+  })
 })
 
 

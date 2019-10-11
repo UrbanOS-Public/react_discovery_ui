@@ -4,7 +4,7 @@ import {
   visualizationCreate,
   visualizationAvailable,
   visualizationUnavailable,
-  resetVisualization,
+  visualizationReset,
   visualizationFetchFailure,
   visualizationCreateFailure,
   visualizationCreateSuccess,
@@ -19,6 +19,7 @@ describe('Visualization Reducer', () => {
       previousState = {
         visualization: { id: 'existing' },
         loading: false,
+        loaded: true,
         error: true
       }
       newState = reducer(previousState, visualizationFetch("viz_id"))
@@ -28,9 +29,13 @@ describe('Visualization Reducer', () => {
       expect(newState.loading).toBeTruthy()
     })
 
+    it('sets `loaded` state to false', () => {
+      expect(newState.loaded).toBeFalsy()
+    })
+
     it('does not modify other properties', () => {
-      const { loading: _c, ...previousOthers } = previousState
-      const { loading: _n, ...newOthers } = newState
+      const { loading: _cl, loaded: _cd, ...previousOthers } = previousState
+      const { loading: _nl, loaded: _nd, ...newOthers } = newState
       expect(newOthers).toEqual(previousOthers)
     })
   })
@@ -41,6 +46,7 @@ describe('Visualization Reducer', () => {
         visualization: { id: 'existing' },
         loading: true,
         saving: false,
+        saved: true,
         error: true
       }
       newState = reducer(previousState, visualizationCreate("hello", "world"))
@@ -50,9 +56,13 @@ describe('Visualization Reducer', () => {
       expect(newState.saving).toBeTruthy()
     })
 
+    it('sets `saved` state to false', () => {
+      expect(newState.saved).toBeFalsy()
+    })
+
     it('does not modify other properties', () => {
-      const { saving: _c, ...previousOthers } = previousState
-      const { saving: _n, ...newOthers } = newState
+      const { saving: _cl, saved: _cd, ...previousOthers } = previousState
+      const { saving: _nl, saved: _nd, ...newOthers } = newState
       expect(newOthers).toEqual(previousOthers)
     })
   })
@@ -63,6 +73,8 @@ describe('Visualization Reducer', () => {
       previousState = {
         visualization: { id: 'existing' },
         loading: true,
+        saved: false,
+        saving: true,
         error: true
       }
       newState = reducer(previousState, visualizationCreateSuccess(newVisualization))
@@ -76,6 +88,10 @@ describe('Visualization Reducer', () => {
       expect(newState.saving).toBeFalsy()
     })
 
+    it('sets `saved` state to true', () => {
+      expect(newState.saved).toBeTruthy()
+    })
+
     it('sets `error` state to false', () => {
       expect(newState.error).toBeFalsy()
     })
@@ -87,6 +103,7 @@ describe('Visualization Reducer', () => {
       previousState = {
         visualization: { id: 'existing' },
         loading: true,
+        loaded: true,
         error: true
       }
       newState = reducer(previousState, visualizationFetchSuccess(newVisualization))
@@ -98,6 +115,10 @@ describe('Visualization Reducer', () => {
 
     it('sets `loading` state to false', () => {
       expect(newState.loading).toBeFalsy()
+    })
+
+    it('sets `loaded` state to true', () => {
+      expect(newState.loaded).toBeTruthy()
     })
 
     it('sets `error` state to false', () => {
@@ -113,6 +134,8 @@ describe('Visualization Reducer', () => {
       previousState = {
         visualization: previousVisualization,
         loading: true,
+        saving: true,
+        saved: true,
         error: false
       }
       newState = reducer(previousState, visualizationCreateFailure(errorMessage))
@@ -124,6 +147,10 @@ describe('Visualization Reducer', () => {
 
     it('sets `saving` state to false', () => {
       expect(newState.saving).toBeFalsy()
+    })
+
+    it('sets `saved` state to false', () => {
+      expect(newState.saved).toBeFalsy()
     })
 
     it('sets `error` state to true', () => {
@@ -139,6 +166,7 @@ describe('Visualization Reducer', () => {
       previousState = {
         visualization: previousVisualization,
         loading: true,
+        loaded: true,
         error: false
       }
       newState = reducer(previousState, visualizationFetchFailure(errorMessage))
@@ -150,6 +178,10 @@ describe('Visualization Reducer', () => {
 
     it('sets `loading` state to false', () => {
       expect(newState.loading).toBeFalsy()
+    })
+
+    it('sets `loaded` state to false', () => {
+      expect(newState.loaded).toBeFalsy()
     })
 
     it('sets `error` state to true', () => {
@@ -164,7 +196,7 @@ describe('Visualization Reducer', () => {
         loading: true,
         error: true
       }
-      newState = reducer(previousState, resetVisualization())
+      newState = reducer(previousState, visualizationReset())
     })
 
     it('sets `visualization` state to an empty object', () => {

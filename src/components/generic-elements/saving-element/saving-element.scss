@@ -1,0 +1,12 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
+
+saving-element {
+  @include custom-element();
+  .success {
+    color: green;
+  }
+  .failure {
+    color: red;
+  }
+}

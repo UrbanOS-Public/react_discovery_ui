@@ -22,6 +22,7 @@ function* fetchVisualization({ value: id }) {
 }
 
 function* createVisualization({ value: visualization }) {
+  // yield put(visualizationCreateFailure("bad stuff"))
   yield callEndpoint(() => AuthenticatedHTTPClient.post('/api/v1/visualization', visualization), visualizationCreateSuccess, visualizationCreateFailure)
 }
 

@@ -196,7 +196,12 @@ export const visualizationCreateFailure = (errorMessage) => ({
   type: VISUALIZATION_CREATE_FAILURE, value: errorMessage
 })
 
+export const VISUALIZATION_CREATE_FINISH = 'VISUALIZATION_CREATE_FINISH'
+export const visualizationCreateFinish = () => ({
+  type: VISUALIZATION_CREATE_FINISH
+})
+
 export const VISUALIZATION_RESET = 'VISUALIZATION_RESET'
-export const resetVisualization = () => ({
+export const visualizationReset = () => ({
   type: VISUALIZATION_RESET
 })
