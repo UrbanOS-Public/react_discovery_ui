@@ -42,7 +42,7 @@ const DatasetQuery = props => {
   const updateReduxQueryText = (e) => setQueryText(e.target.value)
   const errorText = isCancelled ? 'Your query has been stopped' : 'Query failure.  There may be a syntax issue.'
 
-  const textArea = <textarea rows={5} type='text' value={localQueryText} onBlur={updateReduxQueryText} onChange={updateLocalQueryText} className='query-input' />
+  const textArea = <textarea style={{height: '60%'}} rows={5} type='text' value={localQueryText} onBlur={updateReduxQueryText} onChange={updateLocalQueryText} className='query-input' />
   const submitButton = <button className="action-button" disabled={isQueryLoading} onClick={submit}>Submit</button>
   const cancelButton = <button className="action-button" disabled={!isQueryLoading} onClick={cancel}>Cancel</button>
   const errorMessage = <span className='error-message'>{errorText}</span>
@@ -61,14 +61,14 @@ const DatasetQuery = props => {
           <a className="recommended-dataset" href={getUrl(rec)} target='_blank'>
             {rec.dataTitle}
           </a>
-          <AssignmentOutlinedIcon className="copy-table-name-icon"/>
+          <AssignmentOutlinedIcon className="copy-table-name-icon" />
         </div>)
     })
   }
 
   const recommendationList = () => {
     return (
-      <div className="recommendation-list">
+      <div style={{height: '60%'}} className="recommendation-list">
         {recommendationItems()}
       </div>
     )
@@ -79,12 +79,15 @@ const DatasetQuery = props => {
 
   return (
     <dataset-query>
-      <p>
-        Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.
-      </p>
       <div className="user-input">
-        {textArea}
-        {recommendations && recommendationList()}
+        <div>
+          <div style={{height: '30%'}}>Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</div>
+          {textArea}
+        </div>
+        <div style={{marginLeft: '3rem'}}>
+          <div style={{height: '30%'}}>Recommendations</div>
+          {recommendations && recommendationList()}
+        </div>
       </div>
       <div>
         {submitButton}
