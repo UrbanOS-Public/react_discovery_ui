@@ -1,6 +1,6 @@
-import { isVisualizationSavable } from './visualization-selectors';
+import { isVisualizationSaveable } from './visualization-selectors';
 
-describe('visualizationSavable', () => {
+describe('visualizationSaveable', () => {
   describe('with visualization set to saving', () => {
     let state
     beforeEach(() => {
@@ -18,7 +18,7 @@ describe('visualizationSavable', () => {
       it('returns false even if query text is available', () => {
         state.queryReducer = { queryText: 'select * from stuff' }
     
-        expect(isVisualizationSavable(state)).toBe(false)
+        expect(isVisualizationSaveable(state)).toBe(false)
       });
     })
 
@@ -30,7 +30,7 @@ describe('visualizationSavable', () => {
       it('returns false even if queryText is not set', () => {
         state.queryReducer = { queryText: '' }
     
-        expect(isVisualizationSavable(state)).toBe(false)
+        expect(isVisualizationSaveable(state)).toBe(false)
       });
     })
   })
@@ -51,7 +51,7 @@ describe('visualizationSavable', () => {
       it('returns false even if query text is available', () => {
         state.queryReducer = { queryText: 'select * from stuff' }
     
-        expect(isVisualizationSavable(state)).toBe(false)
+        expect(isVisualizationSaveable(state)).toBe(false)
       });
     })
 
@@ -63,7 +63,7 @@ describe('visualizationSavable', () => {
       it('returns false even if queryText is not set', () => {
         state.queryReducer = { queryText: '' }
     
-        expect(isVisualizationSavable(state)).toBe(false)
+        expect(isVisualizationSaveable(state)).toBe(false)
       });
     })
   })
@@ -84,7 +84,7 @@ describe('visualizationSavable', () => {
       it('returns false even if query text is available', () => {
         state.queryReducer = { queryText: 'select * from stuff' }
     
-        expect(isVisualizationSavable(state)).toBe(false)
+        expect(isVisualizationSaveable(state)).toBe(false)
       });
     })
 
@@ -96,7 +96,7 @@ describe('visualizationSavable', () => {
       it('returns false even if queryText is not set', () => {
         state.queryReducer = { queryText: '' }
     
-        expect(isVisualizationSavable(state)).toBe(false)
+        expect(isVisualizationSaveable(state)).toBe(false)
       });
     })
   })
@@ -120,19 +120,19 @@ describe('visualizationSavable', () => {
       it('returns false if query text is empty', () => {
         state.queryReducer = { queryText: '' }
     
-        expect(isVisualizationSavable(state)).toBe(false)
+        expect(isVisualizationSaveable(state)).toBe(false)
       });
     
       it('returns false if query text is undefined', () => {
         state.queryReducer = {  }
     
-        expect(isVisualizationSavable(state)).toBe(false)
+        expect(isVisualizationSaveable(state)).toBe(false)
       });
     
       it('returns true if query text is available', () => {
         state.queryReducer = { queryText: 'select * from stuff' }
     
-        expect(isVisualizationSavable(state)).toBe(true)
+        expect(isVisualizationSaveable(state)).toBe(true)
       });
     })
 
@@ -144,7 +144,7 @@ describe('visualizationSavable', () => {
       it('returns true if queryText is not set', () => {
         state.queryReducer = { queryText: '' }
     
-        expect(isVisualizationSavable(state)).toBe(true)
+        expect(isVisualizationSaveable(state)).toBe(true)
       });
     })
   })

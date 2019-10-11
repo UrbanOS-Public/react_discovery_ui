@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import { Dialog, Popover } from '@material-ui/core'
+import { Popover } from '@material-ui/core'
 
 import './visualization-view.scss'
 import LoadingElement from '../../components/generic-elements/loading-element'
@@ -17,30 +17,30 @@ import routes from '../../routes'
 
 const VisualizationView = (props) => {
   const {
-    resetVisualization,
-    getVisualization,
-    createVisualization,
-    finishVisualizationCreation,
+    reset,
+    fetch,
+    create,
+    finishCreation,
     id,
     query,
     isLoading,
+    isLoadError,
     isSaving,
     isSaved,
     isSaveError,
-    isLoadError,
-    isSavable,
+    isSaveable,
     match
   } = props
   const [dialogAnchorRef, setDialogAnchorRef] = useState(null)
 
-  React.useEffect(() => { resetVisualization() }, [])
+  React.useEffect(() => { reset() }, [])
   React.useEffect(() => {
     const { id } = match.params
-    if (id) { getVisualization(id) }
+    if (id) { fetch(id) }
   }, [])
   React.useEffect(() => { setDialogAnchorRef(React.createRef()) }, [])
 
-  const handleSave = () => { createVisualization("Placeholder Title", query) }
+  const handleSave = () => { create("Placeholder Title", query) }
   const currentDialogAnchorElement = () => (dialogAnchorRef ? dialogAnchorRef.current : null)
 
   if (isLoading) {
@@ -69,12 +69,12 @@ const VisualizationView = (props) => {
           </span>
           <span className='action-area'>
             <React.Fragment>
-              <TabButton ref={dialogAnchorRef} className='header-item save-button' disabled={!(isSavable)} onClick={handleSave} >
+              <TabButton ref={dialogAnchorRef} className='header-item save-button' disabled={!(isSaveable)} onClick={handleSave} >
                 <SaveIcon />
               </TabButton>
               <Popover
                 open={isSaving}
-                onClose={finishVisualizationCreation}
+                onClose={finishCreation}
                 anchorEl={currentDialogAnchorElement}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 classes={{ paper: 'visualization-view-popover' }}

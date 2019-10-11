@@ -10,7 +10,7 @@ export const visualizationSaved = state => state.visualization.saved
 export const visualizationLoadError = state => state.visualization.loadError
 export const visualizationSaveError = state => state.visualization.saveError
 
-export const isVisualizationSavable = createSelector(
+export const isVisualizationSaveable = createSelector(
   isQueryTextAvailable,
   visualizationLoading,
   visualizationSaving,

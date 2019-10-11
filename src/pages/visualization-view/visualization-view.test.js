@@ -171,7 +171,7 @@ describe("visualization view", () => {
           match={{ params: { id: "123456" } }}
           isLoading={false}
           isError={false}
-          isSavable={false}
+          isSaveable={false}
           title='my first visualization'
           query=''
         />
@@ -195,7 +195,7 @@ describe("visualization view", () => {
           match={{ params: { id: "123456" } }}
           isLoading={false}
           isError={false}
-          isSavable={true}
+          isSaveable={true}
           createVisualization={createHandler}
           title='my first visualization'
           query='select * from stuff'
