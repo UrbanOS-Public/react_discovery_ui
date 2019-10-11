@@ -2,13 +2,12 @@
 @import "../../styles/variables.scss";
 
 .visualization-view-popover {
-  .saved-link-dialog {
-    padding: 1rem;
-    width: 20rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  padding: 1rem;
+  width: 20rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   .saving-spinner {
     width: 1.75rem;
     line-height: 0;
@@ -80,7 +79,6 @@ visualization-view {
       }
     }
   }
-
 
   .chart-icon {
     padding-left: 5px;

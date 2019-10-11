@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import { Popover } from '@material-ui/core'
 
 import './visualization-view.scss'
 import LoadingElement from '../../components/generic-elements/loading-element'
@@ -30,10 +29,11 @@ const VisualizationView = (props) => {
     isSaved,
     isSaveError,
     isSaveable,
-    match
+    match: {params: {id: paramsID}}
   } = props
+
   React.useEffect(() => { reset() }, [])
-  React.useEffect(() => { if (match.params.id) fetch(match.params.id) }, [])
+  React.useEffect(() => { if (paramsID) fetch(paramsID) }, [])
 
   const handleSave = () => { create("Placeholder Title", query) }
 
@@ -58,26 +58,21 @@ const VisualizationView = (props) => {
       <Tabs>
         <TabList className='header'>
           <span className='tab-area'>
-            <Tab className='header-item tab' selectedClassName='selected'>Visualize <ChartIcon className='chart-icon' /></Tab>
-            <Tab className='header-item tab' selectedClassName='selected'>Write SQL <SQLIcon className='sql-icon' /></Tab>
+            <Tab className='header-item tab' selectedClassName='selected'>
+              Visualize <ChartIcon className='chart-icon' />
+            </Tab>
+            <Tab className='header-item tab' selectedClassName='selected'>
+              Write SQL <SQLIcon className='sql-icon' />
+            </Tab>
           </span>
           <span className='action-area'>
             <React.Fragment>
               <TabButton className='header-item save-button' disabled={!(isSaveable)} onClick={handleSave} >
                 <SaveIcon />
               </TabButton>
-              <AutoAnchoringPopover
-                open={isSaving}
-                onClose={finishCreation}
-                classes={{ paper: 'visualization-view-popover' }}
-              >
-                <div className='saved-link-dialog'>
-                  <GeneratedLink
-                    path={routes.visualizationView}
-                    params={{ id }}
-                    className="link-button" />
-                  <SavingElement className='saving-spinner' success={isSaved} failure={isSaveError} />
-                </div>
+              <AutoAnchoringPopover open={isSaving} onClose={finishCreation} classes={{ paper: 'visualization-view-popover' }} >
+                <GeneratedLink path={routes.visualizationView} params={{ id }} className="link-button" />
+                <SavingElement className='saving-spinner' success={isSaved} failure={isSaveError} />
               </AutoAnchoringPopover>
             </React.Fragment>
           </span>
