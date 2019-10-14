@@ -1,65 +1,67 @@
 import {
-  VISUALIZATION_CREATE,
-  VISUALIZATION_FETCH,
-  VISUALIZATION_FETCH_SUCCESS,
-  VISUALIZATION_FETCH_FAILURE,
-  VISUALIZATION_RESET,
-  VISUALIZATION_CREATE_SUCCESS,
-  VISUALIZATION_CREATE_FAILURE,
-  VISUALIZATION_CREATE_FINISH
+  VISUALIZATION_LOAD,
+  VISUALIZATION_LOAD_SUCCESS,
+  VISUALIZATION_LOAD_FAILURE,
+  VISUALIZATION_SAVE,
+  VISUALIZATION_SAVE_SUCCESS,
+  VISUALIZATION_SAVE_FAILURE,
+  VISUALIZATION_SAVE_FINISH,
+  VISUALIZATION_RESET
 } from "../actions"
 
 const defaultVisualizationState = {
   visualization: {},
-  loadError: false,
-  saveError: false,
   loading: false,
-  loaded: false,
+  loadSuccess: false,
+  loadFailure: false,
   saving: false,
-  saved: false
+  saveSuccess: false,
+  saveFailure: false
 }
 
 const visualizationReducer = (state = defaultVisualizationState, action) => {
   switch (action.type) {
-    case VISUALIZATION_FETCH:
+    case VISUALIZATION_LOAD:
       return Object.assign({}, state, {
         loading: true,
-        loaded: false
+        loadSuccess: false,
+        loadFailure: false
       })
-    case VISUALIZATION_FETCH_SUCCESS:
+    case VISUALIZATION_LOAD_SUCCESS:
       return Object.assign({}, state, {
-        loadError: false,
+        visualization: action.value,
         loading: false,
-        loaded: true,
-        visualization: action.value
+        loadSuccess: true,
+        loadFailure: false
       })
-    case VISUALIZATION_FETCH_FAILURE:
+    case VISUALIZATION_LOAD_FAILURE:
       return Object.assign({}, state, {
-        loaded: false,
         loading: false,
-        loadError: true 
+        loadSuccess: false,
+        loadFailure: true 
       })
-    case VISUALIZATION_CREATE:
+    case VISUALIZATION_SAVE:
       return Object.assign({}, state, {
         saving: true,
-        saved: false
+        saveSuccess: false,
+        saveFailure: false
       })
-    case VISUALIZATION_CREATE_SUCCESS:
+    case VISUALIZATION_SAVE_SUCCESS:
       return Object.assign({}, state, {
-        saveError: false,
-        saved: true,
-        visualization: action.value
+        visualization: action.value,
+        saveSuccess: true,
+        saveFailure: false
       })
-    case VISUALIZATION_CREATE_FAILURE:
+    case VISUALIZATION_SAVE_FAILURE:
       return Object.assign({}, state, {
-        saved: false,
-        saveError: true
+        saveSuccess: false,
+        saveFailure: true
       })
-    case VISUALIZATION_CREATE_FINISH:
+    case VISUALIZATION_SAVE_FINISH:
       return Object.assign({}, state, {
-        saved: false,
-        saveError: false,
-        saving: false
+        saving: false,
+        saveSuccess: false,
+        saveFailure: false
       })
     case VISUALIZATION_RESET:
       return defaultVisualizationState

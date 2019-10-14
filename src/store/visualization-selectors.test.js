@@ -67,47 +67,14 @@ describe('visualizationSaveable', () => {
       });
     })
   })
-  describe('with visualization set to an error state', () => {
-    let state
-    beforeEach(() => {
-      state = {
-        visualization: {
-          error: true
-        }
-      }
-    })
-    describe('and no dataset available', () => {
-      beforeEach(() => {
-        state.datasetReducer = { dataset: null }
-      })
-    
-      it('returns false even if query text is available', () => {
-        state.queryReducer = { queryText: 'select * from stuff' }
-    
-        expect(isVisualizationSaveable(state)).toBe(false)
-      });
-    })
-
-    describe('and dataset available', () => { 
-      beforeEach(() => {
-        state.datasetReducer = { dataset: {systemName: 'stuff'} }
-      })
-
-      it('returns false even if queryText is not set', () => {
-        state.queryReducer = { queryText: '' }
-    
-        expect(isVisualizationSaveable(state)).toBe(false)
-      });
-    })
-  })
-  describe('with no visualization status set', () => {
+  
+  describe('with no visualization loading or saving status set', () => {
     let state
     beforeEach(() => {
       state = {
         visualization: {
           loading: false,
-          saving: false,
-          error: false
+          saving: false
         }
       }
     })

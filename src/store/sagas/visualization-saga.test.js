@@ -1,4 +1,4 @@
-import { visualizationCreate, visualizationFetchFailure, visualizationCreateFailure, visualizationFetch, visualizationFetchSuccess, visualizationCreateSuccess } from '../actions'
+import { visualizationSave, visualizationLoadFailure, visualizationSaveFailure, visualizationLoad, visualizationLoadSuccess, visualizationSaveSuccess } from '../actions'
 import visualizationSaga from './visualization-saga'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
@@ -27,7 +27,7 @@ describe('visualization-saga', () => {
     describe('successfully', () => {
       beforeEach(() => {
         AuthenticatedHTTPClient.get = jest.fn(() => ({ status: 200, data: visualization }))
-        store.dispatch(visualizationFetch(id))
+        store.dispatch(visualizationLoad(id))
       })
 
       it('calls the correct API endpoint', () => {
@@ -35,7 +35,7 @@ describe('visualization-saga', () => {
       })
 
       it('signals the visualization is available', () => {
-        expect(store.getState()).toContainEqual(visualizationFetchSuccess(visualization))
+        expect(store.getState()).toContainEqual(visualizationLoadSuccess(visualization))
       })
     })
 
@@ -46,9 +46,9 @@ describe('visualization-saga', () => {
       })
 
       it('signals the visualization is unavailable', () => {
-        store.dispatch(visualizationFetch(id))
+        store.dispatch(visualizationLoad(id))
 
-        expect(store.getState()).toContainEqual(visualizationFetchFailure(nonSuccessStatusCode))
+        expect(store.getState()).toContainEqual(visualizationLoadFailure(nonSuccessStatusCode))
       })
     })
 
@@ -59,9 +59,9 @@ describe('visualization-saga', () => {
       })
 
       it('signals the visualization is unavailable', () => {
-        store.dispatch(visualizationFetch(id))
+        store.dispatch(visualizationLoad(id))
 
-        expect(store.getState()).toContainEqual(visualizationFetchFailure(errorMessage))
+        expect(store.getState()).toContainEqual(visualizationLoadFailure(errorMessage))
       })
     })
   })
@@ -74,7 +74,7 @@ describe('visualization-saga', () => {
     describe('successfully', () => {
       beforeEach(() => {
         AuthenticatedHTTPClient.post = jest.fn(() => ({ status: 200, data: returnedVisualization }))
-        store.dispatch(visualizationCreate(title, query))
+        store.dispatch(visualizationSave(title, query))
       })
 
       it('calls the correct API endpoint', () => {
@@ -82,7 +82,7 @@ describe('visualization-saga', () => {
       })
 
       it('signals the visualization is available', () => {
-        expect(store.getState()).toContainEqual(visualizationCreateSuccess(returnedVisualization))
+        expect(store.getState()).toContainEqual(visualizationSaveSuccess(returnedVisualization))
       })
     })
 
@@ -93,9 +93,9 @@ describe('visualization-saga', () => {
       })
 
       it('signals the visualization is unavailable', () => {
-        store.dispatch(visualizationCreate(title, query))
+        store.dispatch(visualizationSave(title, query))
 
-        expect(store.getState()).toContainEqual(visualizationCreateFailure(nonSuccessStatusCode))
+        expect(store.getState()).toContainEqual(visualizationSaveFailure(nonSuccessStatusCode))
       })
     })
 
@@ -106,9 +106,9 @@ describe('visualization-saga', () => {
       })
 
       it('signals the visualization is unavailable', () => {
-        store.dispatch(visualizationCreate(title, query))
+        store.dispatch(visualizationSave(title, query))
 
-        expect(store.getState()).toContainEqual(visualizationCreateFailure(errorMessage))
+        expect(store.getState()).toContainEqual(visualizationSaveFailure(errorMessage))
       })
     })
   })

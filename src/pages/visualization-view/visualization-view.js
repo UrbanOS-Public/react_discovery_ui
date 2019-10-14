@@ -18,24 +18,24 @@ import AutoAnchoringPopover from '../../components/auto-anchoring-popover'
 const VisualizationView = (props) => {
   const {
     reset,
-    fetch,
-    create,
-    finishCreation,
+    load,
+    save,
+    finishSaving,
     id,
     query,
     isLoading,
-    isLoadError,
+    isLoadFailure,
     isSaving,
-    isSaved,
-    isSaveError,
+    isSaveSuccess,
+    isSaveFailure,
     isSaveable,
     match: {params: {id: paramsID}}
   } = props
 
   React.useEffect(() => { reset() }, [])
-  React.useEffect(() => { if (paramsID) fetch(paramsID) }, [])
+  React.useEffect(() => { if (paramsID) load(paramsID) }, [])
 
-  const handleSave = () => { create("Placeholder Title", query) }
+  const handleSave = () => { save("Placeholder Title", query) }
 
   if (isLoading) {
     return (
@@ -45,10 +45,10 @@ const VisualizationView = (props) => {
     )
   }
 
-  if (isLoadError) {
+  if (isLoadFailure) {
     return (
       <visualization-view>
-        <ErrorComponent errorText='We were unable to fetch the requested visualization' />
+        <ErrorComponent errorText='We were unable to load the requested visualization' />
       </visualization-view>
     )
   }
@@ -67,12 +67,12 @@ const VisualizationView = (props) => {
           </span>
           <span className='action-area'>
             <React.Fragment>
-              <TabButton className='header-item save-button' disabled={!(isSaveable)} onClick={handleSave} >
+              <TabButton className={`header-item save-button ${isSaving && 'saving'}`} disabled={!(isSaveable)} onClick={handleSave} >
                 <SaveIcon />
               </TabButton>
-              <AutoAnchoringPopover open={isSaving} onClose={finishCreation} classes={{ paper: 'visualization-view-popover' }} >
+              <AutoAnchoringPopover className='popover-anchor' open={isSaving} onClose={finishSaving} classes={{ paper: 'popover', root: 'popover-root' }} >
                 <GeneratedLink path={routes.visualizationView} params={{ id }} className="link-button" />
-                <SavingElement className='saving-spinner' success={isSaved} failure={isSaveError} />
+                <SavingElement className='saving-spinner' success={isSaveSuccess} failure={isSaveFailure} />
               </AutoAnchoringPopover>
             </React.Fragment>
           </span>

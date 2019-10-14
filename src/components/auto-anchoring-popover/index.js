@@ -1,17 +1,20 @@
 import React, { useState } from "react"
 import { Popover } from "@material-ui/core"
 
-const AutoAnchoringPopover = ({children, ...props}) => {
+const AutoAnchoringPopover = ({children, className = '', ...props}) => {
   const [popoverAnchorRef, setPopoverAnchorRef] = useState(null)
   React.useEffect(() => { setPopoverAnchorRef(React.createRef()) }, [])
   const currentPopoverAnchorElement = () => (popoverAnchorRef ? popoverAnchorRef.current : null)
 
   return (
-    <auto-anchoring-popover style={{height: '50%'}} ref={popoverAnchorRef}>
+    <auto-anchoring-popover class={className} ref={popoverAnchorRef}>
       <Popover
         {...props}
         anchorEl={currentPopoverAnchorElement}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} >
+        container={currentPopoverAnchorElement}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        marginThreshold={0}
+        >
         {children}
       </Popover>
     </auto-anchoring-popover>

@@ -166,39 +166,39 @@ export const queryDatasetCancelled = (message) => ({
   type: QUERY_DATASET_CANCELLED, value: message
 })
 
-export const VISUALIZATION_FETCH = 'VISUALIZATION_FETCH'
-export const visualizationFetch = (id) => ({
-  type: VISUALIZATION_FETCH, value: id
+export const VISUALIZATION_LOAD = 'VISUALIZATION_LOAD'
+export const visualizationLoad = (id) => ({
+  type: VISUALIZATION_LOAD, value: id
 })
 
-export const VISUALIZATION_FETCH_SUCCESS = 'VISUALIZATION_FETCH_SUCCESS'
-export const visualizationFetchSuccess = (visualization) => ({
-  type: VISUALIZATION_FETCH_SUCCESS, value: visualization
+export const VISUALIZATION_LOAD_SUCCESS = 'VISUALIZATION_LOAD_SUCCESS'
+export const visualizationLoadSuccess = (visualization) => ({
+  type: VISUALIZATION_LOAD_SUCCESS, value: visualization
 })
 
-export const VISUALIZATION_FETCH_FAILURE = 'VISUALIZATION_FETCH_FAILURE'
-export const visualizationFetchFailure = (errorMessage) => ({
-  type: VISUALIZATION_FETCH_FAILURE, value: errorMessage
+export const VISUALIZATION_LOAD_FAILURE = 'VISUALIZATION_LOAD_FAILURE'
+export const visualizationLoadFailure = (errorMessage) => ({
+  type: VISUALIZATION_LOAD_FAILURE, value: errorMessage
 })
 
-export const VISUALIZATION_CREATE = 'VISUALIZATION_CREATE'
-export const visualizationCreate = (title, query) => ({
-  type: VISUALIZATION_CREATE, value: {title, query}
+export const VISUALIZATION_SAVE = 'VISUALIZATION_SAVE'
+export const visualizationSave = (title, query) => ({
+  type: VISUALIZATION_SAVE, value: {title, query}
 })
 
-export const VISUALIZATION_CREATE_SUCCESS = 'VISUALIZATION_CREATE_SUCCESS'
-export const visualizationCreateSuccess = (visualization) => ({
-  type: VISUALIZATION_CREATE_SUCCESS, value: visualization
+export const VISUALIZATION_SAVE_SUCCESS = 'VISUALIZATION_SAVE_SUCCESS'
+export const visualizationSaveSuccess = (visualization) => ({
+  type: VISUALIZATION_SAVE_SUCCESS, value: visualization
 })
 
-export const VISUALIZATION_CREATE_FAILURE = 'VISUALIZATION_CREATE_FAILURE'
-export const visualizationCreateFailure = (errorMessage) => ({
-  type: VISUALIZATION_CREATE_FAILURE, value: errorMessage
+export const VISUALIZATION_SAVE_FAILURE = 'VISUALIZATION_SAVE_FAILURE'
+export const visualizationSaveFailure = (errorMessage) => ({
+  type: VISUALIZATION_SAVE_FAILURE, value: errorMessage
 })
 
-export const VISUALIZATION_CREATE_FINISH = 'VISUALIZATION_CREATE_FINISH'
-export const visualizationCreateFinish = () => ({
-  type: VISUALIZATION_CREATE_FINISH
+export const VISUALIZATION_SAVE_FINISH = 'VISUALIZATION_SAVE_FINISH'
+export const visualizationSaveFinish = () => ({
+  type: VISUALIZATION_SAVE_FINISH
 })
 
 export const VISUALIZATION_RESET = 'VISUALIZATION_RESET'
