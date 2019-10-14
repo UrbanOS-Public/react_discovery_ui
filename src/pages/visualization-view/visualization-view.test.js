@@ -6,7 +6,7 @@ import QueryView from "../query-view"
 import ChartView from "../chart-view"
 import LoadingElement from "../../components/generic-elements/loading-element"
 import ErrorComponent from "../../components/generic-elements/error-component"
-import AutoAnchoringPopover from "../../components/auto-anchoring-popover"
+import AutoAnchoringPopover from "../../components/generic-elements/auto-anchoring-popover"
 
 const runUseEffect = () => {
   const useEffect = jest.spyOn(React, "useEffect")

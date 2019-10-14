@@ -1,0 +1,17 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/variables.scss';
+
+generated-share-link {
+    display: flex;
+    align-items: center;
+
+    .filter-icon {
+        color: $light-blue;
+        margin-left: 1rem;
+        cursor: pointer;
+    }
+
+    a {
+        @include sub-link();
+    }
+}

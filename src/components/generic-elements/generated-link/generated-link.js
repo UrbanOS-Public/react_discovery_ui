@@ -6,7 +6,7 @@ const GeneratedLink = ({ path, params, queryStringParams, className, children })
   const to = generatePath(path, params) + qs.stringify(queryStringParams, { addQueryPrefix: true })
 
   return <Link className={className} to={to}>
-    {children || to}
+    {children}
   </Link>
 }
 
