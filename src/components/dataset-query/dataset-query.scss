@@ -77,6 +77,11 @@ dataset-query {
 
   .copy-table-name-icon {
     vertical-align: bottom;
+    color: $light-blue;
+
+    &:hover {
+      color: $almost-black;
+    }
   }
 
   textarea {

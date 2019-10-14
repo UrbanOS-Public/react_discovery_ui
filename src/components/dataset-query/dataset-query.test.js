@@ -1,7 +1,9 @@
 import { mount } from 'enzyme'
+import ReactTooltip from 'react-tooltip'
 import DatasetQuery from './dataset-query'
 import LoadingElement from '../generic-elements/loading-element';
 import { recommendations } from '../../../test-helpers/recommendations'
+import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined'
 
 let subject, queryCallback, updateCallback
 
@@ -155,13 +157,26 @@ describe('DatasetQuery', () => {
 
   describe('recommendation-list', () => {
     describe('with data', () => {
+      beforeEach(() => {
+        subject = createSubject()
+      })
+
       // I duplicated this test, that feels awful
       test('returns urls for each recommended dataset', () => {
-        subject = createSubject()
         expect(subject.find('.recommended-dataset').length).toEqual(recommendations.length)
 
         const expectedUrl = `/dataset/hello/world`
         expect(subject.find(`[href="${expectedUrl}"]`).length).toEqual(1)
+      })
+
+      test('shows tooltips with table names for copy buttons', () => {
+        expect(subject.contains(ReactTooltip)).toBeTruthy()
+        const tooltips = subject.find(AssignmentOutlinedIcon).map((elem) => elem.prop("data-tip"))
+        expect(tooltips).toContain(`Copy table name '${recommendations[0].systemName}'`)
+      })
+
+      test('copies', () => {
+
       })
     })
 
@@ -181,9 +196,9 @@ function createSubject(params) {
     queryFailureMessage: "",
     isQueryLoading: false,
     isQueryLoaded: true,
-    executeQuery: queryCallback,
+    executeQuery: queryCallback ? queryCallback : jest.fn(),
     cancelQuery: jest.fn(),
-    setQueryText: updateCallback
+    setQueryText: updateCallback ? updateCallback : jest.fn()
   }
 
   const paramsWithDefaults = Object.assign({}, defaults, params)

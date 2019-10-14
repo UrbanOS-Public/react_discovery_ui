@@ -1,10 +1,10 @@
 import { useState } from 'react'
+import ReactTooltip from 'react-tooltip'
 import PropTypes from 'prop-types'
 import './dataset-query.scss'
 import LoadingElement from '../generic-elements/loading-element'
 import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined'
-
-
+import { useCopyClipboard } from '@lokibai/react-use-copy-clipboard'
 
 
 const DatasetQuery = props => {
@@ -22,6 +22,7 @@ const DatasetQuery = props => {
 
   const [localQueryText, setLocalQueryText] = useState(queryText)
   const [isCancelled, setIsCancelled] = useState(false)
+  const [isCopied, setCopied] = useCopyClipboard('')
 
   React.useEffect(() => {
     setLocalQueryText(queryText);
@@ -53,15 +54,18 @@ const DatasetQuery = props => {
   )
   // Duplicated this too, SAD!
   const getUrl = (rec) => `/dataset/${rec.orgName}/${rec.dataName}`
+  const createHoverText = (systemName) => isCopied ? 'Copied!' : `Copy table name '${systemName}'`
 
   const recommendationItems = () => {
     return recommendations.map(rec => {
+      const tooltipId = `tool-tip-${rec.id}`
       return (
         <div key={rec.id}>
           <a className="recommended-dataset" href={getUrl(rec)} target='_blank'>
             {rec.dataTitle}
           </a>
-          <AssignmentOutlinedIcon className="copy-table-name-icon" />
+          <ReactTooltip id={tooltipId} place="top" effect="solid" getContent={() => createHoverText(rec.systemName)} />
+          <AssignmentOutlinedIcon data-for={tooltipId} onClick={() => setCopied(rec.systemName)} className="copy-table-name-icon" data-tip="asdf" />
         </div>)
     })
   }
@@ -81,7 +85,7 @@ const DatasetQuery = props => {
     <dataset-query>
       <div className="user-input">
         <div>
-          <div class="sql-title">Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</div>
+          <div className="sql-title">Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</div>
           {textArea}
         </div>
         <div className="recommendation-section">
