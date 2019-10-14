@@ -37,7 +37,7 @@ const VisualizationView = (props) => {
   React.useEffect(() => { reset() }, [])
   React.useEffect(() => { if (paramsID) load(paramsID) }, [])
 
-  const handleSave = () => { save("Placeholder Title", query) }
+  const startSaving = () => { save("Placeholder Title", query) }
 
   if (isLoading) {
     return (
@@ -84,7 +84,7 @@ const VisualizationView = (props) => {
           </span>
           <span className='action-area'>
             <React.Fragment>
-              <TabButton className={`header-item save-button ${isSaving && 'saving'}`} disabled={!(isSaveable)} onClick={handleSave} >
+              <TabButton className={`header-item save-button ${isSaving && 'saving'}`} onClick={isSaving ? finishSaving : startSaving} >
                 <SaveIcon />
               </TabButton>
               <AutoAnchoringPopover className='popover-anchor' open={isSaving} onClose={finishSaving} classes={{ paper: 'popover', root: 'popover-root' }} >
