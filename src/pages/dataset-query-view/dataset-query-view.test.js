@@ -26,7 +26,6 @@ describe("dataset visualization view", () => {
       subject = shallow(
         <DatasetQueryView
           isQueryLoading={true}
-          isQueryLoaded={false}
           queryData={[]}
           executeQuery={queryCallback}
           dataSources={dataSources}
