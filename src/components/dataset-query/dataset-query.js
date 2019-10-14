@@ -18,6 +18,7 @@ const DatasetQuery = props => {
 
   const [localQueryText, setLocalQueryText] = useState(queryText)
   const [isCancelled, setIsCancelled] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   React.useEffect(() => {
     setLocalQueryText(queryText);
@@ -27,6 +28,7 @@ const DatasetQuery = props => {
     // I'd like to use the Redux queryText here, but this way makes a test pass -JBP 10/9/2019
     executeQuery(localQueryText)
     setIsCancelled(false)
+    setIsSubmitted(true)
   }
 
   const cancel = () => {
@@ -48,7 +50,7 @@ const DatasetQuery = props => {
     </span>
   )
 
-  const showSuccessMessage = !queryFailureMessage && isQueryLoaded && !isQueryLoading
+  const showSuccessMessage = !queryFailureMessage && isQueryLoaded && !isQueryLoading && isSubmitted
   const showFailureMessage = queryFailureMessage && !isQueryLoading
 
   return (

@@ -117,7 +117,7 @@ describe('DatasetQuery', () => {
           executeQuery={queryCallback}
           isQueryLoading={false}
           queryText={defaultQuery}
-          isQueryLoaded={false} />)
+          isQueryLoaded={true} />)
     })
 
     test('do not show success text', () => {
@@ -170,7 +170,8 @@ describe('DatasetQuery', () => {
       expect(subject.find(LoadingElement).length).toEqual(0)
     })
 
-    test('shows success text', () => {
+    test('shows success text if the query was run via the submit button', () => {
+      getButton(subject, 'Submit').simulate('click')
       expect(subject.find('.success-message').length).toEqual(1)
     })
   })
