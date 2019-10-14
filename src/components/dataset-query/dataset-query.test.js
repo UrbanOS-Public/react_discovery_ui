@@ -161,29 +161,21 @@ describe('DatasetQuery', () => {
         subject = createSubject()
       })
 
-      // I duplicated this test, that feels awful
       test('returns urls for each recommended dataset', () => {
         expect(subject.find('.recommended-dataset').length).toEqual(recommendations.length)
-
-        const expectedUrl = `/dataset/hello/world`
-        expect(subject.find(`[href="${expectedUrl}"]`).length).toEqual(1)
       })
 
       test('shows tooltips with table names for copy buttons', () => {
         expect(subject.contains(ReactTooltip)).toBeTruthy()
-        const tooltips = subject.find(AssignmentOutlinedIcon).map((elem) => elem.prop("data-tip"))
+        const tooltips = subject.find(ReactTooltip).map((elem) => elem.text())
         expect(tooltips).toContain(`Copy table name '${recommendations[0].systemName}'`)
-      })
-
-      test('copies', () => {
-
       })
     })
 
     describe('recommendation-list without data', () => {
       test('does not render', () => {
         subject = createSubject({ recommendations: undefined })
-        expect(subject.find('.recommended-list').length).toEqual(0)
+        expect(subject.contains('.recommendation-list')).toBeFalsy()
       })
     })
   })

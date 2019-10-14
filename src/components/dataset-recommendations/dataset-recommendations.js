@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import './dataset-recommendations.scss'
 import CollapsableBox from '../collapsable-box'
+import { RecommendationUtils } from '../../utils'
 
 const DatasetRecommendations = (props) => {
-  const getUrl = (rec) => `/dataset/${rec.orgName}/${rec.dataName}`
   const { dataset, getRecommendations, recommendations } = props
 
   const onInit = () => {
@@ -26,7 +26,7 @@ const DatasetRecommendations = (props) => {
         <div className="recommendation-content">
           {recommendations.map(rec =>
             <div className="recommended-dataset" key={rec.id}>
-              <a href={getUrl(rec)} target="_blank">{rec.dataTitle}</a>
+              <a href={RecommendationUtils.getDatasetUrl(rec)} target="_blank">{rec.dataTitle}</a>
             </div>)}
         </div>
       </CollapsableBox>

@@ -5,6 +5,7 @@ import './dataset-query.scss'
 import LoadingElement from '../generic-elements/loading-element'
 import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined'
 import { useCopyClipboard } from '@lokibai/react-use-copy-clipboard'
+import { RecommendationUtils } from '../../utils'
 
 
 const DatasetQuery = props => {
@@ -22,6 +23,7 @@ const DatasetQuery = props => {
 
   const [localQueryText, setLocalQueryText] = useState(queryText)
   const [isCancelled, setIsCancelled] = useState(false)
+  const [showTooltipCopied, setShowTooltipCopied] = useState(false)
   const [isCopied, setCopied] = useCopyClipboard('')
 
   React.useEffect(() => {
@@ -52,20 +54,22 @@ const DatasetQuery = props => {
       Query successful.  To refresh the visualization, you must change an element in the trace
     </span>
   )
-  // Duplicated this too, SAD!
-  const getUrl = (rec) => `/dataset/${rec.orgName}/${rec.dataName}`
-  const createHoverText = (systemName) => isCopied ? 'Copied!' : `Copy table name '${systemName}'`
+  const createHoverText = (systemName) => showTooltipCopied ? 'Copied!' : `Copy table name '${systemName}'`
+  const onClickCopyTableName = (systemName) => {
+    setCopied(systemName)
+    setShowTooltipCopied(true)
+  }
 
   const recommendationItems = () => {
     return recommendations.map(rec => {
       const tooltipId = `tool-tip-${rec.id}`
       return (
         <div key={rec.id}>
-          <a className="recommended-dataset" href={getUrl(rec)} target='_blank'>
+          <a className="recommended-dataset" href={RecommendationUtils.getDatasetUrl(rec)} target='_blank'>
             {rec.dataTitle}
           </a>
-          <ReactTooltip id={tooltipId} place="top" effect="solid" getContent={() => createHoverText(rec.systemName)} />
-          <AssignmentOutlinedIcon data-for={tooltipId} onClick={() => setCopied(rec.systemName)} className="copy-table-name-icon" data-tip="asdf" />
+          <ReactTooltip id={tooltipId} place="right" effect="solid" afterHide={() => setShowTooltipCopied(false)} getContent={() => createHoverText(rec.systemName)} />
+          <AssignmentOutlinedIcon data-for={tooltipId} onClick={() => onClickCopyTableName(rec.systemName)} className="copy-table-name-icon" data-tip />
         </div>)
     })
   }

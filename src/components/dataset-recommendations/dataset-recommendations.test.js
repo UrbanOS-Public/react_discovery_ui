@@ -24,17 +24,14 @@ describe('DatasetRecommendations', () => {
 
     test('returns urls for each recommended dataset', () => {
       expect(subject.find('.recommended-dataset').length).toEqual(recommendations.length)
-
-      const expectedUrl = `/dataset/hello/world`
-      expect(subject.find(`[href="${expectedUrl}"]`).length).toEqual(1)
     })
   })
 })
 
 function createSubject(recommendations) {
-  return shallow(<DatasetRecommendations 
-    datasetId={"1"} 
-    getRecommendations={jest.fn} 
-    recommendations={recommendations} 
-    />)
+  return shallow(<DatasetRecommendations
+    datasetId={"1"}
+    getRecommendations={jest.fn}
+    recommendations={recommendations}
+  />)
 }
