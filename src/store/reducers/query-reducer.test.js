@@ -24,7 +24,6 @@ describe("queryReducer", () => {
     const currentState = { 
       queryData: {},
       queryFailureMessage: "Maybe something",
-      isQueryLoaded: false,
       isQueryLoading: true,
       cancelToken: jest.fn()
     }
@@ -33,7 +32,6 @@ describe("queryReducer", () => {
 
     expect(newState.queryData).toEqual(expectedData)
     expect(newState.queryFailureMessage).toEqual("")
-    expect(newState.isQueryLoaded).toBe(true)
     expect(newState.isQueryLoading).toBe(false)
     expect(newState.cancelToken).toBe(null)
   })
@@ -42,7 +40,6 @@ describe("queryReducer", () => {
     const currentState = { 
       queryData: {a: 5},
       queryFailureMessage: "",
-      isQueryLoaded: false,
       isQueryLoading: true,
       cancelToken: jest.fn()
     }
@@ -51,7 +48,6 @@ describe("queryReducer", () => {
 
     expect(newState.queryFailureMessage).toEqual(expectedMessage)
     expect(newState.queryData).toEqual(currentState.queryData)
-    expect(newState.isQueryLoaded).toBe(true)
     expect(newState.isQueryLoading).toBe(false)
     expect(newState.cancelToken).toBe(null)
   })

@@ -13,7 +13,6 @@ describe('DatasetQuery', () => {
         <DatasetQuery
           executeQuery={queryCallback}
           queryText={defaultQuery}
-          isQueryLoaded={false}
           isQueryLoading={true} />)
     })
 
@@ -32,7 +31,6 @@ describe('DatasetQuery', () => {
           executeQuery={jest.fn()}
           setQueryText={updateCallback}
           queryText={defaultQuery}
-          isQueryLoaded={true}
           isQueryLoading />)
       subject.find('textarea').simulate('blur')
     })
@@ -49,8 +47,9 @@ describe('DatasetQuery', () => {
       subject = mount(
         <DatasetQuery
           executeQuery={queryCallback}
+          cancelCallback={cancelCallback}
+          setUserInteracted={jest.fn()}
           queryText={defaultQuery}
-          isQueryLoaded={true}
           cancelQuery={cancelCallback}
           isQueryLoading />)
     })
@@ -74,9 +73,9 @@ describe('DatasetQuery', () => {
       expect(button.find('[disabled=true]').length).toEqual(1)
     })
 
-    test('cancelling the query invokes a provided cancel handler', () => {
-      getButton(subject, 'Cancel').simulate('click')
-      expect(cancelCallback).toHaveBeenCalled()
+    test('cancelling the query invokes a provided cancel handler', () => {	
+      getButton(subject, 'Cancel').simulate('click')	
+      expect(cancelCallback).toHaveBeenCalled()	
     })
   })
 
@@ -88,17 +87,18 @@ describe('DatasetQuery', () => {
         <DatasetQuery
           executeQuery={queryCallback}
           queryText={defaultQuery}
-          isQueryLoaded={true}
           cancelQuery={cancelCallback}
-          isQueryLoading={true} />)
+          isQueryLoading={true}
+          setUserInteracted={jest.fn()}
+          />)
 
       getButton(subject, 'Cancel').simulate('click')
-      subject.setProps({ queryFailureMessage: 'User has cancelled query.' })
+      subject.setProps({ queryFailureMessage: 'Your query has been stopped.' })
     })
 
     test('cancelling the query sets the cancelled state to true', () => {
       subject.setProps({ isQueryLoading: false })
-      expect(subject.find('.error-message').text()).toEqual('Your query has been stopped')
+      expect(subject.find('.error-message').text()).toEqual('Your query has been stopped.')
     })
 
     test('resubmitting the query sets the cancelled state to false', () => {
@@ -117,7 +117,7 @@ describe('DatasetQuery', () => {
           executeQuery={queryCallback}
           isQueryLoading={false}
           queryText={defaultQuery}
-          isQueryLoaded={false} />)
+        />)
     })
 
     test('do not show success text', () => {
@@ -152,7 +152,9 @@ describe('DatasetQuery', () => {
           executeQuery={queryCallback}
           isQueryLoading={false}
           queryText={defaultQuery}
-          isQueryLoaded={true} />)
+          userHasInteracted={true}
+          setUserInteracted={jest.fn()}
+      />)
     })
 
     test('calls the submit handler on click of the submit button', () => {
@@ -183,7 +185,6 @@ describe('DatasetQuery', () => {
           executeQuery={jest.fn()}
           queryText={defaultQuery}
           queryFailureMessage='the bad thing happened'
-          isQueryLoaded={false}
           isQueryLoading={false} />)
     })
 

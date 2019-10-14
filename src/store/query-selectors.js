@@ -3,6 +3,8 @@ import { createSelector } from 'reselect'
 export const getQueryFailureMessage = state => state.queryReducer.queryFailureMessage
 export const getQueryIsLoading = state => state.queryReducer.isQueryLoading
 
+export const userHasInteracted = state => state.queryReducer.userInteracted
+
 export const getQueryData = state => state.queryReducer.queryData || []
 export const isQueryDataSet = state => state.queryReducer.queryData !== null
 export const getVisualizationDataSources = createSelector(

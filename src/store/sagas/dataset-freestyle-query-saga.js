@@ -3,6 +3,9 @@ import { EXECUTE_FREESTYLE_QUERY, CANCEL_FREESTYLE_QUERY, setQuerySuccess, setQu
 import { getDatasetQueryCancelToken } from '../selectors'
 import axios from 'axios'
 
+const cancelMessage = 'Your query has been stopped'
+const failureMessage = 'Query failure.  There may be a syntax issue.'
+
 function* executeQuery({ queryText }) {
   const CancelToken = axios.CancelToken
   const cancelToken = CancelToken.source()
@@ -24,16 +27,17 @@ function* executeQuery({ queryText }) {
     if (response.status === 200) {
       yield put(setQuerySuccess(response.data))
     } else {
-      yield put(setQueryFailure(response.data.message))
+      yield put(setQueryFailure(failureMessage))
     }
   } catch (e) {
-    yield put(setQueryFailure(e.message))
+    const catchMessage = (e.message === cancelMessage) ? cancelMessage : failureMessage
+    yield put(setQueryFailure(catchMessage))
   }
 }
 
 const cancelQuery = function* (_action) {
   const cancelToken = yield select(getDatasetQueryCancelToken)
-  return cancelToken.cancel('Query stopped by user')
+  return cancelToken.cancel(cancelMessage)
 }
 
 export default function* freestyleQuerySaga() {
