@@ -6,7 +6,7 @@ import ReactTable from "react-table";
 import LoadingElement from "../../components/generic-elements/loading-element";
 
 const QueryView = props => {
-  const { 
+  const {
     dataSources,
     isQueryLoading,
     isQueryLoaded,
@@ -28,7 +28,7 @@ const QueryView = props => {
 
   const columns = determineColumns(dataSources)
   const data = getCleanData(queryData)
-  
+
   const numRecords = queryData ? data.length + " records returned" : "";
 
   if (isQueryLoading && queryData.length === 0) {

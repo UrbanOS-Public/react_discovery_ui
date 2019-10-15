@@ -4,7 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import './visualization-view.scss'
 
 import LoadingElement from '../../components/generic-elements/loading-element'
-import SavingElement from '../../components/generic-elements/saving-element'
+import SaveIndicator from '../../components/generic-elements/save-indicator'
 import ChartIcon from '../../components/generic-elements/chart-icon'
 import SQLIcon from '../../components/generic-elements/sql-icon'
 import TabButton from '../../components/generic-elements/tab-button'
@@ -22,8 +22,7 @@ const VisualizationView = (props) => {
     reset,
     load,
     save,
-    finishSaving,
-    id,
+    id, // TODO: more specific name
     query,
     isLoading,
     isLoadFailure,
@@ -31,16 +30,19 @@ const VisualizationView = (props) => {
     isSaveSuccess,
     isSaveFailure,
     isSaveable,
-    match: {params: {id: paramsID}}
+    match: {params: {id: paramsID}},
+    history
   } = props
 
   React.useEffect(() => { reset() }, [])
-  React.useEffect(() => { if (paramsID) load(paramsID) }, [])
+  React.useEffect(() => { if (paramsID) load(paramsID) }, [paramsID])
+  React.useEffect(() => { if (id) history.replace( "/visualization/" + id) }, [id]) // TODO: TESTME
   const [isDialogOpen, setDialogOpen] = useState(false)
 
   const handleSave = () => { setDialogOpen(true); save("Placeholder Title", query) }
   const closeDialog = () => { setDialogOpen(false) }
 
+  // TODO: remove this loader so as not to break popover
   if (isLoading) {
     return (
       <visualization-view>
@@ -57,31 +59,16 @@ const VisualizationView = (props) => {
     )
   }
 
-  const saveSuccessMessaging = (
-    <span className='success-message-area'>
-        <p>Your visualization has saved, and can be shared with the URL below</p>
-        <GeneratedShareLink path={routes.visualizationView} params={{ id }} className="link-button" />
-    </span>
-  )
-
-  const saveFailureMessaging = (
-    <span className='failure-message-area'>
-        <p>Your visualization failed to save</p>
-    </span>
-  )
-
-  const saveMessaging = isSaveSuccess ? saveSuccessMessaging : saveFailureMessaging
-
   return (
     <visualization-view>
       <Tabs>
         <TabList className='header'>
           <span className='tab-area'>
             <Tab className='header-item tab' selectedClassName='selected'>
-              Visualize <ChartIcon className='chart-icon' />
+              Write SQL <SQLIcon className='sql-icon' />
             </Tab>
             <Tab className='header-item tab' selectedClassName='selected'>
-              Write SQL <SQLIcon className='sql-icon' />
+              Visualize <ChartIcon className='chart-icon' />
             </Tab>
           </span>
           <span className='action-area'>
@@ -90,8 +77,7 @@ const VisualizationView = (props) => {
                 <SaveIcon />
               </TabButton>
               <AutoAnchoringPopover className='popover-anchor' open={isDialogOpen} onClose={closeDialog} classes={{ paper: 'popover', root: 'popover-root' }} >
-                  <SavingElement className='saving-spinner' success={isSaveSuccess} failure={isSaveFailure} />
-                { saveMessaging }
+                <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkPath={routes.visualizationView} linkParams={{ id }} />
               </AutoAnchoringPopover>
             </React.Fragment>
           </span>
