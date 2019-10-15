@@ -10,17 +10,21 @@ import AutoAnchoringPopover from "../../components/generic-elements/auto-anchori
 
 const runUseEffect = () => {
   const useEffect = jest.spyOn(React, "useEffect")
-  useEffect.mockImplementationOnce(f => f())
+  useEffect.mockImplementation(f => f())
 }
 
 describe("visualization view", () => {
-  let subject
+  let subject, resetHandler, loadHandler, saveHandler
+
+  beforeEach(() => {
+    resetHandler = jest.fn()
+    loadHandler = jest.fn()
+    saveHandler = jest.fn()
+  })
 
   describe('when visualization id is not provided along with nothing else', () => {
-    const resetHandler = jest.fn(() => true)
-    const loadHandler = jest.fn()
-
     beforeEach(() => {
+      resetHandler.mockImplementation(() => true)
       runUseEffect()
       subject = shallow(
         <VisualizationView
@@ -30,6 +34,7 @@ describe("visualization view", () => {
           query=''
           load={loadHandler}
           reset={resetHandler}
+          save={saveHandler}
         />
       )
     })
@@ -43,10 +48,7 @@ describe("visualization view", () => {
     })
   })
 
-  xdescribe('when visualization id is provided and nothing else', () => {
-    const resetHandler = jest.fn()
-    const loadHandler = jest.fn()
-
+  describe('when visualization id is provided and nothing else', () => {
     const id = '123456'
 
     beforeEach(() => {
@@ -59,6 +61,7 @@ describe("visualization view", () => {
           query=''
           load={loadHandler}
           reset={resetHandler}
+          save={saveHandler}
         />
       )
     })
@@ -82,6 +85,9 @@ describe("visualization view", () => {
           isLoadFailure={false}
           title='my first visualization'
           query='SELECT the_thing FROM the_table'
+          load={loadHandler}
+          reset={resetHandler}
+          save={saveHandler}
         />
       )
     })
@@ -104,8 +110,6 @@ describe("visualization view", () => {
   })
 
   describe("when visualization is loading", () => {
-    let subject
-
     beforeEach(() => {
       subject = shallow(
         <VisualizationView
@@ -114,14 +118,17 @@ describe("visualization view", () => {
           isLoadFailure={false}
           title='my first visualization'
           query='SELECT the_thing FROM the_table'
+          load={loadHandler}
+          reset={resetHandler}
+          save={saveHandler}
         />
       )
     })
-  
+
     it("shows a loading element", () => {
       expect(subject.find(LoadingElement)).toHaveLength(1)
     })
-    
+
     it("does not have a visualization view component", () => {
       expect(subject.find(ChartView).length).toEqual(0)
     })
@@ -131,9 +138,7 @@ describe("visualization view", () => {
     })
   })
 
-  describe("when visualization is in error", () => {
-    let subject
-
+  describe("when visualization has failed to load", () => {
     beforeEach(() => {
       subject = shallow(
         <VisualizationView
@@ -142,14 +147,17 @@ describe("visualization view", () => {
           isLoadFailure={true}
           title='my first visualization'
           query='SELECT the_thing FROM the_table'
+          load={loadHandler}
+          reset={resetHandler}
+          save={saveHandler}
         />
       )
     })
-  
+
     it("shows an error element", () => {
       expect(subject.find(ErrorComponent)).toHaveLength(1)
     })
-    
+
     it("does not have a visualization view component", () => {
       expect(subject.find(ChartView).length).toEqual(0)
     })
@@ -160,8 +168,6 @@ describe("visualization view", () => {
   })
 
   describe("when visualization is not able to be saved", () => {
-    let subject
-
     beforeEach(() => {
       subject = shallow(
         <VisualizationView
@@ -171,17 +177,19 @@ describe("visualization view", () => {
           isSaveable={false}
           title='my first visualization'
           query=''
+          load={loadHandler}
+          reset={resetHandler}
+          save={saveHandler}
         />
       )
     })
-  
+
     it("disables the save button", () => {
       expect(subject.find('.save-button').props().disabled).toBeTruthy()
     })
   })
 
   describe("when visualization is able to be saved", () => {
-    let subject
     const saveHandler = jest.fn()
     const title = 'Placeholder Title'
     const query = 'select * from stuff'
@@ -196,26 +204,22 @@ describe("visualization view", () => {
           save={saveHandler}
           title='my first visualization'
           query='select * from stuff'
+          load={loadHandler}
+          reset={resetHandler}
+          save={saveHandler}
         />
       )
     })
-  
+
     it("enables the save button", () => {
       expect(subject.find('.save-button').props().disabled).toBeFalsy()
     })
-
-    it("send create visualization event with the query and a placeholder title on click of the save button", () => {
-      subject.find('.save-button').simulate('click')
-
-      expect(saveHandler).toHaveBeenCalledWith(title, query)
-    })
   })
 
-  describe("when visualization is saving", () => {
-    let subject
+  describe("when visualization save button is clicked", () => {
     const id = 'abcdefg'
-    const query = 'select * from saved_stuff'
-    const finishSavingHandler = jest.fn()
+    const title = 'Placeholder Title'
+    const query = 'select * from stuff'
 
     beforeEach(() => {
       subject = shallow(
@@ -224,40 +228,21 @@ describe("visualization view", () => {
           isSaving={true}
           query={query}
           id={id}
-          finishSaving={finishSavingHandler}
+          load={loadHandler}
+          reset={resetHandler}
+          save={saveHandler}
         />
       )
+
+      subject.find(".save-button").simulate("click")
     })
 
     it("displays the saving status popover", () => {
       expect(subject.find(AutoAnchoringPopover).props().open).toEqual(true)
     })
 
-    it("the popover is configured to finish up the save session when closed", () => {
-      const closeHandler = subject.find(AutoAnchoringPopover).props().onClose
-
-      expect(closeHandler).toEqual(finishSavingHandler)
-    })
-  })
-
-  describe("when visualization is not saving", () => {
-    let subject
-    const id = 'abcdefg'
-    const query = 'select * from saved_stuff'
-
-    beforeEach(() => {
-      subject = shallow(
-        <VisualizationView
-          match={{ params: { id } }}
-          isSaving={false}
-          query={query}
-          id={id}
-        />
-      )
-    })
-
-    it("does not display the saving status popover", () => {      
-      expect(subject.find(AutoAnchoringPopover).props().open).toEqual(false)
+    it("send create visualization event with the query and a placeholder title on click of the save button", () => {
+      expect(saveHandler).toHaveBeenCalledWith(title, query)
     })
   })
 })

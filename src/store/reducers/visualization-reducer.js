@@ -38,7 +38,7 @@ const visualizationReducer = (state = defaultVisualizationState, action) => {
       return Object.assign({}, state, {
         loading: false,
         loadSuccess: false,
-        loadFailure: true 
+        loadFailure: true
       })
     case VISUALIZATION_SAVE:
       return Object.assign({}, state, {
@@ -49,19 +49,15 @@ const visualizationReducer = (state = defaultVisualizationState, action) => {
     case VISUALIZATION_SAVE_SUCCESS:
       return Object.assign({}, state, {
         visualization: action.value,
+        saving: false,
         saveSuccess: true,
         saveFailure: false
       })
     case VISUALIZATION_SAVE_FAILURE:
       return Object.assign({}, state, {
-        saveSuccess: false,
-        saveFailure: true
-      })
-    case VISUALIZATION_SAVE_FINISH:
-      return Object.assign({}, state, {
         saving: false,
         saveSuccess: false,
-        saveFailure: false
+        saveFailure: true
       })
     case VISUALIZATION_RESET:
       return defaultVisualizationState

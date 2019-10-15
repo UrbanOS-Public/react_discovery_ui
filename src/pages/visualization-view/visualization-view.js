@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 
 import './visualization-view.scss'
@@ -36,8 +36,10 @@ const VisualizationView = (props) => {
 
   React.useEffect(() => { reset() }, [])
   React.useEffect(() => { if (paramsID) load(paramsID) }, [])
+  const [isDialogOpen, setDialogOpen] = useState(false)
 
-  const startSaving = () => { save("Placeholder Title", query) }
+  const handleSave = () => { setDialogOpen(true); save("Placeholder Title", query) }
+  const closeDialog = () => { setDialogOpen(false) }
 
   if (isLoading) {
     return (
@@ -84,10 +86,10 @@ const VisualizationView = (props) => {
           </span>
           <span className='action-area'>
             <React.Fragment>
-              <TabButton className={`header-item save-button ${isSaving && 'saving'}`} onClick={isSaving ? finishSaving : startSaving} >
+              <TabButton disabled={!isSaveable} className={`header-item save-button ${isDialogOpen && 'saving'}`} onClick={handleSave} >
                 <SaveIcon />
               </TabButton>
-              <AutoAnchoringPopover className='popover-anchor' open={isSaving} onClose={finishSaving} classes={{ paper: 'popover', root: 'popover-root' }} >
+              <AutoAnchoringPopover className='popover-anchor' open={isDialogOpen} onClose={closeDialog} classes={{ paper: 'popover', root: 'popover-root' }} >
                   <SavingElement className='saving-spinner' success={isSaveSuccess} failure={isSaveFailure} />
                 { saveMessaging }
               </AutoAnchoringPopover>

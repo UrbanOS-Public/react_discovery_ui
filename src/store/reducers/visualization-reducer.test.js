@@ -90,8 +90,8 @@ describe('Visualization Reducer', () => {
       expect(newState.visualization).toEqual(newVisualization)
     })
 
-    it('sets `saving` state to true - saving is user confirmed', () => {
-      expect(newState.saving).toBeTruthy()
+    it('sets `saving` state to false', () => {
+      expect(newState.saving).toBeFalsy()
     })
 
     it('sets `saveSuccess` state to true', () => {
@@ -151,8 +151,8 @@ describe('Visualization Reducer', () => {
       expect(newState.visualization).toEqual(previousVisualization)
     })
 
-    it('sets `saving` state to true - saving end is user confirmed', () => {
-      expect(newState.saving).toBeTruthy()
+    it('sets `saving` state to false', () => {
+      expect(newState.saving).toBeFalsy()
     })
 
     it('sets `saveSuccess` state to false', () => {
