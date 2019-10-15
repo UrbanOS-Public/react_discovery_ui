@@ -1,15 +1,10 @@
-import { takeEvery } from 'redux-saga/effects'
-import { RETRIEVE_DATA_LIST, selectDataList, displayError } from '../actions'
+import { takeEvery, select } from 'redux-saga/effects'
+import { DATASET_SEARCH, datasetSearchSucceeded, displayError } from '../actions'
 import apiInvoker from './api-invoker'
+import { getSearchParams } from '../selectors'
+
 
 export default function * theRealDatasetSaga () {
-  yield takeEvery(RETRIEVE_DATA_LIST, apiInvoker({ endpoint: '/api/v1/dataset/search', actionator: selectDataList, queryParameterBuilder }))
+  const params = yield select(getSearchParams);
+  yield takeEvery(DATASET_SEARCH, apiInvoker({ endpoint: '/api/v1/dataset/search', actionator: datasetSearchSucceeded, queryParameterBuilder: () => params }))
 }
-
-const queryParameterBuilder = action => ({
-  offset: action.value.offset,
-  limit: action.value.limit,
-  sort: action.value.sort,
-  query: action.value.query,
-  facets: action.value.facets
-})

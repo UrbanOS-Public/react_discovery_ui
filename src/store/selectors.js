@@ -13,3 +13,6 @@ export const getDownloadedDataset = state => state.datasetReducer.downloadedData
 export const getDownloadedDatasetError = state => state.datasetReducer.downloadedDatasetError
 export const getDatasetQueryResult = state => state.queryReducer.queryData
 export const getDatasetQueryCancelToken = state => state.queryReducer.cancelToken
+export const getSearchParams = state => state.searchReducer.searchParams;
+export const getSearchResults = state => state.searchReducer.searchResults;
+export const getSearchMetadata = state => state.searchReducer.searchMetadata || [];

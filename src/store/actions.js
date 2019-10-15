@@ -1,5 +1,4 @@
 export const RETRIEVE_DATA_LIST = 'RETRIEVE_DATA_LIST'
-export const SELECT_DATA_LIST = 'SELECT_DATA_LIST'
 export const DISPLAY_ERROR = 'DISPLAY_ERROR'
 export const RETRIEVE_DATASET = 'RETRIEVE_DATASET'
 export const DATASET_DETAILS = 'DATASET_DETAILS'
@@ -64,21 +63,6 @@ export const RESET_QUERY = 'RESET_QUERY'
 export const resetQuery = () => ({ type: RESET_QUERY })
 
 //-------------------------------------------------------------
-
-export const retrieveDataList = (offset, limit, sort, query, facets) => ({
-  type: RETRIEVE_DATA_LIST,
-  value: {
-    offset: offset,
-    limit: limit,
-    sort: sort,
-    query: query,
-    facets: facets
-  }
-})
-
-export const selectDataList = (data) => ({
-  type: SELECT_DATA_LIST, value: data
-})
 
 export const displayError = () => ({
   type: DISPLAY_ERROR
@@ -209,4 +193,19 @@ export const visualizationSaveFailure = (errorMessage) => ({
 export const VISUALIZATION_RESET = 'VISUALIZATION_RESET'
 export const visualizationReset = () => ({
   type: VISUALIZATION_RESET
+})
+
+export const DATASET_SEARCH = "DATASET_SEARCH"
+export const datasetSearch = (params) => ({
+  type: DATASET_SEARCH, value: params
+})
+
+export const UPDATE_DATASET_SEARCH_PARAMS = "UPDATE_DATASET_SEARCH_PARAMS"
+export const updateDatasetSearchParams = (params) => ({
+  type: UPDATE_DATASET_SEARCH_PARAMS, value: params
+})
+
+export const DATASET_SEARCH_SUCCEEDED = 'DATASET_SEARCH_SUCCEEDED'
+export const datasetSearchSucceeded = (data) => ({
+  type: DATASET_SEARCH_SUCCEEDED, value: data
 })

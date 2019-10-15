@@ -16,7 +16,10 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   DOWNLOAD_DATASET_SUCCEEDED,
-  DOWNLOAD_DATASET_FAILED
+  DOWNLOAD_DATASET_FAILED,
+  DATASET_SEARCH,
+  DATASET_SEARCH_SUCCEEDED,
+  UPDATE_DATASET_SEARCH_PARAMS
 } from '../actions'
 import visualizationReducer from './visualization-reducer'
 
@@ -115,11 +118,43 @@ const presentationReducer = (state = defaultPresentationState, action) => {
   }
 }
 
+const defaultSearchState = {
+  isRunning: false,
+  searchParams: {
+    pageNumber: 1,
+    limit: 10,
+    apiAccessible: false,
+    query: ""
+  },
+  searchResults: []
+}
+
+const searchReducer = (state = defaultSearchState, action) => {
+  switch (action.type) {
+    case DATASET_SEARCH:
+      return Object.assign({}, state, { isRunning: true })
+    case UPDATE_DATASET_SEARCH_PARAMS:
+      let newParams = Object.assign({}, state.searchParams, action.value )
+      return Object.assign({}, state, { searchParams: newParams })
+    case DATASET_SEARCH_SUCCEEDED:
+      console.log(action)
+      return Object.assign({}, state, { isRunning: false, searchResults: action.value.results, searchMetadata: action.value.metadata })
+    default:
+      return state
+  }
+}
+
+
+>>>>>>> WIP: Initial attempt to do redux in list/search
 const reducers = {
   datasetReducer: datasetReducer,
   presentation: presentationReducer,
   queryReducer: queryReducer,
+<<<<<<< HEAD
   visualization: visualizationReducer
+=======
+  searchReducer: searchReducer
+>>>>>>> WIP: Initial attempt to do redux in list/search
 }
 
 const combined = combineReducers(reducers)

@@ -13,21 +13,40 @@ import qs from 'qs'
 import _ from 'lodash'
 import { QueryStringBuilder } from '../../utils'
 
+
 export default class extends Component {
   constructor(props) {
     super(props)
     this.state = { currentPage: 1, pageSize: 10 }
   }
 
+  // componentDidMount() {
+  //   this.props.fetchData(this.pageNumber, this.state.pageSize, this.sort, this.searchParams, this.facets, this.apiAccessible)
+  // }
+
   componentDidMount() {
-    this.props.fetchData(this.pageNumber, this.state.pageSize, this.sort, this.searchParams, this.facets, this.apiAccessible)
+    this.fetchData(this.props.searchParams)
   }
 
-  componentDidUpdate() {
-    window.onpopstate = (e) => {
-      this.props.fetchData(this.pageNumber, this.state.pageSize, this.sort, this.searchParams, this.facets, this.apiAccessible)
-    }
+  fetchData({pageNumber, limit, sort, query, facets, apiAccessible}) {
+    const offset = (pageNumber - 1) * limit
+    apiAccessible = apiAccessible.toString()
+    let params = { offset, limit, sort, query, facets, apiAccessible }
+
+    this.props.datasetSearch(params)
   }
+
+  // offset: action.value.offset,
+  // limit: action.value.limit,
+  // sort: action.value.sort,
+  // query: action.value.query,
+  // facets: action.value.facets
+
+  // componentDidUpdate() {
+  //   window.onpopstate = (e) => {
+  //     this.props.fetchData(this.pageNumber, this.state.pageSize, this.sort, this.searchParams, this.facets, this.apiAccessible)
+  //   }
+  // }
 
   onPageChange(page) {
     this.setState({ currentPage: page })
@@ -58,8 +77,10 @@ export default class extends Component {
   }
 
   onSearchChange(criteria) {
-    this.setState({ currentPage: 1 })
-    this.refreshDatasets(criteria, this.sort, this.facets, 1, this.apiAccessible)
+    this.props.updateDatasetSearchParams({
+      query: criteria
+    })
+    this.props.datasetSearch()
   }
 
   toggleFacetValue(facetName, facetValue) {
@@ -69,7 +90,7 @@ export default class extends Component {
 
   refreshDatasets(criteria, sort, facets, pageNumber, apiAccessible) {
     this.updateQueryParameters(criteria, sort, facets, apiAccessible)
-    this.props.fetchData(pageNumber, this.state.pageSize, sort, criteria, facets, apiAccessible)
+    this.fetchData(pageNumber, this.state.pageSize, sort, criteria, facets, apiAccessible)
   }
 
   updateQueryParameters(searchCriteria, sort, facets, apiAccessible) {
@@ -127,10 +148,10 @@ export default class extends Component {
   }
 
   render() {
-    const resultCountText = `${this.props.totalDatasets || 'No'} datasets found`
-    const resultCountQueryText = this.searchParams ? ` for "${this.searchParams}"` : ''
+    const resultCountText = `${this.props.searchMetadata.totalDatasets || 'No'} datasets found`
+    const resultCountQueryText = this.props.searchParams.query ? ` for "${this.props.searchParams.query}"` : ''
     const token = sessionStorage.getItem('api-token')
-    if (this.props.error) {
+    if (false) { //Fix this
       return <ErrorComponent errorText={'We were unable to fetch the datasets, please refresh the page to try again'} />
     } else if (this.props.loading) {
       return this.renderLoading()
@@ -142,15 +163,15 @@ export default class extends Component {
             <Checkbox
               clickHandler={() => this.onRemoteToggleClick()}
               text="API Accessible"
-              selected={this.apiAccessible} />
+              selected={this.props.searchParams.apiAccessible} />
             <FacetSidebar
-              availableFacets={this.props.facets}
+              availableFacets={this.props.searchMetadata.facets}
               appliedFacets={this.facets}
               clickHandler={(facetName, facetValue) => this.onFacetClick(facetName, facetValue)} />
           </div>
           <div className='right-section'>
             <Search className='search'
-              defaultText={this.searchParams}
+              defaultText={this.props.searchParams.query}
               placeholder='Search datasets'
               callback={searchCriteria => this.onSearchChange(searchCriteria)} />
             <div className='list-header'>
@@ -160,7 +181,7 @@ export default class extends Component {
                 options={this.createSortOptions}
                 selectChangeCallback={sort => this.onSortChange(sort)} />
             </div>
-            <DatasetList datasets={this.props.datasets} />
+            <DatasetList datasets={this.props.searchResults} />
             <Paginator className='paginator' numberOfPages={this.numberOfPages} currentPage={this.state.currentPage} pageChangeCallback={page => this.onPageChange(page)} />
           </div>
         </dataset-list-view>
