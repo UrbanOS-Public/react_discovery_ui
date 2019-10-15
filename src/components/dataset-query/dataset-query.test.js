@@ -68,12 +68,12 @@ describe('DatasetQuery', () => {
       subject = createSubject({ isQueryLoading: true })
 
       getButton(subject, 'Cancel').simulate('click')
-      subject.setProps({ queryFailureMessage: 'User has cancelled query.' })
+      subject.setProps({ queryFailureMessage: 'Your query has been stopped.' })
     })
 
     test('cancelling the query sets the cancelled state to true', () => {
       subject.setProps({ isQueryLoading: false })
-      expect(subject.find('.error-message').text()).toEqual('Your query has been stopped')
+      expect(subject.find('.error-message').text()).toEqual('Your query has been stopped.')
     })
 
     test('resubmitting the query sets the cancelled state to false', () => {
@@ -115,7 +115,7 @@ describe('DatasetQuery', () => {
 
   describe('on success', () => {
     beforeEach(() => {
-      subject = createSubject({ isQueryLoading: false, isQueryLoaded: true })
+      subject = createSubject({ isQueryLoading: false, isQueryLoaded: true, userHasInteracted: true })
     })
 
     test('calls the submit handler on click of the submit button', () => {
@@ -198,11 +198,13 @@ function createSubject(params) {
     queryText: "SELECT * FROM sky",
     recommendations: recommendations,
     queryFailureMessage: "",
+    userHasInteracted: false,
     isQueryLoading: false,
     isQueryLoaded: true,
     executeQuery: queryCallback ? queryCallback : jest.fn(),
     cancelQuery: jest.fn(),
-    setQueryText: updateCallback ? updateCallback : jest.fn()
+    setQueryText: updateCallback ? updateCallback : jest.fn(),
+    setUserInteracted: jest.fn()
   }
 
   const paramsWithDefaults = Object.assign({}, defaults, params)
@@ -212,11 +214,14 @@ function createSubject(params) {
       queryText={paramsWithDefaults.queryText}
       recommendations={paramsWithDefaults.recommendations}
       queryFailureMessage={paramsWithDefaults.queryFailureMessage}
+      userHasInteracted={paramsWithDefaults.userHasInteracted}
       isQueryLoading={paramsWithDefaults.isQueryLoading}
       isQueryLoaded={paramsWithDefaults.isQueryLoaded}
       executeQuery={paramsWithDefaults.executeQuery}
       cancelQuery={paramsWithDefaults.cancelQuery}
-      setQueryText={paramsWithDefaults.setQueryText} />)
+      setQueryText={paramsWithDefaults.setQueryText}
+      setUserInteracted={paramsWithDefaults.setUserInteracted}
+    />)
 }
 
 function getButton(subject, text) {

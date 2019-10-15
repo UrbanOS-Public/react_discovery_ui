@@ -13,16 +13,16 @@ const DatasetQuery = props => {
     queryText,
     recommendations,
     isQueryLoading,
-    isQueryLoaded,
     queryFailureMessage,
+    userHasInteracted,
 
     executeQuery,
     cancelQuery,
-    setQueryText
+    setQueryText,
+    setUserInteracted
   } = props
 
   const [localQueryText, setLocalQueryText] = useState(queryText)
-  const [isCancelled, setIsCancelled] = useState(false)
   const [showTooltipCopied, setShowTooltipCopied] = useState(false)
 
   React.useEffect(() => {
@@ -32,23 +32,23 @@ const DatasetQuery = props => {
   const submit = () => {
     // I'd like to use the Redux queryText here, but this way makes a test pass -JBP 10/9/2019
     executeQuery(localQueryText)
-    setIsCancelled(false)
+    setUserInteracted()
   }
 
   const cancel = () => {
+    setUserInteracted()
     cancelQuery()
-    setIsCancelled(true)
   }
 
   const updateLocalQueryText = e => setLocalQueryText(e.target.value)
   const updateReduxQueryText = (e) => setQueryText(e.target.value)
-  const errorText = isCancelled ? 'Your query has been stopped' : 'Query failure.  There may be a syntax issue.'
 
   const textArea = <textarea rows={5} type='text' value={localQueryText} onBlur={updateReduxQueryText} onChange={updateLocalQueryText} className='query-input' />
   const submitButton = <button className="action-button" disabled={isQueryLoading} onClick={submit}>Submit</button>
   const cancelButton = <button className="action-button" disabled={!isQueryLoading} onClick={cancel}>Cancel</button>
-  const errorMessage = <span className='error-message'>{errorText}</span>
-  const successMessage = (
+
+  const showSuccessMessage = !queryFailureMessage && userHasInteracted && !isQueryLoading
+  const successMessage = showSuccessMessage && (
     <span className='success-message'>
       Query successful.  To refresh the visualization, you must change an element in the trace
     </span>
@@ -79,8 +79,12 @@ const DatasetQuery = props => {
     )
   }
 
-  const showSuccessMessage = !queryFailureMessage && isQueryLoaded && !isQueryLoading
   const showFailureMessage = queryFailureMessage && !isQueryLoading
+  const failureMessage = (
+    showFailureMessage && <span className='error-message'>
+      {queryFailureMessage}
+    </span>
+  )
 
   return (
     <dataset-query>
@@ -97,8 +101,8 @@ const DatasetQuery = props => {
       <div>
         {submitButton}
         {cancelButton}
-        {showFailureMessage && errorMessage}
-        {showSuccessMessage && successMessage}
+        {failureMessage}
+        {successMessage}
         {isQueryLoading && <LoadingElement />}
       </div>
     </dataset-query>
@@ -109,12 +113,13 @@ DatasetQuery.propTypes = {
   queryText: PropTypes.string,
   recommendations: PropTypes.array,
   queryFailureMessage: PropTypes.string,
+  userHasInteracted: PropTypes.bool,
   isQueryLoading: PropTypes.bool.isRequired,
-  isQueryLoaded: PropTypes.bool.isRequired,
 
   executeQuery: PropTypes.func.isRequired,
   cancelQuery: PropTypes.func.isRequired,
   setQueryText: PropTypes.func.isRequired,
+  setUserInteracted: PropTypes.func.isRequired
 }
 
 export default DatasetQuery

@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import DatasetQueryView from './dataset-query-view'
-import { executeFreestyleQuery, cancelFreestyleQuery, setQueryText } from '../../store/actions'
+import { executeFreestyleQuery, cancelFreestyleQuery, setQueryText, setUserInteracted } from '../../store/actions'
 
-import { getVisualizationDataSources, getQueryIsLoading, getFreestyleQueryText, getQueryData, isQueryDataSet } from '../../store/query-selectors'
+import { getVisualizationDataSources, getQueryIsLoading, getFreestyleQueryText, getQueryData, isQueryDataSet, getQueryFailureMessage, userHasInteracted } from '../../store/query-selectors'
 
 import { getDatasetRecommendations } from "../../store/selectors"
 
@@ -11,18 +11,19 @@ const mapStateToProps = state => {
     dataSources: getVisualizationDataSources(state),
     recommendations: getDatasetRecommendations(state),
     isQueryLoading: getQueryIsLoading(state),
-    isQueryLoaded: state.queryReducer.isQueryLoaded,
     freestyleQueryText: getFreestyleQueryText(state),
     queryData: getQueryData(state),
-    queryFailureMessage: state.queryReducer.queryFailureMessage,
-    autoFetchQuery: !isQueryDataSet(state)
+    queryFailureMessage: getQueryFailureMessage(state),
+    autoFetchQuery: !isQueryDataSet(state),
+    userHasInteracted: userHasInteracted(state)
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   executeQuery: queryText => dispatch(executeFreestyleQuery(queryText)),
   cancelQuery: () => dispatch(cancelFreestyleQuery()),
-  setQueryText: queryText => dispatch(setQueryText(queryText))
+  setQueryText: queryText => dispatch(setQueryText(queryText)),
+  setUserInteracted: () => dispatch(setUserInteracted()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DatasetQueryView)

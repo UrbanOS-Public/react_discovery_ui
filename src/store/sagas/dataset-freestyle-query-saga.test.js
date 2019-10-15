@@ -9,6 +9,8 @@ import oneTrueReducer from '../reducers'
 
 jest.mock('axios')
 
+const ERROR_MESSAGE_CONSTANT = 'Query failure.  There may be a syntax issue.'
+
 describe('dataset-freestyle-query-saga', () => {
   let store
   let sagaMiddleware
@@ -75,16 +77,17 @@ describe('dataset-freestyle-query-saga', () => {
 
       store.dispatch(executeFreestyleQuery(queryText))
 
-      expect(store.getState()).toContainEqual(setQueryFailure(data.message))
+      expect(store.getState()).toContainEqual(setQueryFailure(ERROR_MESSAGE_CONSTANT))
     })
 
     it('dispatches a QUERY_DATASET_FAILED event on a catastrophic failure', () => {
       const errorMsg = "It's all over"
+
       mockAxios.post.mockImplementationOnce(() => { throw new Error(errorMsg) })
 
       store.dispatch(executeFreestyleQuery(queryText))
 
-      expect(store.getState()).toContainEqual(setQueryFailure(errorMsg))
+      expect(store.getState()).toContainEqual(setQueryFailure(ERROR_MESSAGE_CONSTANT))
     })
   })
 

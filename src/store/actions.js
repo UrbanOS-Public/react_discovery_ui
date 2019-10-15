@@ -57,8 +57,8 @@ export const setQueryFailure = failureMessage => ({
 export const SET_QUERY_IN_PROGRESS = 'SET_QUERY_IN_PROGRESS'
 export const setQueryInProgress = cancelToken => ({ type: SET_QUERY_IN_PROGRESS, cancelToken })
 
-export const CLEAR_QUERY_DATA = 'CLEAR_QUERY_DATA'
-export const clearQueryData = () => ({ type: CLEAR_QUERY_DATA })
+export const SET_USER_INTERACTED = 'SET_USER_INTERACTED'
+export const setUserInteracted = () => ({ type: SET_USER_INTERACTED })
 
 export const RESET_QUERY = 'RESET_QUERY'
 export const resetQuery = () => ({ type: RESET_QUERY })
