@@ -48,8 +48,8 @@ dataset-query {
     overflow-y: auto;
     border: 1px solid black;
     display: inline-block;
-    padding: 0.5em;
     width: 23rem;
+    padding: 0.5em;
 
     &::-webkit-scrollbar {
         -webkit-appearance: none;
@@ -98,6 +98,7 @@ dataset-query {
   }
   .sql-textbox {
     height: 60%;
+    padding: 0.5em;
   }
   .recommendation-section {
     margin-left: 3rem;
