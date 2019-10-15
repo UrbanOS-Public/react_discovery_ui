@@ -82,6 +82,10 @@ dataset-query {
     &:hover {
       color: $almost-black;
     }
+
+    &:active {
+      color: $medium-grey;
+    }
   }
 
   textarea {

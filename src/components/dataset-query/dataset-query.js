@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import './dataset-query.scss'
 import LoadingElement from '../generic-elements/loading-element'
 import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined'
-import { useCopyClipboard } from '@lokibai/react-use-copy-clipboard'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { RecommendationUtils } from '../../utils'
 
 
@@ -24,7 +24,6 @@ const DatasetQuery = props => {
   const [localQueryText, setLocalQueryText] = useState(queryText)
   const [isCancelled, setIsCancelled] = useState(false)
   const [showTooltipCopied, setShowTooltipCopied] = useState(false)
-  const [isCopied, setCopied] = useCopyClipboard('')
 
   React.useEffect(() => {
     setLocalQueryText(queryText);
@@ -55,10 +54,6 @@ const DatasetQuery = props => {
     </span>
   )
   const createHoverText = (systemName) => showTooltipCopied ? 'Copied!' : `Copy table name '${systemName}'`
-  const onClickCopyTableName = (systemName) => {
-    setCopied(systemName)
-    setShowTooltipCopied(true)
-  }
 
   const recommendationItems = () => {
     return recommendations.map(rec => {
@@ -69,7 +64,9 @@ const DatasetQuery = props => {
             {rec.dataTitle}
           </a>
           <ReactTooltip id={tooltipId} place="right" effect="solid" afterHide={() => setShowTooltipCopied(false)} getContent={() => createHoverText(rec.systemName)} />
-          <AssignmentOutlinedIcon data-for={tooltipId} onClick={() => onClickCopyTableName(rec.systemName)} className="copy-table-name-icon" data-tip />
+          <CopyToClipboard text={rec.systemName} onCopy={() => setShowTooltipCopied(true)}>
+            <AssignmentOutlinedIcon data-for={tooltipId} className="copy-table-name-icon" data-tip />
+          </CopyToClipboard>
         </div>)
     })
   }
