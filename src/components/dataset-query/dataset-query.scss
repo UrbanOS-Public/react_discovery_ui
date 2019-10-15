@@ -3,18 +3,9 @@
 
 dataset-query {
   margin: 0 1.25rem;
-  margin-top: -1.25rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-
-  .query-input {
-    padding: 0.5rem;
-    flex-grow: 2;
-    color: $almost-black;
-    border-color: $almost-black;
-    height: 60%;
-  }
 
   .action-button {
     @include button();
