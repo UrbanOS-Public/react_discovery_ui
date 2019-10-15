@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import DatasetVisualizationView from './dataset-visualization-view'
-import { getDatasetQueryResult,  getFreestyleQueryText  } from '../../store/selectors'
+import { getDatasetQueryResult, getFreestyleQueryText } from '../../store/selectors'
 import { getQueryIsLoading, isQueryDataSet, getVisualizationDataSources } from '../../store/query-selectors'
 
 const mapStateToProps = state => {
@@ -13,8 +13,4 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  // getRecommendations: datasetId => dispatch(datasetRecommendations(datasetId))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(DatasetVisualizationView)
+export default connect(mapStateToProps)(DatasetVisualizationView)

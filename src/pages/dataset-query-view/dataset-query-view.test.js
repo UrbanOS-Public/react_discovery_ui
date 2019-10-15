@@ -15,22 +15,11 @@ const runUseEffect = () => {
 };
 
 describe("dataset visualization view", () => {
-  const dataSources = { data: ["sources"] };
-
   let subject;
-  let queryCallback;
 
   describe("before load", () => {
     beforeEach(() => {
-      queryCallback = jest.fn();
-      subject = shallow(
-        <DatasetQueryView
-          isQueryLoading={true}
-          queryData={[]}
-          executeQuery={queryCallback}
-          dataSources={dataSources}
-        />
-      );
+      subject = createSubject({ isQueryLoading: true, queryData: [] })
     });
 
     it("shows full page loading icon", () => {
@@ -39,18 +28,12 @@ describe("dataset visualization view", () => {
   });
 
   describe("after load", () => {
+    let queryCallback;
+
     beforeEach(() => {
       runUseEffect();
-      queryCallback = jest.fn();
-
-      subject = shallow(
-        <DatasetQueryView
-          isQueryLoading={false}
-          queryData={[{ data: {} }]}
-          executeQuery={queryCallback}
-          dataSources={dataSources}
-        />
-      );
+      queryCallback = jest.fn()
+      subject = createSubject({ executeQuery: queryCallback })
     });
 
     it("does not show full page loading icon", () => {
@@ -75,16 +58,8 @@ describe("dataset visualization view", () => {
 
   it("should not render full page loading when user has submitted query", () => {
     runUseEffect();
-    queryCallback = jest.fn();
 
-    subject = shallow(
-      <DatasetQueryView
-        isQueryLoading={false}
-        queryData={[{ data: {} }]}
-        executeQuery={queryCallback}
-        dataSources={dataSources}
-      />
-    );
+    subject = createSubject({})
 
     subject
       .find(DatasetQuery)
@@ -95,3 +70,26 @@ describe("dataset visualization view", () => {
     expect(subject.find(LoadingElement).length).toEqual(0);
   })
 });
+
+function createSubject(params) {
+  const defaultParams = {
+    isQueryLoading: false,
+    queryData: [{ data: {} }],
+    executeQuery: jest.fn(),
+    dataSources: { data: ["sources"] },
+    cancelQuery: jest.fn(),
+    setQueryText: jest.fn(),
+    setUserInteracted: jest.fn()
+  }
+  const paramsWithDefaults = Object.assign({}, defaultParams, params)
+
+  return shallow(<DatasetQueryView
+    isQueryLoading={paramsWithDefaults.isQueryLoading}
+    queryData={paramsWithDefaults.queryData}
+    executeQuery={paramsWithDefaults.executeQuery}
+    dataSources={paramsWithDefaults.dataSources}
+    cancelQuery={paramsWithDefaults.cancelQuery}
+    setQueryText={paramsWithDefaults.setQueryText}
+    setUserInteracted={paramsWithDefaults.setUserInteracted}
+  />)
+}

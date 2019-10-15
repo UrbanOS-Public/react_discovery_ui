@@ -37,7 +37,9 @@ describe('dataset visualization view', () => {
           isLoading={false}
           match={routerProps}
           location={{ search: `?systemName=${tableName}` }}
-          dataSources={dataSources} />
+          dataSources={dataSources}
+          systemName={''}
+          datasetId={'111'} />
       )
     })
 
@@ -63,7 +65,9 @@ describe('dataset visualization view', () => {
         isLoading={false}
         match={routerProps}
         location={{ search: `?systemName=${tableName}` }}
-        dataSources={dataSources} />
+        dataSources={dataSources}
+        systemName={''}
+        datasetId={'111'} />
     )
 
     subject.setProps({ isLoading: true })
