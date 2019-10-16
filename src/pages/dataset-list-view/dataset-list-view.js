@@ -20,12 +20,11 @@ export default class extends Component {
     this.state = { currentPage: 1, pageSize: 10 }
   }
 
-  // componentDidMount() {
-  //   this.props.fetchData(this.pageNumber, this.state.pageSize, this.sort, this.searchParams, this.facets, this.apiAccessible)
-  // }
-
   componentDidMount() {
+    this.props.updateDatasetSearchParams({
+    })
     this.fetchData(this.props.searchParams)
+    
   }
 
   fetchData({pageNumber, limit, sort, query, facets, apiAccessible}) {
@@ -36,46 +35,6 @@ export default class extends Component {
     this.props.datasetSearch(params)
   }
 
-  // offset: action.value.offset,
-  // limit: action.value.limit,
-  // sort: action.value.sort,
-  // query: action.value.query,
-  // facets: action.value.facets
-
-  // componentDidUpdate() {
-  //   window.onpopstate = (e) => {
-  //     this.props.fetchData(this.pageNumber, this.state.pageSize, this.sort, this.searchParams, this.facets, this.apiAccessible)
-  //   }
-  // }
-
-  onPageChange(page) {
-    this.setState({ currentPage: page })
-    this.refreshDatasets(this.searchParams, this.sort, this.facets, page, this.apiAccessible)
-  }
-
-  onRemoteToggleClick() {
-    this.refreshDatasets(this.searchParams, this.sort, this.facets, 1, !this.apiAccessible)
-  }
-
-  onFacetClick(facetName, facetValue) {
-    this.setState({ currentPage: 1 })
-
-    const updatedFacets = this.toggleFacetValue(facetName, facetValue)
-
-    this.refreshDatasets(
-      this.searchParams,
-      this.sort,
-      updatedFacets,
-      1,
-      this.apiAccessible
-    )
-  }
-
-  onSortChange(sort) {
-    this.setState({ currentPage: 1 })
-    this.refreshDatasets(this.searchParams, sort, this.facets, 1, this.apiAccessible)
-  }
-
   onSearchChange(criteria) {
     this.props.updateDatasetSearchParams({
       query: criteria
@@ -83,15 +42,76 @@ export default class extends Component {
     this.props.datasetSearch()
   }
 
-  toggleFacetValue(facetName, facetValue) {
-    const facetValues = _.get(this.facets, facetName)
-    return Object.assign(this.facets || {}, { [facetName]: _.xor(facetValues, [facetValue]) })
+  onSortChange(sort) {
+    this.props.updateDatasetSearchParams({
+      sort: sort
+    })
+    this.props.datasetSearch()
   }
 
-  refreshDatasets(criteria, sort, facets, pageNumber, apiAccessible) {
-    this.updateQueryParameters(criteria, sort, facets, apiAccessible)
-    this.fetchData(pageNumber, this.state.pageSize, sort, criteria, facets, apiAccessible)
+  onFacetClick(facetName, facetValue) {
+    const updatedFacets = this.toggleFacetValue(this.props.searchParams.facets, facetName, facetValue)
+    this.props.updateDatasetSearchParams({
+      facets: updatedFacets
+    })
+    this.props.datasetSearch()
   }
+
+  toggleFacetValue(facets, facetName, facetValue) { //Seems like this should be in redux?
+    const facetValues = _.get(facets, facetName)
+    return Object.assign(facets || {}, { [facetName]: _.xor(facetValues, [facetValue]) })
+  }
+
+  onRemoteToggleClick() {
+    this.props.updateDatasetSearchParams({
+      apiAccessible: !this.props.searchParams.apiAccessible
+    })
+    this.props.datasetSearch()
+  }
+
+  onPageChange(page) {
+    const offset = (page - 1) * this.props.searchParams.limit
+    this.props.updateDatasetSearchParams({
+      offset: offset
+    })
+    this.props.datasetSearch()
+    this.state.currentPage = page
+  }
+
+  //---old v----------new ^--------------------------
+
+  // onPageChange(page) {
+  //   this.setState({ currentPage: page })
+  //   this.refreshDatasets(this.searchParams, this.sort, this.facets, page, this.apiAccessible)
+  // }
+
+  // onRemoteToggleClick() {
+  //   this.refreshDatasets(this.searchParams, this.sort, this.facets, 1, !this.apiAccessible)
+  // }
+
+  // onFacetClick(facetName, facetValue) {
+  //   this.setState({ currentPage: 1 })
+
+  //   const updatedFacets = this.toggleFacetValue(facetName, facetValue)
+
+  //   this.refreshDatasets(
+  //     this.searchParams,
+  //     this.sort,
+  //     updatedFacets,
+  //     1,
+  //     this.apiAccessible
+  //   )
+  // }
+
+  // onSortChange(sort) {
+  //   this.setState({ currentPage: 1 })
+  //   this.refreshDatasets(this.searchParams, sort, this.facets, 1, this.apiAccessible)
+  // }
+
+  // refreshDatasets(criteria, sort, facets, pageNumber, apiAccessible) {
+  //   this.updateQueryParameters(criteria, sort, facets, apiAccessible)
+  //   this.fetchData(pageNumber, this.state.pageSize, sort, criteria, facets, apiAccessible)
+  // }
 
   updateQueryParameters(searchCriteria, sort, facets, apiAccessible) {
     this.props.history.push({
@@ -104,7 +124,7 @@ export default class extends Component {
   }
 
   get numberOfPages() {
-    return Math.ceil(this.props.totalDatasets / this.state.pageSize)
+    return Math.ceil(this.props.searchMetadata.totalDatasets / this.props.searchParams.limit)
   }
 
   get searchParams() {
@@ -166,7 +186,7 @@ export default class extends Component {
               selected={this.props.searchParams.apiAccessible} />
             <FacetSidebar
               availableFacets={this.props.searchMetadata.facets}
-              appliedFacets={this.facets}
+              appliedFacets={this.props.searchParams.facets}
               clickHandler={(facetName, facetValue) => this.onFacetClick(facetName, facetValue)} />
           </div>
           <div className='right-section'>
@@ -182,7 +202,7 @@ export default class extends Component {
                 selectChangeCallback={sort => this.onSortChange(sort)} />
             </div>
             <DatasetList datasets={this.props.searchResults} />
-            <Paginator className='paginator' numberOfPages={this.numberOfPages} currentPage={this.state.currentPage} pageChangeCallback={page => this.onPageChange(page)} />
+            <Paginator className='paginator' numberOfPages={this.numberOfPages} currentPage={this.props.pageNumber} pageChangeCallback={page => this.onPageChange(page)} />
           </div>
         </dataset-list-view>
       )

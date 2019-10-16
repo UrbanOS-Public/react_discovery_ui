@@ -121,10 +121,11 @@ const presentationReducer = (state = defaultPresentationState, action) => {
 const defaultSearchState = {
   isRunning: false,
   searchParams: {
-    pageNumber: 1,
     limit: 10,
+    offset: 0,
     apiAccessible: false,
-    query: ""
+    query: "",
+    sort: "name_asc"
   },
   searchResults: []
 }
