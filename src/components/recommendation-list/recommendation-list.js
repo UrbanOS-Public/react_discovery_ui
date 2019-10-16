@@ -10,8 +10,8 @@ import { RecommendationUtils } from '../../utils'
 const RecommendationList = props => {
   const { recommendations } = props
 
-  const [showTooltipCopied, setShowTooltipCopied] = useState(false)
-  const createHoverText = (systemName) => showTooltipCopied ? 'Copied!' : `Copy table name '${systemName}'`
+  const [showTooltipAsCopied, setShowTooltipAsCopied] = useState(false)
+  const createHoverText = (systemName) => showTooltipAsCopied ? 'Copied!' : `Copy table name '${systemName}'`
 
   const recommendationItems = () => {
     return recommendations.map(rec => {
@@ -21,8 +21,13 @@ const RecommendationList = props => {
           <a className="recommendation" href={RecommendationUtils.getDatasetUrl(rec)} target='_blank'>
             {rec.dataTitle}
           </a>
-          <ReactTooltip id={tooltipId} place="right" effect="solid" afterHide={() => setShowTooltipCopied(false)} getContent={() => createHoverText(rec.systemName)} />
-          <CopyToClipboard text={rec.systemName} onCopy={() => setShowTooltipCopied(true)}>
+          <ReactTooltip
+            id={tooltipId}
+            place="right"
+            effect="solid"
+            afterHide={() => setShowTooltipAsCopied(false)}
+            getContent={() => createHoverText(rec.systemName)} />
+          <CopyToClipboard text={rec.systemName} onCopy={() => setShowTooltipAsCopied(true)}>
             <AssignmentOutlinedIcon data-for={tooltipId} className="copy-table-name-icon" data-tip />
           </CopyToClipboard>
         </div>)

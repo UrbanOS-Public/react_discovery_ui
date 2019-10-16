@@ -158,8 +158,7 @@ describe('DatasetQuery', () => {
   describe('recommendations', () => {
     test('do not render if none are available', () => {
       subject = createSubject({ recommendations: [] })
-      console.log(subject.props())
-      expect(subject.contains(RecommendationList)).toBeFalsy()
+      expect(subject.exists(RecommendationList)).toBeFalsy()
     })
   })
 })
