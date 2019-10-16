@@ -1,0 +1,17 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
+
+dataset-recommendations {
+  .recommended-dataset {
+    padding-top: 0.5em; 
+    padding-left: 1em;
+
+    a {
+      @include link();
+    }
+  }
+}
+
+.recommendation-content:last-child {
+  padding-bottom: 0.5em;
+}

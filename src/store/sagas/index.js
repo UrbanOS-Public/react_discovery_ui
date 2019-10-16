@@ -8,6 +8,7 @@ import logoutSaga from './logout-saga'
 import datasetDownloadSaga from './dataset-download-saga'
 import datasetQuerySaga from './dataset-query-saga'
 import datasetFreestyleQuerySaga from './dataset-freestyle-query-saga'
+import datasetRecommendationSaga from './dataset-recommendation-saga'
 
 export default function* allSagas() {
   yield all([
@@ -19,6 +20,7 @@ export default function* allSagas() {
     fork(logoutSaga),
     fork(datasetDownloadSaga),
     fork(datasetQuerySaga),
-    fork(datasetFreestyleQuerySaga)
+    fork(datasetFreestyleQuerySaga),
+    fork(datasetRecommendationSaga)
   ])
 }

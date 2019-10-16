@@ -5,6 +5,8 @@ export const RETRIEVE_DATASET = 'RETRIEVE_DATASET'
 export const DATASET_DETAILS = 'DATASET_DETAILS'
 export const RETRIEVE_DATASET_PREVIEW = 'RETRIEVE_DATASET_PREVIEW'
 export const DATASET_PREVIEW = 'DATASET_PREVIEW'
+export const DATASET_RECOMMENDATIONS = 'DATASET_RECOMMENDATIONS'
+export const DATASET_RECOMMENDATIONS_SUCCEEDED = 'DATASET_RECOMMENDATIONS_SUCCEEDED'
 export const CLEAR_DATASET_PREVIEW = 'CLEAR_DATASET_PREVIEW'
 export const CLEAR_DATASET_DETAILS = 'CLEAR_DATASET_DETAILS'
 export const LOGIN = 'LOGIN'
@@ -88,6 +90,14 @@ export const retrieveDatasetDetails = (org_name, dataset_name) => ({
 
 export const datasetDetails = (data) => ({
   type: DATASET_DETAILS, value: data
+})
+
+export const datasetRecommendations = (datasetId) => ({
+  type: DATASET_RECOMMENDATIONS, value: datasetId
+})
+
+export const datasetRecommendationsSucceeded = (message) => ({
+  type: DATASET_RECOMMENDATIONS_SUCCEEDED, value: message
 })
 
 export const retrieveDatasetPreview = (id, format = 'json') => ({

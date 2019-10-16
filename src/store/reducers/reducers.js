@@ -5,6 +5,7 @@ import {
   SELECT_DATA_LIST,
   DISPLAY_ERROR,
   DATASET_DETAILS,
+  DATASET_RECOMMENDATIONS_SUCCEEDED,
   RETRIEVE_DATA_LIST,
   RETRIEVE_DATASET,
   RETRIEVE_DATASET_PREVIEW,
@@ -41,6 +42,10 @@ const datasetReducer = (state = defaultDatasetState, action) => {
     case DATASET_DETAILS:
       return Object.assign({}, state, {
         dataset: action.value
+      })
+    case DATASET_RECOMMENDATIONS_SUCCEEDED:
+      return Object.assign({}, state, {
+        recommendations: action.value
       })
     case CLEAR_DATASET_DETAILS:
       return Object.assign({}, state, {

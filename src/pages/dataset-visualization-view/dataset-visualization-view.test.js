@@ -28,25 +28,6 @@ describe('dataset visualization view', () => {
 
   let subject
 
-  describe('before load', () => {
-    beforeEach(() => {
-      runUseEffect()
-      subject = shallow(
-        <DatasetVisualizationView
-          queryData={[]}
-          isQueryLoading={true}
-          match={routerProps}
-          location={{ search: `?systemName=${tableName}` }}
-          dataSources={dataSources} />
-      )
-    })
-
-    it('shows full page loading icon', () => {
-      expect(subject.find(LoadingElement).length).toEqual(1)
-    })
-
-  })
-
   describe('after load', () => {
     beforeEach(() => {
       runUseEffect()
@@ -56,11 +37,11 @@ describe('dataset visualization view', () => {
           isLoading={false}
           match={routerProps}
           location={{ search: `?systemName=${tableName}` }}
-          dataSources={dataSources} />
+          dataSources={dataSources}
+          systemName={''}
+          datasetId={'111'} />
       )
     })
-
-
 
     it('does not show full page loading icon', () => {
       expect(subject.find(LoadingElement).length).toEqual(0)
@@ -84,7 +65,9 @@ describe('dataset visualization view', () => {
         isLoading={false}
         match={routerProps}
         location={{ search: `?systemName=${tableName}` }}
-        dataSources={dataSources} />
+        dataSources={dataSources}
+        systemName={''}
+        datasetId={'111'} />
     )
 
     subject.setProps({ isLoading: true })

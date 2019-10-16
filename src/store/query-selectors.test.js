@@ -1,7 +1,8 @@
 import {
-  getFreestyleQueryText,
-  getVisualizationDataSources
-} from "./selectors";
+  getVisualizationDataSources,
+  getFreestyleQueryText
+} from "./query-selectors";
+
 
 describe("get visualization data sources", () => {
   it("returns empty data sources when data query result is missing", () => {
@@ -56,7 +57,7 @@ describe("getFreestyleQueryText", () => {
   beforeEach(() => {
     state = {
       queryReducer: {
-        freestyleQueryText: ""
+        queryText: ""
       },
       datasetReducer: {
         dataset: {
@@ -74,7 +75,7 @@ describe("getFreestyleQueryText", () => {
 
   it("returns the freestyleQueryText when it is not empty", () => {
     const expectedQuery = "SELECT something FROM somewhere LIMIT your_dreams";
-    state.queryReducer.freestyleQueryText = expectedQuery;
+    state.queryReducer.queryText = expectedQuery;
 
     const receivedQuery = getFreestyleQueryText(state);
     expect(receivedQuery).toEqual(expectedQuery);

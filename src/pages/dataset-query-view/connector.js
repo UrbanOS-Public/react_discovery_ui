@@ -4,9 +4,12 @@ import { executeFreestyleQuery, cancelFreestyleQuery, setQueryText, setUserInter
 
 import { getVisualizationDataSources, getQueryIsLoading, getFreestyleQueryText, getQueryData, isQueryDataSet, getQueryFailureMessage, userHasInteracted } from '../../store/query-selectors'
 
+import { getDatasetRecommendations } from "../../store/selectors"
+
 const mapStateToProps = state => {
   return {
     dataSources: getVisualizationDataSources(state),
+    recommendations: getDatasetRecommendations(state),
     isQueryLoading: getQueryIsLoading(state),
     freestyleQueryText: getFreestyleQueryText(state),
     queryData: getQueryData(state),

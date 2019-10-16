@@ -5,7 +5,7 @@ import {
   clearDatasetDetails,
   clearDatasetPreview
 } from "../../store/actions";
-import { getDataset, getDataSetError } from "../../store/selectors";
+import { getDataSet, getDataSetError } from "../../store/selectors";
 import {
   isStreamingDataset,
   isIngestDataset,
@@ -17,7 +17,7 @@ import {
 
 const mapStateToProps = state => {
   return {
-    dataset: getDataset(state),
+    dataset: getDataSet(state),
     isStreaming: isStreamingDataset(state),
     isIngest: isIngestDataset(state),
     isRemote: isRemoteDataset(state),

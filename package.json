@@ -1,6 +1,6 @@
 {
   "name": "@smartcitiesdata/react-discovery-ui",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "React component for dataset discovery UI",
   "main": "./lib/App.js",
   "repository": {
@@ -49,6 +49,7 @@
     "react-share": "^2.4.0",
     "react-svg-inline": "^2.1.1",
     "react-table": "^6.9.2",
+    "react-tooltip": "3.11.1",
     "redux": "^4.0.1",
     "redux-saga": "^0.16.2",
     "reselect": "^4.0.0",

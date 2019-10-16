@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import './dataset-visualization-view.scss'
 import React, { useState } from 'react'
 import sqlIcon from '../../assets/blk-database.svg'
@@ -8,11 +9,11 @@ import ChartVisualization from '../../components/visualizations/chart/chart-visu
 import { Collapse } from 'react-collapse'
 import LoadingElement from '../../components/generic-elements/loading-element'
 
+
 const DatasetVisualizationView = (props) => {
   const [open, setOpened] = useState(false)
   const toggleOpen = () => { setOpened(!open) }
-
-  const { systemName, dataSources, queryDataInitialized, isQueryLoading } = props
+  const { systemName, dataSources, queryDataInitialized, isQueryLoading, datasetId } = props
 
   const isPageLoading = isQueryLoading && !queryDataInitialized
 
@@ -42,5 +43,10 @@ const DatasetVisualizationView = (props) => {
   )
 }
 
+DatasetVisualizationView.propTypes = {
+  systemName: PropTypes.string.isRequired,
+  datasetId: PropTypes.string.isRequired,
+  dataSources: PropTypes.object.isRequired,
+}
 
 export default DatasetVisualizationView

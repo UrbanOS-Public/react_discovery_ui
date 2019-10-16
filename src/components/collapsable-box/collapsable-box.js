@@ -14,10 +14,14 @@ export default class extends Component {
     this.setState({ expanded: !this.state.expanded })
   }
 
+  headerOpenClass() {
+    return this.state.expanded ? 'open' : ''
+  }
+
   render() {
     return (
       <collapsable-box>
-        <div className='header-container' onClick={e => { this.toggleCollapsed() }} >
+        <div className={`header-container ${this.headerOpenClass()}`} onClick={e => { this.toggleCollapsed() }} >
           <div className='header-text-items'>
             <div className='title'>{this.props.title}</div>
             {this.props.headerHtml}

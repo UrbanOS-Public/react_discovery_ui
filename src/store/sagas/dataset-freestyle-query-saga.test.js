@@ -87,8 +87,6 @@ describe('dataset-freestyle-query-saga', () => {
 
       store.dispatch(executeFreestyleQuery(queryText))
 
-      console.log(store.getState())
-
       expect(store.getState()).toContainEqual(setQueryFailure(ERROR_MESSAGE_CONSTANT))
     })
   })
