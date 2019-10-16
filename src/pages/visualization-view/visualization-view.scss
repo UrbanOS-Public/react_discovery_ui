@@ -110,6 +110,6 @@ visualization-view {
 
     box-shadow: 0px 5px 5px -3px $box-shadow-grey, 0px 8px 10px 1px $box-shadow-grey, 0px 3px 14px 2px $box-shadow-grey;
 
-    min-width: 26rem; /* popover does not deal well with this missing */
+    min-width: 35rem; /* popover does not deal well with this missing */
   }
 }

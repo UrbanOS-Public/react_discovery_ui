@@ -26,6 +26,7 @@ const SaveIndicator = ({ saving, success, failure, linkPath, linkParams = {} }) 
       </save-indicator>
     )
   }
+
   if (failure) {
     return (
       <save-indicator>
@@ -34,6 +35,8 @@ const SaveIndicator = ({ saving, success, failure, linkPath, linkParams = {} }) 
       </save-indicator>
     )
   }
+
+  //TODO: return something else
   return <div>NOTHING</div>
 }
 

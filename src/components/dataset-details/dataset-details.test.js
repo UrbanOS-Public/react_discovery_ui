@@ -1,8 +1,6 @@
 import { shallow } from 'enzyme'
 import DatasetDetails from './dataset-details'
 
-import VisualizeButton from '../../components/generic-elements/visualize-button'
-
 const ingestDataset = {
   id: '123',
   name: 'COTA Streaming Busses',
@@ -14,9 +12,6 @@ const ingestDataset = {
     name: "The best in the wolrd"
   }
 }
-const hostedDataset = Object.assign({}, ingestDataset, { sourceType: 'host' })
-const remoteDataset = Object.assign({}, ingestDataset, { sourceType: 'remote' })
-const streamingDataset = Object.assign({}, ingestDataset, { sourceType: 'stream' })
 
 describe('data card element', () => {
   let subject

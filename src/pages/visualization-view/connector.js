@@ -22,8 +22,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
     load: (id) => dispatch(visualizationLoad(id)),
     reset: () => dispatch(visualizationReset()),
-    save: (title, query) => dispatch(visualizationSave(title, query)),
-    finishSaving: () => dispatch(visualizationSaveFinish())
+    save: (title, query) => dispatch(visualizationSave(title, query))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(VisualizationView)

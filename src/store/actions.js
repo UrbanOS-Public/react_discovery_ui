@@ -196,11 +196,6 @@ export const visualizationSaveFailure = (errorMessage) => ({
   type: VISUALIZATION_SAVE_FAILURE, value: errorMessage
 })
 
-export const VISUALIZATION_SAVE_FINISH = 'VISUALIZATION_SAVE_FINISH'
-export const visualizationSaveFinish = () => ({
-  type: VISUALIZATION_SAVE_FINISH
-})
-
 export const VISUALIZATION_RESET = 'VISUALIZATION_RESET'
 export const visualizationReset = () => ({
   type: VISUALIZATION_RESET

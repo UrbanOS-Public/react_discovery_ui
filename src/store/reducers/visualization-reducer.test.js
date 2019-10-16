@@ -237,28 +237,4 @@ describe('Visualization Reducer', () => {
       expect(newState.saveSuccess).toBeFalsy()
     })
   })
-
-  describe('VISUALIZATION_SAVE_FINISH', () => {
-    beforeEach(() => {
-      previousState = {
-        visualization: { id: 'existing' },
-        saving: true,
-        saveSuccess: true,
-        saveFailure: true
-      }
-      newState = reducer(previousState, visualizationReset())
-    })
-
-    it('sets `saving` state to false', () => {
-      expect(newState.saving).toBeFalsy()
-    })
-
-    it('sets `saveFailure` state to false', () => {
-      expect(newState.saveFailure).toBeFalsy()
-    })
-
-    it('sets `saveSuccess` state to false', () => {
-      expect(newState.saveSuccess).toBeFalsy()
-    })
-  })
 })

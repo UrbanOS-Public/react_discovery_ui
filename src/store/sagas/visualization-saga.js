@@ -7,6 +7,7 @@ function* callEndpoint(clientFunction, successEvent, failureEvent) {
     const response = yield call(clientFunction)
 
     if (response.status === 200) {
+      // TODO: TEST ME
       yield put(setQueryText(response.data.query))
       yield put(successEvent(response.data))
     } else {
@@ -22,7 +23,6 @@ function* loadVisualization({ value: id }) {
 }
 
 function* saveVisualization({ value: visualization }) {
-    /* yield put(visualizationSaveFailure("bad stuff")) */
     yield callEndpoint(() => AuthenticatedHTTPClient.post('/api/v1/visualization', visualization), visualizationSaveSuccess, visualizationSaveFailure)
 }
 

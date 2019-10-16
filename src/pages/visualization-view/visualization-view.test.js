@@ -16,13 +16,17 @@ const runUseEffect = () => {
 describe("visualization view", () => {
   let subject, resetHandler, loadHandler, saveHandler
 
+  const id = '123456'
+  const title = 'Placeholder Title'
+  const query = 'select * from stuff'
+
   beforeEach(() => {
     resetHandler = jest.fn()
     loadHandler = jest.fn()
     saveHandler = jest.fn()
   })
 
-  describe('when visualization id is not provided along with nothing else', () => {
+  describe('when visualization id is not provided in the URL along with nothing else', () => {
     beforeEach(() => {
       resetHandler.mockImplementation(() => true)
       runUseEffect()
@@ -43,14 +47,12 @@ describe("visualization view", () => {
       expect(resetHandler).toHaveBeenCalled()
     })
 
-    it("does not call the get function", () => {
+    it("does not call the load function", () => {
       expect(loadHandler).not.toHaveBeenCalled()
     })
   })
 
-  describe('when visualization id is provided and nothing else', () => {
-    const id = '123456'
-
+  describe('when visualization id is provided in the URL and nothing else', () => {
     beforeEach(() => {
       runUseEffect()
       subject = shallow(
@@ -83,8 +85,8 @@ describe("visualization view", () => {
           isLoading={false}
           isSaving={false}
           isLoadFailure={false}
-          title='my first visualization'
-          query='SELECT the_thing FROM the_table'
+          title={title}
+          query={query}
           load={loadHandler}
           reset={resetHandler}
           save={saveHandler}
@@ -116,8 +118,8 @@ describe("visualization view", () => {
           match={{ params: { id: "123456" } }}
           isLoading={true}
           isLoadFailure={false}
-          title='my first visualization'
-          query='SELECT the_thing FROM the_table'
+          title={title}
+          query={query}
           load={loadHandler}
           reset={resetHandler}
           save={saveHandler}
@@ -129,10 +131,12 @@ describe("visualization view", () => {
       expect(subject.find(LoadingElement)).toHaveLength(1)
     })
 
+    // TODO: possibly remove
     it("does not have a visualization view component", () => {
       expect(subject.find(ChartView).length).toEqual(0)
     })
 
+    // TODO: possibly remove
     it("does not have a query view component", () => {
       expect(subject.find(QueryView).length).toEqual(0)
     })
@@ -145,8 +149,6 @@ describe("visualization view", () => {
           match={{ params: { id: "123456" } }}
           isLoading={false}
           isLoadFailure={true}
-          title='my first visualization'
-          query='SELECT the_thing FROM the_table'
           load={loadHandler}
           reset={resetHandler}
           save={saveHandler}
@@ -175,8 +177,6 @@ describe("visualization view", () => {
           isLoading={false}
           isLoadFailure={false}
           isSaveable={false}
-          title='my first visualization'
-          query=''
           load={loadHandler}
           reset={resetHandler}
           save={saveHandler}
@@ -190,10 +190,6 @@ describe("visualization view", () => {
   })
 
   describe("when visualization is able to be saved", () => {
-    const saveHandler = jest.fn()
-    const title = 'Placeholder Title'
-    const query = 'select * from stuff'
-
     beforeEach(() => {
       subject = shallow(
         <VisualizationView
@@ -217,10 +213,6 @@ describe("visualization view", () => {
   })
 
   describe("when visualization save button is clicked", () => {
-    const id = 'abcdefg'
-    const title = 'Placeholder Title'
-    const query = 'select * from stuff'
-
     beforeEach(() => {
       subject = shallow(
         <VisualizationView
