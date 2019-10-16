@@ -41,44 +41,6 @@ dataset-query {
     display: inline-block;
   }
 
-  .recommendation-list {
-    border: 1px solid $light-grey;
-    max-height: 100%;
-    height: 60%;
-    overflow-y: auto;
-    border: 1px solid black;
-    display: inline-block;
-    width: 23rem;
-    padding: 0.5em;
-
-    &::-webkit-scrollbar {
-        -webkit-appearance: none;
-    }
-
-    &::-webkit-scrollbar:vertical {
-        width: 11px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        border-radius: 8px;
-        border: 2px solid white;
-        background-color: $light-blue;
-    }
-  }
-
-  .copy-table-name-icon {
-    vertical-align: bottom;
-    color: $light-blue;
-
-    &:hover {
-      color: $almost-black;
-    }
-
-    &:active {
-      color: $medium-grey;
-    }
-  }
-
   textarea {
     width: 100%;
   }
@@ -93,16 +55,20 @@ dataset-query {
     color: red;
     @include link();
   }
+
   .sql-title {
     height: 30%;
   }
+
   .sql-textbox {
     height: 60%;
-    padding: 0.5em;
+    padding: 0.5rem;
   }
+
   .recommendation-section {
     margin-left: 3rem;
   }
+
   .recommendation-title {
     height: 30%;
   }

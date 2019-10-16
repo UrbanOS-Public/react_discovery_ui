@@ -1,11 +1,8 @@
 import { useState } from 'react'
-import ReactTooltip from 'react-tooltip'
 import PropTypes from 'prop-types'
 import './dataset-query.scss'
 import LoadingElement from '../generic-elements/loading-element'
-import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { RecommendationUtils } from '../../utils'
+import RecommendationList from '../recommendation-list'
 
 
 const DatasetQuery = props => {
@@ -23,7 +20,6 @@ const DatasetQuery = props => {
   } = props
 
   const [localQueryText, setLocalQueryText] = useState(queryText)
-  const [showTooltipCopied, setShowTooltipCopied] = useState(false)
 
   React.useEffect(() => {
     setLocalQueryText(queryText);
@@ -53,31 +49,6 @@ const DatasetQuery = props => {
       Query successful.  To refresh the visualization, you must change an element in the trace
     </span>
   )
-  const createHoverText = (systemName) => showTooltipCopied ? 'Copied!' : `Copy table name '${systemName}'`
-
-  const recommendationItems = () => {
-    return recommendations.map(rec => {
-      const tooltipId = `tool-tip-${rec.id}`
-      return (
-        <div key={rec.id}>
-          <a className="recommended-dataset" href={RecommendationUtils.getDatasetUrl(rec)} target='_blank'>
-            {rec.dataTitle}
-          </a>
-          <ReactTooltip id={tooltipId} place="right" effect="solid" afterHide={() => setShowTooltipCopied(false)} getContent={() => createHoverText(rec.systemName)} />
-          <CopyToClipboard text={rec.systemName} onCopy={() => setShowTooltipCopied(true)}>
-            <AssignmentOutlinedIcon data-for={tooltipId} className="copy-table-name-icon" data-tip />
-          </CopyToClipboard>
-        </div>)
-    })
-  }
-
-  const recommendationList = () => {
-    return (
-      <div className="recommendation-list">
-        {recommendationItems()}
-      </div>
-    )
-  }
 
   const showFailureMessage = queryFailureMessage && !isQueryLoading
   const failureMessage = (
@@ -95,7 +66,7 @@ const DatasetQuery = props => {
         </div>
         <div className="recommendation-section">
           <div className="recommendation-title">Recommendations</div>
-          {recommendations && recommendationList()}
+          {recommendations.length > 0 && <RecommendationList recommendations={recommendations} />}
         </div>
       </div>
       <div>
