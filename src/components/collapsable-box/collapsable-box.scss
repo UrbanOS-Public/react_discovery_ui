@@ -13,6 +13,10 @@ collapsable-box {
     cursor: pointer;
   }
 
+  .header-container.open {
+    border-bottom: $light-grey solid 1px;
+  }
+
   .header-container:hover {
     background-color: $super-light-grey;
   }

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import './chart-view.scss'
 import React, { useState } from 'react'
 import SQLIcon from '../../components/generic-elements/sql-icon'
@@ -10,8 +11,7 @@ import LoadingElement from '../../components/generic-elements/loading-element'
 const ChartView = (props) => {
   const [open, setOpened] = useState(false)
   const toggleOpen = () => { setOpened(!open) }
-
-  const { systemName, dataSources, queryDataInitialized, isQueryLoading } = props
+  const { systemName, dataSources, queryDataInitialized, isQueryLoading, datasetId } = props
 
   const isPageLoading = isQueryLoading && !queryDataInitialized
 
@@ -41,5 +41,10 @@ const ChartView = (props) => {
   )
 }
 
+ChartView.propTypes = {
+  systemName: PropTypes.string.isRequired,
+  datasetId: PropTypes.string.isRequired,
+  dataSources: PropTypes.object.isRequired,
+}
 
 export default ChartView

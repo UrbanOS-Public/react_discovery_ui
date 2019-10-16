@@ -57,7 +57,7 @@ const DiscoveryUI = () => {
   </main-app-element>)
 }
 
-const WrappedApp = () => {
+const ReactDiscoveryUI = () => {
   const store = Redux.start()
 
   return (
@@ -69,4 +69,4 @@ const WrappedApp = () => {
   )
 }
 
-export default WrappedApp
+export default ReactDiscoveryUI

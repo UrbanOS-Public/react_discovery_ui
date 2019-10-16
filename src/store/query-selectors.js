@@ -4,6 +4,8 @@ import { isEmpty } from 'lodash'
 export const getQueryFailureMessage = state => state.queryReducer.queryFailureMessage
 export const getQueryIsLoading = state => state.queryReducer.isQueryLoading
 
+export const userHasInteracted = state => state.queryReducer.userInteracted
+
 export const getQueryData = state => state.queryReducer.queryData || []
 export const isQueryDataAvailable = state => state.queryReducer.queryData !== null
 export const isQueryTextAvailable = state => !isEmpty(getFreestyleQueryText(state))

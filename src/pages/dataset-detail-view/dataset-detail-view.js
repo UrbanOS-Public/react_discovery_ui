@@ -1,15 +1,16 @@
-import { Component } from "react";
-import DatasetDetails from "../../components/dataset-details";
-import DatasetPreview from "../../components/dataset-preview";
-import DatasetMetadata from "../../components/dataset-metadata";
-import DatasetDictionary from "../../components/dataset-dictionary";
-import Organization from "../../components/organization";
-import Share from "../../components/share";
-import "./dataset-detail-view.scss";
-import DatasetApiDoc from "../../components/dataset-api-doc";
-import StreamingApiDoc from "../../components/streaming-api-doc";
-import DatasetQuality from "../../components/dataset-quality";
-import GeoJSONVisualization from "../../components/visualizations/geojson";
+import { Component } from 'react'
+import DatasetDetails from '../../components/dataset-details'
+import DatasetPreview from '../../components/dataset-preview'
+import DatasetMetadata from '../../components/dataset-metadata'
+import DatasetDictionary from '../../components/dataset-dictionary'
+import Organization from '../../components/organization'
+import Share from '../../components/share'
+import './dataset-detail-view.scss'
+import DatasetApiDoc from '../../components/dataset-api-doc'
+import StreamingApiDoc from '../../components/streaming-api-doc'
+import DatasetQuality from '../../components/dataset-quality'
+import GeoJSONVisualization from '../../components/visualizations/geojson'
+import DatasetRecommendations from '../../components/dataset-recommendations'
 
 export default class extends Component {
 
@@ -55,6 +56,7 @@ export default class extends Component {
           {isStreaming && (
             <StreamingApiDoc dataset={dataset} expanded={streamingExpanded} />
           )}
+          <DatasetRecommendations dataset={dataset} />
           {isGeoJSON && (
             <GeoJSONVisualization
               datasetId={dataset.id}

@@ -1,5 +1,3 @@
-import { createSelector } from "reselect";
-
 export const getDataSetList = state => state.datasetReducer.datasets;
 export const getFacetList = state => state.datasetReducer.facets;
 export const getTotalNumberOfDatasets = state => state.datasetReducer.total;

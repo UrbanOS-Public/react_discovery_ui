@@ -1,19 +1,11 @@
 @import "../../styles/variables.scss";
 @import "../../styles/mixins.scss";
 
-.dataset-query {
+dataset-query {
   margin: 0 1.25rem;
-  margin-top: -1.25rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-
-  .query-input {
-    width: 100%;
-    padding: 0.5rem;
-    color: $almost-black;
-    border-color: $almost-black;
-  }
 
   .action-button {
     @include button();
@@ -42,5 +34,42 @@
     width: 3rem;
     margin: 0;
     vertical-align: middle;
+  }
+
+  .recommended-dataset {
+    width: 20em;
+    display: inline-block;
+  }
+
+  textarea {
+    width: 100%;
+  }
+
+  .user-input {
+    height: 10em;
+    width: 100%;
+    display: flex;
+  }
+
+  a {
+    color: red;
+    @include link();
+  }
+
+  .sql-title {
+    height: 30%;
+  }
+
+  .sql-textbox {
+    height: 60%;
+    padding: 0.5rem;
+  }
+
+  .recommendation-section {
+    margin-left: 3rem;
+  }
+
+  .recommendation-title {
+    height: 30%;
   }
 }

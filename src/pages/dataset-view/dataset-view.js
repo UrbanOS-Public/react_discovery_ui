@@ -47,7 +47,9 @@ export default class extends Component {
       );
     }
 
-    const systemName = this.props.dataset.systemName;
+
+    const systemName = this.props.dataset.systemName
+    const datasetId = this.props.dataset.id
 
     if (this.props.isRemoteDataset || this.props.isHostDataset) {
       return <DatasetDetailView match={this.props.match} />;
@@ -64,7 +66,6 @@ export default class extends Component {
           <Tab>Visualize <ChartIcon className='chartIcon' /></Tab>
           <Tab>Write SQL <SQLIcon className='sqlIcon' /></Tab>
         </TabList>
-
         <TabPanel forceRender={true}>
           <DatasetDetailView match={this.props.match} />
         </TabPanel>

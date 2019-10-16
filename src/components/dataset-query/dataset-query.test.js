@@ -1,42 +1,27 @@
 import { mount } from 'enzyme'
 import DatasetQuery from './dataset-query'
 import LoadingElement from '../generic-elements/loading-element';
+import RecommendationList from '../recommendation-list'
+import { recommendations } from '../../../test-helpers/recommendations'
+
+
+let subject, queryCallback, updateCallback
 
 describe('DatasetQuery', () => {
-  let subject, queryCallback
-  const defaultQuery = "SELECT * FROM sky"
-
   describe('on initial running query', () => {
     beforeEach(() => {
-      queryCallback = jest.fn()
-      subject = mount(
-        <DatasetQuery
-          executeQuery={queryCallback}
-          queryText={defaultQuery}
-          isQueryLoaded={false}
-          isQueryLoading={true}
-          setQueryText={jest.fn()}
-          cancelQuery={jest.fn()} />)
+      subject = createSubject({ isQueryLoaded: false, isQueryLoading: true })
     })
 
     test('shows loading component', () => {
       expect(subject.find(LoadingElement).length).toEqual(1)
     })
-
   })
 
   describe('on user editing query', () => {
-    let updateCallback
     beforeEach(() => {
       updateCallback = jest.fn()
-      subject = mount(
-        <DatasetQuery
-          executeQuery={jest.fn()}
-          setQueryText={updateCallback}
-          queryText={defaultQuery}
-          isQueryLoaded={true}
-          isQueryLoading
-          cancelQuery={jest.fn()} />)
+      subject = createSubject({ setQueryText: updateCallback })
       subject.find('textarea').simulate('blur')
     })
 
@@ -49,14 +34,7 @@ describe('DatasetQuery', () => {
     let cancelCallback = jest.fn()
     beforeEach(() => {
       queryCallback = jest.fn()
-      subject = mount(
-        <DatasetQuery
-          executeQuery={queryCallback}
-          queryText={defaultQuery}
-          isQueryLoaded={true}
-          cancelQuery={cancelCallback}
-          setQueryText={jest.fn()}
-          isQueryLoading />)
+      subject = createSubject({ executeQuery: queryCallback, isQueryLoading: true, cancelQuery: cancelCallback })
     })
 
     test('shows loading component', () => {
@@ -86,24 +64,15 @@ describe('DatasetQuery', () => {
 
   describe('after cancel button click', () => {
     beforeEach(() => {
-      const cancelCallback = jest.fn()
-      const queryCallback = jest.fn()
-      subject = mount(
-        <DatasetQuery
-          executeQuery={queryCallback}
-          queryText={defaultQuery}
-          isQueryLoaded={true}
-          cancelQuery={cancelCallback}
-          setQueryText={jest.fn()}
-          isQueryLoading={true} />)
+      subject = createSubject({ isQueryLoading: true })
 
       getButton(subject, 'Cancel').simulate('click')
-      subject.setProps({ queryFailureMessage: 'User has cancelled query.' })
+      subject.setProps({ queryFailureMessage: 'Your query has been stopped.' })
     })
 
     test('cancelling the query sets the cancelled state to true', () => {
       subject.setProps({ isQueryLoading: false })
-      expect(subject.find('.error-message').text()).toEqual('Your query has been stopped')
+      expect(subject.find('.error-message').text()).toEqual('Your query has been stopped.')
     })
 
     test('resubmitting the query sets the cancelled state to false', () => {
@@ -116,15 +85,7 @@ describe('DatasetQuery', () => {
 
   describe('after initial load', () => {
     beforeEach(() => {
-      queryCallback = jest.fn()
-      subject = mount(
-        <DatasetQuery
-          executeQuery={queryCallback}
-          isQueryLoading={false}
-          queryText={defaultQuery}
-          setQueryText={jest.fn()}
-          cancelQuery={jest.fn()}
-          isQueryLoaded={false} />)
+      subject = createSubject({ isQueryLoaded: false })
     })
 
     test('do not show success text', () => {
@@ -132,7 +93,7 @@ describe('DatasetQuery', () => {
     })
 
     test('defaults the query input field to use the default query', () => {
-      expect(subject.find('textarea').render().text()).toEqual(defaultQuery)
+      expect(subject.find('textarea').render().text()).toEqual("SELECT * FROM sky")
     })
 
     test('defaults the cancel button to disabled', () => {
@@ -153,15 +114,7 @@ describe('DatasetQuery', () => {
 
   describe('on success', () => {
     beforeEach(() => {
-      queryCallback = jest.fn()
-      subject = mount(
-        <DatasetQuery
-          executeQuery={queryCallback}
-          isQueryLoading={false}
-          queryText={defaultQuery}
-          setQueryText={jest.fn()}
-          cancelQuery={jest.fn()}
-          isQueryLoaded={true} />)
+      subject = createSubject({ isQueryLoading: false, isQueryLoaded: true, userHasInteracted: true })
     })
 
     test('calls the submit handler on click of the submit button', () => {
@@ -186,16 +139,7 @@ describe('DatasetQuery', () => {
 
   describe('on failure', () => {
     beforeEach(() => {
-      queryCallback = jest.fn()
-      subject = mount(
-        <DatasetQuery
-          executeQuery={jest.fn()}
-          queryText={defaultQuery}
-          queryFailureMessage='the bad thing happened'
-          isQueryLoaded={false}
-          isQueryLoading={false}
-          setQueryText={jest.fn()}
-          cancelQuery={jest.fn()} />)
+      subject = createSubject({ queryFailureMessage: 'the bad thing happened', isQueryLoaded: false })
     })
 
     test('shows error message', () => {
@@ -210,7 +154,45 @@ describe('DatasetQuery', () => {
       expect(subject.find(LoadingElement).length).toEqual(0)
     })
   })
+
+  describe('recommendations', () => {
+    test('do not render if none are available', () => {
+      subject = createSubject({ recommendations: [] })
+      expect(subject.exists(RecommendationList)).toBeFalsy()
+    })
+  })
 })
+
+function createSubject(params) {
+  const defaults = {
+    queryText: "SELECT * FROM sky",
+    recommendations: recommendations,
+    queryFailureMessage: "",
+    userHasInteracted: false,
+    isQueryLoading: false,
+    isQueryLoaded: true,
+    executeQuery: queryCallback ? queryCallback : jest.fn(),
+    cancelQuery: jest.fn(),
+    setQueryText: updateCallback ? updateCallback : jest.fn(),
+    setUserInteracted: jest.fn()
+  }
+
+  const paramsWithDefaults = Object.assign({}, defaults, params)
+
+  return mount(
+    <DatasetQuery
+      queryText={paramsWithDefaults.queryText}
+      recommendations={paramsWithDefaults.recommendations}
+      queryFailureMessage={paramsWithDefaults.queryFailureMessage}
+      userHasInteracted={paramsWithDefaults.userHasInteracted}
+      isQueryLoading={paramsWithDefaults.isQueryLoading}
+      isQueryLoaded={paramsWithDefaults.isQueryLoaded}
+      executeQuery={paramsWithDefaults.executeQuery}
+      cancelQuery={paramsWithDefaults.cancelQuery}
+      setQueryText={paramsWithDefaults.setQueryText}
+      setUserInteracted={paramsWithDefaults.setUserInteracted}
+    />)
+}
 
 function getButton(subject, text) {
   const isButton = x => x.type() === 'button' && x.text() === text
