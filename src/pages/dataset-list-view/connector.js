@@ -1,15 +1,17 @@
 import { connect } from 'react-redux'
 import DatasetListView from './dataset-list-view'
 import { datasetSearch, updateDatasetSearchParams } from '../../store/actions'
-import { getSearchParams, getSearchResults, getSearchMetadata, getPageNumber } from '../../store/selectors'
-
+import { getSearchParams, getSearchResults, getSearchMetadata, getPageNumber, isSearchLoading, getDataSetError, getNumberOfPages } from '../../store/selectors'
 
 const mapStateToProps = state => {
   return {
     searchParams: getSearchParams(state),
     searchResults: getSearchResults(state),
     searchMetadata: getSearchMetadata(state),
-    pageNumber: getPageNumber(state)
+    pageNumber: getPageNumber(state),
+    numberOfPages: getNumberOfPages(state),
+    isSearchLoading: isSearchLoading(state),
+    error: getDataSetError(state)
  }
 }
 

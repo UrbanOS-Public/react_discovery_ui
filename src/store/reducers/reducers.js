@@ -127,7 +127,8 @@ const defaultSearchState = {
     query: "",
     sort: "name_asc"
   },
-  searchResults: []
+  searchResults: [],
+  searchMetadata: {}
 }
 
 const searchReducer = (state = defaultSearchState, action) => {

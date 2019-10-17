@@ -16,7 +16,9 @@ export const getDatasetQueryCancelToken = state => state.queryReducer.cancelToke
 export const getSearchParams = state => state.searchReducer.searchParams;
 export const getSearchResults = state => state.searchReducer.searchResults;
 export const getSearchMetadata = state => state.searchReducer.searchMetadata || [];
-export const getPageNumber = state => calculatePageNumber(state.searchReducer.searchParams)
+export const getPageNumber = state => calculatePageNumber(state.searchReducer.searchParams);
+export const getNumberOfPages = state => Math.ceil(state.searchReducer.searchMetadata.totalDatasets / state.searchReducer.searchMetadata.limit) + 1
+export const isSearchLoading = state => state.searchReducer.isRunning;
 
 function calculatePageNumber({offset, limit}) {
   return (Math.ceil(offset / limit) + 1)

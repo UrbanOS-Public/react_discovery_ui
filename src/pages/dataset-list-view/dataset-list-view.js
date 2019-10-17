@@ -9,6 +9,7 @@ import FacetSidebar from '../../components/facet-sidebar'
 import ErrorComponent from '../../components/generic-elements/error-component'
 import LoadingElement from '../../components/generic-elements/loading-element'
 import Checkbox from '../../components/generic-elements/checkbox'
+import { browserHistory } from 'react-router'
 import qs from 'qs'
 import _ from 'lodash'
 import { QueryStringBuilder } from '../../utils'
@@ -17,14 +18,42 @@ import { QueryStringBuilder } from '../../utils'
 export default class extends Component {
   constructor(props) {
     super(props)
-    this.state = { currentPage: 1, pageSize: 10 }
   }
 
   componentDidMount() {
     this.props.updateDatasetSearchParams({
+      query: this.getQueryParam("q"),
+      sort: this.getQueryParam("sort"),
+      facets: this.getQueryParam("facets"),
+      apiAccessible: this.convertStringToBooleanWithDefault(this.getQueryParam("apiAccessible"), false)
     })
-    this.fetchData(this.props.searchParams)
-    
+    this.fetchData(this.props.searchParams) 
+  }
+
+  componentDidUpdate(){
+    // this.updateQueryParameters(this.props.searchParams)
+  }
+
+  // shouldComponentUpdate(nextProps, _nextState) {
+  //   //TODO there has got to be a better way to do this. Apparently Node has a thing called "DeeplyEqual" to check that nested data structures are the same 
+  //   //  all the way down. I think we want to do that but ignore searchParams
+  //   if(nextProps.isRunning != this.props.isRunning ||
+  //     nextProps.searchResults != this.props.searchResults ||
+  //     nextProps.searchMetadata != this.props.searchMetadata) {
+  //       return true  
+  //   }
+  //   if(nextProps.history.location.search === '?' + this.queryString(this.props.searchParams)){
+  //     return false
+  //   }
+  //   return true
+  // }
+
+  convertStringToBooleanWithDefault(value, defaultValue) {
+    return value == undefined ? defaultValue : _.lowerCase(value) == "true"
+  }
+
+  getQueryParam(param) {
+    return qs.parse(this.props.location.search, { ignoreQueryPrefix: true })[param]
   }
 
   fetchData({pageNumber, limit, sort, query, facets, apiAccessible}) {
@@ -39,7 +68,7 @@ export default class extends Component {
     this.props.updateDatasetSearchParams({
       query: criteria
     })
-    this.props.datasetSearch()
+    this.props.datasetSearch()    
   }
 
   onSortChange(sort) {
@@ -75,81 +104,16 @@ export default class extends Component {
       offset: offset
     })
     this.props.datasetSearch()
-    this.state.currentPage = page
   }
 
-  //---old v----------new ^--------------------------
-
-  // onPageChange(page) {
-  //   this.setState({ currentPage: page })
-  //   this.refreshDatasets(this.searchParams, this.sort, this.facets, page, this.apiAccessible)
-  // }
-
-  // onRemoteToggleClick() {
-  //   this.refreshDatasets(this.searchParams, this.sort, this.facets, 1, !this.apiAccessible)
-  // }
-
-  // onFacetClick(facetName, facetValue) {
-  //   this.setState({ currentPage: 1 })
-
-  //   const updatedFacets = this.toggleFacetValue(facetName, facetValue)
-
-  //   this.refreshDatasets(
-  //     this.searchParams,
-  //     this.sort,
-  //     updatedFacets,
-  //     1,
-  //     this.apiAccessible
-  //   )
-  // }
-
-  // onSortChange(sort) {
-  //   this.setState({ currentPage: 1 })
-  //   this.refreshDatasets(this.searchParams, sort, this.facets, 1, this.apiAccessible)
-  // }
-
-  // refreshDatasets(criteria, sort, facets, pageNumber, apiAccessible) {
-  //   this.updateQueryParameters(criteria, sort, facets, apiAccessible)
-  //   this.fetchData(pageNumber, this.state.pageSize, sort, criteria, facets, apiAccessible)
-  // }
-
-  updateQueryParameters(searchCriteria, sort, facets, apiAccessible) {
+  updateQueryParameters(params) {
     this.props.history.push({
-      search: QueryStringBuilder.createQueryString(facets, searchCriteria, sort, apiAccessible)
+      search: this.queryString(params)
     })
   }
 
-  getQueryParam(param) {
-    return qs.parse(this.props.location.search, { ignoreQueryPrefix: true })[param]
-  }
-
-  get numberOfPages() {
-    return Math.ceil(this.props.searchMetadata.totalDatasets / this.props.searchParams.limit)
-  }
-
-  get searchParams() {
-    return this.getQueryParam("q")
-  }
-
-  get sort() {
-    return this.getQueryParam("sort")
-  }
-
-  get facets() {
-    return this.getQueryParam("facets")
-  }
-
-  get apiAccessible() {
-    const apiAccessible = this.getQueryParam("apiAccessible")
-    return this.convertStringToBooleanWithDefault(apiAccessible, false)
-  }
-
-  convertStringToBooleanWithDefault(value, defaultValue) {
-    return value == undefined ? defaultValue : _.lowerCase(value) == "true"
-  }
-
-  get totalDatasets() {
-    return this.props.totalDatasets
+  queryString({sort, facets, apiAccessible, ...rest}) {
+    return qs.stringify({ q: rest.query, sort, facets, apiAccessible }, { arrayFormat: 'brackets' })
   }
 
   get createSortOptions() {
@@ -161,17 +125,19 @@ export default class extends Component {
   }
 
   renderLoading() {
-    return (
-      <dataset-list-view>
-        <LoadingElement />
-      </dataset-list-view>)
+    if (this.props.isSearchLoading) {
+      return (<LoadingElement />)
+    }
+    else{
+      return(<DatasetList datasets={this.props.searchResults} />)
+    }
   }
 
   render() {
     const resultCountText = `${this.props.searchMetadata.totalDatasets || 'No'} datasets found`
     const resultCountQueryText = this.props.searchParams.query ? ` for "${this.props.searchParams.query}"` : ''
     const token = sessionStorage.getItem('api-token')
-    if (false) { //Fix this
+    if (this.props.error) { //TODO Fix this
       return <ErrorComponent errorText={'We were unable to fetch the datasets, please refresh the page to try again'} />
     } else if (this.props.loading) {
       return this.renderLoading()
@@ -201,8 +167,8 @@ export default class extends Component {
                 options={this.createSortOptions}
                 selectChangeCallback={sort => this.onSortChange(sort)} />
             </div>
-            <DatasetList datasets={this.props.searchResults} />
-            <Paginator className='paginator' numberOfPages={this.numberOfPages} currentPage={this.props.pageNumber} pageChangeCallback={page => this.onPageChange(page)} />
+            {this.renderLoading()}
+            <Paginator className='paginator' numberOfPages={this.props.numberOfPages} currentPage={this.props.pageNumber} pageChangeCallback={page => this.onPageChange(page)} />
           </div>
         </dataset-list-view>
       )
