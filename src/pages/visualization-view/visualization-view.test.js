@@ -33,7 +33,6 @@ describe("visualization view", () => {
       subject = shallow(
         <VisualizationView
           match={{ params: {} }}
-          isLoading={false}
           isLoadFailure={false}
           query=''
           load={loadHandler}
@@ -62,7 +61,6 @@ describe("visualization view", () => {
       subject = shallow(
         <VisualizationView
           match={{ params: { id} }}
-          isLoading={false}
           isLoadFailure={false}
           query=''
           load={loadHandler}
@@ -90,7 +88,6 @@ describe("visualization view", () => {
       subject = shallow(
         <VisualizationView
           match={{ params: { id: "123456" } }}
-          isLoading={false}
           isSaving={false}
           isLoadFailure={false}
           title={title}
@@ -119,43 +116,11 @@ describe("visualization view", () => {
     })
   })
 
-  describe("when visualization is loading", () => {
-    beforeEach(() => {
-      subject = shallow(
-        <VisualizationView
-          match={{ params: { id: "123456" } }}
-          isLoading={true}
-          isLoadFailure={false}
-          title={title}
-          query={query}
-          load={loadHandler}
-          reset={resetHandler}
-          save={saveHandler}
-        />
-      )
-    })
-
-    it("shows a loading element", () => {
-      expect(subject.find(LoadingElement)).toHaveLength(1)
-    })
-
-    // TODO: possibly remove
-    it("does not have a visualization view component", () => {
-      expect(subject.find(ChartView).length).toEqual(0)
-    })
-
-    // TODO: possibly remove
-    it("does not have a query view component", () => {
-      expect(subject.find(QueryView).length).toEqual(0)
-    })
-  })
-
   describe("when visualization has failed to load", () => {
     beforeEach(() => {
       subject = shallow(
         <VisualizationView
           match={{ params: { id: "123456" } }}
-          isLoading={false}
           isLoadFailure={true}
           load={loadHandler}
           reset={resetHandler}
@@ -182,7 +147,6 @@ describe("visualization view", () => {
       subject = shallow(
         <VisualizationView
           match={{ params: { id: "123456" } }}
-          isLoading={false}
           isLoadFailure={false}
           isSaveable={false}
           load={loadHandler}
@@ -202,7 +166,6 @@ describe("visualization view", () => {
       subject = shallow(
         <VisualizationView
           match={{ params: { id: "123456" } }}
-          isLoading={false}
           isLoadFailure={false}
           isSaveable={true}
           save={saveHandler}

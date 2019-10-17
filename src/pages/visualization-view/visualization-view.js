@@ -23,7 +23,6 @@ const VisualizationView = (props) => {
     save,
     id, // TODO: more specific name
     query,
-    isLoading,
     isLoadFailure,
     isSaving,
     isSaveSuccess,
@@ -40,15 +39,6 @@ const VisualizationView = (props) => {
 
   const handleSave = () => { setDialogOpen(true); save("Placeholder Title", query) }
   const closeDialog = () => { setDialogOpen(false) }
-
-  // TODO: remove this loader so as not to break popover
-  if (isLoading) {
-    return (
-      <visualization-view>
-        <LoadingElement className='loading-spinner' />
-      </visualization-view>
-    )
-  }
 
   if (isLoadFailure) {
     return (
