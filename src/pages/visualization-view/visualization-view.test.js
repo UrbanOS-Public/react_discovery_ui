@@ -1,5 +1,5 @@
 import { shallow } from "enzyme"
-import { Tab, TabPanel } from "react-tabs"
+import { Tab, Tabs, TabPanel } from "react-tabs"
 
 import VisualizationView from "./visualization-view"
 import QueryView from "../query-view"
@@ -50,6 +50,10 @@ describe("visualization view", () => {
     it("does not call the load function", () => {
       expect(loadHandler).not.toHaveBeenCalled()
     })
+
+    it("lands on the query view page", () => {
+      expect(subject.find(Tabs).props().defaultIndex).toEqual(1)
+    })
   })
 
   describe('when visualization id is provided in the URL and nothing else', () => {
@@ -74,6 +78,10 @@ describe("visualization view", () => {
 
     it("calls the load function", () => {
       expect(loadHandler).toHaveBeenCalledWith(id)
+    })
+
+    it("lands on the chart visualization page", () => {
+      expect(subject.find(Tabs).props().defaultIndex).toEqual(0)
     })
   })
 

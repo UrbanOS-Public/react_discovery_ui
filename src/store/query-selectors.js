@@ -1,5 +1,8 @@
 import { createSelector } from 'reselect'
 import { isEmpty } from 'lodash'
+import { getDataSet } from './selectors'
+
+const didQueryFail = state => !isEmpty(getQueryFailureMessage(state))
 
 export const getQueryFailureMessage = state => state.queryReducer.queryFailureMessage
 export const getQueryIsLoading = state => state.queryReducer.isQueryLoading
@@ -11,9 +14,9 @@ export const isQueryDataAvailable = state => state.queryReducer.queryData !== nu
 export const isQueryTextAvailable = state => !isEmpty(getFreestyleQueryText(state))
 
 export const shouldAutoFetchQuery = createSelector(
-  isQueryDataAvailable, isQueryTextAvailable, getQueryFailureMessage,
-  (dataAvailable, textAvailable, failureMessage) => {
-    return !dataAvailable && textAvailable && isEmpty(failureMessage)
+  isQueryDataAvailable, isQueryTextAvailable, didQueryFail,
+  (dataAvailable, textAvailable, queryFailed) => {
+    return !dataAvailable && textAvailable && !queryFailed
   }
 )
 
@@ -31,9 +34,10 @@ export const getVisualizationDataSources = createSelector(
 )
 
 const defaultQuery = tablename => `SELECT * FROM ${tablename}\nLIMIT 20000`;
+
 export const getFreestyleQueryText = createSelector(
   state => state.queryReducer.queryText,
-  state => state.datasetReducer.dataset,
+  getDataSet,
   (queryText, dataset) => {
     if (queryText) return queryText
     return dataset ? defaultQuery(dataset.systemName) : ''

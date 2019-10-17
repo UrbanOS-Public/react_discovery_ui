@@ -67,6 +67,24 @@ describe("dataset visualization view", () => {
 
     expect(subject.find(LoadingElement).length).toEqual(0);
   })
+
+  it('does not automatically execute the query when instructed not to', () => {
+    runUseEffect();
+    const executeQuery = jest.fn()
+
+    subject = createSubject({ autoFetchQuery: false, executeQuery })
+
+    expect(executeQuery).toHaveBeenCalledTimes(0)
+  })
+
+  it('automatically executes the query when instructed to', () => {
+    runUseEffect();
+    const executeQuery = jest.fn()
+
+    subject = createSubject({ autoFetchQuery: true, executeQuery })
+
+    expect(executeQuery).toHaveBeenCalledTimes(1)
+  })
 });
 
 function createSubject(params) {
@@ -77,7 +95,8 @@ function createSubject(params) {
     dataSources: { data: ["sources"] },
     cancelQuery: jest.fn(),
     setQueryText: jest.fn(),
-    setUserInteracted: jest.fn()
+    setUserInteracted: jest.fn(),
+    autoFetchQuery: false
   }
   const paramsWithDefaults = Object.assign({}, defaultParams, params)
 
@@ -89,5 +108,6 @@ function createSubject(params) {
     cancelQuery={paramsWithDefaults.cancelQuery}
     setQueryText={paramsWithDefaults.setQueryText}
     setUserInteracted={paramsWithDefaults.setUserInteracted}
+    autoFetchQuery={paramsWithDefaults.autoFetchQuery}
   />)
 }

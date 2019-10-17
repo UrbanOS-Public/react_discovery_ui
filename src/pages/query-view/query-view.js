@@ -26,7 +26,7 @@ const QueryView = props => {
     if (autoFetchQuery) {
       executeQuery(freestyleQueryText)
     }
-  }, [])
+  }, [autoFetchQuery])
 
   const columns = determineColumns(dataSources)
   const data = getCleanData(queryData)
@@ -44,7 +44,6 @@ const QueryView = props => {
   return (
     <dataset-query-page>
       <DatasetQuery
-        onQueryDataset={executeQuery}
         recommendations={recommendations}
 
         queryFailureMessage={queryFailureMessage}

@@ -58,9 +58,11 @@ const VisualizationView = (props) => {
     )
   }
 
+  const startIndex = paramsID ? 0 : 1
+
   return (
     <visualization-view>
-      <Tabs>
+      <Tabs defaultIndex={startIndex}>
         <TabList className='header'>
           <span className='tab-area'>
             <Tab className='header-item tab' selectedClassName='selected'>
