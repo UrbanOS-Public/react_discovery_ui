@@ -64,10 +64,12 @@ const DatasetQuery = props => {
           <div className="sql-title">Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</div>
           {textArea}
         </div>
-        <div className="recommendation-section">
-          <div className="recommendation-title">Recommendations</div>
-          {recommendations.length > 0 && <RecommendationList recommendations={recommendations} />}
-        </div>
+        { recommendations &&
+          <div className="recommendation-section">
+            <div className="recommendation-title">Recommendations</div>
+            {recommendations.length > 0 && <RecommendationList recommendations={recommendations} />}
+          </div>
+        }
       </div>
       <div>
         {submitButton}

@@ -156,6 +156,13 @@ describe('DatasetQuery', () => {
   })
 
   describe('recommendations', () => {
+    test('do not render if none are provided', () => {
+      subject = createSubject({ recommendations: undefined })
+      expect(subject.exists(RecommendationList)).toBeFalsy()
+    })
+  })
+
+  describe('recommendations', () => {
     test('do not render if none are available', () => {
       subject = createSubject({ recommendations: [] })
       expect(subject.exists(RecommendationList)).toBeFalsy()

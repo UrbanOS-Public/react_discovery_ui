@@ -115,15 +115,22 @@ describe('shouldAutoFetchQuery', () => {
     })
 
     it('returns true when query text is set', () => {
-      state.datasetReducer = { dataset: { systemName: 'pablo' } }
+      state.queryReducer.queryText = 'select stars from lucky_charms'
 
       expect(shouldAutoFetchQuery(state)).toBe(true)
     })
 
     it('returns true when dataset is present', () => {
-      state.queryReducer.queryText = 'select stars from lucky_charms'
+      state.datasetReducer = { dataset: { systemName: 'pablo' } }
 
       expect(shouldAutoFetchQuery(state)).toBe(true)
+    })
+
+    it('returns false when query text is set but previous query has failed', () => {
+      state.queryReducer.queryText = 'select horseshoes from lucky_charms'
+      state.queryReducer.queryFailureMessage = 'oops'
+
+      expect(shouldAutoFetchQuery(state)).toBe(false)
     })
 
     it('returns false when query text is not set', () => {

@@ -33,7 +33,7 @@ const ChartView = (props) => {
           </button>
         </div>
         <Collapse isOpened={open}>
-          <QueryView systemName={systemName} />
+          <QueryView />  {/* systemName={systemName} /> /* } */}
         </Collapse>
       </div>
       <ChartVisualization dataSources={dataSources} />
@@ -42,9 +42,9 @@ const ChartView = (props) => {
 }
 
 ChartView.propTypes = {
-  systemName: PropTypes.string.isRequired,
-  datasetId: PropTypes.string.isRequired,
-  dataSources: PropTypes.object.isRequired,
+  // systemName: PropTypes.string.isRequired,
+  // datasetId: PropTypes.string.isRequired,
+  dataSources: PropTypes.object.isRequired
 }
 
 export default ChartView
