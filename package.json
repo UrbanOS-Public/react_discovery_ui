@@ -1,8 +1,8 @@
 {
   "name": "@smartcitiesdata/react-discovery-ui",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "React component for dataset discovery UI",
-  "main": "./lib/App.js",
+  "main": "./lib/ReactDiscoveryUI.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/smartcitiesdata/react_discovery_ui.git"
