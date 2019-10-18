@@ -25,28 +25,34 @@ export default class extends Component {
       query: this.getQueryParam("q"),
       sort: this.getQueryParam("sort"),
       facets: this.getQueryParam("facets"),
+      offset: this.calculateOffset(parseInt(this.getQueryParam("page") || 1), this.props.searchParams.limit),
       apiAccessible: this.convertStringToBooleanWithDefault(this.getQueryParam("apiAccessible"), false)
     })
     this.fetchData(this.props.searchParams) 
   }
 
-  componentDidUpdate(){
-    // this.updateQueryParameters(this.props.searchParams)
-  }
+  componentDidUpdate(previousProps){
+    const urlSearchString = this.props.history.location.search
+    const newSearchString = '?' + this.queryString({...this.props.searchParams, page: this.props.pageNumber})
+    const previousSearchString = '?' + this.queryString({...previousProps.searchParams, page: previousProps.pageNumber})
+    const stateAndUrlOutOfSync = newSearchString !== urlSearchString
+    const stateWasUpdated = newSearchString !== previousSearchString
 
-  // shouldComponentUpdate(nextProps, _nextState) {
-  //   //TODO there has got to be a better way to do this. Apparently Node has a thing called "DeeplyEqual" to check that nested data structures are the same 
-  //   //  all the way down. I think we want to do that but ignore searchParams
-  //   if(nextProps.isRunning != this.props.isRunning ||
-  //     nextProps.searchResults != this.props.searchResults ||
-  //     nextProps.searchMetadata != this.props.searchMetadata) {
-  //       return true  
-  //   }
-  //   if(nextProps.history.location.search === '?' + this.queryString(this.props.searchParams)){
-  //     return false
-  //   }
-  //   return true
-  // }
+    if (stateAndUrlOutOfSync) {
+      if (stateWasUpdated) {
+        this.updateQueryParameters({...this.props.searchParams, page: this.props.pageNumber})
+      } else {
+        this.props.updateDatasetSearchParams({
+          query: this.getQueryParam("q"),
+          sort: this.getQueryParam("sort"),
+          facets: this.getQueryParam("facets"),
+          offset: this.calculateOffset(parseInt(this.getQueryParam("page") || 1), this.props.searchParams.limit),
+          apiAccessible: this.convertStringToBooleanWithDefault(this.getQueryParam("apiAccessible"), false)
+        })
+        this.fetchData(this.props.searchParams)
+      }
+    }
+  }
 
   convertStringToBooleanWithDefault(value, defaultValue) {
     return value == undefined ? defaultValue : _.lowerCase(value) == "true"
@@ -66,7 +72,8 @@ export default class extends Component {
 
   onSearchChange(criteria) {
     this.props.updateDatasetSearchParams({
-      query: criteria
+      query: criteria,
+      offset: 0
     })
     this.props.datasetSearch()    
   }
@@ -99,11 +106,14 @@ export default class extends Component {
   }
 
   onPageChange(page) {
-    const offset = (page - 1) * this.props.searchParams.limit
     this.props.updateDatasetSearchParams({
-      offset: offset
+      offset: this.calculateOffset(page, this.props.searchParams.limit)
     })
     this.props.datasetSearch()
+  }
+
+  calculateOffset(page, limit) {
+    return (page - 1) * limit
   }
 
   updateQueryParameters(params) {
@@ -112,8 +122,8 @@ export default class extends Component {
     })
   }
 
-  queryString({sort, facets, apiAccessible, ...rest}) {
-    return qs.stringify({ q: rest.query, sort, facets, apiAccessible }, { arrayFormat: 'brackets' })
+  queryString({sort, facets, apiAccessible, page, ...rest}) {
+    return qs.stringify({ q: rest.query, sort, facets, apiAccessible, page }, { arrayFormat: 'brackets' })
   }
 
   get createSortOptions() {
