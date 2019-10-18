@@ -139,7 +139,6 @@ const searchReducer = (state = defaultSearchState, action) => {
       let newParams = Object.assign({}, state.searchParams, action.value )
       return Object.assign({}, state, { searchParams: newParams })
     case DATASET_SEARCH_SUCCEEDED:
-      console.log(action)
       return Object.assign({}, state, { isRunning: false, searchResults: action.value.results, searchMetadata: action.value.metadata })
     default:
       return state

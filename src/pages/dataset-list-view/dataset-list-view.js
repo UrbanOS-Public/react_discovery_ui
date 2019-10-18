@@ -64,7 +64,7 @@ export default class extends Component {
 
   fetchData({pageNumber, limit, sort, query, facets, apiAccessible}) {
     const offset = (pageNumber - 1) * limit
-    apiAccessible = apiAccessible.toString()
+    apiAccessible = apiAccessible
     let params = { offset, limit, sort, query, facets, apiAccessible }
 
     this.props.datasetSearch(params)
