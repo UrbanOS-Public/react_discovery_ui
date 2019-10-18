@@ -2,10 +2,9 @@ import { useState } from 'react'
 import ReactTooltip from 'react-tooltip'
 import PropTypes from 'prop-types'
 import './recommendation-list.scss'
-import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { RecommendationUtils } from '../../utils'
-
+import FilterNoneIcon from '@material-ui/icons/FilterNone'
 
 const RecommendationList = props => {
   const { recommendations } = props
@@ -13,23 +12,29 @@ const RecommendationList = props => {
   const [showTooltipAsCopied, setShowTooltipAsCopied] = useState(false)
   const createHoverText = (systemName) => showTooltipAsCopied ? 'Copied!' : `Copy table name '${systemName}'`
 
+  const onCopyClick = () => {
+    setShowTooltipAsCopied(true)
+  }
+
   const recommendationItems = () => {
+    console.log("Rerender")
     return recommendations.map(rec => {
-      const tooltipId = `tool-tip-${rec.id}`
       return (
         <div key={rec.id}>
-          <a className="recommendation" href={RecommendationUtils.getDatasetUrl(rec)} target='_blank'>
-            {rec.dataTitle}
-          </a>
           <ReactTooltip
-            id={tooltipId}
-            place="right"
+            id={rec.id}
             effect="solid"
             afterHide={() => setShowTooltipAsCopied(false)}
-            getContent={() => createHoverText(rec.systemName)} />
-          <CopyToClipboard text={rec.systemName} onCopy={() => setShowTooltipAsCopied(true)}>
-            <AssignmentOutlinedIcon data-for={tooltipId} className="copy-table-name-icon" data-tip />
+            getContent={[() => createHoverText(rec.systemName)]}
+          />
+          <CopyToClipboard text={rec.systemName} className="copy-table-name-icon" onCopy={() => onCopyClick()}>
+            <FilterNoneIcon data-for={rec.id} data-tip='' />
           </CopyToClipboard>
+          <div className="recommendation">
+            <a href={RecommendationUtils.getDatasetUrl(rec)} target='_blank'>
+              {rec.dataTitle}
+            </a>
+          </div>
         </div>)
     })
   }

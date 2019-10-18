@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import './dataset-query.scss'
 import LoadingElement from '../generic-elements/loading-element'
 import RecommendationList from '../recommendation-list'
-
+import ReactTooltip from 'react-tooltip'
+import InfoOutlined from '@material-ui/icons/InfoOutlined'
 
 const DatasetQuery = props => {
   const {
@@ -57,17 +58,29 @@ const DatasetQuery = props => {
     </span>
   )
 
+  const recommendationSection = () => {
+    if (recommendations && recommendations.length > 0) {
+      return (
+        <div className="recommendation-section">
+          <div className="title">
+            <span>Recommendations</span>
+            <ReactTooltip effect="solid" />
+            <InfoOutlined className="info-icon" data-tip='These datasets have related fields or columns that may be suitable for joining in your query' />
+          </div>
+          <RecommendationList recommendations={recommendations} />
+        </div>
+      )
+    }
+  }
+
   return (
     <dataset-query>
       <div className="user-input">
-        <div>
+        <div className="sql-section">
           <div className="sql-title">Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</div>
           {textArea}
         </div>
-        <div className="recommendation-section">
-          <div className="recommendation-title">Recommendations</div>
-          {recommendations.length > 0 && <RecommendationList recommendations={recommendations} />}
-        </div>
+        {recommendationSection()}
       </div>
       <div>
         {submitButton}

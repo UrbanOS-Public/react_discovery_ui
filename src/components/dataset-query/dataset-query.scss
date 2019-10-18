@@ -43,12 +43,14 @@ dataset-query {
 
   textarea {
     width: 100%;
+    border-color: black;
   }
 
   .user-input {
     height: 10em;
     width: 100%;
     display: flex;
+    margin-right: 2rem;
   }
 
   a {
@@ -65,11 +67,26 @@ dataset-query {
     padding: 0.5rem;
   }
 
-  .recommendation-section {
-    margin-left: 3rem;
+  .sql-section {
+    width: 70%;
   }
 
-  .recommendation-title {
-    height: 30%;
+  .recommendation-section {
+    margin-left: 3rem;
+    width: 30%;
+
+    .title {
+      height: 30%;
+
+      span {
+        font-weight: bold;
+      }
+
+      .info-icon {
+        height: 1rem;
+      }
+    }
   }
+
+
 }
