@@ -59,13 +59,14 @@ const DatasetQuery = props => {
   )
 
   const recommendationSection = () => {
+    const toolTipText = 'These datasets have related fields or columns that may be suitable for joining in your query'
     if (recommendations && recommendations.length > 0) {
       return (
         <div className="recommendation-section">
           <div className="title">
             <span>Recommendations</span>
             <ReactTooltip effect="solid" />
-            <InfoOutlined className="info-icon" data-tip='These datasets have related fields or columns that may be suitable for joining in your query' />
+            <InfoOutlined className="info-icon" data-tip={toolTipText} />
           </div>
           <RecommendationList recommendations={recommendations} />
         </div>

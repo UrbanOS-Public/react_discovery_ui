@@ -61,7 +61,7 @@ dataset-query {
   .sql-title {
     height: 30%;
   }
-
+  
   .sql-textbox {
     height: 60%;
     padding: 0.5rem;
@@ -69,11 +69,13 @@ dataset-query {
 
   .sql-section {
     width: 70%;
+    flex-grow: 3;
   }
 
   .recommendation-section {
     margin-left: 3rem;
     width: 30%;
+    flex-grow: 1;
 
     .title {
       height: 30%;

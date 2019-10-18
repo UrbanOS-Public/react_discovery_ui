@@ -17,7 +17,6 @@ const RecommendationList = props => {
   }
 
   const recommendationItems = () => {
-    console.log("Rerender")
     return recommendations.map(rec => {
       return (
         <div key={rec.id}>
