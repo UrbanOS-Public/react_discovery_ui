@@ -17,21 +17,21 @@ const RecommendationList = props => {
   }
 
   const recommendationItems = () => {
-    return recommendations.map(rec => {
+    return recommendations.map(recommendation => {
       return (
-        <div key={rec.id}>
+        <div key={recommendation.id}>
           <ReactTooltip
-            id={rec.id}
+            id={recommendation.id}
             effect="solid"
             afterHide={() => setShowTooltipAsCopied(false)}
-            getContent={[() => createHoverText(rec.systemName)]}
+            getContent={[() => createHoverText(recommendation.systemName)]}
           />
-          <CopyToClipboard text={rec.systemName} className="copy-table-name-icon" onCopy={() => onCopyClick()}>
-            <FilterNoneIcon data-for={rec.id} data-tip='' />
+          <CopyToClipboard text={recommendation.systemName} className="copy-table-name-icon" onCopy={() => onCopyClick()}>
+            <FilterNoneIcon data-for={recommendation.id} data-tip='' />
           </CopyToClipboard>
           <div className="recommendation">
-            <a href={RecommendationUtils.getDatasetUrl(rec)} target='_blank'>
-              {rec.dataTitle}
+            <a href={RecommendationUtils.getDatasetUrl(recommendation)} target='_blank'>
+              {recommendation.dataTitle}
             </a>
           </div>
         </div>)

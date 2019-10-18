@@ -5,6 +5,7 @@ import LoadingElement from '../generic-elements/loading-element'
 import RecommendationList from '../recommendation-list'
 import ReactTooltip from 'react-tooltip'
 import InfoOutlined from '@material-ui/icons/InfoOutlined'
+import _ from 'lodash'
 
 const DatasetQuery = props => {
   const {
@@ -60,7 +61,7 @@ const DatasetQuery = props => {
 
   const recommendationSection = () => {
     const toolTipText = 'These datasets have related fields or columns that may be suitable for joining in your query'
-    if (recommendations && recommendations.length > 0) {
+    if (!_.isEmpty(recommendations)) {
       return (
         <div className="recommendation-section">
           <div className="title">
