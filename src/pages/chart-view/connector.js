@@ -1,16 +1,18 @@
 import { connect } from 'react-redux'
 import ChartView from './chart-view'
-import { getFreestyleQueryText } from '../../store/query-selectors'
-import { getVisualizationDataSources, getQueryData, getQueryIsLoading, isQueryDataAvailable } from '../../store/query-selectors'
+import { getVisualizationDataSources, getQueryIsLoading, shouldAutoFetchQuery } from '../../store/query-selectors'
+import { executeFreestyleQuery } from '../../store/actions'
 
 const mapStateToProps = state => {
   return {
     dataSources: getVisualizationDataSources(state),
     isQueryLoading: getQueryIsLoading(state),
-    freestyleQueryText: getFreestyleQueryText(state),
-    queryData: getQueryData(state),
-    queryDataInitialized: isQueryDataAvailable(state)
+    autoFetchQuery: shouldAutoFetchQuery(state)
   }
 }
 
-export default connect(mapStateToProps)(ChartView)
+const mapDispatchToProps = dispatch => ({
+  executeQuery: () => dispatch(executeFreestyleQuery())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChartView)

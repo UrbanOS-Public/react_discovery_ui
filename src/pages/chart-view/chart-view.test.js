@@ -2,8 +2,6 @@ import { shallow } from 'enzyme'
 
 import ChartView from './chart-view'
 import ChartVisualization from '../../components/visualizations/chart/chart-visualization'
-import { Collapse } from 'react-collapse'
-import DatasetQuery from '../../components/dataset-query';
 import LoadingElement from '../../components/generic-elements/loading-element'
 
 const tableName = 'org1__table2'
@@ -24,74 +22,73 @@ describe('dataset visualization view', () => {
       datasetName: 'some data'
     }
   }
-  const dataSources = { data: ['sources'] }
+  const chartDataSources = { data: ['sources'] }
 
   let subject
 
   describe('before load', () => {
     beforeEach(() => {
       runUseEffect()
-      subject = shallow(
-        <ChartView
-          queryData={[]}
-          isQueryLoading={true}
-          match={routerProps}
-          location={{ search: `?systemName=${tableName}` }}
-          dataSources={dataSources} />
-      )
+      subject = createSubject({isQueryLoading: true})
     })
 
     it('shows full page loading icon', () => {
-      expect(subject.find(LoadingElement).length).toEqual(1)
+      expect(subject.find(LoadingElement).length).toBe(1)
     })
 
+    it('does not display a chart visualization', () => {
+      expect(subject.find(ChartVisualization).length).toBe(0)
+    })
   })
 
   describe('after load', () => {
     beforeEach(() => {
       runUseEffect()
 
-      subject = shallow(
-        <ChartView
-          isLoading={false}
-          match={routerProps}
-          location={{ search: `?systemName=${tableName}` }}
-          dataSources={dataSources}
-          systemName={''}
-          datasetId={'111'} />
-      )
+      subject = createSubject({dataSources: chartDataSources, isQueryLoading: false})
     })
 
     it('does not show full page loading icon', () => {
-      expect(subject.find(LoadingElement).length).toEqual(0)
+      expect(subject.find(LoadingElement).length).toBe(0)
     })
 
     it('displays a chart visualization with the provided data sources', () => {
-      expect(subject.find(ChartVisualization).props().dataSources).toEqual(dataSources)
+      expect(subject.find(ChartVisualization).props().dataSources).toBe(chartDataSources)
     })
-
-    it('displays a chart header with an initially collapsed toggle', () => {
-      expect(subject.find(Collapse).props().isOpened).toEqual(false)
-    })
-
   })
 
-  test('when user has submitted query, full page loading should not render', () => {
-    runUseEffect()
+  it('does not automatically execute the query when instructed not to', () => {
+    runUseEffect();
+    const executeQuery = jest.fn()
 
-    subject = shallow(
-      <ChartView
-        isLoading={false}
-        match={routerProps}
-        location={{ search: `?systemName=${tableName}` }}
-        dataSources={dataSources}
-        systemName={''}
-        datasetId={'111'} />
-    )
+    subject = createSubject({ autoFetchQuery: false, executeQuery })
 
-    subject.setProps({ isLoading: true })
-    subject.setProps({ queryData: { data: 1 } })
+    expect(executeQuery).toHaveBeenCalledTimes(0)
+  })
 
-    expect(subject.find(LoadingElement).length).toEqual(0)
+  it('automatically executes the query when instructed to', () => {
+    runUseEffect();
+    const executeQuery = jest.fn()
+
+    subject = createSubject({ autoFetchQuery: true, executeQuery })
+
+    expect(executeQuery).toHaveBeenCalledTimes(1)
   })
 })
+
+function createSubject(params = {}) {
+  const defaultParams = {
+    isQueryLoading: false,
+    dataSources: { data: ["sources"] },
+    autoFetchQuery: false,
+    executeQuery: jest.fn()
+  }
+  const paramsWithDefaults = Object.assign({}, defaultParams, params)
+
+  return shallow(<ChartView
+    isQueryLoading={paramsWithDefaults.isQueryLoading}
+    dataSources={paramsWithDefaults.dataSources}
+    autoFetchQuery={paramsWithDefaults.autoFetchQuery}
+    executeQuery={paramsWithDefaults.executeQuery}
+  />)
+}

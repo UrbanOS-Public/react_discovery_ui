@@ -6,7 +6,7 @@ function* callEndpoint(clientFunction, successEvent, failureEvent) {
   try {
     const response = yield call(clientFunction)
 
-    if (response.status === 200) {
+    if (response.status < 400) {
       // TODO: TEST ME
       yield put(setQueryText(response.data.query))
       yield put(successEvent(response.data))

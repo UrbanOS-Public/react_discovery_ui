@@ -1,7 +1,12 @@
 import {
-  executeFreestyleQuery, setQuerySuccess, setQueryInProgress, setQueryFailure, cancelFreestyleQuery
+  executeFreestyleQuery,
+  setQuerySuccess,
+  setQueryInProgress,
+  setQueryFailure,
+  cancelFreestyleQuery,
+  setQueryText
 } from '../actions'
-import freestyleQuerySaga from './dataset-freestyle-query-saga'
+import freestyleQuerySaga from './freestyle-query-saga'
 import mockAxios from 'axios'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
@@ -11,23 +16,31 @@ jest.mock('axios')
 
 const ERROR_MESSAGE_CONSTANT = 'Query failure.  There may be a syntax issue.'
 
-describe('dataset-freestyle-query-saga', () => {
+const setUpSagaMiddleware = reducer => {
+  const sagaMiddleware = createSagaMiddleware()
+  const store = createStore(reducer, applyMiddleware(sagaMiddleware))
+  sagaMiddleware.run(freestyleQuerySaga)
+
+  return store
+}
+
+describe('freestyle-query-saga', () => {
   let store
-  let sagaMiddleware
-  const reducer = (state = [], action) => {
+  const actionTrackingReducer = (state = [], action) => {
     return [...state, action]
   }
 
   const queryText = 'select * from lettuce'
+  const queryData = [{ hello: "world" }, { hello: "columbus" }]
+  const response = {
+    status: 200,
+    data: queryData
+  }
 
   beforeEach(() => {
     window.API_HOST = 'http://example.com/'
 
     mockAxios.CancelToken = { source: () => ({ token: {} }) }
-
-    sagaMiddleware = createSagaMiddleware()
-    store = createStore(reducer, applyMiddleware(sagaMiddleware))
-    sagaMiddleware.run(freestyleQuerySaga)
   })
 
   afterEach(() => {
@@ -35,15 +48,9 @@ describe('dataset-freestyle-query-saga', () => {
   })
 
   describe('success', () => {
-    const queryData = [{ hello: "world" }, { hello: "columbus" }]
-    const response = {
-      status: 200,
-      data: queryData
-    }
-
     beforeEach(() => {
       mockAxios.post.mockImplementationOnce(() => (response))
-
+      store = setUpSagaMiddleware(actionTrackingReducer)
       store.dispatch(executeFreestyleQuery(queryText))
     })
 
@@ -67,6 +74,10 @@ describe('dataset-freestyle-query-saga', () => {
   })
 
   describe('failure', () => {
+    beforeEach(() => {
+      store = setUpSagaMiddleware(actionTrackingReducer)
+    })
+
     it('dispatches a QUERY_DATASET_FAILED event based on 400 code', () => {
       const data = { message: "bad things happened" }
       const response = {
@@ -91,20 +102,37 @@ describe('dataset-freestyle-query-saga', () => {
     })
   })
 
+  describe('without provided query text', () => {
+    const queryTextInStore = 'select * from cabbage'
+    beforeEach(() => {
+      store = setUpSagaMiddleware(oneTrueReducer)
 
+      mockAxios.post.mockImplementationOnce(() => (response))
+
+      store.dispatch(setQueryText(queryTextInStore))
+      store.dispatch(executeFreestyleQuery())
+    })
+
+    it('calls multiple query api with the query from store', () => {
+      expect(mockAxios.post).toHaveBeenCalledWith('/api/v1/query', queryTextInStore, {
+        cancelToken: expect.any(Object),
+        baseURL: window.API_HOST,
+        withCredentials: true,
+        headers: { "Content-Type": "text/plain" },
+        validateStatus: false
+      })
+    })
+  })
 })
 
-describe('dataset-freestyle-query-saga QUERY_DATASET_CANCELLED event', () => {
+describe('freestyle-query-saga QUERY_DATASET_CANCELLED event', () => {
   let store
-  let sagaMiddleware
   let cancelMock
 
   beforeEach(() => {
-    mockAxios.CancelToken = { source: () => ({ token: {} }) }
+    store = setUpSagaMiddleware(oneTrueReducer)
 
-    sagaMiddleware = createSagaMiddleware()
-    store = createStore(oneTrueReducer, applyMiddleware(sagaMiddleware))
-    sagaMiddleware.run(freestyleQuerySaga)
+    mockAxios.CancelToken = { source: () => ({ token: {} }) }
 
     cancelMock = jest.fn()
     const cancelToken = { token: {}, cancel: cancelMock }
