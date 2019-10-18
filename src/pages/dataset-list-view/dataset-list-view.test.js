@@ -38,13 +38,23 @@ describe('dataset list view', () => {
   it('adds search parameters when the search callback is invoked', () => {
     subject.find(Search).props().callback('my search criteria')
 
-    expectSearchStringContains(navigationSpy, "q=my%20search%20criteria")
+    expectSearchStringContains(navigationSpy, "q=my search criteria")
+  })
+
+  it('updates page number when the page is changed', () => {
+    subject.find(Paginator).props().pageChangeCallback(2)
+
+    expectSearchStringContains(navigationSpy, "&page=2")
   })
 
   it('adds sort parameters when the sort callback is invoked', () => {
     subject.find(Select).props().selectChangeCallback('stuff')
 
     expectSearchStringContains(navigationSpy, "&sort=stuff")
+  })
+
+  it('sets query params page to 1 on first load', () => {
+    expectSearchStringContains(navigationSpy, "&page=1", 0)
   })
 
   it('resets the page number to 1 on sort change', () => {
@@ -78,7 +88,7 @@ describe('dataset list view', () => {
     subject.find(FacetSidebar).props().clickHandler('organization', 'stuff')
 
     expect(navigationSpy).toHaveBeenCalledWith({
-      search: encodeURI('q=newsearch&sort=name_desc&apiAccessible=false')
+      search: encodeURI('q=newsearch&sort=name_desc&apiAccessible=false&page=1')
     })
   })
 
@@ -124,6 +134,6 @@ describe('dataset list view', () => {
   })
 })
 
-function expectSearchStringContains(navigationSpy, string) {
-  expect(navigationSpy.mock.calls[0][0].search.indexOf(encodeURI(string)) >= 0)
+function expectSearchStringContains(navigationSpy, string, historyIndex = 1) {
+  expect(navigationSpy.mock.calls[historyIndex][0].search).toMatch(encodeURI(string))
 }

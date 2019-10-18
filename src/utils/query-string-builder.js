@@ -5,8 +5,8 @@ const createTagFilterQueryString = (tags) => createFilterQueryString('tags', tag
 const createOrganizationFilterQueryString = (organization) => createFilterQueryString('organization', organization)
 const createFilterQueryString = (attributeName, attributeValue) => createQueryString({ [attributeName]: _.castArray(attributeValue) })
 
-function createQueryString(facets, searchCriteria, sort, apiAccessible) {
-  return qs.stringify({ q: searchCriteria, sort, facets, apiAccessible }, { arrayFormat: 'brackets' })
+function createQueryString(facets, searchCriteria, sort, apiAccessible, page) {
+  return qs.stringify({ q: searchCriteria, sort, facets, apiAccessible, page }, { arrayFormat: 'brackets' })
 }
 
 export default {

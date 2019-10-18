@@ -16,21 +16,21 @@ import { QueryStringBuilder } from '../../utils'
 export default class extends Component {
   constructor(props) {
     super(props)
-    this.state = { currentPage: 1, pageSize: 10 }
+    this.state = {  pageSize: 10 }
   }
 
   componentDidMount() {
-    this.props.fetchData(this.pageNumber, this.state.pageSize, this.sort, this.searchParams, this.facets, this.apiAccessible)
+    console.log(this.currentPage)
+    this.refreshDatasets(this.searchParams, this.sort, this.facets, this.currentPage, this.apiAccessible)
   }
 
   componentDidUpdate() {
     window.onpopstate = (e) => {
-      this.props.fetchData(this.pageNumber, this.state.pageSize, this.sort, this.searchParams, this.facets, this.apiAccessible)
+      this.props.fetchData(this.currentPage, this.state.pageSize, this.sort, this.searchParams, this.facets, this.apiAccessible)
     }
   }
 
   onPageChange(page) {
-    this.setState({ currentPage: page })
     this.refreshDatasets(this.searchParams, this.sort, this.facets, page, this.apiAccessible)
   }
 
@@ -39,8 +39,6 @@ export default class extends Component {
   }
 
   onFacetClick(facetName, facetValue) {
-    this.setState({ currentPage: 1 })
-
     const updatedFacets = this.toggleFacetValue(facetName, facetValue)
 
     this.refreshDatasets(
@@ -53,12 +51,10 @@ export default class extends Component {
   }
 
   onSortChange(sort) {
-    this.setState({ currentPage: 1 })
     this.refreshDatasets(this.searchParams, sort, this.facets, 1, this.apiAccessible)
   }
 
   onSearchChange(criteria) {
-    this.setState({ currentPage: 1 })
     this.refreshDatasets(criteria, this.sort, this.facets, 1, this.apiAccessible)
   }
 
@@ -68,13 +64,13 @@ export default class extends Component {
   }
 
   refreshDatasets(criteria, sort, facets, pageNumber, apiAccessible) {
-    this.updateQueryParameters(criteria, sort, facets, apiAccessible)
+    this.updateQueryParameters(criteria, sort, facets, apiAccessible, pageNumber)
     this.props.fetchData(pageNumber, this.state.pageSize, sort, criteria, facets, apiAccessible)
   }
 
-  updateQueryParameters(searchCriteria, sort, facets, apiAccessible) {
+  updateQueryParameters(searchCriteria, sort, facets, apiAccessible, page) {
     this.props.history.push({
-      search: QueryStringBuilder.createQueryString(facets, searchCriteria, sort, apiAccessible)
+      search: QueryStringBuilder.createQueryString(facets, searchCriteria, sort, apiAccessible, page)
     })
   }
 
@@ -96,6 +92,10 @@ export default class extends Component {
 
   get facets() {
     return this.getQueryParam("facets")
+  }
+
+  get currentPage() {
+    return parseInt(this.getQueryParam("page")) || 1
   }
 
   get apiAccessible() {
@@ -161,7 +161,7 @@ export default class extends Component {
                 selectChangeCallback={sort => this.onSortChange(sort)} />
             </div>
             <DatasetList datasets={this.props.datasets} />
-            <Paginator className='paginator' numberOfPages={this.numberOfPages} currentPage={this.state.currentPage} pageChangeCallback={page => this.onPageChange(page)} />
+            <Paginator className='paginator' numberOfPages={this.numberOfPages} currentPage={this.currentPage} pageChangeCallback={page => this.onPageChange(page)} />
           </div>
         </dataset-list-view>
       )
