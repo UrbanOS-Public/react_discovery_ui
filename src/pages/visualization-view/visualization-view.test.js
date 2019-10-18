@@ -4,9 +4,9 @@ import { Tab, Tabs, TabPanel } from "react-tabs"
 import VisualizationView from "./visualization-view"
 import QueryView from "../query-view"
 import ChartView from "../chart-view"
-import LoadingElement from "../../components/generic-elements/loading-element"
 import ErrorComponent from "../../components/generic-elements/error-component"
 import AutoAnchoringPopover from "../../components/generic-elements/auto-anchoring-popover"
+import SaveIndicator from "../../components/generic-elements/save-indicator"
 
 const runUseEffect = () => {
   const useEffect = jest.spyOn(React, "useEffect")
@@ -17,7 +17,6 @@ describe("visualization view", () => {
   let subject, resetHandler, loadHandler, saveHandler
 
   const id = '123456'
-  const title = 'Placeholder Title'
   const query = 'select * from stuff'
 
   beforeEach(() => {
@@ -26,20 +25,11 @@ describe("visualization view", () => {
     saveHandler = jest.fn()
   })
 
-  describe('when visualization id is not provided in the URL along with nothing else', () => {
+  describe('when visualization id is not provided in the URL', () => {
     beforeEach(() => {
       resetHandler.mockImplementation(() => true)
       runUseEffect()
-      subject = shallow(
-        <VisualizationView
-          match={{ params: {} }}
-          isLoadFailure={false}
-          query=''
-          load={loadHandler}
-          reset={resetHandler}
-          save={saveHandler}
-        />
-      )
+      subject = createSubject({match: {params: {}}, reset: resetHandler, load: loadHandler})
     })
 
     it("calls the reset function", () => {
@@ -58,16 +48,7 @@ describe("visualization view", () => {
   describe('when visualization id is provided in the URL and nothing else', () => {
     beforeEach(() => {
       runUseEffect()
-      subject = shallow(
-        <VisualizationView
-          match={{ params: { id} }}
-          isLoadFailure={false}
-          query=''
-          load={loadHandler}
-          reset={resetHandler}
-          save={saveHandler}
-        />
-      )
+      subject = createSubject({match: {params: {id}}, reset: resetHandler, load: loadHandler})
     })
 
     it("calls the reset function", () => {
@@ -85,18 +66,7 @@ describe("visualization view", () => {
 
   describe('when visualization is loaded with no errors', () => {
     beforeEach(() => {
-      subject = shallow(
-        <VisualizationView
-          match={{ params: { id: "123456" } }}
-          isSaving={false}
-          isLoadFailure={false}
-          title={title}
-          query={query}
-          load={loadHandler}
-          reset={resetHandler}
-          save={saveHandler}
-        />
-      )
+      subject = createSubject()
     })
 
     it("has two tabs", () => {
@@ -118,15 +88,7 @@ describe("visualization view", () => {
 
   describe("when visualization has failed to load", () => {
     beforeEach(() => {
-      subject = shallow(
-        <VisualizationView
-          match={{ params: { id: "123456" } }}
-          isLoadFailure={true}
-          load={loadHandler}
-          reset={resetHandler}
-          save={saveHandler}
-        />
-      )
+      subject = createSubject({isLoadFailure: true})
     })
 
     it("shows an error element", () => {
@@ -144,16 +106,7 @@ describe("visualization view", () => {
 
   describe("when visualization is not able to be saved", () => {
     beforeEach(() => {
-      subject = shallow(
-        <VisualizationView
-          match={{ params: { id: "123456" } }}
-          isLoadFailure={false}
-          isSaveable={false}
-          load={loadHandler}
-          reset={resetHandler}
-          save={saveHandler}
-        />
-      )
+      subject = createSubject({isSaveable: false})
     })
 
     it("disables the save button", () => {
@@ -163,19 +116,7 @@ describe("visualization view", () => {
 
   describe("when visualization is able to be saved", () => {
     beforeEach(() => {
-      subject = shallow(
-        <VisualizationView
-          match={{ params: { id: "123456" } }}
-          isLoadFailure={false}
-          isSaveable={true}
-          save={saveHandler}
-          title='my first visualization'
-          query='select * from stuff'
-          load={loadHandler}
-          reset={resetHandler}
-          save={saveHandler}
-        />
-      )
+      subject = createSubject({ isSaveable: true })
     })
 
     it("enables the save button", () => {
@@ -185,17 +126,7 @@ describe("visualization view", () => {
 
   describe("when visualization save button is clicked", () => {
     beforeEach(() => {
-      subject = shallow(
-        <VisualizationView
-          match={{ params: { id } }}
-          isSaving={true}
-          query={query}
-          id={id}
-          load={loadHandler}
-          reset={resetHandler}
-          save={saveHandler}
-        />
-      )
+      subject = createSubject({ isSaving: true, query, save: saveHandler })
 
       subject.find(".save-button").simulate("click")
     })
@@ -204,10 +135,88 @@ describe("visualization view", () => {
       expect(subject.find(AutoAnchoringPopover).props().open).toEqual(true)
     })
 
-    it("send create visualization event with the query and a placeholder title on click of the save button", () => {
+    it("sends create visualization event with the query and a placeholder title", () => {
+      const title = 'Placeholder Title'
+
       expect(saveHandler).toHaveBeenCalledWith(title, query)
+    })
+
+    it('sets the saving indicator', () => {
+      expect(subject.find(SaveIndicator).props().saving).toBe(true)
+    })
+  })
+
+  describe('when save succeeds', () => {
+    beforeEach(() => {
+      subject = createSubject({ isSaveSuccess: true, id })
+    })
+
+    it('indicates the save succeeded', () => {
+      expect(subject.find(SaveIndicator).props().success).toBe(true)
+      expect(subject.find(SaveIndicator).props().failure).toBe(false)
+      expect(subject.find(SaveIndicator).props().saving).toBe(false)
+    })
+
+    it('displays a generated link', () => {
+      expect(subject.find(SaveIndicator).props().linkUrl).toBe(`/visualization/${id}`)
+    })
+  })
+
+  describe('when save fails', () => {
+    beforeEach(() => {
+      subject = createSubject({ isSaveFailure: true })
+    })
+
+    it('indicates the save failed', () => {
+      expect(subject.find(SaveIndicator).props().failure).toBe(true)
+      expect(subject.find(SaveIndicator).props().success).toBe(false)
+      expect(subject.find(SaveIndicator).props().saving).toBe(false)
+    })
+  })
+
+  describe('when visualization id from state is provided', () => {
+    it('pushes a path with the new id into history', () => {
+      const history = { push: jest.fn() }
+
+      runUseEffect()
+      subject = createSubject({ history, id })
+
+      expect(history.push).toHaveBeenCalledWith(`/visualization/${id}`)
     })
   })
 })
 
+const createSubject = (props = {}) => {
+  const defaultProps = {
+    reset: jest.fn(),
+    load: jest.fn(),
+    save: jest.fn(),
+    id: undefined,
+    query: undefined,
+    isLoadFailure: false,
+    isSaving: false,
+    isSaveSuccess: false,
+    isSaveFailure: false,
+    isSaveable: false,
+    match: { params: {} },
+    history: { push: jest.fn() }
+  }
+  const propsWithDefaults = Object.assign({}, defaultProps, props)
 
+  return shallow(
+    <VisualizationView
+      reset={propsWithDefaults.reset}
+      save={propsWithDefaults.save}
+      load={propsWithDefaults.load}
+      id={propsWithDefaults.id}
+      query={propsWithDefaults.query}
+      isLoadFailure={propsWithDefaults.isLoadFailure}
+      isSaving={propsWithDefaults.isSaving}
+      isSaveSuccess={propsWithDefaults.isSaveSuccess}
+      isSaveFailure={propsWithDefaults.isSaveFailure}
+      isSaveable={propsWithDefaults.isSaveable}
+      match={propsWithDefaults.match}
+      history={propsWithDefaults.history}
+    />
+  )
+}

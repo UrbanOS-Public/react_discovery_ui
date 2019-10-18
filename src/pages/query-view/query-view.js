@@ -35,14 +35,14 @@ const QueryView = props => {
 
   if (isQueryLoading && queryData.length === 0) {
     return (
-      <dataset-query-page>
+      <query-view>
         <LoadingElement />
-      </dataset-query-page>
+      </query-view>
     );
   }
 
   return (
-    <dataset-query-page>
+    <query-view>
       <DatasetQuery
         recommendations={recommendations}
 
@@ -65,7 +65,7 @@ const QueryView = props => {
           className="-striped -highlight"
         ></ReactTable>
       </div>
-    </dataset-query-page>
+    </query-view>
   );
 };
 

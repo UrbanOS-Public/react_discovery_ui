@@ -1,4 +1,4 @@
-import { visualizationSave, visualizationLoadFailure, visualizationSaveFailure, visualizationLoad, visualizationLoadSuccess, visualizationSaveSuccess } from '../actions'
+import { visualizationSave, visualizationLoadFailure, visualizationSaveFailure, visualizationLoad, visualizationLoadSuccess, visualizationSaveSuccess, setQueryText } from '../actions'
 import visualizationSaga from './visualization-saga'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
@@ -83,6 +83,10 @@ describe('visualization-saga', () => {
 
       it('signals the visualization is available', () => {
         expect(store.getState()).toContainEqual(visualizationSaveSuccess(returnedVisualization))
+      })
+
+      it('sets the query text', () => {
+        expect(store.getState()).toContainEqual(setQueryText(query))
       })
     })
 

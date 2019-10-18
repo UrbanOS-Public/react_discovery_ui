@@ -5,7 +5,7 @@ main-app-element {
   overflow-y: scroll;
 }
 
-dataset-visualization {
+chart-view {
   .visualization-header {
     .header {
       display: flow-root;
@@ -63,8 +63,6 @@ dataset-visualization {
   chart-visualization {
     display: block;
     height: 85vh;
-
-  
   }
 
   .success-message {

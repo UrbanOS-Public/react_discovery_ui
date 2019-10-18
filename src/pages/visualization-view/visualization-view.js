@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import { generatePath } from 'react-router'
 
 import './visualization-view.scss'
 
-import LoadingElement from '../../components/generic-elements/loading-element'
 import SaveIndicator from '../../components/generic-elements/save-indicator'
 import ChartIcon from '../../components/generic-elements/chart-icon'
 import SQLIcon from '../../components/generic-elements/sql-icon'
@@ -21,23 +21,25 @@ const VisualizationView = (props) => {
     reset,
     load,
     save,
-    id, // TODO: more specific name
+    id: idFromState,
     query,
     isLoadFailure,
     isSaving,
     isSaveSuccess,
     isSaveFailure,
     isSaveable,
-    match: {params: {id: paramsID}},
+    match: {params: {id: idFromUrl}},
     history
   } = props
 
-  React.useEffect(() => { reset() }, [])
-  React.useEffect(() => { if (paramsID) load(paramsID) }, [paramsID])
-  // React.useEffect(() => { if (id) history.replace( "/visualization/" + id) }, [id]) // TODO: TESTME
+  const linkUrl = idFromState && generatePath(routes.visualizationView, {id: idFromState})
   const [isDialogOpen, setDialogOpen] = useState(false)
 
-  const handleSave = () => { setDialogOpen(true); save("Placeholder Title", query) }
+  React.useEffect(() => { reset() }, [])
+  React.useEffect(() => { if (idFromUrl) load(idFromUrl) }, [idFromUrl])
+  React.useEffect(() => { if (idFromState) history.push(linkUrl) }, [idFromState])
+
+  const handleSave = () => { setDialogOpen(true); save('Placeholder Title', query) }
   const closeDialog = () => { setDialogOpen(false) }
 
   if (isLoadFailure) {
@@ -48,7 +50,7 @@ const VisualizationView = (props) => {
     )
   }
 
-  const startIndex = paramsID ? 0 : 1
+  const startIndex = idFromUrl ? 0 : 1
 
   return (
     <visualization-view>
@@ -63,13 +65,12 @@ const VisualizationView = (props) => {
             </Tab>
           </span>
           <span className='action-area'>
-            {/* TODO: extract component: */}
             <React.Fragment>
               <TabButton disabled={!isSaveable} className={`header-item save-button ${isDialogOpen && 'saving'}`} onClick={handleSave} >
-                <SaveIcon />
+                <div title='Save Visualization'><SaveIcon /></div>
               </TabButton>
               <AutoAnchoringPopover className='popover-anchor' open={isDialogOpen} onClose={closeDialog} classes={{ paper: 'popover', root: 'popover-root' }} >
-                <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkPath={routes.visualizationView} linkParams={{ id }} />
+                <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkUrl={linkUrl} />
               </AutoAnchoringPopover>
             </React.Fragment>
           </span>

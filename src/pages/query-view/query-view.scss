@@ -1,12 +1,7 @@
 @import "../../styles/mixins.scss";
 @import "../../styles/variables.scss";
 
-dataset-query-page {
-  
-  .dataset-query {
-    padding-top: 1rem;
-  }
-
+query-view {
   .button {
     @include button();
     padding: 1rem;

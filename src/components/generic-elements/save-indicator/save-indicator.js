@@ -3,9 +3,9 @@ import './save-indicator.scss'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import ErrorIcon from '@material-ui/icons/Error'
 import LoadingElement from '../loading-element'
-import GeneratedShareLink from '../generated-share-link'
+import ShareLink from '../share-link'
 
-const SaveIndicator = ({ saving, success, failure, linkPath, linkParams = {} }) => {
+const SaveIndicator = ({ saving, success, failure, linkUrl }) => {
   if (saving) {
     return (
       <save-indicator>
@@ -21,7 +21,7 @@ const SaveIndicator = ({ saving, success, failure, linkPath, linkParams = {} }) 
         <CheckCircleIcon className='success icon' />
         <span>
           <p>Your visualization has saved</p>
-          {linkPath && <GeneratedShareLink path={linkPath} params={linkParams} className="link-button" />}
+          {linkUrl && <ShareLink linkUrl={linkUrl} className="link-button" />}
         </span>
       </save-indicator>
     )
@@ -36,8 +36,7 @@ const SaveIndicator = ({ saving, success, failure, linkPath, linkParams = {} }) 
     )
   }
 
-  //TODO: return something else
-  return <div>NOTHING</div>
+  return <save-indicator />
 }
 
 export default SaveIndicator

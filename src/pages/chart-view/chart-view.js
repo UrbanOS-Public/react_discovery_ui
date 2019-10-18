@@ -16,16 +16,16 @@ const ChartView = (props) => {
 
   if (isQueryLoading) {
     return (
-      <dataset-visualization>
+      <chart-view>
         <LoadingElement />
-      </dataset-visualization>
+      </chart-view>
     )
   }
 
   return (
-    <dataset-visualization>
+    <chart-view>
       <ChartVisualization dataSources={dataSources} />
-    </dataset-visualization>
+    </chart-view>
   )
 }
 

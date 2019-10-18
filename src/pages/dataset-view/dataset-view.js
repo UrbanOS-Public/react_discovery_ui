@@ -47,12 +47,8 @@ export default class extends Component {
       );
     }
 
-
-    const systemName = this.props.dataset.systemName
-    const datasetId = this.props.dataset.id
-
     if (this.props.isRemoteDataset || this.props.isHostDataset) {
-      return <DatasetDetailView match={this.props.match} />;
+      return <DatasetDetailView />;
     }
 
     return (
@@ -67,13 +63,13 @@ export default class extends Component {
           <Tab>Write SQL <SQLIcon className='sqlIcon' /></Tab>
         </TabList>
         <TabPanel forceRender={true}>
-          <DatasetDetailView match={this.props.match} />
+          <DatasetDetailView />
         </TabPanel>
         <TabPanel>
-          <ChartView match={this.props.match} systemName={systemName} />
+          <ChartView />
         </TabPanel>
         <TabPanel>
-          <QueryView systemName={systemName} />
+          <QueryView />
         </TabPanel>
       </Tabs>
     );

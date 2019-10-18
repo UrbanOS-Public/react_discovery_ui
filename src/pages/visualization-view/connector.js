@@ -10,7 +10,6 @@ const mapStateToProps = state => {
         title: visualizationTitle(state),
         query: getFreestyleQueryText(state),
         isLoadFailure: visualizationLoadFailure(state),
-        isLoadedSuccess: visualizationLoadSuccess(state),
         isSaving: visualizationSaving(state),
         isSaveFailure: visualizationSaveFailure(state),
         isSaveSuccess: visualizationSaveSuccess(state),

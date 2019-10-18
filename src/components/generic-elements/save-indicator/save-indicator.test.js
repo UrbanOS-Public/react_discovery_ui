@@ -3,10 +3,18 @@ import SaveIndicator from './';
 import LoadingElement from '../loading-element';
 import ErrorIcon from '@material-ui/icons/Error'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
-import GeneratedShareLink from '../generated-share-link'
+import ShareLink from '../share-link'
 
 describe('SaveIndicator', () => {
   let subject
+
+  describe('when no state is indicated', () => {
+    it('returns empty', () => {
+      subject = shallow(<SaveIndicator />)
+
+      expect(subject.text()).toEqual('')
+    })
+  })
 
   describe('when saving is in progress', () => {
     beforeEach(() => {
@@ -41,12 +49,11 @@ describe('SaveIndicator', () => {
       })
     })
 
-    describe('and save succeeded with a link path and params', () => {
-      const linkPath = 'path/to/visualization'
-      const linkParams = { id: '10t' }
+    describe('and save succeeded with a link url', () => {
+      const linkUrl = 'path/to/visualization'
 
       beforeEach(() => {
-        subject = shallow(<SaveIndicator success linkPath={linkPath} linkParams={linkParams}/>)
+        subject = shallow(<SaveIndicator success linkUrl={linkUrl}/>)
       })
 
       it('does not display the loading element', () => {
@@ -62,11 +69,10 @@ describe('SaveIndicator', () => {
       })
 
       it('displays a shareable link for the saved visualziation', () => {
-        const link = subject.find(GeneratedShareLink)
+        const link = subject.find(ShareLink)
 
         expect(link.length).toBe(1)
-        expect(link.props().path).toBe(linkPath)
-        expect(link.props().params).toBe(linkParams)
+        expect(link.props().linkUrl).toBe(linkUrl)
       })
     })
 
@@ -76,7 +82,7 @@ describe('SaveIndicator', () => {
       })
 
       it('does not display a shareable link', () => {
-        expect(subject.find(GeneratedShareLink).length).toBe(0)
+        expect(subject.find(ShareLink).length).toBe(0)
       })
     })
   })
