@@ -5,8 +5,12 @@ import React from 'react'
 import ChartVisualization from '../../components/visualizations/chart/chart-visualization'
 import LoadingElement from '../../components/generic-elements/loading-element'
 
+const hasDataSources = dataSources => {
+  return dataSources && Object.keys(dataSources).length > 0
+}
+
 const ChartView = (props) => {
-  const { dataSources, isQueryLoading, autoFetchQuery, executeQuery } = props
+  const { dataSources, isLoading, autoFetchQuery, executeQuery } = props
 
   React.useEffect(() => {
     if (autoFetchQuery) {
@@ -14,10 +18,18 @@ const ChartView = (props) => {
     }
   }, [autoFetchQuery])
 
-  if (isQueryLoading) {
+  if (isLoading) {
     return (
       <chart-view>
         <LoadingElement />
+      </chart-view>
+    )
+  }
+
+  if (!hasDataSources(dataSources)) {
+    return (
+      <chart-view>
+        <div className='no-data-message'>Unable to load data. You may need to revise your query.</div>
       </chart-view>
     )
   }

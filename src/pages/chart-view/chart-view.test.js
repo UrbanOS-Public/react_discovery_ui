@@ -4,9 +4,6 @@ import ChartView from './chart-view'
 import ChartVisualization from '../../components/visualizations/chart/chart-visualization'
 import LoadingElement from '../../components/generic-elements/loading-element'
 
-const tableName = 'org1__table2'
-const expectedQuery = `SELECT * FROM ${tableName}\nLIMIT 20000`
-
 // Currently, shallow rendering is not compatible with React hooks.
 // We've utilized a strategy found here https://blog.carbonfive.com/2019/08/05/shallow-testing-hooks-with-enzyme/
 // which should become unneccessary in the near future
@@ -15,13 +12,7 @@ const runUseEffect = () => {
   useEffect.mockImplementationOnce(f => f())
 }
 
-describe('dataset visualization view', () => {
-  const routerProps = {
-    params: {
-      organizationName: 'data \'r\' us',
-      datasetName: 'some data'
-    }
-  }
+describe('chart view', () => {
   const chartDataSources = { data: ['sources'] }
 
   let subject
@@ -29,7 +20,7 @@ describe('dataset visualization view', () => {
   describe('before load', () => {
     beforeEach(() => {
       runUseEffect()
-      subject = createSubject({isQueryLoading: true})
+      subject = createSubject({isLoading: true})
     })
 
     it('shows full page loading icon', () => {
@@ -45,7 +36,7 @@ describe('dataset visualization view', () => {
     beforeEach(() => {
       runUseEffect()
 
-      subject = createSubject({dataSources: chartDataSources, isQueryLoading: false})
+      subject = createSubject({dataSources: chartDataSources, isLoading: false})
     })
 
     it('does not show full page loading icon', () => {
@@ -54,6 +45,20 @@ describe('dataset visualization view', () => {
 
     it('displays a chart visualization with the provided data sources', () => {
       expect(subject.find(ChartVisualization).props().dataSources).toBe(chartDataSources)
+    })
+  })
+
+  describe('with empty dataSources', () => {
+    beforeEach(() => {
+      subject = createSubject({dataSources: {}})
+    })
+
+    it('does not render a chart editor', () => {
+      expect(subject.find(ChartVisualization).length).toBe(0)
+    })
+
+    it('displays a message that data has not been loaded', () => {
+      expect(subject.text()).toContain('Unable to load data')
     })
   })
 
@@ -78,7 +83,7 @@ describe('dataset visualization view', () => {
 
 function createSubject(params = {}) {
   const defaultParams = {
-    isQueryLoading: false,
+    isLoading: false,
     dataSources: { data: ["sources"] },
     autoFetchQuery: false,
     executeQuery: jest.fn()
@@ -86,7 +91,7 @@ function createSubject(params = {}) {
   const paramsWithDefaults = Object.assign({}, defaultParams, params)
 
   return shallow(<ChartView
-    isQueryLoading={paramsWithDefaults.isQueryLoading}
+    isLoading={paramsWithDefaults.isLoading}
     dataSources={paramsWithDefaults.dataSources}
     autoFetchQuery={paramsWithDefaults.autoFetchQuery}
     executeQuery={paramsWithDefaults.executeQuery}
