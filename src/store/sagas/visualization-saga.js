@@ -2,6 +2,22 @@ import { takeEvery, put, call, fork, all } from 'redux-saga/effects'
 import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText } from '../actions'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 
+function* loadVisualizationSaga() {
+  yield takeEvery(VISUALIZATION_LOAD, loadVisualization)
+}
+
+function* loadVisualization({ value: id }) {
+  yield callEndpoint(() => AuthenticatedHTTPClient.get(`/api/v1/visualization/${id}`), visualizationLoadSuccess, visualizationLoadFailure)
+}
+
+function* saveVisualizationSaga() {
+  yield takeEvery(VISUALIZATION_SAVE, saveVisualization)
+}
+
+function* saveVisualization({ value: visualization }) {
+    yield callEndpoint(() => AuthenticatedHTTPClient.post('/api/v1/visualization', visualization), visualizationSaveSuccess, visualizationSaveFailure)
+}
+
 function* callEndpoint(clientFunction, successEvent, failureEvent) {
   try {
     const response = yield call(clientFunction)
@@ -15,22 +31,6 @@ function* callEndpoint(clientFunction, successEvent, failureEvent) {
   } catch (e) {
     yield put(failureEvent(e.message))
   }
-}
-
-function* loadVisualization({ value: id }) {
-  yield callEndpoint(() => AuthenticatedHTTPClient.get(`/api/v1/visualization/${id}`), visualizationLoadSuccess, visualizationLoadFailure)
-}
-
-function* saveVisualization({ value: visualization }) {
-    yield callEndpoint(() => AuthenticatedHTTPClient.post('/api/v1/visualization', visualization), visualizationSaveSuccess, visualizationSaveFailure)
-}
-
-function* loadVisualizationSaga() {
-  yield takeEvery(VISUALIZATION_LOAD, loadVisualization)
-}
-
-function* saveVisualizationSaga() {
-  yield takeEvery(VISUALIZATION_SAVE, saveVisualization)
 }
 
 export default function* visualizationSaga() {
