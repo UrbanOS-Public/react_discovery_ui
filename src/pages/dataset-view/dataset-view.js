@@ -41,17 +41,22 @@ export default class extends Component {
   render() {
     if (!this.props.isDatasetLoaded) {
       return (
-        <dataset-visualization>
+        <dataset-view>
           <LoadingElement />
-        </dataset-visualization>
+        </dataset-view>
       );
     }
 
     if (this.props.isRemoteDataset || this.props.isHostDataset) {
-      return <DatasetDetailView />;
+      return (
+        <dataset-view>
+          <DatasetDetailView />
+        </dataset-view>
+      )
     }
 
     return (
+      <dataset-view>
       <Tabs
         className="dataset-view"
         selectedIndex={this.state.index}
@@ -72,6 +77,7 @@ export default class extends Component {
           <QueryView />
         </TabPanel>
       </Tabs>
+      </dataset-view>
     );
   }
 }

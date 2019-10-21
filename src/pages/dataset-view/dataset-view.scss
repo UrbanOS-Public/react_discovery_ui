@@ -1,6 +1,7 @@
 @import "../../styles/mixins.scss";
 @import "../../styles/variables.scss";
 
+dataset-view {
 .chartIcon {
     padding-left: 5px;
     path {
@@ -65,4 +66,5 @@
 
 loading-element {
     @include default-loading-icon();
+}
 }
