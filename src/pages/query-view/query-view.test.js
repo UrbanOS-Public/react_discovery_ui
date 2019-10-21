@@ -3,6 +3,7 @@ import { shallow } from "enzyme";
 import QueryView from "./query-view";
 import DatasetQuery from "../../components/dataset-query";
 import LoadingElement from "../../components/generic-elements/loading-element";
+import ReactTable from "react-table";
 
 // Currently, shallow rendering is not compatible with React hooks.
 // We've utilized a strategy found here https://blog.carbonfive.com/2019/08/05/shallow-testing-hooks-with-enzyme/
@@ -84,6 +85,34 @@ describe("dataset visualization view", () => {
     subject = createSubject({ autoFetchQuery: true, executeQuery })
 
     expect(executeQuery).toHaveBeenCalledTimes(1)
+  })
+
+  describe('dataset preview table', () => {
+    const queryData = [{ name: 'nathaniel', age: 29, isAwesome: true, spouse: { name: 'alyssa', age: 30 } }, { name: 'austin', age: 28, isAwesome: false, spouse: undefined }]
+    const expectedData = [{ name: 'nathaniel', age: 29, isAwesome: "true", spouse: JSON.stringify({ name: 'alyssa', age: 30 }) }, { name: 'austin', age: 28, isAwesome: "false", spouse: '' }]
+    const dataSources = {
+      name: ['nathaniel', 'austin'],
+      age: [29, 28],
+      isAwesome: [true, false],
+      spouse: [{ name: 'alyssa', age: 30 }, undefined]
+    }
+
+
+    beforeEach(() => {
+      subject = createSubject({ queryData: queryData, dataSources: dataSources })
+    });
+
+    it("renders correctly", () => {
+      const expectedColumns = [
+        { Header: 'name', accessor: 'name', headerClassName: "table-header" },
+        { Header: 'age', accessor: 'age', headerClassName: "table-header" },
+        { Header: 'isAwesome', accessor: 'isAwesome', headerClassName: "table-header" },
+        { Header: 'spouse', accessor: 'spouse', headerClassName: "table-header" }
+      ]
+
+      expect(subject.find(ReactTable).prop('data')).toEqual(expectedData)
+      expect(subject.find(ReactTable).prop('columns')).toEqual(expectedColumns)
+    });
   })
 });
 

@@ -86,8 +86,13 @@ const cleanseRow = row => {
 const cleanseField = value => {
   if (typeof value === "boolean") {
     return value.toString();
+  } else if (typeof value === "object") {
+    return JSON.stringify(value);
+  } else if (value === undefined) {
+    return ''
+  } else {
+    return value;
   }
-  return value;
 };
 
 const determineColumns = dataSources => {
