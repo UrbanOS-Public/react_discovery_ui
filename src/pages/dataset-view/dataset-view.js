@@ -41,37 +41,43 @@ export default class extends Component {
   render() {
     if (!this.props.isDatasetLoaded) {
       return (
-        <dataset-visualization>
+        <dataset-view>
           <LoadingElement />
-        </dataset-visualization>
+        </dataset-view>
       );
     }
 
     if (this.props.isRemoteDataset || this.props.isHostDataset) {
-      return <DatasetDetailView />;
+      return (
+        <dataset-view>
+          <DatasetDetailView />
+        </dataset-view>
+      )
     }
 
     return (
-      <Tabs
-        className="dataset-view"
-        selectedIndex={this.state.index}
-        onSelect={tabIndex => this.setState({ index: tabIndex })}
-      >
-        <TabList>
-          <Tab>Dataset Details</Tab>
-          <Tab>Visualize <ChartIcon className='chartIcon' /></Tab>
-          <Tab>Write SQL <SQLIcon className='sqlIcon' /></Tab>
-        </TabList>
-        <TabPanel forceRender={true}>
-          <DatasetDetailView />
-        </TabPanel>
-        <TabPanel>
-          <ChartView />
-        </TabPanel>
-        <TabPanel>
-          <QueryView />
-        </TabPanel>
-      </Tabs>
+      <dataset-view>
+        <Tabs
+          className="dataset-view"
+          selectedIndex={this.state.index}
+          onSelect={tabIndex => this.setState({ index: tabIndex })}
+        >
+          <TabList>
+            <Tab>Dataset Details</Tab>
+            <Tab>Visualize <ChartIcon className='chartIcon' /></Tab>
+            <Tab>Write SQL <SQLIcon className='sqlIcon' /></Tab>
+          </TabList>
+          <TabPanel forceRender={true}>
+            <DatasetDetailView />
+          </TabPanel>
+          <TabPanel>
+            <ChartView />
+          </TabPanel>
+          <TabPanel>
+            <QueryView />
+          </TabPanel>
+        </Tabs>
+      </dataset-view>
     );
   }
 }
