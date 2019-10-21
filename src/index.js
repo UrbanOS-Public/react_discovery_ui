@@ -1,5 +1,5 @@
 
-import App from './App.js'
+import ReactDiscoveryUI from './ReactDiscoveryUI.js'
 import './index.css'
 
 import React from 'react'
@@ -14,5 +14,5 @@ const tagManagerArgs = {
 
 TagManager.initialize(tagManagerArgs)
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<ReactDiscoveryUI />, document.getElementById("root"));
 

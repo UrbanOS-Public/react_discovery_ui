@@ -1,5 +1,5 @@
 
-import './App.scss'
+import './ReactDiscoveryUI.scss'
 import 'normalize.css'
 
 import React, {withContext} from 'react'
