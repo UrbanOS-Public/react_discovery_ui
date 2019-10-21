@@ -57,26 +57,26 @@ export default class extends Component {
 
     return (
       <dataset-view>
-      <Tabs
-        className="dataset-view"
-        selectedIndex={this.state.index}
-        onSelect={tabIndex => this.setState({ index: tabIndex })}
-      >
-        <TabList>
-          <Tab>Dataset Details</Tab>
-          <Tab>Visualize <ChartIcon className='chartIcon' /></Tab>
-          <Tab>Write SQL <SQLIcon className='sqlIcon' /></Tab>
-        </TabList>
-        <TabPanel forceRender={true}>
-          <DatasetDetailView />
-        </TabPanel>
-        <TabPanel>
-          <ChartView />
-        </TabPanel>
-        <TabPanel>
-          <QueryView />
-        </TabPanel>
-      </Tabs>
+        <Tabs
+          className="dataset-view"
+          selectedIndex={this.state.index}
+          onSelect={tabIndex => this.setState({ index: tabIndex })}
+        >
+          <TabList>
+            <Tab>Dataset Details</Tab>
+            <Tab>Visualize <ChartIcon className='chartIcon' /></Tab>
+            <Tab>Write SQL <SQLIcon className='sqlIcon' /></Tab>
+          </TabList>
+          <TabPanel forceRender={true}>
+            <DatasetDetailView />
+          </TabPanel>
+          <TabPanel>
+            <ChartView />
+          </TabPanel>
+          <TabPanel>
+            <QueryView />
+          </TabPanel>
+        </Tabs>
       </dataset-view>
     );
   }
