@@ -14,7 +14,6 @@ import DatasetRecommendations from '../../components/dataset-recommendations'
 
 export default class extends Component {
 
-
   componentWillUnmount() {
     this.props.clearDatasetPreview();
     this.props.clearDatasetDetails();

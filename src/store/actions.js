@@ -175,3 +175,38 @@ export const queryDatasetInProgress = (message) => ({
 export const queryDatasetCancelled = (message) => ({
   type: QUERY_DATASET_CANCELLED, value: message
 })
+
+export const VISUALIZATION_LOAD = 'VISUALIZATION_LOAD'
+export const visualizationLoad = (id) => ({
+  type: VISUALIZATION_LOAD, value: id
+})
+
+export const VISUALIZATION_LOAD_SUCCESS = 'VISUALIZATION_LOAD_SUCCESS'
+export const visualizationLoadSuccess = (visualization) => ({
+  type: VISUALIZATION_LOAD_SUCCESS, value: visualization
+})
+
+export const VISUALIZATION_LOAD_FAILURE = 'VISUALIZATION_LOAD_FAILURE'
+export const visualizationLoadFailure = (errorMessage) => ({
+  type: VISUALIZATION_LOAD_FAILURE, value: errorMessage
+})
+
+export const VISUALIZATION_SAVE = 'VISUALIZATION_SAVE'
+export const visualizationSave = (title, query) => ({
+  type: VISUALIZATION_SAVE, value: {title, query}
+})
+
+export const VISUALIZATION_SAVE_SUCCESS = 'VISUALIZATION_SAVE_SUCCESS'
+export const visualizationSaveSuccess = (visualization) => ({
+  type: VISUALIZATION_SAVE_SUCCESS, value: visualization
+})
+
+export const VISUALIZATION_SAVE_FAILURE = 'VISUALIZATION_SAVE_FAILURE'
+export const visualizationSaveFailure = (errorMessage) => ({
+  type: VISUALIZATION_SAVE_FAILURE, value: errorMessage
+})
+
+export const VISUALIZATION_RESET = 'VISUALIZATION_RESET'
+export const visualizationReset = () => ({
+  type: VISUALIZATION_RESET
+})

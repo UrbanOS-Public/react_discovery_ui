@@ -1,0 +1,28 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
+
+save-indicator {
+  @include custom-element();
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  white-space: nowrap;
+
+  .success {
+    color: green;
+  }
+
+  .failure {
+    color: red;
+  }
+
+  .icon {
+    width: 1.5rem;
+    margin-right: 1rem;
+    line-height: 0;
+    align-self: start;
+  }
+
+  p { margin: 0 }
+}

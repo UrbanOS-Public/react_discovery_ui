@@ -39,9 +39,9 @@ const DatasetQuery = props => {
   }
 
   const updateLocalQueryText = e => setLocalQueryText(e.target.value)
-  const updateReduxQueryText = (e) => setQueryText(e.target.value)
+  const updateReduxQueryText = e => setQueryText(e.target.value)
 
-  const textArea = <textarea rows={5} type='text' value={localQueryText} onBlur={updateReduxQueryText} onChange={updateLocalQueryText} className='sql-textbox' />
+  const textArea = <textarea rows={5} type='text' placeholder='SELECT * FROM ...' value={localQueryText} onBlur={updateReduxQueryText} onChange={updateLocalQueryText} className='query-input' />
   const submitButton = <button className="action-button" disabled={isQueryLoading} onClick={submit}>Submit</button>
   const cancelButton = <button className="action-button" disabled={!isQueryLoading} onClick={cancel}>Cancel</button>
 

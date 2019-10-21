@@ -1,9 +1,7 @@
 import { connect } from 'react-redux'
-import DatasetQueryView from './dataset-query-view'
+import QueryView from './query-view'
 import { executeFreestyleQuery, cancelFreestyleQuery, setQueryText, setUserInteracted } from '../../store/actions'
-
-import { getVisualizationDataSources, getQueryIsLoading, getFreestyleQueryText, getQueryData, isQueryDataSet, getQueryFailureMessage, userHasInteracted } from '../../store/query-selectors'
-
+import { getVisualizationDataSources, getQueryIsLoading, getFreestyleQueryText, getQueryData, getQueryFailureMessage, userHasInteracted, shouldAutoFetchQuery } from '../../store/query-selectors'
 import { getDatasetRecommendations } from "../../store/selectors"
 
 const mapStateToProps = state => {
@@ -14,7 +12,7 @@ const mapStateToProps = state => {
     freestyleQueryText: getFreestyleQueryText(state),
     queryData: getQueryData(state),
     queryFailureMessage: getQueryFailureMessage(state),
-    autoFetchQuery: !isQueryDataSet(state),
+    autoFetchQuery: shouldAutoFetchQuery(state),
     userHasInteracted: userHasInteracted(state)
   }
 }
@@ -26,4 +24,4 @@ const mapDispatchToProps = dispatch => ({
   setUserInteracted: () => dispatch(setUserInteracted()),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(DatasetQueryView)
+export default connect(mapStateToProps, mapDispatchToProps)(QueryView)

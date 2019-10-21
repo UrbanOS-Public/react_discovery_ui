@@ -16,8 +16,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   DOWNLOAD_DATASET_SUCCEEDED,
-  DOWNLOAD_DATASET_FAILED,
+  DOWNLOAD_DATASET_FAILED
 } from '../actions'
+import visualizationReducer from './visualization-reducer'
 
 import queryReducer from './query-reducer'
 
@@ -114,11 +115,11 @@ const presentationReducer = (state = defaultPresentationState, action) => {
   }
 }
 
-
 const reducers = {
   datasetReducer: datasetReducer,
   presentation: presentationReducer,
-  queryReducer: queryReducer
+  queryReducer: queryReducer,
+  visualization: visualizationReducer
 }
 
 const combined = combineReducers(reducers)

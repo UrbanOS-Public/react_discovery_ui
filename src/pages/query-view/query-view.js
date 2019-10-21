@@ -1,12 +1,12 @@
-import "./dataset-query-view.scss";
-import React, { useState } from "react";
+import "./query-view.scss";
+import React from "react";
 
 import DatasetQuery from "../../components/dataset-query";
 import ReactTable from "react-table";
 import LoadingElement from "../../components/generic-elements/loading-element";
 
-const DatasetQueryView = props => {
-  const { 
+const QueryView = props => {
+  const {
     dataSources,
     recommendations,
     isQueryLoading,
@@ -26,25 +26,24 @@ const DatasetQueryView = props => {
     if (autoFetchQuery) {
       executeQuery(freestyleQueryText)
     }
-  }, [])
+  }, [autoFetchQuery])
 
   const columns = determineColumns(dataSources)
   const data = getCleanData(queryData)
-  
+
   const numRecords = queryData ? data.length + " records returned" : "";
 
   if (isQueryLoading && queryData.length === 0) {
     return (
-      <dataset-query-page>
+      <query-view>
         <LoadingElement />
-      </dataset-query-page>
+      </query-view>
     );
   }
 
   return (
-    <dataset-query-page>
+    <query-view>
       <DatasetQuery
-        onQueryDataset={executeQuery}
         recommendations={recommendations}
 
         queryFailureMessage={queryFailureMessage}
@@ -66,7 +65,7 @@ const DatasetQueryView = props => {
           className="-striped -highlight"
         ></ReactTable>
       </div>
-    </dataset-query-page>
+    </query-view>
   );
 };
 
@@ -101,4 +100,4 @@ const getCleanData = queryData => {
   return queryData ? cleanseData(queryData) : queryData
 }
 
-export default DatasetQueryView;
+export default QueryView;

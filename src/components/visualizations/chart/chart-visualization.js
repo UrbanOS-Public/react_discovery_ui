@@ -1,12 +1,8 @@
-import PlotlyEditor, { DefaultEditor, SingleSidebarItem, Button } from 'react-chart-editor'
+import PlotlyEditor, { DefaultEditor } from 'react-chart-editor'
 import 'react-chart-editor/lib/react-chart-editor.ie.css'
 import './chart-visualization.css'
 import plotly from 'plotly.js/dist/plotly'
 import { Component } from 'react'
-
-const hasDataSources = dataSources => {
-  return dataSources && Object.keys(dataSources).length > 0
-}
 
 const getDataSourceOptions = dataSources => {
   return Object.keys(dataSources).map(name => ({
@@ -24,8 +20,6 @@ export default class ChartVisualization extends Component {
   render() {
     return (
       <chart-visualization>
-        {
-          hasDataSources(this.props.dataSources) &&
           <PlotlyEditor
             data={this.state.data}
             layout={this.state.layout}
@@ -40,8 +34,6 @@ export default class ChartVisualization extends Component {
           >
             <DefaultEditor logoSrc={window.LOGO_URL} />
           </PlotlyEditor>
-
-        }
       </chart-visualization>
     )
   }

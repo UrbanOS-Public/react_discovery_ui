@@ -16,6 +16,7 @@ import DataSetListViewWrapper from './pages/dataset-list-view'
 import DatasetView from './pages/dataset-view'
 import LoginView from './pages/login-view'
 import OauthView from './pages/oauth-view'
+import VisualizationView from './pages/visualization-view'
 
 import NetworkLoadingElement from './components/network-loading-element'
 
@@ -38,8 +39,8 @@ const noMatch = () => (
   <Redirect to='/' />
 )
 
-const DiscoveryUI = () => (
-  <main-app-element>
+const DiscoveryUI = () => {
+  return (<main-app-element>
     <NetworkLoadingElement />
     <Router>
       <Switch>
@@ -49,11 +50,12 @@ const DiscoveryUI = () => (
         <Route exact path={routes.healthCheck} component={() => <div>Everything is fine</div>} />
         <Route exact path={routes.login} component={LoginView} />
         <Route exact path={routes.oauth} component={OauthView} />
+        <Route exact path={routes.visualizationView} component={VisualizationView} />
         <Route component={noMatch} />
       </Switch>
     </Router>
-  </main-app-element>
-)
+  </main-app-element>)
+}
 
 const ReactDiscoveryUI = () => {
   const store = Redux.start()
@@ -61,7 +63,7 @@ const ReactDiscoveryUI = () => {
   return (
     <Auth0Provider>
       <Provider store={store}>
-        <DiscoveryUI />
+          <DiscoveryUI />
       </Provider>
     </Auth0Provider>
   )

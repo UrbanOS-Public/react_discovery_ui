@@ -1,17 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
-import createAuth0Client from '@auth0/auth0-spa-js'
-import routes from '../routes'
+import Auth0ClientProvider from './auth0-client-provider'
 import axios from 'axios'
 
 const DEFAULT_REDIRECT_CALLBACK = () => {
   window.history.replaceState({}, document.title, window.location.pathname)
-}
-
-const auth0Options = {
-  domain: window.AUTH0_DOMAIN,
-  client_id: window.AUTH0_CLIENT_ID,
-  audience: window.AUTH0_AUDIENCE,
-  redirect_uri: `${window.location.origin}${routes.oauth}`
 }
 
 const callLoggedIn = token => {
@@ -39,7 +31,7 @@ export const Auth0Provider = ({
 
   useEffect(() => {
     const initAuth0 = async () => {
-      const auth0FromHook = await createAuth0Client(auth0Options)
+      const auth0FromHook = await Auth0ClientProvider.get()
       setAuth0(auth0FromHook)
 
       if (window.location.search.includes("code=")) {

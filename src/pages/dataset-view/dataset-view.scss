@@ -1,14 +1,14 @@
 @import "../../styles/mixins.scss";
 @import "../../styles/variables.scss";
 
-#chartIcon {
+.chartIcon {
     padding-left: 5px;
     path {
         fill: $medium-grey;
     }
 }
 
-#sqlIcon {
+.sqlIcon {
     padding-left: 5px;
     fill: $medium-grey;
 }
@@ -16,10 +16,9 @@
 .react-tabs__tab-list {
     border-bottom: 0;
     box-shadow: 0px 1px 3px $light-grey;
-    margin: 0 0 10px;
+    margin: 0;
     padding: 0;
 }
-
 
 .react-tabs__tab {
     display: inline-block;
@@ -37,12 +36,12 @@
     border-color: $light-blue;
     color: $almost-black;
 
-    #sqlIcon{
+    .sqlIcon{
         padding-left: 5px;
         fill: $almost-black;
     }
 
-    #chartIcon {
+    .chartIcon {
         path {
             fill: $almost-black;
         }
@@ -52,14 +51,18 @@
 .react-tabs__tab:hover {
     color: $almost-black;
 
-    #sqlIcon{
+    .sqlIcon{
         padding-left: 5px;
         fill: $almost-black;
     }
 
-    #chartIcon {
+    .chartIcon {
         path {
             fill: $almost-black;
         }
     }
+}
+
+loading-element {
+    @include default-loading-icon();
 }

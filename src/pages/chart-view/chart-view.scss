@@ -1,0 +1,26 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+main-app-element {
+  overflow-y: scroll;
+}
+
+chart-view {
+  width: 100%;
+  align-self: center;
+
+  chart-visualization {
+    display: block;
+    height: 85vh;
+  }
+
+  loading-element {
+    @include default-loading-icon();
+  }
+
+  .no-data-message {
+    padding: 5rem;
+    text-align: center;
+    color: $almost-black;
+  }
+}
