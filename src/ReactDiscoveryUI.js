@@ -2,7 +2,7 @@
 import './ReactDiscoveryUI.scss'
 import 'normalize.css'
 
-import React, {withContext} from 'react'
+import React from 'react'
 import sagas from './store/sagas'
 import { reducers } from './store/reducers'
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux'
