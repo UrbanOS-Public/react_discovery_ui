@@ -34,13 +34,18 @@ const VisualizationView = (props) => {
 
   const linkUrl = idFromState && generatePath(routes.visualizationView, {id: idFromState})
   const [isDialogOpen, setDialogOpen] = useState(false)
+  const [savingNewQuery, setSavingNewQuery] = useState(true)
+  const [queryTitle, setQueryTitle] = useState('')
+  const [savedQuery, setSavedQuery] = useState(false)
 
   React.useEffect(() => { reset() }, [])
   React.useEffect(() => { if (idFromUrl) load(idFromUrl) }, [idFromUrl])
   React.useEffect(() => { if (idFromState) history.push(linkUrl) }, [idFromState])
 
-  const handleSave = () => { setDialogOpen(true); save('Placeholder Title', query) }
-  const closeDialog = () => { setDialogOpen(false) }
+  const handleTitleChange = (event) => {setQueryTitle(event.target.value); console.log(event.target.value)}
+  const openDialog = () => { setDialogOpen(true) }
+  const handleSave = () => { save(queryTitle, query); setSavedQuery(true) }
+  const closeDialog = () => { setDialogOpen(false); setSavedQuery(false); setQueryTitle('')}
 
   if (isLoadFailure) {
     return (
@@ -66,11 +71,20 @@ const VisualizationView = (props) => {
           </span>
           <span className='action-area'>
             <React.Fragment>
-              <TabButton disabled={!isSaveable} className={`header-item save-button ${isDialogOpen && 'saving'}`} onClick={handleSave} >
+              <TabButton disabled={!isSaveable} className={`header-item save-button ${isDialogOpen && 'saving'}`} onClick={openDialog} >
                 <div title='Save Visualization'><SaveIcon /></div>
               </TabButton>
               <AutoAnchoringPopover className='popover-anchor' open={isDialogOpen} onClose={closeDialog} classes={{ paper: 'popover', root: 'popover-root' }} >
-                <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkUrl={linkUrl} />
+                {savedQuery ? 
+                <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkUrl={linkUrl} /> 
+                :
+                <div>
+                  <b>Query Title: </b> 
+                  <input type="text" name="queryTitle" placeholder="Query Name" value={queryTitle} onChange={handleTitleChange} required="true"></input>
+                  <br/>
+                  <button onClick={handleSave} disabled={queryTitle == ''}>Save</button>
+                  <button onClick={closeDialog}>Cancel</button>
+                </div>}
               </AutoAnchoringPopover>
             </React.Fragment>
           </span>
@@ -85,4 +99,5 @@ const VisualizationView = (props) => {
     </visualization-view>
   )
 }
+
 export default VisualizationView
