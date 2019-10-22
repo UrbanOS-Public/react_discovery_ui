@@ -86,9 +86,11 @@ const cleanseRow = row => {
 const cleanseField = value => {
   if (typeof value === "boolean") {
     return value.toString();
+  } else if (value === null) {
+    return ''
   } else if (typeof value === "object") {
     return JSON.stringify(value);
-  } else if (value === undefined) {
+  } else if (isNaN(value)) {
     return ''
   } else {
     return value;

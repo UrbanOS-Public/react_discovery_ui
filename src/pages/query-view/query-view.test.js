@@ -88,26 +88,31 @@ describe("dataset visualization view", () => {
   })
 
   describe('dataset preview table', () => {
-    const queryData = [{ name: 'nathaniel', age: 29, isAwesome: true, spouse: { name: 'alyssa', age: 30 } }, { name: 'austin', age: 28, isAwesome: false, spouse: undefined }]
-    const expectedData = [{ name: 'nathaniel', age: 29, isAwesome: "true", spouse: JSON.stringify({ name: 'alyssa', age: 30 }) }, { name: 'austin', age: 28, isAwesome: "false", spouse: '' }]
-    const dataSources = {
-      name: ['nathaniel', 'austin'],
-      age: [29, 28],
-      isAwesome: [true, false],
-      spouse: [{ name: 'alyssa', age: 30 }, undefined]
-    }
+    it("coverts unrenderable values to strings", () => {
+      const queryData = [
+        { object: { value: 1 }, boolean: true, array: [1], nan: NaN, null: null },
+        { object: { value: 2 }, boolean: false, array: [2, 3], nan: NaN, null: null}
+      ]
+      const dataSources = {
+        object: [{ value: 1 }, { value: 2 }],
+        boolean: [true, false],
+        array: [[1], [2, 3]],
+        nan: [NaN, NaN],
+        null: [null, null]
+      }
 
-
-    beforeEach(() => {
       subject = createSubject({ queryData: queryData, dataSources: dataSources })
-    });
 
-    it("renders correctly", () => {
+      const expectedData = [
+        { object: '{\"value\":1}', boolean: 'true', array: '[1]', nan: '', null: '' },
+        { object: '{\"value\":2}', boolean: 'false', array: '[2,3]', nan: '', null: '' }
+      ]
       const expectedColumns = [
-        { Header: 'name', accessor: 'name', headerClassName: "table-header" },
-        { Header: 'age', accessor: 'age', headerClassName: "table-header" },
-        { Header: 'isAwesome', accessor: 'isAwesome', headerClassName: "table-header" },
-        { Header: 'spouse', accessor: 'spouse', headerClassName: "table-header" }
+        { Header: 'object', accessor: 'object', headerClassName: "table-header" },
+        { Header: 'boolean', accessor: 'boolean', headerClassName: "table-header" },
+        { Header: 'array', accessor: 'array', headerClassName: "table-header" },
+        { Header: 'nan', accessor: 'nan', headerClassName: "table-header" },
+        { Header: 'null', accessor: 'null', headerClassName: "table-header" }
       ]
 
       expect(subject.find(ReactTable).prop('data')).toEqual(expectedData)
