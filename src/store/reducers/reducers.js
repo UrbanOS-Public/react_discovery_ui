@@ -145,17 +145,12 @@ const searchReducer = (state = defaultSearchState, action) => {
   }
 }
 
-
->>>>>>> WIP: Initial attempt to do redux in list/search
 const reducers = {
   datasetReducer: datasetReducer,
   presentation: presentationReducer,
   queryReducer: queryReducer,
-<<<<<<< HEAD
-  visualization: visualizationReducer
-=======
+  visualization: visualizationReducer,
   searchReducer: searchReducer
->>>>>>> WIP: Initial attempt to do redux in list/search
 }
 
 const combined = combineReducers(reducers)
