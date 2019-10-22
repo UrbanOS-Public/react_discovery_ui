@@ -4,6 +4,7 @@ import React from "react";
 import DatasetQuery from "../../components/dataset-query";
 import ReactTable from "react-table";
 import LoadingElement from "../../components/generic-elements/loading-element";
+import _ from 'lodash'
 
 const QueryView = props => {
   const {
@@ -86,8 +87,13 @@ const cleanseRow = row => {
 const cleanseField = value => {
   if (typeof value === "boolean") {
     return value.toString();
+  } else if (_.isNull(value) || _.isNaN(value)) {
+    return ''
+  } else if (typeof value === "object") {
+    return JSON.stringify(value);
+  } else {
+    return value;
   }
-  return value;
 };
 
 const determineColumns = dataSources => {

@@ -3,6 +3,7 @@ import { shallow } from "enzyme";
 import QueryView from "./query-view";
 import DatasetQuery from "../../components/dataset-query";
 import LoadingElement from "../../components/generic-elements/loading-element";
+import ReactTable from "react-table";
 
 // Currently, shallow rendering is not compatible with React hooks.
 // We've utilized a strategy found here https://blog.carbonfive.com/2019/08/05/shallow-testing-hooks-with-enzyme/
@@ -84,6 +85,39 @@ describe("dataset visualization view", () => {
     subject = createSubject({ autoFetchQuery: true, executeQuery })
 
     expect(executeQuery).toHaveBeenCalledTimes(1)
+  })
+
+  describe('dataset preview table', () => {
+    it("coverts unrenderable values to strings", () => {
+      const queryData = [
+        { object: { value: 1 }, boolean: true, array: [1], nan: NaN, null: null },
+        { object: { value: 2 }, boolean: false, array: [2, 3], nan: NaN, null: null}
+      ]
+      const dataSources = {
+        object: [{ value: 1 }, { value: 2 }],
+        boolean: [true, false],
+        array: [[1], [2, 3]],
+        nan: [NaN, NaN],
+        null: [null, null]
+      }
+
+      subject = createSubject({ queryData: queryData, dataSources: dataSources })
+
+      const expectedData = [
+        { object: '{\"value\":1}', boolean: 'true', array: '[1]', nan: '', null: '' },
+        { object: '{\"value\":2}', boolean: 'false', array: '[2,3]', nan: '', null: '' }
+      ]
+      const expectedColumns = [
+        { Header: 'object', accessor: 'object', headerClassName: "table-header" },
+        { Header: 'boolean', accessor: 'boolean', headerClassName: "table-header" },
+        { Header: 'array', accessor: 'array', headerClassName: "table-header" },
+        { Header: 'nan', accessor: 'nan', headerClassName: "table-header" },
+        { Header: 'null', accessor: 'null', headerClassName: "table-header" }
+      ]
+
+      expect(subject.find(ReactTable).prop('data')).toEqual(expectedData)
+      expect(subject.find(ReactTable).prop('columns')).toEqual(expectedColumns)
+    });
   })
 });
 
