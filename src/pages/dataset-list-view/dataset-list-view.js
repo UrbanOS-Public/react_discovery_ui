@@ -80,7 +80,8 @@ export default class extends Component {
 
   onSortChange(sort) {
     this.props.updateDatasetSearchParams({
-      sort: sort
+      sort: sort,
+      offset: 0
     })
     this.props.datasetSearch()
   }
@@ -88,7 +89,8 @@ export default class extends Component {
   onFacetClick(facetName, facetValue) {
     const updatedFacets = this.toggleFacetValue(this.props.searchParams.facets, facetName, facetValue)
     this.props.updateDatasetSearchParams({
-      facets: updatedFacets
+      facets: updatedFacets,
+      offset: 0
     })
     this.props.datasetSearch()
   }
@@ -147,9 +149,9 @@ export default class extends Component {
     const resultCountText = `${this.props.searchMetadata.totalDatasets || 'No'} datasets found`
     const resultCountQueryText = this.props.searchParams.query ? ` for "${this.props.searchParams.query}"` : ''
     const token = sessionStorage.getItem('api-token')
-    if (this.props.error) { //TODO Fix this
+    if (this.props.error) {
       return <ErrorComponent errorText={'We were unable to fetch the datasets, please refresh the page to try again'} />
-    } else if (this.props.loading) {
+    } else if (this.props.isSearchLoading) {
       return this.renderLoading()
     } else {
       return (

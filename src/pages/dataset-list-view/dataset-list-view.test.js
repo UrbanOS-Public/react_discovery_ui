@@ -8,222 +8,203 @@ import LoadingElement from "../../components/generic-elements/loading-element";
 import FacetSidebar from "../../components/facet-sidebar";
 import Checkbox from "../../components/generic-elements/checkbox";
 
+let subject;
+
 describe("dataset list view", () => {
-  let expectedDatasetList, retrieveSpy, navigationSpy, datasetSearch, subject, updateDatasetSearchParams;
+  beforeEach(() => {});
+  describe("query string", () => {});
 
-  beforeEach(() => {
-    expectedDatasetList = Array.from(Array(6)).map((unused, index) => ({
-      id: index
-    }));
-    retrieveSpy = jest.fn();
-    navigationSpy = jest.fn();
-    datasetSearch = jest.fn();
-    updateDatasetSearchParams = jest.fn();
-    let searchParams = {
-      limit: 10,
-      offset: 0,
-      apiAccessible: false,
-      query: "",
-      sort: "default"
-    }
-    subject = shallow(
-      <DatasetListView
-        datasets={[]}
-        facets={[]}
-        totalDatasets={12}
-        error={false}
-        loading={false}
-        history={{ push: navigationSpy, location: {search: "?q=monkey&sort=default"} }}
-        datasetSearch={datasetSearch}
-        updateDatasetSearchParams={updateDatasetSearchParams}
-        location={{ search: "?q=monkey&sort=default" }}
-        searchMetadata={{}}
-        searchResults={[]}
-        searchParams={searchParams}
-      />
-    );
-  });
+  describe("action dispatches", () => {
+    it("initializes search parameters with any found in the url", () => {
+      const updateDatasetSearchParams = jest.fn();
+      subject = createSubject(
+        { updateDatasetSearchParams },
+        "?q=monkey&sort=name_desc&apiAccessible=true"
+      );
 
-  it("initializes search parameters with any found in the url", () => {
-    expect(
+      expect(updateDatasetSearchParams).toHaveBeenCalledWith({
+        query: "monkey",
+        sort: "name_desc",
+        apiAccessible: true,
+        facets: undefined,
+        offset: 0
+      });
+    });
+
+    it("adds search parameters when the search callback is invoked", () => {
+      const updateDatasetSearchParams = jest.fn();
+      subject = createSubject({ updateDatasetSearchParams });
       subject
         .find(Search)
-        .find("input.search-bar")
-        .props().value
-    ).toBe("monkey");
-  });
+        .props()
+        .callback("my search criteria");
 
-  it("sets paginator total page count based on total datasets and page size", () => {
-    const expectedNumberOfPages = 2; // 12 datasets with page size of 10
-    expect(subject.find(Paginator)).toHaveLength(1);
-    expect(subject.find(Paginator).props().numberOfPages).toEqual(
-      expectedNumberOfPages
-    );
-  });
-
-  it("adds search parameters when the search callback is invoked", () => {
-    subject
-      .find(Search)
-      .props()
-      .callback("my search criteria");
-    subject.update()
-    expectSearchStringContains(navigationSpy, "q=my%20search%20criteria");
-  });
-
-  it("adds sort parameters when the sort callback is invoked", () => {
-    subject
-      .find(Select)
-      .props()
-      .selectChangeCallback("stuff");
-
-    expectSearchStringContains(navigationSpy, "&sort=stuff");
-  });
-
-  it("resets the page number to 1 on sort change", () => {
-    subject
-      .find(Paginator)
-      .props()
-      .pageChangeCallback(2);
-    subject
-      .find(Select)
-      .props()
-      .selectChangeCallback("stuff");
-
-    expect(subject.find(Paginator).props().currentPage).toEqual(1);
-  });
-
-  it("resets the page number to 1 on search change", () => {
-    subject
-      .find(Paginator)
-      .props()
-      .pageChangeCallback(2);
-    subject
-      .find(Search)
-      .props()
-      .callback("new search");
-    expect(subject.find(Paginator).props().currentPage).toEqual(1);
-  });
-
-  it("adds facets to query string when facet is clicked", () => {
-    subject
-      .find(FacetSidebar)
-      .props()
-      .clickHandler("organization", "stuff");
-
-    expectSearchStringContains(navigationSpy, "&facets[organization][]=stuff");
-  });
-
-  it("adds additional facets to query string when a new facet is clicked", () => {
-    subject.setProps({
-      location: {
-        search: encodeURI(
-          "?q=newsearch&sort=name_desc&facets[organization][]=stuff"
-        )
-      }
+      expect(updateDatasetSearchParams).toHaveBeenCalledWith({
+        query: "my search criteria",
+        offset: 0
+      });
     });
-    subject
-      .find(FacetSidebar)
-      .props()
-      .clickHandler("organization", "things");
 
-    expectSearchStringContains(
-      navigationSpy,
-      "&facets[organization][]=stuff&facets[organization][]=things"
-    );
-  });
+    it("adds sort parameters when the sort callback is invoked", () => {
+      const updateDatasetSearchParams = jest.fn();
+      subject = createSubject({ updateDatasetSearchParams });
+      subject
+        .find(Select)
+        .props()
+        .selectChangeCallback("stuff");
 
-  it("removes facets in query string when a lone facet is toggled", () => {
-    subject.setProps({
-      location: {
-        search: encodeURI(
-          "?q=newsearch&sort=name_desc&facets[organization][]=stuff"
-        )
-      }
+      expect(updateDatasetSearchParams).toHaveBeenCalledWith({
+        sort: "stuff",
+        offset: 0
+      });
     });
-    subject
-      .find(FacetSidebar)
-      .props()
-      .clickHandler("organization", "stuff");
 
-    expect(navigationSpy).toHaveBeenCalledWith({
-      search: encodeURI("q=newsearch&sort=name_desc&apiAccessible=false")
+    it("adds facets to query parameters when facet is clicked", () => {
+      const updateDatasetSearchParams = jest.fn();
+      subject = createSubject({ updateDatasetSearchParams });
+      subject
+        .find(FacetSidebar)
+        .props()
+        .clickHandler("organization", "stuff");
+
+      expect(updateDatasetSearchParams).toHaveBeenCalledWith({
+        facets: { organization: ["stuff"] },
+        offset: 0
+      });
     });
-  });
 
-  it("toggles facets in query string when facet is clicked and other facets exist", () => {
-    subject.setProps({
-      location: {
-        search: encodeURI(
-          "?q=newsearch&sort=name_desc&facets[organization][]=stuff&facets[foo][]=bar"
-        )
-      }
+    it("adds additional facets to query parameters when a new facet is clicked", () => {
+      const updateDatasetSearchParams = jest.fn();
+      const searchParams = { facets: { organization: ["things"] } };
+      subject = createSubject({ updateDatasetSearchParams, searchParams });
+      subject
+        .find(FacetSidebar)
+        .props()
+        .clickHandler("organization", "stuff");
+
+      expect(updateDatasetSearchParams).toHaveBeenCalledWith({
+        facets: { organization: ["things", "stuff"] },
+        offset: 0
+      });
     });
-    subject
-      .find(FacetSidebar)
-      .props()
-      .clickHandler("organization", "stuff");
 
-    expectSearchStringContains(navigationSpy, "&facets[foo][]=bar");
-  });
+    it("removes facets in query parameters when a lone facet is toggled", () => {
+      const updateDatasetSearchParams = jest.fn();
+      const searchParams = { facets: { organization: ["things"] } };
+      subject = createSubject({ updateDatasetSearchParams, searchParams });
+      subject
+        .find(FacetSidebar)
+        .props()
+        .clickHandler("organization", "things");
 
-  it("shows error message when the error property is true", () => {
-    subject = shallow(
-      <DatasetListView
-        history={{ push: navigationSpy }}
-        location={{ search: "" }}
-        error={true}
-        datasetSearch={datasetSearch}
-        searchMetadata={{}}
-        searchResults={[]}
-        searchParams={{}}
-        location={{ search: "?q=monkey&sort=default" }}
-        updateDatasetSearchParams={jest.fn()}
+      expect(updateDatasetSearchParams).toHaveBeenCalledWith({
+        facets: { organization: [] },
+        offset: 0
+      });
+    });
 
-      />
-    );
+    it("toggles facets in query parameters when facet is clicked and other facets exist", () => {
+      const updateDatasetSearchParams = jest.fn();
+      const searchParams = { facets: { keyword: ["things", "stuff"] } };
+      subject = createSubject({ updateDatasetSearchParams, searchParams });
+      subject
+        .find(FacetSidebar)
+        .props()
+        .clickHandler("keyword", "things");
 
-    expect(subject.find(ErrorComponent)).toHaveLength(1);
-  });
-
-  it("shows a loading spinner when the loading property is true", () => {
-    subject = shallow(
-      <DatasetListView
-        history={{ push: navigationSpy }}
-        location={{ search: "" }}
-        isSearchLoading={true}
-        datasetSearch={datasetSearch}
-        searchMetadata={{}}
-        searchResults={[]}
-        searchParams={{}}
-        location={{ search: "?q=monkey&sort=default" }}
-        updateDatasetSearchParams={jest.fn()}
-
-      />
-    );
-
-    expect(subject.find(LoadingElement)).toHaveLength(1);
-  });
-
-  describe("apiAccessible checkbox", () => {
-    it("defaults apiAccessible to false", () => {
-      expect(subject.find(Checkbox).props().selected).toBeFalsy();
+      expect(updateDatasetSearchParams).toHaveBeenCalledWith({
+        facets: { keyword: ["stuff"] },
+        offset: 0
+      });
     });
 
     it("update search results when clicked", () => {
+      const updateDatasetSearchParams = jest.fn();
+      subject = createSubject({updateDatasetSearchParams, searchParams: {apiAccessible: false}});
       subject
         .find(Checkbox)
         .props()
         .clickHandler();
 
-      expect(updateDatasetSearchParams).toHaveBeenCalledTimes(2);
-      expect(updateDatasetSearchParams).lastCalledWith(
-        {"apiAccessible": true}
+      expect(updateDatasetSearchParams).lastCalledWith({ apiAccessible: true });
+    });
+  });
+
+  describe("renders correctly", () => {
+    it("sets the paginator total count based on the props", () => {
+      const expectedNumberOfPages = 4;
+      subject = createSubject({ numberOfPages: expectedNumberOfPages });
+      expect(subject.find(Paginator).props().numberOfPages).toEqual(
+        expectedNumberOfPages
       );
+    });
+
+    it("shows error message when the error property is true", () => {
+      subject = createSubject({ error: true });
+      expect(subject.find(ErrorComponent)).toHaveLength(1);
+    });
+
+    it("shows a loading spinner when the loading property is true", () => {
+      subject = createSubject({ isSearchLoading: true });
+      expect(subject.find(LoadingElement)).toHaveLength(1);
+    });
+
+    it("does not show a loading spinner when the loading property is false", () => {
+      subject = createSubject({ isSearchLoading: false });
+      expect(subject.find(LoadingElement)).toHaveLength(0);
+    });
+
+    it("apiAccessible is checked when supplied property is true", () => {
+      subject = createSubject({ searchParams: { apiAccessible: true } });
+      expect(subject.find(Checkbox).props().selected).toBeTruthy();
+    });
+
+    it("apiAccessible is not checked when supplied property is false", () => {
+      subject = createSubject({ searchParams: { apiAccessible: false } });
+      expect(subject.find(Checkbox).props().selected).toBeFalsy();
     });
   });
 });
 
-function expectSearchStringContains(navigationSpy, string) {
-  expect(navigationSpy.mock.calls.length).toBeGreaterThan(0)
-  expect(navigationSpy.mock.calls[0][0].search.indexOf(encodeURI(string)) >= 0);
+function expectSearchStringContains(navigationSpy, string, historyIndex = 0) {
+  expect(navigationSpy.mock.calls.length).toBeGreaterThan(historyIndex);
+  expect(navigationSpy.mock.calls[historyIndex][0].search).toMatch(
+    encodeURI(string)
+  );
+}
+
+function createSubject(props, queryString = "") {
+  const navigationSpy = props.navigationSpy || jest.fn();
+  const datasetSearch = props.datasetSearch || jest.fn();
+  const updateDatasetSearchParams =
+    props.updateDatasetSearchParams || jest.fn();
+
+  const defaultSearchParams = {
+    limit: 10,
+    offset: 0,
+    apiAccessible: false,
+    query: "",
+    sort: "default"
+  };
+
+  const searchParams = Object.assign({}, defaultSearchParams, props.searchParams); 
+
+  const defaultProps = {
+    datasets: [],
+    facets: [],
+    totalDatasets: 12,
+    error: false,
+    loading: false,
+    // history: { push: navigationSpy, location: {search: queryString} },
+    history: { push: navigationSpy },
+    datasetSearch: datasetSearch,
+    updateDatasetSearchParams: updateDatasetSearchParams,
+    location: { search: queryString },
+    searchMetadata: {},
+    searchResults: [],
+    searchParams: searchParams,
+    numberOfPages: 2
+  };
+  const propsWithDefaults = Object.assign({}, defaultProps, props);
+  return shallow(<DatasetListView {...propsWithDefaults} />);
 }
