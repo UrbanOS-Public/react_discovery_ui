@@ -5,7 +5,7 @@ import FilterNoneIcon from '@material-ui/icons/FilterNone'
 import { Link } from 'react-router-dom'
 
 const ShareLink = ({linkUrl}) => {
-  const absoluteURL = `https://${window.BASE_URL}${linkUrl}`
+  const absoluteURL = `${window.location.origin}${linkUrl}`
 
   return (
     <share-link>
