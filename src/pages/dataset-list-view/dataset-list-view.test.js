@@ -12,7 +12,82 @@ let subject;
 
 describe("dataset list view", () => {
   beforeEach(() => {});
-  describe("query string", () => {});
+  describe("component did update", () => {
+    it("sets query string parameters based on search parameters changing", () => {
+      let navigationSpy = jest.fn();
+      subject = createSubject({ navigationSpy });
+      const searchParams = {
+        limit: 10,
+        offset: 0,
+        apiAccessible: true,
+        query: "money",
+        sort: "modified_date"
+      };
+      subject.setProps({ searchParams });
+      expectSearchStringContains(navigationSpy, "q=money");
+      expectSearchStringContains(navigationSpy, "sort=modified_date");
+      expectSearchStringContains(navigationSpy, "apiAccessible=true");
+    });
+
+    it("sets query string page number based on the page number prop", () => {
+      let navigationSpy = jest.fn();
+      subject = createSubject({ navigationSpy });
+      const searchParams = {
+        limit: 10,
+        offset: 0,
+        apiAccessible: true,
+        query: "money",
+        sort: "modified_date"
+      };
+      subject.setProps({ searchParams, pageNumber: 10 });
+      expectSearchStringContains(navigationSpy, "page=10");
+    });
+
+    it("sets search parameters based on query string parameters changing", () => {
+      let updateDatasetSearchParams = jest.fn();
+      subject = createSubject({ updateDatasetSearchParams });
+
+      subject.setProps({
+        location: { search: "?q=money&sort=modified_date&apiAccessible=true" }
+      });
+
+      expect(updateDatasetSearchParams).toHaveBeenLastCalledWith({
+        query: "money",
+        sort: "modified_date",
+        apiAccessible: true,
+        facets: undefined,
+        offset: 0
+      });
+    });
+
+    it("sets search offset based on query string page number", () => {
+      const defaultSearchParams = {
+        limit: 10,
+        offset: 0,
+        apiAccessible: false,
+        query: "",
+        sort: "default"
+      };
+
+      const expectedSearchParams = {
+        offset: 90,
+        apiAccessible: false,
+        query: "",
+        sort: "default"
+      };
+
+      let updateDatasetSearchParams = jest.fn();
+      subject = createSubject({
+        updateDatasetSearchParams,
+        searchParams: defaultSearchParams
+      });
+      subject.setProps({ location: { search: "?page=10" } });
+
+      expect(updateDatasetSearchParams).toHaveBeenLastCalledWith(
+        expectedSearchParams
+      );
+    });
+  });
 
   describe("action dispatches", () => {
     it("initializes search parameters with any found in the url", () => {
@@ -120,7 +195,10 @@ describe("dataset list view", () => {
 
     it("update search results when clicked", () => {
       const updateDatasetSearchParams = jest.fn();
-      subject = createSubject({updateDatasetSearchParams, searchParams: {apiAccessible: false}});
+      subject = createSubject({
+        updateDatasetSearchParams,
+        searchParams: { apiAccessible: false }
+      });
       subject
         .find(Checkbox)
         .props()
@@ -179,6 +257,30 @@ function createSubject(props, queryString = "") {
   const updateDatasetSearchParams =
     props.updateDatasetSearchParams || jest.fn();
 
+  props.searchParams = defaultSearchParams(props.searchParams);
+
+  const defaultProps = {
+    datasets: [],
+    facets: [],
+    totalDatasets: 12,
+    error: false,
+    loading: false,
+    history: { push: navigationSpy },
+    datasetSearch: datasetSearch,
+    updateDatasetSearchParams: updateDatasetSearchParams,
+    location: { search: queryString },
+    searchMetadata: {},
+    searchResults: [],
+    searchParams: props.searchParams,
+    numberOfPages: 2
+  };
+  const propsWithDefaults = Object.assign({}, defaultProps, props);
+  console.log("create subject params", props.searchParams);
+  console.log("create subject", propsWithDefaults.searchParams);
+  return shallow(<DatasetListView {...propsWithDefaults} />);
+}
+
+function defaultSearchParams(params) {
   const defaultSearchParams = {
     limit: 10,
     offset: 0,
@@ -187,24 +289,5 @@ function createSubject(props, queryString = "") {
     sort: "default"
   };
 
-  const searchParams = Object.assign({}, defaultSearchParams, props.searchParams); 
-
-  const defaultProps = {
-    datasets: [],
-    facets: [],
-    totalDatasets: 12,
-    error: false,
-    loading: false,
-    // history: { push: navigationSpy, location: {search: queryString} },
-    history: { push: navigationSpy },
-    datasetSearch: datasetSearch,
-    updateDatasetSearchParams: updateDatasetSearchParams,
-    location: { search: queryString },
-    searchMetadata: {},
-    searchResults: [],
-    searchParams: searchParams,
-    numberOfPages: 2
-  };
-  const propsWithDefaults = Object.assign({}, defaultProps, props);
-  return shallow(<DatasetListView {...propsWithDefaults} />);
+  return Object.assign({}, defaultSearchParams, params);
 }
