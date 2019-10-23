@@ -18,19 +18,7 @@ export default class extends Component {
   }
 
   componentDidMount() {
-    this.props.updateDatasetSearchParams({
-      query: this.getQueryParam("q"),
-      sort: this.getQueryParam("sort"),
-      facets: this.getQueryParam("facets"),
-      offset: this.calculateOffset(
-        parseInt(this.getQueryParam("page") || 1),
-        this.props.searchParams.limit
-      ),
-      apiAccessible: this.convertStringToBooleanWithDefault(
-        this.getQueryParam("apiAccessible"),
-        false
-      )
-    });
+    this.updateDatasetSearchParamsFromQuery();
     this.fetchData(this.props.searchParams);
   }
 
@@ -62,29 +50,28 @@ export default class extends Component {
         });
       } else {
         //update redux state to match url bar
-        this.props.updateDatasetSearchParams({
-          query: this.getQueryParam("q") || this.props.searchParams.query,
-          sort: this.getQueryParam("sort") || this.props.searchParams.sort,
-          facets:
-            this.getQueryParam("facets") || this.props.searchParams.facets,
-          offset:
-            this.calculateOffset(
-              parseInt(this.getQueryParam("page") || 1),
-              this.props.searchParams.limit
-            ) || this.props.searchParams.offset,
-          apiAccessible:
-            this.convertStringToBooleanWithDefault(
-              this.getQueryParam("apiAccessible"),
-              false
-            ) || this.props.searchParams.apiAccessible
-        });
+        this.updateDatasetSearchParamsFromQuery();
         this.fetchData(this.props.searchParams);
       }
     }
   }
 
-  updateDatasetSearchParamsFromQuery(){
-    
+  updateDatasetSearchParamsFromQuery() {
+    this.props.updateDatasetSearchParams({
+      query: this.getQueryParam("q") || this.props.searchParams.query,
+      sort: this.getQueryParam("sort") || this.props.searchParams.sort,
+      facets: this.getQueryParam("facets") || this.props.searchParams.facets,
+      offset:
+        this.calculateOffset(
+          parseInt(this.getQueryParam("page") || 1),
+          this.props.searchParams.limit
+        ) || this.props.searchParams.offset,
+      apiAccessible:
+        this.convertStringToBooleanWithDefault(
+          this.getQueryParam("apiAccessible"),
+          false
+        ) || this.props.searchParams.apiAccessible
+    });
   }
 
   convertStringToBooleanWithDefault(value, defaultValue) {
@@ -188,9 +175,15 @@ export default class extends Component {
     }
   }
 
+  resultCountText() {
+    if (this.props.isSearchLoading) {
+      return "";
+    }
+    return `${this.props.searchMetadata.totalDatasets || "No"} datasets found`;
+  }
+
   render() {
-    const resultCountText = `${this.props.searchMetadata.totalDatasets ||
-      "No"} datasets found`;
+    const resultCountText = this.resultCountText();
     const resultCountQueryText = this.props.searchParams.query
       ? ` for "${this.props.searchParams.query}"`
       : "";
