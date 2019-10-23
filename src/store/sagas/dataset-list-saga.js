@@ -1,4 +1,4 @@
-import { takeEvery, select, take } from 'redux-saga/effects'
+import { select, take } from 'redux-saga/effects'
 import { DATASET_SEARCH, UPDATE_DATASET_SEARCH_PARAMS, datasetSearchSucceeded, displayError } from '../actions'
 import apiInvoker from './api-invoker'
 import { getSearchParams } from '../selectors'
