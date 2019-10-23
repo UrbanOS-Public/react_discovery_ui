@@ -23,6 +23,8 @@ const VisualizationView = (props) => {
     save,
     id: idFromState,
     query,
+    title,
+    isTitleSet,
     isLoadFailure,
     isSaving,
     isSaveSuccess,
@@ -34,18 +36,15 @@ const VisualizationView = (props) => {
 
   const linkUrl = idFromState && generatePath(routes.visualizationView, {id: idFromState})
   const [isDialogOpen, setDialogOpen] = useState(false)
-  const [savingNewQuery, setSavingNewQuery] = useState(true)
-  const [queryTitle, setQueryTitle] = useState('')
-  const [savedQuery, setSavedQuery] = useState(false)
 
   React.useEffect(() => { reset() }, [])
   React.useEffect(() => { if (idFromUrl) load(idFromUrl) }, [idFromUrl])
   React.useEffect(() => { if (idFromState) history.push(linkUrl) }, [idFromState])
 
-  const handleTitleChange = (event) => {setQueryTitle(event.target.value); console.log(event.target.value)}
+  const handleTitleChange = (event) => {console.log(event.target.value)}
   const openDialog = () => { setDialogOpen(true) }
-  const handleSave = () => { save(queryTitle, query); setSavedQuery(true) }
-  const closeDialog = () => { setDialogOpen(false); setSavedQuery(false); setQueryTitle('')}
+  const handleSave = () => { save(title, query) }
+  const closeDialog = () => { setDialogOpen(false) }
 
   if (isLoadFailure) {
     return (
@@ -71,18 +70,18 @@ const VisualizationView = (props) => {
           </span>
           <span className='action-area'>
             <React.Fragment>
-              <TabButton disabled={!isSaveable} className={`header-item save-button ${isDialogOpen && 'saving'}`} onClick={openDialog} >
+              <TabButton disabled={!isSaveable} className={`header-item save-icon ${isDialogOpen && 'saving'}`} onClick={openDialog} >
                 <div title='Save Visualization'><SaveIcon /></div>
               </TabButton>
               <AutoAnchoringPopover className='popover-anchor' open={isDialogOpen} onClose={closeDialog} classes={{ paper: 'popover', root: 'popover-root' }} >
-                {savedQuery ? 
+                {isTitleSet ? 
                 <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkUrl={linkUrl} /> 
                 :
                 <div>
                   <b>Query Title: </b> 
-                  <input type="text" name="queryTitle" placeholder="Query Name" value={queryTitle} onChange={handleTitleChange} required="true"></input>
+                  <input className="prompt" type="text" name="queryTitle" placeholder="Query Name" value={title} onChange={handleTitleChange} required="true"></input>
                   <br/>
-                  <button onClick={handleSave} disabled={queryTitle == ''}>Save</button>
+                  <button className="save-button" onClick={handleSave} disabled={!isTitleSet}>Save</button>
                   <button onClick={closeDialog}>Cancel</button>
                 </div>}
               </AutoAnchoringPopover>

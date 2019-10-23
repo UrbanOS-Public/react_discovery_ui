@@ -110,7 +110,7 @@ describe("visualization view", () => {
     })
 
     it("disables the save button", () => {
-      expect(subject.find('.save-button').props().disabled).toBeTruthy()
+      expect(subject.find('.save-icon').props().disabled).toBeTruthy()
     })
   })
 
@@ -120,31 +120,53 @@ describe("visualization view", () => {
     })
 
     it("enables the save button", () => {
-      expect(subject.find('.save-button').props().disabled).toBeFalsy()
+      expect(subject.find('.save-icon').props().disabled).toBeFalsy()
     })
   })
 
-  describe("when visualization save button is clicked", () => {
+  describe("when visualization save button is clicked and the title is set", () => {
     beforeEach(() => {
-      subject = createSubject({ isSaving: true, query, save: saveHandler })
+      subject = createSubject({ isSaving: true, query, save: saveHandler, isTitleSet: true  })
 
-      subject.find(".save-button").simulate("click")
+      subject.find(".save-icon").simulate("click")
     })
 
     it("displays the saving status popover", () => {
       expect(subject.find(AutoAnchoringPopover).props().open).toEqual(true)
     })
 
-    it("sends create visualization event with the query and a placeholder title", () => {
-      const title = 'Placeholder Title'
-
-      expect(saveHandler).toHaveBeenCalledWith(title, query)
-    })
 
     it('sets the saving indicator', () => {
       expect(subject.find(SaveIndicator).props().saving).toBe(true)
     })
   })
+
+  describe("when visualization save button is clicked and the title is not set", () => {
+    beforeEach(() => {
+      subject = createSubject({ isSaving: false, query, save: saveHandler, isTitleSet: false })
+
+      subject.find(".save-icon").simulate("click")
+    })
+
+    it("displays the title prompt popover", () => {
+      expect(subject.find(AutoAnchoringPopover).props().open).toEqual(true)
+      expect(subject.find(".prompt").length).toEqual(1)
+      expect(subject.find(".save-button").length).toEqual(1)
+    })
+ 
+    it("disables the save button when no query title has been set", () => {
+      expect(subject.find(".save-button").props().disabled).toBeTruthy()
+    })
+
+    it("sends create visualization event with the query and a query title", () => {
+      expect(saveHandler).toHaveBeenCalledWith('Query Title', query)
+    })
+
+    it('does not show the saving indicator', () => {
+      expect(subject.find(SaveIndicator).length).toBe(0)
+    })
+  })
+
 
   describe('when save succeeds', () => {
     beforeEach(() => {
@@ -198,6 +220,8 @@ const createSubject = (props = {}) => {
     isSaveSuccess: false,
     isSaveFailure: false,
     isSaveable: false,
+    isTitleSet: true,
+    title: 'Placeholder Title',
     match: { params: {} },
     history: { push: jest.fn() }
   }
@@ -215,6 +239,8 @@ const createSubject = (props = {}) => {
       isSaveSuccess={propsWithDefaults.isSaveSuccess}
       isSaveFailure={propsWithDefaults.isSaveFailure}
       isSaveable={propsWithDefaults.isSaveable}
+      isTitleSet={propsWithDefaults.isTitleSet}
+      title={propsWithDefaults.title}
       match={propsWithDefaults.match}
       history={propsWithDefaults.history}
     />

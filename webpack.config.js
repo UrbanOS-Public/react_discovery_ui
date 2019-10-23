@@ -5,7 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = (env, argv) => {
-  const productionOptimizationsEnabled = argv.mode === 'production' ? true : false
+  const productionOptimizationsEnabled = argv.mode === 'production'
 
   let plugins = [
     new HtmlWebpackPlugin({

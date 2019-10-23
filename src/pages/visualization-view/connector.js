@@ -13,7 +13,8 @@ const mapStateToProps = state => {
         isSaving: visualizationSaving(state),
         isSaveFailure: visualizationSaveFailure(state),
         isSaveSuccess: visualizationSaveSuccess(state),
-        isSaveable: isVisualizationSaveable(state)
+        isSaveable: isVisualizationSaveable(state),
+        isTitleSet: visualizationTitle(state) != null
     }
 }
 
