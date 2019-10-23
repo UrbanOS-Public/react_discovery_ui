@@ -1,7 +1,6 @@
 import { combineReducers } from "redux";
 import _ from "lodash";
 import {
-  SELECT_DATA_LIST,
   DISPLAY_ERROR,
   DATASET_DETAILS,
   DATASET_RECOMMENDATIONS_SUCCEEDED,
@@ -32,12 +31,6 @@ const defaultDatasetState = {
 
 const datasetReducer = (state = defaultDatasetState, action) => {
   switch (action.type) {
-    case SELECT_DATA_LIST:
-      return Object.assign({}, state, {
-        datasets: action.value.results,
-        facets: action.value.metadata.facets,
-        total: action.value.metadata.totalDatasets
-      });
     case DISPLAY_ERROR:
       return Object.assign({}, state, {
         datasetError: true
@@ -92,12 +85,6 @@ const presentationReducer = (state = defaultPresentationState, action) => {
         dataset_preview: undefined,
         previewLoading: false
       });
-    case SELECT_DATA_LIST:
-      return Object.assign({}, state, {
-        isVisualizationQueryLoading: false,
-        queryFailureMessage: ""
-      });
-    case SELECT_DATA_LIST:
     case DATASET_DETAILS:
       return Object.assign({}, state, {
         isLoading: false
