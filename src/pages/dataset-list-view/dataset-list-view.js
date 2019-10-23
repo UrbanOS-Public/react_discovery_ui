@@ -9,10 +9,8 @@ import FacetSidebar from "../../components/facet-sidebar";
 import ErrorComponent from "../../components/generic-elements/error-component";
 import LoadingElement from "../../components/generic-elements/loading-element";
 import Checkbox from "../../components/generic-elements/checkbox";
-import { browserHistory } from "react-router";
 import qs from "qs";
 import _ from "lodash";
-import { QueryStringBuilder } from "../../utils";
 
 export default class extends Component {
   constructor(props) {
@@ -38,30 +36,32 @@ export default class extends Component {
 
   componentDidUpdate(previousProps) {
     const urlSearchString = this.props.location.search;
-    const newSearchString =
+    const propSearchString =
       "?" +
       this.queryString({
         ...this.props.searchParams,
         page: this.props.pageNumber
       });
 
-    const previousSearchString =
+    const previousPropSearchString =
       "?" +
       this.queryString({
         ...previousProps.searchParams,
         page: previousProps.pageNumber
       });
 
-    const stateAndUrlOutOfSync = newSearchString !== urlSearchString;
-    const stateWasUpdated = newSearchString !== previousSearchString;
+    const stateAndUrlOutOfSync = propSearchString !== urlSearchString;
+    const stateWasUpdated = propSearchString !== previousPropSearchString;
 
     if (stateAndUrlOutOfSync) {
       if (stateWasUpdated) {
+        //update url bar to match props
         this.updateQueryParameters({
           ...this.props.searchParams,
           page: this.props.pageNumber
         });
       } else {
+        //update redux state to match url bar
         this.props.updateDatasetSearchParams({
           query: this.getQueryParam("q") || this.props.searchParams.query,
           sort: this.getQueryParam("sort") || this.props.searchParams.sort,
@@ -118,24 +118,11 @@ export default class extends Component {
   }
 
   onFacetClick(facetName, facetValue) {
-    const updatedFacets = this.toggleFacetValue(
-      this.props.searchParams.facets,
-      facetName,
-      facetValue
-    );
     this.props.updateDatasetSearchParams({
-      facets: updatedFacets,
+      facets: { [facetName]: [facetValue] },
       offset: 0
     });
     this.props.datasetSearch();
-  }
-
-  toggleFacetValue(facets, facetName, facetValue) {
-    //Seems like this should be in redux?
-    const facetValues = _.get(facets, facetName);
-    return Object.assign(facets || {}, {
-      [facetName]: _.xor(facetValues, [facetValue])
-    });
   }
 
   onRemoteToggleClick() {
@@ -212,8 +199,6 @@ export default class extends Component {
           }
         />
       );
-    } else if (this.props.isSearchLoading) {
-      return this.renderLoading();
     } else {
       return (
         <dataset-list-view ref={this.pageRef}>

@@ -1,4 +1,4 @@
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import DatasetListView from "./dataset-list-view";
 import Paginator from "../../components/generic-elements/paginator";
 import Select from "../../components/generic-elements/select";
@@ -158,7 +158,7 @@ describe("dataset list view", () => {
         .clickHandler("organization", "stuff");
 
       expect(updateDatasetSearchParams).toHaveBeenCalledWith({
-        facets: { organization: ["things", "stuff"] },
+        facets: { organization: ["stuff"] },
         offset: 0
       });
     });
@@ -173,7 +173,7 @@ describe("dataset list view", () => {
         .clickHandler("organization", "things");
 
       expect(updateDatasetSearchParams).toHaveBeenCalledWith({
-        facets: { organization: [] },
+        facets: { organization: ["things"] },
         offset: 0
       });
     });
@@ -188,7 +188,7 @@ describe("dataset list view", () => {
         .clickHandler("keyword", "things");
 
       expect(updateDatasetSearchParams).toHaveBeenCalledWith({
-        facets: { keyword: ["stuff"] },
+        facets: { keyword: ["things"] },
         offset: 0
       });
     });
@@ -275,8 +275,6 @@ function createSubject(props, queryString = "") {
     numberOfPages: 2
   };
   const propsWithDefaults = Object.assign({}, defaultProps, props);
-  console.log("create subject params", props.searchParams);
-  console.log("create subject", propsWithDefaults.searchParams);
   return shallow(<DatasetListView {...propsWithDefaults} />);
 }
 
