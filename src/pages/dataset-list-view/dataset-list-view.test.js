@@ -38,8 +38,13 @@ describe("dataset list view", () => {
         query: "money",
         sort: "modified_date"
       };
-      subject = createSubject({ navigationSpy, searchParams });
+      // Given the search params and a blank url
+      subject = createSubject({ navigationSpy, searchParams }, "");
+
+      // The url and props are out of sync, the props haven't changed, and the url is blank
       subject.setProps({ searchParams });
+
+      // The url is updated with the search params
       expectSearchStringContains(navigationSpy, "q=money");
       expectSearchStringContains(navigationSpy, "sort=modified_date");
       expectSearchStringContains(navigationSpy, "apiAccessible=true");
