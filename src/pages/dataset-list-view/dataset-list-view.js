@@ -19,7 +19,7 @@ export default class extends Component {
 
   componentDidMount() {
     this.updateDatasetSearchParamsFromQuery();
-    this.datasetSearchWithOffset(this.props.searchParams);
+    this.props.datasetSearch();
   }
 
   componentDidUpdate(previousProps) {
@@ -47,7 +47,7 @@ export default class extends Component {
       } else {
         //update redux state to match url bar
         this.updateDatasetSearchParamsFromQuery();
-        this.datasetSearchWithOffset(this.props.searchParams);
+        this.props.datasetSearch();
       }
     }
   }
@@ -57,11 +57,10 @@ export default class extends Component {
       query: this.getQueryParam("q") || this.props.searchParams.query,
       sort: this.getQueryParam("sort") || this.props.searchParams.sort,
       facets: this.getQueryParam("facets") || this.props.searchParams.facets,
-      offset:
-        this.calculateOffset(
-          parseInt(this.getQueryParam("page") || 1),
-          this.props.searchParams.limit
-        ) || this.props.searchParams.offset,
+      offset: this.calculateOffset(
+        parseInt(this.getQueryParam("page") || 1),
+        this.props.searchParams.limit
+      ),
       apiAccessible:
         this.convertStringToBooleanWithDefault(
           this.getQueryParam("apiAccessible"),
@@ -84,11 +83,6 @@ export default class extends Component {
     return qs.parse(this.props.location.search, { ignoreQueryPrefix: true })[
       param
     ];
-  }
-
-  datasetSearchWithOffset({ pageNumber, limit, sort, query, facets, apiAccessible }) {
-    const offset = this.calculateOffset(pageNumber, limit)
-    this.props.datasetSearch({ offset, limit, sort, query, facets, apiAccessible });
   }
 
   onSearchChange(criteria) {
