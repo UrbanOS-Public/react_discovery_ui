@@ -38,7 +38,7 @@ export default class extends Component {
     const stateWasUpdated = propSearchString !== previousPropSearchString;
 
     if (stateAndUrlOutOfSync) {
-      if (stateWasUpdated) {
+      if (stateWasUpdated || !urlSearchString) {
         //update url bar to match props
         this.updateQueryParameters({
           ...this.props.searchParams,
