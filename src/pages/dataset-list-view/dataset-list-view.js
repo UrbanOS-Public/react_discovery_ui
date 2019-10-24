@@ -23,8 +23,7 @@ export default class extends Component {
   }
 
   componentDidUpdate(previousProps) {
-    // const urlSearchString = this.props.location.search;
-    const urlSearchString = this.props.history.location.search;
+    const urlSearchString = this.props.location.search;
     const propSearchString = this.queryString({
       ...this.props.searchParams,
       page: this.props.pageNumber
@@ -39,17 +38,13 @@ export default class extends Component {
     const stateWasUpdated = propSearchString !== previousPropSearchString;
 
     if (stateAndUrlOutOfSync) {
-      console.log('out of sync props', propSearchString)
-      console.log('out of sync url', urlSearchString)
       if (stateWasUpdated || !urlSearchString) {
-        console.log('updating url bar', this.props.history)
         //update url bar to match props
         this.updateQueryParameters({
           ...this.props.searchParams,
           page: this.props.pageNumber
         });
       } else {
-        console.log('updating redux')
         //update redux state to match url bar
         this.updateDatasetSearchParamsFromQuery();
         this.datasetSearchWithOffset(this.props.searchParams);

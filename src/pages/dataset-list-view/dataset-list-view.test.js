@@ -29,6 +29,22 @@ describe("dataset list view", () => {
       expectSearchStringContains(navigationSpy, "apiAccessible=true");
     });
 
+    it("sets query string parameters based on default search parameters even if the query string is empty", () => {
+      let navigationSpy = jest.fn();
+      const searchParams = {
+        limit: 10,
+        offset: 0,
+        apiAccessible: true,
+        query: "money",
+        sort: "modified_date"
+      };
+      subject = createSubject({ navigationSpy, searchParams });
+      subject.setProps({ searchParams });
+      expectSearchStringContains(navigationSpy, "q=money");
+      expectSearchStringContains(navigationSpy, "sort=modified_date");
+      expectSearchStringContains(navigationSpy, "apiAccessible=true");
+    });
+
     it("sets query string page number based on the page number prop", () => {
       let navigationSpy = jest.fn();
       subject = createSubject({ navigationSpy });
