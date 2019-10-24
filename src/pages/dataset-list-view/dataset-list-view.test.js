@@ -30,6 +30,13 @@ describe("dataset list view", () => {
     });
 
     it("sets query string parameters based on default search parameters even if the query string is empty", () => {
+       /**
+        The first time that the dataset list view updates, if the query string is empty, it can go into an infinite loop.
+        The url string and props (search params) are out of sync.
+        Because props HAVE NOT changed, componentDidUpdate updates the props to match the url string.
+        The url string is empty and the props are attempted to be changed to their defaults. 
+        Because there is no change, we repeat the loop.
+      **/
       let navigationSpy = jest.fn();
       const searchParams = {
         limit: 10,
