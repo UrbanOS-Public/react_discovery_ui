@@ -2,7 +2,9 @@
 @import "../../styles/mixins.scss";
 
 dataset-query {
-  margin: 1.25rem;
+  $default-margin: 1.25rem;
+
+  margin: $default-margin;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -44,10 +46,10 @@ dataset-query {
   textarea {
     width: 100%;
     border-color: black;
+    resize: none;
   }
 
   .user-input {
-    height: 10em;
     width: 100%;
     display: flex;
     margin-right: 2rem;
@@ -59,11 +61,10 @@ dataset-query {
   }
 
   .sql-title {
-    height: 30%;
+    margin-bottom: $default-margin;
   }
   
   .sql-textbox {
-    height: 60%;
     padding: 0.5rem;
   }
 
@@ -78,7 +79,7 @@ dataset-query {
     flex-grow: 1;
 
     .title {
-      height: 30%;
+      margin-bottom: $default-margin;
 
       span {
         font-weight: bold;
@@ -89,6 +90,4 @@ dataset-query {
       }
     }
   }
-
-
 }
