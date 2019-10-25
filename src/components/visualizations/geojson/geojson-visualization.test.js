@@ -177,13 +177,14 @@ describe('<GeoJSONVisualization />', () => {
 
   describe('with geoJsonData with no coordinates', () => {
     it('displays a default bounding box', () => {
-      const geoJsonData = { features: [] }
+      const previewedGeoJsonData = { features: [] }
+      const downloadedGeoJsonData = { features: [], bbox: [null, null, null,null] }
       wrapper = shallow(
         <GeoJSONVisualization
           previewDataset={previewDataset}
           downloadDataset={downloadDataset}
-          previewedGeoJsonData={geoJsonData}
-          downloadedGeoJsonData={geoJsonData}
+          previewedGeoJsonData={previewedGeoJsonData}
+          downloadedGeoJsonData={downloadedGeoJsonData}
         />)
 
       const previewMapWrapper = wrapper.find('[test-id="preview-map"]')
