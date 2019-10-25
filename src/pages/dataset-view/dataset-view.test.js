@@ -36,11 +36,11 @@ describe("dataset view", () => {
     expect(subject.find(DatasetDetailView).length).toEqual(1);
   });
 
-  it("has a dataset visualization view component", () => {
+  it("has a chart view component", () => {
     expect(subject.find(ChartView).length).toEqual(1);
   });
 
-  it("has a dataset query view component", () => {
+  it("has a query view component", () => {
     expect(subject.find(QueryView).length).toEqual(1);
   })
 })

@@ -1,7 +1,7 @@
 import "./query-view.scss";
 import React from "react";
 
-import DatasetQuery from "../../components/dataset-query";
+import QueryForm from "../../components/query-form";
 import ReactTable from "react-table";
 import LoadingElement from "../../components/generic-elements/loading-element";
 import _ from 'lodash'
@@ -44,7 +44,7 @@ const QueryView = props => {
 
   return (
     <query-view>
-      <DatasetQuery
+      <QueryForm
         recommendations={recommendations}
 
         queryFailureMessage={queryFailureMessage}

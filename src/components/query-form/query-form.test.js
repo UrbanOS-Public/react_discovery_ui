@@ -1,13 +1,12 @@
 import { mount } from 'enzyme'
-import DatasetQuery from './dataset-query'
+import QueryForm from './query-form'
 import LoadingElement from '../generic-elements/loading-element';
 import RecommendationList from '../recommendation-list'
 import { recommendations } from '../../../test-helpers/recommendations'
 
-
 let subject, queryCallback, updateCallback
 
-describe('DatasetQuery', () => {
+describe('QueryForm', () => {
   describe('on initial running query', () => {
     beforeEach(() => {
       subject = createSubject({ isQueryLoaded: false, isQueryLoading: true })
@@ -219,7 +218,7 @@ function createSubject(params) {
   const paramsWithDefaults = Object.assign({}, defaults, params)
 
   return mount(
-    <DatasetQuery
+    <QueryForm
       queryText={paramsWithDefaults.queryText}
       recommendations={paramsWithDefaults.recommendations}
       queryFailureMessage={paramsWithDefaults.queryFailureMessage}

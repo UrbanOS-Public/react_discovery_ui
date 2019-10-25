@@ -1,7 +1,7 @@
 import { shallow } from "enzyme";
 
 import QueryView from "./query-view";
-import DatasetQuery from "../../components/dataset-query";
+import QueryForm from "../../components/query-form";
 import LoadingElement from "../../components/generic-elements/loading-element";
 import ReactTable from "react-table";
 
@@ -13,7 +13,7 @@ const runUseEffect = () => {
   useEffect.mockImplementationOnce(f => f());
 };
 
-describe("dataset visualization view", () => {
+describe("query view", () => {
   let subject;
 
   describe("before load", () => {
@@ -44,7 +44,7 @@ describe("dataset visualization view", () => {
 
       beforeEach(() => {
         subject
-          .find(DatasetQuery)
+          .find(QueryForm)
           .props()
           .executeQuery(newText);
       })
@@ -61,7 +61,7 @@ describe("dataset visualization view", () => {
     subject = createSubject({})
 
     subject
-      .find(DatasetQuery)
+      .find(QueryForm)
       .props()
       .executeQuery("SELECT * FROM sky");
     subject.setProps({ isQueryLoading: true });
@@ -91,7 +91,7 @@ describe("dataset visualization view", () => {
     it("coverts unrenderable values to strings", () => {
       const queryData = [
         { object: { value: 1 }, boolean: true, array: [1], nan: NaN, null: null },
-        { object: { value: 2 }, boolean: false, array: [2, 3], nan: NaN, null: null}
+        { object: { value: 2 }, boolean: false, array: [2, 3], nan: NaN, null: null }
       ]
       const dataSources = {
         object: [{ value: 1 }, { value: 2 }],

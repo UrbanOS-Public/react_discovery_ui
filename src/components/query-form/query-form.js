@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
-import './dataset-query.scss'
+import './query-form.scss'
 import LoadingElement from '../generic-elements/loading-element'
 import RecommendationList from '../recommendation-list'
 import ReactTooltip from 'react-tooltip'
@@ -17,7 +17,7 @@ const adjustHeight = (element) => {
   }
 }
 
-const DatasetQuery = props => {
+const QueryForm = props => {
   const {
     queryText,
     recommendations,
@@ -36,7 +36,7 @@ const DatasetQuery = props => {
 
   React.useEffect(() => {
     setLocalQueryText(queryText);
-    adjustHeight(textAreaRef.current) // TODO: this works!  how to test?
+    adjustHeight(textAreaRef.current)
   }, [queryText])
 
   const handleQueryChange = event => {
@@ -102,7 +102,7 @@ const DatasetQuery = props => {
   }
 
   return (
-    <dataset-query>
+    <query-form>
       <div className="user-input">
         <div className="sql-section">
           <div className="sql-title">Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</div>
@@ -117,11 +117,11 @@ const DatasetQuery = props => {
         {successMessage}
         {isQueryLoading && <LoadingElement />}
       </div>
-    </dataset-query>
+    </query-form>
   )
 }
 
-DatasetQuery.propTypes = {
+QueryForm.propTypes = {
   queryText: PropTypes.string,
   recommendations: PropTypes.array,
   queryFailureMessage: PropTypes.string,
@@ -134,4 +134,4 @@ DatasetQuery.propTypes = {
   setUserInteracted: PropTypes.func.isRequired
 }
 
-export default DatasetQuery
+export default QueryForm
