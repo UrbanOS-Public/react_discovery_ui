@@ -1,13 +1,12 @@
 import { mount } from 'enzyme'
-import DatasetQuery from './dataset-query'
+import QueryForm from './query-form'
 import LoadingElement from '../generic-elements/loading-element';
 import RecommendationList from '../recommendation-list'
 import { recommendations } from '../../../test-helpers/recommendations'
 
-
 let subject, queryCallback, updateCallback
 
-describe('DatasetQuery', () => {
+describe('QueryForm', () => {
   describe('on initial running query', () => {
     beforeEach(() => {
       subject = createSubject({ isQueryLoaded: false, isQueryLoading: true })
@@ -112,6 +111,33 @@ describe('DatasetQuery', () => {
     })
   })
 
+  describe('when the query changes locally', () => {
+    let queryInput
+    beforeEach(() => {
+      subject = createSubject({})
+
+      queryInput = subject.find('textarea')
+    })
+
+    it('it expands the text area height to avoid scrolling', () => {
+      const scrollHeight = 106
+      let element = { scrollHeight, style: {}, value: 'some really long multi-line query' }
+
+      queryInput.simulate('change', { target: element });
+
+      expect(element.style.height).toBe(`${scrollHeight}px`)
+    })
+
+    it('does not adjust the test area height below the minimum height', () => {
+      const scrollHeight = 105
+      let element = { scrollHeight, style: {}, value: '' }
+
+      queryInput.simulate('change', { target: element })
+
+      expect(element.style.height).toBeFalsy()
+    })
+  })
+
   describe('on success', () => {
     beforeEach(() => {
       subject = createSubject({ isQueryLoading: false, isQueryLoaded: true, userHasInteracted: true })
@@ -192,7 +218,7 @@ function createSubject(params) {
   const paramsWithDefaults = Object.assign({}, defaults, params)
 
   return mount(
-    <DatasetQuery
+    <QueryForm
       queryText={paramsWithDefaults.queryText}
       recommendations={paramsWithDefaults.recommendations}
       queryFailureMessage={paramsWithDefaults.queryFailureMessage}
