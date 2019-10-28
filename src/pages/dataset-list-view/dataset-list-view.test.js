@@ -88,6 +88,23 @@ describe("dataset list view", () => {
       });
     });
 
+    it("a query string page of 1 returns the proper offset", () => {
+      let updateDatasetSearchParams = jest.fn();
+      subject = createSubject({ updateDatasetSearchParams, searchParams: {offset: 10} });
+
+      subject.setProps({
+        location: { search: "?q=money&sort=modified_date&apiAccessible=true&page=1" }
+      });
+
+      expect(updateDatasetSearchParams).toHaveBeenLastCalledWith({
+        query: "money",
+        sort: "modified_date",
+        apiAccessible: true,
+        facets: undefined,
+        offset: 0
+      });
+    });
+
     it("sets search offset based on query string page number", () => {
       const defaultSearchParams = {
         limit: 10,
