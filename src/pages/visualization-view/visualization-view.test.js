@@ -124,10 +124,10 @@ describe("visualization view", () => {
     })
   })
 
-  describe("when visualization save button is clicked and the title is set", () => {
+  describe("when visualization save button is clicked to update a previously saved visualization", () => {
     beforeEach(() => {
-      subject = createSubject({ isSaving: true, query, save: saveHandler, isTitleSet: true  })
-
+      subject = createSubject({ isSaving: true, query, save: saveHandler, updateQuery: true })
+      
       subject.find(".save-icon").simulate("click")
     })
 
@@ -135,13 +135,12 @@ describe("visualization view", () => {
       expect(subject.find(AutoAnchoringPopover).props().open).toEqual(true)
     })
 
-
     it('sets the saving indicator', () => {
-      expect(subject.find(SaveIndicator).props().saving).toBe(true)
+      expect(subject.find(SaveIndicator).length).toBe(1)
     })
   })
 
-  describe("when visualization save button is clicked and the title is not set", () => {
+  describe("when visualization save button is clicked to save a new visualization", () => {
     beforeEach(() => {
       subject = createSubject({ isSaving: false, query, save: saveHandler, isTitleSet: false })
 
@@ -159,6 +158,8 @@ describe("visualization view", () => {
     })
 
     it("sends create visualization event with the query and a query title", () => {
+      subject.find(".prompt").simulate("change", {target: { value: 'Query Title'}})
+      subject.find(".save-button").simulate("click")
       expect(saveHandler).toHaveBeenCalledWith('Query Title', query)
     })
 
@@ -170,7 +171,7 @@ describe("visualization view", () => {
 
   describe('when save succeeds', () => {
     beforeEach(() => {
-      subject = createSubject({ isSaveSuccess: true, id })
+      subject = createSubject({ isSaveSuccess: true, id, updateQuery: true })
     })
 
     it('indicates the save succeeded', () => {
@@ -186,7 +187,7 @@ describe("visualization view", () => {
 
   describe('when save fails', () => {
     beforeEach(() => {
-      subject = createSubject({ isSaveFailure: true })
+      subject = createSubject({ isSaveFailure: true, id, updateQuery: true })
     })
 
     it('indicates the save failed', () => {
@@ -213,6 +214,7 @@ const createSubject = (props = {}) => {
     reset: jest.fn(),
     load: jest.fn(),
     save: jest.fn(),
+    update: jest.fn(),
     id: undefined,
     query: undefined,
     isLoadFailure: false,
@@ -221,6 +223,7 @@ const createSubject = (props = {}) => {
     isSaveFailure: false,
     isSaveable: false,
     isTitleSet: true,
+    updateQuery: false,
     title: 'Placeholder Title',
     match: { params: {} },
     history: { push: jest.fn() }
@@ -232,6 +235,7 @@ const createSubject = (props = {}) => {
       reset={propsWithDefaults.reset}
       save={propsWithDefaults.save}
       load={propsWithDefaults.load}
+      update={propsWithDefaults.update}
       id={propsWithDefaults.id}
       query={propsWithDefaults.query}
       isLoadFailure={propsWithDefaults.isLoadFailure}
@@ -241,6 +245,7 @@ const createSubject = (props = {}) => {
       isSaveable={propsWithDefaults.isSaveable}
       isTitleSet={propsWithDefaults.isTitleSet}
       title={propsWithDefaults.title}
+      updateQuery={propsWithDefaults.updateQuery}
       match={propsWithDefaults.match}
       history={propsWithDefaults.history}
     />

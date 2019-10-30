@@ -1,4 +1,4 @@
-import { visualizationSave, visualizationLoadFailure, visualizationSaveFailure, visualizationLoad, visualizationLoadSuccess, visualizationSaveSuccess, setQueryText } from '../actions'
+import { visualizationSave, visualizationUpdate, visualizationLoadFailure, visualizationSaveFailure, visualizationLoad, visualizationLoadSuccess, visualizationSaveSuccess, setQueryText } from '../actions'
 import visualizationSaga from './visualization-saga'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
@@ -111,6 +111,58 @@ describe('visualization-saga', () => {
 
       it('signals the visualization is unavailable', () => {
         store.dispatch(visualizationSave(title, query))
+
+        expect(store.getState()).toContainEqual(visualizationSaveFailure(errorMessage))
+      })
+    })
+  })
+
+  describe('updateVisualization', () => {
+    const id = "hello"
+    const title = "my first visualization"
+    const query = "select hello from world"
+    const returnedVisualization = { id, title, query }
+
+    describe('successfully', () => {
+      beforeEach(() => {
+        AuthenticatedHTTPClient.put = jest.fn(() => ({ status: 200, data: returnedVisualization }))
+        store.dispatch(visualizationUpdate(id, title, query))
+      })
+
+      it('calls the correct API endpoint', () => {
+        expect(AuthenticatedHTTPClient.put).toHaveBeenCalledWith(`/api/v1/visualization/${id}`, { id, title, query })
+      })
+
+      it('signals the visualization is available', () => {
+        expect(store.getState()).toContainEqual(visualizationSaveSuccess(returnedVisualization))
+      })
+
+      it('sets the query text', () => {
+        expect(store.getState()).toContainEqual(setQueryText(query))
+      })
+    })
+
+    describe('with a non-success status code', () => {
+      const nonSuccessStatusCode = 400
+      beforeEach(() => {
+        AuthenticatedHTTPClient.put = jest.fn(() => ({ status: nonSuccessStatusCode }))
+      })
+
+      it('signals the visualization is unavailable', () => {
+        store.dispatch(visualizationUpdate(title, query))
+
+        expect(store.getState()).toContainEqual(visualizationSaveFailure(nonSuccessStatusCode))
+      })
+    })
+
+    describe('with a thrown error', () => {
+      const errorMessage = 'WRONG'
+      beforeEach(() => {
+        AuthenticatedHTTPClient.put = jest.fn(() => { throw new Error(errorMessage) })
+      })
+
+      it('signals the visualization is unavailable', () => {
+        store.dispatch(visualizationUpdate(title, query))
 
         expect(store.getState()).toContainEqual(visualizationSaveFailure(errorMessage))
       })

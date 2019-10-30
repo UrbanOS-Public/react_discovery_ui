@@ -27,6 +27,12 @@ class AuthenticatedHTTPClient {
 
     return axiosClient.post(url, body, config)
   }
+
+  static async put(url, body, config = {}) {
+    const axiosClient = await AuthenticatedHTTPClient.initializeClient()
+
+    return axiosClient.put(url, body, config)
+  }
 }
 
 export { AuthenticatedHTTPClient }
