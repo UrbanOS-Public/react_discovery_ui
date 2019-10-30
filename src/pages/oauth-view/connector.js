@@ -4,9 +4,9 @@ import { oAuthCallLoggedIn } from '../../store/actions'
 
 
 const mapStateToProps = state => {
-  // return {
-  //   loading: false
-  // }
+  return {
+    // loading: false
+  }
 }
 
 const mapDispatchToProps = dispatch => ({

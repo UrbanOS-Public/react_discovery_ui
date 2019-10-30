@@ -6,7 +6,8 @@ import axios from 'axios'
 
 const OAuthView = (props) => {
   const {
-    callLoggedIn
+    callLoggedIn,
+    history
   } = props
 
 
@@ -20,20 +21,15 @@ const OAuthView = (props) => {
       setAuthenticated(isAuthenticated)
       setAuth0(auth0Client)
 
-      console.log(window.location.search)
-      if (window.location.search.includes("code=")) {
-        console.log("We in here")
+      if (history.location.search.includes("code=")) {
         await auth0Client.handleRedirectCallback()
         callLoggedIn()
-        onRedirectCallback()
+        history.replace("/oauth")
         setAuthenticated(true)
       }
     }
     connectAuth0()
   }, [])
-
-  console.log(auth0Client, isAuthenticated)
-
 
   return (
     <OAuthLoginZone
@@ -42,10 +38,6 @@ const OAuthView = (props) => {
       logout={(...p) => auth0Client.logout(...p)}
     />
   )
-}
-
-const onRedirectCallback = () => {
-  window.history.replaceState({}, document.title, window.location.pathname)
 }
 
 
