@@ -61,11 +61,9 @@ const ReactDiscoveryUI = () => {
   const store = Redux.start()
 
   return (
-    // <Auth0Provider>
     <Provider store={store}>
       <DiscoveryUI />
     </Provider>
-    // </Auth0Provider>
   )
 }
 

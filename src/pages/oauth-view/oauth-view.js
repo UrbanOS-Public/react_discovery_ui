@@ -28,6 +28,7 @@ const OAuthView = (props) => {
         setAuthenticated(true)
       }
     }
+
     connectAuth0()
   }, [])
 

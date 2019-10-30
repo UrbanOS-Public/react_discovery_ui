@@ -3,7 +3,7 @@ import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import { OAUTH_LOGGED_IN } from '../actions'
 
 function* callLoggedIn() {
-  yield callEndpoint(() => AuthenticatedHTTPClient.post('/api/v1/logged-in', ''))
+  yield call(() => AuthenticatedHTTPClient.post('/api/v1/logged-in', ''))
 }
 
 function* oAuthLogInSaga() {
