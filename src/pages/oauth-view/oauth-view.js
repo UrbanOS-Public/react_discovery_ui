@@ -1,10 +1,15 @@
-import OauthLoginZone from "../../components/oauth-login"
+import OAuthLoginZone from "../../components/oauth-login"
 import Auth0ClientProvider from '../../auth/auth0-client-provider.js'
 import { useEffect, useState, useContext } from "react"
 import axios from 'axios'
 
 
-const OauthView = () => {
+const OAuthView = (props) => {
+  const {
+    callLoggedIn
+  } = props
+
+
   const [isAuthenticated, setAuthenticated] = useState()
   const [auth0Client, setAuth0] = useState()
 
@@ -15,10 +20,11 @@ const OauthView = () => {
       setAuthenticated(isAuthenticated)
       setAuth0(auth0Client)
 
-
+      console.log(window.location.search)
       if (window.location.search.includes("code=")) {
+        console.log("We in here")
         await auth0Client.handleRedirectCallback()
-        auth0Client.getTokenSilently().then(callLoggedIn)
+        callLoggedIn()
         onRedirectCallback()
         setAuthenticated(true)
       }
@@ -29,28 +35,18 @@ const OauthView = () => {
   console.log(auth0Client, isAuthenticated)
 
 
-  return <OauthLoginZone
-    isAuthenticated={isAuthenticated}
-    loginWithRedirect={(...p) => auth0Client.loginWithRedirect(...p)}
-    logout={(...p) => auth0Client.logout(...p)}
-  />
+  return (
+    <OAuthLoginZone
+      isAuthenticated={isAuthenticated}
+      loginWithRedirect={(...p) => auth0Client.loginWithRedirect(...p)}
+      logout={(...p) => auth0Client.logout(...p)}
+    />
+  )
 }
 
 const onRedirectCallback = () => {
   window.history.replaceState({}, document.title, window.location.pathname)
-
 }
 
-const callLoggedIn = token => {
-  return axios.post(
-    '/api/v1/logged-in',
-    '',
-    {
-      baseURL: window.API_HOST,
-      headers: { Authorization: `Bearer ${token}` },
-      withCredentials: true
-    }
-  )
-}
 
-export default OauthView
+export default OAuthView

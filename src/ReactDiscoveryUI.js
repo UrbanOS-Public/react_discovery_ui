@@ -15,7 +15,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import DataSetListViewWrapper from './pages/dataset-list-view'
 import DatasetView from './pages/dataset-view'
 import LoginView from './pages/login-view'
-import OauthView from './pages/oauth-view'
+import OAuthView from './pages/oauth-view'
 import VisualizationView from './pages/visualization-view'
 
 import NetworkLoadingElement from './components/network-loading-element'
@@ -49,7 +49,7 @@ const DiscoveryUI = () => {
         <Redirect exact path={routes.datasetVisualizationView} to={{ pathname: routes.datasetView, search: '?selectedIndex=1' }} />
         <Route exact path={routes.healthCheck} component={() => <div>Everything is fine</div>} />
         <Route exact path={routes.login} component={LoginView} />
-        <Route exact path={routes.oauth} component={OauthView} />
+        <Route exact path={routes.oauth} component={OAuthView} />
         <Route exact path={routes.visualizationView} component={VisualizationView} />
         <Route component={noMatch} />
       </Switch>

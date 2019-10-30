@@ -177,7 +177,7 @@ export const visualizationLoadFailure = (errorMessage) => ({
 
 export const VISUALIZATION_SAVE = 'VISUALIZATION_SAVE'
 export const visualizationSave = (title, query) => ({
-  type: VISUALIZATION_SAVE, value: {title, query}
+  type: VISUALIZATION_SAVE, value: { title, query }
 })
 
 export const VISUALIZATION_SAVE_SUCCESS = 'VISUALIZATION_SAVE_SUCCESS'
@@ -208,4 +208,9 @@ export const updateDatasetSearchParams = (params) => ({
 export const DATASET_SEARCH_SUCCEEDED = 'DATASET_SEARCH_SUCCEEDED'
 export const datasetSearchSucceeded = (data) => ({
   type: DATASET_SEARCH_SUCCEEDED, value: data
+})
+
+export const OAUTH_LOGGED_IN = "OAUTH_LOGGED_IN"
+export const oAuthCallLoggedIn = () => ({
+  type: OAUTH_LOGGED_IN
 })

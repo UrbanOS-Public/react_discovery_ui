@@ -1,3 +1,3 @@
-import OauthLoginZone from './oauth-login-zone'
+import OAuthLoginZone from './oauth-login-zone'
 
-export default OauthLoginZone
+export default OAuthLoginZone

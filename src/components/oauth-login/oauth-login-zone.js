@@ -5,7 +5,7 @@ import routes from '../../routes';
 
 const returnTo = `${window.location.origin}${routes.oauth}`
 
-const OauthLoginZone = ({ isAuthenticated, loginWithRedirect, logout }) => {
+const OAuthLoginZone = ({ isAuthenticated, loginWithRedirect, logout }) => {
   return (
     <login-zone>
       {
@@ -17,4 +17,4 @@ const OauthLoginZone = ({ isAuthenticated, loginWithRedirect, logout }) => {
   )
 }
 
-export default OauthLoginZone
+export default OAuthLoginZone
