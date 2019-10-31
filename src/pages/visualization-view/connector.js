@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import VisualizationView from './visualization-view'
-import { visualizationLoad, visualizationReset, visualizationSave, visualizationUpdate, visualizationSaveFinish } from '../../store/actions'
+import { visualizationLoad, visualizationReset, visualizationSave, visualizationUpdate } from '../../store/actions'
 import { getFreestyleQueryText } from '../../store/query-selectors'
-import { visualizationTitle, visualizationSaving, isVisualizationSaveable, visualizationSaveSuccess, visualizationLoadSuccess, visualizationID, visualizationLoadFailure, visualizationSaveFailure} from '../../store/visualization-selectors'
+import { visualizationTitle, visualizationSaving, isVisualizationSaveable, visualizationSaveSuccess, visualizationID, visualizationLoadFailure, visualizationSaveFailure} from '../../store/visualization-selectors'
 
 const mapStateToProps = state => {
     return {
@@ -13,8 +13,7 @@ const mapStateToProps = state => {
         isSaving: visualizationSaving(state),
         isSaveFailure: visualizationSaveFailure(state),
         isSaveSuccess: visualizationSaveSuccess(state),
-        isSaveable: isVisualizationSaveable(state),
-        updateQuery: visualizationID(state) !== undefined
+        isSaveable: isVisualizationSaveable(state)
     }
 }
 

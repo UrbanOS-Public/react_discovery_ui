@@ -31,34 +31,32 @@ const VisualizationView = (props) => {
     isSaveSuccess,
     isSaveFailure,
     isSaveable,
-    updateQuery,
     match: { params: { id: idFromUrl } },
     history
   } = props
 
   const linkUrl = idFromState && generatePath(routes.visualizationView, { id: idFromState })
   const [isDialogOpen, setDialogOpen] = useState(false)
-  const [queryTitle, setQueryTitle] = useState(title || '')
-  const shouldUpdateQuery = updateQuery || props.isSaving
-
+  const [localTitle, setLocalTitle] = useState(title || '')
   React.useEffect(() => { reset() }, [])
   React.useEffect(() => { if (idFromUrl) load(idFromUrl) }, [idFromUrl])
   React.useEffect(() => { if (idFromState) history.push(linkUrl) }, [idFromState])
+  React.useEffect(() => { setLocalTitle(title) }, [title])
 
 
-  const handleTitleChange = (event) => { setQueryTitle(event.target.value) }
-  const handleUpdate = () => {
-    setDialogOpen(true)
-    if (shouldUpdateQuery) {
-      update(idFromState, title, query)
+  const handleTitleChange = (event) => { 
+    if (event.target.value!==localTitle) {
+      setLocalTitle(event.target.value)
     }
   }
+  
+  const openDialog = () => { setDialogOpen(true) }
 
-  const handleSave = () => {
+  const handleSaveOrUpdate = () => {
     if (idFromState) {
-      update(idFromState, queryTitle, query)
+      update(idFromState, localTitle, query)
     } else {
-      save(queryTitle, query)
+      save(localTitle, query)
     }
   }
   const closeDialog = () => { setDialogOpen(false); }
@@ -87,16 +85,16 @@ const VisualizationView = (props) => {
           </span>
           <span className='action-area'>
             <React.Fragment>
-              <TabButton disabled={!isSaveable} className={`header-item save-icon ${isDialogOpen && 'saving'}`} onClick={handleUpdate} >
+              <TabButton disabled={!isSaveable} className={`header-item save-icon ${isDialogOpen && 'saving'}`} onClick={openDialog} >
                 <div title='Save Visualization'><SaveIcon /></div>
               </TabButton>
               <AutoAnchoringPopover className='popover-anchor' open={isDialogOpen} onClose={closeDialog} classes={{ paper: 'popover', root: 'popover-root' }} >
                 <div>
                   <b>Query Title: </b>
-                  <input className="prompt" type="text" placeholder="Query Name" value={queryTitle} onChange={handleTitleChange}></input>
+                  <input className="prompt" type="text" placeholder="Query Name" value={localTitle} onChange={handleTitleChange}></input>
                   <ClearIcon className='clear-icon' onClick={closeDialog} />
                   <br />
-                  <button className="save-button" onClick={handleSave} disabled={queryTitle == undefined || queryTitle.length == 0}>Save</button>
+                  <button className="save-button" onClick={handleSaveOrUpdate} disabled={localTitle == undefined || localTitle.length == 0}>Save</button>
                   <button onClick={closeDialog}>Cancel</button>
                   <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkUrl={linkUrl} />
                 </div>
