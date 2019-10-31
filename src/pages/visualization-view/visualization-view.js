@@ -37,15 +37,13 @@ const VisualizationView = (props) => {
 
   const linkUrl = idFromState && generatePath(routes.visualizationView, {id: idFromState})
   const [isDialogOpen, setDialogOpen] = useState(false)
-  const [queryTitle, setQueryTitle] = useState(title)
+  const [queryTitle, setQueryTitle] = useState(title || '')
   const shouldUpdateQuery = updateQuery || props.isSaving
 
   React.useEffect(() => { reset() }, [])
   React.useEffect(() => { if (idFromUrl) load(idFromUrl) }, [idFromUrl])
   React.useEffect(() => { if (idFromState) history.push(linkUrl) }, [idFromState])
-  React.useEffect(() => {
-    setQueryTitle(title);
-  }, [title])
+
 
   const handleTitleChange = (event) => {setQueryTitle(event.target.value)}
   const handleUpdate = () =>  {
@@ -92,7 +90,6 @@ const VisualizationView = (props) => {
                 <div title='Save Visualization'><SaveIcon /></div>
               </TabButton>
               <AutoAnchoringPopover className='popover-anchor' open={isDialogOpen} onClose={closeDialog} classes={{ paper: 'popover', root: 'popover-root' }} >
-                {
                 <div>
                   <b>Query Title: </b> 
                   <input className="prompt" type="text" placeholder="Query Name" value={queryTitle} onChange={handleTitleChange}></input>
@@ -100,7 +97,7 @@ const VisualizationView = (props) => {
                   <button className="save-button" onClick={handleSave} disabled={queryTitle==undefined || queryTitle.length == 0}>Save</button>
                   <button onClick={closeDialog}>Cancel</button>
                   <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkUrl={linkUrl} />
-                </div>}
+                </div>
               </AutoAnchoringPopover>
             </React.Fragment>
           </span>

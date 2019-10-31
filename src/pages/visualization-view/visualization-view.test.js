@@ -18,6 +18,7 @@ describe("visualization view", () => {
 
   const id = '123456'
   const query = 'select * from stuff'
+  const title = 'my query'
 
   beforeEach(() => {
     resetHandler = jest.fn()
@@ -126,7 +127,7 @@ describe("visualization view", () => {
 
   describe("when visualization save button is clicked to update a previously saved visualization", () => {
     beforeEach(() => {
-      subject = createSubject({ isSaving: true, query, save: saveHandler, updateQuery: true })
+      subject = createSubject({ isSaving: true, query, title, save: saveHandler, updateQuery: true })
       
       subject.find(".save-icon").simulate("click")
     })
@@ -140,9 +141,9 @@ describe("visualization view", () => {
     })
   })
 
-  describe("when visualization save button is clicked to save a new visualization", () => {
+  describe("when visualization save icon is clicked to save a new visualization", () => {
     beforeEach(() => {
-      subject = createSubject({ isSaving: false, query, save: saveHandler, isTitleSet: false })
+      subject = createSubject({ isSaving: false, query, save: saveHandler})
 
       subject.find(".save-icon").simulate("click")
     })
@@ -163,15 +164,13 @@ describe("visualization view", () => {
       expect(saveHandler).toHaveBeenCalledWith('Query Title', query)
     })
 
-    it('does not show the saving indicator', () => {
-      expect(subject.find(SaveIndicator).length).toBe(0)
-    })
   })
 
 
   describe('when save succeeds', () => {
     beforeEach(() => {
       subject = createSubject({ isSaveSuccess: true, id, updateQuery: true })
+      subject.find(".save-icon").simulate("click")
     })
 
     it('indicates the save succeeded', () => {
@@ -188,6 +187,7 @@ describe("visualization view", () => {
   describe('when save fails', () => {
     beforeEach(() => {
       subject = createSubject({ isSaveFailure: true, id, updateQuery: true })
+      subject.find(".save-icon").simulate("click")
     })
 
     it('indicates the save failed', () => {
@@ -217,14 +217,13 @@ const createSubject = (props = {}) => {
     update: jest.fn(),
     id: undefined,
     query: undefined,
+    title: undefined,
     isLoadFailure: false,
     isSaving: false,
     isSaveSuccess: false,
     isSaveFailure: false,
     isSaveable: false,
-    isTitleSet: true,
     updateQuery: false,
-    title: 'Placeholder Title',
     match: { params: {} },
     history: { push: jest.fn() }
   }
@@ -233,18 +232,17 @@ const createSubject = (props = {}) => {
   return shallow(
     <VisualizationView
       reset={propsWithDefaults.reset}
-      save={propsWithDefaults.save}
       load={propsWithDefaults.load}
+      save={propsWithDefaults.save}
       update={propsWithDefaults.update}
       id={propsWithDefaults.id}
       query={propsWithDefaults.query}
+      title={propsWithDefaults.title}
       isLoadFailure={propsWithDefaults.isLoadFailure}
       isSaving={propsWithDefaults.isSaving}
       isSaveSuccess={propsWithDefaults.isSaveSuccess}
       isSaveFailure={propsWithDefaults.isSaveFailure}
       isSaveable={propsWithDefaults.isSaveable}
-      isTitleSet={propsWithDefaults.isTitleSet}
-      title={propsWithDefaults.title}
       updateQuery={propsWithDefaults.updateQuery}
       match={propsWithDefaults.match}
       history={propsWithDefaults.history}

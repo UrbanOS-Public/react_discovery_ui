@@ -23,11 +23,7 @@ function* updateVisualizationSaga() {
 }
 
 function* updateVisualization({ value: visualization }) {
-    let visualizationPayload = visualization
-    visualizationPayload.public_id = visualization.id
-    delete(visualizationPayload.id)
-    console.log(visualizationPayload)
-    yield callEndpoint(() => AuthenticatedHTTPClient.put(`/api/v1/visualization/${visualization.public_id}`, visualizationPayload), visualizationSaveSuccess, visualizationSaveFailure)
+    yield callEndpoint(() => AuthenticatedHTTPClient.put(`/api/v1/visualization/${visualization.id}`, visualization), visualizationSaveSuccess, visualizationSaveFailure)
 }
 
 function* callEndpoint(clientFunction, successEvent, failureEvent) {
