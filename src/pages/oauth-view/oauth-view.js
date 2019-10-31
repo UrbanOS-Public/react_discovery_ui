@@ -7,7 +7,8 @@ import axios from 'axios'
 const OAuthView = (props) => {
   const {
     callLoggedIn,
-    history
+    history,
+    location
   } = props
 
 
@@ -21,7 +22,7 @@ const OAuthView = (props) => {
       setAuthenticated(isAuthenticated)
       setAuth0(auth0Client)
 
-      if (history.location.search.includes("code=")) {
+      if (location.search.includes("code=")) {
         await auth0Client.handleRedirectCallback()
         callLoggedIn()
         history.replace("/oauth")

@@ -33,11 +33,11 @@ describe('OAuth View', () => {
     beforeEach(() => {
       subject = createSubject({
         callLoggedIn: callLoggedInHandler,
-        history: {
-          location: {
-            search: 'code=someauth0tokenstring'
-          }
-        }
+        location: {
+          search: 'code=someauth0tokenstring'
+        },
+        history: { replace: jest.fn() }
+
       })
 
     })
@@ -52,10 +52,8 @@ describe('OAuth View', () => {
     beforeEach(() => {
       subject = createSubject({
         callLoggedIn: callLoggedInHandler,
-        history: {
-          location: {
-            search: ''
-          }
+        location: {
+          search: ''
         }
       })
     })
@@ -75,7 +73,8 @@ describe('OAuth View', () => {
 const createSubject = (props = {}) => {
   const defaultProps = {
     callLoggedIn: jest.fn(),
-    history: {}
+    history: {},
+    location: {}
   }
 
   const propsWithDefaults = Object.assign({}, defaultProps, props)
@@ -84,6 +83,7 @@ const createSubject = (props = {}) => {
     mount(
       <OAuthView
         callLoggedIn={propsWithDefaults.callLoggedIn}
+        location={propsWithDefaults.location}
         history={propsWithDefaults.history}
       />
     )

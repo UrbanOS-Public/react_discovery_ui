@@ -8,7 +8,6 @@ import { reducers } from './store/reducers'
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux'
-import { Auth0Provider } from "./auth/react-auth0-wrapper";
 
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
