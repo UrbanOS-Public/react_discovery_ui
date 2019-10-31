@@ -29,7 +29,7 @@ describe("visualization view", () => {
     beforeEach(() => {
       resetHandler.mockImplementation(() => true)
       runUseEffect()
-      subject = createSubject({match: {params: {}}, reset: resetHandler, load: loadHandler})
+      subject = createSubject({ match: { params: {} }, reset: resetHandler, load: loadHandler })
     })
 
     it("calls the reset function", () => {
@@ -48,7 +48,7 @@ describe("visualization view", () => {
   describe('when visualization id is provided in the URL and nothing else', () => {
     beforeEach(() => {
       runUseEffect()
-      subject = createSubject({match: {params: {id}}, reset: resetHandler, load: loadHandler})
+      subject = createSubject({ match: { params: { id } }, reset: resetHandler, load: loadHandler })
     })
 
     it("calls the reset function", () => {
@@ -88,7 +88,7 @@ describe("visualization view", () => {
 
   describe("when visualization has failed to load", () => {
     beforeEach(() => {
-      subject = createSubject({isLoadFailure: true})
+      subject = createSubject({ isLoadFailure: true })
     })
 
     it("shows an error element", () => {
@@ -106,7 +106,7 @@ describe("visualization view", () => {
 
   describe("when visualization is not able to be saved", () => {
     beforeEach(() => {
-      subject = createSubject({isSaveable: false})
+      subject = createSubject({ isSaveable: false })
     })
 
     it("disables the save button", () => {

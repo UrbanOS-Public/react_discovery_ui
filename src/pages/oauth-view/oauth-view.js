@@ -1,7 +1,46 @@
-import OauthLoginZone from "../../components/oauth-login"
+import OAuthLoginZone from "../../components/oauth-login"
+import Auth0ClientProvider from '../../auth/auth0-client-provider.js'
+import { useEffect, useState, useContext } from "react"
+import axios from 'axios'
 
-const OauthView = () => {
-  return <OauthLoginZone />
+
+const OAuthView = (props) => {
+  const {
+    callLoggedIn,
+    history,
+    location
+  } = props
+
+
+  const [isAuthenticated, setAuthenticated] = useState()
+  const [auth0Client, setAuth0] = useState()
+
+  useEffect(() => {
+    const connectAuth0 = async () => {
+      const auth0Client = await Auth0ClientProvider.get()
+      const isAuthenticated = await auth0Client.isAuthenticated()
+      setAuthenticated(isAuthenticated)
+      setAuth0(auth0Client)
+
+      if (location.search.includes("code=")) {
+        await auth0Client.handleRedirectCallback()
+        callLoggedIn()
+        history.replace("/oauth")
+        setAuthenticated(true)
+      }
+    }
+
+    connectAuth0()
+  }, [])
+
+  return (
+    <OAuthLoginZone
+      isAuthenticated={isAuthenticated}
+      loginWithRedirect={(...p) => auth0Client.loginWithRedirect(...p)}
+      logout={(...p) => auth0Client.logout(...p)}
+    />
+  )
 }
 
-export default OauthView
+
+export default OAuthView
