@@ -1,13 +1,11 @@
 import '../login-zone/login-zone.scss'
 
 import LoginSvgsAndText from "../login-zone/login-svgs-and-text"
-import { useAuth0 } from "../../auth/react-auth0-wrapper"
 import routes from '../../routes';
 
 const returnTo = `${window.location.origin}${routes.oauth}`
 
-const OauthLoginZone = () => {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0()
+const OAuthLoginZone = ({ isAuthenticated, loginWithRedirect, logout }) => {
   return (
     <login-zone>
       {
@@ -19,4 +17,4 @@ const OauthLoginZone = () => {
   )
 }
 
-export default OauthLoginZone
+export default OAuthLoginZone

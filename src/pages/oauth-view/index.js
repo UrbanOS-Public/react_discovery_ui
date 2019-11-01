@@ -1,3 +1,4 @@
-import OauthView from './oauth-view';
+import Connector from './connector'
 
-export default OauthView
+export default Connector
+

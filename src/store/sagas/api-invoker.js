@@ -14,15 +14,14 @@ export default ({ endpoint, actionator, errorAction = displayError(), queryParam
         paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'brackets' }),
         withCredentials: true
       }
-
       const response = yield call(axios.get, endpoint, query)
-
       if (response.status === 200) {
         yield put(actionator(response.data))
       } else {
         yield put(errorAction)
       }
     } catch (e) {
+      console.error(e)
       yield put(errorAction)
     }
   }

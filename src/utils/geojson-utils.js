@@ -41,6 +41,10 @@ const isValidBBox = boundingBox => {
   if (!boundingBox || boundingBox.length != 4) { return false }
 
   const [minLong, minLat, maxLong, maxLat] = boundingBox
+
+  if (boundingBox.some(x => x === null)) { 
+    return false 
+  }
   if (minLong > maxLong || minLat > maxLat ||
     minLong < -180 || minLong > 180 ||
     minLat < -90 || minLat > 90 ||

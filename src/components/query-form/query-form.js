@@ -1,13 +1,23 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
-import './dataset-query.scss'
+import './query-form.scss'
 import LoadingElement from '../generic-elements/loading-element'
 import RecommendationList from '../recommendation-list'
 import ReactTooltip from 'react-tooltip'
 import InfoOutlined from '@material-ui/icons/InfoOutlined'
 import _ from 'lodash'
 
-const DatasetQuery = props => {
+const TEXT_AREA_MIN_HEIGHT = 100;
+const TEXT_AREA_HEIGHT_OFFSET = 5;
+
+const adjustHeight = (element) => {
+  if (element.scrollHeight > TEXT_AREA_MIN_HEIGHT + TEXT_AREA_HEIGHT_OFFSET) {
+    element.style.height = `${TEXT_AREA_HEIGHT_OFFSET}px`
+    element.style.height = `${element.scrollHeight}px`;
+  }
+}
+
+const QueryForm = props => {
   const {
     queryText,
     recommendations,
@@ -22,10 +32,19 @@ const DatasetQuery = props => {
   } = props
 
   const [localQueryText, setLocalQueryText] = useState(queryText)
+  const textAreaRef = useRef(null)
 
   React.useEffect(() => {
     setLocalQueryText(queryText);
+    adjustHeight(textAreaRef.current)
   }, [queryText])
+
+  const handleQueryChange = event => {
+    setLocalQueryText(event.target.value)
+    adjustHeight(event.target)
+  }
+
+  const updateReduxQueryText = e => setQueryText(e.target.value)
 
   const submit = () => {
     // I'd like to use the Redux queryText here, but this way makes a test pass -JBP 10/9/2019
@@ -38,10 +57,17 @@ const DatasetQuery = props => {
     cancelQuery()
   }
 
-  const updateLocalQueryText = e => setLocalQueryText(e.target.value)
-  const updateReduxQueryText = e => setQueryText(e.target.value)
-
-  const textArea = <textarea rows={5} type='text' placeholder='SELECT * FROM ...' value={localQueryText} onBlur={updateReduxQueryText} onChange={updateLocalQueryText} className='query-input' />
+  const textArea = <textarea
+    style={{ minHeight: `${TEXT_AREA_MIN_HEIGHT}px` }}
+    type='text'
+    placeholder='SELECT * FROM ...'
+    value={localQueryText}
+    onBlur={updateReduxQueryText}
+    onChange={handleQueryChange}
+    onInput={handleQueryChange}
+    className='query-input'
+    ref={textAreaRef}
+  />
   const submitButton = <button className="action-button" disabled={isQueryLoading} onClick={submit}>Submit</button>
   const cancelButton = <button className="action-button" disabled={!isQueryLoading} onClick={cancel}>Cancel</button>
 
@@ -76,7 +102,7 @@ const DatasetQuery = props => {
   }
 
   return (
-    <dataset-query>
+    <query-form>
       <div className="user-input">
         <div className="sql-section">
           <div className="sql-title">Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</div>
@@ -91,11 +117,11 @@ const DatasetQuery = props => {
         {successMessage}
         {isQueryLoading && <LoadingElement />}
       </div>
-    </dataset-query>
+    </query-form>
   )
 }
 
-DatasetQuery.propTypes = {
+QueryForm.propTypes = {
   queryText: PropTypes.string,
   recommendations: PropTypes.array,
   queryFailureMessage: PropTypes.string,
@@ -108,4 +134,4 @@ DatasetQuery.propTypes = {
   setUserInteracted: PropTypes.func.isRequired
 }
 
-export default DatasetQuery
+export default QueryForm

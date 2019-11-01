@@ -117,6 +117,12 @@ describe('is valid bounding box', () => {
     expect(GeoJsonUtils.isValidBBox([-180, 1, 180, 0])).toBe(false)
   })
 
+  it('returns false if any value of the array is null', () => {
+    expect(GeoJsonUtils.isValidBBox([null, null, null, null])).toBe(false)
+    expect(GeoJsonUtils.isValidBBox([null, -90, 180, 90])).toBe(false)
+    expect(GeoJsonUtils.isValidBBox([-180, -90, null, 90])).toBe(false)
+  })
+
   it('returns true if all values are in range', () => {
     expect(GeoJsonUtils.isValidBBox([-180, -90, 180, 90])).toBe(true)
   })

@@ -1,6 +1,5 @@
 import reducer from "./index";
 import {
-  SELECT_DATA_LIST,
   DISPLAY_ERROR,
   DATASET_DETAILS,
   RETRIEVE_DATASET_PREVIEW,
@@ -10,36 +9,14 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   DOWNLOAD_DATASET_SUCCEEDED,
-  QUERY_DATASET_SUCCEEDED,
-  QUERY_DATASET,
-  QUERY_DATASET_FAILED,
-  QUERY_DATASET_CANCELLED,
-  FREESTYLE_QUERY_DATASET,
-  FREESTYLE_QUERY_UPDATE,
   CLEAR_DATASET_PREVIEW,
-  QUERY_DATASET_IN_PROGRESS
+  DATASET_SEARCH,
+  DATASET_SEARCH_SUCCEEDED,
+  UPDATE_DATASET_SEARCH_PARAMS
 } from "../actions";
-import datasetListStub from "../../../stubs/dataset-list-stub";
 import datasetStub from "../../../stubs/dataset-details-stub";
 
 describe("Dataset Reducer", () => {
-  it("SELECT_DATA_LIST places Dataset list in the state", () => {
-    let currentState = {
-      datasetReducer: {
-        total: 0
-      }
-    };
-    let newState = reducer(currentState, {
-      type: SELECT_DATA_LIST,
-      value: datasetListStub
-    });
-
-    expect(newState.datasetReducer.datasets).toEqual(datasetListStub.results);
-    expect(newState.datasetReducer.total).toEqual(
-      datasetListStub.metadata.totalDatasets
-    );
-  });
-
   it("DISPLAY_ERROR sets datasetError to true", () => {
     let currentState = {
       datasetReducer: {
@@ -187,5 +164,130 @@ describe("UI Reducer", () => {
 
     expect(newState.presentation.lastLoginAttemptFailed).toEqual(true);
     expect(newState.presentation.isLoading).toEqual(false);
+  });
+});
+
+describe("Search Reducer", () => {
+  it("DATASET_SEARCH sets isRunning to true", () => {
+    let currentState = {
+      searchReducer: {
+        isRunning: false
+      }
+    };
+    let newState = reducer(currentState, { type: DATASET_SEARCH });
+
+    expect(newState.searchReducer.isRunning).toEqual(true);
+  });
+
+  it("DATASET_SEARCH_SUCCEEDED sets searchResults and metadata in the state", () => {
+    let currentState = {
+      searchReducer: {
+        searchResults: {}
+      }
+    };
+    let expectedData = {
+      results: [{ this: "bob", that: "joe" }],
+      metadata: ["metadata"]
+    };
+    let newState = reducer(currentState, {
+      type: DATASET_SEARCH_SUCCEEDED,
+      value: expectedData
+    });
+
+    expect(newState.searchReducer.searchResults).toEqual(expectedData.results);
+    expect(newState.searchReducer.searchMetadata).toEqual(
+      expectedData.metadata
+    );
+  });
+
+  it("DATASET_SEARCH_SUCCEEDED sets isRunning to false", () => {
+    let currentState = {
+      searchReducer: {
+        isRunning: true
+      }
+    };
+    let expectedData = [];
+    let newState = reducer(currentState, {
+      type: DATASET_SEARCH_SUCCEEDED,
+      value: expectedData
+    });
+
+    expect(newState.searchReducer.isRunning).toEqual(false);
+  });
+
+  it("UPDATE_DATASET_SEARCH_PARAMS sets search params", () => {
+    let currentState = {
+      searchReducer: {
+        searchParams: {}
+      }
+    };
+    let expectedParams = { limit: 1, query: "bob" };
+    let newState = reducer(currentState, {
+      type: UPDATE_DATASET_SEARCH_PARAMS,
+      value: expectedParams
+    });
+
+    expect(newState.searchReducer.searchParams).toEqual(expectedParams);
+  });
+
+  it("UPDATE_DATASET_SEARCH_PARAMS sets facets", () => {
+    let currentState = {
+      searchReducer: {
+        searchParams: {}
+      }
+    };
+    let expectedParams = { facets: { keyword: ["stuff"] } };
+    let newState = reducer(currentState, {
+      type: UPDATE_DATASET_SEARCH_PARAMS,
+      value: expectedParams
+    });
+
+    expect(newState.searchReducer.searchParams).toEqual(expectedParams);
+  });
+
+  it("UPDATE_DATASET_SEARCH_PARAMS toggles facets on", () => {
+    let currentState = {
+      searchReducer: {
+        searchParams: { facets: { keyword: ["stuff"] } }
+      }
+    };
+    let expectedParams = { facets: { keyword: ["stuff", "things"] } };
+    let newState = reducer(currentState, {
+      type: UPDATE_DATASET_SEARCH_PARAMS,
+      value: { facets: { keyword: ["things"] } }
+    });
+
+    expect(newState.searchReducer.searchParams).toEqual(expectedParams);
+  });
+
+  it("UPDATE_DATASET_SEARCH_PARAMS toggles facets off", () => {
+    let currentState = {
+      searchReducer: {
+        searchParams: { facets: { keyword: ["stuff", "things"] } }
+      }
+    };
+    let expectedParams = { facets: { keyword: ["things"] } };
+    let newState = reducer(currentState, {
+      type: UPDATE_DATASET_SEARCH_PARAMS,
+      value: { facets: { keyword: ["stuff"] } }
+    });
+
+    expect(newState.searchReducer.searchParams).toEqual(expectedParams);
+  });
+
+  it("UPDATE_DATASET_SEARCH_PARAMS merges search params", () => {
+    let currentState = {
+      searchReducer: {
+        searchParams: { limit: 1, query: "bob" }
+      }
+    };
+    let params = { query: "frank", offset: 10 };
+    let expected = { limit: 1, query: "frank", offset: 10, facets: {} };
+    let newState = reducer(currentState, {
+      type: UPDATE_DATASET_SEARCH_PARAMS,
+      value: params
+    });
+
+    expect(newState.searchReducer.searchParams).toEqual(expected);
   });
 });

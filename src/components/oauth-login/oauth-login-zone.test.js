@@ -1,25 +1,18 @@
 import { mount } from 'enzyme'
 import OauthLoginZone from './oauth-login-zone'
-import * as auth0 from '../../auth/react-auth0-wrapper'
 
 describe('login', () => {
-  let wrapper, button
-  let auth0State
+  let subject, button, loginHandler, logoutHandler
 
   beforeEach(() => {
-    auth0State = {
-      loginWithRedirect: jest.fn(),
-      logout: jest.fn()
-    }
-    auth0.useAuth0 = jest.fn()
+    loginHandler = jest.fn()
+    logoutHandler = jest.fn()
   })
 
   describe('unauthenticated', () => {
     beforeEach(() => {
-      auth0State.isAuthenticated = false
-      auth0.useAuth0.mockReturnValue(auth0State)
-      wrapper = mount(<OauthLoginZone />)
-      button = wrapper.find('button')
+      subject = createSubject({ isAuthenticated: false, loginWithRedirect: loginHandler, logout: logoutHandler })
+      button = subject.find('button')
     })
 
     it('has a login button', () => {
@@ -30,16 +23,14 @@ describe('login', () => {
     it('logs in with redirect when the button is clicked', () => {
       button.simulate('click')
 
-      expect(auth0State.loginWithRedirect).toHaveBeenCalled()
+      expect(loginHandler).toHaveBeenCalled()
     })
   })
 
   describe('authenticated', () => {
     beforeEach(() => {
-      auth0State.isAuthenticated = true
-      auth0.useAuth0.mockReturnValue(auth0State)
-      wrapper = mount(<OauthLoginZone />)
-      button = wrapper.find('button')
+      subject = createSubject({ isAuthenticated: true, loginWithRedirect: loginHandler, logout: logoutHandler })
+      button = subject.find('button')
     })
 
     it('has a logout button', () => {
@@ -50,7 +41,25 @@ describe('login', () => {
     it('logs out with the correct "returnTo" URL when the button is clicked', () => {
       button.simulate('click')
 
-      expect(auth0State.logout).toHaveBeenCalledWith({ returnTo: `${window.location.origin}/oauth` })
+      expect(logoutHandler).toHaveBeenCalledWith({ returnTo: `${window.location.origin}/oauth` })
     })
   })
 })
+
+const createSubject = (props = {}) => {
+  const defaultProps = {
+    isAuthenticated: false,
+    loginWithRedirect: jest.fn(),
+    logout: jest.fn()
+  }
+
+  const propsWithDefaults = Object.assign({}, defaultProps, props)
+
+  return mount(
+    <OauthLoginZone
+      isAuthenticated={propsWithDefaults.isAuthenticated}
+      loginWithRedirect={propsWithDefaults.loginWithRedirect}
+      logout={propsWithDefaults.logout}
+    />
+  )
+}
