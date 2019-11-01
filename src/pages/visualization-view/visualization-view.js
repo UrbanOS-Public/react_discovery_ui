@@ -91,7 +91,7 @@ const VisualizationView = (props) => {
               <AutoAnchoringPopover className='popover-anchor' open={isDialogOpen} onClose={closeDialog} classes={{ paper: 'popover', root: 'popover-root' }} >
                 <div>
                   <b>Query Title: </b>
-                  <input className="prompt" type="text" placeholder="Query Name" value={localTitle} onChange={handleTitleChange}></input>
+                  <input className="prompt" type="text" placeholder="Query Name" value={localTitle || ''} onChange={handleTitleChange}></input>
                   <ClearIcon className='clear-icon' onClick={closeDialog} />
                   <br />
                   <button className="save-button" onClick={handleSaveOrUpdate} disabled={localTitle == undefined || localTitle.length == 0}>Save</button>
