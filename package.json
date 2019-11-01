@@ -54,7 +54,8 @@
     "redux-saga": "^0.16.2",
     "reselect": "^4.0.0",
     "sanitize-html": "^1.20.1",
-    "storage2": "^0.1.0"
+    "storage2": "^0.1.0",
+    "write-json-file": "^4.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
