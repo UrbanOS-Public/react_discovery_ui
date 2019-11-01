@@ -10,7 +10,10 @@ import SaveIndicator from "../../components/generic-elements/save-indicator"
 
 const runUseEffect = () => {
   const useEffect = jest.spyOn(React, "useEffect")
-  useEffect.mockImplementation(f => f())
+  useEffect.mockImplementationOnce(f => f())
+  useEffect.mockImplementationOnce(f => f())
+  useEffect.mockImplementationOnce(f => f())
+  useEffect.mockImplementationOnce(f => f())
 }
 
 describe("visualization view", () => {
@@ -163,7 +166,6 @@ describe("visualization view", () => {
       subject.find(".save-button").simulate("click")
       expect(saveHandler).toHaveBeenCalledWith('Query Title', query)
     })
-
   })
 
 
