@@ -130,7 +130,7 @@ describe("visualization view", () => {
 
   describe("when visualization save button is clicked to update a previously saved visualization", () => {
     beforeEach(() => {
-      subject = createSubject({ isSaving: true, query, title, save: saveHandler, updateQuery: true })
+      subject = createSubject({ isSaving: true, query, title, save: saveHandler})
       
       subject.find(".save-icon").simulate("click")
     })
@@ -171,7 +171,7 @@ describe("visualization view", () => {
 
   describe('when save succeeds', () => {
     beforeEach(() => {
-      subject = createSubject({ isSaveSuccess: true, id, updateQuery: true })
+      subject = createSubject({ isSaveSuccess: true, id })
       subject.find(".save-icon").simulate("click")
     })
 
@@ -188,7 +188,7 @@ describe("visualization view", () => {
 
   describe('when save fails', () => {
     beforeEach(() => {
-      subject = createSubject({ isSaveFailure: true, id, updateQuery: true })
+      subject = createSubject({ isSaveFailure: true, id })
       subject.find(".save-icon").simulate("click")
     })
 
@@ -225,7 +225,6 @@ const createSubject = (props = {}) => {
     isSaveSuccess: false,
     isSaveFailure: false,
     isSaveable: false,
-    updateQuery: false,
     match: { params: {} },
     history: { push: jest.fn() }
   }
@@ -245,7 +244,6 @@ const createSubject = (props = {}) => {
       isSaveSuccess={propsWithDefaults.isSaveSuccess}
       isSaveFailure={propsWithDefaults.isSaveFailure}
       isSaveable={propsWithDefaults.isSaveable}
-      updateQuery={propsWithDefaults.updateQuery}
       match={propsWithDefaults.match}
       history={propsWithDefaults.history}
     />
