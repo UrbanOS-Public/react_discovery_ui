@@ -1,5 +1,5 @@
 import { takeEvery, put, call, fork, all } from 'redux-saga/effects'
-import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText } from '../actions'
+import { VISUALIZATION_SAVE, VISUALIZATION_UPDATE, VISUALIZATION_LOAD, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText } from '../actions'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 
 function* loadVisualizationSaga() {
@@ -16,6 +16,14 @@ function* saveVisualizationSaga() {
 
 function* saveVisualization({ value: visualization }) {
     yield callEndpoint(() => AuthenticatedHTTPClient.post('/api/v1/visualization', visualization), visualizationSaveSuccess, visualizationSaveFailure)
+}
+
+function* updateVisualizationSaga() {
+  yield takeEvery(VISUALIZATION_UPDATE, updateVisualization)
+}
+
+function* updateVisualization({ value: visualization }) {
+    yield callEndpoint(() => AuthenticatedHTTPClient.put(`/api/v1/visualization/${visualization.id}`, visualization), visualizationSaveSuccess, visualizationSaveFailure)
 }
 
 function* callEndpoint(clientFunction, successEvent, failureEvent) {
@@ -36,7 +44,8 @@ function* callEndpoint(clientFunction, successEvent, failureEvent) {
 export default function* visualizationSaga() {
   yield all([
     fork(loadVisualizationSaga),
-    fork(saveVisualizationSaga)
+    fork(saveVisualizationSaga),
+    fork(updateVisualizationSaga)
   ])
 }
 

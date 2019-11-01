@@ -10,7 +10,10 @@ import SaveIndicator from "../../components/generic-elements/save-indicator"
 
 const runUseEffect = () => {
   const useEffect = jest.spyOn(React, "useEffect")
-  useEffect.mockImplementation(f => f())
+  useEffect.mockImplementationOnce(f => f())
+  useEffect.mockImplementationOnce(f => f())
+  useEffect.mockImplementationOnce(f => f())
+  useEffect.mockImplementationOnce(f => f())
 }
 
 describe("visualization view", () => {
@@ -18,6 +21,7 @@ describe("visualization view", () => {
 
   const id = '123456'
   const query = 'select * from stuff'
+  const title = 'my query'
 
   beforeEach(() => {
     resetHandler = jest.fn()
@@ -110,7 +114,7 @@ describe("visualization view", () => {
     })
 
     it("disables the save button", () => {
-      expect(subject.find('.save-button').props().disabled).toBeTruthy()
+      expect(subject.find('.save-icon').props().disabled).toBeTruthy()
     })
   })
 
@@ -120,35 +124,55 @@ describe("visualization view", () => {
     })
 
     it("enables the save button", () => {
-      expect(subject.find('.save-button').props().disabled).toBeFalsy()
+      expect(subject.find('.save-icon').props().disabled).toBeFalsy()
     })
   })
 
-  describe("when visualization save button is clicked", () => {
+  describe("when visualization save button is clicked to update a previously saved visualization", () => {
     beforeEach(() => {
-      subject = createSubject({ isSaving: true, query, save: saveHandler })
-
-      subject.find(".save-button").simulate("click")
+      subject = createSubject({ isSaving: true, query, title, save: saveHandler})
+      
+      subject.find(".save-icon").simulate("click")
     })
 
     it("displays the saving status popover", () => {
       expect(subject.find(AutoAnchoringPopover).props().open).toEqual(true)
     })
 
-    it("sends create visualization event with the query and a placeholder title", () => {
-      const title = 'Placeholder Title'
-
-      expect(saveHandler).toHaveBeenCalledWith(title, query)
-    })
-
     it('sets the saving indicator', () => {
-      expect(subject.find(SaveIndicator).props().saving).toBe(true)
+      expect(subject.find(SaveIndicator).length).toBe(1)
     })
   })
+
+  describe("when visualization save icon is clicked to save a new visualization", () => {
+    beforeEach(() => {
+      subject = createSubject({ isSaving: false, query, save: saveHandler})
+
+      subject.find(".save-icon").simulate("click")
+    })
+
+    it("displays the title prompt popover", () => {
+      expect(subject.find(AutoAnchoringPopover).props().open).toEqual(true)
+      expect(subject.find(".prompt").length).toEqual(1)
+      expect(subject.find(".save-button").length).toEqual(1)
+    })
+ 
+    it("disables the save button when no query title has been set", () => {
+      expect(subject.find(".save-button").props().disabled).toBeTruthy()
+    })
+
+    it("sends create visualization event with the query and a query title", () => {
+      subject.find(".prompt").simulate("change", {target: { value: 'Query Title'}})
+      subject.find(".save-button").simulate("click")
+      expect(saveHandler).toHaveBeenCalledWith('Query Title', query)
+    })
+  })
+
 
   describe('when save succeeds', () => {
     beforeEach(() => {
       subject = createSubject({ isSaveSuccess: true, id })
+      subject.find(".save-icon").simulate("click")
     })
 
     it('indicates the save succeeded', () => {
@@ -164,7 +188,8 @@ describe("visualization view", () => {
 
   describe('when save fails', () => {
     beforeEach(() => {
-      subject = createSubject({ isSaveFailure: true })
+      subject = createSubject({ isSaveFailure: true, id })
+      subject.find(".save-icon").simulate("click")
     })
 
     it('indicates the save failed', () => {
@@ -191,8 +216,10 @@ const createSubject = (props = {}) => {
     reset: jest.fn(),
     load: jest.fn(),
     save: jest.fn(),
+    update: jest.fn(),
     id: undefined,
     query: undefined,
+    title: undefined,
     isLoadFailure: false,
     isSaving: false,
     isSaveSuccess: false,
@@ -206,10 +233,12 @@ const createSubject = (props = {}) => {
   return shallow(
     <VisualizationView
       reset={propsWithDefaults.reset}
-      save={propsWithDefaults.save}
       load={propsWithDefaults.load}
+      save={propsWithDefaults.save}
+      update={propsWithDefaults.update}
       id={propsWithDefaults.id}
       query={propsWithDefaults.query}
+      title={propsWithDefaults.title}
       isLoadFailure={propsWithDefaults.isLoadFailure}
       isSaving={propsWithDefaults.isSaving}
       isSaveSuccess={propsWithDefaults.isSaveSuccess}

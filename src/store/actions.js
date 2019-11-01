@@ -190,6 +190,11 @@ export const visualizationSaveFailure = (errorMessage) => ({
   type: VISUALIZATION_SAVE_FAILURE, value: errorMessage
 })
 
+export const VISUALIZATION_UPDATE = 'VISUALIZATION_UPDATE'
+export const visualizationUpdate = (id, title, query) => ({
+  type: VISUALIZATION_UPDATE, value: {id, title, query}
+})
+
 export const VISUALIZATION_RESET = 'VISUALIZATION_RESET'
 export const visualizationReset = () => ({
   type: VISUALIZATION_RESET

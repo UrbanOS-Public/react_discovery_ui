@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { generatePath } from 'react-router'
 
@@ -12,6 +12,7 @@ import AutoAnchoringPopover from '../../components/generic-elements/auto-anchori
 import ErrorComponent from '../../components/generic-elements/error-component'
 
 import SaveIcon from '@material-ui/icons/Save'
+import ClearIcon from '@material-ui/icons/Clear'
 import ChartView from '../chart-view'
 import QueryView from '../query-view'
 import routes from '../../routes'
@@ -21,26 +22,44 @@ const VisualizationView = (props) => {
     reset,
     load,
     save,
+    update,
     id: idFromState,
     query,
+    title,
     isLoadFailure,
     isSaving,
     isSaveSuccess,
     isSaveFailure,
     isSaveable,
-    match: {params: {id: idFromUrl}},
+    match: { params: { id: idFromUrl } },
     history
   } = props
 
-  const linkUrl = idFromState && generatePath(routes.visualizationView, {id: idFromState})
+  const linkUrl = idFromState && generatePath(routes.visualizationView, { id: idFromState })
   const [isDialogOpen, setDialogOpen] = useState(false)
-
+  const [localTitle, setLocalTitle] = useState(title || '')
   React.useEffect(() => { reset() }, [])
   React.useEffect(() => { if (idFromUrl) load(idFromUrl) }, [idFromUrl])
   React.useEffect(() => { if (idFromState) history.push(linkUrl) }, [idFromState])
+  React.useEffect(() => { setLocalTitle(title) }, [title])
 
-  const handleSave = () => { setDialogOpen(true); save('Placeholder Title', query) }
-  const closeDialog = () => { setDialogOpen(false) }
+
+  const handleTitleChange = (event) => { 
+    if (event.target.value!==localTitle) {
+      setLocalTitle(event.target.value)
+    }
+  }
+  
+  const openDialog = () => { setDialogOpen(true) }
+
+  const handleSaveOrUpdate = () => {
+    if (idFromState) {
+      update(idFromState, localTitle, query)
+    } else {
+      save(localTitle, query)
+    }
+  }
+  const closeDialog = () => { setDialogOpen(false); }
 
   if (isLoadFailure) {
     return (
@@ -66,11 +85,19 @@ const VisualizationView = (props) => {
           </span>
           <span className='action-area'>
             <React.Fragment>
-              <TabButton disabled={!isSaveable} className={`header-item save-button ${isDialogOpen && 'saving'}`} onClick={handleSave} >
+              <TabButton disabled={!isSaveable} className={`header-item save-icon ${isDialogOpen && 'saving'}`} onClick={openDialog} >
                 <div title='Save Visualization'><SaveIcon /></div>
               </TabButton>
               <AutoAnchoringPopover className='popover-anchor' open={isDialogOpen} onClose={closeDialog} classes={{ paper: 'popover', root: 'popover-root' }} >
-                <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkUrl={linkUrl} />
+                <div>
+                  <b>Query Title: </b>
+                  <input className="prompt" type="text" placeholder="Query Name" value={localTitle || ''} onChange={handleTitleChange}></input>
+                  <ClearIcon className='clear-icon' onClick={closeDialog} />
+                  <br />
+                  <button className="save-button" onClick={handleSaveOrUpdate} disabled={localTitle == undefined || localTitle.length == 0}>Save</button>
+                  <button onClick={closeDialog}>Cancel</button>
+                  <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkUrl={linkUrl} />
+                </div>
               </AutoAnchoringPopover>
             </React.Fragment>
           </span>
@@ -85,4 +112,5 @@ const VisualizationView = (props) => {
     </visualization-view>
   )
 }
+
 export default VisualizationView
