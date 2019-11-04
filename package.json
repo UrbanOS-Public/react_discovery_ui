@@ -1,6 +1,6 @@
 {
   "name": "@smartcitiesdata/react-discovery-ui",
-  "version": "0.4.10",
+  "version": "0.4.11",
   "description": "React component for dataset discovery UI",
   "main": "./lib/ReactDiscoveryUI.js",
   "repository": {
@@ -33,7 +33,7 @@
     "prop-types": "^15.6.0",
     "qs": "^6.7.0",
     "react": "~16.8.6",
-    "react-chart-editor": "^0.38.1",
+    "react-chart-editor": "^0.40.1",
     "react-collapse": "^4.0.3",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "~16.8.6",
