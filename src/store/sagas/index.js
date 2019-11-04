@@ -10,6 +10,7 @@ import datasetQuerySaga from './dataset-query-saga'
 import freestyleQuerySaga from './freestyle-query-saga'
 import visualizationSaga from './visualization-saga'
 import datasetRecommendationSaga from './dataset-recommendation-saga'
+import oAuthSaga from './oauth-saga'
 
 export default function* allSagas() {
   yield all([
@@ -23,6 +24,7 @@ export default function* allSagas() {
     fork(datasetQuerySaga),
     fork(freestyleQuerySaga),
     fork(visualizationSaga),
-    fork(datasetRecommendationSaga)
+    fork(datasetRecommendationSaga),
+    fork(oAuthSaga)
   ])
 }
