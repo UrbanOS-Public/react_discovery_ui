@@ -21,7 +21,7 @@ describe('dataset api doc ', () => {
   })
 
   it('renders the freestyle query example body with the correct table and column name', () => {
-    expect(subject.text()).toContain(`select ${dataset.schema[0].name} from ${dataset.systemName}`)
+    expect(subject.text()).toContain(`SELECT ${dataset.schema[0].name} FROM ${dataset.systemName}`)
   })
 
   describe('with gtfs format', () => {

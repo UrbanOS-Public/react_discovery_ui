@@ -6,11 +6,13 @@ describe('api example', () => {
     const params = [
       {
         name: 'bob',
+        default: 'smith',
         description: 'a guy named bob',
         example: 'robert'
       },
       {
         name: 'bill',
+        default: 'johnson',
         description: 'a guy named bill',
         example: 'william'
       }
@@ -20,13 +22,15 @@ describe('api example', () => {
 
     const cells = wrapper.find('td')
 
-    expect(cells.length).toBe(6)
+    expect(cells.length).toBe(8)
     expect(cells.at(0).text()).toBe('bob')
-    expect(cells.at(1).text()).toBe('robert')
-    expect(cells.at(2).text()).toBe('a guy named bob')
-    expect(cells.at(3).text()).toBe('bill')
-    expect(cells.at(4).text()).toBe('william')
-    expect(cells.at(5).text()).toBe('a guy named bill')
+    expect(cells.at(1).text()).toBe('smith')
+    expect(cells.at(2).text()).toBe('robert')
+    expect(cells.at(3).text()).toBe('a guy named bob')
+    expect(cells.at(4).text()).toBe('bill')
+    expect(cells.at(5).text()).toBe('johnson')
+    expect(cells.at(6).text()).toBe('william')
+    expect(cells.at(7).text()).toBe('a guy named bill')
   })
 
   it('does not render a table of params if no params are provided', () => {
