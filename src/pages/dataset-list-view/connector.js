@@ -11,7 +11,7 @@ import {
   getNumberOfPages
 } from "../../store/selectors";
 
-const mapStateToProps = state => {
+const mapStateToProps = ( state, ownProps ) => {
   return {
     searchParams: getSearchParams(state),
     searchResults: getSearchResults(state),
