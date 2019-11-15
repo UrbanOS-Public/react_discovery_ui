@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import DatasetListView from "./dataset-list-view";
 import { datasetSearch } from "../../store/actions";
-import withQueryParamsManager from "../../query-params/query-params-manager"
+import withSearchParamsManager from "../../search-params/search-params-manager"
 
 import {
   getSearchResults,
@@ -22,4 +22,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(withQueryParamsManager(DatasetListView));
+export default connect(mapStateToProps)(withSearchParamsManager(DatasetListView));

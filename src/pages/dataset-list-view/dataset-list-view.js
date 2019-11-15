@@ -12,7 +12,7 @@ import Checkbox from "../../components/generic-elements/checkbox"
 
 const DatasetListView = (props) => {
   const {
-    queryParamsManager: {
+    searchParamsManager: {
       toggleApiAccessible,
       updateSortOrder,
       updateSearchText,
@@ -133,7 +133,7 @@ DatasetListView.propTypes = {
   numberOfPages: PropTypes.number.isRequired,
   isSearchLoading: PropTypes.bool.isRequired,
   isError: PropTypes.bool,
-  queryParamsManager: PropTypes.object.isRequired
+  searchParamsManager: PropTypes.object.isRequired
 }
 
 export default DatasetListView

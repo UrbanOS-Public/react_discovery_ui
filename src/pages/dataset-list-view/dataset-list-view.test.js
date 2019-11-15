@@ -15,7 +15,7 @@ describe("dataset list view", () => {
     it("searches datasets with provided search text", () => {
       const updateSearchText = jest.fn()
 
-      subject = createSubject({ queryParamsManager: { updateSearchText } })
+      subject = createSubject({ searchParamsManager: { updateSearchText } })
       subject
         .find(Search)
         .props()
@@ -27,7 +27,7 @@ describe("dataset list view", () => {
     it("sorts datasets with provided sort field", () => {
       const updateSortOrder = jest.fn()
 
-      subject = createSubject({queryParamsManager: { updateSortOrder }})
+      subject = createSubject({searchParamsManager: { updateSortOrder }})
       subject
         .find(Select)
         .props()
@@ -39,7 +39,7 @@ describe("dataset list view", () => {
     it("filters datasets with the provided facets", () => {
       const toggleFacet = jest.fn()
 
-      subject = createSubject({queryParamsManager: {toggleFacet}})
+      subject = createSubject({searchParamsManager: {toggleFacet}})
       subject
         .find(FacetSidebar)
         .props()
@@ -51,7 +51,7 @@ describe("dataset list view", () => {
     it("update search results when api accessible toggle is clicked", () => {
       const toggleApiAccessible = jest.fn()
 
-      subject = createSubject({queryParamsManager: {toggleApiAccessible}})
+      subject = createSubject({searchParamsManager: {toggleApiAccessible}})
 
       subject
         .find(Checkbox)
@@ -64,7 +64,7 @@ describe("dataset list view", () => {
     it("update search results when page is changed", () => {
       const updatePage = jest.fn()
 
-      subject = createSubject({queryParamsManager: {updatePage}})
+      subject = createSubject({searchParamsManager: {updatePage}})
       subject
         .find(Paginator)
         .props()
@@ -99,22 +99,22 @@ describe("dataset list view", () => {
     });
 
     it("apiAccessible is checked when supplied property is true", () => {
-      subject = createSubject({ queryParamsManager: { apiAccessible: true } });
+      subject = createSubject({ searchParamsManager: { apiAccessible: true } });
       expect(subject.find(Checkbox).props().selected).toBeTruthy();
     });
 
     it("apiAccessible is not checked when supplied property is false", () => {
-      subject = createSubject({ queryParamsManager: { apiAccessible: false } });
+      subject = createSubject({ searchParamsManager: { apiAccessible: false } });
       expect(subject.find(Checkbox).props().selected).toBeFalsy();
     });
 
     it("search component is given search text from the query params manager", () => {
-      subject = createSubject({ queryParamsManager: { searchText: 'hullo'} });
+      subject = createSubject({ searchParamsManager: { searchText: 'hullo'} });
       expect(subject.find(Search).props().defaultText).toEqual('hullo');
     });
 
     it("sort order dropdown is given the sort order from the query params manager", () => {
-      subject = createSubject({ queryParamsManager: { sortOrder: 'last_mod'} });
+      subject = createSubject({ searchParamsManager: { sortOrder: 'last_mod'} });
       expect(subject.find(Select).props().options).toContainEqual(
         expect.objectContaining({
         value: "last_mod",
@@ -132,16 +132,16 @@ function createSubject(props, queryString = "") {
     searchMetadata: {},
     searchResults: [],
     numberOfPages: 2,
-    queryParamsManager: {}
+    searchParamsManager: {}
   };
 
-  const defaultQueryParams = {
+  const defaultSearchParams = {
     toggleApiAccessible: jest.fn(),
     apiAccessible: true
   }
 
   const propsWithDefaults = Object.assign({}, defaultProps, props);
-  propsWithDefaults.queryParamsManager = Object.assign({}, defaultQueryParams, props.queryParamsManager)
+  propsWithDefaults.searchParamsManager = Object.assign({}, defaultSearchParams, props.searchParamsManager)
 
   return shallow(<DatasetListView {...propsWithDefaults} />);
 }

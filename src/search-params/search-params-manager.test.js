@@ -1,33 +1,33 @@
-import withQueryParamsManager, {QueryParamsManager, defaults} from './query-params-manager'
+import withSearchParamsManager, {SearchParamsManager, defaults} from './search-params-manager'
 import { mount, shallow } from 'enzyme'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { datasetSearch } from '../store/actions.js'
 import React from 'react'
 
-describe('QueryParamsManager', () => {
+describe('SearchParamsManager', () => {
   describe('property access', () => {
     describe('all query params', () => {
       it('returns all parameters with appropriate deserialization', () => {
-        const queryParams = '?apiAccessible=false&page=9000'
+        const params = '?apiAccessible=false&page=9000'
         const history = {
           location: {
-            search: queryParams
+            search: params
           }
         }
-        const subject = new QueryParamsManager(history)
-        expect(subject.getQueryParams()).toMatchObject({apiAccessible: false, page: 9000})
+        const subject = new SearchParamsManager(history)
+        expect(subject.getParams()).toMatchObject({apiAccessible: false, page: 9000})
       })
 
       it('returns all the defaults if the query params are empty', () => {
-        const queryParams = ''
+        const params = ''
         const history = {
           location: {
-            search: queryParams
+            search: params
           }
         }
-        const subject = new QueryParamsManager(history)
-        expect(subject.getQueryParams()).toEqual({
+        const subject = new SearchParamsManager(history)
+        expect(subject.getParams()).toEqual({
           apiAccessible: defaults.apiAccessible,
           page: defaults.page,
           sortOrder: defaults.sortOrder,
@@ -39,148 +39,148 @@ describe('QueryParamsManager', () => {
 
     describe('apiAccessible', () => {
       it('returns apiAccessible', () => {
-        const queryParams = '?apiAccessible=false'
+        const params = '?apiAccessible=false'
         const history = {
           location: {
-            search: queryParams
+            search: params
           }
         }
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         expect(subject.apiAccessible).toEqual(false)
       })
 
       it('returns default apiAccessible if missing', () => {
-        const queryParams = ''
+        const params = ''
         const history = {
           location: {
-            search: queryParams
+            search: params
           }
         }
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         expect(subject.apiAccessible).toEqual(true)
       })
     })
 
     describe('sortOrder', () => {
       it('returns sort order', () => {
-        const queryParams = '?sort=last_mod'
+        const params = '?sort=last_mod'
         const history = {
           location: {
-            search: queryParams
+            search: params
           }
         }
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         expect(subject.sortOrder).toEqual('last_mod')
       })
 
       it('returns default sort order if missing', () => {
-        const queryParams = ''
+        const params = ''
         const history = {
           location: {
-            search: queryParams
+            search: params
           }
         }
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         expect(subject.sortOrder).toEqual('name_asc')
       })
     })
 
     describe('page', () => {
       it('returns current page if integer', () => {
-        const queryParams = '?page=9000'
+        const params = '?page=9000'
         const history = {
           location: {
-            search: queryParams
+            search: params
           }
         }
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         expect(subject.page).toEqual(9000)
       })
 
       it('returns first page if non-integer', () => {
-        const queryParams = '?page=nine_thousand'
+        const params = '?page=nine_thousand'
         const history = {
           location: {
-            search: queryParams
+            search: params
           }
         }
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         expect(subject.page).toEqual(1)
       })
 
       it('returns first page if missing', () => {
-        const queryParams = '?other-stuff=things'
+        const params = '?other-stuff=things'
         const history = {
           location: {
-            search: queryParams
+            search: params
           }
         }
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         expect(subject.page).toEqual(1)
       })
     })
 
     describe('searchText', () => {
       it('returns search text', () => {
-        const queryParams = '?q=power%20level'
+        const params = '?q=power%20level'
         const history = {
           location: {
-            search: queryParams
+            search: params
           }
         }
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         expect(subject.searchText).toEqual('power level')
       })
 
       it('returns default search text if missing', () => {
-        const queryParams = ''
+        const params = ''
         const history = {
           location: {
-            search: queryParams
+            search: params
           }
         }
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         expect(subject.searchText).toEqual('')
       })
     })
 
     describe('facets', () => {
       it('returns currently applied facets', () => {
-        const queryParamsUnencoded = '?facets[organization][]=Ohio Geographically Referenced Information Program (OGRIP)&facets[keywords][]=Transportation'
-        const queryParams = decodeURI(queryParamsUnencoded)
+        const paramsUnencoded = '?facets[organization][]=Ohio Geographically Referenced Information Program (OGRIP)&facets[organization][]=stuff&facets[keywords][]=Transportation'
+        const params = decodeURI(paramsUnencoded)
         const history = {
           location: {
-            search: queryParams
+            search: params
           }
         }
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         expect(subject.facets).toEqual({
-          organization: ['Ohio Geographically Referenced Information Program (OGRIP)'],
+          organization: ['Ohio Geographically Referenced Information Program (OGRIP)', 'stuff'],
           keywords: ['Transportation']
         })
       })
 
       it('returns empty facets if missing', () => {
-        const queryParamsUnencoded = '?other=stuff'
-        const queryParams = decodeURI(queryParamsUnencoded)
+        const paramsUnencoded = '?other=stuff'
+        const params = decodeURI(paramsUnencoded)
         const history = {
           location: {
-            search: queryParams
+            search: params
           }
         }
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         expect(subject.facets).toEqual({})
       })
 
       it('returns empty facets if unparseable (a lot of times it will just give weird results instead of failing to parse)', () => {
-        const queryParamsUnencoded = '?facets organization]=Ohio Geographically Referenced Information Program (OGRIP)&facets[keywords=Transportation'
-        const queryParams = decodeURI(queryParamsUnencoded)
+        const paramsUnencoded = '?facets organization]=Ohio Geographically Referenced Information Program (OGRIP)&facets[keywords=Transportation'
+        const params = decodeURI(paramsUnencoded)
         const history = {
           location: {
-            search: queryParams
+            search: params
           }
         }
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         expect(subject.facets).toEqual({})
       })
     })
@@ -191,7 +191,7 @@ describe('QueryParamsManager', () => {
       it('with a default flag, updates apiAccessible', () => {
         const {historyPushSpy, history} = createFakeHistory('')
 
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         subject.toggleApiAccessible()
 
         expect(historyPushSpy).toHaveBeenCalledWith({
@@ -202,7 +202,7 @@ describe('QueryParamsManager', () => {
       it('with a true flag, updates apiAccessible', () => {
         const {historyPushSpy, history} = createFakeHistory('?apiAccessible=true')
 
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         subject.toggleApiAccessible()
 
         expect(historyPushSpy).toHaveBeenCalledWith({
@@ -213,7 +213,7 @@ describe('QueryParamsManager', () => {
       it('with a false flag updates apiAccessible', () => {
         const {historyPushSpy, history} = createFakeHistory('?apiAccessible=false&knuckles=true')
 
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         subject.toggleApiAccessible()
 
         expect(historyPushSpy).toHaveBeenCalledWith({
@@ -224,7 +224,7 @@ describe('QueryParamsManager', () => {
       it('resets the page number to 1', () => {
         const {historyPushSpy, history} = createFakeHistory('?apiAccessible=true&page=5')
 
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         subject.toggleApiAccessible()
 
         expect(historyPushSpy).toHaveBeenCalledWith({
@@ -237,7 +237,7 @@ describe('QueryParamsManager', () => {
       it('with a default sort order, updates sort order', () => {
         const {historyPushSpy, history} = createFakeHistory('')
 
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         subject.updateSortOrder('last_mod')
 
         expect(historyPushSpy).toHaveBeenCalledWith({
@@ -248,7 +248,7 @@ describe('QueryParamsManager', () => {
       it('with an existing sort order, updates sort order', () => {
         const {historyPushSpy, history} = createFakeHistory('?sort=last_mod&knuckles=true')
 
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         subject.updateSortOrder('name_asc')
 
         expect(historyPushSpy).toHaveBeenCalledWith({
@@ -261,7 +261,7 @@ describe('QueryParamsManager', () => {
       it('with a default page number, updates page number', () => {
         const {historyPushSpy, history} = createFakeHistory('')
 
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         subject.updatePage(5)
 
         expect(historyPushSpy).toHaveBeenCalledWith({
@@ -272,7 +272,7 @@ describe('QueryParamsManager', () => {
       it('with an existing search text, updates page number', () => {
         const {historyPushSpy, history} = createFakeHistory('?page=1&knuckles=true')
 
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         subject.updatePage(5)
 
         expect(historyPushSpy).toHaveBeenCalledWith({
@@ -285,7 +285,7 @@ describe('QueryParamsManager', () => {
       it('with a default search text, updates search text', () => {
         const {historyPushSpy, history} = createFakeHistory('')
 
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         subject.updateSearchText('sweet_query')
 
         expect(historyPushSpy).toHaveBeenCalledWith({
@@ -296,7 +296,7 @@ describe('QueryParamsManager', () => {
       it('with an existing search text, updates search text', () => {
         const {historyPushSpy, history} = createFakeHistory('?q=the_world&knuckles=true')
 
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         subject.updateSearchText('sweet_query')
 
         expect(historyPushSpy).toHaveBeenCalledWith({
@@ -307,7 +307,7 @@ describe('QueryParamsManager', () => {
       it('resets the page number to 1', () => {
         const {historyPushSpy, history} = createFakeHistory('?q=the_world&page=5')
 
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         subject.updateSearchText('sweet_query')
 
         expect(historyPushSpy).toHaveBeenCalledWith({
@@ -320,7 +320,7 @@ describe('QueryParamsManager', () => {
       it('with default facets (none), updates facets', () => {
         const {historyPushSpy, history} = createFakeHistory('')
 
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         subject.toggleFacet('organization', 'SCOS')
 
         expect(historyPushSpy).toHaveBeenCalledWith({
@@ -331,7 +331,7 @@ describe('QueryParamsManager', () => {
       it('with existing facets for the name (organization), toggles facet', () => {
         const {historyPushSpy, history} = createFakeHistory('?facets%5Borganization%5D%5B%5D=SCOS')
 
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         subject.toggleFacet('organization', 'SCOS')
 
         expect(historyPushSpy).toHaveBeenCalledWith({search: 'page=1'})
@@ -340,7 +340,7 @@ describe('QueryParamsManager', () => {
       it('with existing facets for the name (keywords), add new facets', () => {
         const {historyPushSpy, history} = createFakeHistory('?facets%5Bkeywords%5D%5B%5D=Ohio')
 
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         subject.toggleFacet('keywords', 'Transportation')
 
         expect(historyPushSpy).toHaveBeenCalledWith({
@@ -351,7 +351,7 @@ describe('QueryParamsManager', () => {
       it('with existing facets for the other names (organization), add new facets and keeps others', () => {
         const {historyPushSpy, history} = createFakeHistory('?facets%5Bkeywords%5D%5B%5D=Ohio&facets%5Borganization%5D%5B%5D=SCOS')
 
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         subject.toggleFacet('keywords', 'Ohio')
 
         expect(historyPushSpy).toHaveBeenCalledWith({
@@ -362,7 +362,7 @@ describe('QueryParamsManager', () => {
       it('resets the page number to 1', () => {
         const {historyPushSpy, history} = createFakeHistory('?facets%5Bkeywords%5D%5B%5D=Ohio&facets%5Borganization%5D%5B%5D=SCOS&page=5')
 
-        const subject = new QueryParamsManager(history)
+        const subject = new SearchParamsManager(history)
         subject.toggleFacet('keywords', 'Ohio')
 
         expect(historyPushSpy).toHaveBeenCalledWith({
@@ -373,7 +373,7 @@ describe('QueryParamsManager', () => {
   })
 })
 
-describe('withQueryParamsManager', () => {
+describe('withSearchParamsManager', () => {
   const reducer = (state = [], action) => {
     return [...state, action]
   }
@@ -384,7 +384,7 @@ describe('withQueryParamsManager', () => {
       return <wrapped-component {...props}/>
     }
     store = createStore(reducer)
-    Rapper = withQueryParamsManager(wrappedComponent)
+    Rapper = withSearchParamsManager(wrappedComponent)
   })
 
   it('injects an instance of the query params manager into the wrapped component', () => {
@@ -394,7 +394,7 @@ describe('withQueryParamsManager', () => {
       </TestableProvider>
     )
 
-    expect(subject.find('wrapped-component').prop('queryParamsManager')).toBeInstanceOf(QueryParamsManager)
+    expect(subject.find('wrapped-component').prop('searchParamsManager')).toBeInstanceOf(SearchParamsManager)
   })
 
   it('dispatches search on the initial render', () => {
