@@ -13,23 +13,24 @@ import Checkbox from "../../components/generic-elements/checkbox"
 const DatasetListView = (props) => {
   const {
     queryParamsManager: {
-      updateSearchText,
+      toggleApiAccessible,
       updateSortOrder,
+      updateSearchText,
       updatePage,
       toggleFacet,
-      toggleApiAccessible,
 
       apiAccessible,
-      facets,
-      searchText,
       sortOrder,
-      page
+      searchText,
+      page,
+      facets
     },
     searchResults,
     searchMetadata,
     numberOfPages,
+
     isSearchLoading,
-    error
+    isError
   } = props
 
 
@@ -73,7 +74,7 @@ const DatasetListView = (props) => {
 
   const token = sessionStorage.getItem("api-token")
 
-  if (error) {
+  if (isError) {
     return (
       <ErrorComponent
         errorText={
@@ -131,7 +132,8 @@ DatasetListView.propTypes = {
   searchMetadata: PropTypes.object.isRequired,
   numberOfPages: PropTypes.number.isRequired,
   isSearchLoading: PropTypes.bool.isRequired,
-  error: PropTypes.bool,
+  isError: PropTypes.bool,
   queryParamsManager: PropTypes.object.isRequired
 }
+
 export default DatasetListView

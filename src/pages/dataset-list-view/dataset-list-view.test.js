@@ -68,9 +68,9 @@ describe("dataset list view", () => {
       subject
         .find(Paginator)
         .props()
-        .pageChangeCallback(9000, 20)
+        .pageChangeCallback(9000)
 
-      expect(updatePage).toHaveBeenCalledWith(9000, 20)
+      expect(updatePage).toHaveBeenCalledWith(9000)
     });
   });
 
@@ -84,7 +84,7 @@ describe("dataset list view", () => {
     });
 
     it("shows error message when the error property is true", () => {
-      subject = createSubject({ error: true });
+      subject = createSubject({ isError: true });
       expect(subject.find(ErrorComponent)).toHaveLength(1);
     });
 
@@ -126,49 +126,22 @@ describe("dataset list view", () => {
 });
 
 function createSubject(props, queryString = "") {
-  const navigationSpy = props.navigationSpy || jest.fn();
-  const datasetSearch = props.datasetSearch || jest.fn();
-  const updateDatasetSearchParams = props.updateDatasetSearchParams || jest.fn();
-
-  props.searchParams = defaultSearchParams(props.searchParams);
-
   const defaultProps = {
-    datasets: [],
-    facets: [],
-    totalDatasets: 12,
-    error: false,
+    isError: false,
     isSearchLoading: false,
-    history: { push: navigationSpy },
-    datasetSearch: datasetSearch,
-    updateDatasetSearchParams: updateDatasetSearchParams,
-    location: { search: queryString },
     searchMetadata: {},
     searchResults: [],
-    searchParams: props.searchParams,
     numberOfPages: 2,
-    pageNumber: 0,
     queryParamsManager: {}
   };
 
   const defaultQueryParams = {
     toggleApiAccessible: jest.fn(),
-
     apiAccessible: true
   }
 
   const propsWithDefaults = Object.assign({}, defaultProps, props);
   propsWithDefaults.queryParamsManager = Object.assign({}, defaultQueryParams, props.queryParamsManager)
+
   return shallow(<DatasetListView {...propsWithDefaults} />);
-}
-
-function defaultSearchParams(params) {
-  const defaultSearchParams = {
-    limit: 10,
-    offset: 0,
-    apiAccessible: false,
-    query: "",
-    sort: "default"
-  };
-
-  return Object.assign({}, defaultSearchParams, params);
 }

@@ -11,14 +11,14 @@ import {
   getNumberOfPages
 } from "../../store/selectors";
 
-const mapStateToProps = ( state, ownProps ) => {
+const mapStateToProps = state => {
   return {
     searchResults: getSearchResults(state),
     searchMetadata: getSearchMetadata(state),
     numberOfPages: getNumberOfPages(state),
 
     isSearchLoading: isSearchLoading(state),
-    error: getDataSetError(state)
+    isError: getDataSetError(state)
   };
 };
 
