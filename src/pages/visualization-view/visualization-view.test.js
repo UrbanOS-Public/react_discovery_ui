@@ -45,7 +45,7 @@ describe("visualization view", () => {
     })
 
     it("lands on the query view page", () => {
-      expect(subject.find(Tabs).props().defaultIndex).toEqual(1)
+      expect(subject.find(Tabs).props().defaultIndex).toEqual(0)
     })
   })
 
@@ -64,7 +64,7 @@ describe("visualization view", () => {
     })
 
     it("lands on the chart visualization page", () => {
-      expect(subject.find(Tabs).props().defaultIndex).toEqual(0)
+      expect(subject.find(Tabs).props().defaultIndex).toEqual(1)
     })
   })
 
@@ -131,7 +131,7 @@ describe("visualization view", () => {
   describe("when visualization save button is clicked to update a previously saved visualization", () => {
     beforeEach(() => {
       subject = createSubject({ isSaving: true, query, title, save: saveHandler})
-      
+
       subject.find(".save-icon").simulate("click")
     })
 
@@ -156,7 +156,7 @@ describe("visualization view", () => {
       expect(subject.find(".prompt").length).toEqual(1)
       expect(subject.find(".save-button").length).toEqual(1)
     })
- 
+
     it("disables the save button when no query title has been set", () => {
       expect(subject.find(".save-button").props().disabled).toBeTruthy()
     })

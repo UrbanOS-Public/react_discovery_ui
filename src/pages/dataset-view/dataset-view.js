@@ -68,7 +68,7 @@ export default class extends Component {
             <Tab>Write SQL <SQLIcon className='sqlIcon' /></Tab>
             <Tab>Visualize <ChartIcon className='chartIcon' /></Tab>
           </TabList>
-          <TabPanel forceRender={true}>
+          <TabPanel >
             <DatasetDetailView />
           </TabPanel>
           <TabPanel>

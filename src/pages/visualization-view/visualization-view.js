@@ -44,12 +44,12 @@ const VisualizationView = (props) => {
   React.useEffect(() => { setLocalTitle(title) }, [title])
 
 
-  const handleTitleChange = (event) => { 
+  const handleTitleChange = (event) => {
     if (event.target.value!==localTitle) {
       setLocalTitle(event.target.value)
     }
   }
-  
+
   const openDialog = () => { setDialogOpen(true) }
 
   const handleSaveOrUpdate = () => {
@@ -69,18 +69,18 @@ const VisualizationView = (props) => {
     )
   }
 
-  const startIndex = idFromUrl ? 0 : 1
+  const startIndex = idFromUrl ? 1 : 0
 
   return (
     <visualization-view>
-      <Tabs defaultIndex={startIndex}>
+      <Tabs defaultIndex={startIndex} forceRenderTabPanel>
         <TabList className='header'>
           <span className='tab-area'>
             <Tab className='header-item tab' selectedClassName='selected'>
-              Visualize <ChartIcon className='chart-icon' />
+              Write SQL <SQLIcon className='sql-icon' />
             </Tab>
             <Tab className='header-item tab' selectedClassName='selected'>
-              Write SQL <SQLIcon className='sql-icon' />
+              Visualize <ChartIcon className='chart-icon' />
             </Tab>
           </span>
           <span className='action-area'>
@@ -103,10 +103,10 @@ const VisualizationView = (props) => {
           </span>
         </TabList>
         <TabPanel>
-          <ChartView />
-        </TabPanel>
-        <TabPanel>
           <QueryView />
+        </TabPanel>
+        <TabPanel className="visualization" selectedClassName="visualization--selected">
+          <ChartView />
         </TabPanel>
       </Tabs>
     </visualization-view>

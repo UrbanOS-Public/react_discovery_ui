@@ -126,4 +126,14 @@ visualization-view {
       border-radius: 50%;
     }
   }
+
+  .visualization {
+      height: 85vh;
+      width: 100vw;
+      visibility: hidden;
+    }
+
+  .visualization--selected {
+    visibility: visible;
+  }
 }
