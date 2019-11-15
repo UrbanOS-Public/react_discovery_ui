@@ -64,6 +64,19 @@ dataset-view {
     }
   }
 
+  .visualization {
+    height: 85vh;
+    width: 100vw;
+    visibility: hidden;
+  }
+
+  .visualization--selected {
+    visibility: visible;
+    // display: flex;
+  }
+
+
+
   loading-element {
     @include default-loading-icon();
   }

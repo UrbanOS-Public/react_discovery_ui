@@ -1,8 +1,10 @@
 import PlotlyEditor, { DefaultEditor } from 'react-chart-editor'
 import 'react-chart-editor/lib/react-chart-editor.ie.css'
 import './chart-visualization.css'
+import { dereference } from 'react-chart-editor/lib'
 import plotly from 'plotly.js/dist/plotly'
 import { Component } from 'react'
+import { isEqual, cloneDeep } from 'lodash'
 
 const getDataSourceOptions = dataSources => {
   return Object.keys(dataSources).map(name => ({

@@ -7,12 +7,12 @@ main-app-element {
 
 chart-view {
   width: 100%;
+  height: 85vh;
   align-self: center;
 
-  chart-visualization {
-    display: block;
-    height: 85vh;
-  }
+  // div.svg-container {
+  //   height: 85vh;
+  // }
 
   loading-element {
     @include default-loading-icon();
