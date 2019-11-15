@@ -72,10 +72,7 @@ dataset-view {
 
   .visualization--selected {
     visibility: visible;
-    // display: flex;
   }
-
-
 
   loading-element {
     @include default-loading-icon();
