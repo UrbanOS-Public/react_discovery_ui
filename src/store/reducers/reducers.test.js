@@ -11,8 +11,7 @@ import {
   DOWNLOAD_DATASET_SUCCEEDED,
   CLEAR_DATASET_PREVIEW,
   DATASET_SEARCH,
-  DATASET_SEARCH_SUCCEEDED,
-  UPDATE_DATASET_SEARCH_PARAMS
+  DATASET_SEARCH_SUCCEEDED
 } from "../actions";
 import datasetStub from "../../../stubs/dataset-details-stub";
 
@@ -213,81 +212,5 @@ describe("Search Reducer", () => {
     });
 
     expect(newState.searchReducer.isRunning).toEqual(false);
-  });
-
-  it("UPDATE_DATASET_SEARCH_PARAMS sets search params", () => {
-    let currentState = {
-      searchReducer: {
-        searchParams: {}
-      }
-    };
-    let expectedParams = { limit: 1, query: "bob" };
-    let newState = reducer(currentState, {
-      type: UPDATE_DATASET_SEARCH_PARAMS,
-      value: expectedParams
-    });
-
-    expect(newState.searchReducer.searchParams).toEqual(expectedParams);
-  });
-
-  it("UPDATE_DATASET_SEARCH_PARAMS sets facets", () => {
-    let currentState = {
-      searchReducer: {
-        searchParams: {}
-      }
-    };
-    let expectedParams = { facets: { keyword: ["stuff"] } };
-    let newState = reducer(currentState, {
-      type: UPDATE_DATASET_SEARCH_PARAMS,
-      value: expectedParams
-    });
-
-    expect(newState.searchReducer.searchParams).toEqual(expectedParams);
-  });
-
-  it("UPDATE_DATASET_SEARCH_PARAMS toggles facets on", () => {
-    let currentState = {
-      searchReducer: {
-        searchParams: { facets: { keyword: ["stuff"] } }
-      }
-    };
-    let expectedParams = { facets: { keyword: ["stuff", "things"] } };
-    let newState = reducer(currentState, {
-      type: UPDATE_DATASET_SEARCH_PARAMS,
-      value: { facets: { keyword: ["things"] } }
-    });
-
-    expect(newState.searchReducer.searchParams).toEqual(expectedParams);
-  });
-
-  it("UPDATE_DATASET_SEARCH_PARAMS toggles facets off", () => {
-    let currentState = {
-      searchReducer: {
-        searchParams: { facets: { keyword: ["stuff", "things"] } }
-      }
-    };
-    let expectedParams = { facets: { keyword: ["things"] } };
-    let newState = reducer(currentState, {
-      type: UPDATE_DATASET_SEARCH_PARAMS,
-      value: { facets: { keyword: ["stuff"] } }
-    });
-
-    expect(newState.searchReducer.searchParams).toEqual(expectedParams);
-  });
-
-  it("UPDATE_DATASET_SEARCH_PARAMS merges search params", () => {
-    let currentState = {
-      searchReducer: {
-        searchParams: { limit: 1, query: "bob" }
-      }
-    };
-    let params = { query: "frank", offset: 10 };
-    let expected = { limit: 1, query: "frank", offset: 10, facets: {} };
-    let newState = reducer(currentState, {
-      type: UPDATE_DATASET_SEARCH_PARAMS,
-      value: params
-    });
-
-    expect(newState.searchReducer.searchParams).toEqual(expected);
   });
 });

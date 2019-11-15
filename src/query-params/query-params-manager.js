@@ -1,25 +1,43 @@
 import React, {useEffect} from 'react'
+import { useDispatch } from 'react-redux'
 import qs from 'qs'
 import _ from 'lodash'
+import { connect } from "react-redux"
+import { datasetSearch } from "../store/actions.js"
 
 const DEFAULT_SORT_ORDER = 'name_asc'
 const DEFAULT_CURRENT_PAGE = 1
 const DEFAULT_SEARCH_TEXT = ''
 const DEFAULT_FACETS = {}
+const DEFAULT_API_ACCESSIBLE_FLAG = true
 
 class QueryParamsManager {
   constructor(history) {
     this.history = history
+    this.pushHistory = history.push
+    this.queryParams = qs.parse(this.history.location.search, { ignoreQueryPrefix: true })
+
+
+    this.getQueryParam = this.getQueryParam.bind(this)
+    this.getQueryParams = this.getQueryParams.bind(this)
+
+    this.toggleApiAccessible = this.toggleApiAccessible.bind(this)
+    this.toggleFacet = this.toggleFacet.bind(this)
+    this.updateSearchText = this.updateSearchText.bind(this)
+    this.updateSortOrder = this.updateSortOrder.bind(this)
+    this.updatePage = this.updatePage.bind(this)
+
+    this.updateQueryParams = this.updateQueryParams.bind(this)
   }
 
   getQueryParam(param) {
-    return qs.parse(this.history.location.search, { ignoreQueryPrefix: true })[param]
+    return this.queryParams[param]
   }
 
   getQueryParams() {
     return {
       apiAccessible: this.apiAccessible,
-      currentPage: this.currentPage,
+      page: this.page,
       facets: this.facets,
       searchText: this.searchText,
       sortOrder: this.sortOrder
@@ -27,25 +45,35 @@ class QueryParamsManager {
   }
 
   toggleApiAccessible() {
-    const currentSearch = qs.parse(this.history.location.search, {ignoreQueryPrefix: true})
     const updatedApiAccessibleFlag = ! this.apiAccessible
 
-    const updatedSearch = Object.assign({}, currentSearch, {apiAccessible: updatedApiAccessibleFlag})
-    const updatedSearchEncoded = qs.stringify(updatedSearch, { arrayFormat: 'brackets', addQueryPrefix: false })
-
-    this.history.push({search: updatedSearchEncoded})
+    this.updateQueryParams({ apiAccessible: updatedApiAccessibleFlag, page: 1 })
   }
 
   toggleFacet(name, value) {
-    const currentSearch = qs.parse(this.history.location.search, {ignoreQueryPrefix: true})
     const facetValues = this.facets[name]
-    const updatedFacets = Object.assign(this.facets, { [name]: _.xor(facetValues, [value]) })
+    const updatedFacets = Object.assign({}, this.facets, { [name]: _.xor(facetValues, [value]) })
 
-    const updatedSearch = Object.assign({}, currentSearch, {facets: updatedFacets})
+    this.updateQueryParams({ facets: updatedFacets, page: 1 })
+  }
+
+  updateSortOrder(sort) {
+    this.updateQueryParams({ sort: sort })
+  }
+
+  updateSearchText(searchText) {
+    this.updateQueryParams({ q: searchText, page: 1 })
+  }
+
+  updatePage(page) {
+    this.updateQueryParams({ page: page })
+  }
+
+  updateQueryParams(params) {
+    const updatedSearch = Object.assign({}, this.queryParams, params)
     const updatedSearchEncoded = qs.stringify(updatedSearch, { arrayFormat: 'brackets', addQueryPrefix: false })
-    const decodedSearch = qs.parse(updatedSearchEncoded, {ignoreQueryPrefix: true})
 
-    this.history.push({search: updatedSearchEncoded})
+    this.pushHistory({search: updatedSearchEncoded})
   }
 
   get apiAccessible() {
@@ -56,7 +84,7 @@ class QueryParamsManager {
     return this.getQueryParam('sort') || DEFAULT_SORT_ORDER
   }
 
-  get currentPage() {
+  get page() {
     return Number.parseInt(this.getQueryParam('page')) || DEFAULT_CURRENT_PAGE
   }
 
@@ -69,22 +97,29 @@ class QueryParamsManager {
   }
 }
 
-const withQueryParamsManager = (WrappedComponent, handler) => {
+const withQueryParamsManager = (WrappedComponent) => {
   const comp = (props) => {
     const {history} = props
+    const dispatch = useDispatch()
     const queryParamsManager = new QueryParamsManager(history)
 
-    const callHandler = () => {
+    const dispatchDatasetSearch = () => {
       const updatedParams = queryParamsManager.getQueryParams()
-      handler(updatedParams)
+      dispatch(datasetSearch(updatedParams))
     }
 
-    useEffect(callHandler, [history.location.search])
+    useEffect(dispatchDatasetSearch, [history.location.search])
 
     return (<WrappedComponent queryParamsManager={queryParamsManager} {...props} />)
   }
   return comp
 }
 
-export default withQueryParamsManager
-export {QueryParamsManager}
+const defaults = {
+  apiAccessible: DEFAULT_API_ACCESSIBLE_FLAG,
+  sortOrder: DEFAULT_SORT_ORDER,
+  page: DEFAULT_CURRENT_PAGE,
+  searchText: DEFAULT_SEARCH_TEXT,
+  facets: DEFAULT_FACETS
+}
+export { withQueryParamsManager as default, QueryParamsManager, defaults }

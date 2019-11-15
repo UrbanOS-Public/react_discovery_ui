@@ -16,8 +16,7 @@ import {
   DOWNLOAD_DATASET_SUCCEEDED,
   DOWNLOAD_DATASET_FAILED,
   DATASET_SEARCH,
-  DATASET_SEARCH_SUCCEEDED,
-  UPDATE_DATASET_SEARCH_PARAMS
+  DATASET_SEARCH_SUCCEEDED
 } from "../actions";
 import visualizationReducer from "./visualization-reducer";
 
@@ -111,14 +110,6 @@ const presentationReducer = (state = defaultPresentationState, action) => {
 
 const defaultSearchState = {
   isRunning: false,
-  searchParams: {
-    limit: 10,
-    offset: 0,
-    apiAccessible: false,
-    query: "",
-    sort: "name_asc",
-    facets: {}
-  },
   searchResults: [],
   searchMetadata: {}
 };
@@ -127,13 +118,6 @@ const searchReducer = (state = defaultSearchState, action) => {
   switch (action.type) {
     case DATASET_SEARCH:
       return Object.assign({}, state, { isRunning: true });
-    case UPDATE_DATASET_SEARCH_PARAMS:
-      action.value.facets = updateFacets(
-        Object.assign({}, state.searchParams.facets),
-        action.value.facets
-      );
-      let newParams = Object.assign({}, state.searchParams, action.value);
-      return Object.assign({}, state, { searchParams: newParams });
     case DATASET_SEARCH_SUCCEEDED:
       return Object.assign({}, state, {
         isRunning: false,

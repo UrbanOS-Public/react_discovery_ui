@@ -1,15 +1,30 @@
-import { select, take } from 'redux-saga/effects'
-import { DATASET_SEARCH, UPDATE_DATASET_SEARCH_PARAMS, datasetSearchSucceeded, displayError } from '../actions'
+import { select, takeEvery } from 'redux-saga/effects'
+import { DATASET_SEARCH, datasetSearchSucceeded, displayError } from '../actions'
 import apiInvoker from './api-invoker'
-import { getSearchParams } from '../selectors'
-
 
 export default function * theRealDatasetSaga () {
-  while (true) {
-    yield take(UPDATE_DATASET_SEARCH_PARAMS)
-    let search = yield take(DATASET_SEARCH)
-    const params = yield select(getSearchParams);
-    let invoker = apiInvoker({ endpoint: '/api/v1/dataset/search', actionator: datasetSearchSucceeded, queryParameterBuilder: () => params })
-    yield invoker(search)
+  yield takeEvery(
+    DATASET_SEARCH,
+    apiInvoker(
+      {
+        endpoint: '/api/v1/dataset/search',
+        actionator: datasetSearchSucceeded,
+        queryParameterBuilder: queryParamBuilder
+      }
+    )
+  )
+}
+
+const queryParamBuilder = action => {
+  const limit = 10
+  const offset = (action.value.page - 1) * limit;
+
+  return {
+    offset: offset,
+    limit: limit,
+    sort: action.value.sortOrder,
+    query: action.value.searchText,
+    facets: action.value.facets,
+    apiAccessible: action.value.apiAccessible
   }
 }

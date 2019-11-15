@@ -14,20 +14,20 @@ const DatasetListView = (props) => {
   const {
     queryParamsManager: {
       updateSearchText,
-      updateSortBy,
-      updateCurrentPage,
+      updateSortOrder,
+      updatePage,
       toggleFacet,
       toggleApiAccessible,
 
       apiAccessible,
       facets,
-      query,
-      sort
+      searchText,
+      sortOrder,
+      page
     },
     searchResults,
     searchMetadata,
     numberOfPages,
-    pageNumber,
     isSearchLoading,
     error
   } = props
@@ -38,17 +38,17 @@ const DatasetListView = (props) => {
       {
         value: "name_asc",
         label: "Name Ascending",
-        default: sort === "name_asc"
+        default: sortOrder === "name_asc"
       },
       {
         value: "name_desc",
         label: "Name Descending",
-        default: sort === "name_desc"
+        default: sortOrder === "name_desc"
       },
       {
         value: "last_mod",
         label: "Last Modified",
-        default: sort === "last_mod"
+        default: sortOrder === "last_mod"
       }
     ]
   }
@@ -65,8 +65,8 @@ const DatasetListView = (props) => {
     const resultCountText = isSearchLoading
           ? ""
           : (`${searchMetadata.totalDatasets || "No"} datasets found`)
-    const resultCountQueryText = query
-          ? ` for "${query}"`
+    const resultCountQueryText = searchText
+          ? ` for "${searchText}"`
           : ""
     return <div className="result-count">{`${resultCountText}${resultCountQueryText}`}</div>
   }
@@ -100,25 +100,25 @@ const DatasetListView = (props) => {
         <div className="right-section">
           <Search
             className="search"
-            defaultText={query}
+            defaultText={searchText}
             placeholder="Search datasets"
             callback={updateSearchText}
           />
           <div className="list-header">
             {renderResultsCountText()}
             <Select
-              className="sort-select"
+              className="sortOrder-select"
               label="order by"
               options={createSortOptions()}
-              selectChangeCallback={updateSortBy}
+              selectChangeCallback={updateSortOrder}
             />
           </div>
           {renderDatasetList()}
           <Paginator
             className="paginator"
             numberOfPages={numberOfPages}
-            currentPage={pageNumber}
-            pageChangeCallback={updateCurrentPage}
+            currentPage={page}
+            pageChangeCallback={updatePage}
           />
         </div>
       </dataset-list-view>
@@ -129,11 +129,9 @@ const DatasetListView = (props) => {
 DatasetListView.propTypes = {
   searchResults: PropTypes.array.isRequired,
   searchMetadata: PropTypes.object.isRequired,
-  pageNumber: PropTypes.number.isRequired,
   numberOfPages: PropTypes.number.isRequired,
   isSearchLoading: PropTypes.bool.isRequired,
   error: PropTypes.bool,
-  queryParamsManager: PropTypes.object.isRequired,
-  datasetSearch: PropTypes.func.isRequired
+  queryParamsManager: PropTypes.object.isRequired
 }
 export default DatasetListView

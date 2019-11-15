@@ -205,11 +205,6 @@ export const datasetSearch = (params) => ({
   type: DATASET_SEARCH, value: params
 })
 
-export const UPDATE_DATASET_SEARCH_PARAMS = "UPDATE_DATASET_SEARCH_PARAMS"
-export const updateDatasetSearchParams = (params) => ({
-  type: UPDATE_DATASET_SEARCH_PARAMS, value: params
-})
-
 export const DATASET_SEARCH_SUCCEEDED = 'DATASET_SEARCH_SUCCEEDED'
 export const datasetSearchSucceeded = (data) => ({
   type: DATASET_SEARCH_SUCCEEDED, value: data
