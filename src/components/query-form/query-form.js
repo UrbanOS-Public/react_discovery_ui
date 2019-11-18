@@ -74,7 +74,7 @@ const QueryForm = props => {
   const showSuccessMessage = !queryFailureMessage && userHasInteracted && !isQueryLoading
   const successMessage = showSuccessMessage && (
     <span className='success-message'>
-      Query successful.  To refresh the visualization, you must change an element in the trace
+      Query successful
     </span>
   )
 
