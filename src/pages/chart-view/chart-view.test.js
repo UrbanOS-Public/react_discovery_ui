@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 
 import ChartView from './chart-view'
-import ChartVisualization from '../../components/visualizations/chart/chart-visualization'
+import PlotlyEditor from 'react-chart-editor'
 import LoadingElement from '../../components/generic-elements/loading-element'
 
 // Currently, shallow rendering is not compatible with React hooks.
@@ -28,7 +28,7 @@ describe('chart view', () => {
     })
 
     it('does not display a chart visualization', () => {
-      expect(subject.find(ChartVisualization).length).toBe(0)
+      expect(subject.find(PlotlyEditor).length).toBe(0)
     })
   })
 
@@ -44,7 +44,7 @@ describe('chart view', () => {
     })
 
     it('displays a chart visualization with the provided data sources', () => {
-      expect(subject.find(ChartVisualization).props().dataSources).toBe(chartDataSources)
+      expect(subject.find(PlotlyEditor).props().dataSources).toBe(chartDataSources)
     })
   })
 
@@ -54,7 +54,7 @@ describe('chart view', () => {
     })
 
     it('does not render a chart editor', () => {
-      expect(subject.find(ChartVisualization).length).toBe(0)
+      expect(subject.find(PlotlyEditor).length).toBe(0)
     })
 
     it('displays a message that data has not been loaded', () => {

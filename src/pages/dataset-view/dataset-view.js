@@ -75,7 +75,7 @@ export default class extends Component {
             <QueryView />
           </TabPanel>
           <TabPanel className="visualization" selectedClassName="visualization--selected">
-            <ChartView />
+            <ChartView selectedIndex={this.state.index} />
           </TabPanel>
 
         </Tabs>

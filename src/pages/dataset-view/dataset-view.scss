@@ -67,12 +67,11 @@ dataset-view {
   .visualization {
     height: 85vh;
     width: 100vw;
-    visibility: hidden;
+    display: none;
   }
 
   .visualization--selected {
-    visibility: visible;
-    // display: flex;
+    display: flex;
   }
 
 
