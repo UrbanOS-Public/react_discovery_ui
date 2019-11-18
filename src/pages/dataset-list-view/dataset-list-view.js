@@ -1,232 +1,128 @@
-import "./dataset-list-view.scss";
-import { Component } from "react";
-import DatasetList from "../../components/dataset-list";
-import Paginator from "../../components/generic-elements/paginator";
-import Select from "../../components/generic-elements/select";
-import Search from "../../components/generic-elements/search";
-import LoginZone from "../../components/login-zone";
-import FacetSidebar from "../../components/facet-sidebar";
-import ErrorComponent from "../../components/generic-elements/error-component";
-import LoadingElement from "../../components/generic-elements/loading-element";
-import Checkbox from "../../components/generic-elements/checkbox";
-import qs from "qs";
-import _ from "lodash";
+import "./dataset-list-view.scss"
+import PropTypes from 'prop-types'
+import DatasetList from "../../components/dataset-list"
+import Paginator from "../../components/generic-elements/paginator"
+import Select from "../../components/generic-elements/select"
+import Search from "../../components/generic-elements/search"
+import LoginZone from "../../components/login-zone"
+import FacetSidebar from "../../components/facet-sidebar"
+import ErrorComponent from "../../components/generic-elements/error-component"
+import LoadingElement from "../../components/generic-elements/loading-element"
+import Checkbox from "../../components/generic-elements/checkbox"
+import { SearchParamsManager } from "../../search-params/search-params-manager"
 
-export default class extends Component {
-  constructor(props) {
-    super(props);
-  }
+const DatasetListView = (props) => {
+  const {
+    searchParamsManager,
+    searchResults,
+    searchMetadata,
+    numberOfPages,
 
-  componentDidMount() {
-    this.updateDatasetSearchParamsFromQuery();
-    this.props.datasetSearch();
-  }
+    isSearchLoading,
+    isError
+  } = props
 
-  componentDidUpdate(previousProps) {
-    const urlSearchString = this.props.location.search;
-    const propSearchString = this.queryString({
-      ...this.props.searchParams,
-      page: this.props.pageNumber
-    });
 
-    const previousPropSearchString = this.queryString({
-      ...previousProps.searchParams,
-      page: previousProps.pageNumber
-    });
-
-    const stateAndUrlOutOfSync = propSearchString !== urlSearchString;
-    const stateWasUpdated = propSearchString !== previousPropSearchString;
-
-    if (stateAndUrlOutOfSync) {
-      if (stateWasUpdated || !urlSearchString) {
-        //update url bar to match props
-        this.updateQueryParameters({
-          ...this.props.searchParams,
-          page: this.props.pageNumber
-        });
-      } else {
-        //update redux state to match url bar
-        this.updateDatasetSearchParamsFromQuery();
-        this.props.datasetSearch();
-      }
-    }
-  }
-
-  updateDatasetSearchParamsFromQuery() {
-    this.props.updateDatasetSearchParams({
-      query: this.getQueryParam("q") || this.props.searchParams.query,
-      sort: this.getQueryParam("sort") || this.props.searchParams.sort,
-      facets: this.getQueryParam("facets") || this.props.searchParams.facets,
-      offset: this.calculateOffset(
-        parseInt(this.getQueryParam("page") || 1),
-        this.props.searchParams.limit
-      ),
-      apiAccessible:
-        this.convertStringToBooleanWithDefault(
-          this.getQueryParam("apiAccessible"),
-          false
-        ) || this.props.searchParams.apiAccessible
-    });
-  }
-
-  updateQueryParameters(params) {
-    this.props.history.push({
-      search: this.queryString(params)
-    });
-  }
-
-  convertStringToBooleanWithDefault(value, defaultValue) {
-    return value == undefined ? defaultValue : _.lowerCase(value) == "true";
-  }
-
-  getQueryParam(param) {
-    return qs.parse(this.props.location.search, { ignoreQueryPrefix: true })[
-      param
-    ];
-  }
-
-  onSearchChange(criteria) {
-    this.props.updateDatasetSearchParams({
-      query: criteria,
-      offset: 0
-    });
-    this.props.datasetSearch();
-  }
-
-  onSortChange(sort) {
-    this.props.updateDatasetSearchParams({
-      sort: sort,
-      offset: 0
-    });
-    this.props.datasetSearch();
-  }
-
-  onFacetClick(facetName, facetValue) {
-    this.props.updateDatasetSearchParams({
-      facets: { [facetName]: [facetValue] },
-      offset: 0
-    });
-    this.props.datasetSearch();
-  }
-
-  onRemoteToggleClick() {
-    this.props.updateDatasetSearchParams({
-      apiAccessible: !this.props.searchParams.apiAccessible
-    });
-    this.props.datasetSearch();
-  }
-
-  onPageChange(page) {
-    this.props.updateDatasetSearchParams({
-      offset: this.calculateOffset(page, this.props.searchParams.limit)
-    });
-    this.props.datasetSearch();
-  }
-
-  calculateOffset(page, limit) {
-    return (page - 1) * limit;
-  }
-
-  queryString({ sort, facets, apiAccessible, page, ...rest }) {
-    return qs.stringify(
-      { q: rest.query, sort, facets, apiAccessible, page },
-      { arrayFormat: "brackets", addQueryPrefix: true }
-    );
-  }
-
-  get createSortOptions() {
+  const createSortOptions = () => {
     return [
       {
         value: "name_asc",
         label: "Name Ascending",
-        default: this.sort === "name_asc"
+        default: searchParamsManager.sortOrder === "name_asc"
       },
       {
         value: "name_desc",
         label: "Name Descending",
-        default: this.sort === "name_desc"
+        default: searchParamsManager.sortOrder === "name_desc"
       },
       {
         value: "last_mod",
         label: "Last Modified",
-        default: this.sort === "last_mod"
+        default: searchParamsManager.sortOrder === "last_mod"
       }
-    ];
+    ]
   }
 
-  renderLoading() {
-    if (this.props.isSearchLoading) {
-      return <LoadingElement />;
+  const renderDatasetList = () => {
+    if (isSearchLoading) {
+      return <LoadingElement />
     } else {
-      return <DatasetList datasets={this.props.searchResults} />;
+      return <DatasetList datasets={searchResults} />
     }
   }
 
-  resultCountText() {
-    if (this.props.isSearchLoading) {
-      return "";
-    }
-    return `${this.props.searchMetadata.totalDatasets || "No"} datasets found`;
+  const renderResultsCountText = () => {
+    const resultCountText = isSearchLoading
+          ? ""
+          : (`${searchMetadata.totalDatasets || "No"} datasets found`)
+    const resultCountQueryText = searchParamsManager.searchText
+          ? ` for "${searchParamsManager.searchText}"`
+          : ""
+    return <div className="result-count">{`${resultCountText}${resultCountQueryText}`}</div>
   }
 
-  render() {
-    const resultCountText = this.resultCountText();
-    const resultCountQueryText = this.props.searchParams.query
-      ? ` for "${this.props.searchParams.query}"`
-      : "";
-    const token = sessionStorage.getItem("api-token");
-    if (this.props.error) {
-      return (
-        <ErrorComponent
-          errorText={
-            "We were unable to fetch the datasets, please refresh the page to try again"
-          }
-        />
-      );
-    } else {
-      return (
-        <dataset-list-view ref={this.pageRef}>
-          <div className="left-section">
-            <LoginZone token={token} />
-            <Checkbox
-              clickHandler={() => this.onRemoteToggleClick()}
-              text="API Accessible"
-              selected={this.props.searchParams.apiAccessible}
-            />
-            <FacetSidebar
-              availableFacets={this.props.searchMetadata.facets}
-              appliedFacets={this.props.searchParams.facets}
-              clickHandler={(facetName, facetValue) =>
-                this.onFacetClick(facetName, facetValue)
-              }
+  const token = sessionStorage.getItem("api-token")
+
+  if (isError) {
+    return (
+      <ErrorComponent
+        errorText={
+          "We were unable to fetch the datasets, please refresh the page to try again"
+        }
+      />
+    )
+  } else {
+    return (
+      <dataset-list-view>
+        <div className="left-section">
+          <LoginZone token={token} />
+          <Checkbox
+      clickHandler={searchParamsManager.toggleApiAccessible}
+            text="API Accessible"
+      selected={searchParamsManager.apiAccessible}
+          />
+          <FacetSidebar
+            availableFacets={searchMetadata.facets}
+      appliedFacets={searchParamsManager.facets}
+      clickHandler={searchParamsManager.toggleFacet}
+          />
+        </div>
+        <div className="right-section">
+          <Search
+            className="search"
+            defaultText={searchParamsManager.searchText}
+            placeholder="Search datasets"
+      callback={searchParamsManager.updateSearchText}
+          />
+          <div className="list-header">
+            {renderResultsCountText()}
+            <Select
+              className="searchParamsManager.sortOrder-select"
+              label="order by"
+              options={createSortOptions()}
+      selectChangeCallback={searchParamsManager.updateSortOrder}
             />
           </div>
-          <div className="right-section">
-            <Search
-              className="search"
-              defaultText={this.props.searchParams.query}
-              placeholder="Search datasets"
-              callback={searchCriteria => this.onSearchChange(searchCriteria)}
-            />
-            <div className="list-header">
-              <div className="result-count">{`${resultCountText}${resultCountQueryText}`}</div>
-              <Select
-                className="sort-select"
-                label="order by"
-                options={this.createSortOptions}
-                selectChangeCallback={sort => this.onSortChange(sort)}
-              />
-            </div>
-            {this.renderLoading()}
-            <Paginator
-              className="paginator"
-              numberOfPages={this.props.numberOfPages}
-              currentPage={this.props.pageNumber}
-              pageChangeCallback={page => this.onPageChange(page)}
-            />
-          </div>
-        </dataset-list-view>
-      );
-    }
+          {renderDatasetList()}
+          <Paginator
+            className="paginator"
+            numberOfPages={numberOfPages}
+      currentPage={searchParamsManager.page}
+      pageChangeCallback={searchParamsManager.updatePage}
+          />
+        </div>
+      </dataset-list-view>
+    )
   }
 }
+
+DatasetListView.propTypes = {
+  searchParamsManager: PropTypes.shape(SearchParamsManager.propTypes),
+  searchResults: PropTypes.array.isRequired,
+  searchMetadata: PropTypes.object.isRequired,
+  numberOfPages: PropTypes.number.isRequired,
+  isSearchLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool
+}
+
+export default DatasetListView
