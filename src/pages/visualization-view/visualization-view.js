@@ -44,12 +44,12 @@ const VisualizationView = (props) => {
   React.useEffect(() => { setLocalTitle(title) }, [title])
 
 
-  const handleTitleChange = (event) => { 
-    if (event.target.value!==localTitle) {
+  const handleTitleChange = (event) => {
+    if (event.target.value !== localTitle) {
       setLocalTitle(event.target.value)
     }
   }
-  
+
   const openDialog = () => { setDialogOpen(true) }
 
   const handleSaveOrUpdate = () => {
@@ -70,10 +70,11 @@ const VisualizationView = (props) => {
   }
 
   const startIndex = idFromUrl ? 0 : 1
+  const [index, setIndex] = useState(startIndex)
 
   return (
     <visualization-view>
-      <Tabs defaultIndex={startIndex}>
+      <Tabs selectedIndex={index} onSelect={tabIndex => setIndex(tabIndex)} forceRenderTabPanel>
         <TabList className='header'>
           <span className='tab-area'>
             <Tab className='header-item tab' selectedClassName='selected'>
@@ -102,8 +103,8 @@ const VisualizationView = (props) => {
             </React.Fragment>
           </span>
         </TabList>
-        <TabPanel>
-          <ChartView />
+        <TabPanel className="visualization" selectedClassName="visualization--selected">
+          <ChartView selectedIndex={index} />
         </TabPanel>
         <TabPanel>
           <QueryView />

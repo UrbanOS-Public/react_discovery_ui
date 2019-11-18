@@ -10,10 +10,6 @@ chart-view {
   height: 85vh;
   align-self: center;
 
-  // div.svg-container {
-  //   height: 85vh;
-  // }
-
   loading-element {
     @include default-loading-icon();
   }
