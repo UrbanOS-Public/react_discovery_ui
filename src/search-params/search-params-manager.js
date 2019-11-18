@@ -29,6 +29,16 @@ class SearchParamsManager {
     this.updatePage = this.updatePage.bind(this)
 
     this.updateParams = this.updateParams.bind(this)
+
+    this.apiAccessible = this.getParam('apiAccessible') !== 'false'
+    this.sortOrder = this.getParam('sort') || defaults.sortOrder
+    this.page = Number.parseInt(this.getParam('page')) || defaults.page
+    this.searchText = this.getParam('q') || defaults.searchText
+    this.facets = this.getParam('facets') || defaults.facets
+  }
+
+  getParam(name) {
+    return this.params[name]
   }
 
   getParams() {
@@ -75,31 +85,19 @@ class SearchParamsManager {
 
     this.pushHistory({search: updatedSearchEncoded})
   }
+}
 
-  get apiAccessible() {
-    return this.getParam('apiAccessible') !== 'false'
-  }
-
-  get sortOrder() {
-    return this.getParam('sort') || defaults.sortOrder
-  }
-
-  get page() {
-    return Number.parseInt(this.getParam('page')) || defaults.page
-  }
-
-  get searchText() {
-    return this.getParam('q') || defaults.searchText
-  }
-
-  get facets() {
-    return this.getParam('facets') || defaults.facets
-  }
-
-  getParam(name) {
-    return this.params[name]
-  }
-
+SearchParamsManager.propTypes = {
+  apiAccessible: PropTypes.bool.isRequired,
+  sortOrder: PropTypes.string.isRequired,
+  page: PropTypes.number.isRequired,
+  searchText: PropTypes.string.isRequired,
+  facets: PropTypes.object.isRequired,
+  toggleApiAccessible: PropTypes.func.isRequired,
+  updateSortOrder: PropTypes.func.isRequired,
+  updateSearchText: PropTypes.func.isRequired,
+  updatePage: PropTypes.func.isRequired,
+  toggleFactes: PropTypes.func.isRequired
 }
 
 const withSearchParamsManager = (WrappedComponent) => {

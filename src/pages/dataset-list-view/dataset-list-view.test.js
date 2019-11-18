@@ -136,8 +136,17 @@ function createSubject(props, queryString = "") {
   };
 
   const defaultSearchParams = {
+    apiAccessible: true,
+    sortOrder: 'name_asc',
+    page: 1,
+    searchText: '',
+    facets: {},
+
     toggleApiAccessible: jest.fn(),
-    apiAccessible: true
+    updateSortOrder: jest.fn(),
+    updateSearchText: jest.fn(),
+    updatePage: jest.fn(),
+    toggleFactes: jest.fn()
   }
 
   const propsWithDefaults = Object.assign({}, defaultProps, props);

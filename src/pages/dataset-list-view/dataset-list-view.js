@@ -9,22 +9,11 @@ import FacetSidebar from "../../components/facet-sidebar"
 import ErrorComponent from "../../components/generic-elements/error-component"
 import LoadingElement from "../../components/generic-elements/loading-element"
 import Checkbox from "../../components/generic-elements/checkbox"
+import { SearchParamsManager } from "../../search-params/search-params-manager"
 
 const DatasetListView = (props) => {
   const {
-    searchParamsManager: {
-      toggleApiAccessible,
-      updateSortOrder,
-      updateSearchText,
-      updatePage,
-      toggleFacet,
-
-      apiAccessible,
-      sortOrder,
-      searchText,
-      page,
-      facets
-    },
+    searchParamsManager,
     searchResults,
     searchMetadata,
     numberOfPages,
@@ -39,17 +28,17 @@ const DatasetListView = (props) => {
       {
         value: "name_asc",
         label: "Name Ascending",
-        default: sortOrder === "name_asc"
+        default: searchParamsManager.sortOrder === "name_asc"
       },
       {
         value: "name_desc",
         label: "Name Descending",
-        default: sortOrder === "name_desc"
+        default: searchParamsManager.sortOrder === "name_desc"
       },
       {
         value: "last_mod",
         label: "Last Modified",
-        default: sortOrder === "last_mod"
+        default: searchParamsManager.sortOrder === "last_mod"
       }
     ]
   }
@@ -66,8 +55,8 @@ const DatasetListView = (props) => {
     const resultCountText = isSearchLoading
           ? ""
           : (`${searchMetadata.totalDatasets || "No"} datasets found`)
-    const resultCountQueryText = searchText
-          ? ` for "${searchText}"`
+    const resultCountQueryText = searchParamsManager.searchText
+          ? ` for "${searchParamsManager.searchText}"`
           : ""
     return <div className="result-count">{`${resultCountText}${resultCountQueryText}`}</div>
   }
@@ -88,38 +77,38 @@ const DatasetListView = (props) => {
         <div className="left-section">
           <LoginZone token={token} />
           <Checkbox
-            clickHandler={toggleApiAccessible}
+      clickHandler={searchParamsManager.toggleApiAccessible}
             text="API Accessible"
-            selected={apiAccessible}
+      selected={searchParamsManager.apiAccessible}
           />
           <FacetSidebar
             availableFacets={searchMetadata.facets}
-            appliedFacets={facets}
-            clickHandler={toggleFacet}
+      appliedFacets={searchParamsManager.facets}
+      clickHandler={searchParamsManager.toggleFacet}
           />
         </div>
         <div className="right-section">
           <Search
             className="search"
-            defaultText={searchText}
+            defaultText={searchParamsManager.searchText}
             placeholder="Search datasets"
-            callback={updateSearchText}
+      callback={searchParamsManager.updateSearchText}
           />
           <div className="list-header">
             {renderResultsCountText()}
             <Select
-              className="sortOrder-select"
+              className="searchParamsManager.sortOrder-select"
               label="order by"
               options={createSortOptions()}
-              selectChangeCallback={updateSortOrder}
+      selectChangeCallback={searchParamsManager.updateSortOrder}
             />
           </div>
           {renderDatasetList()}
           <Paginator
             className="paginator"
             numberOfPages={numberOfPages}
-            currentPage={page}
-            pageChangeCallback={updatePage}
+      currentPage={searchParamsManager.page}
+      pageChangeCallback={searchParamsManager.updatePage}
           />
         </div>
       </dataset-list-view>
@@ -128,12 +117,12 @@ const DatasetListView = (props) => {
 }
 
 DatasetListView.propTypes = {
+  searchParamsManager: PropTypes.shape(SearchParamsManager.propTypes),
   searchResults: PropTypes.array.isRequired,
   searchMetadata: PropTypes.object.isRequired,
   numberOfPages: PropTypes.number.isRequired,
   isSearchLoading: PropTypes.bool.isRequired,
-  isError: PropTypes.bool,
-  searchParamsManager: PropTypes.object.isRequired
+  isError: PropTypes.bool
 }
 
 export default DatasetListView
