@@ -166,11 +166,5 @@ function createSubject(params = {}) {
   }
   const paramsWithDefaults = Object.assign({}, defaultParams, params)
 
-  return shallow(<ChartView
-    isLoading={paramsWithDefaults.isLoading}
-    dataSources={paramsWithDefaults.dataSources}
-    autoFetchQuery={paramsWithDefaults.autoFetchQuery}
-    executeQuery={paramsWithDefaults.executeQuery}
-    saveChart={paramsWithDefaults.saveChart}
-  />)
+  return shallow(<ChartView {...paramsWithDefaults}/>)
 }

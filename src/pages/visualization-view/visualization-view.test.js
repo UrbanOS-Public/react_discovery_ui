@@ -231,23 +231,5 @@ const createSubject = (props = {}) => {
   }
   const propsWithDefaults = Object.assign({}, defaultProps, props)
 
-  return shallow(
-    <VisualizationView
-      reset={propsWithDefaults.reset}
-      load={propsWithDefaults.load}
-      save={propsWithDefaults.save}
-      update={propsWithDefaults.update}
-      id={propsWithDefaults.id}
-      query={propsWithDefaults.query}
-      title={propsWithDefaults.title}
-      isLoadFailure={propsWithDefaults.isLoadFailure}
-      isSaving={propsWithDefaults.isSaving}
-      isSaveSuccess={propsWithDefaults.isSaveSuccess}
-      isSaveFailure={propsWithDefaults.isSaveFailure}
-      isSaveable={propsWithDefaults.isSaveable}
-      match={propsWithDefaults.match}
-      history={propsWithDefaults.history}
-      chart={propsWithDefaults.chart}
-    />
-  )
+  return shallow(<VisualizationView {...propsWithDefaults}/> )
 }
