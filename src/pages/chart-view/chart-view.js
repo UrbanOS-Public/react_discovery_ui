@@ -21,8 +21,14 @@ const getDataSourceOptions = dataSources => {
   }))
 }
 
+const clearValues = datasources => {
+  Object.keys(datasources).forEach((key) => {
+    datasources[key] = []
+  })
+}
+
 const ChartView = (props) => {
-  const { dataSources, isLoading, autoFetchQuery, executeQuery } = props
+  const { dataSources, isLoading, autoFetchQuery, executeQuery, saveChart } = props
 
   const [data, updateData] = useState([])
   const [layout, updateLayout] = useState({})
@@ -62,6 +68,16 @@ const ChartView = (props) => {
     )
   }
 
+  const onUpdate = (data, layout, frames) => {
+    var dataClone = cloneDeep(data)
+    var dataSourceClone = cloneDeep(dataSources)
+
+    updateState(data, layout, frames)
+    clearValues(dataSourceClone)
+    dereference(dataClone, dataSourceClone)
+    saveChart({data: dataClone, layout, frames})
+  }
+
   return (
     <chart-view>
       <PlotlyEditor
@@ -71,7 +87,7 @@ const ChartView = (props) => {
         dataSources={dataSources}
         dataSourceOptions={getDataSourceOptions(dataSources)}
         plotly={plotly}
-        onUpdate={(data, layout, frames) => updateState(data, layout, frames)}
+        onUpdate={onUpdate}
         advancedTraceTypeSelector
         useResizeHandler
         config={{ mapboxAccessToken: window.MAPBOX_ACCESS_TOKEN }}

@@ -32,7 +32,8 @@ const VisualizationView = (props) => {
     isSaveFailure,
     isSaveable,
     match: { params: { id: idFromUrl } },
-    history
+    history,
+    chart
   } = props
 
   const linkUrl = idFromState && generatePath(routes.visualizationView, { id: idFromState })
@@ -56,7 +57,7 @@ const VisualizationView = (props) => {
     if (idFromState) {
       update(idFromState, localTitle, query)
     } else {
-      save(localTitle, query)
+      save(localTitle, query, chart)
     }
   }
   const closeDialog = () => { setDialogOpen(false); }
@@ -104,7 +105,7 @@ const VisualizationView = (props) => {
           </span>
         </TabList>
         <TabPanel className="visualization" selectedClassName="visualization--selected">
-          <ChartView selectedIndex={index} />
+          <ChartView selectedIndex={index}/>
         </TabPanel>
         <TabPanel>
           <QueryView />

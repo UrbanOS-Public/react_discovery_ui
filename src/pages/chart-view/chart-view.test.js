@@ -135,6 +135,25 @@ describe('chart view', () => {
       expect(subject.find(PlotlyEditor).props().config.mapboxAccessToken).toBe('secret key')
     })
   })
+
+  describe('save chart', () => {
+    it('sends a save chart event with dereferenced data', () => {
+      const columnData = [1, 2, 3]
+      const columnName = "col1"
+      const dataSources = {
+        col1: columnData
+      }
+
+      var saveChart = jest.fn()
+      var subject = createSubject({ dataSources: dataSources, saveChart })
+
+      var data = [{x:columnData, xsrc: columnName}]
+      subject.find(PlotlyEditor).props().onUpdate(data, {}, [])
+
+      expect(saveChart).toHaveBeenCalledTimes(1)
+      expect(saveChart).toHaveBeenCalledWith({data: [{x:null, xsrc: columnName}], layout: {}, frames: []})
+    })
+  })
 })
 
 function createSubject(params = {}) {
@@ -142,7 +161,8 @@ function createSubject(params = {}) {
     isLoading: false,
     dataSources: { data: ["sources"] },
     autoFetchQuery: false,
-    executeQuery: jest.fn()
+    executeQuery: jest.fn(),
+    saveChart: jest.fn()
   }
   const paramsWithDefaults = Object.assign({}, defaultParams, params)
 
@@ -151,5 +171,6 @@ function createSubject(params = {}) {
     dataSources={paramsWithDefaults.dataSources}
     autoFetchQuery={paramsWithDefaults.autoFetchQuery}
     executeQuery={paramsWithDefaults.executeQuery}
+    saveChart={paramsWithDefaults.saveChart}
   />)
 }

@@ -6,7 +6,8 @@ import {
   visualizationLoadSuccess,
   visualizationLoadFailure,
   visualizationSaveFailure,
-  visualizationSaveSuccess
+  visualizationSaveSuccess,
+  saveChartInformation
 } from '../actions'
 
 describe('Visualization Reducer', () => {
@@ -235,6 +236,24 @@ describe('Visualization Reducer', () => {
 
     it('sets `saveSuccess` state to false', () => {
       expect(newState.saveSuccess).toBeFalsy()
+    })
+  })
+
+  describe('CHART_VISUALIZATION_SAVE', () => {
+    beforeEach(() => {
+      previousState = {
+        visualization: { id: 'existing' },
+        loading: true,
+        saving: false,
+        saveSuccess: true,
+        saveFailure: true,
+        chart: {}
+      }
+      newState = reducer(previousState, saveChartInformation({"hello": "world"}))
+    })
+
+    it('updates the chart value in the store', () => {
+      expect(newState.chart).toEqual({"hello": "world"})
     })
   })
 })

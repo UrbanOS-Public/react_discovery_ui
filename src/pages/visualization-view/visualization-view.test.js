@@ -146,7 +146,7 @@ describe("visualization view", () => {
 
   describe("when visualization save icon is clicked to save a new visualization", () => {
     beforeEach(() => {
-      subject = createSubject({ isSaving: false, query, save: saveHandler})
+      subject = createSubject({ isSaving: false, query, save: saveHandler, chart: {"hello": "world"}})
 
       subject.find(".save-icon").simulate("click")
     })
@@ -161,10 +161,10 @@ describe("visualization view", () => {
       expect(subject.find(".save-button").props().disabled).toBeTruthy()
     })
 
-    it("sends create visualization event with the query and a query title", () => {
+    it("sends create visualization event with the query, a query title, and the visualization", () => {
       subject.find(".prompt").simulate("change", {target: { value: 'Query Title'}})
       subject.find(".save-button").simulate("click")
-      expect(saveHandler).toHaveBeenCalledWith('Query Title', query)
+      expect(saveHandler).toHaveBeenCalledWith('Query Title', query, {"hello": "world"})
     })
   })
 
@@ -226,7 +226,8 @@ const createSubject = (props = {}) => {
     isSaveFailure: false,
     isSaveable: false,
     match: { params: {} },
-    history: { push: jest.fn() }
+    history: { push: jest.fn() },
+    chart: {}
   }
   const propsWithDefaults = Object.assign({}, defaultProps, props)
 
@@ -246,6 +247,7 @@ const createSubject = (props = {}) => {
       isSaveable={propsWithDefaults.isSaveable}
       match={propsWithDefaults.match}
       history={propsWithDefaults.history}
+      chart={propsWithDefaults.chart}
     />
   )
 }
