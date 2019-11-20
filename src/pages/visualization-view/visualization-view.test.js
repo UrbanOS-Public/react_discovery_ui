@@ -45,7 +45,7 @@ describe("visualization view", () => {
     })
 
     it("lands on the query view page", () => {
-      expect(subject.find(Tabs).props().selectedIndex).toEqual(1)
+      expect(subject.find(Tabs).props().selectedIndex).toEqual(0)
     })
   })
 
@@ -64,7 +64,7 @@ describe("visualization view", () => {
     })
 
     it("lands on the chart visualization page", () => {
-      expect(subject.find(Tabs).props().selectedIndex).toEqual(0)
+      expect(subject.find(Tabs).props().selectedIndex).toEqual(1)
     })
   })
 

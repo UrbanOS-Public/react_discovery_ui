@@ -70,7 +70,7 @@ const VisualizationView = (props) => {
     )
   }
 
-  const startIndex = idFromUrl ? 0 : 1
+  const startIndex = idFromUrl ? 1 : 0
   const [index, setIndex] = useState(startIndex)
 
   return (
@@ -79,10 +79,10 @@ const VisualizationView = (props) => {
         <TabList className='header'>
           <span className='tab-area'>
             <Tab className='header-item tab' selectedClassName='selected'>
-              Visualize <ChartIcon className='chart-icon' />
+              Write SQL <SQLIcon className='sql-icon' />
             </Tab>
             <Tab className='header-item tab' selectedClassName='selected'>
-              Write SQL <SQLIcon className='sql-icon' />
+              Visualize <ChartIcon className='chart-icon' />
             </Tab>
           </span>
           <span className='action-area'>
@@ -104,11 +104,11 @@ const VisualizationView = (props) => {
             </React.Fragment>
           </span>
         </TabList>
-        <TabPanel className="visualization" selectedClassName="visualization--selected">
-          <ChartView selectedIndex={index}/>
-        </TabPanel>
         <TabPanel>
           <QueryView />
+        </TabPanel>
+        <TabPanel className="visualization" selectedClassName="visualization--selected">
+          <ChartView selectedIndex={index} />
         </TabPanel>
       </Tabs>
     </visualization-view>
