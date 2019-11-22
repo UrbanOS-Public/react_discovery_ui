@@ -176,8 +176,8 @@ export const visualizationLoadFailure = (errorMessage) => ({
 })
 
 export const VISUALIZATION_SAVE = 'VISUALIZATION_SAVE'
-export const visualizationSave = (title, query, chart) => ({
-  type: VISUALIZATION_SAVE, value: { title, query, chart }
+export const visualizationSave = (title, query) => ({
+  type: VISUALIZATION_SAVE, value: { title, query }
 })
 
 export const VISUALIZATION_SAVE_SUCCESS = 'VISUALIZATION_SAVE_SUCCESS'

@@ -137,27 +137,22 @@ describe('chart view', () => {
   })
 
   describe('save chart', () => {
-    it('sends a save chart event with dereferenced data', () => {
-      const columnData = [1, 2, 3]
-      const columnName = "col1"
-      const dataSources = {
-        col1: columnData
-      }
-
+    it('sends a save chart event', () => {
       var saveChart = jest.fn()
-      var subject = createSubject({ dataSources: dataSources, saveChart })
+      var subject = createSubject({ saveChart })
 
-      var data = [{x:columnData, xsrc: columnName}]
+      var data = [{x:[1, 2, 3], xsrc: "col1"}]
       subject.find(PlotlyEditor).props().onUpdate(data, {}, [])
 
       expect(saveChart).toHaveBeenCalledTimes(1)
-      expect(saveChart).toHaveBeenCalledWith({data: [{x:null, xsrc: columnName}], layout: {}, frames: []})
+      expect(saveChart).toHaveBeenCalledWith({data: data, layout: {}, frames: []})
     })
   })
 })
 
 function createSubject(params = {}) {
   const defaultParams = {
+    chart: {data: [], layout: {}, frames: []},
     isLoading: false,
     dataSources: { data: ["sources"] },
     autoFetchQuery: false,

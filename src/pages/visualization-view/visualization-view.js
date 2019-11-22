@@ -32,8 +32,7 @@ const VisualizationView = (props) => {
     isSaveFailure,
     isSaveable,
     match: { params: { id: idFromUrl } },
-    history,
-    chart
+    history
   } = props
 
   const linkUrl = idFromState && generatePath(routes.visualizationView, { id: idFromState })
@@ -57,7 +56,7 @@ const VisualizationView = (props) => {
     if (idFromState) {
       update(idFromState, localTitle, query)
     } else {
-      save(localTitle, query, chart)
+      save(localTitle, query)
     }
   }
   const closeDialog = () => { setDialogOpen(false); }

@@ -21,24 +21,13 @@ const getDataSourceOptions = dataSources => {
   }))
 }
 
-const clearValues = datasources => {
-  Object.keys(datasources).forEach((key) => {
-    datasources[key] = []
-  })
-}
+
 
 const ChartView = (props) => {
-  const { dataSources, isLoading, autoFetchQuery, executeQuery, saveChart } = props
+  const { dataSources, isLoading, autoFetchQuery, executeQuery, saveChart, chart } = props
+  const { data, layout, frames } = chart
 
-  const [data, updateData] = useState([])
-  const [layout, updateLayout] = useState({})
-  const [frames, updateFrames] = useState([])
-
-  const updateState = (newData, newLayout, newFrames) => {
-    updateData(newData)
-    updateLayout(newLayout)
-    updateFrames(newFrames)
-  }
+  const [localData, setLocalData] = useState(data)
 
   React.useEffect(() => {
     if (autoFetchQuery) {
@@ -47,9 +36,9 @@ const ChartView = (props) => {
   }, [autoFetchQuery])
 
   React.useEffect(() => {
-    const clonedData = cloneDeep(data)
+    const clonedData = cloneDeep(localData)
     dereference(clonedData, dataSources)
-    updateData(clonedData)
+    setLocalData(clonedData)
   }, [dataSources])
 
   if (isLoading) {
@@ -69,19 +58,13 @@ const ChartView = (props) => {
   }
 
   const onUpdate = (data, layout, frames) => {
-    var dataClone = cloneDeep(data)
-    var dataSourceClone = cloneDeep(dataSources)
-
-    updateState(data, layout, frames)
-    clearValues(dataSourceClone)
-    dereference(dataClone, dataSourceClone)
-    saveChart({data: dataClone, layout, frames})
+    saveChart({data, layout, frames})
   }
 
   return (
     <chart-view>
       <PlotlyEditor
-        data={data}
+        data={localData}
         layout={layout}
         frames={frames}
         dataSources={dataSources}

@@ -146,7 +146,7 @@ describe("visualization view", () => {
 
   describe("when visualization save icon is clicked to save a new visualization", () => {
     beforeEach(() => {
-      subject = createSubject({ isSaving: false, query, save: saveHandler, chart: {"hello": "world"}})
+      subject = createSubject({ isSaving: false, query, save: saveHandler})
 
       subject.find(".save-icon").simulate("click")
     })
@@ -164,7 +164,7 @@ describe("visualization view", () => {
     it("sends create visualization event with the query, a query title, and the visualization", () => {
       subject.find(".prompt").simulate("change", {target: { value: 'Query Title'}})
       subject.find(".save-button").simulate("click")
-      expect(saveHandler).toHaveBeenCalledWith('Query Title', query, {"hello": "world"})
+      expect(saveHandler).toHaveBeenCalledWith('Query Title', query)
     })
   })
 

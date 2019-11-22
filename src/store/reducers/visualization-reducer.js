@@ -12,7 +12,7 @@ import {
 
 const defaultVisualizationState = {
   visualization: {id: undefined},
-  chart: {},
+  chart: {data: [], layout: {}, frames: []},
   loading: false,
   loadSuccess: false,
   loadFailure: false,
