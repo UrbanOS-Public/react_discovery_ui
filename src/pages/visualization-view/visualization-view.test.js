@@ -161,7 +161,7 @@ describe("visualization view", () => {
       expect(subject.find(".save-button").props().disabled).toBeTruthy()
     })
 
-    it("sends create visualization event with the query and a query title", () => {
+    it("sends create visualization event with the query, a query title, and the visualization", () => {
       subject.find(".prompt").simulate("change", {target: { value: 'Query Title'}})
       subject.find(".save-button").simulate("click")
       expect(saveHandler).toHaveBeenCalledWith('Query Title', query)
@@ -226,26 +226,10 @@ const createSubject = (props = {}) => {
     isSaveFailure: false,
     isSaveable: false,
     match: { params: {} },
-    history: { push: jest.fn() }
+    history: { push: jest.fn() },
+    chart: {}
   }
   const propsWithDefaults = Object.assign({}, defaultProps, props)
 
-  return shallow(
-    <VisualizationView
-      reset={propsWithDefaults.reset}
-      load={propsWithDefaults.load}
-      save={propsWithDefaults.save}
-      update={propsWithDefaults.update}
-      id={propsWithDefaults.id}
-      query={propsWithDefaults.query}
-      title={propsWithDefaults.title}
-      isLoadFailure={propsWithDefaults.isLoadFailure}
-      isSaving={propsWithDefaults.isSaving}
-      isSaveSuccess={propsWithDefaults.isSaveSuccess}
-      isSaveFailure={propsWithDefaults.isSaveFailure}
-      isSaveable={propsWithDefaults.isSaveable}
-      match={propsWithDefaults.match}
-      history={propsWithDefaults.history}
-    />
-  )
+  return shallow(<VisualizationView {...propsWithDefaults}/> )
 }

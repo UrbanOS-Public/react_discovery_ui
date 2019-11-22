@@ -135,21 +135,31 @@ describe('chart view', () => {
       expect(subject.find(PlotlyEditor).props().config.mapboxAccessToken).toBe('secret key')
     })
   })
+
+  describe('save chart', () => {
+    it('sends a save chart event', () => {
+      var saveChart = jest.fn()
+      var subject = createSubject({ saveChart })
+
+      var data = [{x:[1, 2, 3], xsrc: "col1"}]
+      subject.find(PlotlyEditor).props().onUpdate(data, {}, [])
+
+      expect(saveChart).toHaveBeenCalledTimes(1)
+      expect(saveChart).toHaveBeenCalledWith({data: data, layout: {}, frames: []})
+    })
+  })
 })
 
 function createSubject(params = {}) {
   const defaultParams = {
+    chart: {data: [], layout: {}, frames: []},
     isLoading: false,
     dataSources: { data: ["sources"] },
     autoFetchQuery: false,
-    executeQuery: jest.fn()
+    executeQuery: jest.fn(),
+    saveChart: jest.fn()
   }
   const paramsWithDefaults = Object.assign({}, defaultParams, params)
 
-  return shallow(<ChartView
-    isLoading={paramsWithDefaults.isLoading}
-    dataSources={paramsWithDefaults.dataSources}
-    autoFetchQuery={paramsWithDefaults.autoFetchQuery}
-    executeQuery={paramsWithDefaults.executeQuery}
-  />)
+  return shallow(<ChartView {...paramsWithDefaults}/>)
 }

@@ -6,11 +6,13 @@ import {
   VISUALIZATION_UPDATE,
   VISUALIZATION_SAVE_SUCCESS,
   VISUALIZATION_SAVE_FAILURE,
-  VISUALIZATION_RESET
+  VISUALIZATION_RESET,
+  CHART_VISUALIZATION_SAVE
 } from "../actions"
 
 const defaultVisualizationState = {
   visualization: {id: undefined},
+  chart: {data: [], layout: {}, frames: []},
   loading: false,
   loadSuccess: false,
   loadFailure: false,
@@ -64,6 +66,10 @@ const visualizationReducer = (state = defaultVisualizationState, action) => {
         saving: false,
         saveSuccess: false,
         saveFailure: true
+      })
+    case CHART_VISUALIZATION_SAVE:
+      return Object.assign({}, state, {
+        chart: action.value
       })
     case VISUALIZATION_RESET:
       return defaultVisualizationState

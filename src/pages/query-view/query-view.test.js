@@ -134,14 +134,5 @@ function createSubject(params) {
   }
   const paramsWithDefaults = Object.assign({}, defaultParams, params)
 
-  return shallow(<QueryView
-    isQueryLoading={paramsWithDefaults.isQueryLoading}
-    queryData={paramsWithDefaults.queryData}
-    executeQuery={paramsWithDefaults.executeQuery}
-    dataSources={paramsWithDefaults.dataSources}
-    cancelQuery={paramsWithDefaults.cancelQuery}
-    setQueryText={paramsWithDefaults.setQueryText}
-    setUserInteracted={paramsWithDefaults.setUserInteracted}
-    autoFetchQuery={paramsWithDefaults.autoFetchQuery}
-  />)
+  return shallow(<QueryView {...paramsWithDefaults}/>)
 }

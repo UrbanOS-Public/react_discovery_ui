@@ -21,18 +21,13 @@ const getDataSourceOptions = dataSources => {
   }))
 }
 
+
+
 const ChartView = (props) => {
-  const { dataSources, isLoading, autoFetchQuery, executeQuery } = props
+  const { dataSources, isLoading, autoFetchQuery, executeQuery, saveChart, chart } = props
+  const { data, layout, frames } = chart
 
-  const [data, updateData] = useState([])
-  const [layout, updateLayout] = useState({})
-  const [frames, updateFrames] = useState([])
-
-  const updateState = (newData, newLayout, newFrames) => {
-    updateData(newData)
-    updateLayout(newLayout)
-    updateFrames(newFrames)
-  }
+  const [localData, setLocalData] = useState(data)
 
   React.useEffect(() => {
     if (autoFetchQuery) {
@@ -41,9 +36,9 @@ const ChartView = (props) => {
   }, [autoFetchQuery])
 
   React.useEffect(() => {
-    const clonedData = cloneDeep(data)
+    const clonedData = cloneDeep(localData)
     dereference(clonedData, dataSources)
-    updateData(clonedData)
+    setLocalData(clonedData)
   }, [dataSources])
 
   if (isLoading) {
@@ -62,16 +57,20 @@ const ChartView = (props) => {
     )
   }
 
+  const onUpdate = (data, layout, frames) => {
+    saveChart({data, layout, frames})
+  }
+
   return (
     <chart-view>
       <PlotlyEditor
-        data={data}
+        data={localData}
         layout={layout}
         frames={frames}
         dataSources={dataSources}
         dataSourceOptions={getDataSourceOptions(dataSources)}
         plotly={plotly}
-        onUpdate={(data, layout, frames) => updateState(data, layout, frames)}
+        onUpdate={onUpdate}
         advancedTraceTypeSelector
         useResizeHandler
         config={{ mapboxAccessToken: window.MAPBOX_ACCESS_TOKEN }}

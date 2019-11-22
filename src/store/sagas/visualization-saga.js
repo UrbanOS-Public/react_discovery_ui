@@ -1,6 +1,7 @@
-import { takeEvery, put, call, fork, all } from 'redux-saga/effects'
+import { takeEvery, put, call, fork, all, select } from 'redux-saga/effects'
 import { VISUALIZATION_SAVE, VISUALIZATION_UPDATE, VISUALIZATION_LOAD, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText } from '../actions'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
+import { dereferencedChart } from '../visualization-selectors'
 
 function* loadVisualizationSaga() {
   yield takeEvery(VISUALIZATION_LOAD, loadVisualization)
@@ -15,16 +16,22 @@ function* saveVisualizationSaga() {
 }
 
 function* saveVisualization({ value: visualization }) {
-    yield callEndpoint(() => AuthenticatedHTTPClient.post('/api/v1/visualization', visualization), visualizationSaveSuccess, visualizationSaveFailure)
+  const chart = yield select(dereferencedChart)
+  yield callEndpoint(() => AuthenticatedHTTPClient.post('/api/v1/visualization', { ...visualization, chart }), visualizationSaveSuccess, visualizationSaveFailure)
 }
+
+exports.saveVisualization = saveVisualization
 
 function* updateVisualizationSaga() {
   yield takeEvery(VISUALIZATION_UPDATE, updateVisualization)
 }
 
 function* updateVisualization({ value: visualization }) {
-    yield callEndpoint(() => AuthenticatedHTTPClient.put(`/api/v1/visualization/${visualization.id}`, visualization), visualizationSaveSuccess, visualizationSaveFailure)
+  const chart = yield select(dereferencedChart)
+  yield callEndpoint(() => AuthenticatedHTTPClient.put(`/api/v1/visualization/${visualization.id}`, {...visualization, chart}), visualizationSaveSuccess, visualizationSaveFailure)
 }
+
+exports.updateVisualization = updateVisualization
 
 function* callEndpoint(clientFunction, successEvent, failureEvent) {
   try {
