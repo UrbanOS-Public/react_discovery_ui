@@ -9,37 +9,43 @@ const formats = {
 const simpleApiParams = [
   {
     name: 'columns',
+    default: '*',
     description:
-      'A list of columns from the dataset to be included in the query. Defaults to all columns.',
+      'A list of columns from the dataset to be included in the query.',
     example: 'column1,column2,column3'
   },
   {
     name: 'where',
+    default: '',
     description:
-      'A set of conditions to filter rows by. Multiple conditions can be added, separated by AND or OR',
+      'A set of conditions to filter rows by. Multiple conditions can be added, separated by AND or OR.',
     example: "column1='a value' OR column1='another value'"
   },
   {
-    name: 'orderBy',
+    name: 'groupBy',
+    default: '',
     description:
-      "A column (or comma separated list of columns) to order the results by and one of 'asc' or 'desc' to determine the direction of each.",
-    example: 'column1 asc, column2 desc'
+      'A column (or comma-separated list of columns) to group the results by.',
+    example: 'column1'
+  },
+  {
+    name: 'orderBy',
+    default: '',
+    description:
+      "A column (or comma separated list of columns) to order the results by and one of 'ASC' or 'DESC' to determine the direction of each.",
+    example: 'column1 ASC, column2 DESC'
   },
   {
     name: 'limit',
+    default: '',
     description:
       'A whole number limiting the total rows returned. The API does not guarantee the same list of rows every time when limited this way.',
-    example: '100'
-  },
-  {
-    name: 'groupBy',
-    description:
-      'A column (or space-separated list of columns) to group the results by.',
-    example: "column1='a value'"
+    example: "200"
   },
   {
     name: '_format',
-    description: 'The format of data returned by a query. Optional. Defaults to CSV.',
+    default: 'CSV',
+    description: 'The format of data returned by a query. ',
     example: 'json'
   }
 ]
@@ -47,29 +53,25 @@ const simpleApiParams = [
 const freestyleApiParams = [
   {
     name: '_format',
-    description: 'The format of data returned by a query. Optional. Defaults to CSV.',
+    default: 'CSV',
+    description: 'The format of data returned by a query.',
     example: 'json'
-  },
-  {
-    name: 'body',
-    description: 'The SQL query to be run by the request. Required. No default. Must be sent as plain text in the body of the request.',
-    example: 'select * from example_table'
   }
 ]
 
 function getFreestyleApiExamples(dataset) {
   return [
     {
-      body: `select * from ${dataset.systemName} limit 200`,
-      description: 'Get 200 records with all fields of data from the dataset.'
+      body: `SELECT * FROM ${dataset.systemName} LIMIT 200`,
+      description: 'Get 200 rows with all columns of data from the dataset.'
     },
     {
-      body: `select ${dataset.schema[0].name} from ${dataset.systemName} where ${dataset.schema[0].name} <> null limit 200`,
-      description: `Get only the field ${dataset.schema[0].name} from the dataset where ${dataset.schema[0].name} contains data ("is not equal to null").`
+      body: `SELECT ${dataset.schema[0].name} FROM ${dataset.systemName} WHERE ${dataset.schema[0].name} IS NOT NULL LIMIT 200`,
+      description: `Get only the column ${dataset.schema[0].name} from the dataset where ${dataset.schema[0].name} contains data.`
     },
     {
-      body: `select t1.example_field, t2.joined_field from example_dataset_one t1 join example_dataset_two t2 on t1.example_id = t2.example_id limit 200`,
-      description: `Return records from two example datasets where the example_id fields match. Get example_field from one and joined_field from the other.`
+      body: `SELECT t1.example_column, t2.joined_column FROM example_dataset_one t1 INNER JOIN example_dataset_two t2 ON t1.example_id = t2.example_id LIMIT 200`,
+      description: `Get rows from two example datasets where the example_id columns match. Get example_column from one and joined_column from the other.`
     }
   ]
 }
@@ -77,12 +79,13 @@ function getFreestyleApiExamples(dataset) {
 function freestyleDescription() {
   return (
     <div>
-      This query supports the full SQL syntax, and only selects from the tables specified in the query.<br />
-      Queries use ANSI SQL syntax. Documentation can be found at:
+      This query supports the full ANSI SQL syntax, and only selects from the tables specified in the query.<br />
+      The query to run must be submitted as plain text in the body of the request.<br />
+      Documentation can be found at:
       <ul>
-        <li><a href='https://en.wikipedia.org/wiki/SQL_syntax'>SQL Syntax (Wikipedia)</a></li>
-        <li><a href='https://www.w3schools.com/sql/sql_quickref.asp'>Quick Reference (W3 Schools)</a></li>
-        <li><a href='https://prestodb.github.io/docs/current/sql.html'>PrestoDB Specific Syntax</a></li>
+        <li><a href='https://en.wikipedia.org/wiki/SQL_syntax' target='_blank'>SQL Syntax (Wikipedia)</a></li>
+        <li><a href='https://www.w3schools.com/sql/sql_quickref.asp' target='_blank'>Quick Reference (W3 Schools)</a></li>
+        <li><a href='https://prestodb.github.io/docs/current/sql/select.html' target='_blank'>PrestoDB Specific Syntax</a></li>
       </ul>
     </div>
   )
@@ -101,8 +104,8 @@ function renderExamples(dataset) {
   return (
     <div>
       <ApiExample
-        title={'Simple restricted query'}
-        descriptionHtml={<div>This query selects from all available records from a specific dataset, limited to 200 records returned.</div>}
+        title={'Simple query'}
+        descriptionHtml={<div>This query selects all columns from the dataset, limited to 200 rows returned.</div>}
         url={`${window.API_HOST}/api/v1/organization/${dataset.organization.name}/dataset/${dataset.name}/query?limit=200&_format=${formats[dataset.sourceFormat] || dataset.sourceFormat}`}
         action='GET'
         params={simpleApiParams}
@@ -123,7 +126,7 @@ export default ({ expanded, dataset }) => {
   return (
     <dataset-api-doc >
       <CollapsableBox
-        title="API Example"
+        title="API Examples"
         headerHtml={renderHeader()}
         expanded={expanded}>
         {renderExamples(dataset)}

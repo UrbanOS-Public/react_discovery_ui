@@ -22,12 +22,13 @@ export default ({ title, descriptionHtml, action, url, params, examples }) => {
 function renderParameters(params) {
   return (
     <div>
-      <div className='example-header'>Parameters</div>
+      <div className='example-header'>Optional Parameters</div>
       <div className='example-parameters'>
         <table className='parameter-table'>
           <thead>
             <tr>
               <th>Name</th>
+              <th>Default</th>
               <th>Example</th>
               <th>Description</th>
             </tr>
@@ -47,6 +48,7 @@ function renderParameter(parameter) {
       <td>
         <span className='pill'>{parameter.name}</span>
       </td>
+      <td>{parameter.default}</td>
       <td className='parameter-example'>{parameter.example}</td>
       <td>{parameter.description}</td>
     </tr>
