@@ -15,23 +15,19 @@ function* saveVisualizationSaga() {
   yield takeEvery(VISUALIZATION_SAVE, saveVisualization)
 }
 
-function* saveVisualization({ value: visualization }) {
+export function* saveVisualization({ value: visualization }) {
   const chart = yield select(dereferencedChart)
   yield callEndpoint(() => AuthenticatedHTTPClient.post('/api/v1/visualization', { ...visualization, chart }), visualizationSaveSuccess, visualizationSaveFailure)
 }
-
-exports.saveVisualization = saveVisualization
 
 function* updateVisualizationSaga() {
   yield takeEvery(VISUALIZATION_UPDATE, updateVisualization)
 }
 
-function* updateVisualization({ value: visualization }) {
+export function* updateVisualization({ value: visualization }) {
   const chart = yield select(dereferencedChart)
   yield callEndpoint(() => AuthenticatedHTTPClient.put(`/api/v1/visualization/${visualization.id}`, {...visualization, chart}), visualizationSaveSuccess, visualizationSaveFailure)
 }
-
-exports.updateVisualization = updateVisualization
 
 function* callEndpoint(clientFunction, successEvent, failureEvent) {
   try {
