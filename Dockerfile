@@ -1,9 +1,9 @@
-FROM node:10.3.0-alpine AS builder
+FROM node:12.13.1 AS builder
 COPY . /app/src
 WORKDIR /app/src
+RUN export NODE_OPTS="--max-old-space-size=8192"
 RUN npm ci
 RUN npm run build
-RUN npm test
 
 FROM nginx
 COPY --from=builder /app/src/dist /usr/share/nginx/html
