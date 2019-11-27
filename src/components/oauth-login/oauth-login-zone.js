@@ -1,11 +1,16 @@
 import '../login-zone/login-zone.scss'
-
 import LoginSvgsAndText from "../login-zone/login-svgs-and-text"
-import routes from '../../routes';
+import routes from '../../routes'
+import withAuth0 from '../../auth/auth0-wrapper'
+import LoadingElement from '../generic-elements/loading-element'
 
 const returnTo = `${window.location.origin}${routes.oauth}`
 
-const OAuthLoginZone = ({ isAuthenticated, loginWithRedirect, logout }) => {
+const OAuthLoginZone = ({ auth0: { isAuthenticated, isLoading, loginWithRedirect, logout}  }) => {
+  if (isLoading) {
+    return <login-zone><LoadingElement className='icon' /></login-zone>
+  }
+
   return (
     <login-zone>
       {
@@ -17,4 +22,4 @@ const OAuthLoginZone = ({ isAuthenticated, loginWithRedirect, logout }) => {
   )
 }
 
-export default OAuthLoginZone
+export default withAuth0(OAuthLoginZone)

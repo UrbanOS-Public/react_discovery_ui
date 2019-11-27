@@ -4,12 +4,12 @@ import DatasetList from "../../components/dataset-list"
 import Paginator from "../../components/generic-elements/paginator"
 import Select from "../../components/generic-elements/select"
 import Search from "../../components/generic-elements/search"
-import LoginZone from "../../components/login-zone"
 import FacetSidebar from "../../components/facet-sidebar"
 import ErrorComponent from "../../components/generic-elements/error-component"
 import LoadingElement from "../../components/generic-elements/loading-element"
 import Checkbox from "../../components/generic-elements/checkbox"
 import { SearchParamsManager } from "../../search-params/search-params-manager"
+import OAuthLoginZone from "../../components/oauth-login"
 
 const DatasetListView = (props) => {
   const {
@@ -75,7 +75,7 @@ const DatasetListView = (props) => {
     return (
       <dataset-list-view>
         <div className="left-section">
-          <LoginZone token={token} />
+          <OAuthLoginZone />
           <Checkbox
       clickHandler={searchParamsManager.toggleApiAccessible}
             text="API Accessible"

@@ -1,44 +1,46 @@
-import OAuthLoginZone from "../../components/oauth-login"
-import Auth0ClientProvider from '../../auth/auth0-client-provider.js'
-import { useEffect, useState, useContext } from "react"
-import axios from 'axios'
-
+import { useEffect, useState } from 'react'
+import { Redirect } from 'react-router'
+import './oauth-view.scss'
+import routes from '../../routes'
+import LoadingElement from '../../components/generic-elements/loading-element'
 
 const OAuthView = (props) => {
   const {
     callLoggedIn,
-    history,
-    location
+    history, // TODO: still needed
+    location,
+    auth0
   } = props
 
+  console.log('auth0', auth0)
 
-  const [isAuthenticated, setAuthenticated] = useState()
-  const [auth0Client, setAuth0] = useState()
+  const [handled, setHandled] = useState(false)
 
   useEffect(() => {
-    const connectAuth0 = async () => {
-      const auth0Client = await Auth0ClientProvider.get()
-      const isAuthenticated = await auth0Client.isAuthenticated()
-      setAuthenticated(isAuthenticated)
-      setAuth0(auth0Client)
-
-      if (location.search.includes("code=")) {
-        await auth0Client.handleRedirectCallback()
-        callLoggedIn()
-        history.replace("/oauth")
-        setAuthenticated(true)
+    const handleRedirectCallback = async () => {
+      console.log('auth0', auth0)
+      if (location.search.includes('code=')) { // TODO: is there a better way to check this conditition?
+        try {
+          const result = await auth0.handleRedirectCallback()
+          console.log('handleRedirectCallback', result)
+          callLoggedIn()
+        } catch (error) {
+          console.log('handleRedirectCallback ERROR', error)
+        }
       }
+      setHandled(true)
     }
-
-    connectAuth0()
+    handleRedirectCallback()
   }, [])
 
   return (
-    <OAuthLoginZone
-      isAuthenticated={isAuthenticated}
-      loginWithRedirect={(...p) => auth0Client.loginWithRedirect(...p)}
-      logout={(...p) => auth0Client.logout(...p)}
-    />
+    <oauth-view>
+    {
+      auth0.isLoading || !handled
+        ? <LoadingElement />
+        : <Redirect to={routes.root} />
+    }
+    </oauth-view>
   )
 }
 
