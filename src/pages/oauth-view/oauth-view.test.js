@@ -1,10 +1,9 @@
-import { shallow, mount } from 'enzyme'
+import { mount } from 'enzyme'
 import { act } from 'react-dom/test-utils'
 import OAuthView from './oauth-view'
-import { default as createAuth0Client } from '@auth0/auth0-spa-js'
-
-jest.mock('@auth0/auth0-spa-js')
-jest.mock('axios')
+import { Router } from 'react-router'
+import { createMemoryHistory } from 'history'
+import LoadingElement from '../../components/generic-elements/loading-element'
 
 const originalError = console.error
 beforeAll(() => {
@@ -22,70 +21,144 @@ afterAll(() => {
 
 describe('OAuth View', () => {
   let subject
-  const callLoggedInHandler = jest.fn()
+  let callLoggedInHandler, handleRedirectCallback
+  let history
 
-  createAuth0Client.mockImplementation(() => ({
-    isAuthenticated: jest.fn(() => Promise.resolve(false)),
-    handleRedirectCallback: jest.fn(() => Promise.resolve({}))
-  }))
+  beforeEach(() => {
+    callLoggedInHandler = jest.fn()
+    handleRedirectCallback = jest.fn(() => Promise.resolve())
+    history = createMemoryHistory()
+  })
 
-  describe('upon successful login', () => {
+  describe('with an auth code in the URL', () => {
     beforeEach(() => {
+      history.replace('/oauth?code=someauth0tokenstring')
       subject = createSubject({
         callLoggedIn: callLoggedInHandler,
-        location: {
-          search: 'code=someauth0tokenstring'
-        },
-        history: { replace: jest.fn() }
-
+        history,
+        auth0: { handleRedirectCallback }
       })
-
     })
 
-    it('calls the logged-in endpoint', () => {
-      expect(callLoggedInHandler).toHaveBeenCalled()
+    it('calls back to handle the redirect', done => {
+      setTimeout(() => {
+        expect(handleRedirectCallback).toHaveBeenCalled()
+        done()
+      })
+    })
+
+    it('calls the logged-in endpoint', done => {
+      setTimeout(() => {
+        expect(callLoggedInHandler).toHaveBeenCalled()
+        done()
+      })
     })
   })
 
-
-  describe('upon initial render', () => {
+  describe('without an auth code in the url', () => {
     beforeEach(() => {
+      history.replace('/oauth')
       subject = createSubject({
         callLoggedIn: callLoggedInHandler,
-        location: {
-          search: ''
-        }
+        history,
+        auth0: { handleRedirectCallback }
       })
     })
 
-    it('initializes with the correct domain and client ID', () => {
-      expect(createAuth0Client).toBeCalledWith({
-        domain: window.AUTH0_DOMAIN,
-        client_id: window.AUTH0_CLIENT_ID,
-        audience: window.AUTH0_AUDIENCE,
-        redirect_uri: `${window.location.origin}/oauth`
+    it('does not call back to handle the redirect', done => {
+      setTimeout(() => {
+        expect(handleRedirectCallback).not.toHaveBeenCalled()
+        done()
       })
+    })
 
+    it('does not call the logged-in endpoint', done => {
+      setTimeout(() => {
+        expect(callLoggedInHandler).not.toHaveBeenCalled()
+        done()
+      })
+    })
+  })
+
+  describe('with an auth code in the URL but failed call to handle redirect', () => {
+    beforeEach(() => {
+      history.replace('/oauth?code=someauth0tokenstring')
+      subject = createSubject({
+        callLoggedIn: callLoggedInHandler,
+        history,
+        auth0: { handleRedirectCallback: jest.fn(() => Promise.reject()) }
+      })
+    })
+
+    it('does not call the logged-in endpoint', done => {
+      setTimeout(() => {
+        expect(callLoggedInHandler).not.toHaveBeenCalled()
+        done()
+      })
+    })
+  })
+
+  describe('when loading', () => {
+    beforeEach(() => {
+      history.replace('/oauth')
+      subject = createSubject({
+        history,
+        auth0: { handleRedirectCallback: jest.fn(() => Promise.reject()), isLoading: true }
+      })
+    })
+
+    it('displays the loading element', () => {
+      expect(subject.find(LoadingElement).length).toBe(1)
+    })
+
+    it('does not redirect', done => {
+      setTimeout(() => {
+        expect(history.location.pathname).not.toBe('/')
+        done()
+      })
+    })
+  })
+
+  describe('when not loading', () => {
+    beforeEach(() => {
+      history.replace('/oauth')
+      subject = createSubject({
+        history,
+        auth0: { handleRedirectCallback: jest.fn(() => Promise.reject()), isLoading: false }
+      })
+    })
+
+    it('redirects to root', done => {
+      setTimeout(() => {
+        expect(history.location.pathname).toBe('/')
+        done()
+      })
     })
   })
 })
 
 const createSubject = (props = {}) => {
+  const auth0DefaultProps = { handleRedirectCallback: jest.fn(() => Promise.resolve()) }
   const defaultProps = {
     callLoggedIn: jest.fn(),
-    history: {},
-    location: {}
+    history: createMemoryHistory(),
+    auth0: auth0DefaultProps
   }
 
   const propsWithDefaults = Object.assign({}, defaultProps, props)
 
+  let subject
   act(() => {
-    mount(
-      <OAuthView
-        callLoggedIn={propsWithDefaults.callLoggedIn}
-        location={propsWithDefaults.location}
-        history={propsWithDefaults.history}
-      />
+    subject = mount(
+      <Router history={props.history}>
+        <OAuthView
+          callLoggedIn={propsWithDefaults.callLoggedIn}
+          history={propsWithDefaults.history}
+          auth0={propsWithDefaults.auth0}
+        />
+      </Router>
     )
   })
+
+  return subject
 }

@@ -8,7 +8,7 @@ const returnTo = `${window.location.origin}${routes.oauth}`
 
 const OAuthLoginZone = ({ auth0: { isAuthenticated, isLoading, loginWithRedirect, logout}  }) => {
   if (isLoading) {
-    return <login-zone><LoadingElement className='icon' /></login-zone>
+    return <login-zone><LoadingElement /></login-zone>
   }
 
   return (

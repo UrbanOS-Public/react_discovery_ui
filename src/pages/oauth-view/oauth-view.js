@@ -2,35 +2,32 @@ import { useEffect, useState } from 'react'
 import { Redirect } from 'react-router'
 import './oauth-view.scss'
 import routes from '../../routes'
+import qs from 'qs'
 import LoadingElement from '../../components/generic-elements/loading-element'
+import PropTypes from 'prop-types'
+
+const hasCodeParameter = search => {
+  return qs.parse(search, { ignoreQueryPrefix: true }).hasOwnProperty('code')
+}
 
 const OAuthView = (props) => {
   const {
     callLoggedIn,
-    history, // TODO: still needed
-    location,
+    history: {location: { search }},
     auth0
   } = props
-
-  console.log('auth0', auth0)
 
   const [handled, setHandled] = useState(false)
 
   useEffect(() => {
-    const handleRedirectCallback = async () => {
-      console.log('auth0', auth0)
-      if (location.search.includes('code=')) { // TODO: is there a better way to check this conditition?
-        try {
-          const result = await auth0.handleRedirectCallback()
-          console.log('handleRedirectCallback', result)
+    const onMount = async () => {
+      if (hasCodeParameter(search)) {
+          await auth0.handleRedirectCallback()
           callLoggedIn()
-        } catch (error) {
-          console.log('handleRedirectCallback ERROR', error)
-        }
       }
       setHandled(true)
     }
-    handleRedirectCallback()
+    onMount()
   }, [])
 
   return (
@@ -38,11 +35,19 @@ const OAuthView = (props) => {
     {
       auth0.isLoading || !handled
         ? <LoadingElement />
-        : <Redirect to={routes.root} />
+        : <Redirect to={{pathname: routes.root}} />
     }
     </oauth-view>
   )
 }
 
+OAuthView.propTypes = {
+  callLoggedIn: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  auth0: PropTypes.shape({
+    handleRedirectCallback: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool
+  }).isRequired
+}
 
 export default OAuthView
