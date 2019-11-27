@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import '../login-zone/login-zone.scss'
 import LoginSvgsAndText from "../login-zone/login-svgs-and-text"
 import routes from '../../routes'
@@ -6,7 +7,8 @@ import LoadingElement from '../generic-elements/loading-element'
 
 const returnTo = `${window.location.origin}${routes.oauth}`
 
-const OAuthLoginZone = ({ auth0: { isAuthenticated, isLoading, loginWithRedirect, logout}  }) => {
+//TODO: rename to Auth0LoginZone?
+export const OAuthLoginZone = ({ auth0: { isAuthenticated, isLoading, loginWithRedirect, logout}  }) => {
   if (isLoading) {
     return <login-zone><LoadingElement /></login-zone>
   }
@@ -20,6 +22,15 @@ const OAuthLoginZone = ({ auth0: { isAuthenticated, isLoading, loginWithRedirect
       }
     </login-zone>
   )
+}
+
+OAuthLoginZone.propTypes = {
+  auth0: PropTypes.shape({
+    loginWithRedirect: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool,
+    isLoading: PropTypes.bool
+  }).isRequired,
 }
 
 export default withAuth0(OAuthLoginZone)

@@ -1,4 +1,4 @@
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import DatasetListView from "./dataset-list-view";
 import Paginator from "../../components/generic-elements/paginator";
 import Select from "../../components/generic-elements/select";
