@@ -96,8 +96,7 @@ SearchParamsManager.propTypes = {
   toggleApiAccessible: PropTypes.func.isRequired,
   updateSortOrder: PropTypes.func.isRequired,
   updateSearchText: PropTypes.func.isRequired,
-  updatePage: PropTypes.func.isRequired,
-  toggleFactes: PropTypes.func.isRequired
+  updatePage: PropTypes.func.isRequired
 }
 
 const withSearchParamsManager = (WrappedComponent) => {

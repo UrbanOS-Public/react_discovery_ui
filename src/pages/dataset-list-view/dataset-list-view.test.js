@@ -145,8 +145,7 @@ function createSubject(props, queryString = "") {
     toggleApiAccessible: jest.fn(),
     updateSortOrder: jest.fn(),
     updateSearchText: jest.fn(),
-    updatePage: jest.fn(),
-    toggleFactes: jest.fn()
+    updatePage: jest.fn()
   }
 
   const propsWithDefaults = Object.assign({}, defaultProps, props);
