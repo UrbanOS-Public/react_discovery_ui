@@ -6,7 +6,7 @@ import qs from 'qs'
 import LoadingElement from '../../components/generic-elements/loading-element'
 import PropTypes from 'prop-types'
 
-const hasCodeParameter = search => {
+const hasAuthorizationCodeParameter = search => {
   return qs.parse(search, { ignoreQueryPrefix: true }).hasOwnProperty('code')
 }
 
@@ -21,7 +21,7 @@ const OAuthView = (props) => {
 
   useEffect(() => {
     const onMount = async () => {
-      if (hasCodeParameter(search)) {
+      if (hasAuthorizationCodeParameter(search)) {
         try {
           await handleRedirectCallback()
           callLoggedIn()
