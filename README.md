@@ -6,6 +6,17 @@ A UI component for consuming the [Discovery API](https://github.com/smartcitiesd
 
 ## How to Use
 
+``bash
+docker run -p 8089:80  \
+> -e API_HOST="https://data.smartcolumbusos.com" \
+> -e GTM_ID="GTM-EXAMPLE" \
+> -e BASE_URL="localhost" \
+> -e STREETS_TILE_LAYER_URL="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" \
+> -e AUTH_0_DOMAIN="smartcolumbusos-demo.auth0.com" \
+> -e AUTH_0_CLIENT_ID="YOUR_AUTH_0_CLIENT_ID" \
+> -e AUTH_0_AUDIENCE="discovery_api"
+````
+
 ### Install Dependencies
 
 `npm install`
