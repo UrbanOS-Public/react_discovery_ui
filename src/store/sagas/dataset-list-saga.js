@@ -1,5 +1,5 @@
 import { takeEvery } from 'redux-saga/effects'
-import { DATASET_SEARCH, datasetSearchSucceeded, displayError } from '../actions'
+import { DATASET_SEARCH, datasetSearchSucceeded } from '../actions'
 import apiInvoker from './api-invoker'
 
 export default function * theRealDatasetSaga () {

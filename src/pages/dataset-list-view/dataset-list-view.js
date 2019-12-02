@@ -61,8 +61,6 @@ const DatasetListView = (props) => {
     return <div className="result-count">{`${resultCountText}${resultCountQueryText}`}</div>
   }
 
-  const token = sessionStorage.getItem("api-token")
-
   if (isError) {
     return (
       <ErrorComponent

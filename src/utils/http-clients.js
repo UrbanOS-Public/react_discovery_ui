@@ -6,7 +6,7 @@ class AuthenticatedHTTPClient {
     const config = {baseURL: window.API_HOST, headers: {}, validateStatus: false}
     const authClient = await Auth0Client.get()
     const isAuthenticated = await authClient.isAuthenticated()
-    
+
     if(isAuthenticated) {
       const token = await authClient.getTokenSilently()
       config.headers = Object.assign({}, config.headers, {'Authorization': `Bearer ${token}`})
