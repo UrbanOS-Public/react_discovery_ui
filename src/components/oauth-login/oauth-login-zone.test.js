@@ -70,19 +70,19 @@ describe('OauthLoginZone component', () => {
   })
 })
 
-const createSubject = (auth0props = {}) => {
-  const defaultAuth0Props = {
+const createSubject = (authProps = {}) => {
+  const defaultAuthProps = {
     isAuthenticated: false,
     isLoading: false,
     loginWithRedirect: jest.fn(),
     logout: jest.fn()
   }
 
-  const auth0PropsWithDefaults = Object.assign({}, defaultAuth0Props, auth0props)
+  const auth0PropsWithDefaults = Object.assign({}, defaultAuthProps, authProps)
 
   return mount(
     <Component
-      auth0={{
+      auth={{
         isAuthenticated: auth0PropsWithDefaults.isAuthenticated,
         isLoading: auth0PropsWithDefaults.isLoading,
         loginWithRedirect: auth0PropsWithDefaults.loginWithRedirect,

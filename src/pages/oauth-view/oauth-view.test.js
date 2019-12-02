@@ -36,7 +36,7 @@ describe('OAuth View', () => {
       subject = createSubject({
         callLoggedIn: callLoggedInHandler,
         history,
-        auth0: { handleRedirectCallback }
+        auth: { handleRedirectCallback }
       })
     })
 
@@ -61,7 +61,7 @@ describe('OAuth View', () => {
       subject = createSubject({
         callLoggedIn: callLoggedInHandler,
         history,
-        auth0: { handleRedirectCallback }
+        auth: { handleRedirectCallback }
       })
     })
 
@@ -86,7 +86,7 @@ describe('OAuth View', () => {
       subject = createSubject({
         callLoggedIn: callLoggedInHandler,
         history,
-        auth0: { handleRedirectCallback: jest.fn(() => Promise.reject()) }
+        auth: { handleRedirectCallback: jest.fn(() => Promise.reject()) }
       })
     })
 
@@ -103,7 +103,7 @@ describe('OAuth View', () => {
       history.replace('/oauth')
       subject = createSubject({
         history,
-        auth0: { handleRedirectCallback: jest.fn(() => Promise.reject()), isLoading: true }
+        auth: { handleRedirectCallback: jest.fn(() => Promise.reject()), isLoading: true }
       })
     })
 
@@ -124,7 +124,7 @@ describe('OAuth View', () => {
       history.replace('/oauth')
       subject = createSubject({
         history,
-        auth0: { handleRedirectCallback: jest.fn(() => Promise.reject()), isLoading: false }
+        auth: { handleRedirectCallback: jest.fn(() => Promise.reject()), isLoading: false }
       })
     })
 
@@ -138,11 +138,11 @@ describe('OAuth View', () => {
 })
 
 const createSubject = (props = {}) => {
-  const auth0DefaultProps = { handleRedirectCallback: jest.fn(() => Promise.resolve()) }
+  const authDefaultProps = { handleRedirectCallback: jest.fn(() => Promise.resolve()) }
   const defaultProps = {
     callLoggedIn: jest.fn(),
     history: createMemoryHistory(),
-    auth0: auth0DefaultProps
+    auth: authDefaultProps
   }
 
   const propsWithDefaults = Object.assign({}, defaultProps, props)
@@ -154,7 +154,7 @@ const createSubject = (props = {}) => {
         <OAuthView
           callLoggedIn={propsWithDefaults.callLoggedIn}
           history={propsWithDefaults.history}
-          auth0={propsWithDefaults.auth0}
+          auth={propsWithDefaults.auth}
         />
       </Router>
     )

@@ -22,11 +22,11 @@ const withAuth0 = WrappedComponent => {
     }, [])
 
     const handleRedirectCallback = async () => {
-      setLoading(true);
+      setLoading(true)
       const client = await Auth0ClientProvider.get()
-      await client.handleRedirectCallback();
-      setAuthenticated(true);
-      setLoading(false);
+      await client.handleRedirectCallback()
+      setAuthenticated(true)
+      setLoading(false)
     };
 
     const auth0Props = {
@@ -37,7 +37,7 @@ const withAuth0 = WrappedComponent => {
       isLoading
     }
 
-    return <WrappedComponent auth0={auth0Props} {...props} />
+    return <WrappedComponent auth={auth0Props} {...props} />
   }
 
   return Auth0Wrapper

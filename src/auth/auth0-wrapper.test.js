@@ -51,14 +51,14 @@ describe('Auth0 wrapper component', () => {
 
   it('passes a loading flag', () => {
     const wrapped = subject.find(Wrapped)
-    expect(wrapped.props().auth0.isLoading).not.toBeUndefined()
+    expect(wrapped.props().auth.isLoading).not.toBeUndefined()
   })
 
   it('eventually passes the authenticated flag to the wrapped component', done => {
     setTimeout(() => {
       subject.update()
       const wrapped = subject.find(Wrapped)
-      expect(wrapped.props().auth0.isAuthenticated).toBe(false)
+      expect(wrapped.props().auth.isAuthenticated).toBe(false)
       done()
     })
   })
@@ -67,12 +67,12 @@ describe('Auth0 wrapper component', () => {
     it('sets authenticated to true when called', done => {
       let wrapped = subject.find(Wrapped)
 
-      wrapped.props().auth0.handleRedirectCallback()
+      wrapped.props().auth.handleRedirectCallback()
 
       setTimeout(() => {
         subject.update()
         wrapped = subject.find(Wrapped)
-        expect(wrapped.props().auth0.isAuthenticated).toBe(true)
+        expect(wrapped.props().auth.isAuthenticated).toBe(true)
         done()
       })
     })

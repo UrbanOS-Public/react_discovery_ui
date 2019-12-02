@@ -14,7 +14,7 @@ const OAuthView = (props) => {
   const {
     callLoggedIn,
     history: {location: { search }},
-    auth0
+    auth: { handleRedirectCallback, isLoading }
   } = props
 
   const [handled, setHandled] = useState(false)
@@ -22,7 +22,7 @@ const OAuthView = (props) => {
   useEffect(() => {
     const onMount = async () => {
       if (hasCodeParameter(search)) {
-          await auth0.handleRedirectCallback()
+          await handleRedirectCallback()
           callLoggedIn()
       }
       setHandled(true)
@@ -33,7 +33,7 @@ const OAuthView = (props) => {
   return (
     <oauth-view>
     {
-      auth0.isLoading || !handled
+      isLoading || !handled
         ? <LoadingElement />
         : <Redirect to={{pathname: routes.root}} />
     }
@@ -44,7 +44,7 @@ const OAuthView = (props) => {
 OAuthView.propTypes = {
   callLoggedIn: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  auth0: PropTypes.shape({
+  auth: PropTypes.shape({
     handleRedirectCallback: PropTypes.func.isRequired,
     isLoading: PropTypes.bool
   }).isRequired

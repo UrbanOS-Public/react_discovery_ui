@@ -8,7 +8,7 @@ import LoadingElement from '../generic-elements/loading-element'
 const returnTo = `${window.location.origin}${routes.oauth}`
 
 //TODO: rename to Auth0LoginZone?
-export const OAuthLoginZone = ({ auth0: { isAuthenticated, isLoading, loginWithRedirect, logout}  }) => {
+export const OAuthLoginZone = ({ auth: { isAuthenticated, isLoading, loginWithRedirect, logout}  }) => {
   if (isLoading) {
     return <login-zone><LoadingElement /></login-zone>
   }
@@ -25,7 +25,7 @@ export const OAuthLoginZone = ({ auth0: { isAuthenticated, isLoading, loginWithR
 }
 
 OAuthLoginZone.propTypes = {
-  auth0: PropTypes.shape({
+  auth: PropTypes.shape({
     loginWithRedirect: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
