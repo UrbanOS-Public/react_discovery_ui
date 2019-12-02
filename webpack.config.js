@@ -22,7 +22,7 @@ module.exports = (env, argv) => {
   ]
 
   return {
-    watch: true,
+    watch: false,
     entry: {
       main: ['@babel/polyfill', path.join(__dirname, 'src', 'index.js')]
     },
