@@ -43,7 +43,7 @@ function* executeQuery({ queryText }) {
   }
 }
 
-const cancelQuery = function* (_action) {
+const cancelQuery = function* () {
   const cancelToken = yield select(getDatasetQueryCancelToken)
   return cancelToken.cancel(cancelMessage)
 }

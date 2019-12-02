@@ -7,13 +7,10 @@ import {
   setQueryText
 } from '../actions'
 import freestyleQuerySaga from './freestyle-query-saga'
-import mockAxios from 'axios'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import oneTrueReducer from '../reducers'
-
-jest.mock('axios')
 
 const ERROR_MESSAGE_CONSTANT = 'Query failure.  There may be a syntax issue.'
 
@@ -41,8 +38,7 @@ describe('freestyle-query-saga', () => {
   beforeEach(() => {
     window.API_HOST = 'http://example.com/'
     AuthenticatedHTTPClient.post = jest.fn()
-
-    mockAxios.CancelToken = { source: () => ({ token: {} }) }
+    AuthenticatedHTTPClient.cancelTokenSource = jest.fn(() => ({ token: {} }))
   })
 
   afterEach(() => {
@@ -133,8 +129,7 @@ describe('freestyle-query-saga QUERY_DATASET_CANCELLED event', () => {
 
   beforeEach(() => {
     store = setUpSagaMiddleware(oneTrueReducer)
-
-    mockAxios.CancelToken = { source: () => ({ token: {} }) }
+    AuthenticatedHTTPClient.cancelTokenSource = jest.fn(() => ({ token: {} }))
 
     cancelMock = jest.fn()
     const cancelToken = { token: {}, cancel: cancelMock }
