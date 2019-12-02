@@ -9,7 +9,7 @@ import ErrorComponent from "../../components/generic-elements/error-component"
 import LoadingElement from "../../components/generic-elements/loading-element"
 import Checkbox from "../../components/generic-elements/checkbox"
 import { SearchParamsManager } from "../../search-params/search-params-manager"
-import OAuthLoginZone from "../../components/oauth-login"
+import Auth0LoginZone from '../../components/auth0-login-zone'
 
 const DatasetListView = (props) => {
   const {
@@ -73,7 +73,7 @@ const DatasetListView = (props) => {
     return (
       <dataset-list-view>
         <div className="left-section">
-          <OAuthLoginZone />
+          <Auth0LoginZone />
           <Checkbox
       clickHandler={searchParamsManager.toggleApiAccessible}
             text="API Accessible"

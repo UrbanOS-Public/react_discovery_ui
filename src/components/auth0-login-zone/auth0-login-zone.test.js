@@ -1,5 +1,5 @@
 import { mount } from 'enzyme'
-import { OAuthLoginZone as Component } from './oauth-login-zone'
+import { Auth0LoginZone as Component } from './auth0-login-zone'
 import LoadingElement from '../generic-elements/loading-element'
 
 
