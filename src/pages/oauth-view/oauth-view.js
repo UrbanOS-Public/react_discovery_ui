@@ -22,8 +22,10 @@ const OAuthView = (props) => {
   useEffect(() => {
     const onMount = async () => {
       if (hasCodeParameter(search)) {
+        try {
           await handleRedirectCallback()
           callLoggedIn()
+        } catch {}
       }
       setHandled(true)
     }

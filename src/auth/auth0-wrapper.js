@@ -27,7 +27,7 @@ const withAuth0 = WrappedComponent => {
       await client.handleRedirectCallback()
       setAuthenticated(true)
       setLoading(false)
-    };
+    }
 
     const auth0Props = {
       loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
