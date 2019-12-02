@@ -10,6 +10,7 @@ import freestyleQuerySaga from './freestyle-query-saga'
 import mockAxios from 'axios'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
+import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import oneTrueReducer from '../reducers'
 
 jest.mock('axios')
@@ -39,6 +40,7 @@ describe('freestyle-query-saga', () => {
 
   beforeEach(() => {
     window.API_HOST = 'http://example.com/'
+    AuthenticatedHTTPClient.post = jest.fn()
 
     mockAxios.CancelToken = { source: () => ({ token: {} }) }
   })
@@ -49,13 +51,13 @@ describe('freestyle-query-saga', () => {
 
   describe('success', () => {
     beforeEach(() => {
-      mockAxios.post.mockImplementationOnce(() => (response))
+      AuthenticatedHTTPClient.post.mockImplementationOnce(() => (response))
       store = setUpSagaMiddleware(actionTrackingReducer)
       store.dispatch(executeFreestyleQuery(queryText))
     })
 
     it('calls multiple query api with query', () => {
-      expect(mockAxios.post).toHaveBeenCalledWith('/api/v1/query', queryText, {
+      expect(AuthenticatedHTTPClient.post).toHaveBeenCalledWith('/api/v1/query', queryText, {
         cancelToken: expect.any(Object),
         baseURL: window.API_HOST,
         withCredentials: true,
@@ -84,7 +86,7 @@ describe('freestyle-query-saga', () => {
         status: 400,
         data
       }
-      mockAxios.post.mockImplementationOnce(() => (response))
+      AuthenticatedHTTPClient.post.mockImplementationOnce(() => (response))
 
       store.dispatch(executeFreestyleQuery(queryText))
 
@@ -94,7 +96,7 @@ describe('freestyle-query-saga', () => {
     it('dispatches a QUERY_DATASET_FAILED event on a catastrophic failure', () => {
       const errorMsg = "It's all over"
 
-      mockAxios.post.mockImplementationOnce(() => { throw new Error(errorMsg) })
+      AuthenticatedHTTPClient.post.mockImplementationOnce(() => { throw new Error(errorMsg) })
 
       store.dispatch(executeFreestyleQuery(queryText))
 
@@ -107,14 +109,14 @@ describe('freestyle-query-saga', () => {
     beforeEach(() => {
       store = setUpSagaMiddleware(oneTrueReducer)
 
-      mockAxios.post.mockImplementationOnce(() => (response))
+      AuthenticatedHTTPClient.post.mockImplementationOnce(() => (response))
 
       store.dispatch(setQueryText(queryTextInStore))
       store.dispatch(executeFreestyleQuery())
     })
 
     it('calls multiple query api with the query from store', () => {
-      expect(mockAxios.post).toHaveBeenCalledWith('/api/v1/query', queryTextInStore, {
+      expect(AuthenticatedHTTPClient.post).toHaveBeenCalledWith('/api/v1/query', queryTextInStore, {
         cancelToken: expect.any(Object),
         baseURL: window.API_HOST,
         withCredentials: true,

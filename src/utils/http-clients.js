@@ -2,6 +2,10 @@ import axios from 'axios'
 import Auth0Client from '../auth/auth0-client-provider'
 
 class AuthenticatedHTTPClient {
+  static cancelTokenSource() {
+    return axios.CancelToken.source()
+  }
+
   static async initializeClient() {
     const config = {baseURL: window.API_HOST, headers: {}, validateStatus: false}
     const authClient = await Auth0Client.get()
