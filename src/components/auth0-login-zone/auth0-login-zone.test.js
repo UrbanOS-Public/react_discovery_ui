@@ -1,7 +1,9 @@
 import { mount } from 'enzyme'
-import OauthLoginZone from './oauth-login-zone'
+import { Auth0LoginZone as Component } from './auth0-login-zone'
+import LoadingElement from '../generic-elements/loading-element'
 
-describe('login', () => {
+
+describe('OauthLoginZone component', () => {
   let subject, button, loginHandler, logoutHandler
 
   beforeEach(() => {
@@ -25,6 +27,10 @@ describe('login', () => {
 
       expect(loginHandler).toHaveBeenCalled()
     })
+
+    it('does not have a loading element', () => {
+      expect(subject.find(LoadingElement).length).toBe(0)
+    })
   })
 
   describe('authenticated', () => {
@@ -43,23 +49,45 @@ describe('login', () => {
 
       expect(logoutHandler).toHaveBeenCalledWith({ returnTo: `${window.location.origin}/oauth` })
     })
+
+    it('does not have a loading element', () => {
+      expect(subject.find(LoadingElement).length).toBe(0)
+    })
+  })
+
+  describe('loading', () => {
+    beforeEach(() => {
+      subject = createSubject({ isLoading: true })
+    })
+
+    it('has a loading element', () => {
+      expect(subject.find(LoadingElement).length).toBe(1)
+    })
+
+    it('does not have a button', () => {
+      expect(subject.find('button').length).toBe(0)
+    })
   })
 })
 
-const createSubject = (props = {}) => {
-  const defaultProps = {
+const createSubject = (authProps = {}) => {
+  const defaultAuthProps = {
     isAuthenticated: false,
+    isLoading: false,
     loginWithRedirect: jest.fn(),
     logout: jest.fn()
   }
 
-  const propsWithDefaults = Object.assign({}, defaultProps, props)
+  const auth0PropsWithDefaults = Object.assign({}, defaultAuthProps, authProps)
 
   return mount(
-    <OauthLoginZone
-      isAuthenticated={propsWithDefaults.isAuthenticated}
-      loginWithRedirect={propsWithDefaults.loginWithRedirect}
-      logout={propsWithDefaults.logout}
+    <Component
+      auth={{
+        isAuthenticated: auth0PropsWithDefaults.isAuthenticated,
+        isLoading: auth0PropsWithDefaults.isLoading,
+        loginWithRedirect: auth0PropsWithDefaults.loginWithRedirect,
+        logout: auth0PropsWithDefaults.logout
+      }}
     />
   )
 }

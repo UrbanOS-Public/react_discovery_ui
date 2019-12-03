@@ -6,9 +6,9 @@ login-zone {
   display: flex;
 
   login-svgs-and-text {
-  display: flex;
-  line-height: 2rem;
-  align-items: center;
+    display: flex;
+    line-height: 2rem;
+    align-items: center;
   }
 
   p {
@@ -70,5 +70,10 @@ login-zone {
     text-decoration:underline;
     border:none;
     outline:none;
+  }
+
+  loading-element {
+    width: 2rem;
+    margin: auto;
   }
 }

@@ -1,15 +1,14 @@
 import { takeEvery, put, call, select } from 'redux-saga/effects'
 import { EXECUTE_FREESTYLE_QUERY, CANCEL_FREESTYLE_QUERY, setQuerySuccess, setQueryFailure, setQueryInProgress } from '../actions'
 import { getDatasetQueryCancelToken } from '../selectors'
-import axios from 'axios'
+import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import { getFreestyleQueryText } from '../query-selectors'
 
 const cancelMessage = 'Your query has been stopped'
 const failureMessage = 'Query failure.  There may be a syntax issue.'
 
 function* executeQuery({ queryText }) {
-  const CancelToken = axios.CancelToken
-  const cancelToken = CancelToken.source()
+  const cancelToken = AuthenticatedHTTPClient.cancelTokenSource()
 
   let queryBody
   if (queryText) {
@@ -21,7 +20,7 @@ function* executeQuery({ queryText }) {
   yield put(setQueryInProgress(cancelToken))
   try {
     const response = yield call(
-      axios.post,
+      AuthenticatedHTTPClient.post,
       '/api/v1/query',
       queryBody,
       {
@@ -44,7 +43,7 @@ function* executeQuery({ queryText }) {
   }
 }
 
-const cancelQuery = function* (_action) {
+const cancelQuery = function* () {
   const cancelToken = yield select(getDatasetQueryCancelToken)
   return cancelToken.cancel(cancelMessage)
 }

@@ -1,46 +1,55 @@
-import OAuthLoginZone from "../../components/oauth-login"
-import Auth0ClientProvider from '../../auth/auth0-client-provider.js'
-import { useEffect, useState, useContext } from "react"
-import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { Redirect } from 'react-router'
+import './oauth-view.scss'
+import routes from '../../routes'
+import qs from 'qs'
+import LoadingElement from '../../components/generic-elements/loading-element'
+import PropTypes from 'prop-types'
 
+const hasAuthorizationCodeParameter = search => {
+  return qs.parse(search, { ignoreQueryPrefix: true }).hasOwnProperty('code')
+}
 
 const OAuthView = (props) => {
   const {
     callLoggedIn,
-    history,
-    location
+    history: {location: { search }},
+    auth: { handleRedirectCallback, isLoading }
   } = props
 
-
-  const [isAuthenticated, setAuthenticated] = useState()
-  const [auth0Client, setAuth0] = useState()
+  const [handled, setHandled] = useState(false)
 
   useEffect(() => {
-    const connectAuth0 = async () => {
-      const auth0Client = await Auth0ClientProvider.get()
-      const isAuthenticated = await auth0Client.isAuthenticated()
-      setAuthenticated(isAuthenticated)
-      setAuth0(auth0Client)
-
-      if (location.search.includes("code=")) {
-        await auth0Client.handleRedirectCallback()
-        callLoggedIn()
-        history.replace("/oauth")
-        setAuthenticated(true)
+    const onMount = async () => {
+      if (hasAuthorizationCodeParameter(search)) {
+        try {
+          await handleRedirectCallback()
+          callLoggedIn()
+        } catch {}
       }
+      setHandled(true)
     }
-
-    connectAuth0()
+    onMount()
   }, [])
 
   return (
-    <OAuthLoginZone
-      isAuthenticated={isAuthenticated}
-      loginWithRedirect={(...p) => auth0Client.loginWithRedirect(...p)}
-      logout={(...p) => auth0Client.logout(...p)}
-    />
+    <oauth-view>
+    {
+      isLoading || !handled
+        ? <LoadingElement />
+        : <Redirect to={{pathname: routes.root}} />
+    }
+    </oauth-view>
   )
 }
 
+OAuthView.propTypes = {
+  callLoggedIn: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  auth: PropTypes.shape({
+    handleRedirectCallback: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool
+  }).isRequired
+}
 
 export default OAuthView

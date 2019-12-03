@@ -4,12 +4,12 @@ import DatasetList from "../../components/dataset-list"
 import Paginator from "../../components/generic-elements/paginator"
 import Select from "../../components/generic-elements/select"
 import Search from "../../components/generic-elements/search"
-import LoginZone from "../../components/login-zone"
 import FacetSidebar from "../../components/facet-sidebar"
 import ErrorComponent from "../../components/generic-elements/error-component"
 import LoadingElement from "../../components/generic-elements/loading-element"
 import Checkbox from "../../components/generic-elements/checkbox"
 import { SearchParamsManager } from "../../search-params/search-params-manager"
+import Auth0LoginZone from '../../components/auth0-login-zone'
 
 const DatasetListView = (props) => {
   const {
@@ -61,8 +61,6 @@ const DatasetListView = (props) => {
     return <div className="result-count">{`${resultCountText}${resultCountQueryText}`}</div>
   }
 
-  const token = sessionStorage.getItem("api-token")
-
   if (isError) {
     return (
       <ErrorComponent
@@ -75,7 +73,7 @@ const DatasetListView = (props) => {
     return (
       <dataset-list-view>
         <div className="left-section">
-          <LoginZone token={token} />
+          <Auth0LoginZone />
           <Checkbox
       clickHandler={searchParamsManager.toggleApiAccessible}
             text="API Accessible"

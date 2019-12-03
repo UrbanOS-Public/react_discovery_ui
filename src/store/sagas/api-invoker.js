@@ -1,6 +1,6 @@
 import { put, call } from 'redux-saga/effects'
 import { displayError } from '../actions'
-import axios from 'axios'
+import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import qs from 'qs'
 
 const defaultParamFunction = () => ({})
@@ -14,7 +14,7 @@ export default ({ endpoint, actionator, errorAction = displayError(), queryParam
         paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'brackets' }),
         withCredentials: true
       }
-      const response = yield call(axios.get, endpoint, query)
+      const response = yield call(AuthenticatedHTTPClient.get, endpoint, query)
       if (response.status === 200) {
         yield put(actionator(response.data))
       } else {

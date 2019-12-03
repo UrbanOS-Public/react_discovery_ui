@@ -1,12 +1,8 @@
-import { DISPLAY_ERROR } from "../actions";
-import apiInvoker from "./api-invoker";
-import { createStore, applyMiddleware } from "redux";
-import createSagaMiddleware from "redux-saga";
-import mockAxios from "axios";
-import { sessionStorage } from "storage2";
-
-jest.mock("axios");
-jest.mock("storage2");
+import { DISPLAY_ERROR } from "../actions"
+import apiInvoker from "./api-invoker"
+import { createStore, applyMiddleware } from "redux"
+import createSagaMiddleware from "redux-saga"
+import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 
 describe("api-invoker", () => {
   const reducer = (state = [], action) => {
@@ -19,6 +15,8 @@ describe("api-invoker", () => {
   let store, sagaMiddleware, actionator;
 
   beforeEach(() => {
+    AuthenticatedHTTPClient.get = jest.fn()
+
     window.API_HOST = "http://fake.com/";
 
     sagaMiddleware = createSagaMiddleware();
@@ -31,13 +29,13 @@ describe("api-invoker", () => {
   });
 
   it("invokes axios with the correct object when no query parameter function is passed in", () => {
-    mockAxios.get.mockImplementationOnce(() => ({
+    AuthenticatedHTTPClient.get.mockImplementationOnce(() => ({
       status: 200,
       data: []
     }));
     sagaMiddleware.run(apiInvoker({ endpoint: "/gohome", actionator }));
 
-    expect(mockAxios.get).toHaveBeenCalledWith("/gohome", {
+    expect(AuthenticatedHTTPClient.get).toHaveBeenCalledWith("/gohome", {
       baseURL: window.API_HOST,
       params: {},
       paramsSerializer: expect.anything(),
@@ -48,7 +46,7 @@ describe("api-invoker", () => {
   it("passes query parameters when passed in", () => {
     const mockQueryParam = { some: "param" };
     const queryParameterBuilder = jest.fn().mockReturnValue(mockQueryParam);
-    mockAxios.get.mockImplementationOnce(() => ({
+    AuthenticatedHTTPClient.get.mockImplementationOnce(() => ({
       status: 200,
       data: []
     }));
@@ -56,7 +54,7 @@ describe("api-invoker", () => {
       apiInvoker({ endpoint: "my-url", actionator, queryParameterBuilder })
     );
 
-    expect(mockAxios.get).toHaveBeenCalledWith("my-url", {
+    expect(AuthenticatedHTTPClient.get).toHaveBeenCalledWith("my-url", {
       baseURL: window.API_HOST,
       params: mockQueryParam,
       paramsSerializer: expect.anything(),
@@ -67,7 +65,7 @@ describe("api-invoker", () => {
   it("gets query parameters from the query param function", () => {
     const mockEvent = { type: "some type" };
     const queryParameterBuilder = jest.fn();
-    mockAxios.get.mockImplementationOnce(() => ({
+    AuthenticatedHTTPClient.get.mockImplementationOnce(() => ({
       status: 200,
       data: []
     }));
@@ -80,7 +78,7 @@ describe("api-invoker", () => {
   });
 
   it("calls actionator when successful", () => {
-    mockAxios.get.mockImplementationOnce(() => ({
+    AuthenticatedHTTPClient.get.mockImplementationOnce(() => ({
       status: 200,
       data: fakeDataSetResponse
     }));
@@ -93,7 +91,7 @@ describe("api-invoker", () => {
   it("dispatches a display error by default when the network fails with an error", () => {
     console.error = jest.fn();
     const expectedError = new Error("Network error");
-    mockAxios.get.mockImplementationOnce(() => {
+    AuthenticatedHTTPClient.get.mockImplementationOnce(() => {
       throw expectedError;
     });
 
@@ -106,7 +104,7 @@ describe("api-invoker", () => {
   });
 
   it("dispatches a display error by default if the status code is not 200", () => {
-    mockAxios.get.mockImplementationOnce(() => ({
+    AuthenticatedHTTPClient.get.mockImplementationOnce(() => ({
       status: 421,
       data: fakeDataSetResponse
     }));
@@ -119,7 +117,7 @@ describe("api-invoker", () => {
   });
 
   it("dispatches provided errorAction when the network fails with an error", () => {
-    mockAxios.get.mockImplementationOnce(() => {
+    AuthenticatedHTTPClient.get.mockImplementationOnce(() => {
       throw new Error("Network error");
     });
 
@@ -129,7 +127,7 @@ describe("api-invoker", () => {
   });
 
   it("dispatches provided errorAction if the status code is not 200", () => {
-    mockAxios.get.mockImplementationOnce(() => ({
+    AuthenticatedHTTPClient.get.mockImplementationOnce(() => ({
       status: 421,
       data: fakeDataSetResponse
     }));

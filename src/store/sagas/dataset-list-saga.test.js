@@ -2,11 +2,9 @@ import {
   datasetSearch
 } from '../actions'
 import theRealDatasetSaga  from './dataset-list-saga'
-import mockAxios from 'axios'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
-
-jest.mock('axios')
+import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 
 const setUpSagaMiddleware = reducer => {
   const sagaMiddleware = createSagaMiddleware()
@@ -19,6 +17,8 @@ const setUpSagaMiddleware = reducer => {
 describe('dataset-list-saga', () => {
   describe('success', () => {
     it('calls api with query', () => {
+      AuthenticatedHTTPClient.get = jest.fn()
+
       const actionTrackingReducer = (state = [], action) => {
         return [...state, action]
       }
@@ -33,7 +33,7 @@ describe('dataset-list-saga', () => {
       }
 
       window.API_HOST = 'http://example.com/'
-      mockAxios.get.mockImplementationOnce(() => (response))
+      AuthenticatedHTTPClient.get.mockImplementationOnce(() => (response))
       const store = setUpSagaMiddleware(actionTrackingReducer)
 
       const params = {
@@ -59,7 +59,7 @@ describe('dataset-list-saga', () => {
         apiAccessible: true
       }
 
-      expect(mockAxios.get).toHaveBeenCalledWith(
+      expect(AuthenticatedHTTPClient.get).toHaveBeenCalledWith(
         '/api/v1/dataset/search',
         expect.objectContaining({
           baseURL: window.API_HOST,

@@ -1,4 +1,4 @@
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import DatasetListView from "./dataset-list-view";
 import Paginator from "../../components/generic-elements/paginator";
 import Select from "../../components/generic-elements/select";
@@ -145,8 +145,7 @@ function createSubject(props, queryString = "") {
     toggleApiAccessible: jest.fn(),
     updateSortOrder: jest.fn(),
     updateSearchText: jest.fn(),
-    updatePage: jest.fn(),
-    toggleFactes: jest.fn()
+    updatePage: jest.fn()
   }
 
   const propsWithDefaults = Object.assign({}, defaultProps, props);
