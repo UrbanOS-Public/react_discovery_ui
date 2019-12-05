@@ -3,14 +3,15 @@ import { isEmpty } from 'lodash'
 import { getDataSet } from './selectors'
 
 const didQueryFail = state => !isEmpty(getQueryFailureMessage(state))
+const queryData = state => state.queryReducer.queryData
 
 export const getQueryFailureMessage = state => state.queryReducer.queryFailureMessage
 export const getQueryIsLoading = state => state.queryReducer.isQueryLoading
 
 export const userHasInteracted = state => state.queryReducer.userInteracted
 
-export const getQueryData = state => state.queryReducer.queryData || []
-export const isQueryDataAvailable = state => state.queryReducer.queryData !== null
+export const getQueryData = createSelector(queryData, queryData => queryData || [])
+export const isQueryDataAvailable = state => queryData(state) !== null
 export const isQueryTextAvailable = state => !isEmpty(getFreestyleQueryText(state))
 
 export const shouldAutoFetchQuery = createSelector(

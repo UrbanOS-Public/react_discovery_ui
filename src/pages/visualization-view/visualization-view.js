@@ -74,7 +74,7 @@ const VisualizationView = (props) => {
 
   return (
     <visualization-view>
-      <Tabs selectedIndex={index} onSelect={tabIndex => setIndex(tabIndex)} forceRenderTabPanel>
+      <Tabs selectedIndex={index} onSelect={tabIndex => setIndex(tabIndex)} >
         <TabList className='header'>
           <span className='tab-area'>
             <Tab className='header-item tab' selectedClassName='selected'>
@@ -107,7 +107,7 @@ const VisualizationView = (props) => {
           <QueryView />
         </TabPanel>
         <TabPanel className="visualization" selectedClassName="visualization--selected">
-          <ChartView selectedIndex={index} />
+          <ChartView/>
         </TabPanel>
       </Tabs>
     </visualization-view>

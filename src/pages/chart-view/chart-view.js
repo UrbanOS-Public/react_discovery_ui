@@ -21,13 +21,9 @@ const getDataSourceOptions = dataSources => {
   }))
 }
 
-
-
 const ChartView = (props) => {
   const { dataSources, isLoading, autoFetchQuery, executeQuery, saveChart, chart } = props
   const { data, layout, frames } = chart
-
-  const [localData, setLocalData] = useState(data)
 
   React.useEffect(() => {
     if (autoFetchQuery) {
@@ -36,9 +32,9 @@ const ChartView = (props) => {
   }, [autoFetchQuery])
 
   React.useEffect(() => {
-    const clonedData = cloneDeep(localData)
+    const clonedData = cloneDeep(data)
     dereference(clonedData, dataSources)
-    setLocalData(clonedData)
+    saveChart({data: clonedData, layout, frames})
   }, [dataSources])
 
   if (isLoading) {
@@ -64,7 +60,7 @@ const ChartView = (props) => {
   return (
     <chart-view>
       <PlotlyEditor
-        data={localData}
+        data={data}
         layout={layout}
         frames={frames}
         dataSources={dataSources}

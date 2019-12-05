@@ -10,7 +10,7 @@ import * as ReactChartLibrary from 'react-chart-editor/lib'
 // which should become unneccessary in the near future
 const runUseEffect = () => {
   const useEffect = jest.spyOn(React, "useEffect")
-  useEffect.mockImplementationOnce(f => f())
+  useEffect.mockImplementation(f => f())
 }
 
 describe('chart view', () => {
@@ -18,9 +18,12 @@ describe('chart view', () => {
 
   let subject
 
+  beforeEach(() => {
+    runUseEffect()
+  })
+
   describe('before load', () => {
     beforeEach(() => {
-      runUseEffect()
       subject = createSubject({ isLoading: true })
     })
 
@@ -35,8 +38,6 @@ describe('chart view', () => {
 
   describe('after load', () => {
     beforeEach(() => {
-      runUseEffect()
-
       subject = createSubject({ dataSources: chartDataSources, isLoading: false })
     })
 
@@ -64,7 +65,6 @@ describe('chart view', () => {
   })
 
   it('does not automatically execute the query when instructed not to', () => {
-    runUseEffect();
     const executeQuery = jest.fn()
 
     subject = createSubject({ autoFetchQuery: false, executeQuery })
@@ -73,7 +73,6 @@ describe('chart view', () => {
   })
 
   it('automatically executes the query when instructed to', () => {
-    runUseEffect();
     const executeQuery = jest.fn()
 
     subject = createSubject({ autoFetchQuery: true, executeQuery })
@@ -86,6 +85,7 @@ describe('chart view', () => {
       col1: [1, 2, 3],
       col2: [4, 5, 6]
     }
+
     beforeEach(() => {
       window.LOGO_URL = 'https://placekitten.com/530/530'
       window.MAPBOX_ACCESS_TOKEN = 'secret key'
@@ -136,10 +136,51 @@ describe('chart view', () => {
     })
   })
 
+  describe('when datasources are updated', () => {
+    const dataSources = {
+      col1: [1, 2, 3],
+      col2: [4, 5, 6]
+    }
+    const plotlyData = [
+      {
+        type: 'scatter',
+        mode: 'markers',
+        x: [1, 2, 3],
+        xsrc: 'col1',
+        meta: { columnNames: { x: 'col1', y: 'col2' } },
+        y: [4, 5, 6],
+        ysrc: 'col2'
+      }
+    ]
+
+    let saveChart
+
+    beforeEach(() => {
+      saveChart = jest.fn()
+      subject = createSubject({ dataSources: dataSources, chart: { data: plotlyData, frames: [], layout: {}}, saveChart })
+      saveChart.mockClear()
+    })
+
+    it('saves updated data for the chart', () => {
+      const newDataSources = {
+        col1: [1, 2],
+        col2: [3, 4]
+      }
+
+      subject.setProps({dataSources: newDataSources})
+
+      expect(saveChart).toHaveBeenCalledTimes(1)
+      const firstPlotData = plotlyData[0]
+      const expected = {...firstPlotData, ...{x: newDataSources.col1, y: newDataSources.col2}}
+      expect(saveChart).toHaveBeenCalledWith({data: [expected], layout: {}, frames: []})
+    })
+  })
+
   describe('save chart', () => {
     it('sends a save chart event', () => {
       var saveChart = jest.fn()
       var subject = createSubject({ saveChart })
+      saveChart.mockClear()
 
       var data = [{x:[1, 2, 3], xsrc: "col1"}]
       subject.find(PlotlyEditor).props().onUpdate(data, {}, [])
