@@ -176,8 +176,8 @@ export const visualizationLoadFailure = (errorMessage) => ({
 })
 
 export const VISUALIZATION_SAVE = 'VISUALIZATION_SAVE'
-export const visualizationSave = (title, query) => ({
-  type: VISUALIZATION_SAVE, value: { title, query }
+export const visualizationSave = ({ id, title, query }) => ({
+  type: VISUALIZATION_SAVE, value: { id, title, query }
 })
 
 export const VISUALIZATION_SAVE_SUCCESS = 'VISUALIZATION_SAVE_SUCCESS'
@@ -193,11 +193,6 @@ export const visualizationSaveFailure = (errorMessage) => ({
 export const CHART_VISUALIZATION_SAVE = 'CHART_VISUALIZATION_SAVE'
 export const saveChartInformation = (chart) => ({
   type: CHART_VISUALIZATION_SAVE, value: chart
-})
-
-export const VISUALIZATION_UPDATE = 'VISUALIZATION_UPDATE'
-export const visualizationUpdate = (id, title, query) => ({
-  type: VISUALIZATION_UPDATE, value: {id, title, query}
 })
 
 export const VISUALIZATION_RESET = 'VISUALIZATION_RESET'

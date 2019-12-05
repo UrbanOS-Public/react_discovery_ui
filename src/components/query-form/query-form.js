@@ -62,7 +62,7 @@ const QueryForm = props => {
     type='text'
     placeholder='SELECT * FROM ...'
     value={localQueryText}
-    onBlur={updateReduxQueryText}
+    onBlur={updateReduxQueryText} // TODO: still needed?  it's causing query to automatically execute the first time you blur from the query box
     onChange={handleQueryChange}
     onInput={handleQueryChange}
     className='query-input'

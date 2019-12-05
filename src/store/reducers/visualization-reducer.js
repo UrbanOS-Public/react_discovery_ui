@@ -3,7 +3,6 @@ import {
   VISUALIZATION_LOAD_SUCCESS,
   VISUALIZATION_LOAD_FAILURE,
   VISUALIZATION_SAVE,
-  VISUALIZATION_UPDATE,
   VISUALIZATION_SAVE_SUCCESS,
   VISUALIZATION_SAVE_FAILURE,
   VISUALIZATION_RESET,
@@ -43,12 +42,6 @@ const visualizationReducer = (state = defaultVisualizationState, action) => {
         loadFailure: true
       })
     case VISUALIZATION_SAVE:
-      return Object.assign({}, state, {
-        saving: true,
-        saveSuccess: false,
-        saveFailure: false
-      })
-    case VISUALIZATION_UPDATE:
       return Object.assign({}, state, {
         saving: true,
         saveSuccess: false,

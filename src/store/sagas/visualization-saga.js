@@ -1,5 +1,5 @@
 import { takeEvery, put, call, fork, all, select } from 'redux-saga/effects'
-import { VISUALIZATION_SAVE, VISUALIZATION_UPDATE, VISUALIZATION_LOAD, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText } from '../actions'
+import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText, saveChartInformation } from '../actions'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import { dereferencedChart } from '../visualization-selectors'
 
@@ -8,7 +8,19 @@ function* loadVisualizationSaga() {
 }
 
 function* loadVisualization({ value: id }) {
-  yield callEndpoint(() => AuthenticatedHTTPClient.get(`/api/v1/visualization/${id}`), visualizationLoadSuccess, visualizationLoadFailure)
+  try {
+    const response = yield call(AuthenticatedHTTPClient.get, `/api/v1/visualization/${id}`)
+
+    if (response.status < 400) {
+      yield put(saveChartInformation(response.data.chart))
+      yield put(setQueryText(response.data.query))
+      yield put(visualizationLoadSuccess(response.data))
+    } else {
+      yield put(visualizationLoadFailure(response.status))
+    }
+  } catch (e) {
+    yield put(visualizationLoadFailure(e.message))
+  }
 }
 
 function* saveVisualizationSaga() {
@@ -17,38 +29,32 @@ function* saveVisualizationSaga() {
 
 export function* saveVisualization({ value: visualization }) {
   const chart = yield select(dereferencedChart)
-  yield callEndpoint(() => AuthenticatedHTTPClient.post('/api/v1/visualization', { ...visualization, chart }), visualizationSaveSuccess, visualizationSaveFailure)
+
+  if (visualization.id) {
+    yield handleSaveResponse(() => AuthenticatedHTTPClient.put(`/api/v1/visualization/${visualization.id}`, {...visualization, chart}))
+  } else {
+    yield handleSaveResponse(() => AuthenticatedHTTPClient.post(`/api/v1/visualization`, {...visualization, chart}))
+  }
 }
 
-function* updateVisualizationSaga() {
-  yield takeEvery(VISUALIZATION_UPDATE, updateVisualization)
-}
-
-export function* updateVisualization({ value: visualization }) {
-  const chart = yield select(dereferencedChart)
-  yield callEndpoint(() => AuthenticatedHTTPClient.put(`/api/v1/visualization/${visualization.id}`, {...visualization, chart}), visualizationSaveSuccess, visualizationSaveFailure)
-}
-
-function* callEndpoint(clientFunction, successEvent, failureEvent) {
+function* handleSaveResponse(clientFunction) {
   try {
     const response = yield call(clientFunction)
 
     if (response.status < 400) {
-      yield put(setQueryText(response.data.query))
-      yield put(successEvent(response.data))
+      yield put(visualizationSaveSuccess(response.data))
     } else {
-      yield put(failureEvent(response.status))
+      yield put(visualizationSaveFailure(response.status))
     }
   } catch (e) {
-    yield put(failureEvent(e.message))
+    yield put(visualizationSaveFailure(e.message))
   }
 }
 
 export default function* visualizationSaga() {
   yield all([
     fork(loadVisualizationSaga),
-    fork(saveVisualizationSaga),
-    fork(updateVisualizationSaga)
+    fork(saveVisualizationSaga)
   ])
 }
 

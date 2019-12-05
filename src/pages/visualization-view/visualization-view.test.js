@@ -164,7 +164,7 @@ describe("visualization view", () => {
     it("sends create visualization event with the query, a query title, and the visualization", () => {
       subject.find(".prompt").simulate("change", {target: { value: 'Query Title'}})
       subject.find(".save-button").simulate("click")
-      expect(saveHandler).toHaveBeenCalledWith('Query Title', query)
+      expect(saveHandler).toHaveBeenCalledWith({title: 'Query Title', query})
     })
   })
 

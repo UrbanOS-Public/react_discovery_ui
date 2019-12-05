@@ -22,7 +22,6 @@ const VisualizationView = (props) => {
     reset,
     load,
     save,
-    update,
     id: idFromState,
     query,
     title,
@@ -56,11 +55,7 @@ const VisualizationView = (props) => {
   const openDialog = () => { setDialogOpen(true) }
 
   const handleSaveOrUpdate = () => {
-    if (idFromState) {
-      update(idFromState, localTitle, query)
-    } else {
-      save(localTitle, query)
-    }
+    save({id: idFromState, title: localTitle, query})
   }
   const closeDialog = () => { setDialogOpen(false); }
 
