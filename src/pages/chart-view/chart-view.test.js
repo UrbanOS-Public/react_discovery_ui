@@ -67,7 +67,7 @@ describe('chart view', () => {
   it('does not automatically execute the query when instructed not to', () => {
     const executeQuery = jest.fn()
 
-    subject = createSubject({ autoFetchQuery: false, executeQuery })
+    subject = createSubject({ shouldAutoExecuteQuery: false, executeQuery })
 
     expect(executeQuery).toHaveBeenCalledTimes(0)
   })
@@ -75,7 +75,7 @@ describe('chart view', () => {
   it('automatically executes the query when instructed to', () => {
     const executeQuery = jest.fn()
 
-    subject = createSubject({ autoFetchQuery: true, executeQuery })
+    subject = createSubject({ shouldAutoExecuteQuery: true, executeQuery })
 
     expect(executeQuery).toHaveBeenCalledTimes(1)
   })
@@ -196,7 +196,7 @@ function createSubject(params = {}) {
     chart: {data: [], layout: {}, frames: []},
     isLoading: false,
     dataSources: { data: ["sources"] },
-    autoFetchQuery: false,
+    shouldAutoExecuteQuery: false,
     executeQuery: jest.fn(),
     saveChart: jest.fn()
   }

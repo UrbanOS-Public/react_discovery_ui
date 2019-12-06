@@ -14,7 +14,7 @@ const QueryView = props => {
     freestyleQueryText,
     queryData,
     queryFailureMessage,
-    autoFetchQuery,
+    shouldAutoExecuteQuery,
     userHasInteracted,
 
     executeQuery,
@@ -24,10 +24,10 @@ const QueryView = props => {
   } = props;
 
   React.useEffect(() => {
-    if (autoFetchQuery) {
+    if (shouldAutoExecuteQuery) {
       executeQuery(freestyleQueryText)
     }
-  }, [autoFetchQuery])
+  }, [shouldAutoExecuteQuery])
 
   const columns = determineColumns(dataSources)
   const data = getCleanData(queryData)

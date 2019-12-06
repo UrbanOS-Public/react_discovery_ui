@@ -2,7 +2,6 @@ import { createSelector } from 'reselect'
 import { isEmpty } from 'lodash'
 import { getDataSet } from './selectors'
 
-const didQueryFail = state => !isEmpty(getQueryFailureMessage(state))
 const queryData = state => state.queryReducer.queryData
 
 export const getQueryFailureMessage = state => state.queryReducer.queryFailureMessage
@@ -14,11 +13,9 @@ export const getQueryData = createSelector(queryData, queryData => queryData || 
 export const isQueryDataAvailable = state => queryData(state) !== null
 export const isQueryTextAvailable = state => !isEmpty(getFreestyleQueryText(state))
 
-export const shouldAutoFetchQuery = createSelector(
-  isQueryDataAvailable, isQueryTextAvailable, didQueryFail,
-  (dataAvailable, textAvailable, queryFailed) => {
-    return !dataAvailable && textAvailable && !queryFailed
-  }
+export const queryHasBeenExecuted = state => state.queryReducer.queryHasBeenExecuted
+export const shouldAutoExecuteQuery = createSelector(queryHasBeenExecuted,
+  (queryHasBeenExecuted) => !queryHasBeenExecuted
 )
 
 export const getVisualizationDataSources = createSelector(

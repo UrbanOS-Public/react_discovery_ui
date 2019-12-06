@@ -61,7 +61,6 @@ export default class extends Component {
           className="dataset-view"
           selectedIndex={this.state.index}
           onSelect={tabIndex => this.setState({ index: tabIndex })}
-          forceRenderTabPanel
         >
           <TabList>
             <Tab>Dataset Details</Tab>

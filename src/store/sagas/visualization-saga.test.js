@@ -1,4 +1,4 @@
-import { visualizationSave, visualizationLoadFailure, visualizationSaveFailure, visualizationLoad, visualizationLoadSuccess, visualizationSaveSuccess, setQueryText, saveChartInformation } from '../actions'
+import { visualizationSave, visualizationLoadFailure, visualizationSaveFailure, visualizationLoad, visualizationLoadSuccess, visualizationSaveSuccess, setQueryText, saveChartInformation, executeFreestyleQuery } from '../actions'
 import visualizationSaga from './visualization-saga'
 import { saveVisualization } from './visualization-saga'
 import { createStore, applyMiddleware } from 'redux'
@@ -48,6 +48,10 @@ describe('visualization-saga', () => {
 
       it('sets the global query text', () => {
         expect(store.getState()).toContainEqual(setQueryText(visualization.query))
+      })
+
+      it('executes the query', () => {
+        expect(store.getState()).toContainEqual(executeFreestyleQuery(visualization.query))
       })
     })
 

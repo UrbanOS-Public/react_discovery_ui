@@ -1,7 +1,7 @@
 import {
   getFreestyleQueryText,
   getVisualizationDataSources,
-  shouldAutoFetchQuery
+  shouldAutoExecuteQuery
 } from './query-selectors';
 
 describe('get visualization data sources', () => {
@@ -101,75 +101,24 @@ describe('getFreestyleQueryText', () => {
   })
 });
 
-describe('shouldAutoFetchQuery', () => {
+describe('shouldAutoExecuteQuery', () => {
   let state
 
-  describe('with no query data present', () => {
-    beforeEach(() => {
-      state = {
-        queryReducer: {
-          queryData: null
-        },
-        datasetReducer: {}
-      }
-    })
-
-    it('returns true when query text is set', () => {
-      state.queryReducer.queryText = 'select stars from lucky_charms'
-
-      expect(shouldAutoFetchQuery(state)).toBe(true)
-    })
-
-    it('returns true when dataset is present', () => {
-      state.datasetReducer = { dataset: { systemName: 'pablo' } }
-
-      expect(shouldAutoFetchQuery(state)).toBe(true)
-    })
-
-    it('returns false when query text is set but previous query has failed', () => {
-      state.queryReducer.queryText = 'select horseshoes from lucky_charms'
-      state.queryReducer.queryFailureMessage = 'oops'
-
-      expect(shouldAutoFetchQuery(state)).toBe(false)
-    })
-
-    it('returns false when query text is not set', () => {
-      state.queryReducer.queryText = undefined
-
-      expect(shouldAutoFetchQuery(state)).toBe(false)
-    })
-
-    it('returns false when query text is empty', () => {
-      state.queryReducer.queryText = ''
-
-      expect(shouldAutoFetchQuery(state)).toBe(false)
-    })
+  beforeEach(() => {
+    state = {
+      queryReducer: {}
+    }
   })
 
-  describe('with query data present', () => {
-    beforeEach(() => {
-      state = {
-        queryReducer: { queryData: [] },
-        datasetReducer: {}
-      }
-    })
+  it('returns true when query has not been executed', () => {
+    state.queryReducer.queryHasBeenExecuted = false
 
-    it('returns false when query text is not set', () => {
-      state.queryReducer.queryText = undefined
+    expect(shouldAutoExecuteQuery(state)).toBe(true)
+  })
 
-      expect(shouldAutoFetchQuery(state)).toBe(false)
-    })
+  it('returns false when query has been executed', () => {
+    state.queryReducer.queryHasBeenExecuted = true
 
-    it('returns false when query text is empty', () => {
-      state.queryReducer.queryText = ''
-
-      expect(shouldAutoFetchQuery(state)).toBe(false)
-    })
-
-    it('returns false when query text is set', () => {
-      state.queryReducer.queryText = 'select moons from lucky_charms'
-
-      expect(shouldAutoFetchQuery(state)).toBe(false)
-    })
+    expect(shouldAutoExecuteQuery(state)).toBe(false)
   })
 })

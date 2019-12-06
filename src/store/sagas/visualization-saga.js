@@ -1,5 +1,5 @@
 import { takeEvery, put, call, fork, all, select } from 'redux-saga/effects'
-import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText, saveChartInformation } from '../actions'
+import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText, saveChartInformation, executeFreestyleQuery } from '../actions'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import { dereferencedChart } from '../visualization-selectors'
 
@@ -14,6 +14,7 @@ function* loadVisualization({ value: id }) {
     if (response.status < 400) {
       yield put(saveChartInformation(response.data.chart))
       yield put(setQueryText(response.data.query))
+      yield put(executeFreestyleQuery(response.data.query))
       yield put(visualizationLoadSuccess(response.data))
     } else {
       yield put(visualizationLoadFailure(response.status))

@@ -1,7 +1,6 @@
 import reducer from './query-reducer'
 
-import { setQueryText, clearQueryText, setQuerySuccess, setQueryFailure, setQueryInProgress } from '../actions'
-import { JestEnvironment } from '@jest/environment'
+import { setQueryText, clearQueryText, setQuerySuccess, setQueryFailure, setQueryInProgress, resetQuery } from '../actions'
 
 describe("queryReducer", () => {
   it('setQueryText triggers an action that sets the queryText', () => {
@@ -21,7 +20,7 @@ describe("queryReducer", () => {
   })
 
   it('setQuerySuccess triggers an action that sets the queryData', () => {
-    const currentState = { 
+    const currentState = {
       queryData: {},
       queryFailureMessage: "Maybe something",
       isQueryLoading: true,
@@ -37,7 +36,7 @@ describe("queryReducer", () => {
   })
 
   it('setQueryFailure triggers an action that sets the queryFailureMessage', () => {
-    const currentState = { 
+    const currentState = {
       queryData: {a: 5},
       queryFailureMessage: "",
       isQueryLoading: true,
@@ -53,7 +52,7 @@ describe("queryReducer", () => {
   })
 
   it('setQueryInProgress triggers an action that sets the isQueryLoading and cancelToken', () => {
-    const currentState = { 
+    const currentState = {
       isQueryLoading: false,
       cancelToken: null
     }
@@ -62,5 +61,31 @@ describe("queryReducer", () => {
 
     expect(newState.cancelToken).toBe(expectedCancel)
     expect(newState.isQueryLoading).toBe(true)
+    expect(newState.queryHasBeenExecuted).toBe(true)
+  })
+
+  it('resetQuery resets to the default state', () => {
+    const currentState = {
+      queryText: "select * from lucky_charms",
+      queryData: ['stuff'],
+      queryFailureMessage: "oh noooooo",
+      isQueryLoading: true,
+      userInteracted: true,
+      cancelToken: 'cancelled',
+      queryHasBeenExecuted: true
+    }
+
+    const newState = reducer(currentState, resetQuery())
+
+    const expected = {
+      queryText: "",
+      queryData: null,
+      queryFailureMessage: "",
+      isQueryLoading: false,
+      userInteracted: false,
+      cancelToken: null,
+      queryHasBeenExecuted: false
+    }
+    expect(newState).toEqual(expected)
   })
 })

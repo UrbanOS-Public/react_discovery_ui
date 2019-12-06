@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import QueryView from './query-view'
 import { executeFreestyleQuery, cancelFreestyleQuery, setQueryText, setUserInteracted } from '../../store/actions'
-import { getVisualizationDataSources, getQueryIsLoading, getFreestyleQueryText, getQueryData, getQueryFailureMessage, userHasInteracted, shouldAutoFetchQuery } from '../../store/query-selectors'
+import { getVisualizationDataSources, getQueryIsLoading, getFreestyleQueryText, getQueryData, getQueryFailureMessage, userHasInteracted } from '../../store/query-selectors'
 import { getDatasetRecommendations } from "../../store/selectors"
 
 const mapStateToProps = state => {
@@ -12,7 +12,6 @@ const mapStateToProps = state => {
     freestyleQueryText: getFreestyleQueryText(state),
     queryData: getQueryData(state),
     queryFailureMessage: getQueryFailureMessage(state),
-    autoFetchQuery: shouldAutoFetchQuery(state),
     userHasInteracted: userHasInteracted(state)
   }
 }

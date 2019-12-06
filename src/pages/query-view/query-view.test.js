@@ -73,7 +73,7 @@ describe("query view", () => {
     runUseEffect();
     const executeQuery = jest.fn()
 
-    subject = createSubject({ autoFetchQuery: false, executeQuery })
+    subject = createSubject({ shouldAutoExecuteQuery: false, executeQuery })
 
     expect(executeQuery).toHaveBeenCalledTimes(0)
   })
@@ -82,7 +82,7 @@ describe("query view", () => {
     runUseEffect();
     const executeQuery = jest.fn()
 
-    subject = createSubject({ autoFetchQuery: true, executeQuery })
+    subject = createSubject({ shouldAutoExecuteQuery: true, executeQuery })
 
     expect(executeQuery).toHaveBeenCalledTimes(1)
   })
@@ -130,7 +130,7 @@ function createSubject(params) {
     cancelQuery: jest.fn(),
     setQueryText: jest.fn(),
     setUserInteracted: jest.fn(),
-    autoFetchQuery: false
+    shouldAutoExecuteQuery: false
   }
   const paramsWithDefaults = Object.assign({}, defaultParams, params)
 
