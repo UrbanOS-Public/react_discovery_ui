@@ -7,7 +7,7 @@ import {
   visualizationLoadFailure,
   visualizationSaveFailure,
   visualizationSaveSuccess,
-  saveChartInformation
+  setChartInformation
 } from '../actions'
 
 describe('Visualization Reducer', () => {
@@ -239,7 +239,7 @@ describe('Visualization Reducer', () => {
     })
   })
 
-  describe('CHART_VISUALIZATION_SAVE', () => {
+  describe('SET_CHART_INFORMATION', () => {
     beforeEach(() => {
       previousState = {
         visualization: { id: 'existing' },
@@ -252,19 +252,19 @@ describe('Visualization Reducer', () => {
     })
 
     it('updates the chart value in the store', () => {
-      newState = reducer(previousState, saveChartInformation({ data: [{x: 1}], frames: [], layout: {}}))
+      newState = reducer(previousState, setChartInformation({ data: [{x: 1}], frames: [], layout: {}}))
 
       expect(newState.chart).toEqual({ data: [{x: 1}], frames: [], layout: {}})
     })
 
     it('gives sane defaults to the chart properties when they are not set', () => {
-      newState = reducer(previousState, saveChartInformation({}))
+      newState = reducer(previousState, setChartInformation({}))
 
       expect(newState.chart).toEqual({ data: [], frames: [], layout: {}})
     })
 
     it('gives sane defaults to the chart properties when they are set to the wrong types', () => {
-      newState = reducer(previousState, saveChartInformation({ data: [[]], frames: {more: 'stuff'}, layout: []}))
+      newState = reducer(previousState, setChartInformation({ data: [[]], frames: {more: 'stuff'}, layout: []}))
 
       expect(newState.chart).toEqual({ data: [], frames: [], layout: {}})
     })

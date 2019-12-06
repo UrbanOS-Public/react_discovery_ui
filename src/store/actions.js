@@ -190,9 +190,9 @@ export const visualizationSaveFailure = (errorMessage) => ({
   type: VISUALIZATION_SAVE_FAILURE, value: errorMessage
 })
 
-export const CHART_VISUALIZATION_SAVE = 'CHART_VISUALIZATION_SAVE'
-export const saveChartInformation = (chart) => ({
-  type: CHART_VISUALIZATION_SAVE, value: chart
+export const SET_CHART_INFORMATION = 'SET_CHART_INFORMATION'
+export const setChartInformation = (chart) => ({
+  type: SET_CHART_INFORMATION, value: chart
 })
 
 export const VISUALIZATION_RESET = 'VISUALIZATION_RESET'

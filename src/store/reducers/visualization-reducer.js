@@ -6,7 +6,7 @@ import {
   VISUALIZATION_SAVE_SUCCESS,
   VISUALIZATION_SAVE_FAILURE,
   VISUALIZATION_RESET,
-  CHART_VISUALIZATION_SAVE
+  SET_CHART_INFORMATION
 } from "../actions"
 import { isArray, isPlainObject } from 'lodash'
 
@@ -61,7 +61,7 @@ const visualizationReducer = (state = defaultVisualizationState, action) => {
         saveSuccess: false,
         saveFailure: true
       })
-    case CHART_VISUALIZATION_SAVE:
+    case SET_CHART_INFORMATION:
       return Object.assign({}, state, {chart: constructValidChart(action.value)})
     case VISUALIZATION_RESET:
       return defaultVisualizationState

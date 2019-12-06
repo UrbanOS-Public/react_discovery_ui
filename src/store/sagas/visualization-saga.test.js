@@ -1,4 +1,4 @@
-import { visualizationSave, visualizationLoadFailure, visualizationSaveFailure, visualizationLoad, visualizationLoadSuccess, visualizationSaveSuccess, setQueryText, saveChartInformation, executeFreestyleQuery } from '../actions'
+import { visualizationSave, visualizationLoadFailure, visualizationSaveFailure, visualizationLoad, visualizationLoadSuccess, visualizationSaveSuccess, setQueryText, setChartInformation, executeFreestyleQuery } from '../actions'
 import visualizationSaga from './visualization-saga'
 import { saveVisualization } from './visualization-saga'
 import { createStore, applyMiddleware } from 'redux'
@@ -43,7 +43,7 @@ describe('visualization-saga', () => {
       })
 
       it('sets the global chart data', () => {
-        expect(store.getState()).toContainEqual(saveChartInformation(visualization.chart))
+        expect(store.getState()).toContainEqual(setChartInformation(visualization.chart))
       })
 
       it('sets the global query text', () => {
@@ -114,7 +114,7 @@ describe('visualization-saga', () => {
         })
 
         it('does not set the global chart data', () => {
-          expect(dispatched).not.toContainEqual(saveChartInformation(returnedVisualization.chart))
+          expect(dispatched).not.toContainEqual(setChartInformation(returnedVisualization.chart))
         })
 
         it('does not set the global query text', () => {
@@ -182,7 +182,7 @@ describe('visualization-saga', () => {
         })
 
         it('does not set the global chart data', () => {
-          expect(dispatched).not.toContainEqual(saveChartInformation(returnedVisualization.chart))
+          expect(dispatched).not.toContainEqual(setChartInformation(returnedVisualization.chart))
         })
 
         it('does not set the global query text', () => {
