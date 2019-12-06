@@ -8,6 +8,7 @@ import {
   VISUALIZATION_RESET,
   CHART_VISUALIZATION_SAVE
 } from "../actions"
+import { isArray, isPlainObject } from 'lodash'
 
 const defaultVisualizationState = {
   visualization: {id: undefined},
@@ -61,13 +62,31 @@ const visualizationReducer = (state = defaultVisualizationState, action) => {
         saveFailure: true
       })
     case CHART_VISUALIZATION_SAVE:
-      return Object.assign({}, state, {
-        chart: action.value
-      })
+      return Object.assign({}, state, {chart: constructValidChart(action.value)})
     case VISUALIZATION_RESET:
       return defaultVisualizationState
     default: return state
   }
+}
+
+const constructValidChart = ({data, frames, layout}) => {
+  return {
+    data: isValidChartData(data) ? data : [],
+    frames: isValidChartFrames(frames) ? frames : [],
+    layout: isValidChartLayout(layout) ? layout : {}
+  }
+}
+
+const isValidChartData = data => {
+  return isArray(data) && data.every(isPlainObject)
+}
+
+const isValidChartFrames = frames => {
+  return isArray(frames) && frames.every(isPlainObject)
+}
+
+const isValidChartLayout = layout => {
+  return isPlainObject(layout)
 }
 
 export default visualizationReducer

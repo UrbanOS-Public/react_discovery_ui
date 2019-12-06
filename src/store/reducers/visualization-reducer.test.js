@@ -249,11 +249,24 @@ describe('Visualization Reducer', () => {
         saveFailure: true,
         chart: {}
       }
-      newState = reducer(previousState, saveChartInformation({"hello": "world"}))
     })
 
     it('updates the chart value in the store', () => {
-      expect(newState.chart).toEqual({"hello": "world"})
+      newState = reducer(previousState, saveChartInformation({ data: [{x: 1}], frames: [], layout: {}}))
+
+      expect(newState.chart).toEqual({ data: [{x: 1}], frames: [], layout: {}})
+    })
+
+    it('gives sane defaults to the chart properties when they are not set', () => {
+      newState = reducer(previousState, saveChartInformation({}))
+
+      expect(newState.chart).toEqual({ data: [], frames: [], layout: {}})
+    })
+
+    it('gives sane defaults to the chart properties when they are set to the wrong types', () => {
+      newState = reducer(previousState, saveChartInformation({ data: [[]], frames: {more: 'stuff'}, layout: []}))
+
+      expect(newState.chart).toEqual({ data: [], frames: [], layout: {}})
     })
   })
 })
