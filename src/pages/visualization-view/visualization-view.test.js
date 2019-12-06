@@ -81,12 +81,20 @@ describe("visualization view", () => {
       expect(subject.find(TabPanel).length).toEqual(2)
     })
 
-    it("has a visualization view component", () => {
+    it("has a chart view component", () => {
       expect(subject.find(ChartView).length).toEqual(1)
+    })
+
+    it("does not instruct the chart view to auto execute the query", () => {
+      expect(subject.find(ChartView).props().shouldAutoExecuteQuery).toBeFalsy()
     })
 
     it("has a query view component", () => {
       expect(subject.find(QueryView).length).toEqual(1)
+    })
+
+    it("does not instruct the query view to auto execute the query", () => {
+      expect(subject.find(QueryView).props().shouldAutoExecuteQuery).toBeFalsy()
     })
   })
 
@@ -167,7 +175,6 @@ describe("visualization view", () => {
       expect(saveHandler).toHaveBeenCalledWith({title: 'Query Title', query})
     })
   })
-
 
   describe('when save succeeds', () => {
     beforeEach(() => {

@@ -71,10 +71,10 @@ export default class extends Component {
             <DatasetDetailView />
           </TabPanel>
           <TabPanel>
-            <QueryView />
+            <QueryView shouldAutoExecuteQuery={this.props.shouldAutoExecuteQuery} />
           </TabPanel>
           <TabPanel className="visualization" selectedClassName="visualization--selected">
-            <ChartView selectedIndex={this.state.index} />
+            <ChartView shouldAutoExecuteQuery={this.props.shouldAutoExecuteQuery} />
           </TabPanel>
 
         </Tabs>
