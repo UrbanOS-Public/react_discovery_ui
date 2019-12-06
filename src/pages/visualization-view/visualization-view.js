@@ -38,6 +38,9 @@ const VisualizationView = (props) => {
   const linkUrl = idFromState && generatePath(routes.visualizationView, { id: idFromState })
   const [isDialogOpen, setDialogOpen] = useState(false)
   const [localTitle, setLocalTitle] = useState(title || '')
+  const startIndex = idFromUrl ? 1 : 0
+  const [index, setIndex] = useState(startIndex)
+
   React.useEffect(() => { reset() }, [])
   React.useEffect(() => { if (idFromUrl) load(idFromUrl) }, [idFromUrl])
   React.useEffect(() => { if (idFromState) history.push(linkUrl) }, [idFromState])
@@ -68,9 +71,6 @@ const VisualizationView = (props) => {
       </visualization-view>
     )
   }
-
-  const startIndex = idFromUrl ? 1 : 0
-  const [index, setIndex] = useState(startIndex)
 
   return (
     <visualization-view>
