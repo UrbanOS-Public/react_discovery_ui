@@ -49,6 +49,17 @@ describe("visualization view", () => {
     })
   })
 
+  describe('when visualization id from state is provided', () => {
+    it('pushes a path with the new id into history', () => {
+      const history = { push: jest.fn() }
+
+      runUseEffect()
+      subject = createSubject({ history, id })
+
+      expect(history.push).toHaveBeenCalledWith(`/visualization/${id}`)
+    })
+  })
+
   describe('when visualization id is provided in the URL and nothing else', () => {
     beforeEach(() => {
       runUseEffect()
@@ -65,6 +76,23 @@ describe("visualization view", () => {
 
     it("lands on the chart visualization page", () => {
       expect(subject.find(Tabs).props().selectedIndex).toEqual(1)
+    })
+  })
+
+  describe('when visualization id from URL matches visualization id from state', () => {
+    let history
+    beforeEach(() => {
+      runUseEffect()
+      history = { push: jest.fn() }
+      subject = createSubject({ history, match: { params: { id } }, load: loadHandler, id })
+    })
+
+    it("does not call the load function", () => {
+      expect(loadHandler).not.toHaveBeenCalled()
+    })
+
+    it('does not push the id onto the URL', () => {
+      expect(history.push).not.toHaveBeenCalled()
     })
   })
 
@@ -203,17 +231,6 @@ describe("visualization view", () => {
       expect(subject.find(SaveIndicator).props().failure).toBe(true)
       expect(subject.find(SaveIndicator).props().success).toBe(false)
       expect(subject.find(SaveIndicator).props().saving).toBe(false)
-    })
-  })
-
-  describe('when visualization id from state is provided', () => {
-    it('pushes a path with the new id into history', () => {
-      const history = { push: jest.fn() }
-
-      runUseEffect()
-      subject = createSubject({ history, id })
-
-      expect(history.push).toHaveBeenCalledWith(`/visualization/${id}`)
     })
   })
 })

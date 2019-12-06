@@ -41,8 +41,8 @@ const VisualizationView = (props) => {
   const [index, setIndex] = useState(startIndex)
 
   React.useEffect(() => { reset() }, [])
-  React.useEffect(() => { if (idFromUrl) load(idFromUrl) }, [idFromUrl])
-  React.useEffect(() => { if (idFromState) history.push(linkUrl) }, [idFromState])
+  React.useEffect(() => { if (idFromUrl && idFromUrl !== idFromState) load(idFromUrl) }, [idFromUrl])
+  React.useEffect(() => { if (idFromState && idFromUrl !== idFromState) history.push(linkUrl) }, [idFromState])
   React.useEffect(() => { setLocalTitle(title) }, [title])
 
 
