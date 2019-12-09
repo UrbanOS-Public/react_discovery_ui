@@ -153,15 +153,15 @@ describe('chart view', () => {
       }
     ]
 
-    let saveChart
+    let setChartInformation
 
     beforeEach(() => {
-      saveChart = jest.fn()
-      subject = createSubject({ dataSources: dataSources, chart: { data: plotlyData, frames: [], layout: {}}, saveChart })
-      saveChart.mockClear()
+      setChartInformation = jest.fn()
+      subject = createSubject({ dataSources: dataSources, chart: { data: plotlyData, frames: [], layout: {}}, setChartInformation })
+      setChartInformation.mockClear()
     })
 
-    it('saves updated data for the chart', () => {
+    it('sets updated data for the chart', () => {
       const newDataSources = {
         col1: [1, 2],
         col2: [3, 4]
@@ -169,24 +169,24 @@ describe('chart view', () => {
 
       subject.setProps({dataSources: newDataSources})
 
-      expect(saveChart).toHaveBeenCalledTimes(1)
+      expect(setChartInformation).toHaveBeenCalledTimes(1)
       const firstPlotData = plotlyData[0]
       const expected = {...firstPlotData, ...{x: newDataSources.col1, y: newDataSources.col2}}
-      expect(saveChart).toHaveBeenCalledWith({data: [expected], layout: {}, frames: []})
+      expect(setChartInformation).toHaveBeenCalledWith({data: [expected], layout: {}, frames: []})
     })
   })
 
   describe('save chart', () => {
     it('sends a save chart event', () => {
-      var saveChart = jest.fn()
-      var subject = createSubject({ saveChart })
-      saveChart.mockClear()
+      var setChartInformation = jest.fn()
+      var subject = createSubject({ setChartInformation })
+      setChartInformation.mockClear()
 
       var data = [{x:[1, 2, 3], xsrc: "col1"}]
       subject.find(PlotlyEditor).props().onUpdate(data, {}, [])
 
-      expect(saveChart).toHaveBeenCalledTimes(1)
-      expect(saveChart).toHaveBeenCalledWith({data: data, layout: {}, frames: []})
+      expect(setChartInformation).toHaveBeenCalledTimes(1)
+      expect(setChartInformation).toHaveBeenCalledWith({data: data, layout: {}, frames: []})
     })
   })
 })
@@ -198,7 +198,7 @@ function createSubject(params = {}) {
     dataSources: { data: ["sources"] },
     shouldAutoExecuteQuery: false,
     executeQuery: jest.fn(),
-    saveChart: jest.fn()
+    setChartInformation: jest.fn()
   }
   const paramsWithDefaults = Object.assign({}, defaultParams, params)
 

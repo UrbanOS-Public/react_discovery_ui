@@ -22,7 +22,7 @@ const getDataSourceOptions = dataSources => {
 }
 
 const ChartView = (props) => {
-  const { dataSources, isLoading, shouldAutoExecuteQuery, executeQuery, saveChart, chart } = props
+  const { dataSources, isLoading, shouldAutoExecuteQuery, executeQuery, setChartInformation, chart } = props
   const { data, layout, frames } = chart
 
   React.useEffect(() => {
@@ -34,7 +34,7 @@ const ChartView = (props) => {
   React.useEffect(() => {
     const clonedData = cloneDeep(data)
     dereference(clonedData, dataSources)
-    saveChart({data: clonedData, layout, frames})
+    setChartInformation({data: clonedData, layout, frames})
   }, [dataSources])
 
   if (isLoading) {
@@ -54,7 +54,7 @@ const ChartView = (props) => {
   }
 
   const onUpdate = (data, layout, frames) => {
-    saveChart({data, layout, frames})
+    setChartInformation({data, layout, frames})
   }
 
   return (

@@ -14,7 +14,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   executeQuery: () => dispatch(executeFreestyleQuery()),
-  saveChart: (chart) => dispatch(setChartInformation(chart))
+  setChartInformation: (chart) => dispatch(setChartInformation(chart))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChartView)
