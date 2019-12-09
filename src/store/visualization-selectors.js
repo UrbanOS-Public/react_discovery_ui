@@ -1,6 +1,6 @@
 import { createSelector } from "reselect"
 import { isQueryTextAvailable, getVisualizationDataSources } from "./query-selectors"
-import { cloneDeep } from 'lodash'
+import { mapValues, cloneDeep } from 'lodash'
 import { dereference } from 'react-chart-editor/lib'
 
 export const visualizationID = state => state.visualization.visualization.id
@@ -22,10 +22,8 @@ export const isVisualizationSaveable = createSelector(
   }
 )
 
-const clearValues = datasources => {
-  Object.keys(datasources).forEach((key) => {
-    datasources[key] = []
-  })
+const clearValues = dataSources => {
+  return mapValues(dataSources, () => [])
 }
 
 const dereferenceAndClone = (data, dataSources) => {
@@ -37,12 +35,11 @@ const dereferenceAndClone = (data, dataSources) => {
 export const dereferencedChart = createSelector(
   visualizationChart,
   getVisualizationDataSources,
-  (visualizationChart, getVisualizationDataSources) => {
+  (visualizationChart, visualizationDataSources) => {
     const { data, layout, frames } = visualizationChart
-    const dataSources = getVisualizationDataSources
 
-    clearValues(dataSources)
-    const dereferencedData = dereferenceAndClone(data, dataSources)
+    const clearedDataSources = clearValues(visualizationDataSources)
+    const dereferencedData = dereferenceAndClone(data, clearedDataSources)
     return { data: dereferencedData, layout, frames }
   }
 )
