@@ -23,12 +23,11 @@ const QueryForm = props => {
     recommendations,
     isQueryLoading,
     queryFailureMessage,
-    userHasInteracted,
+    isQueryDataAvailable,
 
     executeQuery,
     cancelQuery,
-    setQueryText,
-    setUserInteracted
+    setQueryText
   } = props
 
   const [localQueryText, setLocalQueryText] = useState(queryText)
@@ -47,13 +46,10 @@ const QueryForm = props => {
   const updateReduxQueryText = e => setQueryText(e.target.value)
 
   const submit = () => {
-    // I'd like to use the Redux queryText here, but this way makes a test pass -JBP 10/9/2019
     executeQuery(localQueryText)
-    setUserInteracted()
   }
 
   const cancel = () => {
-    setUserInteracted()
     cancelQuery()
   }
 
@@ -62,7 +58,7 @@ const QueryForm = props => {
     type='text'
     placeholder='SELECT * FROM ...'
     value={localQueryText}
-    onBlur={updateReduxQueryText} // TODO: still needed?  it's causing query to automatically execute the first time you blur from the query box
+    onBlur={updateReduxQueryText}
     onChange={handleQueryChange}
     onInput={handleQueryChange}
     className='query-input'
@@ -71,7 +67,7 @@ const QueryForm = props => {
   const submitButton = <button className="action-button" disabled={isQueryLoading} onClick={submit}>Submit</button>
   const cancelButton = <button className="action-button" disabled={!isQueryLoading} onClick={cancel}>Cancel</button>
 
-  const showSuccessMessage = !queryFailureMessage && userHasInteracted && !isQueryLoading
+  const showSuccessMessage = !queryFailureMessage && isQueryDataAvailable && !isQueryLoading
   const successMessage = showSuccessMessage && (
     <span className='success-message'>
       Query successful
@@ -125,13 +121,12 @@ QueryForm.propTypes = {
   queryText: PropTypes.string,
   recommendations: PropTypes.array,
   queryFailureMessage: PropTypes.string,
-  userHasInteracted: PropTypes.bool,
+  isQueryDataAvailable: PropTypes.bool,
   isQueryLoading: PropTypes.bool.isRequired,
 
   executeQuery: PropTypes.func.isRequired,
   cancelQuery: PropTypes.func.isRequired,
-  setQueryText: PropTypes.func.isRequired,
-  setUserInteracted: PropTypes.func.isRequired
+  setQueryText: PropTypes.func.isRequired
 }
 
 export default QueryForm

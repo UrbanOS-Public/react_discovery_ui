@@ -11,16 +11,15 @@ const QueryView = props => {
     dataSources,
     recommendations,
     isQueryLoading,
+    isQueryDataAvailable,
     freestyleQueryText,
     queryData,
     queryFailureMessage,
     shouldAutoExecuteQuery,
-    userHasInteracted,
 
     executeQuery,
     cancelQuery,
-    setQueryText,
-    setUserInteracted,
+    setQueryText
   } = props;
 
   React.useEffect(() => {
@@ -49,13 +48,12 @@ const QueryView = props => {
 
         queryFailureMessage={queryFailureMessage}
         isQueryLoading={isQueryLoading}
+        isQueryDataAvailable={isQueryDataAvailable}
         queryText={freestyleQueryText}
-        userHasInteracted={userHasInteracted}
 
         executeQuery={executeQuery}
         cancelQuery={cancelQuery}
         setQueryText={setQueryText}
-        setUserInteracted={setUserInteracted}
       />
       <div id="dataset-preview-table">
         <div id="numRecords">{numRecords}</div>

@@ -7,8 +7,6 @@ const queryData = state => state.queryReducer.queryData
 export const getQueryFailureMessage = state => state.queryReducer.queryFailureMessage
 export const getQueryIsLoading = state => state.queryReducer.isQueryLoading
 
-export const userHasInteracted = state => state.queryReducer.userInteracted
-
 export const getQueryData = createSelector(queryData, queryData => queryData || [])
 export const isQueryDataAvailable = state => queryData(state) !== null
 export const isQueryTextAvailable = state => !isEmpty(getFreestyleQueryText(state))

@@ -129,7 +129,6 @@ function createSubject(params) {
     dataSources: { data: ["sources"] },
     cancelQuery: jest.fn(),
     setQueryText: jest.fn(),
-    setUserInteracted: jest.fn(),
     shouldAutoExecuteQuery: false
   }
   const paramsWithDefaults = Object.assign({}, defaultParams, params)

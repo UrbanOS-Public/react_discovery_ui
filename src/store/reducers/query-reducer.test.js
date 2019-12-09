@@ -70,7 +70,6 @@ describe("queryReducer", () => {
       queryData: ['stuff'],
       queryFailureMessage: "oh noooooo",
       isQueryLoading: true,
-      userInteracted: true,
       cancelToken: 'cancelled',
       queryHasBeenExecuted: true
     }
@@ -82,7 +81,6 @@ describe("queryReducer", () => {
       queryData: null,
       queryFailureMessage: "",
       isQueryLoading: false,
-      userInteracted: false,
       cancelToken: null,
       queryHasBeenExecuted: false
     }

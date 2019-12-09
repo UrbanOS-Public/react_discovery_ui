@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import QueryView from './query-view'
-import { executeFreestyleQuery, cancelFreestyleQuery, setQueryText, setUserInteracted } from '../../store/actions'
-import { getVisualizationDataSources, getQueryIsLoading, getFreestyleQueryText, getQueryData, getQueryFailureMessage, userHasInteracted } from '../../store/query-selectors'
+import { executeFreestyleQuery, cancelFreestyleQuery, setQueryText } from '../../store/actions'
+import { getVisualizationDataSources, getQueryIsLoading, getFreestyleQueryText, getQueryData, getQueryFailureMessage, isQueryDataAvailable } from '../../store/query-selectors'
 import { getDatasetRecommendations } from "../../store/selectors"
 
 const mapStateToProps = state => {
@@ -12,15 +12,14 @@ const mapStateToProps = state => {
     freestyleQueryText: getFreestyleQueryText(state),
     queryData: getQueryData(state),
     queryFailureMessage: getQueryFailureMessage(state),
-    userHasInteracted: userHasInteracted(state)
+    isQueryDataAvailable: isQueryDataAvailable(state)
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   executeQuery: queryText => dispatch(executeFreestyleQuery(queryText)),
   cancelQuery: () => dispatch(cancelFreestyleQuery()),
-  setQueryText: queryText => dispatch(setQueryText(queryText)),
-  setUserInteracted: () => dispatch(setUserInteracted()),
+  setQueryText: queryText => dispatch(setQueryText(queryText))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(QueryView)

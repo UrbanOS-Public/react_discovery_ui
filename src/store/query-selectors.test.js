@@ -1,7 +1,8 @@
 import {
   getFreestyleQueryText,
   getVisualizationDataSources,
-  shouldAutoExecuteQuery
+  shouldAutoExecuteQuery,
+  isQueryDataAvailable
 } from './query-selectors';
 
 describe('get visualization data sources', () => {
@@ -120,5 +121,33 @@ describe('shouldAutoExecuteQuery', () => {
     state.queryReducer.queryHasBeenExecuted = true
 
     expect(shouldAutoExecuteQuery(state)).toBe(false)
+  })
+})
+
+describe('isQueryDataAvailable', () => {
+  let state
+
+  beforeEach(() => {
+    state = {
+      queryReducer: {}
+    }
+  })
+
+  it('returns true when query result data is available', () => {
+    state.queryReducer.queryData = ['some data']
+
+    expect(isQueryDataAvailable(state)).toBe(true)
+  })
+
+  it('returns true when query result data is available but empty', () => {
+    state.queryReducer.queryData = []
+
+    expect(isQueryDataAvailable(state)).toBe(true)
+  })
+
+  it('returns false when query result data has never been set', () => {
+    state.queryReducer.queryData = null
+
+    expect(isQueryDataAvailable(state)).toBe(false)
   })
 })

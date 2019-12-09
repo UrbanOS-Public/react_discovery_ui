@@ -140,7 +140,7 @@ describe('QueryForm', () => {
 
   describe('on success', () => {
     beforeEach(() => {
-      subject = createSubject({ isQueryLoading: false, isQueryLoaded: true, userHasInteracted: true })
+      subject = createSubject({ isQueryLoading: false, isQueryLoaded: true, isQueryDataAvailable: true })
     })
 
     test('calls the submit handler on click of the submit button', () => {
@@ -206,13 +206,12 @@ function createSubject(params) {
     queryText: "SELECT * FROM sky",
     recommendations: recommendations,
     queryFailureMessage: "",
-    userHasInteracted: false,
+    isQueryDataAvailable: false,
     isQueryLoading: false,
     isQueryLoaded: true,
     executeQuery: queryCallback ? queryCallback : jest.fn(),
     cancelQuery: jest.fn(),
-    setQueryText: updateCallback ? updateCallback : jest.fn(),
-    setUserInteracted: jest.fn()
+    setQueryText: updateCallback ? updateCallback : jest.fn()
   }
 
   const paramsWithDefaults = Object.assign({}, defaults, params)
@@ -222,13 +221,12 @@ function createSubject(params) {
       queryText={paramsWithDefaults.queryText}
       recommendations={paramsWithDefaults.recommendations}
       queryFailureMessage={paramsWithDefaults.queryFailureMessage}
-      userHasInteracted={paramsWithDefaults.userHasInteracted}
+      isQueryDataAvailable={paramsWithDefaults.isQueryDataAvailable}
       isQueryLoading={paramsWithDefaults.isQueryLoading}
       isQueryLoaded={paramsWithDefaults.isQueryLoaded}
       executeQuery={paramsWithDefaults.executeQuery}
       cancelQuery={paramsWithDefaults.cancelQuery}
       setQueryText={paramsWithDefaults.setQueryText}
-      setUserInteracted={paramsWithDefaults.setUserInteracted}
     />)
 }
 

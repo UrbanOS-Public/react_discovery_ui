@@ -5,7 +5,6 @@ const defaultQueryState = {
   queryData: null,
   queryFailureMessage: "",
   isQueryLoading: false,
-  userInteracted: false,
   cancelToken: null,
   queryHasBeenExecuted: false
 }
@@ -38,10 +37,6 @@ export default (state = defaultQueryState, action) => {
         isQueryLoading: true,
         cancelToken: action.cancelToken,
         queryHasBeenExecuted: true
-      })
-    case SET_USER_INTERACTED:
-      return Object.assign({}, state, {
-        userInteracted: true
       })
     case RESET_QUERY:
       return defaultQueryState
