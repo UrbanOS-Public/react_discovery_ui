@@ -56,9 +56,6 @@ export const setQueryFailure = failureMessage => ({
 export const SET_QUERY_IN_PROGRESS = 'SET_QUERY_IN_PROGRESS'
 export const setQueryInProgress = cancelToken => ({ type: SET_QUERY_IN_PROGRESS, cancelToken })
 
-export const SET_USER_INTERACTED = 'SET_USER_INTERACTED'
-export const setUserInteracted = () => ({ type: SET_USER_INTERACTED })
-
 export const RESET_QUERY = 'RESET_QUERY'
 export const resetQuery = () => ({ type: RESET_QUERY })
 
@@ -176,8 +173,8 @@ export const visualizationLoadFailure = (errorMessage) => ({
 })
 
 export const VISUALIZATION_SAVE = 'VISUALIZATION_SAVE'
-export const visualizationSave = (title, query) => ({
-  type: VISUALIZATION_SAVE, value: { title, query }
+export const visualizationSave = ({ id, title, query }) => ({
+  type: VISUALIZATION_SAVE, value: { id, title, query }
 })
 
 export const VISUALIZATION_SAVE_SUCCESS = 'VISUALIZATION_SAVE_SUCCESS'
@@ -190,14 +187,9 @@ export const visualizationSaveFailure = (errorMessage) => ({
   type: VISUALIZATION_SAVE_FAILURE, value: errorMessage
 })
 
-export const CHART_VISUALIZATION_SAVE = 'CHART_VISUALIZATION_SAVE'
-export const saveChartInformation = (chart) => ({
-  type: CHART_VISUALIZATION_SAVE, value: chart
-})
-
-export const VISUALIZATION_UPDATE = 'VISUALIZATION_UPDATE'
-export const visualizationUpdate = (id, title, query) => ({
-  type: VISUALIZATION_UPDATE, value: {id, title, query}
+export const SET_CHART_INFORMATION = 'SET_CHART_INFORMATION'
+export const setChartInformation = (chart) => ({
+  type: SET_CHART_INFORMATION, value: chart
 })
 
 export const VISUALIZATION_RESET = 'VISUALIZATION_RESET'

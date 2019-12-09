@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import './chart-view.scss'
-import React, { useState } from 'react'
+import React from 'react'
 import { dereference } from 'react-chart-editor/lib'
 import PlotlyEditor, { DefaultEditor } from 'react-chart-editor'
 import plotly from 'plotly.js/dist/plotly'
@@ -21,24 +21,20 @@ const getDataSourceOptions = dataSources => {
   }))
 }
 
-
-
 const ChartView = (props) => {
-  const { dataSources, isLoading, autoFetchQuery, executeQuery, saveChart, chart } = props
+  const { dataSources, isLoading, shouldAutoExecuteQuery, executeQuery, setChartInformation, chart } = props
   const { data, layout, frames } = chart
 
-  const [localData, setLocalData] = useState(data)
-
   React.useEffect(() => {
-    if (autoFetchQuery) {
+    if (shouldAutoExecuteQuery) {
       executeQuery()
     }
-  }, [autoFetchQuery])
+  }, [shouldAutoExecuteQuery])
 
   React.useEffect(() => {
-    const clonedData = cloneDeep(localData)
+    const clonedData = cloneDeep(data)
     dereference(clonedData, dataSources)
-    setLocalData(clonedData)
+    setChartInformation({data: clonedData, layout, frames})
   }, [dataSources])
 
   if (isLoading) {
@@ -58,13 +54,13 @@ const ChartView = (props) => {
   }
 
   const onUpdate = (data, layout, frames) => {
-    saveChart({data, layout, frames})
+    setChartInformation({data, layout, frames})
   }
 
   return (
     <chart-view>
       <PlotlyEditor
-        data={localData}
+        data={data}
         layout={layout}
         frames={frames}
         dataSources={dataSources}
@@ -84,7 +80,7 @@ const ChartView = (props) => {
 ChartView.propTypes = {
   dataSources: PropTypes.object.isRequired,
   isQueryLoading: PropTypes.bool,
-  autoFetchQuery: PropTypes.bool,
+  shouldAutoExecuteQuery: PropTypes.bool,
   executeQuery: PropTypes.func.isRequired
 }
 

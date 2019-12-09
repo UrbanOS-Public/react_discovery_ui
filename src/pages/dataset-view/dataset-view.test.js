@@ -20,6 +20,7 @@ describe("dataset view", () => {
         setQuery={jest.fn()}
         resetQuery={jest.fn()}
         isDatasetLoaded={true}
+        shouldAutoExecuteQuery={true}
       />
     );
   });
@@ -38,10 +39,18 @@ describe("dataset view", () => {
 
   it("has a chart view component", () => {
     expect(subject.find(ChartView).length).toEqual(1);
-  });
+  })
+
+  it("passes shouldAutoExecuteQuery property to the chart view", () => {
+    expect(subject.find(ChartView).props().shouldAutoExecuteQuery).toBe(true)
+  })
 
   it("has a query view component", () => {
     expect(subject.find(QueryView).length).toEqual(1);
+  })
+
+  it("passes shouldAutoExecuteQuery property to the query view", () => {
+    expect(subject.find(QueryView).props().shouldAutoExecuteQuery).toBe(true)
   })
 })
 

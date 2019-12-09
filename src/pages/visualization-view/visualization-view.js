@@ -22,7 +22,6 @@ const VisualizationView = (props) => {
     reset,
     load,
     save,
-    update,
     id: idFromState,
     query,
     title,
@@ -42,8 +41,8 @@ const VisualizationView = (props) => {
   const [index, setIndex] = useState(startIndex)
 
   React.useEffect(() => { reset() }, [])
-  React.useEffect(() => { if (idFromUrl) load(idFromUrl) }, [idFromUrl])
-  React.useEffect(() => { if (idFromState) history.push(linkUrl) }, [idFromState])
+  React.useEffect(() => { if (idFromUrl && idFromUrl !== idFromState) load(idFromUrl) }, [idFromUrl])
+  React.useEffect(() => { if (idFromState && idFromUrl !== idFromState) history.push(linkUrl) }, [idFromState])
   React.useEffect(() => { setLocalTitle(title) }, [title])
 
 
@@ -56,11 +55,7 @@ const VisualizationView = (props) => {
   const openDialog = () => { setDialogOpen(true) }
 
   const handleSaveOrUpdate = () => {
-    if (idFromState) {
-      update(idFromState, localTitle, query)
-    } else {
-      save(localTitle, query)
-    }
+    save({id: idFromState, title: localTitle, query})
   }
   const closeDialog = () => { setDialogOpen(false); }
 
@@ -74,7 +69,7 @@ const VisualizationView = (props) => {
 
   return (
     <visualization-view>
-      <Tabs selectedIndex={index} onSelect={tabIndex => setIndex(tabIndex)} forceRenderTabPanel>
+      <Tabs selectedIndex={index} onSelect={tabIndex => setIndex(tabIndex)} >
         <TabList className='header'>
           <span className='tab-area'>
             <Tab className='header-item tab' selectedClassName='selected'>
@@ -107,7 +102,7 @@ const VisualizationView = (props) => {
           <QueryView />
         </TabPanel>
         <TabPanel className="visualization" selectedClassName="visualization--selected">
-          <ChartView selectedIndex={index} />
+          <ChartView/>
         </TabPanel>
       </Tabs>
     </visualization-view>

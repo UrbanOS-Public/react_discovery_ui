@@ -49,6 +49,17 @@ describe("visualization view", () => {
     })
   })
 
+  describe('when visualization id from state is provided', () => {
+    it('pushes a path with the new id into history', () => {
+      const history = { push: jest.fn() }
+
+      runUseEffect()
+      subject = createSubject({ history, id })
+
+      expect(history.push).toHaveBeenCalledWith(`/visualization/${id}`)
+    })
+  })
+
   describe('when visualization id is provided in the URL and nothing else', () => {
     beforeEach(() => {
       runUseEffect()
@@ -68,6 +79,23 @@ describe("visualization view", () => {
     })
   })
 
+  describe('when visualization id from URL matches visualization id from state', () => {
+    let history
+    beforeEach(() => {
+      runUseEffect()
+      history = { push: jest.fn() }
+      subject = createSubject({ history, match: { params: { id } }, load: loadHandler, id })
+    })
+
+    it("does not call the load function", () => {
+      expect(loadHandler).not.toHaveBeenCalled()
+    })
+
+    it('does not push the id onto the URL', () => {
+      expect(history.push).not.toHaveBeenCalled()
+    })
+  })
+
   describe('when visualization is loaded with no errors', () => {
     beforeEach(() => {
       subject = createSubject()
@@ -81,12 +109,20 @@ describe("visualization view", () => {
       expect(subject.find(TabPanel).length).toEqual(2)
     })
 
-    it("has a visualization view component", () => {
+    it("has a chart view component", () => {
       expect(subject.find(ChartView).length).toEqual(1)
+    })
+
+    it("does not instruct the chart view to auto execute the query", () => {
+      expect(subject.find(ChartView).props().shouldAutoExecuteQuery).toBeFalsy()
     })
 
     it("has a query view component", () => {
       expect(subject.find(QueryView).length).toEqual(1)
+    })
+
+    it("does not instruct the query view to auto execute the query", () => {
+      expect(subject.find(QueryView).props().shouldAutoExecuteQuery).toBeFalsy()
     })
   })
 
@@ -164,10 +200,9 @@ describe("visualization view", () => {
     it("sends create visualization event with the query, a query title, and the visualization", () => {
       subject.find(".prompt").simulate("change", {target: { value: 'Query Title'}})
       subject.find(".save-button").simulate("click")
-      expect(saveHandler).toHaveBeenCalledWith('Query Title', query)
+      expect(saveHandler).toHaveBeenCalledWith({title: 'Query Title', query})
     })
   })
-
 
   describe('when save succeeds', () => {
     beforeEach(() => {
@@ -196,17 +231,6 @@ describe("visualization view", () => {
       expect(subject.find(SaveIndicator).props().failure).toBe(true)
       expect(subject.find(SaveIndicator).props().success).toBe(false)
       expect(subject.find(SaveIndicator).props().saving).toBe(false)
-    })
-  })
-
-  describe('when visualization id from state is provided', () => {
-    it('pushes a path with the new id into history', () => {
-      const history = { push: jest.fn() }
-
-      runUseEffect()
-      subject = createSubject({ history, id })
-
-      expect(history.push).toHaveBeenCalledWith(`/visualization/${id}`)
     })
   })
 })
