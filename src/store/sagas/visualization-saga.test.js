@@ -104,7 +104,7 @@ describe('visualization-saga', () => {
             {
               title: title,
               query: query,
-              chart: { data: { x: [], xsrc: "col1" }, frames: [], layout: {} } // TODO: Double check the expected x
+              chart: { data: { x: null, xsrc: "col1" }, frames: [], layout: {} }
             }
           )
         });
@@ -172,7 +172,7 @@ describe('visualization-saga', () => {
               id: id,
               title: title,
               query: query,
-              chart: { data: { x: [], xsrc: "col1" }, frames: [], layout: {} }
+              chart: { data: { x: null, xsrc: "col1" }, frames: [], layout: {} }
             }
           )
         });
