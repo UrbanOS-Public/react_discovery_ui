@@ -88,7 +88,7 @@ describe('visualization-saga', () => {
       const query = "select hello from world"
       const returnedVisualization = { id: "generated id from api", title, query }
       const initialState = {
-        visualization: { chart: { data: { x: [1, 2, 3], xsrc: "col1" }, layout: {}, frames: [] } },
+        visualization: { chart: { data: [{ x: [1, 2, 3], xsrc: 'col1' }], layout: {}, frames: [] } },
         queryReducer: { queryData: [{ col1: 1 }, { col1: 2 }, { col1: 3 }] }
       }
 
@@ -104,7 +104,7 @@ describe('visualization-saga', () => {
             {
               title: title,
               query: query,
-              chart: { data: { x: null, xsrc: "col1" }, frames: [], layout: {} }
+              chart: { data: [{ x: null, xsrc: 'col1' }], frames: [], layout: {} }
             }
           )
         });
@@ -155,7 +155,7 @@ describe('visualization-saga', () => {
       const query = "select hello from world"
       const returnedVisualization = { id, title, query }
       const initialState = {
-        visualization: { chart: { data: { x: [1, 2, 3], xsrc: "col1" }, layout: {}, frames: [] } },
+        visualization: { chart: { data: [{ x: [1, 2, 3], xsrc: "col1" }], layout: {}, frames: [] } },
         queryReducer: { queryData: [{ col1: 1 }, { col1: 2 }, { col1: 3 }] }
       }
 
@@ -172,7 +172,7 @@ describe('visualization-saga', () => {
               id: id,
               title: title,
               query: query,
-              chart: { data: { x: null, xsrc: "col1" }, frames: [], layout: {} }
+              chart: { data: [{ x: null, xsrc: "col1" }], frames: [], layout: {} }
             }
           )
         });
