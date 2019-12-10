@@ -91,7 +91,7 @@ const SchemaTable = ({ schema, parentFieldName = "", style }) => {
     );
   } else {
     return (
-      <div>Subschema information not found. Contact the data curator.</div>
+      <div className="error">Schema information not found. Contact the data curator.</div>
     );
   }
 };
