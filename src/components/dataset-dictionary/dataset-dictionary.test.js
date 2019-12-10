@@ -180,6 +180,30 @@ describe('dataset dictionary', () => {
     })
   })
 
+  describe('with a map missing its subschema', () => {
+    const schemaWithMaps = [
+      { name: 'name', type: 'string', description: 'the name' },
+      {
+        name: 'mother', type: 'map', description: 'the mother'
+      }
+    ]
+
+    var topLevelTable
+
+    beforeEach(() => {
+      subject = mount(<DatasetDictionary schema={schemaWithMaps} expanded />)
+      topLevelTable = subject.find('.dataset-schema-table')
+      const topLevelCells = topLevelTable.find('.rt-td.rt-expandable')
+      topLevelCells.at(1).simulate('click')
+      topLevelTable = subject.find('.dataset-schema-table')
+    })
+
+    it('displays an informative message', () => {
+      const messageDiv = topLevelTable.find('.error')
+      expect(messageDiv.text()).toBe("Schema information not found. Contact the data curator.")
+    })
+  })
+
   describe('without a schema', () => {
     beforeEach(() => {
       subject = shallow(<DatasetDictionary expanded />)
