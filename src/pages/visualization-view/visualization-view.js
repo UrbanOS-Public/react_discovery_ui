@@ -10,12 +10,16 @@ import SQLIcon from '../../components/generic-elements/sql-icon'
 import TabButton from '../../components/generic-elements/tab-button'
 import AutoAnchoringPopover from '../../components/generic-elements/auto-anchoring-popover'
 import ErrorComponent from '../../components/generic-elements/error-component'
+import Auth0Client from '../../auth/auth0-client-provider'
 
+import folderIcon from '../../assets/folder_icon.png'
 import SaveIcon from '@material-ui/icons/Save'
 import ClearIcon from '@material-ui/icons/Clear'
 import ChartView from '../chart-view'
 import QueryView from '../query-view'
 import routes from '../../routes'
+
+
 
 const VisualizationView = (props) => {
   const {
@@ -39,12 +43,21 @@ const VisualizationView = (props) => {
   const [localTitle, setLocalTitle] = useState(title || '')
   const startIndex = idFromUrl ? 1 : 0
   const [index, setIndex] = useState(startIndex)
+  const [isUserAuthenticated, setUserAuthenticated] = useState(false)
 
   React.useEffect(() => { reset() }, [])
   React.useEffect(() => { if (idFromUrl && idFromUrl !== idFromState) load(idFromUrl) }, [idFromUrl])
   React.useEffect(() => { if (idFromState && idFromUrl !== idFromState) history.push(linkUrl) }, [idFromState])
   React.useEffect(() => { setLocalTitle(title) }, [title])
+  React.useEffect(() => {
+    async function getUserAuthenticated() {
+      const authClient = await Auth0Client.get()
+      const isAuthenticated = await authClient.isAuthenticated()
+      setUserAuthenticated(isAuthenticated)
+    }
 
+    getUserAuthenticated()
+  }, [])
 
   const handleTitleChange = (event) => {
     if (event.target.value !== localTitle) {
@@ -80,7 +93,10 @@ const VisualizationView = (props) => {
             </Tab>
           </span>
           <span className='action-area'>
-            <React.Fragment>
+            <React.Fragment >
+             <a href='/user' className={`header-item button-${isUserAuthenticated ? 'enabled' : 'disabled'}`}>
+                <div title='Saved Visualizations'><img className={`folder-icon`} src={folderIcon} /></div>
+              </a>
               <TabButton disabled={!isSaveable} className={`header-item save-icon ${isDialogOpen && 'saving'}`} onClick={openDialog} >
                 <div title='Save Visualization'><SaveIcon /></div>
               </TabButton>

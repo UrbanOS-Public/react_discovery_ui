@@ -17,6 +17,17 @@ visualization-view {
     align-items: center;
   }
 
+  .folder-icon {
+    height: 2.4rem;
+    width: 2.4rem;
+    margin-top: .32rem;
+  }
+
+  .button-disabled {
+    pointer-events: none;
+    cursor: default;
+  }
+
   .header-item {
     display: block;
     border: 0;
