@@ -10,7 +10,6 @@ import SQLIcon from '../../components/generic-elements/sql-icon'
 import TabButton from '../../components/generic-elements/tab-button'
 import AutoAnchoringPopover from '../../components/generic-elements/auto-anchoring-popover'
 import ErrorComponent from '../../components/generic-elements/error-component'
-import Auth0Client from '../../auth/auth0-client-provider'
 
 import folderIcon from '../../assets/folder_icon.png'
 import SaveIcon from '@material-ui/icons/Save'
@@ -36,7 +35,8 @@ const VisualizationView = (props) => {
     isSaveFailure,
     isSaveable,
     match: { params: { id: idFromUrl } },
-    history
+    history,
+    auth: {isAuthenticated}
   } = props
 
   const linkUrl = idFromState && generatePath(routes.visualizationView, { id: idFromState })
@@ -44,22 +44,12 @@ const VisualizationView = (props) => {
   const [localTitle, setLocalTitle] = useState(title || '')
   const startIndex = idFromUrl ? 1 : 0
   const [index, setIndex] = useState(startIndex)
-  const [isUserAuthenticated, setUserAuthenticated] = useState(false)
   const [userNeedsLoginInfo, setUserNeedsLoginInfo] = useState(false)
 
   React.useEffect(() => { reset() }, [])
   React.useEffect(() => { if (idFromUrl && idFromUrl !== idFromState) load(idFromUrl) }, [idFromUrl])
   React.useEffect(() => { if (idFromState && idFromUrl !== idFromState) history.push(linkUrl) }, [idFromState])
   React.useEffect(() => { setLocalTitle(title) }, [title])
-  React.useEffect(() => {
-    async function getUserAuthenticated() {
-      const authClient = await Auth0Client.get()
-      const isAuthenticated = await authClient.isAuthenticated()
-      setUserAuthenticated(isAuthenticated)
-    }
-
-    getUserAuthenticated()
-  }, [])
 
   const handleTitleChange = (event) => {
     if (event.target.value !== localTitle) {
@@ -68,6 +58,9 @@ const VisualizationView = (props) => {
   }
 
   const openDialog = () => { setDialogOpen(true) }
+
+  const showLoginPrompt = () => { setUserNeedsLoginInfo(true)}
+  const closeLoginPrompt = () => { setUserNeedsLoginInfo(false)}
 
   const handleSaveOrUpdate = () => {
     save({ id: idFromState, title: localTitle, query })
@@ -96,12 +89,14 @@ const VisualizationView = (props) => {
           </span>
           <span className='action-area'>
             <React.Fragment >
-              <TabButton className={`button-${isUserAuthenticated ? 'enabled' : 'disabled'}`}onClick={() => setUserNeedsLoginInfo(true)}>
+              <TabButton className={`button-${isAuthenticated ? 'enabled' : 'disabled'}`} onClick={showLoginPrompt}>
                 <div title='Saved Visualizations'>
-                  <a href='/user' className={`header-item link-${isUserAuthenticated ? 'enabled' : 'disabled'}`}><img className={`folder-icon`} src={folderIcon} /></a>
+                  <a href='/user' className={`header-item link-${isAuthenticated ? 'enabled' : 'disabled'}`}>
+                    <img className={`folder-icon`} src={folderIcon} />
+                  </a>
                 </div>
               </TabButton>
-              <AutoAnchoringPopover className='popover-anchor' open={!isUserAuthenticated && userNeedsLoginInfo} onClose={() => setUserNeedsLoginInfo(false)}>
+              <AutoAnchoringPopover className='login-prompt popover-anchor' open={!isAuthenticated && userNeedsLoginInfo} onClose={closeLoginPrompt}>
                 <div className="login-message">
                 <p>You need to be logged in to see your visualizations</p>
                 <Auth0LoginZone/>
@@ -110,7 +105,7 @@ const VisualizationView = (props) => {
               <TabButton disabled={!isSaveable} className={`header-item save-icon ${isDialogOpen && 'saving'}`} onClick={openDialog} >
                 <div title='Save Visualization'><SaveIcon /></div>
               </TabButton>
-              <AutoAnchoringPopover className='popover-anchor' open={isDialogOpen} onClose={closeDialog} classes={{ paper: 'popover', root: 'popover-root' }} >
+              <AutoAnchoringPopover className='save-prompt popover-anchor' open={isDialogOpen} onClose={closeDialog} classes={{ paper: 'popover', root: 'popover-root' }} >
                 <div>
                   <b>Query Title: </b>
                   <input className="prompt" type="text" placeholder="Query Name" value={localTitle || ''} onChange={handleTitleChange}></input>

@@ -5,8 +5,8 @@ import VisualizationView from "./visualization-view"
 import QueryView from "../query-view"
 import ChartView from "../chart-view"
 import ErrorComponent from "../../components/generic-elements/error-component"
-import AutoAnchoringPopover from "../../components/generic-elements/auto-anchoring-popover"
 import SaveIndicator from "../../components/generic-elements/save-indicator"
+import Auth0LoginZone from "../../components/auth0-login-zone"
 
 const runUseEffect = () => {
   const useEffect = jest.spyOn(React, "useEffect")
@@ -166,13 +166,13 @@ describe("visualization view", () => {
 
   describe("when visualization save button is clicked to update a previously saved visualization", () => {
     beforeEach(() => {
-      subject = createSubject({ isSaving: true, query, title, save: saveHandler})
+      subject = createSubject({ isSaving: true, query, title, save: saveHandler })
 
       subject.find(".save-icon").simulate("click")
     })
 
     it("displays the saving status popover", () => {
-      expect(subject.find(AutoAnchoringPopover).props().open).toEqual(true)
+      expect(subject.find(".save-prompt").props().open).toEqual(true)
     })
 
     it('sets the saving indicator', () => {
@@ -182,13 +182,13 @@ describe("visualization view", () => {
 
   describe("when visualization save icon is clicked to save a new visualization", () => {
     beforeEach(() => {
-      subject = createSubject({ isSaving: false, query, save: saveHandler})
+      subject = createSubject({ isSaving: false, query, save: saveHandler })
 
       subject.find(".save-icon").simulate("click")
     })
 
     it("displays the title prompt popover", () => {
-      expect(subject.find(AutoAnchoringPopover).props().open).toEqual(true)
+      expect(subject.find(".save-prompt").props().open).toEqual(true)
       expect(subject.find(".prompt").length).toEqual(1)
       expect(subject.find(".save-button").length).toEqual(1)
     })
@@ -198,9 +198,9 @@ describe("visualization view", () => {
     })
 
     it("sends create visualization event with the query, a query title, and the visualization", () => {
-      subject.find(".prompt").simulate("change", {target: { value: 'Query Title'}})
+      subject.find(".prompt").simulate("change", { target: { value: 'Query Title' } })
       subject.find(".save-button").simulate("click")
-      expect(saveHandler).toHaveBeenCalledWith({title: 'Query Title', query})
+      expect(saveHandler).toHaveBeenCalledWith({ title: 'Query Title', query })
     })
   })
 
@@ -233,6 +233,34 @@ describe("visualization view", () => {
       expect(subject.find(SaveIndicator).props().saving).toBe(false)
     })
   })
+
+  describe('when user clicks the icon to see their saved visualizations', () => {
+    describe('and when the user is not logged in', () => {
+      beforeEach(() => {
+        subject = createSubject({ auth: { isAuthenticated: false } })
+        subject.find('.button-disabled').simulate("click")
+        subject.find('.link-disabled').simulate("click")
+      })
+
+      it("displays a prompt for the user to log in", () => {
+        expect(subject.find(".login-message")).toHaveLength(1)
+        expect(subject.find(".login-prompt").props().open).toBeTruthy()
+        expect(subject.find(Auth0LoginZone)).toHaveLength(1)
+      })
+    })
+
+    describe('and when the user is logged in', () => {
+      beforeEach(() => {
+        subject = createSubject({ auth: { isAuthenticated: true } })
+        subject.find('.button-enabled').simulate("click")
+        subject.find('.link-enabled').simulate("click")
+      })
+
+      it("does not display a login prompt", () => {
+        expect(subject.find(".login-message").props().open).toBeFalsy()
+      })
+    })
+  })
 })
 
 const createSubject = (props = {}) => {
@@ -251,9 +279,10 @@ const createSubject = (props = {}) => {
     isSaveable: false,
     match: { params: {} },
     history: { push: jest.fn() },
-    chart: {}
+    chart: {},
+    auth: { isAuthenticated: false }
   }
   const propsWithDefaults = Object.assign({}, defaultProps, props)
 
-  return shallow(<VisualizationView {...propsWithDefaults}/> )
+  return shallow(<VisualizationView {...propsWithDefaults} />)
 }
