@@ -24,8 +24,17 @@ visualization-view {
   }
 
   .button-disabled {
-    pointer-events: none;
     cursor: default;
+    outline: none;
+  }
+
+  .link-disabled {
+    pointer-events: none;
+  }
+
+  .login-message {
+    width: 20rem;
+    margin-left: 0.5rem;
   }
 
   .header-item {

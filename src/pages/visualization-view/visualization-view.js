@@ -18,6 +18,7 @@ import ClearIcon from '@material-ui/icons/Clear'
 import ChartView from '../chart-view'
 import QueryView from '../query-view'
 import routes from '../../routes'
+import Auth0LoginZone from '../../components/auth0-login-zone'
 
 
 
@@ -44,6 +45,7 @@ const VisualizationView = (props) => {
   const startIndex = idFromUrl ? 1 : 0
   const [index, setIndex] = useState(startIndex)
   const [isUserAuthenticated, setUserAuthenticated] = useState(false)
+  const [userNeedsLoginInfo, setUserNeedsLoginInfo] = useState(false)
 
   React.useEffect(() => { reset() }, [])
   React.useEffect(() => { if (idFromUrl && idFromUrl !== idFromState) load(idFromUrl) }, [idFromUrl])
@@ -68,7 +70,7 @@ const VisualizationView = (props) => {
   const openDialog = () => { setDialogOpen(true) }
 
   const handleSaveOrUpdate = () => {
-    save({id: idFromState, title: localTitle, query})
+    save({ id: idFromState, title: localTitle, query })
   }
   const closeDialog = () => { setDialogOpen(false); }
 
@@ -94,9 +96,17 @@ const VisualizationView = (props) => {
           </span>
           <span className='action-area'>
             <React.Fragment >
-             <a href='/user' className={`header-item button-${isUserAuthenticated ? 'enabled' : 'disabled'}`}>
-                <div title='Saved Visualizations'><img className={`folder-icon`} src={folderIcon} /></div>
-              </a>
+              <TabButton className={`button-${isUserAuthenticated ? 'enabled' : 'disabled'}`}onClick={() => setUserNeedsLoginInfo(true)}>
+                <div title='Saved Visualizations'>
+                  <a href='/user' className={`header-item link-${isUserAuthenticated ? 'enabled' : 'disabled'}`}><img className={`folder-icon`} src={folderIcon} /></a>
+                </div>
+              </TabButton>
+              <AutoAnchoringPopover className='popover-anchor' open={!isUserAuthenticated && userNeedsLoginInfo} onClose={() => setUserNeedsLoginInfo(false)}>
+                <div className="login-message">
+                <p>You need to be logged in to see your visualizations</p>
+                <Auth0LoginZone/>
+                </div>
+              </AutoAnchoringPopover>
               <TabButton disabled={!isSaveable} className={`header-item save-icon ${isDialogOpen && 'saving'}`} onClick={openDialog} >
                 <div title='Save Visualization'><SaveIcon /></div>
               </TabButton>
@@ -118,10 +128,10 @@ const VisualizationView = (props) => {
           <QueryView />
         </TabPanel>
         <TabPanel className="visualization" selectedClassName="visualization--selected">
-          <ChartView/>
+          <ChartView />
         </TabPanel>
       </Tabs>
-    </visualization-view>
+    </visualization-view >
   )
 }
 
