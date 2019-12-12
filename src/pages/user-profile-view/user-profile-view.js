@@ -5,11 +5,26 @@ import Auth0LoginZone from '../../components/auth0-login-zone'
 import ReactTable from 'react-table'
 
 import './user-profile-view.scss'
+import LoadingElement from '../../components/generic-elements/loading-element'
+import ErrorComponent from '../../components/generic-elements/error-component'
 
 const UserProfileView = (props) => {
-  const { visualizations, getUserVisualizations } = props
+  const { visualizations, getUserVisualizations, auth: { isAuthenticated }, loading } = props
 
-  useEffect(() => { getUserVisualizations() }, [])
+
+  useEffect( () => {  getUserVisualizations() }, [])
+
+  if(loading) {
+    return (
+      <user-profile-view>
+        <LoadingElement />
+      </user-profile-view>
+    )
+  }
+
+  if(!isAuthenticated)
+    return <ErrorComponent errorText={"You must be signed in to see your saved visualizations"}/>
+
 
   const data = clone(visualizations)
   data.forEach((visualization) => {
