@@ -12,6 +12,7 @@ export const visualizationSaving = state => state.visualization.saving
 export const visualizationSaveSuccess = state => state.visualization.saveSuccess
 export const visualizationSaveFailure = state => state.visualization.saveFailure
 export const visualizationChart = state => state.visualization.chart
+export const userVisualizations = state => state.visualization.userVisualizations
 
 export const isVisualizationSaveable = createSelector(
   isQueryTextAvailable,

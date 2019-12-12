@@ -16,6 +16,7 @@ import DatasetView from './pages/dataset-view'
 import LoginView from './pages/login-view'
 import OAuthView from './pages/oauth-view'
 import VisualizationView from './pages/visualization-view'
+import UserProfileView from './pages/user-profile-view'
 
 import NetworkLoadingElement from './components/network-loading-element'
 
@@ -50,6 +51,7 @@ const DiscoveryUI = () => {
         <Route exact path={routes.login} component={LoginView} />
         <Route exact path={routes.oauth} component={OAuthView} />
         <Route exact path={routes.visualizationView} component={VisualizationView} />
+        <Route exact path={routes.userProfile} component={UserProfileView} />
         <Route component={noMatch} />
       </Switch>
     </Router>

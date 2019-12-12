@@ -2,6 +2,9 @@ import {
   VISUALIZATION_LOAD,
   VISUALIZATION_LOAD_SUCCESS,
   VISUALIZATION_LOAD_FAILURE,
+  VISUALIZATIONS_LOAD_ALL,
+  VISUALIZATIONS_LOAD_ALL_SUCCESS,
+  VISUALIZATIONS_LOAD_ALL_FAILURE,
   VISUALIZATION_SAVE,
   VISUALIZATION_SAVE_SUCCESS,
   VISUALIZATION_SAVE_FAILURE,
@@ -18,7 +21,8 @@ const defaultVisualizationState = {
   loadFailure: false,
   saving: false,
   saveSuccess: false,
-  saveFailure: false
+  saveFailure: false,
+  userVisualizations: []
 }
 
 const visualizationReducer = (state = defaultVisualizationState, action) => {
@@ -37,6 +41,25 @@ const visualizationReducer = (state = defaultVisualizationState, action) => {
         loadFailure: false
       })
     case VISUALIZATION_LOAD_FAILURE:
+      return Object.assign({}, state, {
+        loading: false,
+        loadSuccess: false,
+        loadFailure: true
+      })
+    case VISUALIZATIONS_LOAD_ALL:
+      return Object.assign({}, state, {
+        loading: true,
+        loadSuccess: false,
+        loadFailure: false
+      })
+    case VISUALIZATIONS_LOAD_ALL_SUCCESS:
+      return Object.assign({}, state, {
+        userVisualizations: action.value,
+        loading: false,
+        loadSuccess: true,
+        loadFailure: false
+      })
+    case VISUALIZATIONS_LOAD_ALL_FAILURE:
       return Object.assign({}, state, {
         loading: false,
         loadSuccess: false,
