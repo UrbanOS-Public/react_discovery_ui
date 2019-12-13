@@ -21,8 +21,7 @@ const defaultVisualizationState = {
   loadFailure: false,
   saving: false,
   saveSuccess: false,
-  saveFailure: false,
-  userVisualizations: []
+  saveFailure: false
 }
 
 const visualizationReducer = (state = defaultVisualizationState, action) => {

@@ -9,12 +9,21 @@ import LoadingElement from '../../components/generic-elements/loading-element'
 import ErrorComponent from '../../components/generic-elements/error-component'
 
 const UserProfileView = (props) => {
-  const { visualizations, getUserVisualizations, auth: { isAuthenticated }, loading } = props
+  const {
+    visualizations,
+    getUserVisualizations,
+    auth: { isAuthenticated },
+    loading,
+    loadFailure,
+    loadSuccess
+  } = props
 
+  useEffect(() => {
+    getUserVisualizations()
+  }, [])
 
-  useEffect( () => {  getUserVisualizations() }, [])
-
-  if(loading) {
+  const requestHasNotRun = !loadFailure && !loadSuccess
+  if (loading || requestHasNotRun) {
     return (
       <user-profile-view>
         <LoadingElement />
@@ -22,9 +31,9 @@ const UserProfileView = (props) => {
     )
   }
 
-  if(!isAuthenticated)
-    return <ErrorComponent errorText={"You must be signed in to see your saved visualizations"}/>
-
+  if (!isAuthenticated) {
+    return <ErrorComponent errorText={"You must be signed in to see your saved visualizations"} />
+  }
 
   const data = clone(visualizations)
   data.forEach((visualization) => {
@@ -32,9 +41,9 @@ const UserProfileView = (props) => {
   })
 
   const columns = [
-    {Header: "Title", accessor: "title", headerClassName: "table-header"},
-    {Header: "Date Created", accessor: "created", headerClassName: "table-header"},
-    {Header: "Date Modified", accessor: "updated", headerClassName: "table-header"}
+    { Header: "Title", accessor: "title", headerClassName: "table-header" },
+    { Header: "Date Created", accessor: "created", headerClassName: "table-header" },
+    { Header: "Date Modified", accessor: "updated", headerClassName: "table-header" }
   ]
 
 
