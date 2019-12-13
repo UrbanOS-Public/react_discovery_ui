@@ -29,12 +29,16 @@ function* loadUserVisualizationsSaga() {
 }
 
 function* loadUserVisualizations() {
-  const response = yield call(AuthenticatedHTTPClient.get, `api/v1/visualization`)
+  try {
+    const response = yield call(AuthenticatedHTTPClient.get, `/api/v1/visualization`)
 
-  if(response.status < 400) {
-    yield put(visualizationsLoadAllSuccess(response.data))
-  } else {
-    yield put(visualizationsLoadAllFailure(response.status))
+    if (response.status < 400) {
+      yield put(visualizationsLoadAllSuccess(response.data))
+    } else {
+      yield put(visualizationsLoadAllFailure(response.status))
+    }
+  } catch (e) {
+    yield put(visualizationsLoadAllFailure(e.message))
   }
 }
 
@@ -46,9 +50,9 @@ export function* saveVisualization({ value: visualization }) {
   const chart = yield select(dereferencedChart)
 
   if (visualization.id) {
-    yield handleSaveResponse(() => AuthenticatedHTTPClient.put(`/api/v1/visualization/${visualization.id}`, {...visualization, chart}))
+    yield handleSaveResponse(() => AuthenticatedHTTPClient.put(`/api/v1/visualization/${visualization.id}`, { ...visualization, chart }))
   } else {
-    yield handleSaveResponse(() => AuthenticatedHTTPClient.post(`/api/v1/visualization`, {...visualization, chart}))
+    yield handleSaveResponse(() => AuthenticatedHTTPClient.post(`/api/v1/visualization`, { ...visualization, chart }))
   }
 }
 

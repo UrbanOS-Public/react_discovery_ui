@@ -1,4 +1,4 @@
-import { visualizationSave, visualizationLoadFailure, visualizationSaveFailure, visualizationLoad, visualizationLoadSuccess, visualizationSaveSuccess, setQueryText, setChartInformation, executeFreestyleQuery } from '../actions'
+import { visualizationSave, visualizationLoadFailure, visualizationSaveFailure, visualizationLoad, visualizationLoadSuccess, visualizationsLoadAll, visualizationsLoadAllSuccess, visualizationsLoadAllFailure, visualizationSaveSuccess, setQueryText, setChartInformation, executeFreestyleQuery } from '../actions'
 import visualizationSaga from './visualization-saga'
 import { saveVisualization } from './visualization-saga'
 import { createStore, applyMiddleware } from 'redux'
@@ -25,7 +25,7 @@ describe('visualization-saga', () => {
 
   describe('loadVisualization', () => {
     const id = "hello"
-    const chart = {data: [], frames: [], layout: {}}
+    const chart = { data: [], frames: [], layout: {} }
     const query = 'select * from stuff'
     const visualization = { id, chart, query }
     describe('successfully', () => {
@@ -82,6 +82,48 @@ describe('visualization-saga', () => {
     })
   })
 
+  describe('loadUserVisualizations', () => {
+    const visualizations = [{ title: 'title1', id: 'id1' }, { title: 'title2', id: 'id2' }]
+
+    describe('successfully', () => {
+      beforeEach(() => {
+        AuthenticatedHTTPClient.get = jest.fn(() => ({ status: 200, data: visualizations }))
+        store.dispatch(visualizationsLoadAll())
+      })
+
+      it('calls the correct API endpoint', () => {
+        expect(AuthenticatedHTTPClient.get).toHaveBeenCalledWith(`/api/v1/visualization`)
+      })
+
+      it('signals the visualization is available', () => {
+        expect(store.getState()).toContainEqual(visualizationsLoadAllSuccess(visualizations))
+      })
+    })
+
+    describe('with a non-successful status code', () => {
+      beforeEach(() => {
+        AuthenticatedHTTPClient.get = jest.fn(() => ({ status: 400 }))
+        store.dispatch(visualizationsLoadAll())
+      })
+
+      it('signals the visualizations are unavailable', () => {
+        expect(store.getState()).toContainEqual(visualizationsLoadAllFailure(400))
+      })
+    })
+
+    describe('with a thrown error', () => {
+      const errorMessage = 'WRONG AGAIN'
+      beforeEach(() => {
+        AuthenticatedHTTPClient.get = jest.fn(() => { throw new Error(errorMessage) })
+        store.dispatch(visualizationsLoadAll())
+      })
+
+      it('signals the visualization is unavailable', () => {
+        expect(store.getState()).toContainEqual(visualizationsLoadAllFailure(errorMessage))
+      })
+    })
+  })
+
   describe('saveVisualization', () => {
     describe('without an id', () => {
       const title = "my first visualization"
@@ -96,7 +138,7 @@ describe('visualization-saga', () => {
         var dispatched = []
         beforeEach(async () => {
           AuthenticatedHTTPClient.post = jest.fn(() => ({ status: 200, data: returnedVisualization }))
-          dispatched = await recordSaga(saveVisualization, visualizationSave({title, query}), initialState)
+          dispatched = await recordSaga(saveVisualization, visualizationSave({ title, query }), initialState)
         })
 
         it('calls api with parameters that include a dereferenced chart', () => {
@@ -127,7 +169,7 @@ describe('visualization-saga', () => {
         var dispatched = []
         beforeEach(async () => {
           AuthenticatedHTTPClient.post = jest.fn(() => ({ status: nonSuccessStatusCode }))
-          dispatched = await recordSaga(saveVisualization, visualizationSave({title, query}), initialState)
+          dispatched = await recordSaga(saveVisualization, visualizationSave({ title, query }), initialState)
         })
 
         it('signals the visualization is unavailable', () => {
@@ -140,7 +182,7 @@ describe('visualization-saga', () => {
         var dispatched = []
         beforeEach(async () => {
           AuthenticatedHTTPClient.post = jest.fn(() => { throw new Error(errorMessage) })
-          dispatched = await recordSaga(saveVisualization, visualizationSave({title, query}), initialState)
+          dispatched = await recordSaga(saveVisualization, visualizationSave({ title, query }), initialState)
         })
 
         it('signals the visualization is unavailable', () => {
@@ -163,7 +205,7 @@ describe('visualization-saga', () => {
         var dispatched = []
         beforeEach(async () => {
           AuthenticatedHTTPClient.put = jest.fn(() => ({ status: 200, data: returnedVisualization }))
-          dispatched = await recordSaga(saveVisualization, visualizationSave({id, title, query}), initialState)
+          dispatched = await recordSaga(saveVisualization, visualizationSave({ id, title, query }), initialState)
         })
 
         it('calls api with parameters that include a dereferenced chart', () => {
@@ -195,7 +237,7 @@ describe('visualization-saga', () => {
         var dispatched = []
         beforeEach(async () => {
           AuthenticatedHTTPClient.put = jest.fn(() => ({ status: nonSuccessStatusCode }))
-          dispatched = await recordSaga(saveVisualization, visualizationSave({id, title, query}), initialState)
+          dispatched = await recordSaga(saveVisualization, visualizationSave({ id, title, query }), initialState)
         })
 
         it('signals the visualization is unavailable', () => {
@@ -208,7 +250,7 @@ describe('visualization-saga', () => {
         var dispatched = []
         beforeEach(async () => {
           AuthenticatedHTTPClient.put = jest.fn(() => { throw new Error(errorMessage) })
-          dispatched = await recordSaga(saveVisualization, visualizationSave({id, title, query}), initialState)
+          dispatched = await recordSaga(saveVisualization, visualizationSave({ id, title, query }), initialState)
         })
 
         it('signals the visualization is unavailable', () => {
