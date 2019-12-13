@@ -253,7 +253,14 @@ describe("visualization view", () => {
       beforeEach(() => {
         subject = createSubject({ auth: { isAuthenticated: true } })
         subject.find('.button-enabled').simulate("click")
-        subject.find('.link-enabled').simulate("click")
+      })
+
+      it('marks the link to the user\'s saved visualizations as enabled', () => {
+        expect(subject.find('.linked-enabled')).toHaveLength(1)
+      })
+
+      it('has the correct endpoint for the user\'s saved visualizations', () => {
+        expect(subject.find('.link-enabled').props().href).toEqual('/user')
       })
 
       it("does not display a login prompt", () => {
