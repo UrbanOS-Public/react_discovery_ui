@@ -7,6 +7,7 @@ import ReactTable from 'react-table'
 import './user-profile-view.scss'
 import LoadingElement from '../../components/generic-elements/loading-element'
 import ErrorComponent from '../../components/generic-elements/error-component'
+import moment from 'moment'
 
 const UserProfileView = (props) => {
   const {
@@ -32,14 +33,18 @@ const UserProfileView = (props) => {
     )
   }
 
-  if (!isAuthenticated ) {
+  if (!isAuthenticated) {
     return <ErrorComponent errorText={"You must be signed in to see your saved visualizations"} />
   }
 
 
-  const data = clone(visualizations)
-  data.forEach((visualization) => {
-    visualization.title = <Link to={`/visualization/${visualization.id}`}>{visualization.title}</Link>
+  const visualizationsWithTitle = visualizations.map((visualization) => {
+    return {
+      ...visualization,
+      title: (<Link to={`/visualization/${visualization.id}`}>{visualization.title}</Link>),
+      created: moment.utc(visualization.created).local().format("YYYY-MM-DDTHH:mm:ss[Z]"),
+      updated: moment.utc(visualization.updated).local().format("YYYY-MM-DDTHH:mm:ss[Z]")
+    }
   })
 
   const columns = [
@@ -61,13 +66,15 @@ const UserProfileView = (props) => {
             <div className="workspaces-header">Saved Workspaces</div>
           </div>
         </div>
-        <ReactTable
-          data={data}
-          columns={columns}
-          loading={props.loading}
-          pageSize={10}
-          classname={"-striped -highlight"}
-        />
+        <div id="user-visualizations-table">
+          <ReactTable
+            data={visualizationsWithTitle}
+            columns={columns}
+            loading={props.loading}
+            defaultPageSize={10}
+            classname="-striped -highlight"
+          />
+        </div>
       </div>
     </user-profile-view>
   )
