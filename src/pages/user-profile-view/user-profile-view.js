@@ -22,6 +22,7 @@ const UserProfileView = (props) => {
     getUserVisualizations()
   }, [])
 
+
   const requestHasNotRun = !loadFailure && !loadSuccess
   if (loading || requestHasNotRun) {
     return (
@@ -31,9 +32,10 @@ const UserProfileView = (props) => {
     )
   }
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated ) {
     return <ErrorComponent errorText={"You must be signed in to see your saved visualizations"} />
   }
+
 
   const data = clone(visualizations)
   data.forEach((visualization) => {

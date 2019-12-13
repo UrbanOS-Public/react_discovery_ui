@@ -256,7 +256,7 @@ describe("visualization view", () => {
       })
 
       it('marks the link to the user\'s saved visualizations as enabled', () => {
-        expect(subject.find('.linked-enabled')).toHaveLength(1)
+        expect(subject.find('.link-enabled')).toHaveLength(1)
       })
 
       it('has the correct endpoint for the user\'s saved visualizations', () => {

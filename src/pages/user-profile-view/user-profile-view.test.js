@@ -11,20 +11,21 @@ describe("user profile view", () => {
   let subject
 
   it("shows the loading element on page load", () => {
-    subject = createSubject({ loading: true })
+    subject = createSubject()
     expect(subject.find(LoadingElement)).toHaveLength(1)
   })
 
   describe("when the user is signed in", () => {
     beforeEach(() => {
       const visualizations = [
-        { title: "title1", id: "id1", created: "2019-12-09T21:04:06", updated: "2019-12-09T21:17:14"},
+        { title: "title1", id: "id1", created: "2019-12-09T21:04:06", updated: "2019-12-09T21:17:14" },
         { title: "title2", id: "id2" }
       ]
 
       subject = createSubject({
         visualizations: visualizations,
-        auth: { isAuthenticated: true }
+        auth: { isAuthenticated: true },
+        loadSuccess: true
       })
     })
 
@@ -50,7 +51,7 @@ describe("user profile view", () => {
 
   describe("when the user is not logged in", () => {
     beforeEach(() => {
-      subject = createSubject({ auth: { isAuthenticated: false }})
+      subject = createSubject({ auth: { isAuthenticated: false}, loadFailure: true })
     })
 
     it("shows an error message", () => {
@@ -64,7 +65,9 @@ const createSubject = (props = {}) => {
   const defaultProps = {
     visualizations: [],
     loading: false,
-    auth: { isAuthenticated: false }
+    auth: { isAuthenticated: false },
+    loadFailure: false,
+    loadSuccess: false
   }
 
   const propsWithDefaults = Object.assign({}, defaultProps, props)
