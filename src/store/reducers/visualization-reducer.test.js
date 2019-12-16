@@ -160,13 +160,6 @@ describe('Visualization Reducer', () => {
       expect(newState.loadFailure).toBeFalsy()
     })
 
-    it('adds a userVisualizations array to the store with converted timestamps', () => {
-      expect(newState.userVisualizations[0].created).toEqual("2019-12-12T09:33:08Z")
-      expect(newState.userVisualizations[0].updated).toEqual("2019-12-12T09:33:08Z")
-      expect(newState.userVisualizations[1].created).toEqual("2019-12-09T10:40:15Z")
-      expect(newState.userVisualizations[1].updated).toEqual("2019-12-12T10:53:54Z")
-    })
-
     it("provides a link to each saved visualization in the title field", () => {
       expect(newState.userVisualizations[0].title).toEqual(<Link to='/visualization/id1'>title1</Link>)
       expect(newState.userVisualizations[1].title).toEqual(<Link to='/visualization/id2'>title2</Link>)
