@@ -18,14 +18,11 @@ visualization-view {
   }
 
   .folder-icon {
-    height: 2.4rem;
-    width: 2.4rem;
-    margin-top: .32rem;
+    fill: $medium-grey;
   }
 
-  .button-disabled {
-    cursor: default;
-    outline: none;
+  .folder-icon:hover {
+    fill: $almost-black;
   }
 
   .link-disabled {
@@ -35,6 +32,10 @@ visualization-view {
   .login-message {
     width: 20rem;
     margin-left: 0.5rem;
+  }
+
+  .new-visualization-form {
+    margin: 0.5rem;
   }
 
   .header-item {
@@ -74,6 +75,7 @@ visualization-view {
         padding-left: 5px;
         fill: $almost-black;
       }
+
 
       .chart-icon {
         path {

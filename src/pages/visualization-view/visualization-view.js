@@ -9,10 +9,11 @@ import SaveIndicator from '../../components/generic-elements/save-indicator'
 import ChartIcon from '../../components/generic-elements/chart-icon'
 import SQLIcon from '../../components/generic-elements/sql-icon'
 import TabButton from '../../components/generic-elements/tab-button'
+import TabButtonPopover from '../../components/generic-elements/tab-button-popover'
 import AutoAnchoringPopover from '../../components/generic-elements/auto-anchoring-popover'
 import ErrorComponent from '../../components/generic-elements/error-component'
 
-import folderIcon from '../../assets/folder_icon.png'
+import FolderIcon from '../../components/generic-elements/folder-icon'
 import SaveIcon from '@material-ui/icons/Save'
 import ClearIcon from '@material-ui/icons/Clear'
 import ChartView from '../chart-view'
@@ -37,7 +38,7 @@ const VisualizationView = (props) => {
     isSaveable,
     match: { params: { id: idFromUrl } },
     history,
-    auth: {isAuthenticated}
+    auth: { isAuthenticated }
   } = props
 
   const linkUrl = idFromState && generatePath(routes.visualizationView, { id: idFromState })
@@ -60,8 +61,8 @@ const VisualizationView = (props) => {
 
   const openDialog = () => { setDialogOpen(true) }
 
-  const showLoginPrompt = () => { setUserNeedsLoginInfo(true)}
-  const closeLoginPrompt = () => { setUserNeedsLoginInfo(false)}
+  const showLoginPrompt = () => { setUserNeedsLoginInfo(true) }
+  const closeLoginPrompt = () => { setUserNeedsLoginInfo(false) }
 
   const handleSaveOrUpdate = () => {
     save({ id: idFromState, title: localTitle, query })
@@ -75,6 +76,7 @@ const VisualizationView = (props) => {
       </visualization-view>
     )
   }
+
 
   return (
     <visualization-view>
@@ -90,33 +92,39 @@ const VisualizationView = (props) => {
           </span>
           <span className='action-area'>
             <React.Fragment >
-              <TabButton className={`button-${isAuthenticated ? 'enabled' : 'disabled'}`} onClick={showLoginPrompt}>
-                <div title='Saved Visualizations'>
-                  <Link to="/user" className={`header-item link-${isAuthenticated ? 'enabled' : 'disabled'}`}>
-                    <img className={`folder-icon`} src={folderIcon} />
-                  </Link>
-                </div>
-              </TabButton>
-              <AutoAnchoringPopover className='login-prompt popover-anchor' open={!isAuthenticated && userNeedsLoginInfo} onClose={closeLoginPrompt}>
-                <div className="login-message">
-                <p>You need to be logged in to see your visualizations</p>
-                <Auth0LoginZone/>
-                </div>
-              </AutoAnchoringPopover>
-              <TabButton disabled={!isSaveable} className={`header-item save-icon ${isDialogOpen && 'saving'}`} onClick={openDialog} >
-                <div title='Save Visualization'><SaveIcon /></div>
-              </TabButton>
-              <AutoAnchoringPopover className='save-prompt popover-anchor' open={isDialogOpen} onClose={closeDialog} classes={{ paper: 'popover', root: 'popover-root' }} >
-                <div>
-                  <b>Query Title: </b>
-                  <input className="prompt" type="text" placeholder="Query Name" value={localTitle || ''} onChange={handleTitleChange}></input>
-                  <ClearIcon className='clear-icon' onClick={closeDialog} />
-                  <br />
-                  <button className="save-button" onClick={handleSaveOrUpdate} disabled={localTitle == undefined || localTitle.length == 0}>Save</button>
-                  <button onClick={closeDialog}>Cancel</button>
-                  <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkUrl={linkUrl} />
-                </div>
-              </AutoAnchoringPopover>
+              <TabButtonPopover
+                buttonChildren={
+                  <div title='Saved Visualizations'>
+                    <Link to="/user" className={`header-item link-${isAuthenticated ? 'enabled' : 'disabled'}`}>
+                      <FolderIcon />
+                    </Link>
+                  </div>
+                }
+                anchorChildren={
+                  <div className="login-message">
+                    <p>You need to be logged in to see your visualizations</p>
+                    <Auth0LoginZone />
+                  </div>
+                }
+                buttonEnabled={true}
+              />
+              <TabButtonPopover
+                buttonChildren={
+                  <div title='Save Visualization'><SaveIcon /></div>
+                }
+                anchorChildren={
+                  <div className="new-visualization-form">
+                    <b>Query Title: </b>
+                    <input className="prompt" type="text" placeholder="Query Name" value={localTitle || ''} onChange={handleTitleChange}></input>
+                    <ClearIcon className='clear-icon' onClick={closeDialog} />
+                    <br />
+                    <button className="save-button" onClick={handleSaveOrUpdate} disabled={localTitle == undefined || localTitle.length == 0}>Save</button>
+                    <button onClick={closeDialog}>Cancel</button>
+                    <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkUrl={linkUrl} />
+                  </div>
+                }
+                buttonEnabled={isSaveable}
+              />
             </React.Fragment>
           </span>
         </TabList>
