@@ -9,9 +9,12 @@ import {
   VISUALIZATION_SAVE_SUCCESS,
   VISUALIZATION_SAVE_FAILURE,
   VISUALIZATION_RESET,
-  SET_CHART_INFORMATION
+  SET_CHART_INFORMATION,
+  visualizationLoadFailure
 } from "../actions"
 import { isArray, isPlainObject } from 'lodash'
+import {Link} from 'react-router-dom'
+import moment from 'moment'
 
 const defaultVisualizationState = {
   visualization: {id: undefined},
@@ -53,7 +56,7 @@ const visualizationReducer = (state = defaultVisualizationState, action) => {
       })
     case VISUALIZATIONS_LOAD_ALL_SUCCESS:
       return Object.assign({}, state, {
-        userVisualizations: action.value,
+        userVisualizations: formatVisualizationsForTable(action.value),
         loading: false,
         loadSuccess: true,
         loadFailure: false
@@ -109,6 +112,21 @@ const isValidChartFrames = frames => {
 
 const isValidChartLayout = layout => {
   return isPlainObject(layout)
+}
+
+const utcToLocalTime = utcString => {
+  return moment.utc(utcString).local().format("YYYY-MM-DDTHH:mm:ss[Z]")
+}
+
+const formatVisualizationsForTable = visualizations => {
+  return visualizations.map(visualization => {
+    return {
+      ...visualization,
+      title: (<Link to={`/visualization/${visualization.id}`}>{visualization.title}</Link>),
+      created: utcToLocalTime(visualization.created),
+      updated: utcToLocalTime(visualization.updated)
+    }
+  })
 }
 
 export default visualizationReducer

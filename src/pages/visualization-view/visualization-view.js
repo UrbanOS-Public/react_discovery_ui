@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { generatePath } from 'react-router'
+import { Link } from 'react-router-dom'
 
 import './visualization-view.scss'
 
@@ -91,9 +92,9 @@ const VisualizationView = (props) => {
             <React.Fragment >
               <TabButton className={`button-${isAuthenticated ? 'enabled' : 'disabled'}`} onClick={showLoginPrompt}>
                 <div title='Saved Visualizations'>
-                  <a href='/user' className={`header-item link-${isAuthenticated ? 'enabled' : 'disabled'}`}>
+                  <Link to="/user" className={`header-item link-${isAuthenticated ? 'enabled' : 'disabled'}`}>
                     <img className={`folder-icon`} src={folderIcon} />
-                  </a>
+                  </Link>
                 </div>
               </TabButton>
               <AutoAnchoringPopover className='login-prompt popover-anchor' open={!isAuthenticated && userNeedsLoginInfo} onClose={closeLoginPrompt}>

@@ -44,5 +44,3 @@ export const dereferencedChart = createSelector(
     return { data: dereferencedData, layout, frames }
   }
 )
-
-

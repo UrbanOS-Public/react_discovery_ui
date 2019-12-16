@@ -260,7 +260,7 @@ describe("visualization view", () => {
       })
 
       it('has the correct endpoint for the user\'s saved visualizations', () => {
-        expect(subject.find('.link-enabled').props().href).toEqual('/user')
+        expect(subject.find('.link-enabled').props().to).toEqual('/user')
       })
 
       it("does not display a login prompt", () => {

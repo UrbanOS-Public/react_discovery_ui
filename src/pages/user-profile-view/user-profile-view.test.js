@@ -42,11 +42,6 @@ describe("user profile view", () => {
       expect(subject.find(ReactTable).props().data[0].id).toEqual("id1")
       expect(subject.find(ReactTable).props().data[1].id).toEqual("id2")
     })
-
-    it("provides a link to each saved visualization", () => {
-      expect(subject.find(ReactTable).props().data[0].title).toEqual(<Link to='/visualization/id1'>title1</Link>)
-      expect(subject.find(ReactTable).props().data[1].title).toEqual(<Link to='/visualization/id2'>title2</Link>)
-    })
   })
 
   describe("when the user is not logged in", () => {

@@ -1,4 +1,5 @@
 import reducer from './visualization-reducer'
+import { Link } from 'react-router-dom'
 import {
   visualizationLoad,
   visualizationSave,
@@ -7,7 +8,10 @@ import {
   visualizationLoadFailure,
   visualizationSaveFailure,
   visualizationSaveSuccess,
-  setChartInformation
+  setChartInformation,
+  visualizationsLoadAll,
+  visualizationsLoadAllSuccess,
+  visualizationsLoadAllFailure
 } from '../actions'
 
 describe('Visualization Reducer', () => {
@@ -103,6 +107,100 @@ describe('Visualization Reducer', () => {
       expect(newState.saveFailure).toBeFalsy()
     })
   })
+
+  describe('VISUALIZATION_LOAD_ALL', () => {
+    const newVisualizations = [{title: "title1", id: "id1"}, {title: "title2", id: "id2"}]
+    beforeEach(() => {
+      previousState = {
+        loading: false,
+        loadSuccess: true,
+        loadFailure: false
+      }
+      newState = reducer(previousState, visualizationsLoadAll(newVisualizations))
+    })
+
+    it('sets loading to true', () => {
+      expect(newState.loading).toBeTruthy()
+    })
+
+    it('sets loadSuccess to false', () => {
+      expect(newState.loadSuccess).toBeFalsy()
+    })
+
+    it('sets loadFailure to false', () => {
+      expect(newState.loadFailure).toBeFalsy()
+    })
+  })
+
+  describe('VISUALIZATION_LOAD_ALL_SUCCESS', () => {
+    const newVisualizations = [
+      {title: "title1", id: "id1", created: "2019-12-12T14:33:08", updated: "2019-12-12T14:33:08"},
+      {title: "title2", id: "id2", created: "2019-12-09T15:40:15", updated: "2019-12-12T15:53:54"}
+    ]
+
+    beforeEach(() => {
+      previousState = {
+
+        loading: false,
+        loadSuccess: true,
+        loadFailure: false
+      }
+      newState = reducer(previousState, visualizationsLoadAllSuccess(newVisualizations))
+    })
+
+    it('sets loading to false', () => {
+      expect(newState.loading).toBeFalsy()
+    })
+
+    it('sets loadSuccess to true', () => {
+      expect(newState.loadSuccess).toBeTruthy()
+    })
+
+    it('sets loadFailure to false', () => {
+      expect(newState.loadFailure).toBeFalsy()
+    })
+
+    it('adds a userVisualizations array to the store with converted timestamps', () => {
+      expect(newState.userVisualizations[0].created).toEqual("2019-12-12T09:33:08Z")
+      expect(newState.userVisualizations[0].updated).toEqual("2019-12-12T09:33:08Z")
+      expect(newState.userVisualizations[1].created).toEqual("2019-12-09T10:40:15Z")
+      expect(newState.userVisualizations[1].updated).toEqual("2019-12-12T10:53:54Z")
+    })
+
+    it("provides a link to each saved visualization in the title field", () => {
+      expect(newState.userVisualizations[0].title).toEqual(<Link to='/visualization/id1'>title1</Link>)
+      expect(newState.userVisualizations[1].title).toEqual(<Link to='/visualization/id2'>title2</Link>)
+    })
+  })
+
+  describe('VISUALIZATION_LOAD_ALL_FAILURE', () => {
+    const newVisualizations = [
+      {title: "title1", id: "id1", created: "2019-12-12T14:33:08", updated: "2019-12-12T14:33:08"},
+      {title: "title2", id: "id2", created: "2019-12-09T15:40:15", updated: "2019-12-12T15:53:54"}
+    ]
+
+    beforeEach(() => {
+      previousState = {
+        loading: false,
+        loadSuccess: true,
+        loadFailure: false
+      }
+      newState = reducer(previousState, visualizationsLoadAllFailure())
+    })
+
+    it('sets loading to false', () => {
+      expect(newState.loading).toBeFalsy()
+    })
+
+    it('sets loadSuccess to false', () => {
+      expect(newState.loadSuccess).toBeFalsy()
+    })
+
+    it('sets loadFailure to true', () => {
+      expect(newState.loadFailure).toBeTruthy()
+    })
+  })
+
 
   describe('VISUALIZATION_LOAD_SUCCESS', () => {
     const newVisualization = { id: 'new' }

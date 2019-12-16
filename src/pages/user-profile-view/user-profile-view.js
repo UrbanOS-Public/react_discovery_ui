@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { clone } from 'lodash'
 import Auth0LoginZone from '../../components/auth0-login-zone'
 import ReactTable from 'react-table'
 
 import './user-profile-view.scss'
 import LoadingElement from '../../components/generic-elements/loading-element'
 import ErrorComponent from '../../components/generic-elements/error-component'
-import moment from 'moment'
 
 const UserProfileView = (props) => {
   const {
@@ -38,15 +36,6 @@ const UserProfileView = (props) => {
   }
 
 
-  const visualizationsWithTitle = visualizations.map((visualization) => {
-    return {
-      ...visualization,
-      title: (<Link to={`/visualization/${visualization.id}`}>{visualization.title}</Link>),
-      created: moment.utc(visualization.created).local().format("YYYY-MM-DDTHH:mm:ss[Z]"),
-      updated: moment.utc(visualization.updated).local().format("YYYY-MM-DDTHH:mm:ss[Z]")
-    }
-  })
-
   const columns = [
     { Header: "Title", accessor: "title", headerClassName: "table-header" },
     { Header: "Date Created", accessor: "created", headerClassName: "table-header" },
@@ -68,7 +57,7 @@ const UserProfileView = (props) => {
         </div>
         <div id="user-visualizations-table">
           <ReactTable
-            data={visualizationsWithTitle}
+            data={visualizations}
             columns={columns}
             loading={props.loading}
             defaultPageSize={10}
