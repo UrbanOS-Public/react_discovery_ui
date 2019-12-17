@@ -1,24 +1,16 @@
 import React, { useState } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { generatePath } from 'react-router'
-import { Link } from 'react-router-dom'
 
 import './visualization-view.scss'
 
-
 import ChartIcon from '../../components/generic-elements/chart-icon'
 import SQLIcon from '../../components/generic-elements/sql-icon'
-import TabButton from '../../components/generic-elements/tab-button'
-import AutoAnchoringPopover from '../../components/generic-elements/auto-anchoring-popover'
 import ErrorComponent from '../../components/generic-elements/error-component'
 import SaveButtonPopover from '../../components/save-button-popover/'
-
-import folderIcon from '../../assets/folder_icon.png'
-
 import ChartView from '../chart-view'
 import QueryView from '../query-view'
 import routes from '../../routes'
-import Auth0LoginZone from '../../components/auth0-login-zone'
 import UserPageButtonPopover from '../../components/user-page-button-popover'
 
 
@@ -42,11 +34,9 @@ const VisualizationView = (props) => {
   } = props
 
   const linkUrl = idFromState && generatePath(routes.visualizationView, { id: idFromState })
-  const [isDialogOpen, setDialogOpen] = useState(false)
   const [localTitle, setLocalTitle] = useState(title || '')
   const startIndex = idFromUrl ? 1 : 0
   const [index, setIndex] = useState(startIndex)
-  const [userNeedsLoginInfo, setUserNeedsLoginInfo] = useState(false)
 
   React.useEffect(() => { reset() }, [])
   React.useEffect(() => { if (idFromUrl && idFromUrl !== idFromState) load(idFromUrl) }, [idFromUrl])
@@ -59,15 +49,11 @@ const VisualizationView = (props) => {
     }
   }
 
-  const openDialog = () => { setDialogOpen(true) }
 
-  const showLoginPrompt = () => { setUserNeedsLoginInfo(true)}
-  const closeLoginPrompt = () => { setUserNeedsLoginInfo(false)}
 
   const handleSaveOrUpdate = () => {
     save({ id: idFromState, title: localTitle, query })
   }
-  const closeDialog = () => { setDialogOpen(false); }
 
   if (isLoadFailure) {
     return (
@@ -93,15 +79,9 @@ const VisualizationView = (props) => {
             <React.Fragment >
               <UserPageButtonPopover
                 isAuthenticated={isAuthenticated}
-                showLoginPrompt={showLoginPrompt}
-                closeLoginPrompt={closeLoginPrompt}
-                userNeedsLoginInfo={userNeedsLoginInfo}
               />
               <SaveButtonPopover
                 isSaveable={isSaveable}
-                isDialogOpen={isDialogOpen}
-                openDialog={openDialog}
-                closeDialog={closeDialog}
                 handleTitleChange={handleTitleChange}
                 handleSaveOrUpdate={handleSaveOrUpdate}
                 linkUrl={linkUrl}
