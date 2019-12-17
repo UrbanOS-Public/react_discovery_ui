@@ -61,7 +61,7 @@ const UserProfileView = (props) => {
             columns={columns}
             loading={props.loading}
             defaultPageSize={10}
-            classname="-striped -highlight"
+            className='-striped -highlight'
           />
         </div>
       </div>

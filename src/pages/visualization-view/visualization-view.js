@@ -5,21 +5,21 @@ import { Link } from 'react-router-dom'
 
 import './visualization-view.scss'
 
-import SaveIndicator from '../../components/generic-elements/save-indicator'
+
 import ChartIcon from '../../components/generic-elements/chart-icon'
 import SQLIcon from '../../components/generic-elements/sql-icon'
 import TabButton from '../../components/generic-elements/tab-button'
-import TabButtonPopover from '../../components/generic-elements/tab-button-popover'
 import AutoAnchoringPopover from '../../components/generic-elements/auto-anchoring-popover'
 import ErrorComponent from '../../components/generic-elements/error-component'
+import SaveButtonPopover from '../../components/save-button-popover/'
 
-import FolderIcon from '../../components/generic-elements/folder-icon'
-import SaveIcon from '@material-ui/icons/Save'
-import ClearIcon from '@material-ui/icons/Clear'
+import folderIcon from '../../assets/folder_icon.png'
+
 import ChartView from '../chart-view'
 import QueryView from '../query-view'
 import routes from '../../routes'
 import Auth0LoginZone from '../../components/auth0-login-zone'
+import UserPageButtonPopover from '../../components/user-page-button-popover'
 
 
 
@@ -38,7 +38,7 @@ const VisualizationView = (props) => {
     isSaveable,
     match: { params: { id: idFromUrl } },
     history,
-    auth: { isAuthenticated }
+    auth: {isAuthenticated}
   } = props
 
   const linkUrl = idFromState && generatePath(routes.visualizationView, { id: idFromState })
@@ -61,8 +61,8 @@ const VisualizationView = (props) => {
 
   const openDialog = () => { setDialogOpen(true) }
 
-  const showLoginPrompt = () => { setUserNeedsLoginInfo(true) }
-  const closeLoginPrompt = () => { setUserNeedsLoginInfo(false) }
+  const showLoginPrompt = () => { setUserNeedsLoginInfo(true)}
+  const closeLoginPrompt = () => { setUserNeedsLoginInfo(false)}
 
   const handleSaveOrUpdate = () => {
     save({ id: idFromState, title: localTitle, query })
@@ -76,7 +76,6 @@ const VisualizationView = (props) => {
       </visualization-view>
     )
   }
-
 
   return (
     <visualization-view>
@@ -92,38 +91,23 @@ const VisualizationView = (props) => {
           </span>
           <span className='action-area'>
             <React.Fragment >
-              <TabButtonPopover
-                buttonChildren={
-                  <div title='Saved Visualizations'>
-                    <Link to="/user" className={`header-item link-${isAuthenticated ? 'enabled' : 'disabled'}`}>
-                      <FolderIcon />
-                    </Link>
-                  </div>
-                }
-                anchorChildren={
-                  <div className="login-message">
-                    <p>You need to be logged in to see your visualizations</p>
-                    <Auth0LoginZone />
-                  </div>
-                }
-                buttonEnabled={true}
+              <UserPageButtonPopover
+                isAuthenticated={isAuthenticated}
+                showLoginPrompt={showLoginPrompt}
+                closeLoginPrompt={closeLoginPrompt}
+                userNeedsLoginInfo={userNeedsLoginInfo}
               />
-              <TabButtonPopover
-                buttonChildren={
-                  <div title='Save Visualization'><SaveIcon /></div>
-                }
-                anchorChildren={
-                  <div className="new-visualization-form">
-                    <b>Query Title: </b>
-                    <input className="prompt" type="text" placeholder="Query Name" value={localTitle || ''} onChange={handleTitleChange}></input>
-                    <ClearIcon className='clear-icon' onClick={closeDialog} />
-                    <br />
-                    <button className="save-button" onClick={handleSaveOrUpdate} disabled={localTitle == undefined || localTitle.length == 0}>Save</button>
-                    <button onClick={closeDialog}>Cancel</button>
-                    <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkUrl={linkUrl} />
-                  </div>
-                }
-                buttonEnabled={isSaveable}
+              <SaveButtonPopover
+                isSaveable={isSaveable}
+                isDialogOpen={isDialogOpen}
+                openDialog={openDialog}
+                closeDialog={closeDialog}
+                handleTitleChange={handleTitleChange}
+                handleSaveOrUpdate={handleSaveOrUpdate}
+                linkUrl={linkUrl}
+                isSaveFailure={isSaveFailure}
+                isSaveSuccess={isSaveSuccess}
+                localTitle={localTitle}
               />
             </React.Fragment>
           </span>
