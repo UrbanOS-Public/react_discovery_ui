@@ -4,6 +4,7 @@ import './oauth-view.scss'
 import routes from '../../routes'
 import qs from 'qs'
 import LoadingElement from '../../components/generic-elements/loading-element'
+import ErrorComponent from '../../components/generic-elements/error-component'
 import PropTypes from 'prop-types'
 
 const hasAuthorizationCodeParameter = search => {
@@ -14,7 +15,7 @@ const OAuthView = (props) => {
   const {
     callLoggedIn,
     history: {location: { search }},
-    auth: { handleRedirectCallback, isLoading }
+    auth: { handleRedirectCallback, isLoading, isError },
   } = props
 
   const [handled, setHandled] = useState(false)
@@ -25,13 +26,25 @@ const OAuthView = (props) => {
         try {
           await handleRedirectCallback()
           callLoggedIn()
-        } catch {}
+        } catch {
+          isError=true
+        }
       }
       setHandled(true)
     }
     onMount()
   }, [])
 
+  if (isError) {
+    <oauth-view>
+      <ErrorComponent errorText="sometext" />
+      {
+        isLoading || !handled
+          ? <LoadingElement />
+          : <Redirect to={{pathname: routes.root}} />
+      }
+      </oauth-view>
+  } else {
   return (
     <oauth-view>
     {
@@ -41,6 +54,7 @@ const OAuthView = (props) => {
     }
     </oauth-view>
   )
+  }
 }
 
 OAuthView.propTypes = {
@@ -48,7 +62,8 @@ OAuthView.propTypes = {
   history: PropTypes.object.isRequired,
   auth: PropTypes.shape({
     handleRedirectCallback: PropTypes.func.isRequired,
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    isError: PropTypes.bool
   }).isRequired
 }
 

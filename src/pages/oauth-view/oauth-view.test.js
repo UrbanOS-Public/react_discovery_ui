@@ -4,6 +4,7 @@ import OAuthView from './oauth-view'
 import { Router } from 'react-router'
 import { createMemoryHistory } from 'history'
 import LoadingElement from '../../components/generic-elements/loading-element'
+import ErrorComponent from '../../components/generic-elements/error-component'
 
 const originalError = console.error
 beforeAll(() => {
@@ -39,6 +40,7 @@ describe('OAuth View', () => {
         auth: { handleRedirectCallback }
       })
     })
+
 
     it('calls back to handle the redirect', done => {
       setTimeout(() => {
@@ -96,7 +98,12 @@ describe('OAuth View', () => {
         done()
       })
     })
+
+    it('alerts user there was an error', () => {
+      expect(subject.find(ErrorComponent).length).toBe(1)
+    })
   })
+  
 
   describe('when loading', () => {
     beforeEach(() => {
