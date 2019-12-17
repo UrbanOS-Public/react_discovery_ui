@@ -3,6 +3,7 @@ export default {
   datasetView: '/dataset/:organizationName/:datasetName',
   datasetVisualizationView: '/dataset/:organizationName/:datasetName/visualization',
   visualizationView: '/visualization/:id?',
+  userProfile: '/user',
 
   healthCheck: '/healthcheck',
   login: '/login',

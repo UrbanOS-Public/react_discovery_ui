@@ -3,6 +3,7 @@ import VisualizationView from './visualization-view'
 import { visualizationLoad, visualizationReset, visualizationSave } from '../../store/actions'
 import { getFreestyleQueryText } from '../../store/query-selectors'
 import { visualizationTitle, visualizationSaving, isVisualizationSaveable, visualizationSaveSuccess, visualizationID, visualizationLoadFailure, visualizationSaveFailure, visualizationChart} from '../../store/visualization-selectors'
+import withAuth0 from '../../auth/auth0-wrapper'
 
 const mapStateToProps = state => {
     return {
@@ -24,5 +25,5 @@ const mapDispatchToProps = dispatch => ({
     save: ({id, title, query}) => dispatch(visualizationSave({id, title, query}))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(VisualizationView)
+export default connect(mapStateToProps, mapDispatchToProps)(withAuth0(VisualizationView))
 

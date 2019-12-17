@@ -157,14 +157,29 @@ export const queryDatasetCancelled = (message) => ({
   type: QUERY_DATASET_CANCELLED, value: message
 })
 
-export const VISUALIZATION_LOAD = 'VISUALIZATION_LOAD'
-export const visualizationLoad = (id) => ({
-  type: VISUALIZATION_LOAD, value: id
+export const VISUALIZATIONS_LOAD_ALL = 'VISUALIZATIONS_LOAD_ALL'
+export const visualizationsLoadAll = () => ({
+  type: VISUALIZATIONS_LOAD_ALL
+})
+
+export const VISUALIZATIONS_LOAD_ALL_SUCCESS = 'VISUALIZATIONS_LOAD_ALL_SUCCESS'
+export const visualizationsLoadAllSuccess = (userVisualizations) => ({
+  type: VISUALIZATIONS_LOAD_ALL_SUCCESS, value: userVisualizations
+})
+
+export const VISUALIZATIONS_LOAD_ALL_FAILURE = 'VISUALIZATIONS_LOAD_ALL_FAILURE'
+export const visualizationsLoadAllFailure = () => ({
+  type: VISUALIZATIONS_LOAD_ALL_FAILURE
 })
 
 export const VISUALIZATION_LOAD_SUCCESS = 'VISUALIZATION_LOAD_SUCCESS'
 export const visualizationLoadSuccess = (visualization) => ({
   type: VISUALIZATION_LOAD_SUCCESS, value: visualization
+})
+
+export const VISUALIZATION_LOAD = 'VISUALIZATION_LOAD'
+export const visualizationLoad = (id) => ({
+  type: VISUALIZATION_LOAD, value: id
 })
 
 export const VISUALIZATION_LOAD_FAILURE = 'VISUALIZATION_LOAD_FAILURE'

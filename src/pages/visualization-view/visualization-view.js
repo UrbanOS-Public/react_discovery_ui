@@ -4,18 +4,16 @@ import { generatePath } from 'react-router'
 
 import './visualization-view.scss'
 
-import SaveIndicator from '../../components/generic-elements/save-indicator'
 import ChartIcon from '../../components/generic-elements/chart-icon'
 import SQLIcon from '../../components/generic-elements/sql-icon'
-import TabButton from '../../components/generic-elements/tab-button'
-import AutoAnchoringPopover from '../../components/generic-elements/auto-anchoring-popover'
 import ErrorComponent from '../../components/generic-elements/error-component'
-
-import SaveIcon from '@material-ui/icons/Save'
-import ClearIcon from '@material-ui/icons/Clear'
+import SaveButtonPopover from '../../components/save-button-popover'
 import ChartView from '../chart-view'
 import QueryView from '../query-view'
 import routes from '../../routes'
+import UserPageButtonPopover from '../../components/user-page-button-popover'
+
+
 
 const VisualizationView = (props) => {
   const {
@@ -26,16 +24,15 @@ const VisualizationView = (props) => {
     query,
     title,
     isLoadFailure,
-    isSaving,
     isSaveSuccess,
     isSaveFailure,
     isSaveable,
     match: { params: { id: idFromUrl } },
-    history
+    history,
+    auth: {isAuthenticated}
   } = props
 
   const linkUrl = idFromState && generatePath(routes.visualizationView, { id: idFromState })
-  const [isDialogOpen, setDialogOpen] = useState(false)
   const [localTitle, setLocalTitle] = useState(title || '')
   const startIndex = idFromUrl ? 1 : 0
   const [index, setIndex] = useState(startIndex)
@@ -45,19 +42,15 @@ const VisualizationView = (props) => {
   React.useEffect(() => { if (idFromState && idFromUrl !== idFromState) history.push(linkUrl) }, [idFromState])
   React.useEffect(() => { setLocalTitle(title) }, [title])
 
-
   const handleTitleChange = (event) => {
     if (event.target.value !== localTitle) {
       setLocalTitle(event.target.value)
     }
   }
 
-  const openDialog = () => { setDialogOpen(true) }
-
   const handleSaveOrUpdate = () => {
-    save({id: idFromState, title: localTitle, query})
+    save({ id: idFromState, title: localTitle, query })
   }
-  const closeDialog = () => { setDialogOpen(false); }
 
   if (isLoadFailure) {
     return (
@@ -80,21 +73,19 @@ const VisualizationView = (props) => {
             </Tab>
           </span>
           <span className='action-area'>
-            <React.Fragment>
-              <TabButton disabled={!isSaveable} className={`header-item save-icon ${isDialogOpen && 'saving'}`} onClick={openDialog} >
-                <div title='Save Visualization'><SaveIcon /></div>
-              </TabButton>
-              <AutoAnchoringPopover className='popover-anchor' open={isDialogOpen} onClose={closeDialog} classes={{ paper: 'popover', root: 'popover-root' }} >
-                <div>
-                  <b>Query Title: </b>
-                  <input className="prompt" type="text" placeholder="Query Name" value={localTitle || ''} onChange={handleTitleChange}></input>
-                  <ClearIcon className='clear-icon' onClick={closeDialog} />
-                  <br />
-                  <button className="save-button" onClick={handleSaveOrUpdate} disabled={localTitle == undefined || localTitle.length == 0}>Save</button>
-                  <button onClick={closeDialog}>Cancel</button>
-                  <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkUrl={linkUrl} />
-                </div>
-              </AutoAnchoringPopover>
+            <React.Fragment >
+              <UserPageButtonPopover
+                isAuthenticated={isAuthenticated}
+              />
+              <SaveButtonPopover
+                isSaveable={isSaveable}
+                handleTitleChange={handleTitleChange}
+                handleSaveOrUpdate={handleSaveOrUpdate}
+                linkUrl={linkUrl}
+                isSaveFailure={isSaveFailure}
+                isSaveSuccess={isSaveSuccess}
+                localTitle={localTitle}
+              />
             </React.Fragment>
           </span>
         </TabList>
@@ -102,10 +93,10 @@ const VisualizationView = (props) => {
           <QueryView />
         </TabPanel>
         <TabPanel className="visualization" selectedClassName="visualization--selected">
-          <ChartView/>
+          <ChartView />
         </TabPanel>
       </Tabs>
-    </visualization-view>
+    </visualization-view >
   )
 }
 

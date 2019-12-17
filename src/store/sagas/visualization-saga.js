@@ -1,5 +1,5 @@
 import { takeEvery, put, call, fork, all, select } from 'redux-saga/effects'
-import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText, setChartInformation, executeFreestyleQuery } from '../actions'
+import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, VISUALIZATIONS_LOAD_ALL, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText, setChartInformation, executeFreestyleQuery, visualizationsLoadAllSuccess, visualizationsLoadAllFailure } from '../actions'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import { dereferencedChart } from '../visualization-selectors'
 
@@ -24,6 +24,24 @@ function* loadVisualization({ value: id }) {
   }
 }
 
+function* loadUserVisualizationsSaga() {
+  yield takeEvery(VISUALIZATIONS_LOAD_ALL, loadUserVisualizations)
+}
+
+function* loadUserVisualizations() {
+  try {
+    const response = yield call(AuthenticatedHTTPClient.get, `/api/v1/visualization`)
+
+    if (response.status < 400) {
+      yield put(visualizationsLoadAllSuccess(response.data))
+    } else {
+      yield put(visualizationsLoadAllFailure(response.status))
+    }
+  } catch (e) {
+    yield put(visualizationsLoadAllFailure(e.message))
+  }
+}
+
 function* saveVisualizationSaga() {
   yield takeEvery(VISUALIZATION_SAVE, saveVisualization)
 }
@@ -32,9 +50,9 @@ export function* saveVisualization({ value: visualization }) {
   const chart = yield select(dereferencedChart)
 
   if (visualization.id) {
-    yield handleSaveResponse(() => AuthenticatedHTTPClient.put(`/api/v1/visualization/${visualization.id}`, {...visualization, chart}))
+    yield handleSaveResponse(() => AuthenticatedHTTPClient.put(`/api/v1/visualization/${visualization.id}`, { ...visualization, chart }))
   } else {
-    yield handleSaveResponse(() => AuthenticatedHTTPClient.post(`/api/v1/visualization`, {...visualization, chart}))
+    yield handleSaveResponse(() => AuthenticatedHTTPClient.post(`/api/v1/visualization`, { ...visualization, chart }))
   }
 }
 
@@ -55,7 +73,8 @@ function* handleSaveResponse(clientFunction) {
 export default function* visualizationSaga() {
   yield all([
     fork(loadVisualizationSaga),
-    fork(saveVisualizationSaga)
+    fork(saveVisualizationSaga),
+    fork(loadUserVisualizationsSaga)
   ])
 }
 

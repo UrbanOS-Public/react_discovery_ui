@@ -5,8 +5,6 @@ import VisualizationView from "./visualization-view"
 import QueryView from "../query-view"
 import ChartView from "../chart-view"
 import ErrorComponent from "../../components/generic-elements/error-component"
-import AutoAnchoringPopover from "../../components/generic-elements/auto-anchoring-popover"
-import SaveIndicator from "../../components/generic-elements/save-indicator"
 
 const runUseEffect = () => {
   const useEffect = jest.spyOn(React, "useEffect")
@@ -17,16 +15,13 @@ const runUseEffect = () => {
 }
 
 describe("visualization view", () => {
-  let subject, resetHandler, loadHandler, saveHandler
+  let subject, resetHandler, loadHandler
 
   const id = '123456'
-  const query = 'select * from stuff'
-  const title = 'my query'
 
   beforeEach(() => {
     resetHandler = jest.fn()
     loadHandler = jest.fn()
-    saveHandler = jest.fn()
   })
 
   describe('when visualization id is not provided in the URL', () => {
@@ -143,96 +138,6 @@ describe("visualization view", () => {
       expect(subject.find(QueryView).length).toEqual(0)
     })
   })
-
-  describe("when visualization is not able to be saved", () => {
-    beforeEach(() => {
-      subject = createSubject({ isSaveable: false })
-    })
-
-    it("disables the save button", () => {
-      expect(subject.find('.save-icon').props().disabled).toBeTruthy()
-    })
-  })
-
-  describe("when visualization is able to be saved", () => {
-    beforeEach(() => {
-      subject = createSubject({ isSaveable: true })
-    })
-
-    it("enables the save button", () => {
-      expect(subject.find('.save-icon').props().disabled).toBeFalsy()
-    })
-  })
-
-  describe("when visualization save button is clicked to update a previously saved visualization", () => {
-    beforeEach(() => {
-      subject = createSubject({ isSaving: true, query, title, save: saveHandler})
-
-      subject.find(".save-icon").simulate("click")
-    })
-
-    it("displays the saving status popover", () => {
-      expect(subject.find(AutoAnchoringPopover).props().open).toEqual(true)
-    })
-
-    it('sets the saving indicator', () => {
-      expect(subject.find(SaveIndicator).length).toBe(1)
-    })
-  })
-
-  describe("when visualization save icon is clicked to save a new visualization", () => {
-    beforeEach(() => {
-      subject = createSubject({ isSaving: false, query, save: saveHandler})
-
-      subject.find(".save-icon").simulate("click")
-    })
-
-    it("displays the title prompt popover", () => {
-      expect(subject.find(AutoAnchoringPopover).props().open).toEqual(true)
-      expect(subject.find(".prompt").length).toEqual(1)
-      expect(subject.find(".save-button").length).toEqual(1)
-    })
-
-    it("disables the save button when no query title has been set", () => {
-      expect(subject.find(".save-button").props().disabled).toBeTruthy()
-    })
-
-    it("sends create visualization event with the query, a query title, and the visualization", () => {
-      subject.find(".prompt").simulate("change", {target: { value: 'Query Title'}})
-      subject.find(".save-button").simulate("click")
-      expect(saveHandler).toHaveBeenCalledWith({title: 'Query Title', query})
-    })
-  })
-
-  describe('when save succeeds', () => {
-    beforeEach(() => {
-      subject = createSubject({ isSaveSuccess: true, id })
-      subject.find(".save-icon").simulate("click")
-    })
-
-    it('indicates the save succeeded', () => {
-      expect(subject.find(SaveIndicator).props().success).toBe(true)
-      expect(subject.find(SaveIndicator).props().failure).toBe(false)
-      expect(subject.find(SaveIndicator).props().saving).toBe(false)
-    })
-
-    it('displays a generated link', () => {
-      expect(subject.find(SaveIndicator).props().linkUrl).toBe(`/visualization/${id}`)
-    })
-  })
-
-  describe('when save fails', () => {
-    beforeEach(() => {
-      subject = createSubject({ isSaveFailure: true, id })
-      subject.find(".save-icon").simulate("click")
-    })
-
-    it('indicates the save failed', () => {
-      expect(subject.find(SaveIndicator).props().failure).toBe(true)
-      expect(subject.find(SaveIndicator).props().success).toBe(false)
-      expect(subject.find(SaveIndicator).props().saving).toBe(false)
-    })
-  })
 })
 
 const createSubject = (props = {}) => {
@@ -251,9 +156,10 @@ const createSubject = (props = {}) => {
     isSaveable: false,
     match: { params: {} },
     history: { push: jest.fn() },
-    chart: {}
+    chart: {},
+    auth: { isAuthenticated: false }
   }
   const propsWithDefaults = Object.assign({}, defaultProps, props)
 
-  return shallow(<VisualizationView {...propsWithDefaults}/> )
+  return shallow(<VisualizationView {...propsWithDefaults} />)
 }

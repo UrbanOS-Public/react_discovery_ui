@@ -1,0 +1,18 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+user-page-button-popover {
+
+  .folder-icon {
+    fill: $medium-grey;
+  }
+
+  .folder-icon:hover {
+    fill: $almost-black;
+  }
+
+  .tab-button {
+    outline: none;
+  }
+
+}
