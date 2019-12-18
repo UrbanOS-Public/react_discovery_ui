@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import Auth0LoginZone from '../../components/auth0-login-zone'
 import ReactTable from 'react-table'
 
@@ -59,6 +58,7 @@ const UserProfileView = (props) => {
           <ReactTable
             data={visualizations}
             columns={columns}
+            defaultSorted={[{id: 'updated', 'desc': true}]}
             loading={props.loading}
             defaultPageSize={10}
             className='-striped -highlight'
