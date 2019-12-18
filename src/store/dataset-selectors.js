@@ -15,18 +15,15 @@ const isRemoteDataset = state => dataset(state).sourceType === SOURCE_TYPE.REMOT
 const isHostDataset = state => dataset(state).sourceType === SOURCE_TYPE.HOST;
 const isQueryableDataset = state => isIngestDataset(state) || isStreamingDataset(state);
 
-const isCsvDataset = createSelector(
-  dataset,
-  dataset => {
-    return dataset.sourceFormat && dataset.sourceFormat.toLowerCase() === "csv";
-  }
-);
+const containsFileType = (dataset, fileType) => dataset.fileTypes && dataset.fileTypes.map(type => type.toLowerCase()).includes(fileType)
+
+const isCsvDataset = createSelector(dataset, dataset => containsFileType(dataset, 'csv'))
 
 const isGeoJSONDataset = createSelector(
   dataset,
   isRemoteDataset,
-  (dataset, isRemote) => dataset.sourceFormat === "geojson" && !isRemote
-);
+  (dataset, isRemote) => containsFileType(dataset, 'geojson') && !isRemote
+)
 
 export {
   dataset as getDataset,
