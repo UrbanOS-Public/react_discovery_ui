@@ -1,4 +1,4 @@
-import { getDataset, isStreamingDataset, isIngestDataset, isRemoteDataset, isHostDataset, isCsvDataset, isGeoJSONDataset, isDatasetLoaded } from "./dataset-selectors"
+import { getDataset, isStreamingDataset, isIngestDataset, isRemoteDataset, isHostDataset, isCsvDataset, isGeoJSONDataset, isDatasetLoaded, downloadUrl } from "./dataset-selectors"
 
 describe('datasetSelectors', () => {
   const createState = datasetOpts => {
@@ -94,8 +94,7 @@ describe('datasetSelectors', () => {
         fileTypes: ['json', 'CsV']
       })
 
-      const result = isCsvDataset(state)
-      expect(result).toBe(true)
+      expect(isCsvDataset(state)).toBe(true)
     })
 
     it('returns false when fileTypes does not exist', () => {
@@ -111,8 +110,7 @@ describe('datasetSelectors', () => {
         fileTypes: ['json', 'geoJson']
       })
 
-      const result = isGeoJSONDataset(state)
-      expect(result).toBe(true)
+      expect(isGeoJSONDataset(state)).toBe(true)
     })
 
     it('returns false when fileTypes does not contain geojson', () => {
@@ -120,8 +118,55 @@ describe('datasetSelectors', () => {
         fileTypes: ['json']
       })
 
-      const result = isGeoJSONDataset(state)
-      expect(result).toBeFalsy()
+      expect(isGeoJSONDataset(state)).toBeFalsy()
+    })
+
+    it('returns false when dataset is remote', () => {
+      const state = createState({
+        fileTypes: ['geojson'],
+        sourceType: 'remote'
+      })
+
+      expect(isGeoJSONDataset(state)).toBeFalsy()
+    })
+  })
+
+  describe('datasetUrl', () => {
+    it('returns the source url for remote datasets', () => {
+      const state = createState({
+        sourceType: 'remote',
+        sourceUrl: 'http://stuff.stuff'
+      })
+
+      expect(downloadUrl(state)).toBe('http://stuff.stuff')
+    })
+
+    it('returns a download url with the first file type downcased as the format as for a non-remote dataset', () => {
+      const state = createState({
+        id: 'dataset_id',
+        sourceType: 'ingest',
+        fileTypes: ['A-Positive', 'ONEGATIVE']
+      })
+
+      expect(downloadUrl(state)).toBe(`${window.API_HOST}/api/v1/dataset/dataset_id/download?_format=a-positive`)
+    })
+
+    it('returns a download url with json as the format instead of gtfs', () => {
+      const state = createState({
+        id: 'dataset_id',
+        fileTypes: ['gtfs']
+      })
+
+      expect(downloadUrl(state)).toBe(`${window.API_HOST}/api/v1/dataset/dataset_id/download?_format=json`)
+    })
+
+    it('returns a download url with json when no file types are present', () => {
+      const state = createState({
+        id: 'dataset_id',
+        fileTypes: []
+      })
+
+      expect(downloadUrl(state)).toBe(`${window.API_HOST}/api/v1/dataset/dataset_id/download?_format=json`)
     })
   })
 })

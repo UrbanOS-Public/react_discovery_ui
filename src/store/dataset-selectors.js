@@ -7,6 +7,10 @@ const SOURCE_TYPE = {
   HOST: "host"
 };
 
+const FORMAT_OVERRIDES = {
+  gtfs: 'json'
+}
+
 const dataset = state => state.datasetReducer.dataset || {}
 const isDatasetLoaded = state => state.datasetReducer.dataset !== undefined
 const isStreamingDataset = state => dataset(state).sourceType === SOURCE_TYPE.STREAMING
@@ -25,6 +29,18 @@ const isGeoJSONDataset = createSelector(
   (dataset, isRemote) => containsFileType(dataset, 'geojson') && !isRemote
 )
 
+const downloadUrl = createSelector(dataset, isRemoteDataset,
+  (dataset, isRemote) => {
+    if (isRemote) { return dataset.sourceUrl }
+
+    let format = dataset.fileTypes && dataset.fileTypes.length > 0
+      ? dataset.fileTypes[0].toLowerCase()
+      : 'json'
+    format = FORMAT_OVERRIDES[format] || format
+    return `${window.API_HOST}/api/v1/dataset/${dataset.id}/download?_format=${format}`
+  }
+)
+
 export {
   dataset as getDataset,
   isDatasetLoaded,
@@ -34,5 +50,6 @@ export {
   isHostDataset,
   isQueryableDataset,
   isCsvDataset,
-  isGeoJSONDataset
+  isGeoJSONDataset,
+  downloadUrl
 };
