@@ -15,10 +15,11 @@ const OAuthView = (props) => {
   const {
     callLoggedIn,
     history: {location: { search }},
-    auth: { handleRedirectCallback, isLoading, isError },
+    auth: { handleRedirectCallback, isLoading},
   } = props
 
   const [handled, setHandled] = useState(false)
+  const [isError, setIsError] = useState(false)
 
   useEffect(() => {
     const onMount = async () => {
@@ -26,8 +27,9 @@ const OAuthView = (props) => {
         try {
           await handleRedirectCallback()
           callLoggedIn()
-        } catch {
-          isError=true
+        } 
+        catch {
+          setIsError(true) 
         }
       }
       setHandled(true)
@@ -35,15 +37,11 @@ const OAuthView = (props) => {
     onMount()
   }, [])
 
+
   if (isError) {
-    <oauth-view>
-      <ErrorComponent errorText="sometext" />
-      {
-        isLoading || !handled
-          ? <LoadingElement />
-          : <Redirect to={{pathname: routes.root}} />
-      }
-      </oauth-view>
+    return (
+        <Redirect to={{pathname: routes.root, state: {isError: true, errorMessage: 'Your login attempt was not successful. Please try again.'}}} />
+   )
   } else {
   return (
     <oauth-view>
@@ -62,8 +60,7 @@ OAuthView.propTypes = {
   history: PropTypes.object.isRequired,
   auth: PropTypes.shape({
     handleRedirectCallback: PropTypes.func.isRequired,
-    isLoading: PropTypes.bool,
-    isError: PropTypes.bool
+    isLoading: PropTypes.bool
   }).isRequired
 }
 

@@ -100,17 +100,36 @@ describe('OAuth View', () => {
     })
 
     it('alerts user there was an error', () => {
-      expect(subject.find(ErrorComponent).length).toBe(1)
+      console.log(history.location.state)
+      expect(history.location.state.errorMessage).toBe('Your login attempt was not successful. Please try again.')
+      expect(history.location.pathname).toBe('/')
     })
-  })
-  
+  }) 
+
+  describe('with an auth code in the URL but callLoggedIn failed', () => {
+    beforeEach(() => {
+      history.replace('/oauth?code=someauth0tokenstring')
+      subject = createSubject({
+        callLoggedIn: jest.fn(() => {throw new Error}),
+        history,
+        auth: { handleRedirectCallback }
+      })
+    })
+
+    it('alerts user there was an error', () => {
+      console.log(history.location.state)
+      expect(history.location.state.errorMessage).toBe('Your login attempt was not successful. Please try again.')
+      expect(history.location.pathname).toBe('/')
+    })
+  }) 
 
   describe('when loading', () => {
     beforeEach(() => {
       history.replace('/oauth')
       subject = createSubject({
         history,
-        auth: { handleRedirectCallback: jest.fn(() => Promise.reject()), isLoading: true }
+        auth: { handleRedirectCallback: jest.fn(() => Promise.reject()), isLoading: true },
+        isError: false
       })
     })
 
