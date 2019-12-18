@@ -8,7 +8,8 @@ import {
   getSearchMetadata,
   isSearchLoading,
   getDataSetError,
-  getNumberOfPages
+  getNumberOfPages,
+  getDataSetErrorMessage
 } from "../../store/selectors";
 
 const mapStateToProps = state => {
@@ -16,9 +17,9 @@ const mapStateToProps = state => {
     searchResults: getSearchResults(state),
     searchMetadata: getSearchMetadata(state),
     numberOfPages: getNumberOfPages(state),
-
     isSearchLoading: isSearchLoading(state),
-    isError: getDataSetError(state)
+    isError: getDataSetError(state),
+    errorMessage: getDataSetErrorMessage(state)
   };
 };
 

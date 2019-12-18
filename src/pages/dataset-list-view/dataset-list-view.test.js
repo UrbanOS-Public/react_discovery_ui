@@ -82,12 +82,7 @@ describe("dataset list view", () => {
         expectedNumberOfPages
       );
     });
-
-    it("shows error message when the error property is true", () => {
-      subject = createSubject({ isError: true });
-      expect(subject.find(ErrorComponent)).toHaveLength(1);
-    });
-
+   
     it("shows a loading spinner when the loading property is true", () => {
       subject = createSubject({ isSearchLoading: true });
       expect(subject.find(LoadingElement)).toHaveLength(1);

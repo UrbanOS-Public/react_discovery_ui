@@ -2,6 +2,7 @@ export const getDataSetList = state => state.datasetReducer.datasets;
 export const getFacetList = state => state.datasetReducer.facets;
 export const getTotalNumberOfDatasets = state => state.datasetReducer.total;
 export const getDataSetError = state => state.datasetReducer.datasetError;
+export const getDataSetErrorMessage = state => state.datasetReducer.datasetErrorMessage;
 export const getDataSet = state => state.datasetReducer.dataset;
 export const getDataSetPreview = state => state.presentation.dataset_preview;
 export const getDatasetRecommendations = state =>

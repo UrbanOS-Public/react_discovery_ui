@@ -19,9 +19,9 @@ const DatasetListView = (props) => {
     numberOfPages,
 
     isSearchLoading,
-    isError
+    isError,
+    errorMessage
   } = props
-
 
   const createSortOptions = () => {
     return [
@@ -65,7 +65,7 @@ const DatasetListView = (props) => {
     return (
       <ErrorComponent
         errorText={
-          "We were unable to fetch the datasets, please refresh the page to try again"
+          errorMessage || "We were unable to fetch the datasets, please refresh the page to try again"
         }
       />
     )
@@ -120,7 +120,8 @@ DatasetListView.propTypes = {
   searchMetadata: PropTypes.object.isRequired,
   numberOfPages: PropTypes.number.isRequired,
   isSearchLoading: PropTypes.bool.isRequired,
-  isError: PropTypes.bool
+  isError: PropTypes.bool,
+  errorMessage: PropTypes.string
 }
 
 export default DatasetListView
