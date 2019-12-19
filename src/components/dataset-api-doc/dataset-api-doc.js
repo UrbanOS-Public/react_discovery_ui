@@ -3,10 +3,6 @@ import CollapsableBox from '../../components/collapsable-box'
 import ApiExample from './api-example'
 import { getDefaultFormat } from '../../utils/file-type-utils'
 
-const formats = {
-  gtfs: 'json'
-}
-
 const simpleApiParams = [
   {
     name: 'columns',
