@@ -4,7 +4,7 @@ import SanitizedHTML from 'react-sanitized-html'
 import { QueryStringBuilder } from '../../utils'
 import DownloadButton from '../generic-elements/download-button'
 
-const DatasetDetails = ({ dataset }) => {
+const DatasetDetails = ({ dataset, downloadUrl }) => {
   if (!dataset) {
     return <div />
   }
@@ -14,7 +14,7 @@ const DatasetDetails = ({ dataset }) => {
       <div className='header'>
         <div className='name'>{dataset.title}</div>
         <div className='buttons'>
-          {renderDownloadButton(dataset)}
+          <DownloadButton url={downloadUrl} />
         </div>
       </div>
       <div className='description'>
@@ -36,18 +36,6 @@ const DatasetDetails = ({ dataset }) => {
       }
     </dataset-details >
   )
-}
-
-function renderDownloadButton(dataset) {
-  const formats = {
-    gtfs: 'json'
-  }
-  let sourceFormat = formats[dataset.sourceFormat] || dataset.sourceFormat
-  let nonRemoteUrl = `${window.API_HOST}/api/v1/dataset/${
-    dataset.id
-    }/download?_format=${sourceFormat}`
-  let url = dataset.sourceType === 'remote' ? dataset.sourceUrl : nonRemoteUrl
-  return <DownloadButton url={url} />
 }
 
 const createKeyword = name => (

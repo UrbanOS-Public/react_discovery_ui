@@ -31,7 +31,7 @@ describe('data card element', () => {
     expect(subject.find('.keyword-label').length).toEqual(0)
   })
 
-  test('download dataset button triggers a download', () => {
+  test('keywords link to filtered search', () => {
     subject = shallow(<DatasetDetails dataset={{ keywords: ['COTA', 'Transit Stops'], id: '12345' }} />)
     expect(subject.find('.keyword').filterWhere(n => { return n.text() === 'COTA' }).prop('href')).toMatch(encodeURI('/?facets[keywords][]=COTA'))
   })

@@ -31,7 +31,8 @@ export default class extends Component {
       isRemote,
       isHost,
       isCsv,
-      isGeoJSON
+      isGeoJSON,
+      downloadUrl
     } = this.props;
 
     const streamingExpanded = !isCsv && isStreaming;
@@ -45,7 +46,7 @@ export default class extends Component {
           <Share />
         </div>
         <div className="dataset-details right-section">
-          <DatasetDetails dataset={dataset} />
+          <DatasetDetails dataset={dataset} downloadUrl={downloadUrl} />
           {(isRemote || isHost) && !isGeoJSON && (
             <div className="static-file-explanation">
               This dataset is hosted as a static file and cannot be previewed or
