@@ -141,7 +141,7 @@ describe('datasetSelectors', () => {
       expect(downloadUrl(state)).toBe('http://stuff.stuff')
     })
 
-    it('returns a download url with the first file type downcased as the format as for a non-remote dataset', () => {
+    it('returns a download url with the first file type downcased as the format for a non-remote dataset', () => {
       const state = createState({
         id: 'dataset_id',
         sourceType: 'ingest',

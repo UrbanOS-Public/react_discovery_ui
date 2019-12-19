@@ -59,10 +59,7 @@ export default class extends Component {
           )}
           <DatasetRecommendations dataset={dataset} />
           {isGeoJSON && (
-            <GeoJSONVisualization
-              datasetId={dataset.id}
-              format={dataset.sourceFormat}
-            />
+            <GeoJSONVisualization datasetId={dataset.id} />
           )}
           {isIngest && (
             <DatasetApiDoc dataset={dataset} expanded={apiDocExpanded} />

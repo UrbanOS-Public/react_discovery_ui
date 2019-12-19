@@ -5,7 +5,7 @@ describe('dataset api doc ', () => {
   const dataset = {
     id: 'coda_stuff',
     name: 'data_name',
-    sourceFormat: 'csv',
+    fileTypes: ['CSV'],
     systemName: 'test__dataset',
     organization: { name: 'coda_name' },
     schema: [{ name: "id" }]
@@ -26,7 +26,7 @@ describe('dataset api doc ', () => {
 
   describe('with gtfs format', () => {
     test('the example url maps _format to json', () => {
-      const gtfsDataset = Object.assign({}, dataset, { sourceFormat: 'gtfs' })
+      const gtfsDataset = { ...dataset, ...{ fileTypes: ['GTFS'] } }
       subject = render(<DatasetApiDoc dataset={gtfsDataset} />)
 
       expect(subject.find('.example-code').text()).toMatch('/api/v1/organization/coda_name/dataset/data_name/query?limit=200&_format=json')

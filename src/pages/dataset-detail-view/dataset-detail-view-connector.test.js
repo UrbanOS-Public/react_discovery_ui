@@ -15,7 +15,7 @@ describe('dataset view', () => {
           id: '123',
           sourceType: 'ingest',
           fileTypes: ['CSV'],
-          sourceFormat: "BAD",
+          sourceFormat: 'text/csv',
           organization: {},
           schema: [{ name: 'id', type: 'integer', description: 'id description' }]
         }
