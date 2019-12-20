@@ -1,21 +1,34 @@
 import { shallow } from 'enzyme'
 import { Map } from 'react-leaflet'
 import GeoJSONVisualization from './geojson-visualization'
-import { GeoJSON } from 'react-leaflet'
 import Checkbox from '../../../components/generic-elements/checkbox'
 
 describe('<GeoJSONVisualization />', () => {
-  const downloadDataset = jest.fn()
-  const previewDataset = jest.fn()
-  let wrapper
+  let wrapper, downloadDataset, previewDataset
+
+  beforeEach(() => {
+    downloadDataset = jest.fn()
+    previewDataset = jest.fn()
+  })
+
+  it('calls to preview and download dataset on mount', () => {
+    wrapper = shallow(<GeoJSONVisualization
+      previewDataset={previewDataset}
+      downloadDataset={downloadDataset}
+      datasetId={'345'}
+    />)
+
+    expect(previewDataset).toHaveBeenCalledWith('345', 'geojson')
+    expect(downloadDataset).toHaveBeenCalledWith('345', 'geojson')
+  })
 
   describe('with a downloaded dataset error', () => {
     beforeEach(() => {
       wrapper = shallow(<GeoJSONVisualization
-                          previewDataset={previewDataset}
-                          downloadDataset={downloadDataset}
-                          downloadedDatasetError
-                        />)
+        previewDataset={previewDataset}
+        downloadDataset={downloadDataset}
+        downloadedDatasetError
+      />)
     })
 
     it('renders an error component', () => {
@@ -35,9 +48,9 @@ describe('<GeoJSONVisualization />', () => {
   describe('without downloaded or previewed geoJsonData and error', () => {
     it('renders loader', () => {
       wrapper = shallow(<GeoJSONVisualization
-                          previewDataset={previewDataset}
-                          downloadDataset={downloadDataset}
-                        />)
+        previewDataset={previewDataset}
+        downloadDataset={downloadDataset}
+      />)
 
 
       expect(wrapper.find('LoadingElement').length).toEqual(1)
@@ -76,11 +89,11 @@ describe('<GeoJSONVisualization />', () => {
     describe('and both previewed and downloaded geojson data available', () => {
       beforeEach(() => {
         wrapper = shallow(<GeoJSONVisualization
-                            previewDataset={previewDataset}
-                            downloadDataset={downloadDataset}
-                            downloadedGeoJsonData={downloadedGeoJsonData}
-                            previewedGeoJsonData={previewedGeoJsonData}
-                          />)
+          previewDataset={previewDataset}
+          downloadDataset={downloadDataset}
+          downloadedGeoJsonData={downloadedGeoJsonData}
+          previewedGeoJsonData={previewedGeoJsonData}
+        />)
       })
 
       it('renders map', () => {
@@ -115,10 +128,10 @@ describe('<GeoJSONVisualization />', () => {
     describe('and only previewed geojson data available', () => {
       beforeEach(() => {
         wrapper = shallow(<GeoJSONVisualization
-                            previewDataset={previewDataset}
-                            downloadDataset={downloadDataset}
-                            previewedGeoJsonData={previewedGeoJsonData}
-                          />)
+          previewDataset={previewDataset}
+          downloadDataset={downloadDataset}
+          previewedGeoJsonData={previewedGeoJsonData}
+        />)
       })
 
       it('renders map', () => {
@@ -146,10 +159,10 @@ describe('<GeoJSONVisualization />', () => {
     describe('and only downloaded geojson data available', () => {
       beforeEach(() => {
         wrapper = shallow(<GeoJSONVisualization
-                            previewDataset={previewDataset}
-                            downloadDataset={downloadDataset}
-                            downloadedGeoJsonData={downloadedGeoJsonData}
-                          />)
+          previewDataset={previewDataset}
+          downloadDataset={downloadDataset}
+          downloadedGeoJsonData={downloadedGeoJsonData}
+        />)
       })
 
       it('renders map', () => {
@@ -178,7 +191,7 @@ describe('<GeoJSONVisualization />', () => {
   describe('with geoJsonData with no coordinates', () => {
     it('displays a default bounding box', () => {
       const previewedGeoJsonData = { features: [] }
-      const downloadedGeoJsonData = { features: [], bbox: [null, null, null,null] }
+      const downloadedGeoJsonData = { features: [], bbox: [null, null, null, null] }
       wrapper = shallow(
         <GeoJSONVisualization
           previewDataset={previewDataset}
@@ -193,14 +206,14 @@ describe('<GeoJSONVisualization />', () => {
   })
 
   describe('with no geoJsonData', () => {
-    wrapper = shallow(
-      <GeoJSONVisualization
-        previewDataset={previewDataset}
-        downloadDataset={downloadDataset}
-        previewedGeoJsonData={undefined}
-        downloadedGeoJsonData={undefined} />)
-
     it('the show full data toggle is disabled', () => {
+      wrapper = shallow(
+        <GeoJSONVisualization
+          previewDataset={previewDataset}
+          downloadDataset={downloadDataset}
+          previewedGeoJsonData={undefined}
+          downloadedGeoJsonData={undefined} />)
+
       expect(wrapper.find(Checkbox).props().disabled).toBeTruthy()
     })
   })

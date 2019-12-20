@@ -5,7 +5,8 @@ import {
   clearDatasetDetails,
   clearDatasetPreview
 } from "../../store/actions";
-import { getDataSet, getDataSetError } from "../../store/selectors";
+import { getDataSet } from "../../store/selectors";
+import { downloadUrl } from "../../store/dataset-selectors";
 import {
   isStreamingDataset,
   isIngestDataset,
@@ -23,7 +24,8 @@ const mapStateToProps = state => {
     isRemote: isRemoteDataset(state),
     isHost: isHostDataset(state),
     isCsv: isCsvDataset(state),
-    isGeoJSON: isGeoJSONDataset(state)
+    isGeoJSON: isGeoJSONDataset(state),
+    downloadUrl: downloadUrl(state)
   };
 };
 
