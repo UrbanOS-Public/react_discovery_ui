@@ -1,5 +1,6 @@
 import "./dataset-list-view.scss"
 import PropTypes from 'prop-types'
+import Alert from 'react-bootstrap/Alert'
 import DatasetList from "../../components/dataset-list"
 import Paginator from "../../components/generic-elements/paginator"
 import Select from "../../components/generic-elements/select"
@@ -10,6 +11,7 @@ import LoadingElement from "../../components/generic-elements/loading-element"
 import Checkbox from "../../components/generic-elements/checkbox"
 import { SearchParamsManager } from "../../search-params/search-params-manager"
 import Auth0LoginZone from '../../components/auth0-login-zone'
+import { setShow, useState } from "react"
 
 const DatasetListView = (props) => {
   const {
@@ -20,7 +22,8 @@ const DatasetListView = (props) => {
 
     isSearchLoading,
     isError,
-    errorMessage
+    isGlobalError,
+    globalErrorMessage
   } = props
 
   const createSortOptions = () => {
@@ -61,15 +64,8 @@ const DatasetListView = (props) => {
     return <div className="result-count">{`${resultCountText}${resultCountQueryText}`}</div>
   }
 
-  if (isError) {
-    return (
-      <ErrorComponent
-        errorText={
-          errorMessage || "We were unable to fetch the datasets, please refresh the page to try again"
-        }
-      />
-    )
-  } else {
+  const [show, setShow] = useState(true);
+
     return (
       <dataset-list-view>
         <div className="left-section">
@@ -86,6 +82,10 @@ const DatasetListView = (props) => {
           />
         </div>
         <div className="right-section">
+        {(isError || isGlobalError) && show && 
+        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+          <Alert.Heading>{globalErrorMessage}</Alert.Heading>
+        </Alert>}
           <Search
             className="search"
             defaultText={searchParamsManager.searchText}
@@ -112,7 +112,6 @@ const DatasetListView = (props) => {
       </dataset-list-view>
     )
   }
-}
 
 DatasetListView.propTypes = {
   searchParamsManager: PropTypes.shape(SearchParamsManager.propTypes),
@@ -121,7 +120,8 @@ DatasetListView.propTypes = {
   numberOfPages: PropTypes.number.isRequired,
   isSearchLoading: PropTypes.bool.isRequired,
   isError: PropTypes.bool,
-  errorMessage: PropTypes.string
+  isGlobalError: PropTypes.bool,
+  globalErrorMessage: PropTypes.string
 }
 
 export default DatasetListView

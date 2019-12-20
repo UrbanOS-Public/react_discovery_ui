@@ -9,7 +9,8 @@ import {
   isSearchLoading,
   getDataSetError,
   getNumberOfPages,
-  getDataSetErrorMessage
+  getGlobalErrorState,
+  getGlobalErrorMessage
 } from "../../store/selectors";
 
 const mapStateToProps = state => {
@@ -19,7 +20,8 @@ const mapStateToProps = state => {
     numberOfPages: getNumberOfPages(state),
     isSearchLoading: isSearchLoading(state),
     isError: getDataSetError(state),
-    errorMessage: getDataSetErrorMessage(state)
+    isGlobalError: getGlobalErrorState(state),
+    globalErrorMessage: getGlobalErrorMessage(state)
   };
 };
 
