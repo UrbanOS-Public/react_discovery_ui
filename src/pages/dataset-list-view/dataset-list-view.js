@@ -20,7 +20,6 @@ const DatasetListView = (props) => {
     searchResults,
     searchMetadata,
     numberOfPages,
-
     isSearchLoading,
     isError,
     isGlobalError,

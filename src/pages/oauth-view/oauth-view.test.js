@@ -4,7 +4,7 @@ import OAuthView from './oauth-view'
 import { Router } from 'react-router'
 import { createMemoryHistory } from 'history'
 import LoadingElement from '../../components/generic-elements/loading-element'
-import ErrorComponent from '../../components/generic-elements/error-component'
+import AlertComponent from '../../components/generic-elements/alert-component'
 
 const originalError = console.error
 beforeAll(() => {
@@ -22,13 +22,14 @@ afterAll(() => {
 
 describe('OAuth View', () => {
   let subject
-  let callLoggedInHandler, handleRedirectCallback
+  let callLoggedInHandler, handleRedirectCallback, setGlobalErrorStateHandler
   let history
 
   beforeEach(() => {
     callLoggedInHandler = jest.fn()
     handleRedirectCallback = jest.fn(() => Promise.resolve())
-    history = createMemoryHistory()
+    history = createMemoryHistory(),
+    setGlobalErrorStateHandler = jest.fn()
   })
 
   describe('with an auth code in the URL', () => {
@@ -37,7 +38,8 @@ describe('OAuth View', () => {
       subject = createSubject({
         callLoggedIn: callLoggedInHandler,
         history,
-        auth: { handleRedirectCallback }
+        auth: { handleRedirectCallback },
+        setGlobalErrorState: setGlobalErrorStateHandler
       })
     })
 
@@ -88,7 +90,8 @@ describe('OAuth View', () => {
       subject = createSubject({
         callLoggedIn: callLoggedInHandler,
         history,
-        auth: { handleRedirectCallback: jest.fn(() => Promise.reject()) }
+        auth: { handleRedirectCallback: jest.fn(() => Promise.reject()) },
+        setGlobalErrorState: jest.fn()
       })
     })
 
@@ -101,7 +104,7 @@ describe('OAuth View', () => {
 
     it('alerts user there was an error', () => {
       console.log(history.location.state)
-      expect(history.location.state.errorMessage).toBe('Your login attempt was not successful. Please try again.')
+      expect(history.location.state.errorMessage).toBe('Login was not successful. Please try again.')
       expect(history.location.pathname).toBe('/')
     })
   }) 
@@ -112,13 +115,14 @@ describe('OAuth View', () => {
       subject = createSubject({
         callLoggedIn: jest.fn(() => {throw new Error}),
         history,
-        auth: { handleRedirectCallback }
+        auth: { handleRedirectCallback, isLoading: false },
+        setGlobalErrorState: setGlobalErrorStateHandler
       })
     })
 
     it('alerts user there was an error', () => {
-      console.log(history.location.state)
-      expect(history.location.state.errorMessage).toBe('Your login attempt was not successful. Please try again.')
+      console.log(subject.debug())
+      expect(history.location.state.errorMessage).toBe('Login was not successful. Please try again.')
       expect(history.location.pathname).toBe('/')
     })
   }) 
@@ -128,8 +132,7 @@ describe('OAuth View', () => {
       history.replace('/oauth')
       subject = createSubject({
         history,
-        auth: { handleRedirectCallback: jest.fn(() => Promise.reject()), isLoading: true },
-        isError: false
+        auth: { handleRedirectCallback: jest.fn(() => Promise.reject()), isLoading: true }
       })
     })
 
@@ -168,7 +171,8 @@ const createSubject = (props = {}) => {
   const defaultProps = {
     callLoggedIn: jest.fn(),
     history: createMemoryHistory(),
-    auth: authDefaultProps
+    auth: authDefaultProps,
+    setGlobalErrorState: jest.fn()
   }
 
   const propsWithDefaults = Object.assign({}, defaultProps, props)
@@ -181,6 +185,7 @@ const createSubject = (props = {}) => {
           callLoggedIn={propsWithDefaults.callLoggedIn}
           history={propsWithDefaults.history}
           auth={propsWithDefaults.auth}
+          setGlobalErrorState={propsWithDefaults.setGlobalErrorState}
         />
       </Router>
     )

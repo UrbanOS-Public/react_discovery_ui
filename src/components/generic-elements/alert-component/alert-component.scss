@@ -1,0 +1,6 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+
+alert-component {
+  @import './node_modules/bootstrap/scss/bootstrap.scss';
+}

@@ -6,7 +6,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import 'regenerator-runtime/runtime'
 import TagManager from 'react-gtm-module'
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 window.React = React
 
