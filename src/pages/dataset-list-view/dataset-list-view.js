@@ -1,6 +1,7 @@
 import "./dataset-list-view.scss"
 import PropTypes from 'prop-types'
 import Alert from 'react-bootstrap/Alert'
+import AlertComponent from '../../components/generic-elements/alert-component'
 import DatasetList from "../../components/dataset-list"
 import Paginator from "../../components/generic-elements/paginator"
 import Select from "../../components/generic-elements/select"
@@ -83,9 +84,8 @@ const DatasetListView = (props) => {
         </div>
         <div className="right-section">
         {(isError || isGlobalError) && show && 
-        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
-          <Alert.Heading>{globalErrorMessage}</Alert.Heading>
-        </Alert>}
+        <AlertComponent errorMessage={globalErrorMessage}> </AlertComponent>
+        }
           <Search
             className="search"
             defaultText={searchParamsManager.searchText}
