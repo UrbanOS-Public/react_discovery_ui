@@ -1,18 +1,15 @@
 import "./dataset-list-view.scss"
 import PropTypes from 'prop-types'
-import Alert from 'react-bootstrap/Alert'
 import AlertComponent from '../../components/generic-elements/alert-component'
 import DatasetList from "../../components/dataset-list"
 import Paginator from "../../components/generic-elements/paginator"
 import Select from "../../components/generic-elements/select"
 import Search from "../../components/generic-elements/search"
 import FacetSidebar from "../../components/facet-sidebar"
-import ErrorComponent from "../../components/generic-elements/error-component"
 import LoadingElement from "../../components/generic-elements/loading-element"
 import Checkbox from "../../components/generic-elements/checkbox"
 import { SearchParamsManager } from "../../search-params/search-params-manager"
 import Auth0LoginZone from '../../components/auth0-login-zone'
-import { setShow, useState } from "react"
 
 const DatasetListView = (props) => {
   const {
@@ -21,7 +18,6 @@ const DatasetListView = (props) => {
     searchMetadata,
     numberOfPages,
     isSearchLoading,
-    isError,
     isGlobalError,
     globalErrorMessage,
     dismissGlobalError
@@ -65,8 +61,6 @@ const DatasetListView = (props) => {
     return <div className="result-count">{`${resultCountText}${resultCountQueryText}`}</div>
   }
 
-  const [show, setShow] = useState(true);
-
     return (
       <dataset-list-view>
         <div className="left-section">
@@ -83,7 +77,7 @@ const DatasetListView = (props) => {
           />
         </div>
         <div className="right-section">
-        <AlertComponent errorMessage={globalErrorMessage || ""} closeFunction={dismissGlobalError} showAlert={isGlobalError || false} />
+        <AlertComponent errorMessage={globalErrorMessage} closeFunction={dismissGlobalError} showAlert={isGlobalError} />
         <Search
             className="search"
             defaultText={searchParamsManager.searchText}
@@ -117,7 +111,6 @@ DatasetListView.propTypes = {
   searchMetadata: PropTypes.object.isRequired,
   numberOfPages: PropTypes.number.isRequired,
   isSearchLoading: PropTypes.bool.isRequired,
-  isError: PropTypes.bool,
   isGlobalError: PropTypes.bool,
   globalErrorMessage: PropTypes.string,
   dismissGlobalError: PropTypes.func

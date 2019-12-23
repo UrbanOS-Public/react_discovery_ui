@@ -22,9 +22,9 @@ const AlertComponent = (props) => {
 }
 
 AlertComponent.propTypes = {
-  errorMessage: PropTypes.string.isRequired,
-  showAlert: PropTypes.bool.isRequired,
-  closeFunction: PropTypes.func
+  errorMessage: PropTypes.string,
+  showAlert: PropTypes.bool,
+  closeFunction: PropTypes.func.isRequired
 }
 
 export default AlertComponent

@@ -4,7 +4,6 @@ import './oauth-view.scss'
 import routes from '../../routes'
 import qs from 'qs'
 import LoadingElement from '../../components/generic-elements/loading-element'
-import ErrorComponent from '../../components/generic-elements/error-component'
 import PropTypes from 'prop-types'
 
 const hasAuthorizationCodeParameter = search => {
@@ -25,13 +24,11 @@ const OAuthView = (props) => {
     const onMount = async () => {
       if (hasAuthorizationCodeParameter(search)) {
         try {
-          // throw Error
           await handleRedirectCallback()
           callLoggedIn()
         } 
         catch { 
           setGlobalErrorState(true, "Login was not successful. Please try again.")
-          //undo callback?
         }
       }
       setHandled(true)

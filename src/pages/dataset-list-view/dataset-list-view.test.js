@@ -3,10 +3,10 @@ import DatasetListView from "./dataset-list-view";
 import Paginator from "../../components/generic-elements/paginator";
 import Select from "../../components/generic-elements/select";
 import Search from "../../components/generic-elements/search";
-import ErrorComponent from "../../components/generic-elements/error-component";
 import LoadingElement from "../../components/generic-elements/loading-element";
 import FacetSidebar from "../../components/facet-sidebar";
 import Checkbox from "../../components/generic-elements/checkbox";
+import AlertComponent from "../../components/generic-elements/alert-component";
 
 let subject;
 
@@ -72,6 +72,18 @@ describe("dataset list view", () => {
 
       expect(updatePage).toHaveBeenCalledWith(9000)
     });
+
+    it("closes the alert dialog", () => {
+      const dismissFn = jest.fn()
+
+      subject = createSubject({ isGlobalError: true, globalErrorMessage: "oops!", dismissGlobalError: dismissFn})
+      subject
+        .find(AlertComponent)
+        .props()
+        .closeFunction()
+
+      expect(dismissFn).toHaveBeenCalledTimes(1)
+    });
   });
 
   describe("renders correctly", () => {
@@ -122,12 +134,12 @@ describe("dataset list view", () => {
 
 function createSubject(props, queryString = "") {
   const defaultProps = {
-    isError: false,
     isSearchLoading: false,
     searchMetadata: {},
     searchResults: [],
     numberOfPages: 2,
-    searchParamsManager: {}
+    searchParamsManager: {},
+    dismissGlobalError: jest.fn()
   };
 
   const defaultSearchParams = {

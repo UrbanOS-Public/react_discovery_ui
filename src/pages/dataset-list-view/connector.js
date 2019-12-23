@@ -7,7 +7,6 @@ import {
   getSearchResults,
   getSearchMetadata,
   isSearchLoading,
-  getDataSetError,
   getNumberOfPages,
   getGlobalErrorState,
   getGlobalErrorMessage
@@ -19,7 +18,6 @@ const mapStateToProps = state => {
     searchMetadata: getSearchMetadata(state),
     numberOfPages: getNumberOfPages(state),
     isSearchLoading: isSearchLoading(state),
-    isError: getDataSetError(state),
     isGlobalError: getGlobalErrorState(state),
     globalErrorMessage: getGlobalErrorMessage(state)
   };
