@@ -8,10 +8,4 @@ const mapDispatchToProps = dispatch => ({
   setGlobalErrorState: (message) => dispatch(setGlobalErrorState(message))
 })
 
-
-const mapStateToProps = state => {
-  return {
-    isGlobalError: getGlobalErrorState(state)
-  };
-};
 export default connect(null, mapDispatchToProps)(withAuth0(OAuthView))

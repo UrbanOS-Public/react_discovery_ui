@@ -16,8 +16,7 @@ const OAuthView = (props) => {
     callLoggedIn,
     history: {location: { search }},
     auth: { handleRedirectCallback, isLoading},
-    setGlobalErrorState,
-    isGlobalError
+    setGlobalErrorState
   } = props
 
   const [handled, setHandled] = useState(false)
@@ -39,13 +38,6 @@ const OAuthView = (props) => {
     onMount()
   }, [])
 
-
-  if (isGlobalError) {
-    return (
-        
-        <Redirect to={{pathname: routes.root}} />
-   )
-  } else {
   return (
     <oauth-view>
     {
@@ -56,7 +48,6 @@ const OAuthView = (props) => {
     </oauth-view>
   )
   }
-}
 
 OAuthView.propTypes = {
   callLoggedIn: PropTypes.func.isRequired,
@@ -66,7 +57,6 @@ OAuthView.propTypes = {
     isLoading: PropTypes.bool
   }).isRequired,
   setGlobalErrorState: PropTypes.func,
-  isGlobalError: PropTypes.bool
 }
 
 export default OAuthView

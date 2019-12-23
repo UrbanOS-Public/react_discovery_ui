@@ -90,8 +90,8 @@ describe('OAuth View', () => {
       subject = createSubject({
         callLoggedIn: callLoggedInHandler,
         history,
-        auth: { handleRedirectCallback: jest.fn(() => Promise.reject()) },
-        setGlobalErrorState: jest.fn()
+        auth: { handleRedirectCallback: jest.fn(() => Promise.reject()), isLoading: false },
+        setGlobalErrorState: setGlobalErrorStateHandler
       })
     })
 
@@ -103,26 +103,7 @@ describe('OAuth View', () => {
     })
 
     it('alerts user there was an error', () => {
-      console.log(history.location.state)
-      expect(history.location.state.errorMessage).toBe('Login was not successful. Please try again.')
-      expect(history.location.pathname).toBe('/')
-    })
-  }) 
-
-  describe('with an auth code in the URL but callLoggedIn failed', () => {
-    beforeEach(() => {
-      history.replace('/oauth?code=someauth0tokenstring')
-      subject = createSubject({
-        callLoggedIn: jest.fn(() => {throw new Error}),
-        history,
-        auth: { handleRedirectCallback, isLoading: false },
-        setGlobalErrorState: setGlobalErrorStateHandler
-      })
-    })
-
-    it('alerts user there was an error', () => {
-      console.log(subject.debug())
-      expect(history.location.state.errorMessage).toBe('Login was not successful. Please try again.')
+      expect(setGlobalErrorStateHandler).toHaveBeenCalledWith('Login was not successful. Please try again.')
       expect(history.location.pathname).toBe('/')
     })
   }) 
