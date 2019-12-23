@@ -1,4 +1,5 @@
-import { createSelector } from "reselect";
+import { createSelector } from "reselect"
+import { containsFileType, getDefaultFormat } from '../utils/file-type-utils'
 
 const SOURCE_TYPE = {
   STREAMING: "stream",
@@ -15,18 +16,22 @@ const isRemoteDataset = state => dataset(state).sourceType === SOURCE_TYPE.REMOT
 const isHostDataset = state => dataset(state).sourceType === SOURCE_TYPE.HOST;
 const isQueryableDataset = state => isIngestDataset(state) || isStreamingDataset(state);
 
-const isCsvDataset = createSelector(
-  dataset,
-  dataset => {
-    return dataset.sourceFormat && dataset.sourceFormat.toLowerCase() === "csv";
-  }
-);
+const isCsvDataset = createSelector(dataset, dataset => containsFileType(dataset, 'csv'))
 
 const isGeoJSONDataset = createSelector(
   dataset,
   isRemoteDataset,
-  (dataset, isRemote) => dataset.sourceFormat === "geojson" && !isRemote
-);
+  (dataset, isRemote) => containsFileType(dataset, 'geojson') && !isRemote
+)
+
+const downloadUrl = createSelector(dataset, isRemoteDataset,
+  (dataset, isRemote) => {
+    if (isRemote) { return dataset.sourceUrl }
+
+    const format = getDefaultFormat(dataset)
+    return `${window.API_HOST}/api/v1/dataset/${dataset.id}/download?_format=${format}`
+  }
+)
 
 export {
   dataset as getDataset,
@@ -37,5 +42,6 @@ export {
   isHostDataset,
   isQueryableDataset,
   isCsvDataset,
-  isGeoJSONDataset
+  isGeoJSONDataset,
+  downloadUrl
 };

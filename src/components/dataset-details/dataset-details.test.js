@@ -1,19 +1,7 @@
 import { shallow } from 'enzyme'
 import DatasetDetails from './dataset-details'
 
-const ingestDataset = {
-  id: '123',
-  name: 'COTA Streaming Busses',
-  description: '....',
-  sourceType: 'ingest',
-  sourceFormat: 'csv',
-  sourceUrl: 'http://example.com/sweet-data.csv',
-  organization: {
-    name: "The best in the wolrd"
-  }
-}
-
-describe('data card element', () => {
+describe('dataset details', () => {
   let subject
 
   test('card to render text based on props', () => {
@@ -31,7 +19,7 @@ describe('data card element', () => {
     expect(subject.find('.keyword-label').length).toEqual(0)
   })
 
-  test('download dataset button triggers a download', () => {
+  test('keywords link to filtered search', () => {
     subject = shallow(<DatasetDetails dataset={{ keywords: ['COTA', 'Transit Stops'], id: '12345' }} />)
     expect(subject.find('.keyword').filterWhere(n => { return n.text() === 'COTA' }).prop('href')).toMatch(encodeURI('/?facets[keywords][]=COTA'))
   })

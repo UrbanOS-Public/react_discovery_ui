@@ -25,8 +25,8 @@ export default class GeoJSONVisualization extends React.Component {
   }
 
   componentDidMount() {
-    this.props.downloadDataset(this.props.datasetId, this.props.format)
-    this.props.previewDataset(this.props.datasetId, this.props.format)
+    this.props.downloadDataset(this.props.datasetId, 'geojson')
+    this.props.previewDataset(this.props.datasetId, 'geojson')
   }
 
   onMapToggleClick() {

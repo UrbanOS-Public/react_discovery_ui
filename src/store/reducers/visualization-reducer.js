@@ -9,8 +9,7 @@ import {
   VISUALIZATION_SAVE_SUCCESS,
   VISUALIZATION_SAVE_FAILURE,
   VISUALIZATION_RESET,
-  SET_CHART_INFORMATION,
-  visualizationLoadFailure
+  SET_CHART_INFORMATION
 } from "../actions"
 import { isArray, isPlainObject } from 'lodash'
 import {Link} from 'react-router-dom'

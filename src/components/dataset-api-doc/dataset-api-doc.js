@@ -1,10 +1,7 @@
 import './dataset-api-doc.scss'
 import CollapsableBox from '../../components/collapsable-box'
 import ApiExample from './api-example'
-
-const formats = {
-  gtfs: 'json'
-}
+import { getDefaultFormat } from '../../utils/file-type-utils'
 
 const simpleApiParams = [
   {
@@ -101,19 +98,20 @@ function renderHeader() {
 }
 
 function renderExamples(dataset) {
+  const format = getDefaultFormat(dataset)
   return (
     <div>
       <ApiExample
         title={'Simple query'}
         descriptionHtml={<div>This query selects all columns from the dataset, limited to 200 rows returned.</div>}
-        url={`${window.API_HOST}/api/v1/organization/${dataset.organization.name}/dataset/${dataset.name}/query?limit=200&_format=${formats[dataset.sourceFormat] || dataset.sourceFormat}`}
+        url={`${window.API_HOST}/api/v1/organization/${dataset.organization.name}/dataset/${dataset.name}/query?limit=200&_format=${format}`}
         action='GET'
         params={simpleApiParams}
       />
       <ApiExample
         title={'Freestyle query'}
         descriptionHtml={freestyleDescription()}
-        url={`${window.API_HOST}/api/v1/query?_format=${formats[dataset.sourceFormat] || dataset.sourceFormat}`}
+        url={`${window.API_HOST}/api/v1/query?_format=${format}`}
         action='POST'
         params={freestyleApiParams}
         examples={getFreestyleApiExamples(dataset)}
