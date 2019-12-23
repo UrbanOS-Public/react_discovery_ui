@@ -4,7 +4,6 @@ import OAuthView from './oauth-view'
 import { Router } from 'react-router'
 import { createMemoryHistory } from 'history'
 import LoadingElement from '../../components/generic-elements/loading-element'
-import AlertComponent from '../../components/generic-elements/alert-component'
 
 const originalError = console.error
 beforeAll(() => {
@@ -103,7 +102,7 @@ describe('OAuth View', () => {
     })
 
     it('alerts user there was an error', () => {
-      expect(setGlobalErrorStateHandler).toHaveBeenCalledWith('Login was not successful. Please try again.')
+      expect(setGlobalErrorStateHandler).toHaveBeenCalledWith(true, 'Login was not successful. Please try again.')
       expect(history.location.pathname).toBe('/')
     })
   }) 

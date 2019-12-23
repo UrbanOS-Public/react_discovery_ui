@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import DatasetListView from "./dataset-list-view";
-import { datasetSearch } from "../../store/actions";
+import { setGlobalErrorState } from "../../store/actions";
 import withSearchParamsManager from "../../search-params/search-params-manager"
 
 import {
@@ -25,4 +25,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(withSearchParamsManager(DatasetListView));
+const mapDispatchToProps = dispatch => ({
+  dismissGlobalError: () => dispatch(setGlobalErrorState(false,  ""))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withSearchParamsManager(DatasetListView));

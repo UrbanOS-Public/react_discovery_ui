@@ -25,11 +25,12 @@ const OAuthView = (props) => {
     const onMount = async () => {
       if (hasAuthorizationCodeParameter(search)) {
         try {
+          // throw Error
           await handleRedirectCallback()
           callLoggedIn()
         } 
         catch { 
-          setGlobalErrorState("Login was not successful. Please try again.")
+          setGlobalErrorState(true, "Login was not successful. Please try again.")
           //undo callback?
         }
       }

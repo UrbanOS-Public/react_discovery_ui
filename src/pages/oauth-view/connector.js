@@ -5,7 +5,7 @@ import withAuth0 from '../../auth/auth0-wrapper'
 
 const mapDispatchToProps = dispatch => ({
   callLoggedIn: () => dispatch(oAuthCallLoggedIn()),
-  setGlobalErrorState: (message) => dispatch(setGlobalErrorState(message))
+  setGlobalErrorState: (isGlobalError, globalErrorMessage) => dispatch(setGlobalErrorState(isGlobalError, globalErrorMessage))
 })
 
 export default connect(null, mapDispatchToProps)(withAuth0(OAuthView))

@@ -23,7 +23,8 @@ const DatasetListView = (props) => {
     isSearchLoading,
     isError,
     isGlobalError,
-    globalErrorMessage
+    globalErrorMessage,
+    dismissGlobalError
   } = props
 
   const createSortOptions = () => {
@@ -82,10 +83,8 @@ const DatasetListView = (props) => {
           />
         </div>
         <div className="right-section">
-        {(isError || isGlobalError) && show && 
-        <AlertComponent errorMessage={globalErrorMessage}> </AlertComponent>
-        }
-          <Search
+        <AlertComponent errorMessage={globalErrorMessage || ""} closeFunction={dismissGlobalError} showAlert={isGlobalError || false} />
+        <Search
             className="search"
             defaultText={searchParamsManager.searchText}
             placeholder="Search datasets"
@@ -120,7 +119,8 @@ DatasetListView.propTypes = {
   isSearchLoading: PropTypes.bool.isRequired,
   isError: PropTypes.bool,
   isGlobalError: PropTypes.bool,
-  globalErrorMessage: PropTypes.string
+  globalErrorMessage: PropTypes.string,
+  dismissGlobalError: PropTypes.func
 }
 
 export default DatasetListView

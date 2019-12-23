@@ -105,8 +105,8 @@ const presentationReducer = (state = defaultPresentationState, action) => {
       });
     case SET_GLOBAL_ERROR_STATE:
       return Object.assign({}, state, {
-        isError: true,
-        errorMessage: action.value
+        isError: action.value.isGlobalError,
+        errorMessage: action.value.globalErrorMessage
       });
     default:
       return state;
