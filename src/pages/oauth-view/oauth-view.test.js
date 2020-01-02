@@ -21,13 +21,14 @@ afterAll(() => {
 
 describe('OAuth View', () => {
   let subject
-  let callLoggedInHandler, handleRedirectCallback
+  let callLoggedInHandler, handleRedirectCallback, setGlobalErrorStateHandler
   let history
 
   beforeEach(() => {
     callLoggedInHandler = jest.fn()
     handleRedirectCallback = jest.fn(() => Promise.resolve())
-    history = createMemoryHistory()
+    history = createMemoryHistory(),
+    setGlobalErrorStateHandler = jest.fn()
   })
 
   describe('with an auth code in the URL', () => {
@@ -36,9 +37,11 @@ describe('OAuth View', () => {
       subject = createSubject({
         callLoggedIn: callLoggedInHandler,
         history,
-        auth: { handleRedirectCallback }
+        auth: { handleRedirectCallback },
+        setGlobalErrorState: setGlobalErrorStateHandler
       })
     })
+
 
     it('calls back to handle the redirect', done => {
       setTimeout(() => {
@@ -86,7 +89,8 @@ describe('OAuth View', () => {
       subject = createSubject({
         callLoggedIn: callLoggedInHandler,
         history,
-        auth: { handleRedirectCallback: jest.fn(() => Promise.reject()) }
+        auth: { handleRedirectCallback: jest.fn(() => Promise.reject()), isLoading: false },
+        setGlobalErrorState: setGlobalErrorStateHandler
       })
     })
 
@@ -96,7 +100,12 @@ describe('OAuth View', () => {
         done()
       })
     })
-  })
+
+    it('alerts user there was an error', () => {
+      expect(setGlobalErrorStateHandler).toHaveBeenCalledWith(true, 'Login was not successful. Please try again.')
+      expect(history.location.pathname).toBe('/')
+    })
+  }) 
 
   describe('when loading', () => {
     beforeEach(() => {
@@ -142,7 +151,8 @@ const createSubject = (props = {}) => {
   const defaultProps = {
     callLoggedIn: jest.fn(),
     history: createMemoryHistory(),
-    auth: authDefaultProps
+    auth: authDefaultProps,
+    setGlobalErrorState: jest.fn()
   }
 
   const propsWithDefaults = Object.assign({}, defaultProps, props)
@@ -155,6 +165,7 @@ const createSubject = (props = {}) => {
           callLoggedIn={propsWithDefaults.callLoggedIn}
           history={propsWithDefaults.history}
           auth={propsWithDefaults.auth}
+          setGlobalErrorState={propsWithDefaults.setGlobalErrorState}
         />
       </Router>
     )

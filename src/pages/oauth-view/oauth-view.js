@@ -14,7 +14,8 @@ const OAuthView = (props) => {
   const {
     callLoggedIn,
     history: {location: { search }},
-    auth: { handleRedirectCallback, isLoading }
+    auth: { handleRedirectCallback, isLoading},
+    setGlobalErrorState
   } = props
 
   const [handled, setHandled] = useState(false)
@@ -25,7 +26,10 @@ const OAuthView = (props) => {
         try {
           await handleRedirectCallback()
           callLoggedIn()
-        } catch {}
+        } 
+        catch { 
+          setGlobalErrorState(true, "Login was not successful. Please try again.")
+        }
       }
       setHandled(true)
     }
@@ -41,7 +45,7 @@ const OAuthView = (props) => {
     }
     </oauth-view>
   )
-}
+  }
 
 OAuthView.propTypes = {
   callLoggedIn: PropTypes.func.isRequired,
@@ -49,7 +53,8 @@ OAuthView.propTypes = {
   auth: PropTypes.shape({
     handleRedirectCallback: PropTypes.func.isRequired,
     isLoading: PropTypes.bool
-  }).isRequired
+  }).isRequired,
+  setGlobalErrorState: PropTypes.func,
 }
 
 export default OAuthView

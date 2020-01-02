@@ -1,11 +1,11 @@
 import "./dataset-list-view.scss"
 import PropTypes from 'prop-types'
+import AlertComponent from '../../components/generic-elements/alert-component'
 import DatasetList from "../../components/dataset-list"
 import Paginator from "../../components/generic-elements/paginator"
 import Select from "../../components/generic-elements/select"
 import Search from "../../components/generic-elements/search"
 import FacetSidebar from "../../components/facet-sidebar"
-import ErrorComponent from "../../components/generic-elements/error-component"
 import LoadingElement from "../../components/generic-elements/loading-element"
 import Checkbox from "../../components/generic-elements/checkbox"
 import { SearchParamsManager } from "../../search-params/search-params-manager"
@@ -17,11 +17,11 @@ const DatasetListView = (props) => {
     searchResults,
     searchMetadata,
     numberOfPages,
-
     isSearchLoading,
-    isError
+    isGlobalError,
+    globalErrorMessage,
+    dismissGlobalError
   } = props
-
 
   const createSortOptions = () => {
     return [
@@ -61,15 +61,6 @@ const DatasetListView = (props) => {
     return <div className="result-count">{`${resultCountText}${resultCountQueryText}`}</div>
   }
 
-  if (isError) {
-    return (
-      <ErrorComponent
-        errorText={
-          "We were unable to fetch the datasets, please refresh the page to try again"
-        }
-      />
-    )
-  } else {
     return (
       <dataset-list-view>
         <div className="left-section">
@@ -86,7 +77,8 @@ const DatasetListView = (props) => {
           />
         </div>
         <div className="right-section">
-          <Search
+        <AlertComponent errorMessage={globalErrorMessage} closeFunction={dismissGlobalError} showAlert={isGlobalError} />
+        <Search
             className="search"
             defaultText={searchParamsManager.searchText}
             placeholder="Search datasets"
@@ -112,7 +104,6 @@ const DatasetListView = (props) => {
       </dataset-list-view>
     )
   }
-}
 
 DatasetListView.propTypes = {
   searchParamsManager: PropTypes.shape(SearchParamsManager.propTypes),
@@ -120,7 +111,9 @@ DatasetListView.propTypes = {
   searchMetadata: PropTypes.object.isRequired,
   numberOfPages: PropTypes.number.isRequired,
   isSearchLoading: PropTypes.bool.isRequired,
-  isError: PropTypes.bool
+  isGlobalError: PropTypes.bool,
+  globalErrorMessage: PropTypes.string,
+  dismissGlobalError: PropTypes.func
 }
 
 export default DatasetListView

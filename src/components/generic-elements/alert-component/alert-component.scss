@@ -1,0 +1,26 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+
+alert-component {
+  .close {
+    padding: 0.5rem;
+  }
+
+  .error {
+    background-color: $error-color;
+  }
+
+  .icon {
+    font-size: 20;
+  }
+
+  .errorIcon {
+    opacity: 0.9;
+    margin-right: 0.9rem;
+  }
+
+  .errorMessage {
+    display: flex;
+    align-items: center;
+  }
+}

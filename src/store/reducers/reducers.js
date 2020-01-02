@@ -16,7 +16,8 @@ import {
   DOWNLOAD_DATASET_SUCCEEDED,
   DOWNLOAD_DATASET_FAILED,
   DATASET_SEARCH,
-  DATASET_SEARCH_SUCCEEDED
+  DATASET_SEARCH_SUCCEEDED,
+  SET_GLOBAL_ERROR_STATE
 } from "../actions";
 import visualizationReducer from "./visualization-reducer";
 
@@ -102,7 +103,11 @@ const presentationReducer = (state = defaultPresentationState, action) => {
         lastLoginAttemptFailed: true,
         isLoading: false
       });
-
+    case SET_GLOBAL_ERROR_STATE:
+      return Object.assign({}, state, {
+        isError: action.value.isGlobalError,
+        errorMessage: action.value.globalErrorMessage
+      });
     default:
       return state;
   }

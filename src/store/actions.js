@@ -226,3 +226,9 @@ export const OAUTH_LOGGED_IN = "OAUTH_LOGGED_IN"
 export const oAuthCallLoggedIn = () => ({
   type: OAUTH_LOGGED_IN
 })
+
+export const SET_GLOBAL_ERROR_STATE = "SET_GLOBAL_ERROR_STATE"
+export const setGlobalErrorState = (isGlobalError, globalErrorMessage) => ({
+  type: SET_GLOBAL_ERROR_STATE, value: {isGlobalError, globalErrorMessage}
+})
+
