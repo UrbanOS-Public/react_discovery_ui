@@ -33,7 +33,7 @@ describe('oauth-saga', () => {
     it('sets global error message', () => {
       store.dispatch(oAuthCallLoggedIn())
 
-      expect(store.getState()).toContainEqual(setGlobalErrorState(expectedLoginErrorMessage))
+      expect(store.getState()).toContainEqual(setGlobalErrorState(true, expectedLoginErrorMessage))
     })
   })
 
@@ -45,7 +45,7 @@ describe('oauth-saga', () => {
     it('sets global error message', () => {
       store.dispatch(oAuthCallLoggedIn())
 
-      expect(store.getState()).toContainEqual(setGlobalErrorState(expectedLoginErrorMessage))
+      expect(store.getState()).toContainEqual(setGlobalErrorState(true, expectedLoginErrorMessage))
     })
   })
 })

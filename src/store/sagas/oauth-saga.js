@@ -7,10 +7,10 @@ function* callLoggedIn() {
     const response = yield call(() => AuthenticatedHTTPClient.post('/api/v1/logged-in', ''))
     
     if (response.status >= 400) {
-      yield put(setGlobalErrorState("Login was not successful. Please try again."))
+      yield put(setGlobalErrorState(true, "Login was not successful. Please try again."))
     }
   } catch(e) {
-    yield put(setGlobalErrorState("Login was not successful. Please try again."))
+    yield put(setGlobalErrorState(true, "Login was not successful. Please try again."))
   }
   
 }
