@@ -56,7 +56,7 @@ const QueryView = props => {
         setQueryText={setQueryText}
       />
       <div id="dataset-preview-table">
-        <div id="numRecords">{numRecords}</div>
+        <div data-testid="numRecords" id="numRecords">{numRecords}</div>
         <ReactTable
           data={data}
           defaultPageSize={10}
