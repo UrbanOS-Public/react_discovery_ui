@@ -1,5 +1,4 @@
 import {
-  render,
   mount
 } from 'enzyme'
 import DatasetPreview from './dataset-preview'
@@ -8,7 +7,7 @@ describe('dataset preview', () => {
   describe('ui', () => {
     let subject
     beforeEach(() => {
-      subject = render(<DatasetPreview datasetId={'12345'}
+      subject = mount(<DatasetPreview datasetId={'12345'}
         retrieveDatasetPreview={
           jest.fn()
         }
@@ -34,26 +33,21 @@ describe('dataset preview', () => {
     })
 
     test('should render table headers including column names with dots in them', () => {
-      const tableHeaderSelector = '.rt-resizable-header-content'
+      const headers = subject.find('.rt-resizable-header-content')
+      const actual = headers.map(x => x.text())
 
-      const headers = subject.find(tableHeaderSelector)
-      const children = [...Array(4).keys()].map(x => headers.get(x).children[0].data)
-
-      expect(children).toContain('firstName', 'lastName', 'enrolled', 'firstName.lastName')
+      expect(actual).toContain('firstName', 'lastName', 'enrolled', 'firstName.lastName')
     })
 
     test('should render table rows including data for column names with dots', () => {
-      const tableElementSelector = '.rt-tr .rt-td'
-      const table_elements = subject.find(tableElementSelector)
-      const expected_rows = [
-        ['Joe', 'Smith', 'true', 'Joe Smith'],
-        ['Jane', 'Doe', 'false', 'Jane Doe']
+      const table_elements = subject.find('.rt-tr .rt-td')
+      const expected = [
+        'Joe', 'Smith', 'true', 'Joe Smith',
+        'Jane', 'Doe', 'false', 'Jane Doe'
       ]
+      const actual = table_elements.map((x) => x.text())
 
-      const actual_row1 = [0, 1, 2, 3].map(x => table_elements.get(x).children[0].data)
-      const actual_row2 = [4, 5, 6, 7].map(x => table_elements.get(x).children[0].data)
-      expect(actual_row1).toEqual(expected_rows[0])
-      expect(actual_row2).toEqual(expected_rows[1])
+      expect(actual).toContain(...expected)
     })
   })
 
