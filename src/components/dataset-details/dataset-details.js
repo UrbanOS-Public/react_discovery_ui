@@ -3,6 +3,7 @@ import _ from 'lodash'
 import SanitizedHTML from 'react-sanitized-html'
 import { QueryStringBuilder } from '../../utils'
 import DownloadButton from '../generic-elements/download-button'
+import AuthenticatedLink from '../authenticated-link'
 
 const DatasetDetails = ({ dataset, downloadUrl }) => {
   if (!dataset) {
@@ -11,7 +12,8 @@ const DatasetDetails = ({ dataset, downloadUrl }) => {
 
   return (
     <dataset-details>
-      <div className='dataset-details-header'>
+      <AuthenticatedLink url={downloadUrl} filename={dataset.id}>Download</AuthenticatedLink>
+      <div className='header'>
         <div className='name'>{dataset.title}</div>
         <div className='buttons'>
           <DownloadButton url={downloadUrl} />
