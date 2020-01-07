@@ -88,7 +88,7 @@ describe("query view", () => {
   })
 
   describe('dataset preview table', () => {
-    it("coverts unrenderable values to strings", () => {
+    it("converts unrenderable values to strings", () => {
       const queryData = [
         { object: { value: 1 }, boolean: true, array: [1], nan: NaN, null: null },
         { object: { value: 2 }, boolean: false, array: [2, 3], nan: NaN, null: null }
@@ -107,18 +107,38 @@ describe("query view", () => {
         { object: '{\"value\":1}', boolean: 'true', array: '[1]', nan: '', null: '' },
         { object: '{\"value\":2}', boolean: 'false', array: '[2,3]', nan: '', null: '' }
       ]
-      const expectedColumns = [
-        { Header: 'object', accessor: 'object', headerClassName: "table-header" },
-        { Header: 'boolean', accessor: 'boolean', headerClassName: "table-header" },
-        { Header: 'array', accessor: 'array', headerClassName: "table-header" },
-        { Header: 'nan', accessor: 'nan', headerClassName: "table-header" },
-        { Header: 'null', accessor: 'null', headerClassName: "table-header" }
-      ]
 
       expect(subject.find(ReactTable).prop('data')).toEqual(expectedData)
-      expect(subject.find(ReactTable).prop('columns')).toEqual(expectedColumns)
     });
-  })
+
+    it("can handle column names with dots (.) by giving a custom accessor", () => {
+      const queryData = [
+        { 'first.name': 'Mark', 'last.name': 'Johnson'},
+        { 'first.name': 'George', 'last.name': 'Lakoff'}
+      ]
+      const dataSources = {
+        'first.name': ['Mark', 'George'],
+        'last.name': ['Johnson', 'Lakoff']
+      }
+
+      subject = createSubject({ queryData: queryData, dataSources: dataSources })
+
+      const stringifyAccessor = column => {
+        column.accessor = column.accessor.toString().replace(/\s/g,'')
+        return column
+      }
+
+      const expectedColumns = [
+        { Header: 'first.name', id: 'first.name', accessor: (row) => row[col], headerClassName: "table-header" },
+        { Header: 'last.name', id: 'last.name', accessor: (row) => row[col], headerClassName: "table-header" },
+      ]
+      expectedColumns.map(stringifyAccessor)
+
+      const actualColumns = subject.find(ReactTable).prop('columns').map(stringifyAccessor);
+
+      expect(actualColumns).toEqual(expectedColumns)
+    });
+  });
 });
 
 function createSubject(params) {
