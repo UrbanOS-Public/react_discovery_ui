@@ -96,7 +96,7 @@ const cleanseField = value => {
 
 const determineColumns = dataSources => {
   return Object.keys(dataSources).map(col => {
-    return { Header: col, accessor: col, headerClassName: "table-header" };
+    return { Header: col, id: col, accessor: (row) => row[col], headerClassName: "table-header" };
   })
 }
 
