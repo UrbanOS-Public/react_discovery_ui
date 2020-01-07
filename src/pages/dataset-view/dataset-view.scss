@@ -1,7 +1,10 @@
 @import "../../styles/mixins.scss";
 @import "../../styles/variables.scss";
+@import "../visualization-view/visualization-view.scss";
 
 dataset-view {
+  @extend visualization-view;
+
   .chartIcon {
     padding-left: 5px;
     path {

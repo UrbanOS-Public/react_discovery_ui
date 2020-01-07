@@ -5,7 +5,7 @@ dataset-organization {
   @include flex-column();
   align-items: flex-start;
 
-  .header, .name {
+  .organization-header, .name {
     @include header-small();
   }
 
