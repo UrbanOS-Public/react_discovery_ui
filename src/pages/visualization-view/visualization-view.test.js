@@ -5,6 +5,8 @@ import VisualizationView from "./visualization-view"
 import QueryView from "../query-view"
 import ChartView from "../chart-view"
 import ErrorComponent from "../../components/generic-elements/error-component"
+import SaveButtonPopover from "../../components/save-button-popover";
+import UserPageButtonPopover from "../../components/user-page-button-popover"
 
 const runUseEffect = () => {
   const useEffect = jest.spyOn(React, "useEffect")
@@ -136,6 +138,20 @@ describe("visualization view", () => {
 
     it("does not have a query view component", () => {
       expect(subject.find(QueryView).length).toEqual(0)
+    })
+  })
+
+  describe("visualization view has save and user page icon in the tabs header", () => {
+    beforeEach(() => {
+      subject = createSubject();
+    })
+
+    it("displays the save icon in the header", () => {
+      expect(subject.find(SaveButtonPopover)).toHaveLength(1)
+    })
+
+    it("displays the user page icon in the header", () => {
+      expect(subject.find(UserPageButtonPopover)).toHaveLength(1)
     })
   })
 })
