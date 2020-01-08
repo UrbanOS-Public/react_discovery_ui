@@ -54,7 +54,6 @@ const QueryForm = props => {
   }
 
   const textArea = <textarea
-    data-testid="query"
     style={{ minHeight: `${TEXT_AREA_MIN_HEIGHT}px` }}
     type='text'
     placeholder='SELECT * FROM ...'
