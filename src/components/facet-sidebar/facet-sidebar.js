@@ -33,7 +33,7 @@ export default class extends Component {
             key={title}
           />
         })}
-        <Dialog testId="facetDialog" open={this.state.showDialog} onClose={() => { this.setState({ showDialog: false }) }} >
+        <Dialog open={this.state.showDialog} onClose={() => { this.setState({ showDialog: false }) }} >
           <div data-testid='dialog-content' className='dialog-content'>
             <FacetList
               facets={this.state.dialogFacets}
