@@ -1,0 +1,163 @@
+{
+    "results":[
+       {
+          "title":"CoGo GBFS Station Information",
+          "systemName":"cogo__cogo_gbfs_station_information",
+          "sourceUrl":"https://gbfs.cogobikeshare.com/gbfs/en/station_information.json",
+          "sourceType":"ingest",
+          "organization_title":"COGO",
+          "organization_name":"cogo",
+          "organization_image_url":"https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/cogo.svg",
+          "name":"cogo_gbfs_station_information",
+          "modified":"2019-11-26T14:48:59Z",
+          "lastUpdatedDate":null,
+          "keywords":[
+             "bicycle",
+             "GBFS",
+             "bike share",
+             "cogo",
+             "station information"
+          ],
+          "id":"88765083-c2e6-45c8-9123-4308767de5c4",
+          "fileTypes":[
+             "JSON"
+          ],
+          "description":"This dataset presents information about CoGo bike stations including their name, location, capacity, etc. <p>This dataset is saved in a nested structure, see below for an example query.</p> <p><b>Example Query</b></p> <p>This query joins this dataset with another that describes COGO stations. It will get only the latest status and information of COGO stations.</p> <p> <pre>SELECT * FROM\n  (SELECT station_id,\n          num_bikes_available,\n          num_bikes_disabled,\n          num_docks_available,\n          num_docks_disabled,\n          is_installed,\n          is_renting,\n          is_returning\n   FROM\n        (SELECT data.stations AS stations\n         FROM cogo__cogo_gbfs_station_status\n         ORDER BY last_updated DESC\n         LIMIT 1)\n      CROSS JOIN UNNEST(stations))\nJOIN\n  (SELECT station_id,\n          name,\n          lat,\n          lon,\n          address,\n          capacity\n   FROM\n     (SELECT data.stations AS stations\n      FROM cogo__cogo_gbfs_station_information\n      ORDER BY last_updated DESC\n      LIMIT 1)\n   CROSS JOIN UNNEST(stations)) USING (station_id)\n</pre></p>"
+       },
+       {
+          "title":"CoGo GBFS Station Information (jPath Test)",
+          "systemName":"cogo__cogo_gbfs_station_information_jpath",
+          "sourceUrl":"https://gbfs.cogobikeshare.com/gbfs/en/station_information.json",
+          "sourceType":"ingest",
+          "organization_title":"COGO",
+          "organization_name":"cogo",
+          "organization_image_url":"https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/cogo.svg",
+          "name":"cogo_gbfs_station_information_jpath",
+          "modified":"2019-11-26T14:48:59Z",
+          "lastUpdatedDate":"2020-01-05T03:01:06.687583Z",
+          "keywords":[
+             "bicycle",
+             "GBFS",
+             "bike share",
+             "cogo",
+             "station information"
+          ],
+          "id":"11111111-c2e6-45c8-9123-4308767de5c4",
+          "fileTypes":[
+             "JSON"
+          ],
+          "description":"This dataset presents information about CoGo bike stations including their name, location, capacity, etc. <p>This dataset is saved in a nested structure, see below for an example query.</p> <p><b>Example Query</b></p> <p>This query joins this dataset with another that describes COGO stations. It will get only the latest status and information of COGO stations.</p> <p> <pre>SELECT * FROM\n  (SELECT station_id,\n          num_bikes_available,\n          num_bikes_disabled,\n          num_docks_available,\n          num_docks_disabled,\n          is_installed,\n          is_renting,\n          is_returning\n   FROM\n        (SELECT data.stations AS stations\n         FROM cogo__cogo_gbfs_station_status\n         ORDER BY last_updated DESC\n         LIMIT 1)\n      CROSS JOIN UNNEST(stations))\nJOIN\n  (SELECT station_id,\n          name,\n          lat,\n          lon,\n          address,\n          capacity\n   FROM\n     (SELECT data.stations AS stations\n      FROM cogo__cogo_gbfs_station_information\n      ORDER BY last_updated DESC\n      LIMIT 1)\n   CROSS JOIN UNNEST(stations)) USING (station_id)\n</pre></p>"
+       },
+       {
+          "title":"CoGo GBFS Station Status",
+          "systemName":"cogo__cogo_gbfs_station_status",
+          "sourceUrl":"https://gbfs.cogobikeshare.com/gbfs/en/station_status.json",
+          "sourceType":"ingest",
+          "organization_title":"COGO",
+          "organization_name":"cogo",
+          "organization_image_url":"https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/cogo.svg",
+          "name":"cogo_gbfs_station_status",
+          "modified":"2019-11-26T14:48:59Z",
+          "lastUpdatedDate":null,
+          "keywords":[
+             "bicycle",
+             "GBFS",
+             "bike share",
+             "cogo",
+             "station status"
+          ],
+          "id":"2c4ead71-9dff-4662-a298-5dec3efef31d",
+          "fileTypes":[
+             "JSON"
+          ],
+          "description":"This dataset presents information about statuses of each CoGo bike station identified in the COGO GBFS Station Infomation dataset. Information provided in this dataset includes bikes available, docks available, docks disables, station status of installed, renting and returning, etc. <p>This dataset is saved in a nested structure, see below for an example query.</p> <p><b>Example Query</b></p> <p>This query joins this dataset with another that describes COGO stations. It will get only the latest status and information of COGO stations.</p> <p> <pre>SELECT * FROM\n  (SELECT station_id,\n          num_bikes_available,\n          num_bikes_disabled,\n          num_docks_available,\n          num_docks_disabled,\n          is_installed,\n          is_renting,\n          is_returning\n   FROM\n        (SELECT data.stations AS stations\n         FROM cogo__cogo_gbfs_station_status\n         ORDER BY last_updated DESC\n         LIMIT 1)\n      CROSS JOIN UNNEST(stations))\nJOIN\n  (SELECT station_id,\n          name,\n          lat,\n          lon,\n          address,\n          capacity\n   FROM\n     (SELECT data.stations AS stations\n      FROM cogo__cogo_gbfs_station_information\n      ORDER BY last_updated DESC\n      LIMIT 1)\n   CROSS JOIN UNNEST(stations)) USING (station_id)\n</pre></p>"
+       },
+       {
+          "title":"CoGo GBFS Station Status (jPath Test)",
+          "systemName":"cogo__cogo_gbfs_station_status_jpath",
+          "sourceUrl":"https://gbfs.cogobikeshare.com/gbfs/en/station_status.json",
+          "sourceType":"stream",
+          "organization_title":"COGO",
+          "organization_name":"cogo",
+          "organization_image_url":"https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/cogo.svg",
+          "name":"cogo_gbfs_station_status_jpath",
+          "modified":"2019-11-26T14:48:59Z",
+          "lastUpdatedDate":"2020-01-04T06:12:11.556423Z",
+          "keywords":[
+             "bicycle",
+             "GBFS",
+             "bike share",
+             "cogo",
+             "station status"
+          ],
+          "id":"22222222-9dff-4662-a298-5dec3efef31d",
+          "fileTypes":[
+             "JSON"
+          ],
+          "description":"This dataset presents information about statuses of each CoGo bike station identified in the COGO GBFS Station Infomation dataset. Information provided in this dataset includes bikes available, docks available, docks disables, station status of installed, renting and returning, etc. <p>This dataset is saved in a nested structure, see below for an example query.</p> <p><b>Example Query</b></p> <p>This query joins this dataset with another that describes COGO stations. It will get only the latest status and information of COGO stations.</p> <p> <pre>SELECT * FROM\n  (SELECT station_id,\n          num_bikes_available,\n          num_bikes_disabled,\n          num_docks_available,\n          num_docks_disabled,\n          is_installed,\n          is_renting,\n          is_returning\n   FROM\n        (SELECT data.stations AS stations\n         FROM cogo__cogo_gbfs_station_status\n         ORDER BY last_updated DESC\n         LIMIT 1)\n      CROSS JOIN UNNEST(stations))\nJOIN\n  (SELECT station_id,\n          name,\n          lat,\n          lon,\n          address,\n          capacity\n   FROM\n     (SELECT data.stations AS stations\n      FROM cogo__cogo_gbfs_station_information\n      ORDER BY last_updated DESC\n      LIMIT 1)\n   CROSS JOIN UNNEST(stations)) USING (station_id)\n</pre></p>"
+       },
+       {
+          "title":"CoGo GBFS Station Status test no jpath",
+          "systemName":"cogo__cogo_gbfs_station_status_testnojpath",
+          "sourceUrl":"https://gbfs.cogobikeshare.com/gbfs/en/station_status.json",
+          "sourceType":"stream",
+          "organization_title":"COGO",
+          "organization_name":"cogo",
+          "organization_image_url":"https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/cogo.svg",
+          "name":"cogo_gbfs_station_status_testnojpath",
+          "modified":"2019-11-26T14:48:59Z",
+          "lastUpdatedDate":"2020-01-07T16:24:20.290235Z",
+          "keywords":[
+             "bicycle",
+             "GBFS",
+             "bike share",
+             "cogo",
+             "station status"
+          ],
+          "id":"33333333-9dff-4662-a298-5dec3efef31d",
+          "fileTypes":[
+             "JSON"
+          ],
+          "description":"This dataset presents information about statuses of each CoGo bike station identified in the COGO GBFS Station Infomation dataset. Information provided in this dataset includes bikes available, docks available, docks disables, station status of installed, renting and returning, etc. <p>This dataset is saved in a nested structure, see below for an example query.</p> <p><b>Example Query</b></p> <p>This query joins this dataset with another that describes COGO stations. It will get only the latest status and information of COGO stations.</p> <p> <pre>SELECT * FROM\n  (SELECT station_id,\n          num_bikes_available,\n          num_bikes_disabled,\n          num_docks_available,\n          num_docks_disabled,\n          is_installed,\n          is_renting,\n          is_returning\n   FROM\n        (SELECT data.stations AS stations\n         FROM cogo__cogo_gbfs_station_status\n         ORDER BY last_updated DESC\n         LIMIT 1)\n      CROSS JOIN UNNEST(stations))\nJOIN\n  (SELECT station_id,\n          name,\n          lat,\n          lon,\n          address,\n          capacity\n   FROM\n     (SELECT data.stations AS stations\n      FROM cogo__cogo_gbfs_station_information\n      ORDER BY last_updated DESC\n      LIMIT 1)\n   CROSS JOIN UNNEST(stations)) USING (station_id)\n</pre></p>"
+       }
+    ],
+    "metadata":{
+       "totalDatasets":5,
+       "offset":0,
+       "limit":10,
+       "facets":{
+          "organization":[
+             {
+                "name":"COGO",
+                "count":5
+             }
+          ],
+          "keywords":[
+             {
+                "name":"GBFS",
+                "count":5
+             },
+             {
+                "name":"bicycle",
+                "count":5
+             },
+             {
+                "name":"bike share",
+                "count":5
+             },
+             {
+                "name":"cogo",
+                "count":5
+             },
+             {
+                "name":"station information",
+                "count":2
+             },
+             {
+                "name":"station status",
+                "count":3
+             }
+          ]
+       }
+    }
+ }

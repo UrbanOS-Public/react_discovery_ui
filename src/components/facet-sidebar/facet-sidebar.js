@@ -17,7 +17,7 @@ export default class extends Component {
 
   render () {
     return (
-      <div className='facet-sidebar'>
+      <div data-testid="facet-sidebar" className='facet-sidebar'>
         {_.map(this.props.availableFacets, (rawFacets, title) => {
           const facets = rawFacets.map((facet) => {
             const selected = _.get(this.props, `appliedFacets.${title}`, []).includes(facet.name)
@@ -34,7 +34,7 @@ export default class extends Component {
           />
         })}
         <Dialog open={this.state.showDialog} onClose={() => { this.setState({ showDialog: false }) }} >
-          <div className='dialog-content'>
+          <div data-testid="dialog-content" className='dialog-content'>
             <FacetList
               facets={this.state.dialogFacets}
               title={this.state.dialogTitle}
