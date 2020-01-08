@@ -15,7 +15,7 @@ const search = '[data-testid=search]'
 const routes = {
   allDatasetsLastModified: {
     method: 'GET', 
-    url: 'https://data.dev.internal.smartcolumbusos.com/api/v1/dataset/search?offset=0&limit=10&sort=last_mod&query=&apiAccessible=true',
+    url: '/api/v1/dataset/search?offset=0&limit=10&sort=last_mod&query=&apiAccessible=true',
     response: 'fixture:search_page_spec/all_datasets_last_modified'
   },
   allDatasetsNameAsc: { 
@@ -93,7 +93,7 @@ function isFacetList () {
   cy.get(dialogContent).find('.section').children('.checkbox').should('have.length', 46)
 }
 
-describe('Test functionality on default page', function () {
+describe('Test interactions on the page', function () {
   beforeEach(function () {
     cy.server()
     cy.route(routes.allDatasetsNameAsc)
