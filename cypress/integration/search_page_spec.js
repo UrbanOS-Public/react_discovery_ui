@@ -1,16 +1,15 @@
-const apiAccessibleCheckbox = '[data-testid=left-section] > :nth-child(2) > .checkbox-indicator'
-const organizations = '[data-testid=facet-sidebar] > :nth-child(1)'
-const keywords = '[data-testid=facet-sidebar] > :nth-child(2)'
-const bicycleLink = '[data-testid=facet-sidebar] > :nth-child(2) > :nth-child(2)'
-const cogoLink = '[data-testid=facet-sidebar] > :nth-child(1) > :nth-child(2)'
 const sortSelectBox = '[data-testid=sort-select]'
 const datasetsFoundCount = '[data-testid=result-count]'
-const datasets = '[data-testid=dataset-list]'
 const paginator = '[data-testid=paginator]'
-const firstDataset = '[data-testid=dataset-list] > :nth-child(1)'
 const dialogContent = '[data-testid=dialog-content]'
-const showMoreLink = '[data-testid=show-more-link]'
 const search = '[data-testid=search]'
+const datasets = '[data-testid=dataset-list]'
+const firstDataset = '[data-testid=dataset-list] > :nth-child(1)'
+const apiAccessibleCheckbox = '[data-testid=api-accessible-checkbox]'
+const organizations = '[data-testid=facet-sidebar] > :nth-child(1)'
+const cogoCheckBox = '[data-testid=facet-sidebar] > :nth-child(1) > :nth-child(2) > .checkbox-indicator'
+const keywords = '[data-testid=facet-sidebar] > :nth-child(2)'
+const bicycleCheckBox = '[data-testid=facet-sidebar] > :nth-child(2) > :nth-child(2) > .checkbox-indicator'
 
 const routes = {
   allDatasetsLastModified: {
@@ -128,15 +127,15 @@ describe('Test interactions on the page', function () {
   it('facet list works', function () {
     cy.route(routes.cogoDatasets)
     cy.route(routes.bicycleDatasets)
-    cy.get(cogoLink).click()
+    cy.get(cogoCheckBox).click()
     isCoGoPage()
-    cy.get(cogoLink).click()
+    cy.get(cogoCheckBox).click()
     isDefaultPage()
-    cy.get(bicycleLink).click()
+    cy.get(bicycleCheckBox).click()
     isBicyclePage()
-    cy.get(bicycleLink).click()
+    cy.get(bicycleCheckBox).click()
     isDefaultPage()
-    cy.get(showMoreLink).click()
+    cy.get(keywords).contains('Show more').click()
     isFacetList()
   })
 

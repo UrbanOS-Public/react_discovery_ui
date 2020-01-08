@@ -31,7 +31,6 @@ export default class extends Component {
             showMoreHandler={(title, facets) => this.showMoreHandler(title, facets)}
             limit={10}
             key={title}
-            testId='show-more-link'
           />
         })}
         <Dialog testId="facetDialog" open={this.state.showDialog} onClose={() => { this.setState({ showDialog: false }) }} >
