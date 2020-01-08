@@ -32,7 +32,7 @@ const FacetList = props => {
           ))
           .value()
       }
-      {showMore && <a className='show-more' onClick={() => props.showMoreHandler(props.title, props.facets)}>Show more</a>}
+      {showMore && <a data-testid={props.testId} className='show-more' onClick={() => props.showMoreHandler(props.title, props.facets)}>Show more</a>}
     </div>
   )
 }

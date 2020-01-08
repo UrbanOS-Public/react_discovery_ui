@@ -3,17 +3,15 @@ const organizations = '[data-testid=facet-sidebar] > :nth-child(1)'
 const keywords = '[data-testid=facet-sidebar] > :nth-child(2)'
 const bicycleLink = '[data-testid=facet-sidebar] > :nth-child(2) > :nth-child(2)'
 const cogoLink = '[data-testid=facet-sidebar] > :nth-child(1) > :nth-child(2)'
-// Todo
-const sortSelectBox = '[name="select-order by"]'
+const sortSelectBox = '[data-testid=sort-select]'
 const datasetsFoundCount = '[data-testid=result-count]'
 const datasets = '[data-testid=dataset-list]'
 const paginator = '[data-testid=paginator]'
 const firstDataset = '[data-testid=dataset-list] > :nth-child(1)'
-// Todo
-const seeMoreDialog = '.MuiDialog-root'
 const dialogContent = '[data-testid=dialog-content]'
-// Todo
-const showMoreLink = '.show-more'
+const showMoreLink = '[data-testid=show-more-link]'
+const search = '[data-testid=search]'
+
 const routes = {
   allDatasetsLastModified: {
     method: 'GET', 
@@ -59,6 +57,11 @@ const routes = {
     method: 'GET',
     url: '/sockjs-node/*',
     response: 'fixture:search_page_spec/info.json'
+  },
+  ogripDataset: {
+    method: 'GET',
+    url: '/api/v1/organization/ogrip/dataset/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3',
+    response: 'fixture:search_page_spec/ogrip_dataset'
   }
 }
 
@@ -86,9 +89,7 @@ function isBicyclePage () {
 }
 
 function isFacetList () {
-  cy.get(seeMoreDialog).scrollIntoView().should('be.visible')
   cy.get(dialogContent).find('.section-header').contains('keywords')
-  // Todo use more efficient selector
   cy.get(dialogContent).find('.section').children('.checkbox').should('have.length', 46)
 }
 
@@ -106,7 +107,7 @@ describe('Test functionality on default page', function () {
 
   it('search works', function () {
     cy.route(routes.cotaDatasets)
-    cy.get('[data-testid=search]').type('COTA{enter}')
+    cy.get(search).type('COTA{enter}')
     cy.get(datasetsFoundCount).contains('1 datasets found for "COTA"')
     cy.contains('COTA Real Time Bus Locations')
   })
@@ -144,6 +145,12 @@ describe('Test functionality on default page', function () {
     cy.get(apiAccessibleCheckbox).click()
     cy.get(apiAccessibleCheckbox).not('have.class', 'selected')
     cy.url().should('contain', '?apiAccessible=false&page=1')
+  })
+
+  it('Dataset links work', function() {
+    cy.route(routes.ogripDataset)
+    cy.get(firstDataset).find('.details > .title').click()
+    cy.url().should('contain', '/dataset/ogrip/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3')
   })
 })
 

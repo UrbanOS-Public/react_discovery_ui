@@ -17,7 +17,7 @@ export default class extends Component {
 
   render () {
     return (
-      <div data-testid="facet-sidebar" className='facet-sidebar'>
+      <div data-testid='facet-sidebar' className='facet-sidebar'>
         {_.map(this.props.availableFacets, (rawFacets, title) => {
           const facets = rawFacets.map((facet) => {
             const selected = _.get(this.props, `appliedFacets.${title}`, []).includes(facet.name)
@@ -31,10 +31,11 @@ export default class extends Component {
             showMoreHandler={(title, facets) => this.showMoreHandler(title, facets)}
             limit={10}
             key={title}
+            testId='show-more-link'
           />
         })}
-        <Dialog open={this.state.showDialog} onClose={() => { this.setState({ showDialog: false }) }} >
-          <div data-testid="dialog-content" className='dialog-content'>
+        <Dialog testId="facetDialog" open={this.state.showDialog} onClose={() => { this.setState({ showDialog: false }) }} >
+          <div data-testid='dialog-content' className='dialog-content'>
             <FacetList
               facets={this.state.dialogFacets}
               title={this.state.dialogTitle}

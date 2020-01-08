@@ -91,6 +91,7 @@ const DatasetListView = (props) => {
               label="order by"
               options={createSortOptions()}
       selectChangeCallback={searchParamsManager.updateSortOrder}
+              testId='sort-select'
             />
           </div>
           {renderDatasetList()}
