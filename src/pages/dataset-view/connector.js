@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import DatasetView from './dataset-view'
-import { retrieveDatasetDetails, resetQuery, visualizationSave } from '../../store/actions'
+import { retrieveDatasetDetails, resetQuery, visualizationSave, visualizationReset } from '../../store/actions'
 import { getDataset, isRemoteDataset, isHostDataset, isDatasetLoaded } from '../../store/dataset-selectors'
 import { getFreestyleQueryText } from '../../store/query-selectors'
 import { isVisualizationSaveable, visualizationSaveSuccess, visualizationSaveFailure, visualizationID, visualizationTitle} from '../../store/visualization-selectors'
@@ -26,7 +26,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   save: ({id, title, query}) => dispatch(visualizationSave({id, title, query})),
   retrieveDatasetDetails: (org_name, dataset_name) => dispatch(retrieveDatasetDetails(org_name, dataset_name)),
-  resetQuery: () => dispatch(resetQuery())
+  reset: () => { dispatch(visualizationReset()); dispatch(resetQuery()) }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withAuth0(DatasetView))

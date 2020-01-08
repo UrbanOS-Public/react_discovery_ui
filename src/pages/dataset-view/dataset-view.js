@@ -19,7 +19,7 @@ import SaveButtonPopover from "../../components/save-button-popover"
 export default class extends Component {
   constructor(props) {
     super();
-    this.state = { index: 0, localTitle: props.title || ''};
+    this.state = { index: 0, localTitle: ''};
   }
 
   generateVisualizationLink(id) {
@@ -27,7 +27,7 @@ export default class extends Component {
   }
 
   componentDidMount() {
-    this.props.resetQuery();
+    this.props.reset();
 
     this.props.retrieveDatasetDetails(
       this.props.match.params.organizationName,
