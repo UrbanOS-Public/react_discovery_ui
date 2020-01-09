@@ -162,7 +162,7 @@ describe('Test facet interaction on the page', function() {
     isDefaultPage()
   })
 
-  it('Show more link and dialog work', function () {
+  it('Show more link works', function () {
     cy.get(keywords).contains('Show more').click()
     isFacetList()
   })
