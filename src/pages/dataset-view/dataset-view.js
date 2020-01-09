@@ -56,6 +56,10 @@ export default class extends Component {
     this.props.save({ id: this.props.idFromState, title: this.state.localTitle, query: this.props.query })
   }
 
+  isNotDatasetDetailsTab() {
+    return this.state.index !== 0
+  }
+
   render() {
     if (!this.props.isDatasetLoaded) {
       return (
@@ -82,26 +86,28 @@ export default class extends Component {
         >
           <TabList className="header">
             <span className='tab-area'>
-              <Tab>Dataset Details</Tab>
-              <Tab>Write SQL <SQLIcon className='sqlIcon' /></Tab>
-              <Tab>Visualize <ChartIcon className='chartIcon' /></Tab>
+              <Tab className="datasetDetails">Dataset Details</Tab>
+              <Tab className="writeSql">Write SQL <SQLIcon className='sqlIcon' /></Tab>
+              <Tab className="visualize">Visualize <ChartIcon className='chartIcon' /></Tab>
             </span>
-            <span className='action-area'>
-              <React.Fragment >
-                <UserPageButtonPopover
-                  isAuthenticated={this.props.auth.isAuthenticated}
-                />
-                <SaveButtonPopover
-                  isSaveable={this.props.isSaveable}
-                  handleTitleChange={this.handleTitleChange.bind(this)}
-                  handleSaveOrUpdate={this.handleSaveOrUpdate.bind(this)}
-                  linkUrl={this.generateVisualizationLink()}
-                  isSaveFailure={this.props.isSaveFailure}
-                  isSaveSuccess={this.props.isSaveSuccess}
-                  localTitle={this.state.localTitle}
-                />
-              </React.Fragment>
-            </span>
+            {this.isNotDatasetDetailsTab() &&
+              <span className='action-area'>
+                <React.Fragment >
+                  <UserPageButtonPopover
+                    isAuthenticated={this.props.auth.isAuthenticated}
+                  />
+                  <SaveButtonPopover
+                    isSaveable={this.props.isSaveable}
+                    handleTitleChange={this.handleTitleChange.bind(this)}
+                    handleSaveOrUpdate={this.handleSaveOrUpdate.bind(this)}
+                    linkUrl={this.generateVisualizationLink()}
+                    isSaveFailure={this.props.isSaveFailure}
+                    isSaveSuccess={this.props.isSaveSuccess}
+                    localTitle={this.state.localTitle}
+                  />
+                </React.Fragment>
+              </span>
+            }
           </TabList>
           <TabPanel forceRender={true}>
             <DatasetDetailView />

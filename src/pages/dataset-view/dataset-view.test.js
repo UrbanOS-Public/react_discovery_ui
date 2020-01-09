@@ -44,11 +44,19 @@ describe("dataset view", () => {
   })
 
   it("displays the save icon in the header", () => {
+    subject.setState({index: 1})
     expect(subject.find(SaveButtonPopover)).toHaveLength(1)
   })
 
   it("displays the user page icon in the header", () => {
+    subject.setState({index: 1})
     expect(subject.find(UserPageButtonPopover)).toHaveLength(1)
+  })
+
+  it("hides the save and user page icon on the dataset detail tab", () => {
+    subject.setState({index: 0})
+    expect(subject.find(SaveButtonPopover)).toHaveLength(0)
+    expect(subject.find(UserPageButtonPopover)).toHaveLength(0)
   })
 })
 
