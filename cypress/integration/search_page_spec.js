@@ -1,68 +1,9 @@
-const sortSelectBox = '[data-testid=sort-select]'
-const datasetsFoundCount = '[data-testid=result-count]'
-const paginator = '[data-testid=paginator]'
-const dialogContent = '[data-testid=dialog-content]'
-const search = '[data-testid=search]'
-const datasets = '[data-testid=dataset-list]'
-const firstDataset = '[data-testid=dataset-list] > :nth-child(1)'
-const apiAccessibleCheckbox = '[data-testid="checkbox-indicator-API Accessible"]'
-const organizations = '[data-testid=facet-list-organization]'
-const cogoCheckBox = '[data-testid="checkbox-indicator-COGO (5)"]'
-const keywords = '[data-testid=facet-list-keywords]'
-const bicycleCheckBox = '[data-testid="checkbox-indicator-bicycle (5)"]'
-
-const routes = {
-  allDatasetsLastModified: {
-    method: 'GET', 
-    url: '/api/v1/dataset/search?offset=0&limit=10&sort=last_mod&query=&apiAccessible=true',
-    response: 'fixture:search_page_spec/all_datasets_last_modified'
-  },
-  allDatasetsNameAsc: { 
-    method: 'GET', 
-    url: '/api/v1/dataset/search?offset=0&limit=10&sort=name_asc&query=&apiAccessible=true', 
-    response: 'fixture:search_page_spec/all_datasets_name_asc'
-  },
-  allDatasetsNameDesc: {
-    method: 'GET', 
-    url: '/api/v1/dataset/search?offset=0&limit=10&sort=name_desc&query=&apiAccessible=true',
-    response: 'fixture:search_page_spec/all_datasets_name_desc'
-  },
-  allDatasetsPage2: {
-    method: 'GET',
-    url: '/api/v1/dataset/search?offset=10&limit=10&sort=name_asc&query=&apiAccessible=true',
-    response: 'fixture:search_page_spec/all_datasets_page_2'
-  },
-  apiAccessibleFalseDatasets: {
-    method: 'GET',
-    url: '/api/v1/dataset/search?offset=0&limit=10&sort=name_asc&query=&apiAccessible=false',
-    response: 'fixture:search_page_spec/apiAccessible_false_datasets'
-  },
-  bicycleDatasets: {
-    method: 'GET',
-    url: '/api/v1/dataset/search?offset=0&limit=10&sort=name_asc&query=&facets[keywords][]=bicycle&apiAccessible=true',
-    response: 'fixture:search_page_spec/bicycle_datasets'
-  },
-  cogoDatasets: {
-    method: 'GET',
-    url: '/api/v1/dataset/search?offset=0&limit=10&sort=name_asc&query=&facets[organization][]=COGO&apiAccessible=true',
-    response: 'fixture:search_page_spec/cogo_datasets'
-  },
-  cotaDatasets: {
-    method: 'GET',
-    url: '/api/v1/dataset/search?offset=0&limit=10&sort=name_asc&query=COTA&apiAccessible=true',
-    response: 'fixture:search_page_spec/cota_datasets'
-  },
-  info: {
-    method: 'GET',
-    url: '/sockjs-node/*',
-    response: 'fixture:search_page_spec/info.json'
-  },
-  ogripDataset: {
-    method: 'GET',
-    url: '/api/v1/organization/ogrip/dataset/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3',
-    response: 'fixture:search_page_spec/ogrip_dataset'
-  }
-}
+import { Selectors, Routes } from '../support/search_page.js'
+const { sortSelectBox, datasetsFoundCount, paginator, dialogContent, search, datasets, firstDataset, 
+  apiAccessibleCheckbox, organizations, cogoCheckBox, keywords, bicycleCheckBox} = Selectors
+const {
+  routes
+} = Routes
 
 function isDefaultPage () {
   cy.get(organizations).children('.checkbox').should('have.length', 8)
@@ -92,7 +33,7 @@ function isFacetList () {
   cy.get(dialogContent).find('.section').children('.checkbox').should('have.length', 46)
 }
 
-describe('Test search interactions on the page', function () {
+describe('Search interactions on the page', function () {
   beforeEach(function () {
     cy.server()
     cy.route(routes.allDatasetsNameAsc)
@@ -138,7 +79,7 @@ describe('Test search interactions on the page', function () {
   })
 })
 
-describe('Test facet interaction on the page', function() {
+describe('Facet interaction on the page', function() {
   beforeEach(function () {
     cy.server()
     cy.route(routes.allDatasetsNameAsc)
@@ -169,7 +110,7 @@ describe('Test facet interaction on the page', function() {
 
 })
 
-describe('Test deep linking', function () {
+describe('Deep linking', function () {
   beforeEach(function () {
     cy.server()
     cy.route(routes.info)
