@@ -5,11 +5,11 @@ const dialogContent = '[data-testid=dialog-content]'
 const search = '[data-testid=search]'
 const datasets = '[data-testid=dataset-list]'
 const firstDataset = '[data-testid=dataset-list] > :nth-child(1)'
-const apiAccessibleCheckbox = '[data-testid=api-accessible-checkbox]'
-const organizations = '[data-testid=facet-sidebar] > :nth-child(1)'
-const cogoCheckBox = '[data-testid=facet-sidebar] > :nth-child(1) > :nth-child(2) > .checkbox-indicator'
-const keywords = '[data-testid=facet-sidebar] > :nth-child(2)'
-const bicycleCheckBox = '[data-testid=facet-sidebar] > :nth-child(2) > :nth-child(2) > .checkbox-indicator'
+const apiAccessibleCheckbox = '[data-testid="checkbox-indicator-API Accessible"]'
+const organizations = '[data-testid=facet-list-organization]'
+const cogoCheckBox = '[data-testid="checkbox-indicator-COGO (5)"]'
+const keywords = '[data-testid=facet-list-keywords]'
+const bicycleCheckBox = '[data-testid="checkbox-indicator-bicycle (5)"]'
 
 const routes = {
   allDatasetsLastModified: {

@@ -69,7 +69,6 @@ const DatasetListView = (props) => {
       clickHandler={searchParamsManager.toggleApiAccessible}
             text="API Accessible"
       selected={searchParamsManager.apiAccessible}
-      testId="api-accessible-checkbox"
           />
           <FacetSidebar
             availableFacets={searchMetadata.facets}
