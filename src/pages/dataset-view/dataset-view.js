@@ -19,11 +19,11 @@ import SaveButtonPopover from "../../components/save-button-popover"
 export default class extends Component {
   constructor(props) {
     super();
-    this.state = { index: 0, localTitle: ''};
+    this.state = { index: 0, localTitle: '' };
   }
 
-  generateVisualizationLink(id) {
-    return (id && generatePath(routes.visualizationView, { id: id }))
+  generateVisualizationLink() {
+    return this.props.id && generatePath(routes.visualizationView, { id: this.props.id })
   }
 
   componentDidMount() {
@@ -48,15 +48,13 @@ export default class extends Component {
 
   handleTitleChange(event) {
     if (event.target.value !== this.state.localTitle) {
-      this.setState({localTitle: event.target.value})
+      this.setState({ localTitle: event.target.value })
     }
   }
 
   handleSaveOrUpdate() {
-    console.log("this is what were saving", this.props.idFromState, this.state.localTitle, this.props.query)
     this.props.save({ id: this.props.idFromState, title: this.state.localTitle, query: this.props.query })
   }
-
 
   render() {
     if (!this.props.isDatasetLoaded) {
@@ -89,21 +87,21 @@ export default class extends Component {
               <Tab>Visualize <ChartIcon className='chartIcon' /></Tab>
             </span>
             <span className='action-area'>
-            <React.Fragment >
-              <UserPageButtonPopover
-                isAuthenticated={this.props.auth.isAuthenticated}
-              />
-              <SaveButtonPopover
-                isSaveable={this.props.isSaveable}
-                handleTitleChange={this.handleTitleChange.bind(this)}
-                handleSaveOrUpdate={this.handleSaveOrUpdate.bind(this)}
-                linkUrl={this.generateVisualizationLink(this.props.id)}
-                isSaveFailure={this.props.isSaveFailure}
-                isSaveSuccess={this.props.isSaveSuccess}
-                localTitle={this.state.localTitle}
-              />
-            </React.Fragment>
-          </span>
+              <React.Fragment >
+                <UserPageButtonPopover
+                  isAuthenticated={this.props.auth.isAuthenticated}
+                />
+                <SaveButtonPopover
+                  isSaveable={this.props.isSaveable}
+                  handleTitleChange={this.handleTitleChange.bind(this)}
+                  handleSaveOrUpdate={this.handleSaveOrUpdate.bind(this)}
+                  linkUrl={this.generateVisualizationLink()}
+                  isSaveFailure={this.props.isSaveFailure}
+                  isSaveSuccess={this.props.isSaveSuccess}
+                  localTitle={this.state.localTitle}
+                />
+              </React.Fragment>
+            </span>
           </TabList>
           <TabPanel forceRender={true}>
             <DatasetDetailView />
