@@ -17,7 +17,7 @@ import UserPageButtonPopover from "../../components/user-page-button-popover"
 import SaveButtonPopover from "../../components/save-button-popover"
 
 export default class extends Component {
-  constructor(props) {
+  constructor() {
     super();
     this.state = { index: 0, localTitle: '' };
   }
