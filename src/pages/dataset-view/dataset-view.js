@@ -5,21 +5,29 @@ import "react-tabs/style/react-tabs.css";
 import ChartIcon from '../../components/generic-elements/chart-icon'
 import SQLIcon from '../../components/generic-elements/sql-icon'
 import qs from "qs";
+import routes from "../../routes"
+import { generatePath } from "react-router"
 
 import "./dataset-view.scss";
 import QueryView from "../query-view";
 import ChartView from "../chart-view";
 import DatasetDetailView from "../dataset-detail-view";
 import LoadingElement from "../../components/generic-elements/loading-element";
+import UserPageButtonPopover from "../../components/user-page-button-popover"
+import SaveButtonPopover from "../../components/save-button-popover"
 
 export default class extends Component {
   constructor() {
     super();
-    this.state = { index: 0 };
+    this.state = { index: 0, localTitle: '' };
+  }
+
+  generateVisualizationLink() {
+    return this.props.id && generatePath(routes.visualizationView, { id: this.props.id })
   }
 
   componentDidMount() {
-    this.props.resetQuery();
+    this.props.reset();
 
     this.props.retrieveDatasetDetails(
       this.props.match.params.organizationName,
@@ -36,6 +44,20 @@ export default class extends Component {
       ignoreQueryPrefix: true
     });
     return selectedIndex ? parseInt(selectedIndex) : 0;
+  }
+
+  handleTitleChange(event) {
+    if (event.target.value !== this.state.localTitle) {
+      this.setState({ localTitle: event.target.value })
+    }
+  }
+
+  handleSaveOrUpdate() {
+    this.props.save({ id: this.props.idFromState, title: this.state.localTitle, query: this.props.query })
+  }
+
+  isNotDatasetDetailsTab() {
+    return this.state.index !== 0
   }
 
   render() {
@@ -62,10 +84,30 @@ export default class extends Component {
           selectedIndex={this.state.index}
           onSelect={tabIndex => this.setState({ index: tabIndex })}
         >
-          <TabList>
-            <Tab>Dataset Details</Tab>
-            <Tab>Write SQL <SQLIcon className='sqlIcon' /></Tab>
-            <Tab>Visualize <ChartIcon className='chartIcon' /></Tab>
+          <TabList className="header">
+            <span className='tab-area'>
+              <Tab>Dataset Details</Tab>
+              <Tab>Write SQL <SQLIcon className='sqlIcon' /></Tab>
+              <Tab>Visualize <ChartIcon className='chartIcon' /></Tab>
+            </span>
+            {this.isNotDatasetDetailsTab() &&
+              <span className='action-area'>
+                <React.Fragment >
+                  <UserPageButtonPopover
+                    isAuthenticated={this.props.auth.isAuthenticated}
+                  />
+                  <SaveButtonPopover
+                    isSaveable={this.props.isSaveable}
+                    handleTitleChange={this.handleTitleChange.bind(this)}
+                    handleSaveOrUpdate={this.handleSaveOrUpdate.bind(this)}
+                    linkUrl={this.generateVisualizationLink()}
+                    isSaveFailure={this.props.isSaveFailure}
+                    isSaveSuccess={this.props.isSaveSuccess}
+                    localTitle={this.state.localTitle}
+                  />
+                </React.Fragment>
+              </span>
+            }
           </TabList>
           <TabPanel forceRender={true}>
             <DatasetDetailView />

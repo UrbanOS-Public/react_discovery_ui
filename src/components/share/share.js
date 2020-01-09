@@ -26,7 +26,7 @@ class Share extends React.Component {
 
     return (
       <share-zone>
-        <div className='header'>SHARE DATASET</div>
+        <div className='share-header'>SHARE DATASET</div>
 
         <TwitterShareButton url={shareLocation} className='twitter button'>
           <TwitterIcon iconBgStyle={iconBgStyle} className='icon' size={iconSize} />

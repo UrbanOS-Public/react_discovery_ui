@@ -11,7 +11,7 @@ const DatasetDetails = ({ dataset, downloadUrl }) => {
 
   return (
     <dataset-details>
-      <div className='header'>
+      <div className='dataset-details-header'>
         <div className='name'>{dataset.title}</div>
         <div className='buttons'>
           <DownloadButton url={downloadUrl} />

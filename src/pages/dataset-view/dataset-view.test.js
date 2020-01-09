@@ -6,23 +6,13 @@ import QueryView from "../query-view";
 import ChartView from "../chart-view";
 import DatasetDetailView from "../dataset-detail-view";
 import LoadingElement from "../../components/generic-elements/loading-element";
+import SaveButtonPopover from "../../components/save-button-popover";
+import UserPageButtonPopover from "../../components/user-page-button-popover"
 
 describe("dataset view", () => {
   let subject;
   beforeEach(() => {
-    subject = shallow(
-      <DatasetView
-        match={{ params: { organizationName: "org", datasetName: "dataset" } }}
-        dataset={{}}
-        location={{ search: "?systemName=org__dataset" }}
-        systemName={"org__dataset"}
-        retrieveDatasetDetails={jest.fn()}
-        setQuery={jest.fn()}
-        resetQuery={jest.fn()}
-        isDatasetLoaded={true}
-        shouldAutoExecuteQuery={true}
-      />
-    );
+    subject = createSubject()
   });
 
   it("has three tabs", () => {
@@ -52,23 +42,28 @@ describe("dataset view", () => {
   it("passes shouldAutoExecuteQuery property to the query view", () => {
     expect(subject.find(QueryView).props().shouldAutoExecuteQuery).toBe(true)
   })
+
+  it("displays the save icon in the header", () => {
+    subject.setState({index: 1})
+    expect(subject.find(SaveButtonPopover)).toHaveLength(1)
+  })
+
+  it("displays the user page icon in the header", () => {
+    subject.setState({index: 1})
+    expect(subject.find(UserPageButtonPopover)).toHaveLength(1)
+  })
+
+  it("hides the save and user page icon on the dataset detail tab", () => {
+    subject.setState({index: 0})
+    expect(subject.find(SaveButtonPopover)).toHaveLength(0)
+    expect(subject.find(UserPageButtonPopover)).toHaveLength(0)
+  })
 })
 
 describe("dataset view when dataset is not loaded", () => {
   let subject;
   beforeEach(() => {
-    subject = shallow(
-      <DatasetView
-        match={{ params: { organizationName: "org", datasetName: "dataset" } }}
-        dataset={{}}
-        location={{ search: "?systemName=org__dataset" }}
-        systemName={"org__dataset"}
-        retrieveDatasetDetails={jest.fn()}
-        setQuery={jest.fn()}
-        resetQuery={jest.fn()}
-        isDatasetLoaded={false}
-      />
-    )
+    subject = createSubject({ isDatasetLoaded: false })
   })
 
   it("shows a loading element", () => {
@@ -83,19 +78,7 @@ describe("dataset view when dataset is not loaded", () => {
 describe("dataset view for a remote dataset", () => {
   let subject;
   beforeEach(() => {
-    subject = shallow(
-      <DatasetView
-        match={{ params: { organizationName: "org", datasetName: "dataset" } }}
-        dataset={{}}
-        location={{ search: "?systemName=org__dataset" }}
-        systemName={"org__dataset"}
-        retrieveDatasetDetails={jest.fn()}
-        setQuery={jest.fn()}
-        resetQuery={jest.fn()}
-        isDatasetLoaded={true}
-        isRemoteDataset={true}
-      />
-    )
+    subject = createSubject({isRemoteDataset: true})
   })
 
   it("shows a DatasetDetailView", () => {
@@ -110,19 +93,7 @@ describe("dataset view for a remote dataset", () => {
 describe("dataset view for a host dataset", () => {
   let subject;
   beforeEach(() => {
-    subject = shallow(
-      <DatasetView
-        match={{ params: { organizationName: "org", datasetName: "dataset" } }}
-        dataset={{}}
-        location={{ search: "?systemName=org__dataset" }}
-        systemName={"org__dataset"}
-        retrieveDatasetDetails={jest.fn()}
-        setQuery={jest.fn()}
-        resetQuery={jest.fn()}
-        isDatasetLoaded={true}
-        isHostDataset={true}
-      />
-    )
+    subject = createSubject({isHostDataset: true})
   })
 
   it("shows a DatasetDetailView", () => {
@@ -133,3 +104,25 @@ describe("dataset view for a host dataset", () => {
     expect(subject.find(Tab)).toHaveLength(0)
   })
 })
+
+const createSubject = (props = {} ) => {
+  const defaultProps = {
+    match: { params: { organizationName: "org", datasetName: "dataset" } },
+    dataset: {},
+    location: { search: "?systemName=org__dataset" },
+    systemName: "org__dataset",
+    retrieveDatasetDetails: jest.fn(),
+    setQuery: jest.fn(),
+    resetQuery: jest.fn(),
+    isDatasetLoaded: true,
+    isHostDataset: false,
+    isRemoteDataset: false,
+    reset: jest.fn(),
+    shouldAutoExecuteQuery: true,
+    auth: {isAuthenticated: true}
+  }
+
+  const propsWithDefaults = Object.assign({}, defaultProps, props)
+
+  return shallow(<DatasetView {...propsWithDefaults}/>)
+}

@@ -8,7 +8,7 @@ share-zone {
     margin-top: 1rem;
     border-top: 1px solid $light-grey;
 
-    .header, .name {
+    .share-header, .name {
         @include header-small();
         margin-bottom: 1rem;
     }

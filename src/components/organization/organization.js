@@ -3,7 +3,7 @@ import { QueryStringBuilder } from '../../utils'
 
 export default ({ organization }) => (
   <dataset-organization>
-    <div className='header'>Organization Info</div>
+    <div className='organization-header'>Organization Info</div>
     <a href={`/?${QueryStringBuilder.createFilterQueryString('organization', organization.title)}`}>
       <img className='logo' src={organization.image} />
     </a>
