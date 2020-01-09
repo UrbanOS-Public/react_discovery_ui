@@ -86,9 +86,9 @@ export default class extends Component {
         >
           <TabList className="header">
             <span className='tab-area'>
-              <Tab className="datasetDetails">Dataset Details</Tab>
-              <Tab className="writeSql">Write SQL <SQLIcon className='sqlIcon' /></Tab>
-              <Tab className="visualize">Visualize <ChartIcon className='chartIcon' /></Tab>
+              <Tab>Dataset Details</Tab>
+              <Tab>Write SQL <SQLIcon className='sqlIcon' /></Tab>
+              <Tab>Visualize <ChartIcon className='chartIcon' /></Tab>
             </span>
             {this.isNotDatasetDetailsTab() &&
               <span className='action-area'>
