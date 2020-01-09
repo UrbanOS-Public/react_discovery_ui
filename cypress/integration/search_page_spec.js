@@ -76,13 +76,13 @@ function isDefaultPage () {
 }
 
 function isCoGoPage () {
-  cy.url().should('contain', '?facets%5Borganization%5D%5B%5D=COGO&page=1')
+  cy.url().should('contain', 'organization%5D%5B%5D=COGO&')
   cy.get(organizations).children('.checkbox').should('have.length', 1)
   cy.get(keywords).children('.checkbox').should('have.length', 6)
 }
 
 function isBicyclePage () {
-  cy.url().should('contain', '/?page=1&facets%5Bkeywords%5D%5B%5D=bicycle')
+  cy.url().should('contain', 'keywords%5D%5B%5D=bicycle')
   cy.get(organizations).children('.checkbox').should('have.length', 1)
   cy.get(keywords).children('.checkbox').should('have.length', 6)
 }
@@ -92,7 +92,7 @@ function isFacetList () {
   cy.get(dialogContent).find('.section').children('.checkbox').should('have.length', 46)
 }
 
-describe('Test interactions on the page', function () {
+describe('Test search interactions on the page', function () {
   beforeEach(function () {
     cy.server()
     cy.route(routes.allDatasetsNameAsc)
@@ -124,21 +124,6 @@ describe('Test interactions on the page', function () {
     cy.get(firstDataset).contains('COTA Real Time Bus Locations')
   })
 
-  it('facet list works', function () {
-    cy.route(routes.cogoDatasets)
-    cy.route(routes.bicycleDatasets)
-    cy.get(cogoCheckBox).click()
-    isCoGoPage()
-    cy.get(cogoCheckBox).click()
-    isDefaultPage()
-    cy.get(bicycleCheckBox).click()
-    isBicyclePage()
-    cy.get(bicycleCheckBox).click()
-    isDefaultPage()
-    cy.get(keywords).contains('Show more').click()
-    isFacetList()
-  })
-
   it('API Accessible works', function() {
     cy.route(routes.apiAccessibleFalseDatasets)
     cy.get(apiAccessibleCheckbox).click()
@@ -151,6 +136,37 @@ describe('Test interactions on the page', function () {
     cy.get(firstDataset).find('.details > .title').click()
     cy.url().should('contain', '/dataset/ogrip/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3')
   })
+})
+
+describe('Test facet interaction on the page', function() {
+  beforeEach(function () {
+    cy.server()
+    cy.route(routes.allDatasetsNameAsc)
+    cy.route(routes.info)
+    cy.visit('/')
+    cy.route(routes.cogoDatasets)
+    cy.route(routes.bicycleDatasets)
+  })
+
+  it('Organization facet works', function () {
+    cy.get(cogoCheckBox).click()
+    isCoGoPage()
+    cy.get(cogoCheckBox).click()
+    isDefaultPage()
+  })
+
+  it('keywords facet works', function () {
+    cy.get(bicycleCheckBox).click()
+    isBicyclePage()
+    cy.get(bicycleCheckBox).click()
+    isDefaultPage()
+  })
+
+  it('Show more link and dialog work', function () {
+    cy.get(keywords).contains('Show more').click()
+    isFacetList()
+  })
+
 })
 
 describe('Test deep linking', function () {
