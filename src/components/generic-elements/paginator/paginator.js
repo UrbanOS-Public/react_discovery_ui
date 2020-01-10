@@ -10,7 +10,7 @@ export default ({ className, numberOfPages, currentPage, pageChangeCallback }) =
   const options = calculateOptions(numberOfPages, currentPage)
 
   return (
-    <paginator-element class={className}>
+    <paginator-element data-testid='paginator' class={className}>
       <ArrowButton className='pagination-box arrow' disabled={currentPage === 1} onClick={() => onLeftArrowClick(currentPage, pageChangeCallback)} innerClass='left-arrow' />
       {options.map((text, index) => createOption(index, text, currentPage, pageChangeCallback))}
       <ArrowButton className='pagination-box arrow' disabled={currentPage === numberOfPages} onClick={() => onRightArrowClick(currentPage, numberOfPages, pageChangeCallback)} innerClass='right-arrow' />

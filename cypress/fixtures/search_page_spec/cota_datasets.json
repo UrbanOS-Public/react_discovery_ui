@@ -1,0 +1,58 @@
+{
+    "results":[
+       {
+          "title":"COTA Real Time Bus Locations",
+          "systemName":"central_ohio_transit_authority__cota_stream",
+          "sourceUrl":"http://realtime.cota.com/TMGTFSRealTimeWebService/Vehicle/VehiclePositions.pb",
+          "sourceType":"stream",
+          "organization_title":"Central Ohio Transit Authority",
+          "organization_name":"central_ohio_transit_authority",
+          "organization_image_url":"https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/central_ohio_transit_authority.png",
+          "name":"cota_stream",
+          "modified":"",
+          "lastUpdatedDate":"2020-01-03T20:04:23.990623Z",
+          "keywords":[
+             "buses",
+             "cota",
+             "transit",
+             "near-realtime"
+          ],
+          "id":"90d51c3b-8c01-4ba4-ac24-a3206458f851",
+          "fileTypes":[
+             "BIN"
+          ],
+          "description":"This dataset is a GTFS real time datastream of the COTA bus locations."
+       }
+    ],
+    "metadata":{
+       "totalDatasets":1,
+       "offset":0,
+       "limit":10,
+       "facets":{
+          "organization":[
+             {
+                "name":"Central Ohio Transit Authority",
+                "count":1
+             }
+          ],
+          "keywords":[
+             {
+                "name":"buses",
+                "count":1
+             },
+             {
+                "name":"cota",
+                "count":1
+             },
+             {
+                "name":"near-realtime",
+                "count":1
+             },
+             {
+                "name":"transit",
+                "count":1
+             }
+          ]
+       }
+    }
+ }

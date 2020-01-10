@@ -15,7 +15,7 @@ const FacetList = props => {
   const showMore = props.facets.length > props.limit
 
   return (
-    <div className='section facet-list'>
+    <div data-testid={`facet-list-${props.title}`} className='section facet-list'>
       <div className='section-header'>
         {simplePluralize(props.title)}
       </div>

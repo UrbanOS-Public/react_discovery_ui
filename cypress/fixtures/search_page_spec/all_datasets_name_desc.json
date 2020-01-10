@@ -1,0 +1,478 @@
+{
+    "results":[
+       {
+          "title":"Sample XML Dataset - DEV",
+          "systemName":"scos__sample_xml_dataset_dev",
+          "sourceUrl":"http://www.buckeyetraffic.org/services/Cameras.aspx",
+          "sourceType":"ingest",
+          "organization_title":"Smart Columbus Operating System",
+          "organization_name":"scos",
+          "organization_image_url":"https://prod-os-public-data.s3-us-west-2.amazonaws.com/images/logo-square.png",
+          "name":"sample_xml_dataset_dev",
+          "modified":"2019-07-26T00:00:00Z",
+          "lastUpdatedDate":null,
+          "keywords":[
+             "xml",
+             "aww yeah"
+          ],
+          "id":"12345678-7e77-4b1c-92a4-36e09db56173",
+          "fileTypes":[
+             "XML"
+          ],
+          "description":"Proves that we can ingest XML"
+       },
+       {
+          "title":"Register of Historic Properties -- GeoJSON",
+          "systemName":"ohio_geographically_referenced_information_program_ogrip__3893ce78_d3b1_4c62_90bb_334d65a4b2ac",
+          "sourceUrl":"http://ogrip-geohio.opendata.arcgis.com/datasets/0f7a15c4cea0418b8162de5a704aeb2b_0.geojson",
+          "sourceType":"ingest",
+          "organization_title":"Ohio Geographically Referenced Information Program (OGRIP)",
+          "organization_name":"ogrip",
+          "organization_image_url":"https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/ohio_geographically_referenced_information_program_ogrip.jpg",
+          "name":"3893ce78_d3b1_4c62_90bb_334d65a4b2ac",
+          "modified":"2017-07-10T18:54:56.000Z",
+          "lastUpdatedDate":null,
+          "keywords":[
+             "City",
+             "Columbus",
+             "Development",
+             "Historic",
+             "Ohio",
+             "visualized-datasets"
+          ],
+          "id":"3893ce78-d3b1-4c62-90bb-334d65a4b2ac",
+          "fileTypes":[
+             "GEOJSON"
+          ],
+          "description":"<p>This layer shows the individual buildings included in the Columbus Register of Historic Properties. The Columbus Register of Historic Properties is part of the zoning code and is the city's official listing of individual properties, groups, and districts of historic and architectural significance. Individual properties included in the register are subject to design review by the Historic Resources Commission.</p>"
+       },
+       {
+          "title":"OSU Pavement Marking Lines -- GeoJSON",
+          "systemName":"ohio_geographically_referenced_information_program_ogrip__02f68a8c_5f14_4770_8ad4_5a08fe064b4e",
+          "sourceUrl":"http://ogrip-geohio.opendata.arcgis.com/datasets/73df354d550e45aa84e49a38e15c7b8c_30.geojson",
+          "sourceType":"ingest",
+          "organization_title":"Ohio Geographically Referenced Information Program (OGRIP)",
+          "organization_name":"ogrip",
+          "organization_image_url":"https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/ohio_geographically_referenced_information_program_ogrip.jpg",
+          "name":"02f68a8c_5f14_4770_8ad4_5a08fe064b4e",
+          "modified":"2017-09-20T03:44:01.000Z",
+          "lastUpdatedDate":null,
+          "keywords":[
+             "pavement markings",
+             "visualized-datasets"
+          ],
+          "id":"02f68a8c-5f14-4770-8ad4-5a08fe064b4e",
+          "fileTypes":[
+             "GEOJSON"
+          ],
+          "description":"There is no description available."
+       },
+       {
+          "title":"Ohio Worker Vehicle Occupancy - Census Tract 2006 - 2010 -- Workers per carpool by time leaving home (Workers 16 years and over who carpooled)",
+          "systemName":"aashto__2b040fa1_5d51_4bd6_ae8a_dda4c31b04fb",
+          "sourceUrl":"https://s3.us-east-2.amazonaws.com/os-migration-csvs-that-have-been-loaded/2b040fa1-5d51-4bd6-ae8a-dda4c31b04fb?versionId=null",
+          "sourceType":"ingest",
+          "organization_title":"AASHTO",
+          "organization_name":"aashto",
+          "organization_image_url":"https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/aashto.png",
+          "name":"2b040fa1_5d51_4bd6_ae8a_dda4c31b04fb",
+          "modified":"",
+          "lastUpdatedDate":null,
+          "keywords":[
+             "ACS",
+             "CTPP",
+             "Vehicle Occupancy",
+             "Worker"
+          ],
+          "id":"2b040fa1-5d51-4bd6-ae8a-dda4c31b04fb",
+          "fileTypes":[
+             "CSV"
+          ],
+          "description":"CENSUS TRANSPORTATION PLANNING PRODUCTS PROGRAM (CTPP) converted the American Community Survey results into various demographics that could be used to perform various transportation Studies. This Ohio Worker Vehicle Occupancy dataset is a subset of the 2006-2010 CTPP data."
+       },
+       {
+          "title":"Ohio Worker Classification - Census Tract 2006 - 2010 -- Total Workers (Workers 16 years and over)",
+          "systemName":"aashto__1c1a5b9a_8f57_4107_b7c2_df38b23ea223",
+          "sourceUrl":"https://s3.us-east-2.amazonaws.com/os-migration-csvs-that-have-been-loaded/1c1a5b9a-8f57-4107-b7c2-df38b23ea223?versionId=null",
+          "sourceType":"ingest",
+          "organization_title":"AASHTO",
+          "organization_name":"aashto",
+          "organization_image_url":"https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/aashto.png",
+          "name":"1c1a5b9a_8f57_4107_b7c2_df38b23ea223",
+          "modified":"",
+          "lastUpdatedDate":null,
+          "keywords":[
+             "CTPP",
+             "Worker Classification"
+          ],
+          "id":"1c1a5b9a-8f57-4107-b7c2-df38b23ea223",
+          "fileTypes":[
+             "CSV"
+          ],
+          "description":"CENSUS TRANSPORTATION PLANNING PRODUCTS PROGRAM (CTPP) converted the American Community Survey results into various demographics that could be used to perform various transportation Studies. This Ohio worker classification dataset is a subset of the 2006-2010 CTPP data. This dataset identifies total number, age groups, and class of workers in Ohio at census tract level."
+       },
+       {
+          "title":"Damson_White_ACDLM",
+          "systemName":"Giallo_Bella__Damson_White_ACDLM",
+          "sourceUrl":"http://data-generator.testing/api/generate",
+          "sourceType":"ingest",
+          "organization_title":"Azzurro_Shadow",
+          "organization_name":"SYS_e591f790_20df_11ea_a6f1_acde48001122_ORG",
+          "organization_image_url":"https://dummyimage.com/560x560",
+          "name":"Damson_White_ACDLM",
+          "modified":"2019-06-12T20:50:34.836636Z",
+          "lastUpdatedDate":"2019-12-31T16:17:39.403537Z",
+          "keywords":[
+             "logistical",
+             "national",
+             "impactful",
+             "high-level",
+             "web-enabled"
+          ],
+          "id":"SYS_e591f790_20df_11ea_a6f1_acde48001122",
+          "fileTypes":[
+             "CSV"
+          ],
+          "description":"I will speak daggers to her, but use none."
+       },
+       {
+          "title":"Crash Data for Franklin County 2015-2017",
+          "systemName":"odot__2ffa6cac_b2e3_4459_a77d_f5ec70b978cc",
+          "sourceUrl":"https://s3.us-east-2.amazonaws.com/os-migration-csvs-that-have-been-loaded/2ffa6cac-b2e3-4459-a77d-f5ec70b978cc?versionId=null",
+          "sourceType":"ingest",
+          "organization_title":"ODOT",
+          "organization_name":"odot",
+          "organization_image_url":"https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/odot.png",
+          "name":"2ffa6cac_b2e3_4459_a77d_f5ec70b978cc",
+          "modified":"",
+          "lastUpdatedDate":null,
+          "keywords":[
+             "Crash data",
+             "Franklin"
+          ],
+          "id":"2ffa6cac-b2e3-4459-a77d-f5ec70b978cc",
+          "fileTypes":[
+             "CSV"
+          ],
+          "description":"This is the crash data extracted from ODOT's GCAT dataset. This covers crash data for Franklin county from January 2015 to December 2017"
+       },
+       {
+          "title":"COTA Real Time Bus Locations",
+          "systemName":"central_ohio_transit_authority__cota_stream",
+          "sourceUrl":"http://realtime.cota.com/TMGTFSRealTimeWebService/Vehicle/VehiclePositions.pb",
+          "sourceType":"stream",
+          "organization_title":"Central Ohio Transit Authority",
+          "organization_name":"central_ohio_transit_authority",
+          "organization_image_url":"https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/central_ohio_transit_authority.png",
+          "name":"cota_stream",
+          "modified":"",
+          "lastUpdatedDate":"2020-01-07T06:15:37.103854Z",
+          "keywords":[
+             "buses",
+             "cota",
+             "transit",
+             "near-realtime"
+          ],
+          "id":"90d51c3b-8c01-4ba4-ac24-a3206458f851",
+          "fileTypes":[
+             "BIN"
+          ],
+          "description":"This dataset is a GTFS real time datastream of the COTA bus locations."
+       },
+       {
+          "title":"CoGo GBFS Station Status test no jpath",
+          "systemName":"cogo__cogo_gbfs_station_status_testnojpath",
+          "sourceUrl":"https://gbfs.cogobikeshare.com/gbfs/en/station_status.json",
+          "sourceType":"stream",
+          "organization_title":"COGO",
+          "organization_name":"cogo",
+          "organization_image_url":"https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/cogo.svg",
+          "name":"cogo_gbfs_station_status_testnojpath",
+          "modified":"2019-11-26T14:48:59Z",
+          "lastUpdatedDate":"2020-01-07T06:11:20.282311Z",
+          "keywords":[
+             "bicycle",
+             "GBFS",
+             "bike share",
+             "cogo",
+             "station status"
+          ],
+          "id":"33333333-9dff-4662-a298-5dec3efef31d",
+          "fileTypes":[
+             "JSON"
+          ],
+          "description":"This dataset presents information about statuses of each CoGo bike station identified in the COGO GBFS Station Infomation dataset. Information provided in this dataset includes bikes available, docks available, docks disables, station status of installed, renting and returning, etc. <p>This dataset is saved in a nested structure, see below for an example query.</p> <p><b>Example Query</b></p> <p>This query joins this dataset with another that describes COGO stations. It will get only the latest status and information of COGO stations.</p> <p> <pre>SELECT * FROM\n  (SELECT station_id,\n          num_bikes_available,\n          num_bikes_disabled,\n          num_docks_available,\n          num_docks_disabled,\n          is_installed,\n          is_renting,\n          is_returning\n   FROM\n        (SELECT data.stations AS stations\n         FROM cogo__cogo_gbfs_station_status\n         ORDER BY last_updated DESC\n         LIMIT 1)\n      CROSS JOIN UNNEST(stations))\nJOIN\n  (SELECT station_id,\n          name,\n          lat,\n          lon,\n          address,\n          capacity\n   FROM\n     (SELECT data.stations AS stations\n      FROM cogo__cogo_gbfs_station_information\n      ORDER BY last_updated DESC\n      LIMIT 1)\n   CROSS JOIN UNNEST(stations)) USING (station_id)\n</pre></p>"
+       },
+       {
+          "title":"CoGo GBFS Station Status (jPath Test)",
+          "systemName":"cogo__cogo_gbfs_station_status_jpath",
+          "sourceUrl":"https://gbfs.cogobikeshare.com/gbfs/en/station_status.json",
+          "sourceType":"stream",
+          "organization_title":"COGO",
+          "organization_name":"cogo",
+          "organization_image_url":"https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/cogo.svg",
+          "name":"cogo_gbfs_station_status_jpath",
+          "modified":"2019-11-26T14:48:59Z",
+          "lastUpdatedDate":"2020-01-04T06:12:11.556423Z",
+          "keywords":[
+             "bicycle",
+             "GBFS",
+             "bike share",
+             "cogo",
+             "station status"
+          ],
+          "id":"22222222-9dff-4662-a298-5dec3efef31d",
+          "fileTypes":[
+             "JSON"
+          ],
+          "description":"This dataset presents information about statuses of each CoGo bike station identified in the COGO GBFS Station Infomation dataset. Information provided in this dataset includes bikes available, docks available, docks disables, station status of installed, renting and returning, etc. <p>This dataset is saved in a nested structure, see below for an example query.</p> <p><b>Example Query</b></p> <p>This query joins this dataset with another that describes COGO stations. It will get only the latest status and information of COGO stations.</p> <p> <pre>SELECT * FROM\n  (SELECT station_id,\n          num_bikes_available,\n          num_bikes_disabled,\n          num_docks_available,\n          num_docks_disabled,\n          is_installed,\n          is_renting,\n          is_returning\n   FROM\n        (SELECT data.stations AS stations\n         FROM cogo__cogo_gbfs_station_status\n         ORDER BY last_updated DESC\n         LIMIT 1)\n      CROSS JOIN UNNEST(stations))\nJOIN\n  (SELECT station_id,\n          name,\n          lat,\n          lon,\n          address,\n          capacity\n   FROM\n     (SELECT data.stations AS stations\n      FROM cogo__cogo_gbfs_station_information\n      ORDER BY last_updated DESC\n      LIMIT 1)\n   CROSS JOIN UNNEST(stations)) USING (station_id)\n</pre></p>"
+       }
+    ],
+    "metadata":{
+       "totalDatasets":20,
+       "offset":0,
+       "limit":10,
+       "facets":{
+          "organization":[
+             {
+                "name":"AASHTO",
+                "count":2
+             },
+             {
+                "name":"Azzurro_Shadow",
+                "count":1
+             },
+             {
+                "name":"COGO",
+                "count":5
+             },
+             {
+                "name":"Central Ohio Transit Authority",
+                "count":1
+             },
+             {
+                "name":"Marrone_Sam",
+                "count":1
+             },
+             {
+                "name":"ODOT",
+                "count":2
+             },
+             {
+                "name":"Ohio Geographically Referenced Information Program (OGRIP)",
+                "count":3
+             },
+             {
+                "name":"SMRT Program",
+                "count":4
+             },
+             {
+                "name":"Smart Columbus Operating System",
+                "count":1
+             }
+          ],
+          "keywords":[
+             {
+                "name":"bicycle",
+                "count":5
+             },
+             {
+                "name":"GBFS",
+                "count":5
+             },
+             {
+                "name":"buses",
+                "count":1
+             },
+             {
+                "name":"scalable",
+                "count":1
+             },
+             {
+                "name":"grid-enabled",
+                "count":1
+             },
+             {
+                "name":"Conservation",
+                "count":1
+             },
+             {
+                "name":"First Mile Last Mile",
+                "count":4
+             },
+             {
+                "name":"Open Space",
+                "count":1
+             },
+             {
+                "name":"CTPP",
+                "count":2
+             },
+             {
+                "name":"near-realtime",
+                "count":1
+             },
+             {
+                "name":"xml",
+                "count":1
+             },
+             {
+                "name":"Ohio",
+                "count":1
+             },
+             {
+                "name":"pavement markings",
+                "count":1
+             },
+             {
+                "name":"aww yeah",
+                "count":1
+             },
+             {
+                "name":"Riparian",
+                "count":1
+             },
+             {
+                "name":"Development",
+                "count":1
+             },
+             {
+                "name":"Crash data",
+                "count":1
+             },
+             {
+                "name":"Customer Feedback",
+                "count":4
+             },
+             {
+                "name":"logistical",
+                "count":1
+             },
+             {
+                "name":"visualized-datasets",
+                "count":3
+             },
+             {
+                "name":"Wetlands",
+                "count":1
+             },
+             {
+                "name":"ODOT Highways",
+                "count":1
+             },
+             {
+                "name":"station information",
+                "count":2
+             },
+             {
+                "name":"Activity Nodes",
+                "count":1
+             },
+             {
+                "name":"Franklin",
+                "count":1
+             },
+             {
+                "name":"cogo",
+                "count":5
+             },
+             {
+                "name":"Autonomous Shuttle",
+                "count":4
+             },
+             {
+                "name":"Vehicle Occupancy",
+                "count":1
+             },
+             {
+                "name":"Historic",
+                "count":1
+             },
+             {
+                "name":"ACS",
+                "count":1
+             },
+             {
+                "name":"mode choice",
+                "count":4
+             },
+             {
+                "name":"Trails",
+                "count":1
+             },
+             {
+                "name":"Worker",
+                "count":1
+             },
+             {
+                "name":"impactful",
+                "count":1
+             },
+             {
+                "name":"Camera location",
+                "count":1
+             },
+             {
+                "name":"high-level",
+                "count":2
+             },
+             {
+                "name":"transit",
+                "count":1
+             },
+             {
+                "name":"cota",
+                "count":1
+             },
+             {
+                "name":"foreground",
+                "count":1
+             },
+             {
+                "name":"Columbus",
+                "count":1
+             },
+             {
+                "name":"national",
+                "count":1
+             },
+             {
+                "name":"bike share",
+                "count":5
+             },
+             {
+                "name":"CCPC",
+                "count":1
+             },
+             {
+                "name":"web-enabled",
+                "count":1
+             },
+             {
+                "name":"Environmental",
+                "count":1
+             },
+             {
+                "name":"Worker Classification",
+                "count":1
+             },
+             {
+                "name":"regional",
+                "count":1
+             },
+             {
+                "name":"station status",
+                "count":3
+             },
+             {
+                "name":"City",
+                "count":1
+             },
+             {
+                "name":"Greenprint",
+                "count":1
+             }
+          ]
+       }
+    }
+ }

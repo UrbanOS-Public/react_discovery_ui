@@ -24,7 +24,7 @@ const Checkbox = props => {
       key={name}
       onClick={() => handleClick()}
       onKeyDown={(e) => keyHandler(e)}>
-      <span className={`checkbox-indicator ${props.selected ? 'selected' : ''}`}>
+      <span data-testid={`checkbox-indicator-${props.text}`} className={`checkbox-indicator ${props.selected ? 'selected' : ''}`}>
         {props.selected && <div className='checkmark' />}
       </span>
       <span className='checkbox-label wrapped-text'>

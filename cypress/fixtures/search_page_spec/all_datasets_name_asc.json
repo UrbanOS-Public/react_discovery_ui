@@ -1,0 +1,469 @@
+{
+    "results": [
+        {
+            "title": "100 Year Flood Plain -- GeoJSON",
+            "systemName": "ohio_geographically_referenced_information_program_ogrip__622746a5_4e2a_4a4c_ac18_74cb1fb05ab3",
+            "sourceUrl": "http://ogrip-geohio.opendata.arcgis.com/datasets/7f805f34eb824474bd874bdfac196fc3_9.geojson",
+            "sourceType": "ingest",
+            "organization_title": "Ohio Geographically Referenced Information Program (OGRIP)",
+            "organization_name": "ogrip",
+            "organization_image_url": "https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/ohio_geographically_referenced_information_program_ogrip.jpg",
+            "name": "622746a5_4e2a_4a4c_ac18_74cb1fb05ab3",
+            "modified": "2017-03-29T19:24:37.000Z",
+            "lastUpdatedDate": null,
+            "keywords": [
+                "Activity Nodes",
+                "CCPC",
+                "Conservation",
+                "Environmental",
+                "Greenprint",
+                "Open Space",
+                "Riparian",
+                "Trails",
+                "Wetlands",
+                "visualized-datasets"
+            ],
+            "id": "622746a5-4e2a-4a4c-ac18-74cb1fb05ab3",
+            "fileTypes": [
+                "GEOJSON"
+            ],
+            "description": "Cuyahoga County Planning Commission's Greenprint GIS features: Trails, Water Features, Wetlands, Open Space, Activity Nodes, Conservation Areas, Riparian, Watersheds"
+        },
+        {
+            "title": "Buckeye Traffic - Camera Site Data",
+            "systemName": "odot__buckeyetraffic_camera_site_data",
+            "sourceUrl": "http://www.buckeyetraffic.org/services/Cameras.aspx",
+            "sourceType": "ingest",
+            "organization_title": "ODOT",
+            "organization_name": "odot",
+            "organization_image_url": "https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/odot.png",
+            "name": "buckeyetraffic_camera_site_data",
+            "modified": "",
+            "lastUpdatedDate": null,
+            "keywords": [
+                "Camera location",
+                "ODOT Highways"
+            ],
+            "id": "5d34e9bb-6341-46e8-be44-9e918414f9a8",
+            "fileTypes": [
+                "XML"
+            ],
+            "description": "The Camera Site data is accessed from http://www.buckeyetraffic.org/services/Cameras.aspx. Each Camera Site contains a textual location attribute, a latitude and longitude value and a collection of Camera Feeds."
+        },
+        {
+            "title": "CEAV Shuttle Survey Data",
+            "systemName": "smrt_program__ceav_shuttle_survey_2",
+            "sourceUrl": "https://scos-alm-ckan-csv-backup.s3.us-east-2.amazonaws.com/public/CEAV+Shuttle+Survey+Data/CEAV+Shuttle+Survey+Responses.csv",
+            "sourceType": "ingest",
+            "organization_title": "SMRT Program",
+            "organization_name": "smrt_program",
+            "organization_image_url": "https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/smrt_program.png",
+            "name": "ceav_shuttle_survey_2",
+            "modified": "2019-11-21T00:00:00Z",
+            "lastUpdatedDate": null,
+            "keywords": [
+                "Customer Feedback",
+                "Autonomous Shuttle",
+                "mode choice",
+                "First Mile Last Mile"
+            ],
+            "id": "28895f6e-518c-4c22-8a2b-f62d2df136ce",
+            "fileTypes": [
+                "CSV"
+            ],
+            "description": "This dataset represents the survey responses collected for the Connect Electric Autonomous Vehicle participants. Survey collected feedback on participant travel mode choices, perceptions on CEAV technology, travel frequency, etc.,"
+        },
+        {
+            "title": "CEAV Shuttle Survey Data - example - foo",
+            "systemName": "smrt_program__ceav_shuttle_survey",
+            "sourceUrl": "https://scos-alm-ckan-csv-backup.s3.us-east-2.amazonaws.com/public/CEAV+Shuttle+Survey+Data/CEAV+Shuttle+Survey+Responses.csv",
+            "sourceType": "ingest",
+            "organization_title": "SMRT Program",
+            "organization_name": "smrt_program",
+            "organization_image_url": "https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/smrt_program.png",
+            "name": "ceav_shuttle_survey",
+            "modified": "2019-11-21T00:00:00Z",
+            "lastUpdatedDate": null,
+            "keywords": [
+                "Customer Feedback",
+                "Autonomous Shuttle",
+                "mode choice",
+                "First Mile Last Mile"
+            ],
+            "id": "28895f6e-518c-4c22-8a2b-f62d2df136cd",
+            "fileTypes": [
+                "CSV"
+            ],
+            "description": "This dataset represents the survey responses collected for the Connect Electric Autonomous Vehicle participants. Survey collected feedback on participant travel mode choices, perceptions on CEAV technology, travel frequency, etc.,"
+        },
+        {
+            "title": "CEAV Shuttle Survey Data 3",
+            "systemName": "smrt_program__ceav_shuttle_survey_3",
+            "sourceUrl": "https://scos-alm-ckan-csv-backup.s3.us-east-2.amazonaws.com/public/CEAV+Shuttle+Survey+Data/CEAV+Shuttle+Survey+Responses.csv",
+            "sourceType": "ingest",
+            "organization_title": "SMRT Program",
+            "organization_name": "smrt_program",
+            "organization_image_url": "https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/smrt_program.png",
+            "name": "ceav_shuttle_survey_3",
+            "modified": "2019-11-21T00:00:00Z",
+            "lastUpdatedDate": null,
+            "keywords": [
+                "Customer Feedback",
+                "Autonomous Shuttle",
+                "mode choice",
+                "First Mile Last Mile"
+            ],
+            "id": "28895f6e-518c-4c22-8a2b-f62d2df136cf",
+            "fileTypes": [
+                "CSV"
+            ],
+            "description": "This dataset represents the survey responses collected for the Connect Electric Autonomous Vehicle participants. Survey collected feedback on participant travel mode choices, perceptions on CEAV technology, travel frequency, etc.,"
+        },
+        {
+            "title": "CEAV Shuttle Survey Data 4",
+            "systemName": "smrt_program__ceav_shuttle_survey_4",
+            "sourceUrl": "https://scos-alm-ckan-csv-backup.s3.us-east-2.amazonaws.com/public/CEAV+Shuttle+Survey+Data/CEAV+Shuttle+Survey+Responses.csv",
+            "sourceType": "ingest",
+            "organization_title": "SMRT Program",
+            "organization_name": "smrt_program",
+            "organization_image_url": "https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/smrt_program.png",
+            "name": "ceav_shuttle_survey_4",
+            "modified": "2019-11-21T00:00:00Z",
+            "lastUpdatedDate": null,
+            "keywords": [
+                "Customer Feedback",
+                "Autonomous Shuttle",
+                "mode choice",
+                "First Mile Last Mile"
+            ],
+            "id": "28895f6e-518c-4c22-8a2b-f62d2df136cg",
+            "fileTypes": [
+                "CSV"
+            ],
+            "description": "This dataset represents the survey responses collected for the Connect Electric Autonomous Vehicle participants. Survey collected feedback on participant travel mode choices, perceptions on CEAV technology, travel frequency, etc.,"
+        },
+        {
+            "title": "CoGo GBFS Station Information",
+            "systemName": "cogo__cogo_gbfs_station_information",
+            "sourceUrl": "https://gbfs.cogobikeshare.com/gbfs/en/station_information.json",
+            "sourceType": "ingest",
+            "organization_title": "COGO",
+            "organization_name": "cogo",
+            "organization_image_url": "https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/cogo.svg",
+            "name": "cogo_gbfs_station_information",
+            "modified": "2019-11-26T14:48:59Z",
+            "lastUpdatedDate": null,
+            "keywords": [
+                "bicycle",
+                "GBFS",
+                "bike share",
+                "cogo",
+                "station information"
+            ],
+            "id": "88765083-c2e6-45c8-9123-4308767de5c4",
+            "fileTypes": [
+                "JSON"
+            ],
+            "description": "This dataset presents information about CoGo bike stations including their name, location, capacity, etc. <p>This dataset is saved in a nested structure, see below for an example query.</p> <p><b>Example Query</b></p> <p>This query joins this dataset with another that describes COGO stations. It will get only the latest status and information of COGO stations.</p> <p> <pre>SELECT * FROM\n  (SELECT station_id,\n          num_bikes_available,\n          num_bikes_disabled,\n          num_docks_available,\n          num_docks_disabled,\n          is_installed,\n          is_renting,\n          is_returning\n   FROM\n        (SELECT data.stations AS stations\n         FROM cogo__cogo_gbfs_station_status\n         ORDER BY last_updated DESC\n         LIMIT 1)\n      CROSS JOIN UNNEST(stations))\nJOIN\n  (SELECT station_id,\n          name,\n          lat,\n          lon,\n          address,\n          capacity\n   FROM\n     (SELECT data.stations AS stations\n      FROM cogo__cogo_gbfs_station_information\n      ORDER BY last_updated DESC\n      LIMIT 1)\n   CROSS JOIN UNNEST(stations)) USING (station_id)\n</pre></p>"
+        },
+        {
+            "title": "CoGo GBFS Station Information (jPath Test)",
+            "systemName": "cogo__cogo_gbfs_station_information_jpath",
+            "sourceUrl": "https://gbfs.cogobikeshare.com/gbfs/en/station_information.json",
+            "sourceType": "ingest",
+            "organization_title": "COGO",
+            "organization_name": "cogo",
+            "organization_image_url": "https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/cogo.svg",
+            "name": "cogo_gbfs_station_information_jpath",
+            "modified": "2019-11-26T14:48:59Z",
+            "lastUpdatedDate": null,
+            "keywords": [
+                "bicycle",
+                "GBFS",
+                "bike share",
+                "cogo",
+                "station information"
+            ],
+            "id": "11111111-c2e6-45c8-9123-4308767de5c4",
+            "fileTypes": [
+                "JSON"
+            ],
+            "description": "This dataset presents information about CoGo bike stations including their name, location, capacity, etc. <p>This dataset is saved in a nested structure, see below for an example query.</p> <p><b>Example Query</b></p> <p>This query joins this dataset with another that describes COGO stations. It will get only the latest status and information of COGO stations.</p> <p> <pre>SELECT * FROM\n  (SELECT station_id,\n          num_bikes_available,\n          num_bikes_disabled,\n          num_docks_available,\n          num_docks_disabled,\n          is_installed,\n          is_renting,\n          is_returning\n   FROM\n        (SELECT data.stations AS stations\n         FROM cogo__cogo_gbfs_station_status\n         ORDER BY last_updated DESC\n         LIMIT 1)\n      CROSS JOIN UNNEST(stations))\nJOIN\n  (SELECT station_id,\n          name,\n          lat,\n          lon,\n          address,\n          capacity\n   FROM\n     (SELECT data.stations AS stations\n      FROM cogo__cogo_gbfs_station_information\n      ORDER BY last_updated DESC\n      LIMIT 1)\n   CROSS JOIN UNNEST(stations)) USING (station_id)\n</pre></p>"
+        },
+        {
+            "title": "CoGo GBFS Station Status",
+            "systemName": "cogo__cogo_gbfs_station_status",
+            "sourceUrl": "https://gbfs.cogobikeshare.com/gbfs/en/station_status.json",
+            "sourceType": "ingest",
+            "organization_title": "COGO",
+            "organization_name": "cogo",
+            "organization_image_url": "https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/cogo.svg",
+            "name": "cogo_gbfs_station_status",
+            "modified": "2019-11-26T14:48:59Z",
+            "lastUpdatedDate": null,
+            "keywords": [
+                "bicycle",
+                "GBFS",
+                "bike share",
+                "cogo",
+                "station status"
+            ],
+            "id": "2c4ead71-9dff-4662-a298-5dec3efef31d",
+            "fileTypes": [
+                "JSON"
+            ],
+            "description": "This dataset presents information about statuses of each CoGo bike station identified in the COGO GBFS Station Infomation dataset. Information provided in this dataset includes bikes available, docks available, docks disables, station status of installed, renting and returning, etc. <p>This dataset is saved in a nested structure, see below for an example query.</p> <p><b>Example Query</b></p> <p>This query joins this dataset with another that describes COGO stations. It will get only the latest status and information of COGO stations.</p> <p> <pre>SELECT * FROM\n  (SELECT station_id,\n          num_bikes_available,\n          num_bikes_disabled,\n          num_docks_available,\n          num_docks_disabled,\n          is_installed,\n          is_renting,\n          is_returning\n   FROM\n        (SELECT data.stations AS stations\n         FROM cogo__cogo_gbfs_station_status\n         ORDER BY last_updated DESC\n         LIMIT 1)\n      CROSS JOIN UNNEST(stations))\nJOIN\n  (SELECT station_id,\n          name,\n          lat,\n          lon,\n          address,\n          capacity\n   FROM\n     (SELECT data.stations AS stations\n      FROM cogo__cogo_gbfs_station_information\n      ORDER BY last_updated DESC\n      LIMIT 1)\n   CROSS JOIN UNNEST(stations)) USING (station_id)\n</pre></p>"
+        },
+        {
+            "title": "CoGo GBFS Station Status (jPath Test)",
+            "systemName": "cogo__cogo_gbfs_station_status_jpath",
+            "sourceUrl": "https://gbfs.cogobikeshare.com/gbfs/en/station_status.json",
+            "sourceType": "stream",
+            "organization_title": "COGO",
+            "organization_name": "cogo",
+            "organization_image_url": "https://s3-us-west-2.amazonaws.com/prod-os-public-data/org-logos/cogo.svg",
+            "name": "cogo_gbfs_station_status_jpath",
+            "modified": "2019-11-26T14:48:59Z",
+            "lastUpdatedDate": "2020-01-03T14:46:58.235427Z",
+            "keywords": [
+                "bicycle",
+                "GBFS",
+                "bike share",
+                "cogo",
+                "station status"
+            ],
+            "id": "22222222-9dff-4662-a298-5dec3efef31d",
+            "fileTypes": [
+                "JSON"
+            ],
+            "description": "This dataset presents information about statuses of each CoGo bike station identified in the COGO GBFS Station Infomation dataset. Information provided in this dataset includes bikes available, docks available, docks disables, station status of installed, renting and returning, etc. <p>This dataset is saved in a nested structure, see below for an example query.</p> <p><b>Example Query</b></p> <p>This query joins this dataset with another that describes COGO stations. It will get only the latest status and information of COGO stations.</p> <p> <pre>SELECT * FROM\n  (SELECT station_id,\n          num_bikes_available,\n          num_bikes_disabled,\n          num_docks_available,\n          num_docks_disabled,\n          is_installed,\n          is_renting,\n          is_returning\n   FROM\n        (SELECT data.stations AS stations\n         FROM cogo__cogo_gbfs_station_status\n         ORDER BY last_updated DESC\n         LIMIT 1)\n      CROSS JOIN UNNEST(stations))\nJOIN\n  (SELECT station_id,\n          name,\n          lat,\n          lon,\n          address,\n          capacity\n   FROM\n     (SELECT data.stations AS stations\n      FROM cogo__cogo_gbfs_station_information\n      ORDER BY last_updated DESC\n      LIMIT 1)\n   CROSS JOIN UNNEST(stations)) USING (station_id)\n</pre></p>"
+        }
+    ],
+    "metadata": {
+        "totalDatasets": 19,
+        "offset": 0,
+        "limit": 10,
+        "facets": {
+            "organization": [
+                {
+                    "name": "AASHTO",
+                    "count": 2
+                },
+                {
+                    "name": "Azzurro_Shadow",
+                    "count": 1
+                },
+                {
+                    "name": "COGO",
+                    "count": 5
+                },
+                {
+                    "name": "Central Ohio Transit Authority",
+                    "count": 1
+                },
+                {
+                    "name": "ODOT",
+                    "count": 2
+                },
+                {
+                    "name": "Ohio Geographically Referenced Information Program (OGRIP)",
+                    "count": 3
+                },
+                {
+                    "name": "SMRT Program",
+                    "count": 4
+                },
+                {
+                    "name": "Smart Columbus Operating System",
+                    "count": 1
+                }
+            ],
+            "keywords": [
+                {
+                    "name": "bicycle",
+                    "count": 5
+                },
+                {
+                    "name": "GBFS",
+                    "count": 5
+                },
+                {
+                    "name": "buses",
+                    "count": 1
+                },
+                {
+                    "name": "Conservation",
+                    "count": 1
+                },
+                {
+                    "name": "First Mile Last Mile",
+                    "count": 4
+                },
+                {
+                    "name": "Open Space",
+                    "count": 1
+                },
+                {
+                    "name": "CTPP",
+                    "count": 2
+                },
+                {
+                    "name": "near-realtime",
+                    "count": 1
+                },
+                {
+                    "name": "xml",
+                    "count": 1
+                },
+                {
+                    "name": "Ohio",
+                    "count": 1
+                },
+                {
+                    "name": "pavement markings",
+                    "count": 1
+                },
+                {
+                    "name": "aww yeah",
+                    "count": 1
+                },
+                {
+                    "name": "Riparian",
+                    "count": 1
+                },
+                {
+                    "name": "Development",
+                    "count": 1
+                },
+                {
+                    "name": "Crash data",
+                    "count": 1
+                },
+                {
+                    "name": "Customer Feedback",
+                    "count": 4
+                },
+                {
+                    "name": "logistical",
+                    "count": 1
+                },
+                {
+                    "name": "visualized-datasets",
+                    "count": 3
+                },
+                {
+                    "name": "Wetlands",
+                    "count": 1
+                },
+                {
+                    "name": "ODOT Highways",
+                    "count": 1
+                },
+                {
+                    "name": "station information",
+                    "count": 2
+                },
+                {
+                    "name": "Activity Nodes",
+                    "count": 1
+                },
+                {
+                    "name": "Franklin",
+                    "count": 1
+                },
+                {
+                    "name": "cogo",
+                    "count": 5
+                },
+                {
+                    "name": "Autonomous Shuttle",
+                    "count": 4
+                },
+                {
+                    "name": "Vehicle Occupancy",
+                    "count": 1
+                },
+                {
+                    "name": "Historic",
+                    "count": 1
+                },
+                {
+                    "name": "ACS",
+                    "count": 1
+                },
+                {
+                    "name": "mode choice",
+                    "count": 4
+                },
+                {
+                    "name": "Trails",
+                    "count": 1
+                },
+                {
+                    "name": "Worker",
+                    "count": 1
+                },
+                {
+                    "name": "impactful",
+                    "count": 1
+                },
+                {
+                    "name": "Camera location",
+                    "count": 1
+                },
+                {
+                    "name": "high-level",
+                    "count": 1
+                },
+                {
+                    "name": "transit",
+                    "count": 1
+                },
+                {
+                    "name": "cota",
+                    "count": 1
+                },
+                {
+                    "name": "Columbus",
+                    "count": 1
+                },
+                {
+                    "name": "national",
+                    "count": 1
+                },
+                {
+                    "name": "bike share",
+                    "count": 5
+                },
+                {
+                    "name": "CCPC",
+                    "count": 1
+                },
+                {
+                    "name": "web-enabled",
+                    "count": 1
+                },
+                {
+                    "name": "Environmental",
+                    "count": 1
+                },
+                {
+                    "name": "Worker Classification",
+                    "count": 1
+                },
+                {
+                    "name": "station status",
+                    "count": 3
+                },
+                {
+                    "name": "City",
+                    "count": 1
+                },
+                {
+                    "name": "Greenprint",
+                    "count": 1
+                }
+            ]
+        }
+    }
+}

@@ -23,7 +23,7 @@ export default class extends Component {
         <div className='search'>
           <SearchIcon />
         </div>
-        <input ref={this.searchBox} type='text' value={this.state.searchText} onKeyUp={this.onKeyUp} onChange={this.onChange} placeholder={this.props.placeholder} className='search-bar' />
+        <input data-testid='search' ref={this.searchBox} type='text' value={this.state.searchText} onKeyUp={this.onKeyUp} onChange={this.onChange} placeholder={this.props.placeholder} className='search-bar' />
         <div className={`clear ${clearButtonDisableClass}`}>
           <ClearIcon className='clear-icon' onClick={this.onClearClicked} />
         </div>

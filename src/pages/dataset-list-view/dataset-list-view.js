@@ -58,7 +58,7 @@ const DatasetListView = (props) => {
     const resultCountQueryText = searchParamsManager.searchText
           ? ` for "${searchParamsManager.searchText}"`
           : ""
-    return <div className="result-count">{`${resultCountText}${resultCountQueryText}`}</div>
+    return <div data-testid="result-count" className="result-count">{`${resultCountText}${resultCountQueryText}`}</div>
   }
 
     return (
@@ -91,6 +91,7 @@ const DatasetListView = (props) => {
               label="order by"
               options={createSortOptions()}
       selectChangeCallback={searchParamsManager.updateSortOrder}
+              testId='sort-select'
             />
           </div>
           {renderDatasetList()}

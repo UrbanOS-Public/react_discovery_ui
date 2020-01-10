@@ -1,6 +1,6 @@
 {
   "name": "@smartcitiesdata/react-discovery-ui",
-  "version": "0.9.4",
+  "version": "0.10.4",
   "description": "React component for dataset discovery UI",
   "main": "./lib/ReactDiscoveryUI.js",
   "repository": {
@@ -87,6 +87,7 @@
     "create-react-component-folder": "^0.1.30",
     "cross-env": "^5.2.1",
     "css-loader": "^1.0.1",
+    "cypress": "^3.8.1",
     "depcheck": "^0.8.3",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
@@ -135,7 +136,9 @@
     "start": "webpack-dev-server --mode development",
     "lint": "standard --fix",
     "test": "jest",
-    "test-watch": "jest --watch"
+    "test-watch": "jest --watch",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "publishConfig": {
     "access": "public"
