@@ -67,6 +67,7 @@ describe('sort', function () {
     cy.server()
     cy.route(routes.allDatasetsNameAsc)
     cy.route(routes.info)
+    cy.route(routes.allDatasetsNameAsc).as('getDatasetsInAscendingOrderByName')
     cy.route(routes.allDatasetsNameDesc).as('getDatasetsInDescendingOrderByName')
     cy.route(routes.allDatasetsLastModified).as('getDatasetsByLastModifiedDate')
   })
@@ -88,8 +89,9 @@ describe('sort', function () {
   })
 
   it('can sort by name ascending', function () {
-    cy.visit('/?name=desc')
+    cy.visit('/?sort=name_desc')
     cy.get(sortSelectBox).select('name_asc')
+    cy.wait(['@getDatasetsInAscendingOrderByName'])
     cy.get(sortSelectBox).should('have.value', 'name_asc')
     cy.get(firstDataset).contains('100 Year Flood Plain -- GeoJSON')
   })
