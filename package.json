@@ -135,7 +135,7 @@
     "build:library": "rm -rf lib && cross-env BABEL_OUTPUT=commonjs babel src --out-dir lib/ --ignore 'src/**/*.spec.js','src/**/*.test.js','__mocks__/**' --copy-files",
     "start": "webpack-dev-server --mode development",
     "lint": "standard --fix",
-    "test": "jest; cypress run",
+    "test": "jest",
     "test-watch": "jest --watch",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
