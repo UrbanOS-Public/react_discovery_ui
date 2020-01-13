@@ -16,7 +16,7 @@ cache:
 install:
   - npm ci
 script:
-- npm run test
+  - npm run test
 before_deploy: npm run build:library
 deploy:
 - provider: npm
