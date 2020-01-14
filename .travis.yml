@@ -17,6 +17,7 @@ install:
   - npm ci
 script:
   - npm run test
+  - npm run start
   - npm run cypress:run
 before_deploy: npm run build:library
 deploy:
@@ -31,5 +32,3 @@ branches:
   only:
   - master
   - /\d{1,3}\.\d{1,3}\.\d{1,3}/
-# env:
-#   - CYPRESS_baseUrl=https://discovery.dev.internal.smartcolumbusos.com
