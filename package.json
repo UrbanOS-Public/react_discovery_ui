@@ -138,7 +138,8 @@
     "test": "jest",
     "test-watch": "jest --watch",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "cypress:debug": "DEBUG=cypress:* cypress run"
   },
   "publishConfig": {
     "access": "public"

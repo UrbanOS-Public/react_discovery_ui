@@ -2,7 +2,9 @@ language: node_js
 node_js:
   - "10"
 script:
-- npm run test
+  - npm run test
+  - npm run start & wait-on http://localhost:9001
+  - npm run cypress:debug
 before_deploy: npm run build:library
 deploy:
 - provider: npm
