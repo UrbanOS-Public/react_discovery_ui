@@ -36,7 +36,7 @@ function isFacetList () {
 describe('Search interactions on the page', function () {
   beforeEach(function () {
     cy.server()
-    cy.route(routes.allDatasetsNameAsc)
+    // cy.route(routes.allDatasetsNameAsc)
     cy.route(routes.info)
     cy.visit('/')
   })
