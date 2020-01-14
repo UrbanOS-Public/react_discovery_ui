@@ -10,6 +10,14 @@ const hasAuthorizationCodeParameter = search => {
   return qs.parse(search, { ignoreQueryPrefix: true }).hasOwnProperty('code')
 }
 
+const hasError = search => {
+  return qs.parse(search, { ignoreQueryPrefix: true }).hasOwnProperty('error')
+}
+
+const getError = search => {
+  return qs.parse(search, { ignoreQueryPrefix: true }).error_description
+}
+
 const OAuthView = (props) => {
   const {
     callLoggedIn,
@@ -19,6 +27,12 @@ const OAuthView = (props) => {
   } = props
 
   const [handled, setHandled] = useState(false)
+
+  useEffect(() => {
+    if (hasError(search)) {
+      setGlobalErrorState(true, getError(search))
+    }
+  }, [])
 
   useEffect(() => {
     const onMount = async () => {

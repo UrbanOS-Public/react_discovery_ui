@@ -83,6 +83,30 @@ describe('OAuth View', () => {
     })
   })
 
+  describe('with an error as a return', () => {
+    beforeEach(() => {
+      history.replace('/oauth?error=unauthorized&error_description=blah')
+      subject = createSubject({
+        callLoggedIn: callLoggedInHandler,
+        history,
+        auth: { handleRedirectCallback: handleRedirectCallback, isLoading: false },
+        setGlobalErrorState: setGlobalErrorStateHandler
+      })
+    })
+
+    it('alerts user they must validate their email', () => {
+      expect(setGlobalErrorStateHandler).toHaveBeenCalledWith(true, 'blah')
+      expect(history.location.pathname).toBe('/')
+    })
+
+    it('does not call the logged-in endpoint', done => {
+      setTimeout(() => {
+        expect(callLoggedInHandler).not.toHaveBeenCalled()
+        done()
+      })
+    })
+  })
+
   describe('with an auth code in the URL but failed call to handle redirect', () => {
     beforeEach(() => {
       history.replace('/oauth?code=someauth0tokenstring')
