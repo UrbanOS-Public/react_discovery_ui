@@ -18,7 +18,7 @@ install:
 script:
   - npm run test
   - npm run start & wait-on http://localhost:9001
-  - npm run cypress:debug
+  - npm run cypress:run
 before_deploy: npm run build:library
 deploy:
 - provider: npm
