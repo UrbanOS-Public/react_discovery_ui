@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Redirect } from 'react-router'
 import './oauth-view.scss'
-import routes from '../../routes'
 import qs from 'qs'
 import LoadingElement from '../../components/generic-elements/loading-element'
 import PropTypes from 'prop-types'
@@ -27,6 +26,7 @@ const OAuthView = (props) => {
   } = props
 
   const [handled, setHandled] = useState(false)
+  const [callbackState, setCallbackState] = useState({path: "/", search: ""})
 
   useEffect(() => {
     if (hasError(search)) {
@@ -38,7 +38,8 @@ const OAuthView = (props) => {
     const onMount = async () => {
       if (hasAuthorizationCodeParameter(search)) {
         try {
-          await handleRedirectCallback()
+          const stateFromCallback = await handleRedirectCallback()
+          setCallbackState(stateFromCallback.appState)
           callLoggedIn()
         } 
         catch { 
@@ -55,7 +56,7 @@ const OAuthView = (props) => {
     {
       isLoading || !handled
         ? <LoadingElement />
-        : <Redirect to={{pathname: routes.root}} />
+        : <Redirect to={{ pathname: callbackState.path, search: callbackState.search }} />
     }
     </oauth-view>
   )
