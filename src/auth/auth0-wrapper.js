@@ -6,31 +6,33 @@ const withAuth0 = WrappedComponent => {
     const [isAuthenticated, setAuthenticated] = useState()
     const [isLoading, setLoading] = useState()
     const [auth0Client, setAuth0Client] = useState()
+    const callbackState = { path: window.location.pathname, search: window.location.search }
 
     useEffect(() => {
       const connectAuth0 = async () => {
         setLoading(true)
         const client = await Auth0ClientProvider.get()
         setAuth0Client(client)
-
+        
         const authenticated = await client.isAuthenticated()
         setAuthenticated(authenticated)
         setLoading(false)
       }
-
+      
       connectAuth0()
     }, [])
-
+    
     const handleRedirectCallback = async () => {
       setLoading(true)
       const client = await Auth0ClientProvider.get()
-      await client.handleRedirectCallback()
+      const callbackReturn = await client.handleRedirectCallback()
       setAuthenticated(true)
       setLoading(false)
+      return callbackReturn
     }
 
     const auth0Props = {
-      loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
+      loginWithRedirect: (...p) => auth0Client.loginWithRedirect({appState: callbackState, ...p}),
       logout: (...p) => auth0Client.logout(...p),
       handleRedirectCallback,
       isAuthenticated,
