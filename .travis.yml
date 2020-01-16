@@ -1,4 +1,5 @@
 language: node_js
+os: linux
 node_js:
   - "10"
 addons:
@@ -18,9 +19,8 @@ script:
 before_deploy: npm run build:library
 deploy:
 - provider: npm
-  skip_cleanup: true
   email: "johnson.denen@gmail.com"
-  api_key:
+  api_token:
     secure: $NPM_AUTH_TOKEN
   on:
     tags: true
