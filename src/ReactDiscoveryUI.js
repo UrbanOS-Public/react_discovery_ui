@@ -17,6 +17,7 @@ import LoginView from './pages/login-view'
 import OAuthView from './pages/oauth-view'
 import VisualizationView from './pages/visualization-view'
 import UserProfileView from './pages/user-profile-view'
+import OAuthErrorView from './pages/oauth-error-view'
 
 import NetworkLoadingElement from './components/network-loading-element'
 
@@ -50,6 +51,7 @@ const DiscoveryUI = () => {
         <Route exact path={routes.healthCheck} component={() => <div>Everything is fine</div>} />
         <Route exact path={routes.login} component={LoginView} />
         <Route exact path={routes.oauth} component={OAuthView} />
+        <Route exact path={routes.oauthError} component={OAuthErrorView} />
         <Route exact path={routes.visualizationView} component={VisualizationView} />
         <Route exact path={routes.userProfile} component={UserProfileView} />
         <Route component={noMatch} />
