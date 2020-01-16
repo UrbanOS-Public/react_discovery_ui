@@ -1,0 +1,11 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
+
+oauth-error-view {
+    padding-top: 5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    text-align: center;
+    color: #666666;
+    display: block;
+}
