@@ -21,7 +21,6 @@ class AuthenticatedHTTPClient {
   }
 
   static async get(url, config = {}) {
-    console.log("getting url ", url)
     const axiosClient = await AuthenticatedHTTPClient.initializeClient()
 
     return axiosClient.get(url, config)
