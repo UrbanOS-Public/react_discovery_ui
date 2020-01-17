@@ -1,5 +1,5 @@
 import { createSelector } from "reselect"
-import { containsFileType, getDefaultFormat } from '../utils/file-type-utils'
+import { containsFileType } from '../utils/file-type-utils'
 
 const SOURCE_TYPE = {
   STREAMING: "stream",

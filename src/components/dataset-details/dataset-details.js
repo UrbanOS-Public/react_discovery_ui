@@ -4,7 +4,8 @@ import SanitizedHTML from 'react-sanitized-html'
 import { QueryStringBuilder } from '../../utils'
 import DownloadButton from '../generic-elements/download-button'
 import AuthenticatedLink from '../authenticated-link'
-import { createRef } from 'react'
+import { getDefaultFormat } from '../../utils/file-type-utils'
+
 
 const DatasetDetails = ({ dataset, downloadUrl }) => {
   if (!dataset) {
@@ -13,7 +14,7 @@ const DatasetDetails = ({ dataset, downloadUrl }) => {
 
   return (
     <dataset-details>
-      <AuthenticatedLink url={downloadUrl} filename={dataset.id} >Download</AuthenticatedLink>
+      <AuthenticatedLink url={downloadUrl} format={getDefaultFormat(dataset)} filename={dataset.id} >Download</AuthenticatedLink>
       <div className='header'>
         <div className='name'>{dataset.title}</div>
         <div className='buttons'>

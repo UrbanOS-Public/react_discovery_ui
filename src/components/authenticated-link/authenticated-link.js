@@ -1,7 +1,7 @@
 import { createRef } from 'react'
 import {AuthenticatedHTTPClient} from '../../utils/http-clients'
 
-export function AuthenticatedLink ({ url, filename, children }) {
+export function AuthenticatedLink ({ url, format, filename, children }) {
   const link = createRef()
   const handleAction = async () => {
     if (link.current.href) { 
@@ -10,7 +10,7 @@ export function AuthenticatedLink ({ url, filename, children }) {
     }
 
     const result = await AuthenticatedHTTPClient.get(url)
-    const downloadUrl = window.API_HOST + "/api/v1" + result.data + "&format=csv"
+    const downloadUrl = window.API_HOST + "/api/v1" + result.data + "&format=" + format
     
     link.current.download = filename
     link.current.href = downloadUrl      
