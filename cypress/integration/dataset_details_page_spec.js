@@ -5,9 +5,10 @@ const ogrip_dataset = require('../fixtures/details_page_spec/ogrip_dataset')
 
 const { datasetDetailsTab, writeSqlTab, visualizeTab, organizationLogo, organizationTitle,
   organizationDescription, datasetTitle, keywords, showFullDatasetCheckbox, leafletContainer,
-  datasetApiExample, activityNodesButton, queryInput, successMessage, numRecords, tableHeader, tableBody, reactTable,
-  paginatorInput, totalPages, submitButton, savedVisualizationsIcon, savedVisualizationsPopover,
-  loginButton, saveIcon, savePopover, queryPrompt, saveButton, saveIndicator, clearIcon, cancelButton } = Selectors
+  datasetApiExample, activityNodesButton, queryInput, successMessage, errorMessage, numRecords, tableHeader, tableBody, reactTable,
+  paginatorInput, totalPages, submitQueryButton, cancelQueryButton, savedVisualizationsIcon, savedVisualizationsPopover,
+  loginButton, saveIcon, savePopover, queryPrompt, saveButton, saveIndicator, clearIcon, cancelButton,
+  plotlyEditor } = Selectors
 
 function validateLeftSection () {
   const ogripTitle = ogrip_dataset.organization.title
@@ -68,7 +69,7 @@ describe('The Ogrip Dataset Details Tab', function () {
 
 })
 
-describe('Write SQL Tab Ogrip dataset', function() {
+describe('Write SQL Tab for Ogrip dataset', function() {
 
   it('Clicking Write SQL takes you to query page', function () {
     cy.server()
@@ -97,7 +98,7 @@ describe('Write SQL Tab Ogrip dataset', function() {
 
 })
 
-describe('Saving on Write SQL tab for System dataset', function() {
+describe('Write SQL Tab for System dataset', function() {
 
   beforeEach(function() {
     cy.server()
@@ -109,6 +110,30 @@ describe('Saving on Write SQL tab for System dataset', function() {
     cy.visit('/dataset/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002_ORG/Cesious_Black_OBWEG')
     cy.get(writeSqlTab).click()
     cy.wait(['@getQueryResults'])
+  })
+
+  it('Writing query and hitting submit returns correct query result', function () {
+    const query = 'SELECT is_alive, name, type FROM Rosa_Lucky__Cesious_Black_OBWEG\nLIMIT 20000'
+    cy.get(queryInput).clear().type(query)
+    cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query2).as('getQueryResults')
+    cy.get(submitQueryButton).click()
+    cy.wait(['@getQueryResults'])
+    cy.get(successMessage).should('be.visible')
+    cy.get(successMessage).contains('Query successful')
+    cy.get(tableHeader).children().should('have.length', 3)
+    cy.get(tableHeader).children().eq(0).contains('is_alive')
+    cy.get(tableHeader).children().eq(1).contains('name')
+    cy.get(tableHeader).children().eq(2).contains('type')
+  })
+
+  it('Writing query and hitting submit returns nothing if cancel is hit before response returns', function() {
+    const query = 'SELECT is_alive, name, type FROM Rosa_Lucky__Cesious_Black_OBWEG\nLIMIT 20000'
+    cy.get(queryInput).clear().type(query)
+    cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query3).as('getQueryResults')
+    cy.get(submitQueryButton).click()
+    cy.get(cancelQueryButton).click()
+    cy.get(errorMessage).should('be.visible')
+    cy.get(errorMessage).contains('Your query has been stopped')
   })
 
   it('Clicking Saved Visualizations icon shows you the login popup', function () {
@@ -135,9 +160,8 @@ describe('Saving on Write SQL tab for System dataset', function() {
   })
 })
 
-describe('Querying on Write SQL tab for System dataset', function () {
-
-  it.only('Writing query in query input and hitting submit returns correct query result', function () {
+describe('Visualize Tab for System dataset', function () {
+  beforeEach(function() {
     cy.server()
     cy.route(routes.sysDataset)
     cy.route(routes.info)
@@ -145,17 +169,10 @@ describe('Querying on Write SQL tab for System dataset', function () {
     cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.recommendations)
     cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query1).as('getQueryResults')
     cy.visit('/dataset/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002_ORG/Cesious_Black_OBWEG')
-    cy.get(writeSqlTab).click()
-    cy.wait(['@getQueryResults'])
-    const query = 'SELECT is_alive, name, type FROM Rosa_Lucky__Cesious_Black_OBWEG\nLIMIT 20000'
-    cy.get(queryInput).clear().type(query)
-    cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query2).as('getQueryResults')
-    cy.get(submitButton).click()
-    cy.wait(['@getQueryResults'])
-    cy.get(successMessage).should('be.visible')
-    cy.get(tableHeader).children().should('have.length', 3)
-    cy.get(tableHeader).children().eq(0).contains('is_alive')
-    cy.get(tableHeader).children().eq(1).contains('name')
-    cy.get(tableHeader).children().eq(2).contains('type')
+  })
+
+  it.only('loads successfully', function() {
+    cy.get(visualizeTab).click()
+    cy.get(plotlyEditor)
   })
 })

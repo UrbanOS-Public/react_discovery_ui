@@ -13,13 +13,15 @@ export const Selectors = {
     activityNodesButton: '[href="/?facets%5Bkeywords%5D%5B%5D=Activity%20Nodes"]',
     queryInput: '[data-testid=query-input]',
     successMessage: '[data-testid=success-message]',
+    errorMessage: '[data-testid=error-message]',
     numRecords: '[data-testid=numRecords]',
     reactTable: '[data-testid=dataset-preview-table] > .ReactTable',
     tableHeader: '[data-testid=dataset-preview-table] > .ReactTable > .rt-table > .rt-thead > .rt-tr',
     tableBody: '[data-testid=dataset-preview-table] > .ReactTable > .rt-table > .rt-tbody',
     paginatorInput: '[data-testid=dataset-preview-table] > .ReactTable input',
     totalPages: '[data-testid=dataset-preview-table] > .ReactTable .-totalPages',
-    submitButton: '[data-testid=submitButton]',
+    submitQueryButton: '[data-testid=submit-query-button]',
+    cancelQueryButton: '[data-testid=cancel-query-button]',
     savedVisualizationsIcon: '[data-testid=user-page-button-popover]',
     savedVisualizationsPopover: '.MuiPaper-root',
     loginButton: '[data-testid=login-button]',
@@ -29,7 +31,8 @@ export const Selectors = {
     saveButton: '[data-testid=save-button]',
     saveIndicator: 'save-indicator',
     clearIcon: '.clear-icon',
-    cancelButton: '[data-testid=cancel-button]'
+    cancelButton: '[data-testid=cancel-button]',
+    plotlyEditor: '.plotly_editor'
 }
 
 export const Routes = {
@@ -90,6 +93,12 @@ export const Routes = {
             method: 'POST',
             url: '/api/v1/query',
             response: 'fixture:details_page_spec/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002/query_response2.json'
+        },
+        query3: {
+            method: 'POST',
+            url: '/api/v1/query',
+            response: 'fixture:details_page_spec/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002/query_response2.json',
+            delay: 1000
         }
     }
 }
