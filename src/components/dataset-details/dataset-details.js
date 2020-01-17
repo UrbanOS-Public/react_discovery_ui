@@ -3,9 +3,7 @@ import _ from 'lodash'
 import SanitizedHTML from 'react-sanitized-html'
 import { QueryStringBuilder } from '../../utils'
 import DownloadButton from '../generic-elements/download-button'
-import AuthenticatedLink from '../authenticated-link'
 import { getDefaultFormat } from '../../utils/file-type-utils'
-
 
 const DatasetDetails = ({ dataset, downloadUrl }) => {
   if (!dataset) {
@@ -14,12 +12,10 @@ const DatasetDetails = ({ dataset, downloadUrl }) => {
 
   return (
     <dataset-details>
-      <AuthenticatedLink url={downloadUrl} format={getDefaultFormat(dataset)} filename={dataset.id} >Download</AuthenticatedLink>
       <div className='header'>
         <div className='name'>{dataset.title}</div>
         <div className='buttons'>
-          {/* Clicking on this link is launching the normal download instead of doing the steps we want. */}
-          {/* <DownloadButton url={downloadUrl} /> */}
+          <DownloadButton url={downloadUrl} format={getDefaultFormat(dataset)} filename={dataset.id}/>
         </div>
       </div>
       <div className='description'>

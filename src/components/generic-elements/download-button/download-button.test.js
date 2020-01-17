@@ -1,9 +1,9 @@
 import { shallow, mount } from "enzyme"
-import AuthenticatedLink from "./authenticated-link"
-import { AuthenticatedHTTPClient } from "../../utils/http-clients"
+import DownloadButton from "./download-button"
+import { AuthenticatedHTTPClient } from "../../../utils/http-clients"
 import { createRef } from "react"
 
-describe("AuthenticatedLink ", () => {
+describe("DownloadButton ", () => {
   test("it generates and clicks a link to the actual file", () => {
     AuthenticatedHTTPClient.get = jest.fn()
     AuthenticatedHTTPClient.get.mockImplementationOnce(() => ({
@@ -15,9 +15,7 @@ describe("AuthenticatedLink ", () => {
     console.log("link in test", link)
 
     const subject = mount(
-      <AuthenticatedLink url={"abc"} link={link} filename="dataset.csv">
-        <div />
-      </AuthenticatedLink>
+      <DownloadButton url={"abc"} link={link} filename="dataset.csv"/>
     )
     subject.find('.auth-link').simulate('click')
 
@@ -25,12 +23,12 @@ describe("AuthenticatedLink ", () => {
     //   //Mock fetch
 
     // const link = {hasBeenClicked: false, current: {download: "download", href: "href", click: () => { console.log('clicked')}}}
-    setTimeout(console.log("thing", link.current.href), 1000)
+    // setTimeout(console.log("thing", link.current.href), 1000)
 
 
 
-    setTimeout(expect(subject.find('.auth-link').html()).toBe('foo'), 3000);
-
+    // setTimeout(expect(subject.find('.auth-link').html()).toBe('foo'), 3000);
+      expect(true).toBe(false)
 
     
   });
