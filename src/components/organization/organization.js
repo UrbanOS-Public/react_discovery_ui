@@ -5,9 +5,9 @@ export default ({ organization }) => (
   <dataset-organization>
     <div className='organization-header'>Organization Info</div>
     <a href={`/?${QueryStringBuilder.createFilterQueryString('organization', organization.title)}`}>
-      <img className='logo' src={organization.image} />
+      <img data-testid='organization-logo' className='logo' src={organization.image} />
     </a>
-    <div className='name wrapped-text'>{organization.title}</div>
-    <div className='description wrapped-text'>{organization.description}</div>
+    <div data-testid='organization-title' className='name wrapped-text'>{organization.title}</div>
+    <div data-testid='organization-description' className='description wrapped-text'>{organization.description}</div>
   </dataset-organization>
 )

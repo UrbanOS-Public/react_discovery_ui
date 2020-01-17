@@ -1,0 +1,71 @@
+{
+    "parentDataset":null,
+    "modified":"2019-03-31T05:48:12.031499Z",
+    "id":"SYS_d3bf2154_1cda_11ea_a56a_0242ac110002",
+    "categories":null,
+    "sourceType":"ingest",
+    "downloads":null,
+    "accessLevel":"public",
+    "title":"Cesious_Black_OBWEG",
+    "systemName":"Rosa_Lucky__Cesious_Black_OBWEG",
+    "queries":null,
+    "completeness":null,
+    "description":"Doubt that the sun doth move, doubt truth to be a liar, but never doubt I love.",
+    "temporal":null,
+    "referenceUrls":null,
+    "homepage":"grant.com",
+    "spatial":null,
+    "contactEmail":"golden_grant@fahey.biz",
+    "schema":[
+       {
+          "type":"string",
+          "name":"name"
+       },
+       {
+          "type":"string",
+          "name":"type"
+       },
+       {
+          "type":"integer",
+          "name":"quantity"
+       },
+       {
+          "type":"float",
+          "name":"size"
+       },
+       {
+          "type":"boolean",
+          "name":"is_alive"
+       }
+    ],
+    "publishFrequency":null,
+    "name":"Cesious_Black_OBWEG",
+    "conformsToUri":"https://project-open-data.cio.gov/v1.1/schema/",
+    "organization":{
+       "title":"Azzurro_Coco",
+       "name":"SYS_d3bf2154_1cda_11ea_a56a_0242ac110002_ORG",
+       "image":"https://placehold.it/314x314",
+       "homepage":"funk.org",
+       "description":"That it should come to this!"
+    },
+    "issuedDate":null,
+    "lastUpdatedDate":null,
+    "contactName":"Callie Rippin",
+    "describedByMimeType":null,
+    "license":"GNU",
+    "sourceUrl":"http://data-generator.testing/api/generate",
+    "sourceFormat":"text/csv",
+    "rights":"The fool doth think he is wise, but the wise man knows himself to be a fool.",
+    "describedByUrl":null,
+    "keywords":[
+       "multi-tasking",
+       "leading edge",
+       "didactic",
+       "high-level",
+       "client-server"
+    ],
+    "language":null,
+    "fileTypes":[
+       "CSV"
+    ]
+ }

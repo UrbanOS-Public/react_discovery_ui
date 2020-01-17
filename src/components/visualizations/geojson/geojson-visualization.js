@@ -56,7 +56,7 @@ export default class GeoJSONVisualization extends React.Component {
       bBox = GeoJsonUtils.isValidBBox(bBox) ? bBox : ohioBBox
 
       return (
-        <div className={isHidden ? 'hidden' : ''} test-id={`${source}-map`}>
+        <div data-testid={`${source}-map`} className={isHidden ? 'hidden' : ''} test-id={`${source}-map`}>
           <Map bounds={this.formatBboxToLeafletBounds(bBox)}>
             <TileLayer url={window.STREETS_TILE_LAYER_URL} className='geo-json' />
             <GeoJSON data={geoJsonData} className='geo-json' />

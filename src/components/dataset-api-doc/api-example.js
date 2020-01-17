@@ -1,14 +1,14 @@
 import './api-example.scss'
 import FilterNoneIcon from '@material-ui/icons/FilterNone'
 
-export default ({ title, descriptionHtml, action, url, params, examples }) => {
+export default ({ title, descriptionHtml, action, url, params, examples, testId='' }) => {
   return (
     <api-example>
       <div className='example-container'>
         <div className='example-title'>{title}</div>
         {descriptionHtml}
         <div className='example-code'>
-          <code className='example-element'>
+          <code data-testid={testId} className='example-element'>
             {`${action}: ${url}`}
           </code>
         </div>
@@ -22,7 +22,7 @@ export default ({ title, descriptionHtml, action, url, params, examples }) => {
 function renderParameters(params) {
   return (
     <div>
-      <div className='example-header'>Optional Parameters</div>
+      <div className='example-header'>eters</div>
       <div className='example-parameters'>
         <table className='parameter-table'>
           <thead>

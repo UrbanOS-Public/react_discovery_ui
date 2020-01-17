@@ -63,13 +63,14 @@ const QueryForm = props => {
     onInput={handleQueryChange}
     className='query-input'
     ref={textAreaRef}
+    data-testid='query-input'
   />
-  const submitButton = <button className="action-button" disabled={isQueryLoading} onClick={submit}>Submit</button>
+  const submitButton = <button data-testid="submitButton" className="action-button" disabled={isQueryLoading} onClick={submit}>Submit</button>
   const cancelButton = <button className="action-button" disabled={!isQueryLoading} onClick={cancel}>Cancel</button>
 
   const showSuccessMessage = !queryFailureMessage && isQueryDataAvailable && !isQueryLoading
   const successMessage = showSuccessMessage && (
-    <span className='success-message'>
+    <span data-testid='success-message' className='success-message'>
       Query successful
     </span>
   )

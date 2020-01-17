@@ -7,6 +7,7 @@ export const URLs = {
         bicycleDatasets: /^http:\/\/localhost:9001\/\?facets%5Bkeywords%5D%5B%5D=bicycle&page=1$/
     },
     datasetDetailsPage: {
-        ogrip: /^http:\/\/localhost:9001\/dataset\/ogrip\/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3$/
+        ogrip: /^http:\/\/localhost:9001\/dataset\/ogrip\/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3$/,
+        activityNodesDatasets: /^http:\/\/localhost:9001\/\?facets%5Bkeywords%5D%5B%5D=Activity%20Nodes$/
     }
 }

@@ -15,7 +15,7 @@ const UserPageButtonPopover = ({isAuthenticated}) => {
 
   return (
     <user-page-button-popover>
-      <TabButton className={`button-${isAuthenticated ? 'enabled' : 'disabled'}`} onClick={showLoginPrompt}>
+      <TabButton data-testid="user-page-button-popover" className={`button-${isAuthenticated ? 'enabled' : 'disabled'}`} onClick={showLoginPrompt}>
         <div title='Saved Visualizations'>
           <Link to="/user" className={`header-item link-${isAuthenticated ? 'enabled' : 'disabled'}`}>
             <FolderIcon />

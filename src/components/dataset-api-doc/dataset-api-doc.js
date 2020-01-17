@@ -107,6 +107,7 @@ function renderExamples(dataset) {
         url={`${window.API_HOST}/api/v1/organization/${dataset.organization.name}/dataset/${dataset.name}/query?limit=200&_format=${format}`}
         action='GET'
         params={simpleApiParams}
+        testId={`${dataset.name}-api-example`}
       />
       <ApiExample
         title={'Freestyle query'}
