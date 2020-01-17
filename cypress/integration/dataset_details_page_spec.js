@@ -138,16 +138,7 @@ describe('Saving on Write SQL tab for System dataset', function() {
 describe('Querying on Write SQL tab for System dataset', function () {
 
   it.only('Writing query in query input and hitting submit returns correct query result', function () {
-    cy.server({
-      onRequest: (xhr) => {
-        console.log(xhr)
-        if(xhr.url.endsWith('/api/v1/query')) {
-          if(xhr.request.body==='SELECT * FROM Rosa_Lucky__Cesious_Black_OBWEG\nLIMIT 20000') {
-            console.log("Gets here!")
-          }
-        }
-      }
-    })
+    cy.server()
     cy.route(routes.sysDataset)
     cy.route(routes.info)
     cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.previewFormatJson)
