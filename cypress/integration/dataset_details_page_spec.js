@@ -171,7 +171,7 @@ describe('Visualize Tab for System dataset', function () {
     cy.visit('/dataset/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002_ORG/Cesious_Black_OBWEG')
   })
 
-  it.only('loads successfully', function() {
+  it('loads successfully', function() {
     cy.get(visualizeTab).click()
     cy.get(plotlyEditor)
   })
