@@ -4,19 +4,27 @@ import SanitizedHTML from 'react-sanitized-html'
 import { QueryStringBuilder } from '../../utils'
 import DownloadButton from '../generic-elements/download-button'
 import AuthenticatedLink from '../authenticated-link'
+import { createRef } from 'react'
 
 const DatasetDetails = ({ dataset, downloadUrl }) => {
   if (!dataset) {
     return <div />
   }
 
+  console.log("yo doing the dataset details download")
+
+  const link = createRef()
+
   return (
     <dataset-details>
-      <AuthenticatedLink url={downloadUrl} filename={dataset.id}>Download</AuthenticatedLink>
+      {/*TODO - update url for presign url */}
+      
+      <AuthenticatedLink url={downloadUrl} filename={dataset.id} link={link}>Download</AuthenticatedLink>
       <div className='header'>
         <div className='name'>{dataset.title}</div>
         <div className='buttons'>
-          <DownloadButton url={downloadUrl} />
+          {/* Clicking on this link is launching the normal download instead of doing the steps we want. */}
+          {/* <DownloadButton url={downloadUrl} /> */}
         </div>
       </div>
       <div className='description'>
