@@ -11,15 +11,9 @@ const DatasetDetails = ({ dataset, downloadUrl }) => {
     return <div />
   }
 
-  console.log("yo doing the dataset details download")
-
-  const link = createRef()
-
   return (
     <dataset-details>
-      {/*TODO - update url for presign url */}
-      
-      <AuthenticatedLink url={downloadUrl} filename={dataset.id} link={link}>Download</AuthenticatedLink>
+      <AuthenticatedLink url={downloadUrl} filename={dataset.id} >Download</AuthenticatedLink>
       <div className='header'>
         <div className='name'>{dataset.title}</div>
         <div className='buttons'>

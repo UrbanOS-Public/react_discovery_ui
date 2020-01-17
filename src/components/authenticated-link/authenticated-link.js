@@ -1,20 +1,15 @@
 import { createRef } from 'react'
 import {AuthenticatedHTTPClient} from '../../utils/http-clients'
 
-export function AuthenticatedLink ({ url, filename, link, children }) {
-  // const link = createRef()
-  console.log("going to download from AuthenicatedLink")
-  
+export function AuthenticatedLink ({ url, filename, children }) {
+  const link = createRef()
   const handleAction = async () => {
-    console.log("Handling action!")
     if (link.current.href) { 
       console.log("href already set", link.current.href)
       return 
     }
 
-  console.log("Getting authenticated url")
-  const hardcodedUrl = 'https://data.dev.internal.smartcolumbusos.com/api/v1/dataset/28895f6e-518c-4c22-8a2b-f62d2df136cg/presign_url'
-    const result = await AuthenticatedHTTPClient.get(hardcodedUrl)
+    const result = await AuthenticatedHTTPClient.get(url)
     const downloadUrl = window.API_HOST + "/api/v1" + result.data + "&format=csv"
     
     link.current.download = filename
