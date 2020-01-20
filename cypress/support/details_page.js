@@ -6,11 +6,16 @@ export const Selectors = {
     organizationTitle: '[data-testid=organization-title]',
     organizationDescription: '[data-testid=organization-description]',
     datasetTitle: '[data-testid=dataset-title]',
+    datasetDescription: '[data-testid=dataset-description] > div',
     keywords: '[data-testid=dataset-keywords]',
     showFullDatasetCheckbox: '[data-testid="checkbox-indicator-Show Full Dataset"]',
     leafletContainer: '[data-testid=preview-map] > .leaflet-container',
     datasetApiExample: '[data-testid="622746a5_4e2a_4a4c_ac18_74cb1fb05ab3-api-example"]',
     activityNodesButton: '[href="/?facets%5Bkeywords%5D%5B%5D=Activity%20Nodes"]',
+    curlExample0: '[data-testid=curl-example-0]',
+    curlExample1: '[data-testid=curl-example-1]',
+    curlExample2: '[data-testid=curl-example-2]',
+    dataDictionary: '[data-testid=dataset-dictionary]',
     queryInput: '[data-testid=query-input]',
     successMessage: '[data-testid=success-message]',
     errorMessage: '[data-testid=error-message]',
@@ -32,7 +37,12 @@ export const Selectors = {
     saveIndicator: 'save-indicator',
     clearIcon: '.clear-icon',
     cancelButton: '[data-testid=cancel-button]',
-    plotlyEditor: '.plotly_editor'
+    plotlyEditor: '.plotly_editor',
+    socialMediaTwitter: '[data-testid=social-media-twitter]',
+    socialMediaFacebook: '[data-testid=social-media-facebook]',
+    socialMediaLinkedin: '[data-testid=social-media-linkedin]',
+    clipboard: '[data-testid=clipboard]',
+    downloadButton: '[data-testid=download-button]'
 }
 
 export const Routes = {

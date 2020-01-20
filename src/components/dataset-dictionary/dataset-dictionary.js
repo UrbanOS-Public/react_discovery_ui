@@ -115,7 +115,7 @@ export default ({ schema, datasetId, expanded = false }) => {
 
   return (
     <dataset-dictionary>
-      <CollapsableBox title={title} expanded={expanded}>
+      <CollapsableBox testId="dataset-dictionary" title={title} expanded={expanded}>
         {!isEmpty(schema) && (
           <div>
             <SchemaTable schema={schema} />

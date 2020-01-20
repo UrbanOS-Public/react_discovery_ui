@@ -84,7 +84,7 @@ function renderExample(example, index) {
         {example.description}
       </div>
       <div className='example-code'>
-        <code className='example-element'>{example.body}</code>
+        <code data-testid={`curl-example-${index}`} className='example-element'>{example.body}</code>
         <div className='example-element curl' onClick={copyToClipboard}>
           cURL
           <FilterNoneIcon className="copy-FilterNoneIcon">

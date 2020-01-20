@@ -17,7 +17,7 @@ const DatasetDetails = ({ dataset, downloadUrl }) => {
           <DownloadButton url={downloadUrl} />
         </div>
       </div>
-      <div className='description'>
+      <div data-testid='dataset-description' className='description'>
         <SanitizedHTML
           allowedAttributes={{
             a: ['href']
