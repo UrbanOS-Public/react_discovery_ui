@@ -15,7 +15,6 @@ export const Selectors = {
     curlExample0: '[data-testid=curl-example-0]',
     curlExample1: '[data-testid=curl-example-1]',
     curlExample2: '[data-testid=curl-example-2]',
-    dataDictionary: '[data-testid=dataset-dictionary]',
     queryInput: '[data-testid=query-input]',
     successMessage: '[data-testid=success-message]',
     errorMessage: '[data-testid=error-message]',

@@ -4,7 +4,7 @@ const ogrip_dataset = require('../fixtures/details_page_spec/ogrip_dataset')
 
 const { datasetDetailsTab, writeSqlTab, visualizeTab, organizationLogo, organizationTitle,
   organizationDescription, datasetTitle, datasetDescription, keywords, showFullDatasetCheckbox, leafletContainer,
-  datasetApiExample, activityNodesButton, curlExample0, curlExample1, curlExample2, dataDictionary, queryInput,
+  datasetApiExample, activityNodesButton, curlExample0, curlExample1, curlExample2, queryInput,
   successMessage, errorMessage, numRecords, tableHeader, tableBody, reactTable, paginatorInput, totalPages,
   submitQueryButton, cancelQueryButton, savedVisualizationsIcon, savedVisualizationsPopover,
   loginButton, saveIcon, savePopover, queryPrompt, saveButton, saveIndicator, clearIcon, cancelButton,
@@ -60,7 +60,7 @@ describe('The Ogrip Dataset Details Tab', function () {
     cy.visit('/dataset/ogrip/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3')
   })
 
-  it.only('successfully loads', function () {
+  it('successfully loads', function () {
     validateLeftSection()
     validateRightSection()
   })
@@ -68,11 +68,6 @@ describe('The Ogrip Dataset Details Tab', function () {
   it('Clicking a keyword takes you to datasets with that keyword', function () {
     cy.get(activityNodesButton).click()
     cy.url().should('match', urls.datasetDetailsPage.activityNodesDatasets)
-  })
-
-  it('Clicking Show Full Dataset shows full dataset', function() {
-    //Todo: figure out why show full dataset checkbox is grayed out.
-    cy.get(showFullDatasetCheckbox).click()
   })
 
 })
