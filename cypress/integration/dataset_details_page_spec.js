@@ -10,16 +10,7 @@ const { datasetDetailsTab, writeSqlTab, visualizeTab, organizationLogo, organiza
   loginButton, saveIcon, savePopover, queryPrompt, saveButton, saveIndicator, clearIcon, cancelButton,
   plotlyEditor, socialMediaTwitter, socialMediaFacebook, socialMediaLinkedin, clipboard, downloadButton } = Selectors
 
-function validateLeftSection () {
-  const ogripTitle = ogrip_dataset.organization.title
-  const ogripDescription = ogrip_dataset.organization.description
-  cy.url().should('match', urls.datasetDetailsPage.ogrip)
-  cy.get(datasetDetailsTab).contains('Dataset Details')
-  cy.get(writeSqlTab).contains('Write SQL')
-  cy.get(visualizeTab).contains('Visualize')
-  cy.get(organizationLogo).should('have.attr', 'src').should('include', 'ohio_geographically_referenced_information_program_ogrip.jpg')
-  cy.get(organizationTitle).contains(ogripTitle)
-  cy.get(organizationDescription).contains(ogripDescription)
+function validateSocialMedia() {
   cy.get(socialMediaTwitter)
   cy.get(socialMediaFacebook)
   cy.get(socialMediaLinkedin)
@@ -28,25 +19,56 @@ function validateLeftSection () {
   cy.get(clipboard).contains('Copied!')
 }
 
-function validateRightSection () {
+function validateLeftSection () {
+  validateTopLeft()
+  validateSocialMedia()
+}
+
+function validateTopRight() {
   const ogripDatasetTitle = ogrip_dataset.title
   const ogripDatasetDescription = ogrip_dataset.description
   const numberOfKeywords = ogrip_dataset.keywords.length
-  const downloadButtonUrl = 'https://data.staging.internal.smartcolumbusos.com/api/v1/dataset/622746a5-4e2a-4a4c-ac18-74cb1fb05ab3/download?_format=geojson'
-  const datasetApiValue = 'GET: https://data.staging.internal.smartcolumbusos.com/api/v1/organization/ogrip/dataset/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3/query?limit=200&_format=geojson'
-  const get200RowsAllColumns = 'SELECT * FROM ohio_geographically_referenced_information_program_ogrip__622746a5_4e2a_4a4c_ac18_74cb1fb05ab3 LIMIT 200'
-  const get200RowsFeatureColumns = 'SELECT feature FROM ohio_geographically_referenced_information_program_ogrip__622746a5_4e2a_4a4c_ac18_74cb1fb05ab3 WHERE feature IS NOT NULL LIMIT 200'
-  const exampleIdColumnsMatch = 'SELECT t1.example_column, t2.joined_column FROM example_dataset_one t1 INNER JOIN example_dataset_two t2 ON t1.example_id = t2.example_id LIMIT 200'
+  const downloadButtonUrl = 'http://localhost:4000/api/v1/dataset/622746a5-4e2a-4a4c-ac18-74cb1fb05ab3/download?_format=geojson'
   cy.get(datasetTitle).contains(ogripDatasetTitle)
   cy.get(downloadButton).should('have.attr', 'href').and('include', downloadButtonUrl)
   cy.get(datasetDescription).contains(ogripDatasetDescription)
   cy.get(keywords).children('a.keyword').should('have.length', numberOfKeywords)
+}
+
+function validateLeaflet() {
   cy.get(showFullDatasetCheckbox).not('have.class', 'selected')
   cy.get(leafletContainer)
+}
+
+function validateCurlExamples () {
+  const datasetApiValue = 'GET: http://localhost:4000/api/v1/organization/ogrip/dataset/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3/query?limit=200&_format=geojson'
+  const get200RowsAllColumns = 'SELECT * FROM ohio_geographically_referenced_information_program_ogrip__622746a5_4e2a_4a4c_ac18_74cb1fb05ab3 LIMIT 200'
+  const get200RowsFeatureColumns = 'SELECT feature FROM ohio_geographically_referenced_information_program_ogrip__622746a5_4e2a_4a4c_ac18_74cb1fb05ab3 WHERE feature IS NOT NULL LIMIT 200'
+  const exampleIdColumnsMatch = 'SELECT t1.example_column, t2.joined_column FROM example_dataset_one t1 INNER JOIN example_dataset_two t2 ON t1.example_id = t2.example_id LIMIT 200'
   cy.get(datasetApiExample).contains(datasetApiValue)
   cy.get(curlExample0).contains(get200RowsAllColumns)
   cy.get(curlExample1).contains(get200RowsFeatureColumns)
   cy.get(curlExample2).contains(exampleIdColumnsMatch)
+}
+
+function validateTopLeft() {
+  const ogripTitle = ogrip_dataset.organization.title
+  const ogripDescription = ogrip_dataset.organization.description
+  cy.get(organizationLogo).should('have.attr', 'src').should('include', 'ohio_geographically_referenced_information_program_ogrip.jpg')
+  cy.get(organizationTitle).contains(ogripTitle)
+  cy.get(organizationDescription).contains(ogripDescription)
+}
+
+function validateRightSection () {
+  validateTopRight()
+  validateLeaflet()
+  validateCurlExamples()
+}
+
+function validateHeader () {
+  cy.get(datasetDetailsTab).contains('Dataset Details')
+  cy.get(writeSqlTab).contains('Write SQL')
+  cy.get(visualizeTab).contains('Visualize')
 }
 
 describe('The Ogrip Dataset Details Tab', function () {
@@ -61,6 +83,8 @@ describe('The Ogrip Dataset Details Tab', function () {
   })
 
   it('successfully loads', function () {
+    cy.url().should('match', urls.datasetDetailsPage.ogrip)
+    validateHeader()
     validateLeftSection()
     validateRightSection()
   })

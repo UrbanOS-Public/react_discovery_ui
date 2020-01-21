@@ -10,7 +10,7 @@ export const Selectors = {
     keywords: '[data-testid=dataset-keywords]',
     showFullDatasetCheckbox: '[data-testid="checkbox-indicator-Show Full Dataset"]',
     leafletContainer: '[data-testid=preview-map] > .leaflet-container',
-    datasetApiExample: '[data-testid="622746a5_4e2a_4a4c_ac18_74cb1fb05ab3-api-example"]',
+    datasetApiExample: '[data-testid="Simple query-api-example"]',
     activityNodesButton: '[href="/?facets%5Bkeywords%5D%5B%5D=Activity%20Nodes"]',
     curlExample0: '[data-testid=curl-example-0]',
     curlExample1: '[data-testid=curl-example-1]',
