@@ -22,7 +22,7 @@ export default ({ title, descriptionHtml, action, url, params, examples, testId=
 function renderParameters(params) {
   return (
     <div>
-      <div className='example-header'>eters</div>
+      <div className='example-header'>Optional Parameters</div>
       <div className='example-parameters'>
         <table className='parameter-table'>
           <thead>
