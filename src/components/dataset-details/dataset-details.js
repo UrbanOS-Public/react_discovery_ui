@@ -12,12 +12,12 @@ const DatasetDetails = ({ dataset, downloadUrl }) => {
   return (
     <dataset-details>
       <div className='dataset-details-header'>
-        <div className='name'>{dataset.title}</div>
+        <div data-testid='dataset-title' className='name'>{dataset.title}</div>
         <div className='buttons'>
           <DownloadButton url={downloadUrl} />
         </div>
       </div>
-      <div className='description'>
+      <div data-testid='dataset-description' className='description'>
         <SanitizedHTML
           allowedAttributes={{
             a: ['href']
@@ -28,7 +28,7 @@ const DatasetDetails = ({ dataset, downloadUrl }) => {
       </div>
       {
         !_.isEmpty(dataset.keywords) && (
-          <div className='keywords'>
+          <div data-testid="dataset-keywords" className='keywords'>
             <div className='keyword-label'>KEYWORDS</div>
             {dataset.keywords.map(createKeyword)}
           </div>

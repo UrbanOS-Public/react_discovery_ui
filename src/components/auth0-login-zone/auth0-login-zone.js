@@ -17,7 +17,7 @@ export const Auth0LoginZone = ({ auth: { isAuthenticated, isLoading, loginWithRe
       {
         isAuthenticated
           ? <button onClick={() => { logout({ returnTo }) }}><LoginSvgsAndText text="LOG OUT" /></button>
-          : <button onClick={ loginWithRedirect }><LoginSvgsAndText text="LOG IN" /></button>
+          : <button data-testid="login-button" onClick={ loginWithRedirect }><LoginSvgsAndText text="LOG IN" /></button>
       }
     </login-zone>
   )

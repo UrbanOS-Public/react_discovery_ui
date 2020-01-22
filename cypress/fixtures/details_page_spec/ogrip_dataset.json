@@ -47,15 +47,7 @@
     "sourceFormat":"application/geo+json",
     "keywords":[
        "Activity Nodes",
-       "CCPC",
-       "Conservation",
-       "Environmental",
-       "Greenprint",
-       "Open Space",
-       "Riparian",
-       "Trails",
-       "Wetlands",
-       "visualized-datasets"
+       "CCPC"
     ],
     "parentDataset":null
  }

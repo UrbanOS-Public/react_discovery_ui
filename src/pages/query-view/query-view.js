@@ -42,7 +42,7 @@ const QueryView = props => {
   }
 
   return (
-    <query-view>
+    <query-view data-testid="query-view">
       <QueryForm
         recommendations={recommendations}
 

@@ -70,6 +70,7 @@ const ChartView = (props) => {
         advancedTraceTypeSelector
         useResizeHandler
         config={{ mapboxAccessToken: window.MAPBOX_ACCESS_TOKEN }}
+        data-testid="plotly-editor"
       >
         <DefaultEditor logoSrc={window.LOGO_URL} />
       </PlotlyEditor>

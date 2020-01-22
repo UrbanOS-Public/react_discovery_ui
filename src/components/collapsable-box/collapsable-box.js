@@ -21,7 +21,7 @@ export default class extends Component {
   render() {
     return (
       <collapsable-box>
-        <div className={`header-container ${this.headerOpenClass()}`} onClick={e => { this.toggleCollapsed() }} >
+        <div data-testid={this.props.testId} className={`header-container ${this.headerOpenClass()}`} onClick={e => { this.toggleCollapsed() }} >
           <div className='header-text-items'>
             <div className='title'>{this.props.title}</div>
             {this.props.headerHtml}

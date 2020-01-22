@@ -57,11 +57,11 @@ export const Routes = {
     info: {
         method: 'GET',
         url: '/sockjs-node/*',
-        response: 'fixture:search_page_spec/info.json'
+        response: 'fixture:info.json'
     },
     ogripDataset: {
         method: 'GET',
         url: '/api/v1/organization/ogrip/dataset/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3',
-        response: 'fixture:search_page_spec/ogrip_dataset'
+        response: 'fixture:details_page_spec/ogrip_dataset'
     }
 }

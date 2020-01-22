@@ -26,7 +26,7 @@ const SaveButtonPopover = (props) => {
 
   return (
     <save-button-popover>
-      <TabButton disabled={!isSaveable} className={`header-item save-icon ${isDialogOpen && 'saving'}`} onClick={openDialog} >
+      <TabButton data-testid="save-icon" disabled={!isSaveable} className={`header-item save-icon ${isDialogOpen && 'saving'}`} onClick={openDialog} >
         <div title='Save Visualization'><SaveIcon /></div>
       </TabButton>
       <AutoAnchoringPopover className='save-prompt popover-anchor' open={isDialogOpen} onClose={closeDialog} classes={{ paper: 'popover', root: 'popover-root' }} >
@@ -35,8 +35,8 @@ const SaveButtonPopover = (props) => {
           <input className="prompt" type="text" placeholder="Query Name" value={localTitle || ''} onChange={handleTitleChange}></input>
           <ClearIcon className='clear-icon' onClick={closeDialog} />
           <br />
-          <button className="save-button" onClick={handleSaveOrUpdate} disabled={localTitle == undefined || localTitle.length == 0}>Save</button>
-          <button onClick={closeDialog}>Cancel</button>
+          <button data-testid="save-button" className="save-button" onClick={handleSaveOrUpdate} disabled={localTitle == undefined || localTitle.length == 0}>Save</button>
+          <button data-testid="cancel-button" onClick={closeDialog}>Cancel</button>
           <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkUrl={linkUrl} />
         </div>
       </AutoAnchoringPopover>

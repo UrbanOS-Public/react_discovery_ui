@@ -1,0 +1,27 @@
+{
+    "meta":{
+       "columns":[
+          "name",
+          "type",
+          "quantity",
+          "size",
+          "is_alive"
+       ]
+    },
+    "data":[
+       {
+          "type":"Gerhard Terry",
+          "size":0.6342799431401583,
+          "quantity":50317,
+          "name":"Mrs. Reece Murazik",
+          "is_alive":true
+       },
+       {
+          "type":"Braulio Ferry",
+          "size":0.5560393421879573,
+          "quantity":44777,
+          "name":"Maud West",
+          "is_alive":true
+       }
+    ]
+ }
