@@ -114,7 +114,7 @@ describe('Write SQL Tab for Ogrip dataset', function() {
     cy.contains('Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.')
     cy.get(queryInput).should('be.visible')
     cy.get(queryInput).should('have.value', query)
-    cy.get(numRecords).contains('13 records returned')
+    cy.get(numRecords).contains('11 records returned')
     cy.get(reactTable).should('be.visible')
     cy.get(tableHeader).children().should('have.length', 1)
     cy.get(tableHeader).children().eq(0).contains('feature')
