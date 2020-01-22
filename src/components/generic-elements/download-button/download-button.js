@@ -1,5 +1,28 @@
-import './download-button.scss'
 
-export default (props) => (
-  <a data-testid='download-button' className='download-button' href={props.url} target='_blank' rel='noopener noreferrer'>Download</a>
-)
+import "./download-button.scss";
+import React from "react";
+import { AuthenticatedHTTPClient } from "../../../utils/http-clients";
+
+export function DownloadButton({ url, format }) {
+  const handleAction = async () => {
+    const result = await AuthenticatedHTTPClient.get(url);
+    const downloadUrl = result.data + "&format=" + format;
+    window.location.href = downloadUrl;
+  };
+
+  return (
+    <download-button>
+      <a
+        data-testid="download-button"
+        className="download-button"
+        role="button"
+        rel="noopener noreferrer"
+        onClick={handleAction}
+      >
+        Download
+      </a>
+    </download-button>
+  );
+}
+
+export default DownloadButton;

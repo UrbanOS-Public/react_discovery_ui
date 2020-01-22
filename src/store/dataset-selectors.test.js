@@ -141,32 +141,14 @@ describe('datasetSelectors', () => {
       expect(downloadUrl(state)).toBe('http://stuff.stuff')
     })
 
-    it('returns a download url with the first file type downcased as the format for a non-remote dataset', () => {
+    it('returns a presigned url for a non-remote dataset', () => {
       const state = createState({
         id: 'dataset_id',
         sourceType: 'ingest',
         fileTypes: ['A-Positive', 'ONEGATIVE']
       })
 
-      expect(downloadUrl(state)).toBe(`${window.API_HOST}/api/v1/dataset/dataset_id/download?_format=a-positive`)
-    })
-
-    it('returns a download url with json as the format instead of gtfs', () => {
-      const state = createState({
-        id: 'dataset_id',
-        fileTypes: ['gtfs']
-      })
-
-      expect(downloadUrl(state)).toBe(`${window.API_HOST}/api/v1/dataset/dataset_id/download?_format=json`)
-    })
-
-    it('returns a download url with json when no file types are present', () => {
-      const state = createState({
-        id: 'dataset_id',
-        fileTypes: []
-      })
-
-      expect(downloadUrl(state)).toBe(`${window.API_HOST}/api/v1/dataset/dataset_id/download?_format=json`)
+      expect(downloadUrl(state)).toBe(`${window.API_HOST}/api/v1/dataset/dataset_id/download/presigned_url`)
     })
   })
 })
