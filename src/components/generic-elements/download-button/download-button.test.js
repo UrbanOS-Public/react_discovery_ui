@@ -7,7 +7,7 @@ describe("download-button", () => {
     AuthenticatedHTTPClient.get = jest.fn();
     AuthenticatedHTTPClient.get.mockImplementationOnce(() => ({
       status: 200,
-      data: "/presigned/url?key=123"
+      data: "http://test.example.com/api/v1/presigned/url?key=123"
     }));
 
     const url = "http://dummy.com";
