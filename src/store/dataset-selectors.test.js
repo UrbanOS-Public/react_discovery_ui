@@ -148,7 +148,7 @@ describe('datasetSelectors', () => {
         fileTypes: ['A-Positive', 'ONEGATIVE']
       })
 
-      expect(downloadUrl(state)).toBe(`${window.API_HOST}/api/v1/dataset/dataset_id/presign_url`)
+      expect(downloadUrl(state)).toBe(`${window.API_HOST}/api/v1/dataset/dataset_id/download/presigned_url`)
     })
   })
 })

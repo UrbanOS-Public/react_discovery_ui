@@ -28,7 +28,7 @@ const downloadUrl = createSelector(dataset, isRemoteDataset,
   (dataset, isRemote) => {
     if (isRemote) { return dataset.sourceUrl }
 
-    return `${window.API_HOST}/api/v1/dataset/${dataset.id}/presign_url`
+    return `${window.API_HOST}/api/v1/dataset/${dataset.id}/download/presigned_url`
   }
 )
 

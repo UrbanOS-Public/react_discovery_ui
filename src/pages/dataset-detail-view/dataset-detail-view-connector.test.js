@@ -30,6 +30,6 @@ describe('dataset view', () => {
 
     const subject = mount(<Provider store={store}><DatasetDetailView /></Provider>)
 
-    expect(subject.find(DownloadButton).props().url).toBe(`${window.API_HOST}/api/v1/dataset/${state.datasetReducer.dataset.id}/presign_url`)
+    expect(subject.find(DownloadButton).props().url).toBe(`${window.API_HOST}/api/v1/dataset/${state.datasetReducer.dataset.id}/download/presigned_url`)
   })
 })
