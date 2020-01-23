@@ -19,7 +19,7 @@ function validateSocialMedia() {
   cy.get(clipboard).contains('Copied!')
 }
 
-function validateLeftSection () {
+function validateLeftSection() {
   validateTopLeft()
   validateSocialMedia()
 }
@@ -28,9 +28,8 @@ function validateTopRight() {
   const ogripDatasetTitle = ogrip_dataset.title
   const ogripDatasetDescription = ogrip_dataset.description
   const numberOfKeywords = ogrip_dataset.keywords.length
-  const downloadButtonUrl = 'http://localhost:4000/api/v1/dataset/622746a5-4e2a-4a4c-ac18-74cb1fb05ab3/download?_format=geojson'
   cy.get(datasetTitle).contains(ogripDatasetTitle)
-  cy.get(downloadButton).should('have.attr', 'href').and('include', downloadButtonUrl)
+  cy.get(downloadButton).contains("Download")
   cy.get(datasetDescription).contains(ogripDatasetDescription)
   cy.get(keywords).children('a.keyword').should('have.length', numberOfKeywords)
 }
@@ -40,7 +39,7 @@ function validateLeaflet() {
   cy.get(leafletContainer)
 }
 
-function validateCurlExamples () {
+function validateCurlExamples() {
   const datasetApiValue = 'GET: http://localhost:4000/api/v1/organization/ogrip/dataset/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3/query?limit=200&_format=geojson'
   const get200RowsAllColumns = 'SELECT * FROM ohio_geographically_referenced_information_program_ogrip__622746a5_4e2a_4a4c_ac18_74cb1fb05ab3 LIMIT 200'
   const get200RowsFeatureColumns = 'SELECT feature FROM ohio_geographically_referenced_information_program_ogrip__622746a5_4e2a_4a4c_ac18_74cb1fb05ab3 WHERE feature IS NOT NULL LIMIT 200'
@@ -59,13 +58,13 @@ function validateTopLeft() {
   cy.get(organizationDescription).contains(ogripDescription)
 }
 
-function validateRightSection () {
+function validateRightSection() {
   validateTopRight()
   validateLeaflet()
   validateCurlExamples()
 }
 
-function validateHeader () {
+function validateHeader() {
   cy.get(datasetDetailsTab).contains('Dataset Details')
   cy.get(writeSqlTab).contains('Write SQL')
   cy.get(visualizeTab).contains('Visualize')
@@ -96,7 +95,7 @@ describe('The Ogrip Dataset Details Tab', function () {
 
 })
 
-describe('Write SQL Tab for Ogrip dataset', function() {
+describe('Write SQL Tab for Ogrip dataset', function () {
 
   it('Clicking Write SQL takes you to query page', function () {
     cy.server()
@@ -108,7 +107,7 @@ describe('Write SQL Tab for Ogrip dataset', function() {
     cy.visit('/dataset/ogrip/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3')
     cy.route(routes["622746a5_4e2a_4a4c_ac18_74cb1fb05ab3"].query).as('getQueryResults')
     const query = 'SELECT * FROM ohio_geographically_referenced_information_program_ogrip__622746a5_4e2a_4a4c_ac18_74cb1fb05ab3\nLIMIT 20000'
-    const numberOfRowsPerPage=10
+    const numberOfRowsPerPage = 10
     cy.get(writeSqlTab).click()
     cy.wait(['@getQueryResults'])
     cy.contains('Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.')
@@ -125,9 +124,9 @@ describe('Write SQL Tab for Ogrip dataset', function() {
 
 })
 
-describe('Write SQL Tab for System dataset', function() {
+describe('Write SQL Tab for System dataset', function () {
 
-  beforeEach(function() {
+  beforeEach(function () {
     cy.server()
     cy.route(routes.sysDataset)
     cy.route(routes.info)
@@ -153,7 +152,7 @@ describe('Write SQL Tab for System dataset', function() {
     cy.get(tableHeader).children().eq(2).contains('type')
   })
 
-  it('Writing query and hitting submit returns nothing if cancel is hit before response returns', function() {
+  it('Writing query and hitting submit returns nothing if cancel is hit before response returns', function () {
     const query = 'SELECT is_alive, name, type FROM Rosa_Lucky__Cesious_Black_OBWEG\nLIMIT 20000'
     cy.get(queryInput).clear().type(query)
     cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query3).as('getQueryResults')
@@ -168,7 +167,7 @@ describe('Write SQL Tab for System dataset', function() {
     cy.get(savedVisualizationsPopover).should('be.visible')
     cy.get(loginButton).contains('LOG IN')
   })
-  
+
   it('Clicking save icon opens query popup', function () {
     cy.get(saveIcon).click()
     cy.get(savePopover).should('be.visible')
@@ -188,7 +187,7 @@ describe('Write SQL Tab for System dataset', function() {
 })
 
 describe('Visualize Tab for System dataset', function () {
-  beforeEach(function() {
+  beforeEach(function () {
     cy.server()
     cy.route(routes.sysDataset)
     cy.route(routes.info)
@@ -198,7 +197,7 @@ describe('Visualize Tab for System dataset', function () {
     cy.visit('/dataset/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002_ORG/Cesious_Black_OBWEG')
   })
 
-  it('loads successfully', function() {
+  it('loads successfully', function () {
     cy.get(visualizeTab).click()
     cy.get(plotlyEditor)
   })
