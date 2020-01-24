@@ -23,7 +23,7 @@ export default class extends Component {
           <div className='example-code'>
             <code>
               <div>{`websocat wss://streams.${window.BASE_URL}/socket/websocket`}</div>
-              <div>{`'{"topic": "streaming:${systemName}","event":"phx_join","payload":{},"ref":"1"}'`}</div>
+              <div>{`{"topic": "streaming:${systemName}","event":"phx_join","payload":{},"ref":"1"}`}</div>
             </code>
           </div>
           <div className='example-header'>
