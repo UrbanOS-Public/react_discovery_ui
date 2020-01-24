@@ -30,7 +30,7 @@ export default class extends Component {
               Phoenix Channels clients
           </div>
           <div>
-            For application development, look at the <a href="https://www.npmjs.com/package/phoenix">official Phoenix Javascript library</a>, or one of the <a href="https://hexdocs.pm/phoenix/channels.html#client-libraries">other client libraries</a>
+            For application development, look at the <a href="https://www.npmjs.com/package/phoenix" target="_blank">official Phoenix Javascript library</a>, or one of the <a href="https://hexdocs.pm/phoenix/channels.html#client-libraries" target="_blank">other client libraries</a>
           </div>
         </div>
       </div>
