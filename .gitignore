@@ -12,3 +12,5 @@ lib/
 *.tgz
 
 cypress/videos
+
+.vscode/
