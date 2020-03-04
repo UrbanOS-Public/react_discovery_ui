@@ -6,7 +6,7 @@ import { AuthenticatedHTTPClient } from "../../../utils/http-clients";
 export function DownloadButton({ url, format }) {
   const handleAction = async () => {
     const result = await AuthenticatedHTTPClient.get(url);
-    const downloadUrl = result.data + "&format=" + format;
+    const downloadUrl = result.data + "&_format=" + format;
     window.location.href = downloadUrl;
   };
 
