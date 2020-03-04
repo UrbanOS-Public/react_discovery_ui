@@ -21,8 +21,6 @@ deploy:
 - provider: npm
   edge: true
   email: "johnson.denen@gmail.com"
-  api_token:
-    secure: $NPM_AUTH_TOKEN
   on:
     tags: true
 branches:
