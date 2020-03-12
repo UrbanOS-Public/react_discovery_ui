@@ -185,9 +185,9 @@ describe('visualizationAllowedActions', () => {
     expect(visualizationAllowedActions(state)).toEqual(['xxxx', 'yyyy'])
   })
 
-  it('returns only a create action when no visualization is present in the store', () => {
+  it('returns only a create action when no actions are present in the store', () => {
     const state = {
-      visualization: {}
+      visualization: { visualization: {} }
     }
 
     expect(visualizationAllowedActions(state)).toEqual(['create'])

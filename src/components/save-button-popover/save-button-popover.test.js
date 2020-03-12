@@ -41,8 +41,9 @@ describe('save button popover', () => {
         expect(subject.find(".save-button").length).toEqual(1)
       })
 
-      it("disables the save button when no query title has been set", () => {
+      it("disables the save buttons when no query title has been set", () => {
         expect(subject.find(".save-button").props().disabled).toBeTruthy()
+        expect(subject.find(".save-copy-button").props().disabled).toBeTruthy()
       })
 
       it("sends create visualization event with the query, a query title, and the visualization", () => {
@@ -55,6 +56,36 @@ describe('save button popover', () => {
       subject = createSubject({ title: 'title' })
 
       expect(subject.find(".save-button").props().disabled).toBeFalsy()
+    })
+
+    describe('allowed actions', () => {
+      it('enables no save buttons when no actions are allowed', () => {
+        subject = createSubject({ title: 'title', allowedActions: [] })
+
+        expect(subject.find('.save-copy-button').props().disabled).toBeTruthy()
+        expect(subject.find('.save-button').props().disabled).toBeTruthy()
+      })
+
+      it('enables only the "save copy" button when create_copy action is allowed', () => {
+        subject = createSubject({ title: 'title', allowedActions: ["create_copy"] })
+
+        expect(subject.find('.save-copy-button').props().disabled).toBeFalsy()
+        expect(subject.find('.save-button').props().disabled).toBeTruthy()
+      })
+
+      it('enables only the save button when update action is allowed', () => {
+        subject = createSubject({ title: 'title', allowedActions: ["update"] })
+
+        expect(subject.find('.save-copy-button').props().disabled).toBeTruthy()
+        expect(subject.find('.save-button').props().disabled).toBeFalsy()
+      })
+
+      it('enables only the save button when create action is allowed', () => {
+        subject = createSubject({ title: 'title', allowedActions: ["create"] })
+
+        expect(subject.find('.save-copy-button').props().disabled).toBeTruthy()
+        expect(subject.find('.save-button').props().disabled).toBeFalsy()
+      })
     })
 
     describe('when save succeeds', () => {
@@ -121,8 +152,9 @@ describe('save button popover', () => {
       expect(subject.find(".login-prompt")).toHaveLength(1)
     })
 
-    it('disables the save button even when otherwise saveable', () => {
+    it('disables the save buttons even when otherwise saveable', () => {
       expect(subject.find('.save-button').props().disabled).toBeTruthy()
+      expect(subject.find('.save-copy-button').props().disabled).toBeTruthy()
     })
   })
 })
@@ -137,7 +169,8 @@ const createSubject = (props = {}) => {
     isSaveSuccess: false,
     isSaveFailure: false,
     linkUrl: undefined,
-    isAuthenticated: true
+    isAuthenticated: true,
+    allowedActions: ["create"]
   }
 
   const propsWithDefaults = Object.assign({}, defaultProps, props)
