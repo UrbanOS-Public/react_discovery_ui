@@ -23,6 +23,7 @@ const VisualizationView = (props) => {
     id: idFromState,
     query,
     title,
+    allowedActions,
     isLoadFailure,
     isSaveSuccess,
     isSaveFailure,
@@ -85,6 +86,7 @@ const VisualizationView = (props) => {
                 isSaveFailure={isSaveFailure}
                 isSaveSuccess={isSaveSuccess}
                 title={localTitle}
+                allowedActions={allowedActions}
                 isAuthenticated={isAuthenticated}
               />
             </React.Fragment>

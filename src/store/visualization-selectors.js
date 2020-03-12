@@ -14,6 +14,11 @@ export const visualizationSaveFailure = state => state.visualization.saveFailure
 export const visualizationChart = state => state.visualization.chart
 export const userVisualizations = state => state.visualization.userVisualizations
 
+export const visualizationAllowedActions = state => {
+  if(!state.visualization.visualization) return ['create']
+  return state.visualization.visualization.allowedActions.map((action) => action.name)
+}
+
 export const isVisualizationSaveable = createSelector(
   isQueryTextAvailable,
   visualizationLoading,

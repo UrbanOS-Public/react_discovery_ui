@@ -104,6 +104,7 @@ export default class extends Component {
                     isSaveFailure={this.props.isSaveFailure}
                     isSaveSuccess={this.props.isSaveSuccess}
                     title={this.state.localTitle}
+                    allowedActions={this.props.allowedActions}
                     isAuthenticated={this.props.auth.isAuthenticated}
                   />
                 </React.Fragment>

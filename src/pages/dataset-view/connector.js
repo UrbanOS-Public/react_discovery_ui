@@ -3,7 +3,14 @@ import DatasetView from './dataset-view'
 import { retrieveDatasetDetails, resetQuery, visualizationSave, visualizationReset } from '../../store/actions'
 import { getDataset, isRemoteDataset, isHostDataset, isDatasetLoaded } from '../../store/dataset-selectors'
 import { getFreestyleQueryText } from '../../store/query-selectors'
-import { isVisualizationSaveable, visualizationSaveSuccess, visualizationSaveFailure, visualizationID, visualizationTitle} from '../../store/visualization-selectors'
+import {
+  isVisualizationSaveable,
+  visualizationSaveSuccess,
+  visualizationSaveFailure,
+  visualizationID,
+  visualizationTitle,
+  visualizationAllowedActions
+} from '../../store/visualization-selectors'
 import { shouldAutoExecuteQuery } from '../../store/query-selectors'
 import withAuth0 from "../../auth/auth0-wrapper"
 
@@ -12,6 +19,7 @@ const mapStateToProps = state => {
     id: visualizationID(state),
     query: getFreestyleQueryText(state),
     title: visualizationTitle(state),
+    allowedActions: visualizationAllowedActions(state),
     dataset: getDataset(state),
     isDatasetLoaded: isDatasetLoaded(state),
     isRemoteDataset: isRemoteDataset(state),

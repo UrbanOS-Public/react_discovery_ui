@@ -1,4 +1,8 @@
-import { isVisualizationSaveable, dereferencedChart } from './visualization-selectors';
+import {
+  isVisualizationSaveable,
+  dereferencedChart,
+  visualizationAllowedActions
+} from './visualization-selectors';
 import { getVisualizationDataSources } from './query-selectors';
 import { cloneDeep } from 'lodash'
 
@@ -165,5 +169,27 @@ describe('dererencedChart', () => {
 
   it('does not mutate data sources', () => {
     expect(getVisualizationDataSources(state)).toEqual(preDerefDataSources)
+  })
+})
+
+describe('visualizationAllowedActions', () => {
+  it('returns actions associated with existing visualization if one is in store', () => {
+    const state = {
+      visualization: {
+        visualization: {
+          allowedActions: [{name: 'xxxx'}, {name: 'yyyy'}]
+        }
+      }
+    }
+
+    expect(visualizationAllowedActions(state)).toEqual(['xxxx', 'yyyy'])
+  })
+
+  it('returns only a create action when no visualization is present in the store', () => {
+    const state = {
+      visualization: {}
+    }
+
+    expect(visualizationAllowedActions(state)).toEqual(['create'])
   })
 })
