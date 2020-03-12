@@ -31,7 +31,7 @@ export const Selectors = {
     loginButton: '[data-testid=login-button]',
     saveIcon: '[data-testid=save-icon]',
     savePopover: '.MuiPaper-root',
-    queryPrompt: '.prompt',
+    queryPrompt: '.title-input',
     saveButton: '[data-testid=save-button]',
     saveIndicator: 'save-indicator',
     clearIcon: '.clear-icon',

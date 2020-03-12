@@ -11,12 +11,5 @@ user-page-button-popover {
     fill: $almost-black;
   }
 
-  .tab-button {
-    outline: none;
-  }
-
-  .login-message {
-    width: 20rem;
-    margin-left: 0.5rem;
-  }
+  @include menu-item-popover();
 }

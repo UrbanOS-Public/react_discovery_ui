@@ -4,6 +4,7 @@ import TabButton from '../../components/generic-elements/tab-button'
 import SaveIcon from '@material-ui/icons/Save'
 import ClearIcon from '@material-ui/icons/Clear'
 import SaveIndicator from '../../components/generic-elements/save-indicator'
+import Auth0LoginZone from '../auth0-login-zone'
 
 import './save-button-popover.scss'
 
@@ -27,17 +28,22 @@ const SaveButtonPopover = (props) => {
   return (
     <save-button-popover>
       <TabButton data-testid="save-icon" disabled={!isSaveable} className={`header-item save-icon ${isDialogOpen && 'saving'}`} onClick={openDialog} >
-        <div title='Save Visualization'><SaveIcon /></div>
+        <div title='Save Workspace'><SaveIcon /></div>
       </TabButton>
       <AutoAnchoringPopover className='save-prompt popover-anchor' open={isDialogOpen} onClose={closeDialog} classes={{ paper: 'popover', root: 'popover-root' }} >
         <div>
           <b>Workspace Title: </b>
-          <input className="prompt" type="text" value={localTitle || ''} onChange={handleTitleChange}></input>
-          <ClearIcon className='clear-icon' onClick={closeDialog} />
+          <input className="title-input" type="text" value={localTitle || ''} onChange={handleTitleChange}></input>
           <br />
           <button data-testid="save-button" className="save-button" onClick={handleSaveOrUpdate} disabled={localTitle == undefined || localTitle.length == 0}>Save</button>
           <button data-testid="cancel-button" onClick={closeDialog}>Cancel</button>
           <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkUrl={linkUrl} />
+
+          <div>
+            <hr />
+            <span>You must log in to save your workspace.</span>
+            <Auth0LoginZone />
+          </div>
         </div>
       </AutoAnchoringPopover>
     </save-button-popover>

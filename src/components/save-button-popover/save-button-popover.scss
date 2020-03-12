@@ -11,13 +11,9 @@ save-button-popover {
     position: relative;
   }
 
-  .popover {
-    margin-right: 0.5rem;
-    padding: 1rem;
-    border-radius: 0px;
-
-    box-shadow: 0px 5px 5px -3px $box-shadow-grey, 0px 8px 10px 1px $box-shadow-grey, 0px 3px 14px 2px $box-shadow-grey;
-
-    min-width: 20rem; /* popover does not deal well with this missing */
+  .title-input {
+    width: 12rem;
   }
+
+  @include menu-item-popover();
 }

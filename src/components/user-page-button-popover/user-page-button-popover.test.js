@@ -13,7 +13,6 @@ describe('user page button popover', () => {
       })
 
       it("displays a prompt for the user to log in", () => {
-        expect(subject.find(".login-message")).toHaveLength(1)
         expect(subject.find(".login-prompt").props().open).toBeTruthy()
         expect(subject.find(Auth0LoginZone)).toHaveLength(1)
       })
@@ -34,7 +33,7 @@ describe('user page button popover', () => {
       })
 
       it("does not display a login prompt", () => {
-        expect(subject.find(".login-message").props().open).toBeFalsy()
+        expect(subject.find(".login-prompt").props().open).toBeFalsy()
       })
     })
   })

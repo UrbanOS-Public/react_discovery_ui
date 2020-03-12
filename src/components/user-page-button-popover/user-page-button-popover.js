@@ -16,15 +16,15 @@ const UserPageButtonPopover = ({isAuthenticated}) => {
   return (
     <user-page-button-popover>
       <TabButton data-testid="user-page-button-popover" className={`button-${isAuthenticated ? 'enabled' : 'disabled'}`} onClick={showLoginPrompt}>
-        <div title='Saved Visualizations'>
+        <div title='Saved Workspaces'>
           <Link to="/user" className={`header-item link-${isAuthenticated ? 'enabled' : 'disabled'}`}>
             <FolderIcon />
           </Link>
         </div>
       </TabButton>
-      <AutoAnchoringPopover className='login-prompt popover-anchor' open={!isAuthenticated && userNeedsLoginInfo} onClose={closeLoginPrompt}>
-        <div className="login-message">
-          <p>You need to be logged in to see your visualizations</p>
+      <AutoAnchoringPopover className='login-prompt popover-anchor' open={!isAuthenticated && userNeedsLoginInfo} onClose={closeLoginPrompt} classes={{ paper: 'popover', root: 'popover-root' }}>
+        <div>
+          <span>You must log in to see your saved workspaces.</span>
           <Auth0LoginZone />
         </div>
       </AutoAnchoringPopover>

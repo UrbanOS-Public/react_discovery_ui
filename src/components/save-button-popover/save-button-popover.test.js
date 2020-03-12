@@ -35,7 +35,7 @@ describe('save button popover', () => {
 
     it("displays the title prompt popover", () => {
       expect(subject.find(".save-prompt").props().open).toEqual(true)
-      expect(subject.find(".prompt").length).toEqual(1)
+      expect(subject.find(".title-input").length).toEqual(1)
       expect(subject.find(".save-button").length).toEqual(1)
     })
 
@@ -44,7 +44,7 @@ describe('save button popover', () => {
     })
 
     it("sends create visualization event with the query, a query title, and the visualization", () => {
-      subject.find(".prompt").simulate("change", { target: { value: 'Query Title' } })
+      subject.find(".title-input").simulate("change", { target: { value: 'Query Title' } })
       subject.find(".save-button").simulate("click")
       expect(saveHandler).toHaveBeenCalled()
     })
