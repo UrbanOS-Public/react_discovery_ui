@@ -143,15 +143,17 @@ describe("visualization view", () => {
 
   describe("visualization view has save and user page icon in the tabs header", () => {
     beforeEach(() => {
-      subject = createSubject();
+      subject = createSubject({auth: {isAuthenticated: true}});
     })
 
-    it("displays the save icon in the header", () => {
+    it("displays the save icon in the header with expected props", () => {
       expect(subject.find(SaveButtonPopover)).toHaveLength(1)
+      expect(subject.find(SaveButtonPopover).props().isAuthenticated).toBe(true)
     })
 
-    it("displays the user page icon in the header", () => {
+    it("displays the user page icon in the header with expected props", () => {
       expect(subject.find(UserPageButtonPopover)).toHaveLength(1)
+      expect(subject.find(UserPageButtonPopover).props().isAuthenticated).toBe(true)
     })
   })
 })

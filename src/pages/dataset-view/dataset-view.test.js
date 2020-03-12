@@ -43,14 +43,16 @@ describe("dataset view", () => {
     expect(subject.find(QueryView).props().shouldAutoExecuteQuery).toBe(true)
   })
 
-  it("displays the save icon in the header", () => {
+  it("displays the save icon in the header with expected props", () => {
     subject.setState({index: 1})
     expect(subject.find(SaveButtonPopover)).toHaveLength(1)
+    expect(subject.find(SaveButtonPopover).props().isAuthenticated).toBe(true)
   })
 
-  it("displays the user page icon in the header", () => {
+  it("displays the user page icon in the header with expected props", () => {
     subject.setState({index: 1})
     expect(subject.find(UserPageButtonPopover)).toHaveLength(1)
+    expect(subject.find(UserPageButtonPopover).props().isAuthenticated).toBe(true)
   })
 
   it("hides the save and user page icon on the dataset detail tab", () => {

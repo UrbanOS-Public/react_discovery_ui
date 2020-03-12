@@ -84,7 +84,8 @@ const VisualizationView = (props) => {
                 linkUrl={linkUrl}
                 isSaveFailure={isSaveFailure}
                 isSaveSuccess={isSaveSuccess}
-                localTitle={localTitle}
+                title={localTitle}
+                isAuthenticated={isAuthenticated}
               />
             </React.Fragment>
           </span>

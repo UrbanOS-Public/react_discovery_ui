@@ -103,7 +103,8 @@ export default class extends Component {
                     linkUrl={this.generateVisualizationLink()}
                     isSaveFailure={this.props.isSaveFailure}
                     isSaveSuccess={this.props.isSaveSuccess}
-                    localTitle={this.state.localTitle}
+                    title={this.state.localTitle}
+                    isAuthenticated={this.props.auth.isAuthenticated}
                   />
                 </React.Fragment>
               </span>

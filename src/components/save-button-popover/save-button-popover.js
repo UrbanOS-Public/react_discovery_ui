@@ -11,19 +11,22 @@ import './save-button-popover.scss'
 const SaveButtonPopover = (props) => {
   const {
     isSaveable,
-    localTitle,
+    title,
     handleTitleChange,
     handleSaveOrUpdate,
     isSaving,
     isSaveSuccess,
     isSaveFailure,
-    linkUrl
+    linkUrl,
+    isAuthenticated
   } = props
 
 
   const [isDialogOpen, setDialogOpen] = useState(false)
   const openDialog = () => { setDialogOpen(true) }
   const closeDialog = () => { setDialogOpen(false); }
+
+  const saveButtonDisabled = !isAuthenticated || title == undefined || title.length == 0
 
   return (
     <save-button-popover>
@@ -33,17 +36,17 @@ const SaveButtonPopover = (props) => {
       <AutoAnchoringPopover className='save-prompt popover-anchor' open={isDialogOpen} onClose={closeDialog} classes={{ paper: 'popover', root: 'popover-root' }} >
         <div>
           <b>Workspace Title: </b>
-          <input className="title-input" type="text" value={localTitle || ''} onChange={handleTitleChange}></input>
+          <input className="title-input" type="text" value={title || ''} onChange={handleTitleChange}></input>
           <br />
-          <button data-testid="save-button" className="save-button" onClick={handleSaveOrUpdate} disabled={localTitle == undefined || localTitle.length == 0}>Save</button>
+          <button data-testid="save-button" className="save-button" onClick={handleSaveOrUpdate} disabled={saveButtonDisabled}>Save</button>
           <button data-testid="cancel-button" onClick={closeDialog}>Cancel</button>
           <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkUrl={linkUrl} />
 
-          <div>
+          {!isAuthenticated && <div className="login-prompt">
             <hr />
             <span>You must log in to save your workspace.</span>
             <Auth0LoginZone />
-          </div>
+          </div>}
         </div>
       </AutoAnchoringPopover>
     </save-button-popover>
