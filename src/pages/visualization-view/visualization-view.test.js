@@ -5,8 +5,8 @@ import VisualizationView from "./visualization-view"
 import QueryView from "../query-view"
 import ChartView from "../chart-view"
 import ErrorComponent from "../../components/generic-elements/error-component"
-import SaveButtonPopover from "../../components/save-button-popover";
-import UserPageButtonPopover from "../../components/user-page-button-popover"
+import VisualizationSaveMenuItem from "../../components/visualization-save-menu-item";
+import VisualizationListMenuItem from "../../components/visualization-list-menu-item"
 
 const runUseEffect = () => {
   const useEffect = jest.spyOn(React, "useEffect")
@@ -147,13 +147,13 @@ describe("visualization view", () => {
     })
 
     it("displays the save icon in the header with expected props", () => {
-      expect(subject.find(SaveButtonPopover)).toHaveLength(1)
-      expect(subject.find(SaveButtonPopover).props().isAuthenticated).toBe(true)
+      expect(subject.find(VisualizationSaveMenuItem)).toHaveLength(1)
+      expect(subject.find(VisualizationSaveMenuItem).props().isAuthenticated).toBe(true)
     })
 
     it("displays the user page icon in the header with expected props", () => {
-      expect(subject.find(UserPageButtonPopover)).toHaveLength(1)
-      expect(subject.find(UserPageButtonPopover).props().isAuthenticated).toBe(true)
+      expect(subject.find(VisualizationListMenuItem)).toHaveLength(1)
+      expect(subject.find(VisualizationListMenuItem).props().isAuthenticated).toBe(true)
     })
   })
 })

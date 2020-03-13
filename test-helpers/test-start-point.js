@@ -14,3 +14,12 @@ window.AUTH0_DOMAIN = 'domainator'
 window.AUTH0_CLIENT_ID = 'client_identifinator'
 window.AUTH0_AUDIENCE = 'audiencinator'
 window.API_HOST = 'http://test.example.com'
+
+// This is the recommended approach for suppressing warnings around not using the `act` function pre React 16.9
+const originalError = console.error
+console.error = (...args) => {
+  if (/Warning.*not wrapped in act/.test(args[0])) {
+    return
+  }
+  originalError.call(console, ...args)
+}

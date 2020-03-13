@@ -103,17 +103,6 @@ visualization-view {
     z-index: 900 !important;
   }
 
-  .clear-icon {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-
-    &:hover {
-      background-color: $light-grey;
-      border-radius: 50%;
-    }
-  }
-
   .visualization {
     height: 85vh;
     width: 100vw;

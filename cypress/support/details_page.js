@@ -26,7 +26,7 @@ export const Selectors = {
     totalPages: '#dataset-preview-table > .ReactTable .-totalPages',
     submitQueryButton: '[data-testid=submit-query-button]',
     cancelQueryButton: '[data-testid=cancel-query-button]',
-    savedVisualizationsIcon: '[data-testid=user-page-button-popover]',
+    savedVisualizationsIcon: '[data-testid=visualization-list-menu-item]',
     savedVisualizationsPopover: '.MuiPaper-root',
     loginButton: '[data-testid=login-button]',
     saveIcon: '[data-testid=save-icon]',

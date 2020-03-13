@@ -7,20 +7,6 @@ jest.mock('axios')
 
 const Wrapped = () => <div />
 
-const originalError = console.error
-beforeAll(() => {
-  console.error = (...args) => {
-    if (/Warning.*not wrapped in act/.test(args[0])) {
-      return
-    }
-    originalError.call(console, ...args)
-  }
-})
-
-afterAll(() => {
-  console.error = originalError
-})
-
 describe('Auth0 wrapper component', () => {
   let subject, Auth0Wrapper
   let loginWithRedirect, logout

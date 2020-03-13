@@ -1,19 +1,19 @@
 import { useState } from 'react'
-import AutoAnchoringPopover from '../../components/generic-elements/auto-anchoring-popover'
-import TabButton from '../../components/generic-elements/tab-button'
+import AutoAnchoringPopover from '../generic-elements/auto-anchoring-popover'
+import TabButton from '../generic-elements/tab-button'
 import SaveIcon from '@material-ui/icons/Save'
-import SaveIndicator from '../../components/generic-elements/save-indicator'
+import SaveIndicator from '../generic-elements/save-indicator'
 import Auth0LoginZone from '../auth0-login-zone'
 import {intersection, isEmpty} from 'lodash'
 
-import './save-button-popover.scss'
+import './visualization-save-menu-item.scss'
 
 const buttonActions = {
   saveButton: ["create", "update"],
   saveCopyButton: ["create_copy"]
 }
 
-const SaveButtonPopover = (props) => {
+const VisualizationSaveMenuItem = (props) => {
   const {
     isSaveable,
     title,
@@ -37,7 +37,7 @@ const SaveButtonPopover = (props) => {
   }
 
   return (
-    <save-button-popover>
+    <visualization-save-menu-item>
       <TabButton data-testid="save-icon" disabled={!isSaveable} className={`header-item save-icon ${isDialogOpen && 'saving'}`} onClick={openDialog} >
         <div title='Save Workspace'><SaveIcon /></div>
       </TabButton>
@@ -64,8 +64,8 @@ const SaveButtonPopover = (props) => {
           </div>}
         </div>
       </AutoAnchoringPopover>
-    </save-button-popover>
+    </visualization-save-menu-item>
   )
 }
 
-export default SaveButtonPopover
+export default VisualizationSaveMenuItem

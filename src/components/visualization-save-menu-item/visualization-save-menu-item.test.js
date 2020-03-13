@@ -1,9 +1,9 @@
 import { shallow } from 'enzyme'
-import SaveIndicator from "../../components/generic-elements/save-indicator"
-import SaveButtonPopover from './save-button-popover'
+import SaveIndicator from "../generic-elements/save-indicator"
+import VisualizationSaveMenuItem from './visualization-save-menu-item'
 
 
-describe('save button popover', () => {
+describe('visualization save menu item', () => {
   let subject, saveHandler
   const id = '123456'
 
@@ -182,5 +182,5 @@ const createSubject = (props = {}) => {
 
   const propsWithDefaults = Object.assign({}, defaultProps, props)
 
-  return shallow(<SaveButtonPopover {...propsWithDefaults} />)
+  return shallow(<VisualizationSaveMenuItem {...propsWithDefaults} />)
 }

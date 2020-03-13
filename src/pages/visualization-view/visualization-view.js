@@ -7,11 +7,11 @@ import './visualization-view.scss'
 import ChartIcon from '../../components/generic-elements/chart-icon'
 import SQLIcon from '../../components/generic-elements/sql-icon'
 import ErrorComponent from '../../components/generic-elements/error-component'
-import SaveButtonPopover from '../../components/save-button-popover'
+import VisualizationSaveMenuItem from '../../components/visualization-save-menu-item'
 import ChartView from '../chart-view'
 import QueryView from '../query-view'
 import routes from '../../routes'
-import UserPageButtonPopover from '../../components/user-page-button-popover'
+import VisualizationListMenuItem from '../../components/visualization-list-menu-item'
 
 
 
@@ -75,10 +75,10 @@ const VisualizationView = (props) => {
           </span>
           <span className='action-area'>
             <React.Fragment >
-              <UserPageButtonPopover
+              <VisualizationListMenuItem
                 isAuthenticated={isAuthenticated}
               />
-              <SaveButtonPopover
+              <VisualizationSaveMenuItem
                 isSaveable={isSaveable}
                 handleTitleChange={handleTitleChange}
                 handleSaveOrUpdate={handleSaveOrUpdate}
