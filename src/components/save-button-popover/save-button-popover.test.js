@@ -46,9 +46,16 @@ describe('save button popover', () => {
         expect(subject.find(".save-copy-button").props().disabled).toBeTruthy()
       })
 
-      it("sends create visualization event with the query, a query title, and the visualization", () => {
+      it("calls back to save handler when save button is clicked", () => {
         subject.find(".save-button").simulate("click")
         expect(saveHandler).toHaveBeenCalled()
+        const arg = saveHandler.mock.calls[0][0]
+        expect(arg.shouldCreateCopy).toBeFalsy()
+      })
+
+      it("calls back to save handler with shouldCreateCopy flag when save-copy button is clicked", () => {
+        subject.find(".save-copy-button").simulate("click")
+        expect(saveHandler).toHaveBeenCalledWith({shouldCreateCopy: true})
       })
     })
 

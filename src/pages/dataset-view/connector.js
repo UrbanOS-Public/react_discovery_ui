@@ -16,7 +16,7 @@ import withAuth0 from "../../auth/auth0-wrapper"
 
 const mapStateToProps = state => {
   return {
-    id: visualizationID(state),
+    visualizationId: visualizationID(state),
     query: getFreestyleQueryText(state),
     title: visualizationTitle(state),
     allowedActions: visualizationAllowedActions(state),
@@ -32,7 +32,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  save: ({id, title, query}) => dispatch(visualizationSave({id, title, query})),
+  save: ({id, title, query, shouldCreateCopy}) => dispatch(visualizationSave({id, title, query, shouldCreateCopy})),
   retrieveDatasetDetails: (org_name, dataset_name) => dispatch(retrieveDatasetDetails(org_name, dataset_name)),
   reset: () => { dispatch(visualizationReset()); dispatch(resetQuery()) }
 })

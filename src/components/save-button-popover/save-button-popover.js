@@ -46,9 +46,15 @@ const SaveButtonPopover = (props) => {
           <b>Workspace Title: </b>
           <input className="title-input" type="text" value={title || ''} onChange={handleTitleChange}></input>
           <br />
-          <button data-testid="save-button" className="save-button" onClick={handleSaveOrUpdate} disabled={buttonDisabled("saveButton")}>Save</button>
-          <button data-testid="save-copy-button" className="save-copy-button" onClick={() => {}} disabled={buttonDisabled("saveCopyButton")}>Save a Copy</button>
-          <button data-testid="cancel-button" onClick={closeDialog}>Cancel</button>
+          <div className='button-container'>
+            <div>
+              <button data-testid="save-button" className="save-button" onClick={() => {handleSaveOrUpdate({})}} disabled={buttonDisabled("saveButton")}>Save</button>
+              <button data-testid="save-copy-button" className="save-copy-button" onClick={() => {handleSaveOrUpdate({shouldCreateCopy: true})}} disabled={buttonDisabled("saveCopyButton")}>Save a Copy</button>
+            </div>
+            <div>
+              <button data-testid="cancel-button" onClick={closeDialog}>Cancel</button>
+            </div>
+          </div>
           <SaveIndicator saving={isSaving} success={isSaveSuccess} failure={isSaveFailure} linkUrl={linkUrl} />
 
           {!isAuthenticated && <div className="login-prompt">

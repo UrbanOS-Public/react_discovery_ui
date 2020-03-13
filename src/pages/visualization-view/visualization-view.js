@@ -39,7 +39,7 @@ const VisualizationView = (props) => {
   const [index, setIndex] = useState(startIndex)
 
   React.useEffect(() => { reset();  return function cleanup() { reset() }}, [])
-  React.useEffect(() => { if (idFromUrl && idFromUrl !== idFromState) load(idFromUrl);}, [idFromUrl, idFromState])
+  React.useEffect(() => { if (idFromUrl && idFromUrl !== idFromState) load(idFromUrl);}, [idFromUrl])
   React.useEffect(() => { if (idFromState && idFromUrl !== idFromState) history.push(linkUrl) }, [idFromState])
   React.useEffect(() => { setLocalTitle(title) }, [title])
 
@@ -49,8 +49,8 @@ const VisualizationView = (props) => {
     }
   }
 
-  const handleSaveOrUpdate = () => {
-    save({ id: idFromState, title: localTitle, query })
+  const handleSaveOrUpdate = ({shouldCreateCopy}) => {
+    save({ id: idFromState, title: localTitle, query, shouldCreateCopy })
   }
 
   if (isLoadFailure) {

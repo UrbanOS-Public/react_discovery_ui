@@ -11,8 +11,27 @@ save-button-popover {
     position: relative;
   }
 
+  .save-icon.saving {
+    box-shadow: -5px 0 5px -5px $box-shadow-grey, 5px 0 5px -5px $box-shadow-grey;
+    background-color: white;
+    opacity: 1;
+    z-index: 1000;
+  }
+
   .title-input {
     width: 12rem;
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0 0;
+  }
+
+  .save-copy-button {
+    margin-left: 0.5rem;
   }
 
   @include menu-item-popover();

@@ -103,19 +103,6 @@ visualization-view {
     z-index: 900 !important;
   }
 
-  .save-button {
-    margin-top: 15px;
-    margin-right: 15px;
-    padding: 1px 1rem 2px;
-  }
-
-  .save-button.saving {
-    box-shadow: -5px 0 5px -5px $box-shadow-grey, 5px 0 5px -5px $box-shadow-grey;
-    background-color: white;
-    opacity: 1;
-    z-index: 1000;
-  }
-
   .clear-icon {
     position: absolute;
     top: 5px;

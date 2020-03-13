@@ -257,6 +257,36 @@ describe('visualization-saga', () => {
           expect(dispatched).toContainEqual(visualizationSaveFailure(errorMessage))
         })
       })
+
+      describe('creating a copy', () => {
+        var dispatched = []
+        beforeEach(async () => {
+          AuthenticatedHTTPClient.post = jest.fn(() => ({ status: 200, data: returnedVisualization }))
+          dispatched = await recordSaga(saveVisualization, visualizationSave({ id, title, query, shouldCreateCopy: true }), initialState)
+        })
+
+        it('calls api with parameters that include a dereferenced chart', () => {
+          expect(AuthenticatedHTTPClient.post).toHaveBeenCalledWith(`/api/v1/visualization`,
+            {
+              title: title,
+              query: query,
+              chart: { data: [{ x: null, xsrc: "col1" }], frames: [], layout: {} }
+            }
+          )
+        });
+
+        it('signals the visualization is available', () => {
+          expect(dispatched).toContainEqual(visualizationSaveSuccess(returnedVisualization))
+        })
+
+        it('does not set the global chart data', () => {
+          expect(dispatched).not.toContainEqual(setChartInformation(returnedVisualization.chart))
+        })
+
+        it('does not set the global query text', () => {
+          expect(dispatched).not.toContainEqual(setQueryText(returnedVisualization.query))
+        })
+      })
     })
   })
 })

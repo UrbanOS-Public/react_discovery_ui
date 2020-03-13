@@ -46,14 +46,23 @@ function* saveVisualizationSaga() {
   yield takeEvery(VISUALIZATION_SAVE, saveVisualization)
 }
 
-export function* saveVisualization({ value: visualization }) {
+export function* saveVisualization({ value: visualization, shouldCreateCopy }) {
   const chart = yield select(dereferencedChart)
+
+  if (shouldCreateCopy) {
+    visualization = removeId(visualization)
+  }
 
   if (visualization.id) {
     yield handleSaveResponse(() => AuthenticatedHTTPClient.put(`/api/v1/visualization/${visualization.id}`, { ...visualization, chart }))
   } else {
     yield handleSaveResponse(() => AuthenticatedHTTPClient.post(`/api/v1/visualization`, { ...visualization, chart }))
   }
+}
+
+function removeId(visualization) {
+  const {id, ...withoutId} = visualization
+  return withoutId
 }
 
 function* handleSaveResponse(clientFunction) {

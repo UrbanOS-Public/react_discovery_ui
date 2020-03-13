@@ -23,7 +23,7 @@ export default class extends Component {
   }
 
   generateVisualizationLink() {
-    return this.props.id && generatePath(routes.visualizationView, { id: this.props.id })
+    return this.props.visualizationId && generatePath(routes.visualizationView, { id: this.props.visualizationId })
   }
 
   componentDidMount() {
@@ -52,8 +52,8 @@ export default class extends Component {
     }
   }
 
-  handleSaveOrUpdate() {
-    this.props.save({ id: this.props.idFromState, title: this.state.localTitle, query: this.props.query })
+  handleSaveOrUpdate({shouldCreateCopy}) {
+    this.props.save({ id: this.props.visualizationId, title: this.state.localTitle, query: this.props.query, shouldCreateCopy })
   }
 
   isNotDatasetDetailsTab() {

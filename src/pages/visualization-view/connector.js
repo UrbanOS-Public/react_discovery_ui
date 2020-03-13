@@ -33,7 +33,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
     load: (id) => dispatch(visualizationLoad(id)),
     reset: () => { dispatch(visualizationReset()); dispatch(resetQuery())},
-    save: ({id, title, query}) => dispatch(visualizationSave({id, title, query}))
+    save: ({id, title, query, shouldCreateCopy}) => dispatch(visualizationSave({id, title, query, shouldCreateCopy}))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withAuth0(VisualizationView))
