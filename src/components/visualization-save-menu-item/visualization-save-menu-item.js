@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import AutoAnchoringPopover from '../generic-elements/auto-anchoring-popover'
-import TabButton from '../generic-elements/tab-button'
+import AutoAnchoringPopover from '../../components/generic-elements/auto-anchoring-popover'
+import TabButton from '../../components/generic-elements/tab-button'
 import SaveIcon from '@material-ui/icons/Save'
-import SaveIndicator from '../generic-elements/save-indicator'
+import SaveIndicator from '../../components/generic-elements/save-indicator'
 import Auth0LoginZone from '../auth0-login-zone'
 import {intersection, isEmpty} from 'lodash'
 
