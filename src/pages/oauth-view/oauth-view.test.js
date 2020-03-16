@@ -5,20 +5,6 @@ import { Router } from 'react-router'
 import { createMemoryHistory } from 'history'
 import LoadingElement from '../../components/generic-elements/loading-element'
 
-const originalError = console.error
-beforeAll(() => {
-  console.error = (...args) => {
-    if (/Warning.*not wrapped in act/.test(args[0])) {
-      return
-    }
-    originalError.call(console, ...args)
-  }
-})
-
-afterAll(() => {
-  console.error = originalError
-})
-
 describe('OAuth View', () => {
   let subject
   let callLoggedInHandler, handleRedirectCallback, setGlobalErrorStateHandler
@@ -133,7 +119,7 @@ describe('OAuth View', () => {
         done()
       })
     })
-    
+
     it('alerts user there was an error', done => {
       setTimeout(() => {
         expect(setGlobalErrorStateHandler).toHaveBeenCalledWith(true, 'Login was not successful. Please try again.')
@@ -141,7 +127,7 @@ describe('OAuth View', () => {
         done()
       })
     })
-  }) 
+  })
 
   describe('when loading', () => {
     beforeEach(() => {

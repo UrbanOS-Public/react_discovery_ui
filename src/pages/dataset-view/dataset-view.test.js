@@ -6,8 +6,8 @@ import QueryView from "../query-view";
 import ChartView from "../chart-view";
 import DatasetDetailView from "../dataset-detail-view";
 import LoadingElement from "../../components/generic-elements/loading-element";
-import SaveButtonPopover from "../../components/save-button-popover";
-import UserPageButtonPopover from "../../components/user-page-button-popover"
+import VisualizationSaveMenuItem from "../../components/visualization-save-menu-item";
+import VisualizationListMenuItem from "../../components/visualization-list-menu-item"
 
 describe("dataset view", () => {
   let subject;
@@ -43,20 +43,22 @@ describe("dataset view", () => {
     expect(subject.find(QueryView).props().shouldAutoExecuteQuery).toBe(true)
   })
 
-  it("displays the save icon in the header", () => {
+  it("displays the save icon in the header with expected props", () => {
     subject.setState({index: 1})
-    expect(subject.find(SaveButtonPopover)).toHaveLength(1)
+    expect(subject.find(VisualizationSaveMenuItem)).toHaveLength(1)
+    expect(subject.find(VisualizationSaveMenuItem).props().isAuthenticated).toBe(true)
   })
 
-  it("displays the user page icon in the header", () => {
+  it("displays the user page icon in the header with expected props", () => {
     subject.setState({index: 1})
-    expect(subject.find(UserPageButtonPopover)).toHaveLength(1)
+    expect(subject.find(VisualizationListMenuItem)).toHaveLength(1)
+    expect(subject.find(VisualizationListMenuItem).props().isAuthenticated).toBe(true)
   })
 
   it("hides the save and user page icon on the dataset detail tab", () => {
     subject.setState({index: 0})
-    expect(subject.find(SaveButtonPopover)).toHaveLength(0)
-    expect(subject.find(UserPageButtonPopover)).toHaveLength(0)
+    expect(subject.find(VisualizationSaveMenuItem)).toHaveLength(0)
+    expect(subject.find(VisualizationListMenuItem)).toHaveLength(0)
   })
 })
 

@@ -7,11 +7,11 @@ import './visualization-view.scss'
 import ChartIcon from '../../components/generic-elements/chart-icon'
 import SQLIcon from '../../components/generic-elements/sql-icon'
 import ErrorComponent from '../../components/generic-elements/error-component'
-import SaveButtonPopover from '../../components/save-button-popover'
+import VisualizationSaveMenuItem from '../../components/visualization-save-menu-item'
 import ChartView from '../chart-view'
 import QueryView from '../query-view'
 import routes from '../../routes'
-import UserPageButtonPopover from '../../components/user-page-button-popover'
+import VisualizationListMenuItem from '../../components/visualization-list-menu-item'
 
 
 
@@ -23,6 +23,7 @@ const VisualizationView = (props) => {
     id: idFromState,
     query,
     title,
+    allowedActions,
     isLoadFailure,
     isSaveSuccess,
     isSaveFailure,
@@ -38,7 +39,7 @@ const VisualizationView = (props) => {
   const [index, setIndex] = useState(startIndex)
 
   React.useEffect(() => { reset();  return function cleanup() { reset() }}, [])
-  React.useEffect(() => { if (idFromUrl && idFromUrl !== idFromState) load(idFromUrl);}, [idFromUrl, idFromState])
+  React.useEffect(() => { if (idFromUrl && idFromUrl !== idFromState) load(idFromUrl);}, [idFromUrl])
   React.useEffect(() => { if (idFromState && idFromUrl !== idFromState) history.push(linkUrl) }, [idFromState])
   React.useEffect(() => { setLocalTitle(title) }, [title])
 
@@ -48,8 +49,8 @@ const VisualizationView = (props) => {
     }
   }
 
-  const handleSaveOrUpdate = () => {
-    save({ id: idFromState, title: localTitle, query })
+  const handleSaveOrUpdate = ({shouldCreateCopy}) => {
+    save({ id: idFromState, title: localTitle, query, shouldCreateCopy })
   }
 
   if (isLoadFailure) {
@@ -74,17 +75,19 @@ const VisualizationView = (props) => {
           </span>
           <span className='action-area'>
             <React.Fragment >
-              <UserPageButtonPopover
+              <VisualizationListMenuItem
                 isAuthenticated={isAuthenticated}
               />
-              <SaveButtonPopover
+              <VisualizationSaveMenuItem
                 isSaveable={isSaveable}
                 handleTitleChange={handleTitleChange}
                 handleSaveOrUpdate={handleSaveOrUpdate}
                 linkUrl={linkUrl}
                 isSaveFailure={isSaveFailure}
                 isSaveSuccess={isSaveSuccess}
-                localTitle={localTitle}
+                title={localTitle}
+                allowedActions={allowedActions}
+                isAuthenticated={isAuthenticated}
               />
             </React.Fragment>
           </span>
