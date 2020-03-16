@@ -5,10 +5,9 @@ visualization-list-menu-item {
 
   .folder-icon {
     fill: $medium-grey;
-  }
-
-  .folder-icon:hover {
-    fill: $almost-black;
+    &:hover {
+      fill: $almost-black;
+    }
   }
 
   .dialog-open {
