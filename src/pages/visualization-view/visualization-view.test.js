@@ -33,10 +33,6 @@ describe("visualization view", () => {
       subject = createSubject({ match: { params: {} }, reset: resetHandler, load: loadHandler })
     })
 
-    it("calls the reset function", () => {
-      expect(resetHandler).toHaveBeenCalled()
-    })
-
     it("does not call the load function", () => {
       expect(loadHandler).not.toHaveBeenCalled()
     })
@@ -61,10 +57,6 @@ describe("visualization view", () => {
     beforeEach(() => {
       runUseEffect()
       subject = createSubject({ match: { params: { id } }, reset: resetHandler, load: loadHandler })
-    })
-
-    it("calls the reset function", () => {
-      expect(resetHandler).toHaveBeenCalled()
     })
 
     it("calls the load function", () => {
