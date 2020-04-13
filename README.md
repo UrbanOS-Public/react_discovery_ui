@@ -10,9 +10,17 @@ A UI component for consuming the [Discovery API](https://github.com/smartcitiesd
 
 `npm install`
 
+### Run All Tests
+
+`npm run test:all`
+
 ### Run Unit Tests
 
 `npm run test`
+
+### Run Functional Tests
+
+`npm run cypress:run`
 
 ### Run Unit Tests in Watch Mode
 
@@ -49,6 +57,10 @@ Runtime configuration for running the test app locally is stored in `config/conf
 `npm run start`
 
 This starts a simple React site with the main Discovery UI component as the sole content. You can view the UI in your web browser at `http://localhost:9001`
+
+## Stop All Node processes
+
+`npm run stop`
 
 ## Build Package
 
