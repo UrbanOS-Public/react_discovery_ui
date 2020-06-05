@@ -37,7 +37,7 @@ export default class extends Component {
 
     const streamingExpanded = !isCsv && isStreaming;
     const apiDocExpanded = !isCsv && !isStreaming;
-    const showDatasetPreview = isCsv && isIngest;
+    const showDatasetPreview = isIngest || isStreaming;
 
     return (
       <dataset-detail-view>

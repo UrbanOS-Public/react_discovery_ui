@@ -2,6 +2,7 @@ import "./query-view.scss";
 import React from "react";
 
 import QueryForm from "../../components/query-form";
+import DataView from "../../components/data-view";
 import ReactTable from "react-table";
 import LoadingElement from "../../components/generic-elements/loading-element";
 import _ from 'lodash'
@@ -28,10 +29,10 @@ const QueryView = props => {
     }
   }, [shouldAutoExecuteQuery])
 
-  const columns = determineColumns(dataSources)
-  const data = getCleanData(queryData)
+  // const columns = determineColumns(dataSources)
+  // const data = getCleanData(queryData)
 
-  const numRecords = queryData ? data.length + " records returned" : "";
+  const numRecords = queryData ? queryData.length + " records returned" : "";
 
   if (isQueryLoading && queryData.length === 0) {
     return (
@@ -57,12 +58,13 @@ const QueryView = props => {
       />
       <div id="dataset-preview-table">
         <div id="numRecords">{numRecords}</div>
-        <ReactTable
+        {/* <ReactTable
           data={data}
           defaultPageSize={10}
           columns={columns}
           className="-striped -highlight"
-        ></ReactTable>
+        ></ReactTable> */}
+        <DataView data={queryData} columns={Object.keys(dataSources)}></DataView>
       </div>
     </query-view>
   );

@@ -1,6 +1,6 @@
 @import '../../styles/variables.scss';
 @import '../../styles/mixins.scss';
-#dataset-preview {
+#data-view {
   border: 1px solid $light-grey;
 
   .header-container {
@@ -16,7 +16,7 @@
     @include header();
   }
 
-  #dataset-preview-table {
+  #data-view-table {
     color: $almost-black;
     
     .table-header {
@@ -26,7 +26,7 @@
     }
   }
 
-  #dataset-preview-raw {
+  #data-view-raw {
     overflow: scroll;
     max-height: 30rem;
     min-height: 10rem;
