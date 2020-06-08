@@ -1,3 +1,3 @@
-import Connector from './connector'
+import DataView from './data-view'
 
-export default Connector
+export default DataView

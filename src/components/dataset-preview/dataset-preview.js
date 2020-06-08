@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import './dataset-preview.scss'
-import ReactTable from 'react-table'
 import 'react-table/react-table.css'
-import ReactJson from 'react-json-view'
 import DataView from '../data-view'
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 export default class extends Component {
   componentDidMount() {

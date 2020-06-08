@@ -67,15 +67,9 @@ describe('data view', () => {
         { object: { value: 1 }, boolean: true, array: [1], nan: NaN, null: null },
         { object: { value: 2 }, boolean: false, array: [2, 3], nan: NaN, null: null }
       ]
-      const dataSources = {
-        object: [{ value: 1 }, { value: 2 }],
-        boolean: [true, false],
-        array: [[1], [2, 3]],
-        nan: [NaN, NaN],
-        null: [null, null]
-      }
+      const columns = ['object', 'boolean', 'array', 'nan', 'null']
 
-      subject = mount(<DataView data={queryData} columns={dataSources}/>)
+      let subject = mount(<DataView data={queryData} columns={columns}/>)
 
       const expectedData = [
         { object: '{\"value\":1}', boolean: 'true', array: '[1]', nan: '', null: '' },
@@ -90,12 +84,12 @@ describe('data view', () => {
         { 'first.name': 'Mark', 'last.name': 'Johnson'},
         { 'first.name': 'George', 'last.name': 'Lakoff'}
       ]
-      const dataSources = {
-        'first.name': ['Mark', 'George'],
-        'last.name': ['Johnson', 'Lakoff']
-      }
+      const columns = [
+        'first.name',
+        'last.name'
+      ]
 
-      subject = mount(<DataView data={queryData} columns={dataSources}/>)
+      let subject = mount(<DataView data={queryData} columns={columns}/>)
 
       const stringifyAccessor = column => {
         column.accessor = column.accessor.toString().replace(/\s/g,'')
@@ -103,8 +97,8 @@ describe('data view', () => {
       }
 
       const expectedColumns = [
-        { Header: 'first.name', id: 'first.name', accessor: (row) => row[col], headerClassName: "table-header" },
-        { Header: 'last.name', id: 'last.name', accessor: (row) => row[col], headerClassName: "table-header" },
+        { Header: 'first.name', id: 'first.name', accessor: (row) => row[column], headerClassName: "table-header" },
+        { Header: 'last.name', id: 'last.name', accessor: (row) => row[column], headerClassName: "table-header" },
       ]
       expectedColumns.map(stringifyAccessor)
 

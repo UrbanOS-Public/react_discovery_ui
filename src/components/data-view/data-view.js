@@ -17,7 +17,6 @@ export default class extends Component {
   }
 
   render() {
-    // const { datasetPreview = { data: [], meta: { columns: [] } } } = this.props
     const cleanData = this.getCleanData(this.props.data)
     const columns = this.props.columns.map((column) => {
       return { Header: column, id: column, accessor: (row) => row[column], headerClassName: 'table-header' }
@@ -63,7 +62,6 @@ export default class extends Component {
   }
 
   cleanseRow(row) {
-    console.log("Cleansing row")
     const deconstructedObject = Object.entries(row)
     const listOfKeyValues = deconstructedObject.map(field =>
       ({ [field[0]]: this.cleanseField(field[1]) })
