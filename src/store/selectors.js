@@ -5,7 +5,7 @@ export const getDataSetError = state => state.datasetReducer.datasetError;
 export const getGlobalErrorState = state => state.presentation.isError;
 export const getGlobalErrorMessage = state => state.presentation.errorMessage;
 export const getDataSet = state => state.datasetReducer.dataset;
-export const getDataSetPreview = state => state.presentation.dataset_preview;
+export const getDataSetPreview = (state, format) => state.presentation.dataset_preview[format];
 export const getDatasetRecommendations = state =>
   state.datasetReducer.recommendations;
 export const determineIfLoading = state => state.presentation.isLoading;

@@ -5,7 +5,7 @@ import { getDataSetPreview } from '../../store/selectors'
 
 const mapStateToProps = state => {
   return {
-    datasetPreview: getDataSetPreview(state),
+    datasetPreview: getDataSetPreview(state, 'json'),
     previewLoading: state.presentation.previewLoading
   }
 }

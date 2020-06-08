@@ -21,7 +21,7 @@ describe('dataset view', () => {
         }
 
       },
-      presentation: {}
+      presentation: {dataset_preview: {}}
     }
   })
 

@@ -90,28 +90,32 @@ describe("UI Reducer", () => {
   it("DATASET_PREIVEW sets previewLoading to false", () => {
     let currentState = {
       presentation: {
-        previewLoading: true
+        previewLoading: true,
+        dataset_preview: {}
       }
     };
-    let newState = reducer(currentState, { type: DATASET_PREVIEW });
+    let newState = reducer(currentState, { value: {}, type: DATASET_PREVIEW });
 
     expect(newState.presentation.previewLoading).toEqual(false);
   });
 
-  it("DATASET_PREIVEW sets dataset_preivew", () => {
+  it("DATASET_PREVIEW sets dataset_preview", () => {
     let currentState = {
-      presentation: {}
+      presentation: {dataset_preview: {}}
     };
     const expectedData = {
       firstName: "Joe",
       lastName: "Smith"
     };
+    const actionValue = {
+      data: expectedData,
+      format: 'json'
+    }
     let newState = reducer(currentState, {
       type: DATASET_PREVIEW,
-      value: expectedData
+      value: actionValue
     });
-
-    expect(newState.presentation.dataset_preview).toEqual(expectedData);
+    expect(newState.presentation.dataset_preview['json']).toEqual(expectedData);
   });
 
   it("CLEAR_DATASET_PREVIEW clears out preview data", () => {
@@ -122,7 +126,7 @@ describe("UI Reducer", () => {
       }
     };
     const expectedData = {
-      dataset_preview: undefined,
+      dataset_preview: {},
       previewLoading: false
     };
     let newState = reducer(currentState, { type: CLEAR_DATASET_PREVIEW });

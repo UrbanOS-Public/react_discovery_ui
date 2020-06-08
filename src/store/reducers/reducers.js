@@ -61,7 +61,8 @@ const datasetReducer = (state = defaultDatasetState, action) => {
 
 const defaultPresentationState = {
   isLoading: false,
-  isVisualizationQueryLoading: false
+  isVisualizationQueryLoading: false,
+  dataset_preview: {}
 };
 
 const presentationReducer = (state = defaultPresentationState, action) => {
@@ -76,13 +77,13 @@ const presentationReducer = (state = defaultPresentationState, action) => {
         previewLoading: true
       });
     case DATASET_PREVIEW:
+      state.dataset_preview[action.value.format] = action.value.data
       return Object.assign({}, state, {
-        dataset_preview: action.value,
         previewLoading: false
       });
     case CLEAR_DATASET_PREVIEW:
       return Object.assign({}, state, {
-        dataset_preview: undefined,
+        dataset_preview: {},
         previewLoading: false
       });
     case DATASET_DETAILS:

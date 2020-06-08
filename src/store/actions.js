@@ -85,8 +85,8 @@ export const retrieveDatasetPreview = (id, format = 'json') => ({
   type: RETRIEVE_DATASET_PREVIEW, value: { id, format }
 })
 
-export const datasetPreview = (data) => ({
-  type: DATASET_PREVIEW, value: data
+export const datasetPreview = (data, format = 'json') => ({
+  type: DATASET_PREVIEW, value: {data, format}
 })
 
 export const clearDatasetPreview = () => ({
