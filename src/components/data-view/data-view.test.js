@@ -5,6 +5,7 @@ import DataView from './data-view'
 import { Tab, TabPanel } from "react-tabs";
 import ReactTable from 'react-table'
 import ReactJson from 'react-json-view'
+import LoadingElement from '../../components/generic-elements/loading-element'
 
 describe('data view', () => {
   describe('ui', () => {
@@ -83,6 +84,24 @@ describe('data view', () => {
 
     it("has a react json component on the first tab", () => {
       expect(subject.find(ReactJson).length).toEqual(1);
+    });
+  })
+
+  describe('json loading', () => {
+    let subject
+    beforeEach(() => {
+      let data = []
+      let columns = ['firstName', 'lastName', 'enrolled', 'firstName.lastName']
+      subject = mount(<DataView data={data} columns={columns} loading={true}/>)
+      subject.setState({ index: 1 })
+    })
+
+    it("does not render a react json component", () => {
+      expect(subject.find(ReactJson).length).toEqual(0);
+    });
+
+    it("does render a loading element", () => {
+      expect(subject.find(LoadingElement).length).toEqual(1);
     });
   })
 

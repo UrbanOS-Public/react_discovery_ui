@@ -4,6 +4,7 @@ import './data-view.scss'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import ReactJson from 'react-json-view'
+import LoadingElement from '../../components/generic-elements/loading-element'
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import _ from 'lodash'
 
@@ -32,24 +33,24 @@ export default class extends Component {
             </span>
           </TabList>
           {!isGeojson && (
-          <TabPanel>
-            <div id='data-view-table'>
-              <ReactTable
-                data={cleanData}
-                columns={columns}
-                loading={this.props.loading}
-                defaultPageSize={50}
-                style={{
-                  height: '400px'
-                }}
-                className='-striped -highlight'
-              />
-            </div>
-          </TabPanel>
+            <TabPanel>
+              <div id='data-view-table'>
+                <ReactTable
+                  data={cleanData}
+                  columns={columns}
+                  loading={this.props.loading}
+                  defaultPageSize={50}
+                  style={{
+                    height: '400px'
+                  }}
+                  className='-striped -highlight'
+                />
+              </div>
+            </TabPanel>
           )}
           <TabPanel>
             <div id="data-view-raw">
-              <ReactJson src={this.props.data} theme={this.getTheme()} />
+              {this.renderJsonOrLoading(this.props.loading)}
             </div>
           </TabPanel>
         </Tabs>
@@ -58,7 +59,7 @@ export default class extends Component {
   }
 
   cleanseData(data) {
-    if (!data.map) {return []}
+    if (!data.map) { return [] }
     return data.map(row => this.cleanseRow(row))
   }
 
@@ -86,6 +87,18 @@ export default class extends Component {
 
   getCleanData(queryData) {
     return queryData ? this.cleanseData(queryData) : queryData
+  }
+
+  renderJsonOrLoading(isLoading) {
+    if (isLoading) {
+      return (
+        <LoadingElement className='spinner' />
+      )
+    } else {
+      return (
+        <ReactJson src={this.props.data} theme={this.getTheme()} />
+      )
+    }
   }
 
   getTheme() {
