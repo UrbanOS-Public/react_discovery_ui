@@ -91,13 +91,9 @@ export default class extends Component {
 
   renderJsonOrLoading(isLoading) {
     if (isLoading) {
-      return (
-        <LoadingElement className='spinner' />
-      )
+      return <LoadingElement className='spinner' />
     } else {
-      return (
-        <ReactJson src={this.props.data} theme={this.getTheme()} />
-      )
+      return <ReactJson src={this.props.data} theme={this.getTheme()} />
     }
   }
 
