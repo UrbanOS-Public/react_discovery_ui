@@ -1,8 +1,6 @@
 @import '../../styles/variables.scss';
 @import '../../styles/mixins.scss';
 #data-view {
-  border: 1px solid $light-grey;
-
   .header-container {
     display: flex;
     justify-content: space-between;

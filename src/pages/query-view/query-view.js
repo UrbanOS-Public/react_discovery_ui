@@ -58,12 +58,6 @@ const QueryView = props => {
       />
       <div id="dataset-preview-table">
         <div id="numRecords">{numRecords}</div>
-        {/* <ReactTable
-          data={data}
-          defaultPageSize={10}
-          columns={columns}
-          className="-striped -highlight"
-        ></ReactTable> */}
         <DataView data={queryData} columns={Object.keys(dataSources)}></DataView>
       </div>
     </query-view>

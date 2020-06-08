@@ -13,11 +13,9 @@ export default class extends Component {
     this.state = { index: 0 };
   }
 
-  componentDidMount() {
-  }
-
   render() {
-    const cleanData = this.getCleanData(this.props.data)
+    const isGeojson = this.props.format == 'geojson'
+    const cleanData = isGeojson ? undefined : this.getCleanData(this.props.data)
     const columns = this.props.columns.map((column) => {
       return { Header: column, id: column, accessor: (row) => row[column], headerClassName: 'table-header' }
     })
@@ -29,10 +27,11 @@ export default class extends Component {
           onSelect={tabIndex => this.setState({ index: tabIndex })}>
           <TabList className="header">
             <span className='tab-area'>
-              <Tab data-testid="data-table">Table</Tab>
+              {!isGeojson && (<Tab data-testid="data-table">Table</Tab>)}
               <Tab data-testid="data-json">JSON</Tab>
             </span>
           </TabList>
+          {!isGeojson && (
           <TabPanel>
             <div id='data-view-table'>
               <ReactTable
@@ -47,6 +46,7 @@ export default class extends Component {
               />
             </div>
           </TabPanel>
+          )}
           <TabPanel>
             <div id="data-view-raw">
               <ReactJson src={this.props.data} theme={this.getTheme()} />
@@ -58,6 +58,7 @@ export default class extends Component {
   }
 
   cleanseData(data) {
+    if (!data.map) {return []}
     return data.map(row => this.cleanseRow(row))
   }
 

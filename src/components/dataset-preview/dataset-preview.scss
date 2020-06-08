@@ -1,8 +1,6 @@
 @import '../../styles/variables.scss';
 @import '../../styles/mixins.scss';
 #dataset-preview {
-  border: 1px solid $light-grey;
-
   .header-container {
     display: flex;
     justify-content: space-between;

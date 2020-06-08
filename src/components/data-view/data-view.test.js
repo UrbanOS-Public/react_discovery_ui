@@ -61,6 +61,31 @@ describe('data view', () => {
     });
   })
 
+  describe('geojson', () => {
+    let subject
+    beforeEach(() => {
+      let data = {}
+      let columns = []
+      subject = mount(<DataView data={data} columns={columns} format='geojson'/>)
+    })
+
+    test('should render one tab', () => {
+      expect(subject.find(Tab).length).toEqual(1);
+    })
+
+    it("has one tab panel", () => {
+      expect(subject.find(TabPanel).length).toEqual(1);
+    });
+
+    it("does not have a react table component", () => {
+      expect(subject.find(ReactTable).length).toEqual(0);
+    });
+
+    it("has a react json component on the first tab", () => {
+      expect(subject.find(ReactJson).length).toEqual(1);
+    });
+  })
+
   describe('dataset preview table', () => {
     it("converts unrenderable values to strings", () => {
       const queryData = [
