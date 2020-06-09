@@ -3,9 +3,9 @@ import DatasetPreview from './dataset-preview'
 import { retrieveDatasetPreview } from '../../store/actions'
 import { getDataSetPreview } from '../../store/selectors'
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, {format}) => {
   return {
-    datasetPreview: getDataSetPreview(state),
+    datasetPreview: getDataSetPreview(state, format),
     previewLoading: state.presentation.previewLoading
   }
 }

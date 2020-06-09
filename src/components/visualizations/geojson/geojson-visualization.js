@@ -6,6 +6,7 @@ import LoadingElement from '../../../components/generic-elements/loading-element
 import { GeoJsonUtils } from '../../../utils';
 import ErrorComponent from '../../../components/generic-elements/error-component'
 import Checkbox from '../../../components/generic-elements/checkbox'
+import CollapsableBox from '../../../components/collapsable-box'
 
 // this one weird trick to make leaflet markers show up correctly when webpacked
 import L from 'leaflet'
@@ -17,6 +18,8 @@ L.Icon.Default.mergeOptions({
 })
 
 const ohioBBox = [-84.811309, 38.483320, -80.541532, 41.971108]
+
+const description = 'This only shows the first 50 features in the dataset, to view all features press the toggle below or download the dataset'
 
 export default class GeoJSONVisualization extends React.Component {
   constructor(props) {
@@ -57,14 +60,14 @@ export default class GeoJSONVisualization extends React.Component {
 
       return (
         <div data-testid={`${source}-map`} className={isHidden ? 'hidden' : ''} test-id={`${source}-map`}>
-          <Map bounds={this.formatBboxToLeafletBounds(bBox)}>
-            <TileLayer url={window.STREETS_TILE_LAYER_URL} className='geo-json' />
-            <GeoJSON data={geoJsonData} className='geo-json' />
-          </Map>
+            <Map bounds={this.formatBboxToLeafletBounds(bBox)}>
+              <TileLayer url={window.STREETS_TILE_LAYER_URL} className='geo-json' />
+              <GeoJSON data={geoJsonData} className='geo-json' />
+            </Map>
         </div>
       )
     }
-    return (<div />)
+    return <div />
   }
 
   renderMapOrLoading() {
@@ -74,7 +77,8 @@ export default class GeoJSONVisualization extends React.Component {
       return (
         <div className='map-placeholder'>
           <LoadingElement className='spinner' />
-        </div>)
+        </div>
+      )
     } else {
       return (
         <div>
@@ -93,14 +97,16 @@ export default class GeoJSONVisualization extends React.Component {
     }
 
     return (
-      <div>
-        <Checkbox
-          clickHandler={() => this.onMapToggleClick()}
-          text="Show Full Dataset"
-          selected={this.state.showFullMap}
-          disabled={this.isMapToggleDisabled()} />
-        {this.renderMapOrLoading()}
-      </div>
+      <CollapsableBox title="Map Preview" headerHtml={description} expanded={true}>
+        <div>
+          <Checkbox
+            clickHandler={() => this.onMapToggleClick()}
+            text="Show Full Dataset"
+            selected={this.state.showFullMap}
+            disabled={this.isMapToggleDisabled()} />
+          {this.renderMapOrLoading()}
+        </div>
+      </CollapsableBox>
     )
   }
 }
