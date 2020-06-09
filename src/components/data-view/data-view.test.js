@@ -105,8 +105,8 @@ describe('data view', () => {
     });
   })
 
-  describe('dataset preview table', () => {
-    it("converts unrenderable values to strings", () => {
+  describe('data table', () => {
+    it("converts unrenderable values to strings only for the react table", () => {
       const queryData = [
         { object: { value: 1 }, boolean: true, array: [1], nan: NaN, null: null },
         { object: { value: 2 }, boolean: false, array: [2, 3], nan: NaN, null: null }
@@ -121,6 +121,7 @@ describe('data view', () => {
       ]
 
       expect(subject.find(ReactTable).prop('data')).toEqual(expectedData)
+      expect(subject.prop('data')).toEqual(queryData)
     });
 
     it("can handle column names with dots (.) by giving a custom accessor", () => {
