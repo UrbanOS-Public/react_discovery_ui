@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import Auth0ClientProvider from '../auth/auth0-client-provider'
+import { AuthenticatedHTTPClient } from "../utils/http-clients"
 
 const withAuth0 = WrappedComponent => {
   const Auth0Wrapper = props => {
@@ -31,9 +32,17 @@ const withAuth0 = WrappedComponent => {
       return callbackReturn
     }
 
+    const logout = async (...logoutOptions) => {
+      const loggedOutReturn = await AuthenticatedHTTPClient.post('/api/v1/logged-out', '')
+      
+      auth0Client.logout(...logoutOptions)
+
+      return loggedOutReturn
+    }
+
     const auth0Props = {
       loginWithRedirect: (...p) => auth0Client.loginWithRedirect({appState: callbackState, ...p}),
-      logout: (...p) => auth0Client.logout(...p),
+      logout: logout,
       handleRedirectCallback,
       isAuthenticated,
       isLoading

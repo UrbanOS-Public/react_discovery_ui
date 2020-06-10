@@ -1,6 +1,7 @@
 import { mount } from 'enzyme'
 import { default as createAuth0Client } from '@auth0/auth0-spa-js'
 import withAuth0 from './auth0-wrapper'
+import { AuthenticatedHTTPClient } from "../utils/http-clients"
 
 jest.mock('@auth0/auth0-spa-js')
 jest.mock('axios')
@@ -12,15 +13,17 @@ describe('Auth0 wrapper component', () => {
   let loginWithRedirect, logout
 
   beforeEach(() => {
-    loginWithRedirect = jest.fn()
-    logout = jest.fn()
+    createAuth0Client.mockImplementation(() => {
+      loginWithRedirect = jest.fn()
+      logout = jest.fn()
 
-    createAuth0Client.mockImplementation(() => Promise.resolve({
-      isAuthenticated: jest.fn(() => Promise.resolve(false)),
-      handleRedirectCallback: jest.fn(() => Promise.resolve({})),
-      loginWithRedirect,
-      logout
-    }))
+      return Promise.resolve({
+        isAuthenticated: jest.fn(() => Promise.resolve(false)),
+        handleRedirectCallback: jest.fn(() => Promise.resolve({})),
+        loginWithRedirect,
+        logout
+      })
+  })
 
     Auth0Wrapper = withAuth0(Wrapped)
     subject = mount(<Auth0Wrapper />)
@@ -59,6 +62,37 @@ describe('Auth0 wrapper component', () => {
         subject.update()
         wrapped = subject.find(Wrapped)
         expect(wrapped.props().auth.isAuthenticated).toBe(true)
+        done()
+      })
+    })
+  })
+  
+  describe('provided logout', () => {
+    const returnTo = 'http://example.com'
+
+    beforeEach(() => { 
+      AuthenticatedHTTPClient.post = jest.fn()
+      AuthenticatedHTTPClient.post.mockImplementationOnce(async () => ({
+        status: 200,
+        data: 'OK'
+      }))
+
+      subject.update()
+      let wrapped = subject.find(Wrapped)
+
+      wrapped.props().auth.logout({returnTo})
+    })
+
+    it('calls auth0 logout', done => {
+      setTimeout(() => {
+        expect(logout).toHaveBeenCalledWith({returnTo})
+        done()
+      })
+    })
+
+    it('calls logged-out endpoint on the API', done => {
+      setTimeout(() => {
+        expect(AuthenticatedHTTPClient.post).toHaveBeenCalledWith('/api/v1/logged-out', '');
         done()
       })
     })
