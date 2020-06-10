@@ -39,6 +39,11 @@ const DatasetListView = (props) => {
         value: "last_mod",
         label: "Last Modified",
         default: searchParamsManager.sortOrder === "last_mod"
+      },
+      {
+        value: "relevance",
+        label: "Relevance",
+        default: searchParamsManager.sortOrder === "relevance"
       }
     ]
   }

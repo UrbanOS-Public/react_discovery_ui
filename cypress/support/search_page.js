@@ -16,42 +16,47 @@ export const Selectors = {
 export const Routes = {
     allDatasetsLastModified: {
         method: 'GET', 
-        url: '/api/v1/dataset/search?offset=0&limit=10&sort=last_mod&query=&apiAccessible=true',
+        url: '/api/v2/dataset/search?offset=0&limit=10&sort=last_mod&query=&apiAccessible=true',
         response: 'fixture:search_page_spec/all_datasets_last_modified'
     },
     allDatasetsNameAsc: { 
         method: 'GET', 
-        url: '/api/v1/dataset/search?offset=0&limit=10&sort=name_asc&query=&apiAccessible=true', 
+        url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_asc&query=&apiAccessible=true', 
         response: 'fixture:search_page_spec/all_datasets_name_asc'
+    },
+    allDatasetsRelevance: {
+        method: 'GET', 
+        url: '/api/v2/dataset/search?offset=0&limit=10&sort=relevance&query=&apiAccessible=true',
+        response: 'fixture:search_page_spec/all_datasets_relevance'
     },
     allDatasetsNameDesc: {
         method: 'GET', 
-        url: '/api/v1/dataset/search?offset=0&limit=10&sort=name_desc&query=&apiAccessible=true',
+        url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_desc&query=&apiAccessible=true',
         response: 'fixture:search_page_spec/all_datasets_name_desc'
     },
     allDatasetsPage2: {
         method: 'GET',
-        url: '/api/v1/dataset/search?offset=10&limit=10&sort=name_asc&query=&apiAccessible=true',
+        url: '/api/v2/dataset/search?offset=10&limit=10&sort=name_asc&query=&apiAccessible=true',
         response: 'fixture:search_page_spec/all_datasets_page_2'
     },
     apiAccessibleFalseDatasets: {
         method: 'GET',
-        url: '/api/v1/dataset/search?offset=0&limit=10&sort=name_asc&query=&apiAccessible=false',
+        url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_asc&query=&apiAccessible=false',
         response: 'fixture:search_page_spec/apiAccessible_false_datasets'
     },
     bicycleDatasets: {
         method: 'GET',
-        url: '/api/v1/dataset/search?offset=0&limit=10&sort=name_asc&query=&facets[keywords][]=bicycle&apiAccessible=true',
+        url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_asc&query=&facets[keywords][]=bicycle&apiAccessible=true',
         response: 'fixture:search_page_spec/bicycle_datasets'
     },
     cogoDatasets: {
         method: 'GET',
-        url: '/api/v1/dataset/search?offset=0&limit=10&sort=name_asc&query=&facets[organization][]=COGO&apiAccessible=true',
+        url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_asc&query=&facets[organization][]=COGO&apiAccessible=true',
         response: 'fixture:search_page_spec/cogo_datasets'
     },
     cotaDatasets: {
         method: 'GET',
-        url: '/api/v1/dataset/search?offset=0&limit=10&sort=name_asc&query=COTA&apiAccessible=true',
+        url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_asc&query=COTA&apiAccessible=true',
         response: 'fixture:search_page_spec/cota_datasets'
     },
     info: {
