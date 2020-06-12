@@ -3,6 +3,7 @@ import { URLs as urls } from '../support/urls.js'
 const all_datasets_name_asc = require('../fixtures/search_page_spec/all_datasets_name_asc')
 const all_datasets_name_desc = require('../fixtures/search_page_spec/all_datasets_name_desc')
 const all_datasets_last_modified = require('../fixtures/search_page_spec/all_datasets_last_modified')
+const all_datasets_relevance = require('../fixtures/search_page_spec/all_datasets_relevance')
 const all_datasets_page_2 = require('../fixtures/search_page_spec/all_datasets_page_2')
 const cotaDatasets = require('../fixtures/search_page_spec/cota_datasets')
 const cogoDatasets = require('../fixtures/search_page_spec/cogo_datasets')
@@ -91,6 +92,7 @@ describe('sort', function () {
     cy.route(routes.allDatasetsNameAsc).as('getDatasetsInAscendingOrderByName')
     cy.route(routes.allDatasetsNameDesc).as('getDatasetsInDescendingOrderByName')
     cy.route(routes.allDatasetsLastModified).as('getDatasetsByLastModifiedDate')
+    cy.route(routes.allDatasetsRelevance).as('getDatasetsByRelevance')
   })
 
   it('can sort by name descending', function () {
@@ -117,6 +119,15 @@ describe('sort', function () {
     cy.get(sortSelectBox).select('name_asc')
     cy.wait(['@getDatasetsInAscendingOrderByName'])
     cy.get(sortSelectBox).should('have.value', 'name_asc')
+    cy.get(firstDataset).contains(titleOfFirstDataset)
+  })
+
+  it('can sort by relevance', function () {
+    const titleOfFirstDataset = all_datasets_relevance.results[0].title
+    cy.visit('/?sort=name_desc')
+    cy.get(sortSelectBox).select('relevance')
+    cy.wait(['@getDatasetsByRelevance'])
+    cy.get(sortSelectBox).should('have.value', 'relevance')
     cy.get(firstDataset).contains(titleOfFirstDataset)
   })
 })

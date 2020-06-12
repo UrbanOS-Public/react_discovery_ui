@@ -7,7 +7,7 @@ export default function * theRealDatasetSaga () {
     DATASET_SEARCH,
     apiInvoker(
       {
-        endpoint: '/api/v1/dataset/search',
+        endpoint: '/api/v2/dataset/search',
         actionator: datasetSearchSucceeded,
         queryParameterBuilder: queryParamBuilder
       }
