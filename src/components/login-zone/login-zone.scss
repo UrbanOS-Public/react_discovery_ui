@@ -2,26 +2,51 @@
 @import '../../styles/mixins.scss';
 
 login-zone {
-  display: flex;
+  div.login-block {
+    display: flex;
+  }
 
+  div.user-menu {
+    background-color: $light-blue;
+    color: white;
+    fill: white;
+    font-weight: bold;
+    padding: 0.25rem 0;
+    position: absolute;
+    z-index: 10000;
+    box-shadow: 2px 2px 5px grey;
+    width: 15rem;
+    
+    li {
+      list-style-type:none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+    }
+
+    .menu-text {
+      margin-left: 0.5rem;
+    }
+  }
+  
   login-svgs-and-text {
     display: flex;
     line-height: 2rem;
     align-items: center;
+    padding: 0.25rem 1rem;
   }
 
   p {
     margin: 0.5rem 0;
-  }
-
-  a, button {
-    @include sub-link();
-    font-weight: bold;
-
-    &:hover .login-arrow-svg, &:hover .user-icon-svg {
-      text-decoration: underline;
-      fill: $almost-black;
-    }
   }
 
   h3 {
@@ -29,46 +54,50 @@ login-zone {
     margin: 0;
   }
 
-  .login-arrow {
-    vertical-align: middle;
-  }
-  .login-arrow-svg {
-    height: 0.9rem;
-    width: 1.2rem;
-    margin-left: 0.5rem;
-    line-height: 0.90rem;
-    fill: $light-blue;
-  }
-
   .user-icon {
-
     vertical-align: top;
-
   }
 
   .user-icon-svg {
     height: 1.4rem;
     width: 1.4rem;
-    fill: $light-blue;
+    fill: white;
+  }
+
+  .arrow {
+    margin-left: 0.5rem;
+  }
+
+  button.action {
+    background-color: $light-blue;
+    color: white;
+
+    &:hover {
+      background-color: $almost-black;
+    }
+  }
+
+  button.status {
+    background-color: transparent;
+    color: $light-blue;
+
+    &:hover {
+      background-color: $light-blue;
+      color: white;
+    }
   }
 
   button {
     border:none;
     cursor:pointer;
-    color: #00AEEF;
     font-weight: bold;
     text-align: left;
     padding: 1px 0px 2px;
-    background-color: transparent;
-  }
-  button:hover{
-    text-decoration:underline;
-    border:none;
-  }
-  button:focus{
-    text-decoration:underline;
-    border:none;
-    outline:none;
+    outline: none;
+
+    &:active {
+      background-color: $medium-grey;
+    }
   }
 
   loading-element {
