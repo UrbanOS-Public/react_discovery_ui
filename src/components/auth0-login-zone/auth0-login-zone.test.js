@@ -1,7 +1,8 @@
 import { mount } from 'enzyme'
 import { Auth0LoginZone as Component } from './auth0-login-zone'
 import LoadingElement from '../generic-elements/loading-element'
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom'
+import * as device from 'react-device-detect'
 
 describe('OauthLoginZone component', () => {
   let subject, button, loginHandler, logoutHandler
@@ -35,6 +36,7 @@ describe('OauthLoginZone component', () => {
 
   describe('authenticated', () => {
     beforeEach(() => {
+      device.isMobile = false
       subject = createSubject({ isAuthenticated: true, loginWithRedirect: loginHandler, logout: logoutHandler })
       button = subject.find('button')
     })
@@ -48,6 +50,12 @@ describe('OauthLoginZone component', () => {
       button.simulate('mouseEnter')
       let menuItems = subject.find('li')
       expect(menuItems.length).not.toBe(0)
+    })
+
+    it('does not toggle account dropdown on mouse click when not on mobile', () => {
+      button.simulate('click')
+      let menuItems = subject.find('li')
+      expect(menuItems.length).toBe(0)
     })
 
     describe('account menu', () => {
@@ -76,6 +84,36 @@ describe('OauthLoginZone component', () => {
 
       it('does not have a loading element', () => {
         expect(subject.find(LoadingElement).length).toBe(0)
+      })
+
+      it('closes on mouse exit', () => {
+        button.simulate('mouseLeave')
+        let menuItems = subject.find('li')
+        expect(menuItems.length).toBe(0)
+      })
+    })
+
+    describe('account menu on mobile', () => {
+      beforeEach(() => {
+        device.isMobile = true
+        subject = createSubject({ isAuthenticated: true, loginWithRedirect: loginHandler, logout: logoutHandler })
+        button = subject.find('button')
+      })
+
+      it('toggles account dropdown on mouse click', () => {
+        button.simulate('click')
+        let menuItems = subject.find('li')
+        expect(menuItems.length).not.toBe(0)
+
+        button.simulate('click')
+        menuItems = subject.find('li')
+        expect(menuItems.length).toBe(0)
+      })
+
+      it('does not display account dropdown on mouse enter', () => {
+        button.simulate('mouseEnter')
+        let menuItems = subject.find('li')
+        expect(menuItems.length).toBe(0)
       })
     })
   })
