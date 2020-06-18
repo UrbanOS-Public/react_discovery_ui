@@ -37,10 +37,10 @@ export const Auth0LoginZone = ({ auth: { isAuthenticated, isLoading, loginWithRe
           {
             isAuthenticated
               ? <button className={isMenuExpanded ? "action" : "status"} onClick={toggleMenu} onMouseEnter={mouseEnterMenu} onMouseLeave={mouseExitMenu}>
-                <LoginSvgsAndText text="My Account" symbol={isMenuExpanded ? "▲" : "▼"} />
+                <LoginSvgsAndText text="My Account" symbol={isMenuExpanded ? "▴" : "▾"} />
               </button>
               : <button className="action clickable" data-testid="login-button" onClick={loginWithRedirect}>
-                <LoginSvgsAndText text="Log in to your account" symbol={"▶"} />
+                <LoginSvgsAndText text="Log in to your account" symbol={"▸"} />
               </button>
           }
         </div>
