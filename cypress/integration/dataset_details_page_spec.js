@@ -165,7 +165,7 @@ describe('Write SQL Tab for System dataset', function () {
   it('Clicking Saved Visualizations icon shows you the login popup', function () {
     cy.get(savedVisualizationsIcon).click()
     cy.get(savedVisualizationsPopover).should('be.visible')
-    cy.get(loginButton).contains('LOG IN')
+    cy.get(loginButton).contains('Log in to your account')
   })
 
   it('Clicking save icon opens query popup', function () {
