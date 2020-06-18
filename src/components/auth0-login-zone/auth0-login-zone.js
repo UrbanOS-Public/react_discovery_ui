@@ -4,46 +4,79 @@ import LoginSvgsAndText from "../login-zone/login-svgs-and-text"
 import routes from '../../routes'
 import withAuth0 from '../../auth/auth0-wrapper'
 import LoadingElement from '../generic-elements/loading-element'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import FolderIcon from '../generic-elements/folder-icon'
-import ExitIcon from '@material-ui/icons/ExitToApp';
+import ExitIcon from '@material-ui/icons/ExitToApp'
+import { isMobile } from "react-device-detect"
 
 const returnTo = `${window.location.origin}${routes.oauth}`
 
 export const Auth0LoginZone = ({ auth: { isAuthenticated, isLoading, loginWithRedirect, logout } }) => {
-  const [isMenuExpanded, setMenuExpanded] = useState(false);
+  const [isMenuToggled, setMenuToggled] = useState(false);
+  const [isMouseInMenu, setMouseInMenu] = useState(false);
+  const wrapperRef = useRef(null);
+  
+  const mouseEnterMenu = () => { if (!isMobile) {setMouseInMenu(true)}  }
+  const mouseExitMenu = () => { if (!isMobile) {setMouseInMenu(false)}  }
+
+  const toggleMenu = () => { if (isMobile) {setMenuToggled(!isMenuToggled)} }
+  const clickOutMenu = () => { if (isMobile) {setMenuToggled(false)} }
+  const isMenuExpanded = (isMenuToggled || isMouseInMenu)
+
+  useClickOutWatcher(wrapperRef, clickOutMenu);
+
   if (isLoading) {
     return <login-zone><LoadingElement /></login-zone>
   }
-  isAuthenticated = true
 
   return (
     <login-zone>
-      <div className="login-block">
+      <div ref={wrapperRef}>
+        <div className="login-block">
+          {
+            isAuthenticated
+              ? <button className={isMenuExpanded ? "action" : "status"} onClick={toggleMenu} onMouseEnter={mouseEnterMenu} onMouseLeave={mouseExitMenu}>
+                <LoginSvgsAndText text="My Account" symbol={isMenuExpanded ? "▲" : "▼"} />
+              </button>
+              : <button className="action clickable" data-testid="login-button" onClick={loginWithRedirect}>
+                <LoginSvgsAndText text="Log in to your account" symbol={"▶"} />
+              </button>
+          }
+        </div>
         {
-          isAuthenticated
-            ? <button className={isMenuExpanded ? "action" : "status"} onClick={() => { setMenuExpanded(!isMenuExpanded) }}><LoginSvgsAndText text="My Account" symbol={isMenuExpanded ? "▲" : "▼"} /></button>
-            : <button className="action" data-testid="login-button" onClick={loginWithRedirect}><LoginSvgsAndText text="Log in to your account" symbol={"▶"} /></button>
+          (isAuthenticated && isMenuExpanded) &&
+          <div className="user-menu" onMouseEnter={mouseEnterMenu} onMouseLeave={mouseExitMenu}>
+            <ul>
+              <li>
+                <FolderIcon />
+                <span className="menu-text"><Link to="/user">Workspaces</Link></span>
+              </li>
+              <li id="logout-button" onClick={() => { logout({ returnTo }) }}>
+                <ExitIcon />
+                <span className="menu-text">Log Out</span>
+              </li>
+            </ul>
+          </div>
         }
       </div>
-      {
-        (isAuthenticated && isMenuExpanded) &&
-        <div className="user-menu">
-          <ul>
-            <li>
-              <FolderIcon />
-              <span className="menu-text"><Link to="/user">Workspaces</Link></span>
-            </li>
-            <li onClick={() => { logout({ returnTo }) }}>
-              <ExitIcon />
-              <span className="menu-text">Log Out</span>
-            </li>
-          </ul>
-        </div>
-      }
     </login-zone>
   )
+}
+
+function useClickOutWatcher(ref, callback) {
+  useEffect(() => {
+      function handleClickOutside(event) {
+          if (ref.current && !ref.current.contains(event.target)) {
+            callback();
+          }
+      }
+
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+          document.removeEventListener("mousedown", handleClickOutside);
+      };
+  }, [ref]);
 }
 
 Auth0LoginZone.propTypes = {

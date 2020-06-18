@@ -71,9 +71,15 @@ login-zone {
   button.action {
     background-color: $light-blue;
     color: white;
+  }
 
+  button.clickable {
     &:hover {
       background-color: $almost-black;
+    }
+
+    &:active {
+      background-color: $medium-grey;
     }
   }
 
@@ -94,10 +100,6 @@ login-zone {
     text-align: left;
     padding: 1px 0px 2px;
     outline: none;
-
-    &:active {
-      background-color: $medium-grey;
-    }
   }
 
   loading-element {
