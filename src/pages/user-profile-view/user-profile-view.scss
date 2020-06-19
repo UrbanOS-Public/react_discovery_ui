@@ -30,4 +30,47 @@ user-profile-view {
       @include header();
     }
   }
+
+  .delete-icon {
+    text-align: center;
+    color: $almost-black;
+    margin: auto;
+    cursor: pointer;
+    
+    &:hover {
+      color: $error-color
+    }
+
+    &:active {
+      color: $medium-grey
+    }
+  }
+
+  .centered {
+    text-align: center;
+  }
+}
+
+div.modal-button-group {
+  justify-content: space-evenly;
+  display: flex;
+}
+
+button.modal-button {
+  outline: none;
+  color: white;
+  padding: 1rem;
+  letter-spacing: 0.05rem;
+
+  &:active {
+    background-color: $medium-grey;
+  }
+}
+
+button.modal-confirm {
+  @include button();
+}
+
+button.modal-cancel {
+  @include button($almost-black);
 }
