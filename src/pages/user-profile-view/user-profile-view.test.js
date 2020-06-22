@@ -81,6 +81,12 @@ describe("user profile view", () => {
       expect(deleteFunction).toHaveBeenCalledWith("2")
     })
 
+    it("keeps the modal open while deleting", () => {
+      subject.find('.modal-confirm').simulate('click')
+      subject.setProps({ deleting: true })
+      expect(subject.find(Modal).prop('isOpen')).toBe(true)
+    })
+
     it("shows an error message and does not close the modal when deletion fails", () => {
       subject.setProps({ deleteFailure: true })
       expect(subject.find('.modal-error-text')).toHaveLength(1)
