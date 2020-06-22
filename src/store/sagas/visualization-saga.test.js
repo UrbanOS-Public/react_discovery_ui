@@ -334,8 +334,12 @@ describe('visualization-saga', () => {
         dispatched = await recordSaga(deleteVisualization, visualizationDelete({ id: "1" }), initialState)
       })
 
-      it('signals the visualization is unavailable', () => {
+      it('signals the visualization deletion failed', () => {
         expect(dispatched).toContainEqual(visualizationDeleteFailure(errorMessage))
+      })
+
+      it('dispatches a load user visualization list action', () => {
+        expect(dispatched).toContainEqual(visualizationsLoadAll())
       })
     })
   })
