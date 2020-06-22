@@ -74,3 +74,8 @@ button.modal-confirm {
 button.modal-cancel {
   @include button($almost-black);
 }
+
+.modal-error-text {
+  color: $error-color;
+  text-align: center;
+}

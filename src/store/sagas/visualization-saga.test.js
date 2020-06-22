@@ -1,6 +1,6 @@
-import { visualizationSave, visualizationLoadFailure, visualizationSaveFailure, visualizationLoad, visualizationLoadSuccess, visualizationsLoadAll, visualizationsLoadAllSuccess, visualizationsLoadAllFailure, visualizationSaveSuccess, setQueryText, setChartInformation, executeFreestyleQuery } from '../actions'
+import { visualizationSave, visualizationLoadFailure, visualizationSaveFailure, visualizationLoad, visualizationLoadSuccess, visualizationsLoadAll, visualizationsLoadAllSuccess, visualizationsLoadAllFailure, visualizationSaveSuccess, setQueryText, setChartInformation, executeFreestyleQuery, visualizationDelete, visualizationDeleteFailure, visualizationDeleteSuccess } from '../actions'
 import visualizationSaga from './visualization-saga'
-import { saveVisualization } from './visualization-saga'
+import { saveVisualization, deleteVisualization } from './visualization-saga'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware, { runSaga } from 'redux-saga'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
@@ -286,6 +286,56 @@ describe('visualization-saga', () => {
         it('does not set the global query text', () => {
           expect(dispatched).not.toContainEqual(setQueryText(returnedVisualization.query))
         })
+      })
+    })
+  })
+
+  describe('deleteVisualization', () => {
+    const initialState = {}
+
+    describe('successfully', () => {
+      var dispatched = []
+      beforeEach(async () => {
+        AuthenticatedHTTPClient.delete = jest.fn(() => ({ status: 204, data: {} }))
+        dispatched = await recordSaga(deleteVisualization, visualizationDelete({ id: "3" }), initialState)
+      })
+
+      it('signals the visualization is deleted', () => {
+        expect(dispatched).toContainEqual(visualizationDeleteSuccess())
+      })
+
+      it('dispatches a load user visualization list action', () => {
+        expect(dispatched).toContainEqual(visualizationsLoadAll())
+      })
+    })
+
+    describe('with a non-success status code', () => {
+      const nonSuccessStatusCode = 400
+      var dispatched = []
+      beforeEach(async () => {
+        AuthenticatedHTTPClient.delete = jest.fn(() => ({ status: nonSuccessStatusCode }))
+        dispatched = await recordSaga(deleteVisualization, visualizationDelete({ id: "2" }), initialState)
+      })
+
+      it('signals the visualization deletion failed', () => {
+        expect(dispatched).toContainEqual(visualizationDeleteFailure(nonSuccessStatusCode))
+      })
+
+      it('dispatches a load user visualization list action', () => {
+        expect(dispatched).toContainEqual(visualizationsLoadAll())
+      })
+    })
+
+    describe('with a thrown error', () => {
+      const errorMessage = 'WRONG'
+      var dispatched = []
+      beforeEach(async () => {
+        AuthenticatedHTTPClient.delete = jest.fn(() => { throw new Error(errorMessage) })
+        dispatched = await recordSaga(deleteVisualization, visualizationDelete({ id: "1" }), initialState)
+      })
+
+      it('signals the visualization is unavailable', () => {
+        expect(dispatched).toContainEqual(visualizationDeleteFailure(errorMessage))
       })
     })
   })

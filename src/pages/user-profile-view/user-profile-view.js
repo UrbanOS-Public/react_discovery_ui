@@ -21,15 +21,22 @@ const customStyles = {
 
 const UserProfileView = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [datasetToDelete, setDatasetToDelete] = useState(null);
+  const [datasetToDelete, setVisualizationToDelete] = useState(null);
+  
   const {
     visualizations,
     getUserVisualizations,
+    deleteVisualization,
     auth: { isAuthenticated },
     loading,
     loadFailure,
-    loadSuccess
+    loadSuccess,
+    deleteFailure,
+    deleting,
+    clearDeleteVisualizationState
   } = props
+
+  const showModal = (modalIsOpen || (deleting || deleteFailure))
 
   useEffect(() => {
     getUserVisualizations()
@@ -37,12 +44,18 @@ const UserProfileView = (props) => {
 
   const openDeleteModalForVisualization = (id) => {
     setModalIsOpen(true)
-    setDatasetToDelete(id)
+    setVisualizationToDelete(id)
   }
 
   const confirmDeletion = (id) => {
+    deleteVisualization(id)
     setModalIsOpen(false)
-    setDatasetToDelete(null)
+  }
+
+  const cancelDeletion = () => {
+    setModalIsOpen(false)
+    setVisualizationToDelete(null)
+    clearDeleteVisualizationState()
   }
 
   const requestHasNotRun = !loadFailure && !loadSuccess
@@ -58,7 +71,7 @@ const UserProfileView = (props) => {
     return <ErrorComponent errorText={"You must be signed in to see your saved visualizations"} />
   }
 
-  Modal.setAppElement('#root');
+  Modal.setAppElement('*')
 
   const columns = [
     { Header: "Title", accessor: "title", headerClassName: "table-header" },
@@ -79,18 +92,6 @@ const UserProfileView = (props) => {
       <div className="left-section">
         <Auth0LoginZone />
       </div>
-      <Modal
-        isOpen={modalIsOpen}
-        style={customStyles}
-        contentLabel="Delete Modal"
-      >
-        <p>Are you sure you want to delete this workspace?</p>
-        <div className="modal-button-group">
-          <button className="modal-cancel modal-button" onClick={() => {setModalIsOpen(false); setDatasetToDelete(null)}}>Cancel</button>
-          <button className="modal-confirm modal-button" onClick={() => {confirmDeletion(datasetToDelete)}}>Delete</button>
-        </div>
-      </Modal>
-
       <div className="saved-workspaces right-section">
         <div className="header-container">
           <div className="header-text-items">
@@ -108,6 +109,18 @@ const UserProfileView = (props) => {
           />
         </div>
       </div>
+      <Modal
+        isOpen={showModal}
+        style={customStyles}
+        contentLabel="Delete Modal"
+      >
+        <p>Are you sure you want to delete this workspace?</p>
+        {deleteFailure && <p className="modal-error-text">There was an error deleting the visualization</p>}
+        <div className="modal-button-group">
+          <button className="modal-cancel modal-button" onClick={cancelDeletion}>Cancel</button>
+          <button className="modal-confirm modal-button" onClick={() => {confirmDeletion(datasetToDelete)}}>Delete</button>
+        </div>
+      </Modal>
     </user-profile-view>
   )
 }
