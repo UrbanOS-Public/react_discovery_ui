@@ -11,6 +11,9 @@ export const visualizationLoadFailure = state => state.visualization.loadFailure
 export const visualizationSaving = state => state.visualization.saving
 export const visualizationSaveSuccess = state => state.visualization.saveSuccess
 export const visualizationSaveFailure = state => state.visualization.saveFailure
+export const visualizationDeleteFailure = state => state.visualization.deleteFailure
+export const visualizationDeleteSuccess = state => state.visualization.deleteSuccess
+export const visualizationDeleting = state => state.visualization.deleting
 export const visualizationChart = state => state.visualization.chart
 export const userVisualizations = state => state.visualization.userVisualizations
 

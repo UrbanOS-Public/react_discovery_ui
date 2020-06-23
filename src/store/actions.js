@@ -202,6 +202,26 @@ export const visualizationSaveFailure = (errorMessage) => ({
   type: VISUALIZATION_SAVE_FAILURE, value: errorMessage
 })
 
+export const VISUALIZATION_DELETE = 'VISUALIZATION_DELETE'
+export const visualizationDelete = ({ id }) => ({
+  type: VISUALIZATION_DELETE, value: { id }
+})
+
+export const VISUALIZATION_DELETE_SUCCESS = 'VISUALIZATION_DELETE_SUCCESS'
+export const visualizationDeleteSuccess = () => ({
+  type: VISUALIZATION_DELETE_SUCCESS
+})
+
+export const VISUALIZATION_DELETE_FAILURE = 'VISUALIZATION_DELETE_FAILURE'
+export const visualizationDeleteFailure = (errorMessage) => ({
+  type: VISUALIZATION_DELETE_FAILURE, value: errorMessage
+})
+
+export const VISUALIZATION_DELETE_CLEAR = 'VISUALIZATION_DELETE_CLEAR'
+export const visualizationDeleteClear = () => ({
+  type: VISUALIZATION_DELETE_CLEAR
+})
+
 export const SET_CHART_INFORMATION = 'SET_CHART_INFORMATION'
 export const setChartInformation = (chart) => ({
   type: SET_CHART_INFORMATION, value: chart

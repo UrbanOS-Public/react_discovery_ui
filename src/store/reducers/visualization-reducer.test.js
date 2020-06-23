@@ -11,7 +11,10 @@ import {
   setChartInformation,
   visualizationsLoadAll,
   visualizationsLoadAllSuccess,
-  visualizationsLoadAllFailure
+  visualizationsLoadAllFailure,
+  visualizationDelete,
+  visualizationDeleteFailure,
+  visualizationDeleteSuccess
 } from '../actions'
 
 describe('Visualization Reducer', () => {
@@ -358,6 +361,67 @@ describe('Visualization Reducer', () => {
       newState = reducer(previousState, setChartInformation({ data: [[]], frames: {more: 'stuff'}, layout: []}))
 
       expect(newState.chart).toEqual({ data: [], frames: [], layout: {}})
+    })
+  })
+
+  describe('VISUALIZATION_DELETE', () => {
+    beforeEach(() => {
+      previousState = {
+        deleting: false,
+        deleteSuccess: true,
+        deleteFailure: true
+      }
+      newState = reducer(previousState, visualizationDelete({id: "Frank"}))
+    })
+
+    it('sets `deleting` state to true', () => {
+      expect(newState.deleting).toBeTruthy()
+    })
+
+    it('sets `failure` state to false', () => {
+      expect(newState.deleteFailure).toBeFalsy()
+    })
+
+    it('sets `success` state to false', () => {
+      expect(newState.deleteSuccess).toBeFalsy()
+    })
+  })
+
+  describe('VISUALIZATION_DELETE_SUCCESS', () => {
+    beforeEach(() => {
+      previousState = {
+        deleting: true,
+        deleteSuccess: false,
+        deleteFailure: false
+      }
+      newState = reducer(previousState, visualizationDeleteSuccess())
+    })
+
+    it('sets `deleting` state to false', () => {
+      expect(newState.deleting).toBeFalsy()
+    })
+
+    it('sets `success` state to true', () => {
+      expect(newState.deleteSuccess).toBeTruthy()
+    })
+  })
+
+  describe('VISUALIZATION_DELETE_FAILURE', () => {
+    beforeEach(() => {
+      previousState = {
+        deleting: true,
+        deleteSuccess: false,
+        deleteFailure: false
+      }
+      newState = reducer(previousState, visualizationDeleteFailure())
+    })
+
+    it('sets `deleting` state to false', () => {
+      expect(newState.deleting).toBeFalsy()
+    })
+
+    it('sets `failure` state to true', () => {
+      expect(newState.deleteFailure).toBeTruthy()
     })
   })
 })
