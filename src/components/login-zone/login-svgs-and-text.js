@@ -12,8 +12,7 @@ export default class extends Component {
         return (
             <login-svgs-and-text>
                 <PersonIcon className='user-icon' />
-                <span>{this.props.text}</span>
-                <ArrowForwardIcon className='login-arrow' />
+                <span className='logintext'>{this.props.text}</span>
             </login-svgs-and-text>
         )
     }

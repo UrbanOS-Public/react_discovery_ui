@@ -3,6 +3,12 @@
 
 dataset-metadata {
 
+  home-banner {
+    display:none !important;
+  }
+  home-banner .banner-background {
+    display:none !important;
+  }
   .header-container {
     display: flex;
     justify-content: space-between;

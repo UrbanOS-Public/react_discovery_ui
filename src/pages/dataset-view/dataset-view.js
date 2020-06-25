@@ -24,11 +24,11 @@ export default class extends Component {
 
   generateVisualizationLink() {
     return this.props.id && generatePath(routes.visualizationView, { id: this.props.id })
+    
   }
 
   componentDidMount() {
     this.props.reset();
-
     this.props.retrieveDatasetDetails(
       this.props.match.params.organizationName,
       this.props.match.params.datasetName

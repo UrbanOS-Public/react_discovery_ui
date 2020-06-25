@@ -10,7 +10,7 @@ export default class extends Component {
     if (!this.props.dataset) {
       return <div />
     }
-
+    document.body.className="body-dataset-detail" 
     const referenceUrls = dataset.referenceUrls || []
 
     const data = [

@@ -47,7 +47,9 @@ const DatasetListView = (props) => {
     if (isSearchLoading) {
       return <LoadingElement />
     } else {
+      document.body.className="body-dataset-lists"
       return <DatasetList datasets={searchResults} />
+      
     }
   }
 
@@ -63,13 +65,23 @@ const DatasetListView = (props) => {
 
     return (
       <dataset-list-view>
+          <Search
+            className="search"
+            defaultText={searchParamsManager.searchText}
+            placeholder="Search datasets"
+      callback={searchParamsManager.updateSearchText}
+          />
         <div className="left-section">
-          <Auth0LoginZone />
-          <Checkbox
+        <div className="login-section">
+         <Auth0LoginZone />
+          </div>
+        <div className="api-checkbox">
+            <Checkbox 
       clickHandler={searchParamsManager.toggleApiAccessible}
-            text="API Accessible"
+            text="Only Show API Accessible Datasets"
       selected={searchParamsManager.apiAccessible}
           />
+          </div>
           <FacetSidebar
             availableFacets={searchMetadata.facets}
       appliedFacets={searchParamsManager.facets}
@@ -78,29 +90,26 @@ const DatasetListView = (props) => {
         </div>
         <div className="right-section">
         <AlertComponent errorMessage={globalErrorMessage} closeFunction={dismissGlobalError} showAlert={isGlobalError} />
-        <Search
-            className="search"
-            defaultText={searchParamsManager.searchText}
-            placeholder="Search datasets"
-      callback={searchParamsManager.updateSearchText}
-          />
+
           <div className="list-header">
             {renderResultsCountText()}
-            <Select
+            <div className="sort-by"><Select
               className="searchParamsManager.sortOrder-select"
               label="order by"
               options={createSortOptions()}
       selectChangeCallback={searchParamsManager.updateSortOrder}
               testId='sort-select'
             />
+            </div>
           </div>
           {renderDatasetList()}
-          <Paginator
+          <div className="paginator-container"><Paginator
             className="paginator"
             numberOfPages={numberOfPages}
       currentPage={searchParamsManager.page}
       pageChangeCallback={searchParamsManager.updatePage}
           />
+          </div>
         </div>
       </dataset-list-view>
     )

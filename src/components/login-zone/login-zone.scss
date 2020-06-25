@@ -3,11 +3,11 @@
 
 login-zone {
   margin-bottom: 1rem;
-  display: flex;
+  display: block;
+  float:left;
 
   login-svgs-and-text {
     display: flex;
-    line-height: 2rem;
     align-items: center;
   }
 
@@ -42,22 +42,31 @@ login-zone {
   }
 
   .user-icon {
-
+    height: 2rem;
+    width: 2rem;
     vertical-align: top;
-
+    text-align:left;
+    fill: $light-blue;
   }
 
   .user-icon-svg {
-    height: 1.4rem;
-    width: 1.4rem;
+    height: 1.6rem;
+    width: 1.6rem;
     fill: $light-blue;
+  }
+
+  .logintext {
+    display:block; 
+    margin-left:4px;
   }
 
   button {
     border:none;
     cursor:pointer;
-    color: #00AEEF;
-    font-weight: bold;
+    color: #333333;
+    font-weight: normal;
+    font-size:12px;
+    line-height:1;
     text-align: left;
     padding: 1px 0px 2px;
     background-color: transparent;

@@ -4,10 +4,25 @@
 dataset-list-view {
   @include page-with-left-bar();
 
-  .paginator {
-    margin-top: 2rem;
+  main-app-element {
+    overflow-x:hidden;
   }
-
+  .paginator {
+   // margin-top: 2rem;
+    //width:100%;
+    min-width:322px;
+    margin:0px auto;
+    display:block;
+    text-align:center;
+    padding-top:20px;
+  }
+  .paginator-container {
+    width:100%; 
+    text-align:center;
+    margin-bottom:20px;
+    display:block;
+    float:left;
+  }
   .list-header {
     @include flex-row();
     justify-content: space-between;
@@ -15,25 +30,161 @@ dataset-list-view {
     border-bottom: 2px dotted $medium-grey;
     padding: 2rem 0;
 
+    .sort-by{
+      float:right;
+    }
     .result-count {
       font-weight: bold;
       font-size: 1.25rem;
+      float:left;
     }
 
     .sort-select {
       height: 2.25rem;
       width: 18rem;
     }
+    select-element .selector {
+      border-radius:4px;
+      border: 1px solid #d2d4d6;
+      outline: 0;
+      color:#767879;
+    }
   }
   .search {
     height: 2.75rem;
+    width:100%;
+    clear:both;
+    float:left;
+    display:block;
   }
+
 
   loading-element {
     @include default-loading-icon();
   }
 }
-
+.login-section{
+  width:100%;
+  float:left;
+  clear:both;
+  display:block;
+  margin-top:25px;
+}
+.api-checkbox{
+  margin: 20px 0;
+}
+.api-checkbox .checkbox{
+  float:left;
+}
 error-component {
   text-align: center;
+}
+@media only screen and (max-width: 768px) {
+  data-card .logo {
+  display:none;
+}
+}
+@media only screen and (max-width: 600px) {
+
+  dataset-list-view {
+   // min-width:360px;
+   // padding:4%;  
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    /* optional */
+    -webkit-box-align: start;
+    -moz-box-align: start;
+    -ms-flex-align: start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+  }
+  login-zone {
+    float:left;
+    margin-bottom:0 !important;
+  }
+  .login-section{
+    margin-top:10px;
+  }
+  .user-icon {
+    margin-left:-5px;
+  }
+  dataset-list-view .list-header, dataset-list  {
+    display:block;
+    float:left;
+    clear:both;
+  }
+  dataset-list-view .list-header .result-count {
+    width:100%;
+    display:block;
+    float:left; 
+    clear:both;
+    margin: 0 0 14px 0;
+  }
+  .list-header  {
+    padding-top:10px!important;
+  }
+  .list-header select-element {
+    width:100%;
+    display:block;
+    float:left;
+    clear:both;
+  }
+  .sort-by{
+    float:left;
+    width:100%;
+  }
+  dataset-list-view .left-section, dataset-list-view .right-section{
+    width:100%;
+    clear:both;
+    float:left;
+  }
+  select-element .selector {
+    padding:10px;
+    width:75%;
+    border-radius:4px;
+    border:1px solid #d2d4d6 !important;
+    outline:none !important;
+    background-image: url(../../assets/down.png);
+    background-repeat: no-repeat; 
+    background-position: 96% 50%;
+    background-size: 20px 20px;
+    color:#767879;
+  }
+  dataset-list-view .left-section,dataset-list-view .right-section  {
+    display:block;
+
+  }
+  dataset-list-view .left-section {
+    float:left;
+    clear:both;
+    margin-top:10px;
+  }
+  dataset-list-view .right-section {
+
+    clear:both;
+    float:right;
+  }
+
+  dataset-list-view .search {
+    margin:10px 0 20px 0;
+    clear:both;
+  }
+
+  data-card .logo {
+    display:none;
+  }
+  data-card .details {
+    width:100%;
+  }
+  main-app-element {
+    overflow-x:hidden;
+  }
 }
