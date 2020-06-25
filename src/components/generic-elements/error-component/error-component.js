@@ -7,7 +7,7 @@ const ErrorComponent = props => {
     <error-component>
       <div className='error-container'>
         <ErrorOutline className='error-icon' />
-        <div className='error-text'>{props.errorText}</div>
+        <div data-testid="error-text" className='error-text'>{props.errorText}</div>
       </div>
     </error-component>
   )

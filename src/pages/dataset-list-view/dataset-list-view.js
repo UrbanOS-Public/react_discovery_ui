@@ -39,6 +39,11 @@ const DatasetListView = (props) => {
         value: "last_mod",
         label: "Last Modified",
         default: searchParamsManager.sortOrder === "last_mod"
+      },
+      {
+        value: "relevance",
+        label: "Relevance",
+        default: searchParamsManager.sortOrder === "relevance"
       }
     ]
   }
@@ -72,11 +77,9 @@ const DatasetListView = (props) => {
       callback={searchParamsManager.updateSearchText}
           />
         <div className="left-section">
-        <div className="login-section">
-         <Auth0LoginZone />
-          </div>
-        <div className="api-checkbox">
-            <Checkbox 
+          <Auth0LoginZone />
+          <div style={{height: '0.5rem'}} >
+          <Checkbox
       clickHandler={searchParamsManager.toggleApiAccessible}
             text="Only Show API Accessible Datasets"
       selected={searchParamsManager.apiAccessible}

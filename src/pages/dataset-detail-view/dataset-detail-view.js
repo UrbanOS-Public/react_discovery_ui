@@ -37,7 +37,7 @@ export default class extends Component {
 
     const streamingExpanded = !isCsv && isStreaming;
     const apiDocExpanded = !isCsv && !isStreaming;
-    const showDatasetPreview = isCsv && isIngest;
+    const showDatasetPreview = isIngest || isStreaming;
 
     return (
       <dataset-detail-view>
@@ -53,14 +53,12 @@ export default class extends Component {
               queried via the API.
             </div>
           )}
-          {showDatasetPreview && <DatasetPreview datasetId={dataset.id} />}
+          {isGeoJSON && <GeoJSONVisualization datasetId={dataset.id} />}
+          {showDatasetPreview && <DatasetPreview datasetId={dataset.id} format={isGeoJSON ? 'geojson' : 'json'} />}
           {isStreaming && (
             <StreamingApiDoc dataset={dataset} expanded={streamingExpanded} />
           )}
           <DatasetRecommendations dataset={dataset} />
-          {isGeoJSON && (
-            <GeoJSONVisualization datasetId={dataset.id} />
-          )}
           {isIngest && (
             <DatasetApiDoc dataset={dataset} expanded={apiDocExpanded} />
           )}

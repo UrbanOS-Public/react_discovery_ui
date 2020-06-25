@@ -13,8 +13,8 @@ import QueryView from "../query-view";
 import ChartView from "../chart-view";
 import DatasetDetailView from "../dataset-detail-view";
 import LoadingElement from "../../components/generic-elements/loading-element";
-import UserPageButtonPopover from "../../components/user-page-button-popover"
-import SaveButtonPopover from "../../components/save-button-popover"
+import VisualizationListMenuItem from "../../components/visualization-list-menu-item"
+import VisualizationSaveMenuItem from "../../components/visualization-save-menu-item"
 
 export default class extends Component {
   constructor() {
@@ -23,8 +23,7 @@ export default class extends Component {
   }
 
   generateVisualizationLink() {
-    return this.props.id && generatePath(routes.visualizationView, { id: this.props.id })
-    
+    return this.props.visualizationId && generatePath(routes.visualizationView, { id: this.props.visualizationId })
   }
 
   componentDidMount() {
@@ -52,8 +51,8 @@ export default class extends Component {
     }
   }
 
-  handleSaveOrUpdate() {
-    this.props.save({ id: this.props.idFromState, title: this.state.localTitle, query: this.props.query })
+  handleSaveOrUpdate({shouldCreateCopy}) {
+    this.props.save({ id: this.props.visualizationId, title: this.state.localTitle, query: this.props.query, shouldCreateCopy })
   }
 
   isNotDatasetDetailsTab() {
@@ -93,17 +92,19 @@ export default class extends Component {
             {this.isNotDatasetDetailsTab() &&
               <span className='action-area'>
                 <React.Fragment >
-                  <UserPageButtonPopover
+                  <VisualizationListMenuItem
                     isAuthenticated={this.props.auth.isAuthenticated}
                   />
-                  <SaveButtonPopover
+                  <VisualizationSaveMenuItem
                     isSaveable={this.props.isSaveable}
                     handleTitleChange={this.handleTitleChange.bind(this)}
                     handleSaveOrUpdate={this.handleSaveOrUpdate.bind(this)}
                     linkUrl={this.generateVisualizationLink()}
                     isSaveFailure={this.props.isSaveFailure}
                     isSaveSuccess={this.props.isSaveSuccess}
-                    localTitle={this.state.localTitle}
+                    title={this.state.localTitle}
+                    allowedActions={this.props.allowedActions}
+                    isAuthenticated={this.props.auth.isAuthenticated}
                   />
                 </React.Fragment>
               </span>

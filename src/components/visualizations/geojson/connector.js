@@ -6,7 +6,7 @@ import { getDownloadedDataset, getDataSetPreview, getDownloadedDatasetError } fr
 const mapStateToProps = state => {
   return {
     downloadedGeoJsonData: getDownloadedDataset(state),
-    previewedGeoJsonData: getDataSetPreview(state),
+    previewedGeoJsonData: getDataSetPreview(state, 'geojson'),
     downloadedDatasetError: getDownloadedDatasetError(state)
   }
 }

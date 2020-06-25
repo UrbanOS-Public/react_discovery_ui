@@ -1,0 +1,21 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+visualization-list-menu-item {
+
+  .folder-icon {
+    fill: $medium-grey;
+    &:hover {
+      fill: $almost-black;
+    }
+  }
+
+  .dialog-open {
+    box-shadow: -5px 0 5px -5px $box-shadow-grey, 5px 0 5px -5px $box-shadow-grey;
+    background-color: white;
+    opacity: 1;
+    z-index: 1000;
+  }
+
+  @include menu-item-popover();
+}

@@ -26,7 +26,7 @@ describe("download-button", () => {
 
     setTimeout(() => {
       expect(window.location.href).toEqual(
-        "http://test.example.com/api/v1/presigned/url?key=123&format=csv"
+        "http://test.example.com/api/v1/presigned/url?key=123&_format=csv"
       );
       done();
     }, 100);

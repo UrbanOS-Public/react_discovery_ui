@@ -1,8 +1,6 @@
 @import '../../styles/variables.scss';
 @import '../../styles/mixins.scss';
 #dataset-preview {
-  border: 1px solid $light-grey;
-
   .header-container {
     display: flex;
     justify-content: space-between;
@@ -16,14 +14,11 @@
     @include header();
   }
 
-  #dataset-preview-table {
-    color: $almost-black;
-    
-    .table-header {
-      background-color: $header-grey;
-      text-align: left;
-      font-weight: 800;
-    }
+  #dataset-preview-raw {
+    overflow: scroll;
+    max-height: 30rem;
+    min-height: 10rem;
+    padding: 1rem;
   }
   
 }

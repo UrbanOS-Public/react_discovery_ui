@@ -5,31 +5,31 @@ import AutoAnchoringPopover from '../generic-elements/auto-anchoring-popover'
 import { Link } from 'react-router-dom'
 import Auth0LoginZone from '../auth0-login-zone'
 
-import './user-page-button-popover.scss'
+import './visualization-list-menu-item.scss'
 
 
-const UserPageButtonPopover = ({isAuthenticated}) => {
+const VisualizationListMenuItem = ({isAuthenticated}) => {
   const [userNeedsLoginInfo, setUserNeedsLoginInfo] = useState(false)
   const showLoginPrompt = () => { setUserNeedsLoginInfo(true)}
   const closeLoginPrompt = () => { setUserNeedsLoginInfo(false)}
 
   return (
-    <user-page-button-popover>
-      <TabButton data-testid="user-page-button-popover" className={`button-${isAuthenticated ? 'enabled' : 'disabled'}`} onClick={showLoginPrompt}>
-        <div title='Saved Visualizations'>
+    <visualization-list-menu-item>
+      <TabButton data-testid="visualization-list-menu-item" className={`button-${isAuthenticated ? 'enabled' : 'disabled'} ${userNeedsLoginInfo && 'dialog-open'}`} onClick={showLoginPrompt}>
+        <div title='Saved Workspaces'>
           <Link to="/user" className={`header-item link-${isAuthenticated ? 'enabled' : 'disabled'}`}>
             <FolderIcon />
           </Link>
         </div>
       </TabButton>
-      <AutoAnchoringPopover className='login-prompt popover-anchor' open={!isAuthenticated && userNeedsLoginInfo} onClose={closeLoginPrompt}>
-        <div className="login-message">
-          <p>You need to be logged in to see your visualizations</p>
+      <AutoAnchoringPopover className='login-prompt popover-anchor' open={!isAuthenticated && userNeedsLoginInfo} onClose={closeLoginPrompt} classes={{ paper: 'popover', root: 'popover-root' }}>
+        <div>
+          <span>You must log in to see your saved workspaces.</span>
           <Auth0LoginZone />
         </div>
       </AutoAnchoringPopover>
-    </user-page-button-popover>
+    </visualization-list-menu-item>
   )
 }
 
-export default UserPageButtonPopover
+export default VisualizationListMenuItem

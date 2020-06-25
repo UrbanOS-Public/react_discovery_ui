@@ -1,5 +1,5 @@
 import { takeEvery, put, call, fork, all, select } from 'redux-saga/effects'
-import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, VISUALIZATIONS_LOAD_ALL, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText, setChartInformation, executeFreestyleQuery, visualizationsLoadAllSuccess, visualizationsLoadAllFailure } from '../actions'
+import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, VISUALIZATIONS_LOAD_ALL, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText, setChartInformation, executeFreestyleQuery, visualizationsLoadAllSuccess, visualizationsLoadAllFailure, VISUALIZATION_DELETE, visualizationDeleteFailure, visualizationDeleteSuccess, visualizationsLoadAll } from '../actions'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import { dereferencedChart } from '../visualization-selectors'
 
@@ -46,14 +46,31 @@ function* saveVisualizationSaga() {
   yield takeEvery(VISUALIZATION_SAVE, saveVisualization)
 }
 
-export function* saveVisualization({ value: visualization }) {
+export function* saveVisualization({ value: visualization, shouldCreateCopy }) {
   const chart = yield select(dereferencedChart)
+
+  if (shouldCreateCopy) {
+    visualization = removeId(visualization)
+  }
 
   if (visualization.id) {
     yield handleSaveResponse(() => AuthenticatedHTTPClient.put(`/api/v1/visualization/${visualization.id}`, { ...visualization, chart }))
   } else {
     yield handleSaveResponse(() => AuthenticatedHTTPClient.post(`/api/v1/visualization`, { ...visualization, chart }))
   }
+}
+
+function* deleteVisualizationSaga() {
+  yield takeEvery(VISUALIZATION_DELETE, deleteVisualization)
+}
+
+export function* deleteVisualization({value}) {
+  yield handleDeleteResponse(() => AuthenticatedHTTPClient.delete(`/api/v1/visualization/${value.id}`))
+}
+
+function removeId(visualization) {
+  const {id, ...withoutId} = visualization
+  return withoutId
 }
 
 function* handleSaveResponse(clientFunction) {
@@ -70,11 +87,28 @@ function* handleSaveResponse(clientFunction) {
   }
 }
 
+function* handleDeleteResponse(clientFunction) {
+  try {
+    const response = yield call(clientFunction)
+
+    if (response.status < 400) {
+      yield put(visualizationDeleteSuccess())
+    } else {
+      yield put(visualizationDeleteFailure(response.status))
+    }
+  } catch (e) {
+    yield put(visualizationDeleteFailure(e.message))
+  }
+
+  yield put(visualizationsLoadAll())
+}
+
 export default function* visualizationSaga() {
   yield all([
     fork(loadVisualizationSaga),
     fork(saveVisualizationSaga),
-    fork(loadUserVisualizationsSaga)
+    fork(loadUserVisualizationsSaga),
+    fork(deleteVisualizationSaga)
   ])
 }
 

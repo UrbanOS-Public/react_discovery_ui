@@ -85,8 +85,8 @@ export const retrieveDatasetPreview = (id, format = 'json') => ({
   type: RETRIEVE_DATASET_PREVIEW, value: { id, format }
 })
 
-export const datasetPreview = (data) => ({
-  type: DATASET_PREVIEW, value: data
+export const datasetPreview = (data, format = 'json') => ({
+  type: DATASET_PREVIEW, value: {data, format}
 })
 
 export const clearDatasetPreview = () => ({
@@ -188,8 +188,8 @@ export const visualizationLoadFailure = (errorMessage) => ({
 })
 
 export const VISUALIZATION_SAVE = 'VISUALIZATION_SAVE'
-export const visualizationSave = ({ id, title, query }) => ({
-  type: VISUALIZATION_SAVE, value: { id, title, query }
+export const visualizationSave = ({ id, title, query, shouldCreateCopy }) => ({
+  type: VISUALIZATION_SAVE, value: { id, title, query }, shouldCreateCopy
 })
 
 export const VISUALIZATION_SAVE_SUCCESS = 'VISUALIZATION_SAVE_SUCCESS'
@@ -200,6 +200,26 @@ export const visualizationSaveSuccess = (visualization) => ({
 export const VISUALIZATION_SAVE_FAILURE = 'VISUALIZATION_SAVE_FAILURE'
 export const visualizationSaveFailure = (errorMessage) => ({
   type: VISUALIZATION_SAVE_FAILURE, value: errorMessage
+})
+
+export const VISUALIZATION_DELETE = 'VISUALIZATION_DELETE'
+export const visualizationDelete = ({ id }) => ({
+  type: VISUALIZATION_DELETE, value: { id }
+})
+
+export const VISUALIZATION_DELETE_SUCCESS = 'VISUALIZATION_DELETE_SUCCESS'
+export const visualizationDeleteSuccess = () => ({
+  type: VISUALIZATION_DELETE_SUCCESS
+})
+
+export const VISUALIZATION_DELETE_FAILURE = 'VISUALIZATION_DELETE_FAILURE'
+export const visualizationDeleteFailure = (errorMessage) => ({
+  type: VISUALIZATION_DELETE_FAILURE, value: errorMessage
+})
+
+export const VISUALIZATION_DELETE_CLEAR = 'VISUALIZATION_DELETE_CLEAR'
+export const visualizationDeleteClear = () => ({
+  type: VISUALIZATION_DELETE_CLEAR
 })
 
 export const SET_CHART_INFORMATION = 'SET_CHART_INFORMATION'

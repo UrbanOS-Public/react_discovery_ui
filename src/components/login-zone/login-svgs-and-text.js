@@ -1,6 +1,5 @@
 import { Component } from 'react'
 import PersonIcon from '@material-ui/icons/Person'
-import ArrowForwardIcon from '@material-ui/icons/ArrowRightAlt'
 
 export default class extends Component {
 
@@ -12,7 +11,8 @@ export default class extends Component {
         return (
             <login-svgs-and-text>
                 <PersonIcon className='user-icon' />
-                <span className='logintext'>{this.props.text}</span>
+                <span>{this.props.text}</span>
+                <span className="arrow">{this.props.symbol}</span>
             </login-svgs-and-text>
         )
     }

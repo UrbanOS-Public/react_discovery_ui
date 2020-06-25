@@ -8,22 +8,29 @@ import {
   VISUALIZATION_SAVE,
   VISUALIZATION_SAVE_SUCCESS,
   VISUALIZATION_SAVE_FAILURE,
+  VISUALIZATION_DELETE,
+  VISUALIZATION_DELETE_SUCCESS,
+  VISUALIZATION_DELETE_FAILURE,
+  VISUALIZATION_DELETE_CLEAR,
   VISUALIZATION_RESET,
   SET_CHART_INFORMATION
 } from "../actions"
 import { isArray, isPlainObject } from 'lodash'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import moment from 'moment'
 
 const defaultVisualizationState = {
-  visualization: {id: undefined},
-  chart: {data: [], layout: {}, frames: []},
+  visualization: { id: undefined },
+  chart: { data: [], layout: {}, frames: [] },
   loading: false,
   loadSuccess: false,
   loadFailure: false,
   saving: false,
   saveSuccess: false,
-  saveFailure: false
+  saveFailure: false,
+  deleting: false,
+  deleteSuccess: false,
+  deleteFailure: false
 }
 
 const visualizationReducer = (state = defaultVisualizationState, action) => {
@@ -66,6 +73,28 @@ const visualizationReducer = (state = defaultVisualizationState, action) => {
         loadSuccess: false,
         loadFailure: true
       })
+    case VISUALIZATION_DELETE:
+      return Object.assign({}, state, {
+        deleteFailure: false,
+        deleteSuccess: false,
+        deleting: true,
+      })
+    case VISUALIZATION_DELETE_FAILURE:
+      return Object.assign({}, state, {
+        deleteFailure: true,
+        deleting: false
+      })
+    case VISUALIZATION_DELETE_SUCCESS:
+      return Object.assign({}, state, {
+        deleteSuccess: true,
+        deleting: false
+      })
+    case VISUALIZATION_DELETE_CLEAR:
+      return Object.assign({}, state, {
+        deleteSuccess: false,
+        deleteFailure: false,
+        deleting: false
+      })
     case VISUALIZATION_SAVE:
       return Object.assign({}, state, {
         saving: true,
@@ -86,14 +115,14 @@ const visualizationReducer = (state = defaultVisualizationState, action) => {
         saveFailure: true
       })
     case SET_CHART_INFORMATION:
-      return Object.assign({}, state, {chart: constructValidChart(action.value)})
+      return Object.assign({}, state, { chart: constructValidChart(action.value) })
     case VISUALIZATION_RESET:
       return defaultVisualizationState
     default: return state
   }
 }
 
-const constructValidChart = ({data, frames, layout}) => {
+const constructValidChart = ({ data, frames, layout }) => {
   return {
     data: isValidChartData(data) ? data : [],
     frames: isValidChartFrames(frames) ? frames : [],

@@ -1,8 +1,8 @@
 import {shallow} from 'enzyme'
-import UserPageButtonPopover from "./user-page-button-popover"
+import VisualizationListMenuItem from "./visualization-list-menu-item"
 import Auth0LoginZone from '../auth0-login-zone'
 
-describe('user page button popover', () => {
+describe('visualization list menu item', () => {
   let subject
   describe('when user clicks the icon to see their saved visualizations', () => {
     describe('and when the user is not logged in', () => {
@@ -13,7 +13,6 @@ describe('user page button popover', () => {
       })
 
       it("displays a prompt for the user to log in", () => {
-        expect(subject.find(".login-message")).toHaveLength(1)
         expect(subject.find(".login-prompt").props().open).toBeTruthy()
         expect(subject.find(Auth0LoginZone)).toHaveLength(1)
       })
@@ -34,7 +33,7 @@ describe('user page button popover', () => {
       })
 
       it("does not display a login prompt", () => {
-        expect(subject.find(".login-message").props().open).toBeFalsy()
+        expect(subject.find(".login-prompt").props().open).toBeFalsy()
       })
     })
   })
@@ -47,5 +46,5 @@ const createSubject = (props = {}) => {
 
   const propsWithDefaults = Object.assign({}, defaultProps, props)
 
-  return shallow(<UserPageButtonPopover {...propsWithDefaults} />)
+  return shallow(<VisualizationListMenuItem {...propsWithDefaults} />)
 }

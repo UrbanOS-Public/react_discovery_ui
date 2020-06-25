@@ -1,0 +1,34 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+#data-view {
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .header-text-items {
+    margin: 1rem;
+  }
+
+  .preview-header {
+    @include header();
+  }
+
+  #data-view-table {
+    color: $almost-black;
+    
+    .table-header {
+      background-color: $header-grey;
+      text-align: left;
+      font-weight: 800;
+    }
+  }
+
+  #data-view-raw {
+    overflow: scroll;
+    max-height: 30rem;
+    min-height: 10rem;
+    padding: 1rem;
+  }
+  
+}

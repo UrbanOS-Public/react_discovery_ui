@@ -14,6 +14,10 @@ query-view {
     font-weight: bold;
   }
 
+  #data-view {
+    border: 1px solid $light-grey;
+  }
+
   #dataset-preview-table {
     color: $almost-black;
     padding: 1rem;

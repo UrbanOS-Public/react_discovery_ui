@@ -13,16 +13,12 @@ cache:
 install:
   - npm ci
 script:
-  - npm run test
-  - npm run start & wait-on http://localhost:9001
-  - npm run cypress:run
+  - npm run test:all
 before_deploy: npm run build:library
 deploy:
 - provider: npm
   edge: true
   email: "johnson.denen@gmail.com"
-  api_token:
-    secure: $NPM_AUTH_TOKEN
   on:
     tags: true
 branches:

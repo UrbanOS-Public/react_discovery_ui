@@ -7,5 +7,10 @@ export default function * theRealDatasetSaga () {
 }
 
 const invokeApiWithId = ({ value: { id, format } }) => {
-  return apiInvoker({ endpoint: `/api/v1/dataset/${id}/preview?_format=${format}`, actionator: datasetPreview })()
+  return apiInvoker({
+    endpoint: `/api/v1/dataset/${id}/preview?_format=${format}`,
+    actionator: (data) => {
+      return datasetPreview(data, format)
+    }
+  })()
 }

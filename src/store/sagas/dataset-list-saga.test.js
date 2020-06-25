@@ -60,7 +60,7 @@ describe('dataset-list-saga', () => {
       }
 
       expect(AuthenticatedHTTPClient.get).toHaveBeenCalledWith(
-        '/api/v1/dataset/search',
+        '/api/v2/dataset/search',
         expect.objectContaining({
           baseURL: window.API_HOST,
           params: expectedParams,

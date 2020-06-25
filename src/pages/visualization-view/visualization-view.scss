@@ -21,11 +21,6 @@ visualization-view {
     pointer-events: none;
   }
 
-  .login-message {
-    width: 20rem;
-    margin-left: 0.5rem;
-  }
-
   .new-visualization-form {
     margin: 0.5rem;
   }
@@ -99,37 +94,8 @@ visualization-view {
 visualization-view {
   position: relative;
 
-  .popover-anchor {
-    height: 50%;
-    margin-right: 0.5rem;
-  }
-
   .popover-root {
     z-index: 900 !important;
-  }
-
-  .save-button {
-    margin-top: 15px;
-    margin-right: 15px;
-    padding: 1px 1rem 2px;
-  }
-
-  .save-button.saving {
-    box-shadow: -5px 0 5px -5px $box-shadow-grey, 5px 0 5px -5px $box-shadow-grey;
-    background-color: white;
-    opacity: 1;
-    z-index: 1000;
-  }
-
-  .clear-icon {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-
-    &:hover {
-      background-color: $light-grey;
-      border-radius: 50%;
-    }
   }
 
   .visualization {

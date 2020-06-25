@@ -53,7 +53,6 @@ describe("dataset detail view", () => {
           clearDatasetPreview={clearDatasetPreviewSpy}
           match={routingProps}
           isIngest={true}
-          isCsv={true}
           isStreaming={false}
         />
       )
@@ -92,15 +91,6 @@ describe("dataset detail view", () => {
     })
   })
 
-  describe("non CSV dataset", () => {
-    it("should not render preview", () => {
-      const subject = createDatasetView(dataset, {
-        isCsv: false
-      })
-      expect(subject.find(DatasetPreview)).toHaveLength(0)
-    })
-  })
-
   describe("visibility of children with different source types", () => {
     it("should not show hosted explanation when dataset is not remote or hosted", () => {
       const subject = createDatasetView(dataset, {
@@ -119,6 +109,22 @@ describe("dataset detail view", () => {
       })
 
       expect(subject.find(".static-file-explanation")).toHaveLength(1)
+    })
+
+    it("should not show preview when hosted", () => {
+      const subject = createDatasetView(dataset, {
+        isHost: true
+      })
+
+      expect(subject.find(DatasetPreview)).toHaveLength(0)
+    })
+
+    it("should not show preview when remote", () => {
+      const subject = createDatasetView(dataset, {
+        isRemote: true
+      })
+
+      expect(subject.find(DatasetPreview)).toHaveLength(0)
     })
 
     it("should show hosted explanation when dataset is hosted", () => {
