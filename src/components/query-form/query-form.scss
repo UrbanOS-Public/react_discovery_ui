@@ -55,9 +55,12 @@ query-form {
     margin-right: 2rem;
   }
 
-  a {
-    color: red;
+  .dataset-reference {
     @include link();
+    color: $light-blue;
+    &:hover {
+      color: $almost-black
+    }
   }
 
   .sql-title {
@@ -98,7 +101,7 @@ query-form {
     overflow-y: auto;
     border: 1px solid $almost-black;
     display: inline-block;
-    padding: 0.5em;
+    padding: 1rem;
 
     &::-webkit-scrollbar {
         -webkit-appearance: none;

@@ -7,7 +7,6 @@ import ReactTooltip from 'react-tooltip'
 import InfoOutlined from '@material-ui/icons/InfoOutlined'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
-import { datasetReference } from '../../store/actions'
 
 const TEXT_AREA_MIN_HEIGHT = 100;
 const TEXT_AREA_HEIGHT_OFFSET = 5;
@@ -116,13 +115,15 @@ const QueryForm = props => {
     const toolTipText = 'These datasets are used in the query. This list is regenerated whenever the visualization is saved.'
     if (!_.isEmpty(usedDatasets)) {
       return (
-        <div className="used-datasets-section link-list">
+        <div className="link-list">
           <div className="title">
             <span>Used Datasets</span>
             <ReactTooltip effect="solid" />
             <InfoOutlined className="info-icon" data-tip={toolTipText} />
           </div>
-          {createDatasetLinks(usedDatasets)}
+          <div className="used-datasets-section">
+            {createDatasetLinks(usedDatasets)}
+          </div>
         </div>
       )
     }

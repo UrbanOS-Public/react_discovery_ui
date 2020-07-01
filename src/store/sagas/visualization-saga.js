@@ -1,5 +1,5 @@
 import { takeEvery, put, call, fork, all, select } from 'redux-saga/effects'
-import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, VISUALIZATIONS_LOAD_ALL, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText, setChartInformation, executeFreestyleQuery, visualizationsLoadAllSuccess, visualizationsLoadAllFailure, VISUALIZATION_DELETE, visualizationDeleteFailure, visualizationDeleteSuccess, visualizationsLoadAll, retrieveDatasetReference } from '../actions'
+import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, VISUALIZATIONS_LOAD_ALL, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText, setChartInformation, executeFreestyleQuery, visualizationsLoadAllSuccess, visualizationsLoadAllFailure, VISUALIZATION_DELETE, visualizationDeleteFailure, visualizationDeleteSuccess, visualizationsLoadAll, retrieveDatasetReference, visualizationLoad } from '../actions'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import { dereferencedChart } from '../visualization-selectors'
 
@@ -83,6 +83,7 @@ function* handleSaveResponse(clientFunction) {
 
     if (response.status < 400) {
       yield put(visualizationSaveSuccess(response.data))
+      yield put(visualizationLoad(response.data.id))
     } else {
       yield put(visualizationSaveFailure(response.status))
     }
