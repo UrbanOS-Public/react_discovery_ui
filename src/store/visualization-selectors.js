@@ -5,6 +5,7 @@ import { dereference } from 'react-chart-editor/lib'
 
 export const visualizationID = state => state.visualization.visualization.id
 export const visualizationTitle = state => state.visualization.visualization.title
+export const visualizationUsedDatasets = state => state.visualization.visualization.usedDatasets
 export const visualizationLoading = state => state.visualization.loading
 export const visualizationLoadSuccess = state => state.visualization.loadSuccess
 export const visualizationLoadFailure = state => state.visualization.loadFailure

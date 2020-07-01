@@ -1,5 +1,6 @@
 import { mount } from 'enzyme'
 import QueryForm from './query-form'
+import { BrowserRouter as Router } from 'react-router-dom'
 import LoadingElement from '../generic-elements/loading-element';
 import RecommendationList from '../recommendation-list'
 import { recommendations } from '../../../test-helpers/recommendations'
@@ -199,12 +200,43 @@ describe('QueryForm', () => {
       expect(subject.exists('.recommendation-section')).toBeFalsy()
     })
   })
+
+  describe('used datasets', () => {
+    let subject
+    beforeEach(() => {
+      const fakeDataset1 = { organization: { name: "org_name_1" }, name: "data_name_1", title: "Dataset 1", id: "123" }
+      const fakeDataset2 = { organization: { name: "org_name_2" }, name: "data_name_2", title: "Dataset 2", id: "456" }
+      const datasetReferences = { [fakeDataset1.id]: fakeDataset1, [fakeDataset2.id]: fakeDataset2 }
+      const usedDatasets = [fakeDataset1.id, fakeDataset2.id]
+      subject = createSubject({ usedDatasets, datasetReferences })
+    })
+
+    test('do not render if none are provided', () => {
+      const subject_with_no_datasets = createSubject({ usedDatasets: undefined })
+      expect(subject_with_no_datasets.exists(".used-datasets-section")).toBeFalsy()
+    })
+
+    test('shows the used datasets section', () => {
+      expect(subject.exists(".used-datasets-section")).toBeTruthy()
+    })
+
+    test('renders a link per dataset', () => {
+      const links = subject.find("Link.dataset-reference")
+      expect(links.length).toEqual(2)
+      expect(links.at(0).prop('to')).toEqual("/dataset/org_name_1/data_name_1")
+      expect(links.at(0).text()).toEqual("Dataset 1")
+      expect(links.at(1).prop('to')).toEqual("/dataset/org_name_2/data_name_2")
+      expect(links.at(1).text()).toEqual("Dataset 2")
+    })
+  })
 })
 
 function createSubject(params) {
   const defaults = {
     queryText: "SELECT * FROM sky",
     recommendations: recommendations,
+    usedDatasets: [],
+    datasetReferences: {},
     queryFailureMessage: "",
     isQueryDataAvailable: false,
     isQueryLoading: false,
@@ -216,18 +248,15 @@ function createSubject(params) {
 
   const paramsWithDefaults = Object.assign({}, defaults, params)
 
-  return mount(
-    <QueryForm
-      queryText={paramsWithDefaults.queryText}
-      recommendations={paramsWithDefaults.recommendations}
-      queryFailureMessage={paramsWithDefaults.queryFailureMessage}
-      isQueryDataAvailable={paramsWithDefaults.isQueryDataAvailable}
-      isQueryLoading={paramsWithDefaults.isQueryLoading}
-      isQueryLoaded={paramsWithDefaults.isQueryLoaded}
-      executeQuery={paramsWithDefaults.executeQuery}
-      cancelQuery={paramsWithDefaults.cancelQuery}
-      setQueryText={paramsWithDefaults.setQueryText}
-    />)
+  // This allows us to set properties on a component wrapped in a provider
+  return mount(React.createElement(
+    props => (
+      <Router>
+        <QueryForm {...props} />
+      </Router>
+    ),
+    paramsWithDefaults)
+  )
 }
 
 function getButton(subject, text) {

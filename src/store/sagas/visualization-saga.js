@@ -1,5 +1,5 @@
 import { takeEvery, put, call, fork, all, select } from 'redux-saga/effects'
-import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, VISUALIZATIONS_LOAD_ALL, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText, setChartInformation, executeFreestyleQuery, visualizationsLoadAllSuccess, visualizationsLoadAllFailure, VISUALIZATION_DELETE, visualizationDeleteFailure, visualizationDeleteSuccess, visualizationsLoadAll } from '../actions'
+import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, VISUALIZATIONS_LOAD_ALL, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText, setChartInformation, executeFreestyleQuery, visualizationsLoadAllSuccess, visualizationsLoadAllFailure, VISUALIZATION_DELETE, visualizationDeleteFailure, visualizationDeleteSuccess, visualizationsLoadAll, retrieveDatasetReference } from '../actions'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import { dereferencedChart } from '../visualization-selectors'
 
@@ -16,6 +16,10 @@ function* loadVisualization({ value: id }) {
       yield put(setQueryText(response.data.query))
       yield put(executeFreestyleQuery(response.data.query))
       yield put(visualizationLoadSuccess(response.data))
+
+      for (var datasetId of response.data.usedDatasets) {
+        yield put(retrieveDatasetReference(datasetId));
+      }
     } else {
       yield put(visualizationLoadFailure(response.status))
     }

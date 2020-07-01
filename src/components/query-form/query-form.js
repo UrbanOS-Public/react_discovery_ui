@@ -6,6 +6,8 @@ import RecommendationList from '../recommendation-list'
 import ReactTooltip from 'react-tooltip'
 import InfoOutlined from '@material-ui/icons/InfoOutlined'
 import _ from 'lodash'
+import { Link } from 'react-router-dom'
+import { datasetReference } from '../../store/actions'
 
 const TEXT_AREA_MIN_HEIGHT = 100;
 const TEXT_AREA_HEIGHT_OFFSET = 5;
@@ -21,6 +23,8 @@ const QueryForm = props => {
   const {
     queryText,
     recommendations,
+    usedDatasets,
+    datasetReferences,
     isQueryLoading,
     queryFailureMessage,
     isQueryDataAvailable,
@@ -98,6 +102,30 @@ const QueryForm = props => {
     }
   }
 
+  const createDatasetLinks = (datasetIds) => {
+    return datasetIds.map((datasetId) => {
+      const dataset = datasetReferences[datasetId]
+      const organization = dataset.organization
+      return <Link className="dataset-reference" target="_blank" key={datasetId} to={`/dataset/${organization.name}/${dataset.name}`}>{dataset.title}</Link>
+    });
+  }
+
+  const usedDatasetsSection = () => {
+    const toolTipText = 'These datasets are used in the query. This list is regenerated whenever the visualization is saved.'
+    if (!_.isEmpty(usedDatasets)) {
+      return (
+        <div className="used-datasets-section">
+          <div className="title">
+            <span>Used Datasets</span>
+            <ReactTooltip effect="solid" />
+            <InfoOutlined className="info-icon" data-tip={toolTipText} />
+          </div>
+          {createDatasetLinks(usedDatasets)}
+        </div>
+      )
+    }
+  }
+
   return (
     <query-form>
       <div className="user-input">
@@ -106,6 +134,7 @@ const QueryForm = props => {
           {textArea}
         </div>
         {recommendationSection()}
+        {usedDatasetsSection()}
       </div>
       <div>
         {submitButton}
