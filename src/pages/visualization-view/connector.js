@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import VisualizationView from './visualization-view'
-import { visualizationLoad, visualizationReset, visualizationSave, resetQuery } from '../../store/actions'
+import { visualizationLoad, visualizationReset, visualizationSave, resetQuery, resetDatasetReferences } from '../../store/actions'
 import { getFreestyleQueryText } from '../../store/query-selectors'
 import {
   visualizationTitle,
@@ -32,7 +32,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     load: (id) => dispatch(visualizationLoad(id)),
-    reset: () => { dispatch(visualizationReset()); dispatch(resetQuery())},
+    reset: () => { dispatch(visualizationReset()); dispatch(resetQuery()); dispatch(resetDatasetReferences())},
     save: ({id, title, query, shouldCreateCopy}) => dispatch(visualizationSave({id, title, query, shouldCreateCopy}))
 })
 

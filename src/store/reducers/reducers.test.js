@@ -4,6 +4,8 @@ import {
   DATASET_DETAILS,
   RETRIEVE_DATASET_PREVIEW,
   DATASET_PREVIEW,
+  DATASET_REFERENCE,
+  RESET_DATASET_REFERENCES,
   CLEAR_DATASET_DETAILS,
   LOGIN,
   LOGIN_SUCCESS,
@@ -132,6 +134,53 @@ describe("UI Reducer", () => {
     let newState = reducer(currentState, { type: CLEAR_DATASET_PREVIEW });
 
     expect(newState.presentation).toEqual(expectedData);
+  });
+
+  it("DATASET_REFERENCE sets datasetReferences", () => {
+    let currentState = {
+      presentation: {datasetReferences: {}}
+    };
+    const dataset = {
+      name: "dName",
+      title: "Title D#",
+      id: "123",
+      organization: {
+        name: "oName"
+      }
+    }
+    const expectedData = {
+      "123": {name: "dName", org: "oName", title: "Title D#", id: "123"}
+    };
+    const actionValue = dataset
+    let newState = reducer(currentState, {
+      type: DATASET_REFERENCE,
+      value: actionValue
+    });
+    expect(newState.presentation.datasetReferences).toEqual(expectedData);
+  });
+
+  it("RESET_DATASET_REFERENCES removes all dataset references", () => {
+    let currentState = {
+      presentation: {
+        datasetReferences: {
+        "123": {name: "dName", org: "oName", title: "Title D#", id: "123"}
+      }}
+    };
+    const dataset = {
+      name: "dName",
+      title: "Title D#",
+      id: "123",
+      organization: {
+        name: "oName"
+      }
+    }
+    const expectedData = {};
+    const actionValue = dataset
+    let newState = reducer(currentState, {
+      type: RESET_DATASET_REFERENCES,
+      value: actionValue
+    });
+    expect(newState.presentation.datasetReferences).toEqual(expectedData);
   });
 
   it("LOGIN sets loading to true", () => {

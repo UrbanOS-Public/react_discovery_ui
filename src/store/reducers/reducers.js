@@ -9,6 +9,7 @@ import {
   RETRIEVE_DATASET_PREVIEW,
   DATASET_PREVIEW,
   DATASET_REFERENCE,
+  RESET_DATASET_REFERENCES,
   CLEAR_DATASET_PREVIEW,
   CLEAR_DATASET_DETAILS,
   LOGIN,
@@ -64,7 +65,7 @@ const defaultPresentationState = {
   isLoading: false,
   isVisualizationQueryLoading: false,
   dataset_preview: {},
-  dataset_reference: {}
+  datasetReferences: {}
 };
 
 const presentationReducer = (state = defaultPresentationState, action) => {
@@ -84,8 +85,13 @@ const presentationReducer = (state = defaultPresentationState, action) => {
         previewLoading: false
       });
     case DATASET_REFERENCE:
-      state.dataset_reference[action.value.id] = action.value
+      const {name, title, id, organization} = action.value
+      state.datasetReferences[action.value.id] = {name, title, id, org: organization.name}
       return state
+    case RESET_DATASET_REFERENCES:
+      return Object.assign({}, state, {
+        datasetReferences: {}
+      });
     case CLEAR_DATASET_PREVIEW:
       return Object.assign({}, state, {
         dataset_preview: {},

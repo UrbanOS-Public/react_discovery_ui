@@ -90,7 +90,7 @@ const QueryForm = props => {
     const toolTipText = 'These datasets have related fields or columns that may be suitable for joining in your query'
     if (!_.isEmpty(recommendations)) {
       return (
-        <div className="recommendation-section">
+        <div className="recommendation-section link-list">
           <div className="title">
             <span>Recommendations</span>
             <ReactTooltip effect="solid" />
@@ -105,8 +105,10 @@ const QueryForm = props => {
   const createDatasetLinks = (datasetIds) => {
     return datasetIds.map((datasetId) => {
       const dataset = datasetReferences[datasetId]
-      const organization = dataset.organization
-      return <Link className="dataset-reference" target="_blank" key={datasetId} to={`/dataset/${organization.name}/${dataset.name}`}>{dataset.title}</Link>
+      if (!dataset) {
+        return
+      }
+      return <Link className="dataset-reference" target="_blank" key={datasetId} to={`/dataset/${dataset.org}/${dataset.name}`}>{dataset.title}</Link>
     });
   }
 
@@ -114,7 +116,7 @@ const QueryForm = props => {
     const toolTipText = 'These datasets are used in the query. This list is regenerated whenever the visualization is saved.'
     if (!_.isEmpty(usedDatasets)) {
       return (
-        <div className="used-datasets-section">
+        <div className="used-datasets-section link-list">
           <div className="title">
             <span>Used Datasets</span>
             <ReactTooltip effect="solid" />

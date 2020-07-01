@@ -4,6 +4,7 @@ export const RETRIEVE_DATASET = 'RETRIEVE_DATASET'
 export const DATASET_DETAILS = 'DATASET_DETAILS'
 export const RETRIEVE_DATASET_REFERENCE = 'RETRIEVE_DATASET_REFERENCE'
 export const DATASET_REFERENCE = 'DATASET_REFERENCE'
+export const RESET_DATASET_REFERENCES = 'RESET_DATASET_REFERENCES'
 export const RETRIEVE_DATASET_PREVIEW = 'RETRIEVE_DATASET_PREVIEW'
 export const DATASET_PREVIEW = 'DATASET_PREVIEW'
 export const DATASET_RECOMMENDATIONS = 'DATASET_RECOMMENDATIONS'
@@ -77,6 +78,10 @@ export const datasetDetails = (data) => ({
 
 export const retrieveDatasetReference = (id) => ({
   type: RETRIEVE_DATASET_REFERENCE, value: id
+})
+
+export const resetDatasetReferences = () => ({
+  type: RESET_DATASET_REFERENCES
 })
 
 export const datasetReference = (data) => ({

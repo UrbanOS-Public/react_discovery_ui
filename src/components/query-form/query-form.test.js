@@ -204,10 +204,10 @@ describe('QueryForm', () => {
   describe('used datasets', () => {
     let subject
     beforeEach(() => {
-      const fakeDataset1 = { organization: { name: "org_name_1" }, name: "data_name_1", title: "Dataset 1", id: "123" }
-      const fakeDataset2 = { organization: { name: "org_name_2" }, name: "data_name_2", title: "Dataset 2", id: "456" }
+      const fakeDataset1 = { org: "org_name_1", name: "data_name_1", title: "Dataset 1", id: "123" }
+      const fakeDataset2 = { org: "org_name_2", name: "data_name_2", title: "Dataset 2", id: "456" }
       const datasetReferences = { [fakeDataset1.id]: fakeDataset1, [fakeDataset2.id]: fakeDataset2 }
-      const usedDatasets = [fakeDataset1.id, fakeDataset2.id]
+      const usedDatasets = [fakeDataset1.id, fakeDataset2.id, "no_ref"]
       subject = createSubject({ usedDatasets, datasetReferences })
     })
 
@@ -220,7 +220,7 @@ describe('QueryForm', () => {
       expect(subject.exists(".used-datasets-section")).toBeTruthy()
     })
 
-    test('renders a link per dataset', () => {
+    test('renders a link per dataset with a reference', () => {
       const links = subject.find("Link.dataset-reference")
       expect(links.length).toEqual(2)
       expect(links.at(0).prop('to')).toEqual("/dataset/org_name_1/data_name_1")

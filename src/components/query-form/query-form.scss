@@ -73,7 +73,7 @@ query-form {
     flex-grow: 3;
   }
 
-  .recommendation-section {
+  .link-list {
     margin-left: 3rem;
     max-height: 10rem;
     width: 30%;
@@ -89,6 +89,29 @@ query-form {
       .info-icon {
         height: 1rem;
       }
+    }
+  }
+
+  .used-datasets-section {
+    border: 1px solid $light-grey;
+    max-height: 100%;
+    overflow-y: auto;
+    border: 1px solid $almost-black;
+    display: inline-block;
+    padding: 0.5em;
+
+    &::-webkit-scrollbar {
+        -webkit-appearance: none;
+    }
+
+    &::-webkit-scrollbar:vertical {
+        width: 11px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        border: 2px solid white;
+        background-color: $almost-black;
     }
   }
 }
