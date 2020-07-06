@@ -48,7 +48,8 @@ const datasetReducer = (state = defaultDatasetState, action) => {
     case CLEAR_DATASET_DETAILS:
       return Object.assign({}, state, {
         dataset: undefined,
-        downloadedDataset: undefined
+        downloadedDataset: undefined,
+        recommendations: []
       });
     case DOWNLOAD_DATASET_SUCCEEDED:
       return Object.assign({}, state, {

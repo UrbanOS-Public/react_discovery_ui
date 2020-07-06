@@ -55,7 +55,8 @@ describe("Dataset Reducer", () => {
     const currentState = {
       datasetReducer: {
         dataset: { id: 123 },
-        downloadedDataset: { id: 123 }
+        downloadedDataset: { id: 123 },
+        recommendations: [{id: 123}]
       }
     };
     let newState;
@@ -70,6 +71,10 @@ describe("Dataset Reducer", () => {
 
     it("clears downloadedDataset", () => {
       expect(newState.datasetReducer.downloadedDataset).toEqual(undefined);
+    });
+
+    it("clears recommendations", () => {
+      expect(newState.datasetReducer.recommendations).toEqual([]);
     });
   });
 });

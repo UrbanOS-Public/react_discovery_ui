@@ -78,10 +78,14 @@ query-form {
     flex-grow: 3;
   }
 
+  .query-info {
+    width: 30%;
+  }
+
   .link-list {
     margin-left: 3rem;
     max-height: 10rem;
-    width: 30%;
+    padding-bottom: 1rem;
     flex-grow: 1;
 
     .title {

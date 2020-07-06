@@ -136,8 +136,10 @@ const QueryForm = props => {
           <div className="sql-title">Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</div>
           {textArea}
         </div>
-        {recommendationSection()}
-        {usedDatasetsSection()}
+        <div className="query-info">
+          {recommendationSection()}
+          {usedDatasetsSection()}
+        </div>
       </div>
       <div>
         {submitButton}

@@ -3,8 +3,9 @@ import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, VISUALIZATIONS_LOAD_ALL, visual
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import { dereferencedChart } from '../visualization-selectors'
 
-function* loadVisualizationSaga() {
+export function* loadVisualizationSaga() {
   yield takeEvery(VISUALIZATION_LOAD, loadVisualization)
+  yield takeEvery(VISUALIZATION_LOAD_SUCCESS, loadDatasetReferences)
 }
 
 function* loadVisualization({ value: id }) {
@@ -26,7 +27,6 @@ function* loadVisualization({ value: id }) {
 
 function* loadUserVisualizationsSaga() {
   yield takeEvery(VISUALIZATIONS_LOAD_ALL, loadUserVisualizations)
-  yield takeEvery(VISUALIZATION_LOAD_SUCCESS, loadDatasetReferences)
 }
 
 function* loadUserVisualizations() {
@@ -105,8 +105,7 @@ function* handleDeleteResponse(clientFunction) {
   yield put(visualizationsLoadAll())
 }
 
-function* loadDatasetReferences({ value }) {
-  console.log(value.usedDatasets)
+export function* loadDatasetReferences({ value }) {
   for (var datasetId of value.usedDatasets) {
     yield put(retrieveDatasetReference(datasetId));
   }
