@@ -58,6 +58,8 @@ query-form {
   .dataset-reference {
     @include link();
     color: $light-blue;
+    display: block;
+    width: 20em;
     &:hover {
       color: $almost-black
     }

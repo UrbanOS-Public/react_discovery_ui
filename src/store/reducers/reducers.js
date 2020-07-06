@@ -86,8 +86,11 @@ const presentationReducer = (state = defaultPresentationState, action) => {
       });
     case DATASET_REFERENCE:
       const {name, title, id, organization} = action.value
-      state.datasetReferences[action.value.id] = {name, title, id, org: organization.name}
-      return state
+      const clonedReferences = Object.assign({}, state.datasetReferences)
+      clonedReferences[action.value.id] = {name, title, id, org: organization.name}
+      return Object.assign({}, state, {
+        datasetReferences: clonedReferences
+      });
     case RESET_DATASET_REFERENCES:
       return Object.assign({}, state, {
         datasetReferences: {}
