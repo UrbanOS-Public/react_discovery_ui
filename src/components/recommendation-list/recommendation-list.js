@@ -26,11 +26,11 @@ const RecommendationList = props => {
             afterHide={() => setShowTooltipAsCopied(false)}
             getContent={[() => createHoverText(recommendation.systemName)]}
           />
-          <CopyToClipboard text={recommendation.systemName} className="copy-table-name-icon" onCopy={() => onCopyClick()}>
+          <CopyToClipboard text={recommendation.systemName} className="action copy-table-name-icon" onCopy={() => onCopyClick()}>
             <FilterNoneIcon data-for={recommendation.id} data-tip='' />
           </CopyToClipboard>
           <div className="recommendation">
-            <a href={RecommendationUtils.getDatasetUrl(recommendation)} target='_blank'>
+            <a href={RecommendationUtils.getDatasetUrl(recommendation)} target='_blank' className="action">
               {recommendation.dataTitle}
             </a>
           </div>

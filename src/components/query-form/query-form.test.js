@@ -221,7 +221,7 @@ describe('QueryForm', () => {
     })
 
     test('renders a link per dataset with a reference', () => {
-      const links = subject.find("Link.dataset-reference")
+      const links = subject.find(".dataset-reference Link")
       expect(links.length).toEqual(2)
       expect(links.at(0).prop('to')).toEqual("/dataset/org_name_1/data_name_1")
       expect(links.at(0).text()).toEqual("Dataset 1")
