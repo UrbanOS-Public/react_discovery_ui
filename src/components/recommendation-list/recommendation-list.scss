@@ -19,7 +19,6 @@ recommendation-list {
     overflow-y: auto;
     border: 1px solid $almost-black;
     display: inline-block;
-    width: 100%;
     padding: 0.5em;
 
     &::-webkit-scrollbar {
@@ -39,11 +38,13 @@ recommendation-list {
 
   .copy-table-name-icon {
     vertical-align: top;
-    color: $light-blue;
     margin-right: 0.4rem;
     width: 10%;
     height: 1.4rem;
+  }
 
+  .action {
+    color: $light-blue;
     &:hover {
       color: $almost-black;
     }

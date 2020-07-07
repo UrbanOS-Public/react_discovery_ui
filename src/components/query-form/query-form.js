@@ -5,6 +5,7 @@ import LoadingElement from '../generic-elements/loading-element'
 import RecommendationList from '../recommendation-list'
 import ReactTooltip from 'react-tooltip'
 import InfoOutlined from '@material-ui/icons/InfoOutlined'
+import MergeType from '@material-ui/icons/MergeType'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
 
@@ -107,7 +108,9 @@ const QueryForm = props => {
       if (!dataset) {
         return
       }
-      return <Link className="dataset-reference" target="_blank" key={datasetId} to={`/dataset/${dataset.org}/${dataset.name}`}>{dataset.title}</Link>
+      return (
+        <span className="dataset-reference"><MergeType className="icon"/><Link target="_blank" key={datasetId} to={`/dataset/${dataset.org}/${dataset.name}`}>{dataset.title}</Link></span>
+      )
     });
   }
 

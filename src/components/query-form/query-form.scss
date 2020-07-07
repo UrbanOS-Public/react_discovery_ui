@@ -56,12 +56,26 @@ query-form {
   }
 
   .dataset-reference {
-    @include link();
-    color: $light-blue;
+    margin-bottom: 0.7rem;
     display: block;
-    width: 20em;
-    &:hover {
-      color: $almost-black
+
+    .icon {
+      vertical-align: top;
+      margin-right: 0.4rem;
+      width: 10%;
+      height: 1.4rem;
+    }
+
+    a {
+      @include link();
+      color: $light-blue;
+      &:hover {
+        color: $almost-black;
+      }
+
+      &:active {
+        color: $medium-grey
+      }
     }
   }
 
@@ -84,7 +98,6 @@ query-form {
 
   .link-list {
     margin-left: 3rem;
-    max-height: 10rem;
     padding-bottom: 1rem;
     flex-grow: 1;
 
@@ -107,7 +120,7 @@ query-form {
     overflow-y: auto;
     border: 1px solid $almost-black;
     display: inline-block;
-    padding: 1rem;
+    padding: 0.5rem;
 
     &::-webkit-scrollbar {
         -webkit-appearance: none;
