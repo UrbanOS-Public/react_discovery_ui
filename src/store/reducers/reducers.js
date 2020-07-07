@@ -8,6 +8,8 @@ import {
   RETRIEVE_DATASET,
   RETRIEVE_DATASET_PREVIEW,
   DATASET_PREVIEW,
+  DATASET_REFERENCE,
+  RESET_DATASET_REFERENCES,
   CLEAR_DATASET_PREVIEW,
   CLEAR_DATASET_DETAILS,
   LOGIN,
@@ -46,7 +48,8 @@ const datasetReducer = (state = defaultDatasetState, action) => {
     case CLEAR_DATASET_DETAILS:
       return Object.assign({}, state, {
         dataset: undefined,
-        downloadedDataset: undefined
+        downloadedDataset: undefined,
+        recommendations: []
       });
     case DOWNLOAD_DATASET_SUCCEEDED:
       return Object.assign({}, state, {
@@ -62,7 +65,8 @@ const datasetReducer = (state = defaultDatasetState, action) => {
 const defaultPresentationState = {
   isLoading: false,
   isVisualizationQueryLoading: false,
-  dataset_preview: {}
+  dataset_preview: {},
+  datasetReferences: {}
 };
 
 const presentationReducer = (state = defaultPresentationState, action) => {
@@ -80,6 +84,17 @@ const presentationReducer = (state = defaultPresentationState, action) => {
       state.dataset_preview[action.value.format] = action.value.data
       return Object.assign({}, state, {
         previewLoading: false
+      });
+    case DATASET_REFERENCE:
+      const {name, title, id, organization} = action.value
+      const clonedReferences = Object.assign({}, state.datasetReferences)
+      clonedReferences[action.value.id] = {name, title, id, org: organization.name}
+      return Object.assign({}, state, {
+        datasetReferences: clonedReferences
+      });
+    case RESET_DATASET_REFERENCES:
+      return Object.assign({}, state, {
+        datasetReferences: {}
       });
     case CLEAR_DATASET_PREVIEW:
       return Object.assign({}, state, {

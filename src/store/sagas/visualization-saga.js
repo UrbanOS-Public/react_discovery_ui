@@ -1,10 +1,11 @@
 import { takeEvery, put, call, fork, all, select } from 'redux-saga/effects'
-import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, VISUALIZATIONS_LOAD_ALL, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText, setChartInformation, executeFreestyleQuery, visualizationsLoadAllSuccess, visualizationsLoadAllFailure, VISUALIZATION_DELETE, visualizationDeleteFailure, visualizationDeleteSuccess, visualizationsLoadAll } from '../actions'
+import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, VISUALIZATIONS_LOAD_ALL, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText, setChartInformation, executeFreestyleQuery, visualizationsLoadAllSuccess, visualizationsLoadAllFailure, VISUALIZATION_DELETE, visualizationDeleteFailure, visualizationDeleteSuccess, visualizationsLoadAll, retrieveDatasetReference, visualizationLoad, VISUALIZATION_LOAD_SUCCESS, VISUALIZATION_SAVE_SUCCESS } from '../actions'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import { dereferencedChart } from '../visualization-selectors'
 
-function* loadVisualizationSaga() {
+export function* loadVisualizationSaga() {
   yield takeEvery(VISUALIZATION_LOAD, loadVisualization)
+  yield takeEvery(VISUALIZATION_LOAD_SUCCESS, loadDatasetReferences)
 }
 
 function* loadVisualization({ value: id }) {
@@ -44,6 +45,7 @@ function* loadUserVisualizations() {
 
 function* saveVisualizationSaga() {
   yield takeEvery(VISUALIZATION_SAVE, saveVisualization)
+  yield takeEvery(VISUALIZATION_SAVE_SUCCESS, loadDatasetReferences)
 }
 
 export function* saveVisualization({ value: visualization, shouldCreateCopy }) {
@@ -64,12 +66,12 @@ function* deleteVisualizationSaga() {
   yield takeEvery(VISUALIZATION_DELETE, deleteVisualization)
 }
 
-export function* deleteVisualization({value}) {
+export function* deleteVisualization({ value }) {
   yield handleDeleteResponse(() => AuthenticatedHTTPClient.delete(`/api/v1/visualization/${value.id}`))
 }
 
 function removeId(visualization) {
-  const {id, ...withoutId} = visualization
+  const { id, ...withoutId } = visualization
   return withoutId
 }
 
@@ -101,6 +103,12 @@ function* handleDeleteResponse(clientFunction) {
   }
 
   yield put(visualizationsLoadAll())
+}
+
+export function* loadDatasetReferences({ value }) {
+  for (var datasetId of value.usedDatasets) {
+    yield put(retrieveDatasetReference(datasetId));
+  }
 }
 
 export default function* visualizationSaga() {

@@ -6,6 +6,7 @@ import RecommendationList from '../recommendation-list'
 import ReactTooltip from 'react-tooltip'
 import InfoOutlined from '@material-ui/icons/InfoOutlined'
 import _ from 'lodash'
+import { Link } from 'react-router-dom'
 
 const TEXT_AREA_MIN_HEIGHT = 100;
 const TEXT_AREA_HEIGHT_OFFSET = 5;
@@ -21,6 +22,8 @@ const QueryForm = props => {
   const {
     queryText,
     recommendations,
+    usedDatasets,
+    datasetReferences,
     isQueryLoading,
     queryFailureMessage,
     isQueryDataAvailable,
@@ -86,13 +89,41 @@ const QueryForm = props => {
     const toolTipText = 'These datasets have related fields or columns that may be suitable for joining in your query'
     if (!_.isEmpty(recommendations)) {
       return (
-        <div className="recommendation-section">
+        <div className="recommendation-section link-list">
           <div className="title">
             <span>Recommendations</span>
             <ReactTooltip effect="solid" />
             <InfoOutlined className="info-icon" data-tip={toolTipText} />
           </div>
           <RecommendationList recommendations={recommendations} />
+        </div>
+      )
+    }
+  }
+
+  const createDatasetLinks = (datasetIds) => {
+    return datasetIds.map((datasetId) => {
+      const dataset = datasetReferences[datasetId]
+      if (!dataset) {
+        return
+      }
+      return <Link className="dataset-reference" target="_blank" key={datasetId} to={`/dataset/${dataset.org}/${dataset.name}`}>{dataset.title}</Link>
+    });
+  }
+
+  const usedDatasetsSection = () => {
+    const toolTipText = 'These datasets are used in the query. This list is regenerated whenever the visualization is saved.'
+    if (!_.isEmpty(usedDatasets)) {
+      return (
+        <div className="link-list">
+          <div className="title">
+            <span>Used Datasets</span>
+            <ReactTooltip effect="solid" />
+            <InfoOutlined className="info-icon" data-tip={toolTipText} />
+          </div>
+          <div className="used-datasets-section">
+            {createDatasetLinks(usedDatasets)}
+          </div>
         </div>
       )
     }
@@ -105,7 +136,10 @@ const QueryForm = props => {
           <div className="sql-title">Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</div>
           {textArea}
         </div>
-        {recommendationSection()}
+        <div className="query-info">
+          {recommendationSection()}
+          {usedDatasetsSection()}
+        </div>
       </div>
       <div>
         {submitButton}

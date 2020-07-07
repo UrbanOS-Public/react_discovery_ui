@@ -1,6 +1,6 @@
-import { visualizationSave, visualizationLoadFailure, visualizationSaveFailure, visualizationLoad, visualizationLoadSuccess, visualizationsLoadAll, visualizationsLoadAllSuccess, visualizationsLoadAllFailure, visualizationSaveSuccess, setQueryText, setChartInformation, executeFreestyleQuery, visualizationDelete, visualizationDeleteFailure, visualizationDeleteSuccess } from '../actions'
+import { visualizationSave, visualizationLoadFailure, visualizationSaveFailure, visualizationLoad, visualizationLoadSuccess, visualizationsLoadAll, visualizationsLoadAllSuccess, visualizationsLoadAllFailure, visualizationSaveSuccess, setQueryText, setChartInformation, executeFreestyleQuery, visualizationDelete, visualizationDeleteFailure, visualizationDeleteSuccess, retrieveDatasetReference } from '../actions'
 import visualizationSaga from './visualization-saga'
-import { saveVisualization, deleteVisualization } from './visualization-saga'
+import { saveVisualization, deleteVisualization, loadDatasetReferences } from './visualization-saga'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware, { runSaga } from 'redux-saga'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
@@ -27,7 +27,8 @@ describe('visualization-saga', () => {
     const id = "hello"
     const chart = { data: [], frames: [], layout: {} }
     const query = 'select * from stuff'
-    const visualization = { id, chart, query }
+    const usedDatasets = ["123", "432"]
+    const visualization = { id, chart, query, usedDatasets }
     describe('successfully', () => {
       beforeEach(() => {
         AuthenticatedHTTPClient.get = jest.fn(() => ({ status: 200, data: visualization }))
@@ -52,6 +53,19 @@ describe('visualization-saga', () => {
 
       it('executes the query', () => {
         expect(store.getState()).toContainEqual(executeFreestyleQuery(visualization.query))
+      })
+    })
+
+    describe('dispatches side effects', () => {
+      let dispatched
+      beforeEach(async () => {
+        AuthenticatedHTTPClient.get = jest.fn(() => ({ status: 200 }))
+        dispatched = await recordSaga(loadDatasetReferences, visualizationLoadSuccess(visualization), {datasetReferences: {}})
+      })
+
+      it('sends a get reference action per dataset', () => {
+        expect(dispatched).toContainEqual(retrieveDatasetReference(usedDatasets[0]))
+        expect(dispatched).toContainEqual(retrieveDatasetReference(usedDatasets[1]))
       })
     })
 
@@ -128,7 +142,8 @@ describe('visualization-saga', () => {
     describe('without an id', () => {
       const title = "my first visualization"
       const query = "select hello from world"
-      const returnedVisualization = { id: "generated id from api", title, query }
+      const usedDatasets = ["123", "432"]
+      const returnedVisualization = { id: "generated id from api", title, query, usedDatasets }
       const initialState = {
         visualization: { chart: { data: [{ x: [1, 2, 3], xsrc: 'col1' }], layout: {}, frames: [] } },
         queryReducer: { queryData: [{ col1: 1 }, { col1: 2 }, { col1: 3 }] }
@@ -161,6 +176,19 @@ describe('visualization-saga', () => {
 
         it('does not set the global query text', () => {
           expect(dispatched).not.toContainEqual(setQueryText(returnedVisualization.query))
+        })
+      })
+
+      describe('dispatches side effects', () => {
+        let dispatched = []
+        beforeEach(async () => {
+          AuthenticatedHTTPClient.get = jest.fn(() => ({ status: 200 }))
+          dispatched = await recordSaga(loadDatasetReferences, visualizationSaveSuccess(returnedVisualization), {datasetReferences: {}})
+        })
+
+        it('sends a get reference action per dataset', () => {
+          expect(dispatched).toContainEqual(retrieveDatasetReference(usedDatasets[0]))
+          expect(dispatched).toContainEqual(retrieveDatasetReference(usedDatasets[1]))
         })
       })
 

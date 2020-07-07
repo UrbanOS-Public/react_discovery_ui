@@ -1,4 +1,5 @@
 export const getDataSetList = state => state.datasetReducer.datasets;
+export const getDataSetReferences = state => state.presentation.datasetReferences;
 export const getFacetList = state => state.datasetReducer.facets;
 export const getTotalNumberOfDatasets = state => state.datasetReducer.total;
 export const getDataSetError = state => state.datasetReducer.datasetError;
