@@ -109,7 +109,7 @@ const QueryForm = props => {
         return
       }
       return (
-        <span className="dataset-reference"><MergeType className="icon"/><Link target="_blank" key={datasetId} to={`/dataset/${dataset.org}/${dataset.name}`}>{dataset.title}</Link></span>
+        <span className="dataset-reference" key={datasetId}><MergeType className="icon"/><Link target="_blank" to={`/dataset/${dataset.org}/${dataset.name}`}>{dataset.title}</Link></span>
       )
     });
   }
