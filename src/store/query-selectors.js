@@ -29,7 +29,7 @@ export const getVisualizationDataSources = createSelector(
   }
 )
 
-const defaultQuery = tablename => `SELECT * FROM ${tablename}\nLIMIT 20000`;
+const defaultQuery = tablename => `SELECT * FROM ${tablename}\nLIMIT 200`;
 
 export const getFreestyleQueryText = createSelector(
   state => state.queryReducer.queryText,

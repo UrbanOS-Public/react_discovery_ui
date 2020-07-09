@@ -18,7 +18,7 @@ describe('visualization view', () => {
 
   const id = 'id'
   const tableName = 'table_name'
-  const query = "SELECT * FROM table_name\nLIMIT 20000"
+  const query = "SELECT * FROM table_name\nLIMIT 200"
   const title = 'title'
   const chart = {data: [], layout: {}, frames: []}
 
