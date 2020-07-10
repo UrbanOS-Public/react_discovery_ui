@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import { mount } from 'enzyme'
-import DownloadButton from '../../components/generic-elements/download-button'
+import CallToActionButton from '../../components/generic-elements/call-to-action-button'
 import DatasetDetailView from '.'
 
 describe('dataset view', () => {
@@ -30,6 +30,6 @@ describe('dataset view', () => {
 
     const subject = mount(<Provider store={store}><DatasetDetailView /></Provider>)
 
-    expect(subject.find(DownloadButton).props().url).toBe(`${window.API_HOST}/api/v1/dataset/${state.datasetReducer.dataset.id}/download/presigned_url`)
+    expect(subject.find(CallToActionButton).props().url).toBe(`${window.API_HOST}/api/v1/dataset/${state.datasetReducer.dataset.id}/download/presigned_url`)
   })
 })
