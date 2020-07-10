@@ -2,7 +2,7 @@ import './dataset-details.scss'
 import _ from 'lodash'
 import SanitizedHTML from 'react-sanitized-html'
 import { QueryStringBuilder } from '../../utils'
-import DownloadButton from '../generic-elements/download-button'
+import CallToActionButton from '../generic-elements/call-to-action-button'
 import { getDefaultFormat } from '../../utils/file-type-utils'
 
 const DatasetDetails = ({ dataset, downloadUrl }) => {
@@ -15,7 +15,7 @@ const DatasetDetails = ({ dataset, downloadUrl }) => {
       <div className='dataset-details-header'>
         <div data-testid='dataset-title' className='name'>{dataset.title}</div>
         <div className='buttons'>
-          <DownloadButton url={downloadUrl} format={getDefaultFormat(dataset)} filename={dataset.id} />
+          <CallToActionButton url={downloadUrl} format={getDefaultFormat(dataset)} filename={dataset.id} sourceType={dataset.sourceType} sourceUrl={dataset.sourceUrl} />
         </div>
       </div>
       <div data-testid='dataset-description' className='description'>
