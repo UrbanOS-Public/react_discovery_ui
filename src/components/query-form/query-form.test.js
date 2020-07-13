@@ -112,33 +112,6 @@ describe('QueryForm', () => {
     })
   })
 
-  describe('when the query changes locally', () => {
-    let queryInput
-    beforeEach(() => {
-      subject = createSubject({})
-
-      queryInput = subject.find('textarea')
-    })
-
-    it('it expands the text area height to avoid scrolling', () => {
-      const scrollHeight = 106
-      let element = { scrollHeight, style: {}, value: 'some really long multi-line query' }
-
-      queryInput.simulate('change', { target: element });
-
-      expect(element.style.height).toBe(`${scrollHeight}px`)
-    })
-
-    it('does not adjust the test area height below the minimum height', () => {
-      const scrollHeight = 105
-      let element = { scrollHeight, style: {}, value: '' }
-
-      queryInput.simulate('change', { target: element })
-
-      expect(element.style.height).toBeFalsy()
-    })
-  })
-
   describe('on success', () => {
     beforeEach(() => {
       subject = createSubject({ isQueryLoading: false, isQueryLoaded: true, isQueryDataAvailable: true })
