@@ -8,16 +8,10 @@ import InfoOutlined from '@material-ui/icons/InfoOutlined'
 import MergeType from '@material-ui/icons/MergeType'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
+import TextareaAutosize from 'react-autosize-textarea'
 
 const TEXT_AREA_MIN_HEIGHT = 100;
 const TEXT_AREA_HEIGHT_OFFSET = 5;
-
-const adjustHeight = (element) => {
-  if (element.scrollHeight > TEXT_AREA_MIN_HEIGHT + TEXT_AREA_HEIGHT_OFFSET) {
-    element.style.height = `${TEXT_AREA_HEIGHT_OFFSET}px`
-    element.style.height = `${element.scrollHeight}px`;
-  }
-}
 
 const QueryForm = props => {
   const {
@@ -39,12 +33,10 @@ const QueryForm = props => {
 
   React.useEffect(() => {
     setLocalQueryText(queryText);
-    adjustHeight(textAreaRef.current)
   }, [queryText])
 
   const handleQueryChange = event => {
     setLocalQueryText(event.target.value)
-    adjustHeight(event.target)
   }
 
   const updateReduxQueryText = e => setQueryText(e.target.value)
@@ -57,7 +49,7 @@ const QueryForm = props => {
     cancelQuery()
   }
 
-  const textArea = <textarea
+  const textArea = <TextareaAutosize
     style={{ minHeight: `${TEXT_AREA_MIN_HEIGHT}px` }}
     type='text'
     placeholder='SELECT * FROM ...'
@@ -68,6 +60,7 @@ const QueryForm = props => {
     className='query-input'
     ref={textAreaRef}
     data-testid='query-input'
+    rows={3}
   />
   const submitButton = <button data-testid="submit-query-button" className="action-button" disabled={isQueryLoading} onClick={submit}>Submit</button>
   const cancelButton = <button data-testid="cancel-query-button" className="action-button" disabled={!isQueryLoading} onClick={cancel}>Cancel</button>
