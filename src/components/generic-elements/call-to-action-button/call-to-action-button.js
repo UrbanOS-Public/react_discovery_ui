@@ -50,6 +50,7 @@ export function CallToActionButton({ url, format, sourceType, sourceUrl }) {
 
   const navigateToSourceUrl = () => {
     window.open(sourceUrl)
+    closeModal()
   }
 
   return (
