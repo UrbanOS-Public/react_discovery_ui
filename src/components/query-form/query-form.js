@@ -8,10 +8,7 @@ import InfoOutlined from '@material-ui/icons/InfoOutlined'
 import MergeType from '@material-ui/icons/MergeType'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
-import TextareaAutosize from 'react-autosize-textarea'
-
-const TEXT_AREA_MIN_HEIGHT = 100;
-const TEXT_AREA_HEIGHT_OFFSET = 5;
+import CodeEditor from '../code-editor'
 
 const QueryForm = props => {
   const {
@@ -29,15 +26,9 @@ const QueryForm = props => {
   } = props
 
   const [localQueryText, setLocalQueryText] = useState(queryText)
-  const textAreaRef = useRef(null)
-
   React.useEffect(() => {
     setLocalQueryText(queryText);
   }, [queryText])
-
-  const handleQueryChange = event => {
-    setLocalQueryText(event.target.value)
-  }
 
   const updateReduxQueryText = e => setQueryText(e.target.value)
 
@@ -49,18 +40,10 @@ const QueryForm = props => {
     cancelQuery()
   }
 
-  const textArea = <TextareaAutosize
-    style={{ minHeight: `${TEXT_AREA_MIN_HEIGHT}px` }}
-    type='text'
-    placeholder='SELECT * FROM ...'
-    value={localQueryText}
+  const textArea = <CodeEditor
+    code={localQueryText}
     onBlur={updateReduxQueryText}
-    onChange={handleQueryChange}
-    onInput={handleQueryChange}
-    className='query-input'
-    ref={textAreaRef}
     data-testid='query-input'
-    rows={3}
   />
   const submitButton = <button data-testid="submit-query-button" className="action-button" disabled={isQueryLoading} onClick={submit}>Submit</button>
   const cancelButton = <button data-testid="cancel-query-button" className="action-button" disabled={!isQueryLoading} onClick={cancel}>Cancel</button>
@@ -102,7 +85,7 @@ const QueryForm = props => {
         return
       }
       return (
-        <span className="dataset-reference" key={datasetId}><MergeType className="icon"/><Link target="_blank" to={`/dataset/${dataset.org}/${dataset.name}`}>{dataset.title}</Link></span>
+        <span className="dataset-reference" key={datasetId}><MergeType className="icon" /><Link target="_blank" to={`/dataset/${dataset.org}/${dataset.name}`}>{dataset.title}</Link></span>
       )
     });
   }

@@ -117,17 +117,6 @@ describe('QueryForm', () => {
       subject = createSubject({ isQueryLoading: false, isQueryLoaded: true, isQueryDataAvailable: true })
     })
 
-    test('calls the submit handler on click of the submit button', () => {
-      const newText = 'SELECT * FROM great_org__awesome_dataset LIMIT 55'
-      const queryInput = subject.find('textarea')
-      queryInput.instance().value = newText;
-      queryInput.simulate('change');
-
-      getButton(subject, 'Submit').simulate('click')
-      expect(queryCallback).toHaveBeenCalledWith(newText)
-    })
-
-
     test('hides loading element', () => {
       expect(subject.find(LoadingElement).length).toEqual(0)
     })

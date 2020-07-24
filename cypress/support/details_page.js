@@ -15,7 +15,7 @@ export const Selectors = {
     curlExample0: '[data-testid=curl-example-0]',
     curlExample1: '[data-testid=curl-example-1]',
     curlExample2: '[data-testid=curl-example-2]',
-    queryInput: '[data-testid=query-input]',
+    queryInput: '.npm__react-simple-code-editor__textarea',
     successMessage: '[data-testid=success-message]',
     errorMessage: '[data-testid=error-message]',
     numRecords: '#numRecords',
