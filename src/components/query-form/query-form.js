@@ -30,7 +30,10 @@ const QueryForm = props => {
     setLocalQueryText(queryText);
   }, [queryText])
 
-  const updateReduxQueryText = e => setQueryText(e.target.value)
+  const updateReduxQueryText = e => {
+    setQueryText(e.target.value)
+    setLocalQueryText(e.target.value)
+  }
 
   const submit = () => {
     executeQuery(localQueryText)
