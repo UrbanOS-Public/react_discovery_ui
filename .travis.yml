@@ -1,5 +1,7 @@
 language: node_js
 os: linux
+env:
+- CHOKIDAR_USEPOLLING=1
 node_js:
   - "10"
 addons:
