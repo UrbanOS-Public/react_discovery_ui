@@ -106,7 +106,7 @@ describe('Write SQL Tab for Ogrip dataset', function () {
     cy.route(routes["622746a5_4e2a_4a4c_ac18_74cb1fb05ab3"].recommendations)
     cy.visit('/dataset/ogrip/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3')
     cy.route(routes["622746a5_4e2a_4a4c_ac18_74cb1fb05ab3"].query).as('getQueryResults')
-    const query = 'SELECT * FROM ohio_geographically_referenced_information_program_ogrip__622746a5_4e2a_4a4c_ac18_74cb1fb05ab3\nLIMIT 20000'
+    const query = 'SELECT * FROM ohio_geographically_referenced_information_program_ogrip__622746a5_4e2a_4a4c_ac18_74cb1fb05ab3\nLIMIT 200'
     const numberOfRowsPerPage = 50
     cy.get(writeSqlTab).click()
     cy.wait(['@getQueryResults'])
@@ -139,7 +139,7 @@ describe('Write SQL Tab for System dataset', function () {
   })
 
   it('Writing query and hitting submit returns correct query result', function () {
-    const query = 'SELECT is_alive, name, type FROM Rosa_Lucky__Cesious_Black_OBWEG\nLIMIT 20000'
+    const query = 'SELECT is_alive, name, type FROM Rosa_Lucky__Cesious_Black_OBWEG\nLIMIT 200'
     cy.get(queryInput).clear().type(query)
     cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query2).as('getQueryResults')
     cy.get(submitQueryButton).click()
@@ -153,7 +153,7 @@ describe('Write SQL Tab for System dataset', function () {
   })
 
   it('Writing query and hitting submit returns nothing if cancel is hit before response returns', function () {
-    const query = 'SELECT is_alive, name, type FROM Rosa_Lucky__Cesious_Black_OBWEG\nLIMIT 20000'
+    const query = 'SELECT is_alive, name, type FROM Rosa_Lucky__Cesious_Black_OBWEG\nLIMIT 200'
     cy.get(queryInput).clear().type(query)
     cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query3).as('getQueryResults')
     cy.get(submitQueryButton).click()

@@ -41,7 +41,7 @@ export const Selectors = {
     socialMediaFacebook: '[data-testid=social-media-facebook]',
     socialMediaLinkedin: '[data-testid=social-media-linkedin]',
     clipboard: '[data-testid=clipboard]',
-    downloadButton: '[data-testid=download-button]'
+    downloadButton: '[data-testid=call-to-action-button]'
 }
 
 export const Routes = {

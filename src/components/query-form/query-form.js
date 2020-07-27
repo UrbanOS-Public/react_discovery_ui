@@ -5,22 +5,20 @@ import LoadingElement from '../generic-elements/loading-element'
 import RecommendationList from '../recommendation-list'
 import ReactTooltip from 'react-tooltip'
 import InfoOutlined from '@material-ui/icons/InfoOutlined'
+import MergeType from '@material-ui/icons/MergeType'
 import _ from 'lodash'
+import { Link } from 'react-router-dom'
+import TextareaAutosize from 'react-autosize-textarea'
 
 const TEXT_AREA_MIN_HEIGHT = 100;
 const TEXT_AREA_HEIGHT_OFFSET = 5;
-
-const adjustHeight = (element) => {
-  if (element.scrollHeight > TEXT_AREA_MIN_HEIGHT + TEXT_AREA_HEIGHT_OFFSET) {
-    element.style.height = `${TEXT_AREA_HEIGHT_OFFSET}px`
-    element.style.height = `${element.scrollHeight}px`;
-  }
-}
 
 const QueryForm = props => {
   const {
     queryText,
     recommendations,
+    usedDatasets,
+    datasetReferences,
     isQueryLoading,
     queryFailureMessage,
     isQueryDataAvailable,
@@ -35,12 +33,10 @@ const QueryForm = props => {
 
   React.useEffect(() => {
     setLocalQueryText(queryText);
-    adjustHeight(textAreaRef.current)
   }, [queryText])
 
   const handleQueryChange = event => {
     setLocalQueryText(event.target.value)
-    adjustHeight(event.target)
   }
 
   const updateReduxQueryText = e => setQueryText(e.target.value)
@@ -53,7 +49,7 @@ const QueryForm = props => {
     cancelQuery()
   }
 
-  const textArea = <textarea
+  const textArea = <TextareaAutosize
     style={{ minHeight: `${TEXT_AREA_MIN_HEIGHT}px` }}
     type='text'
     placeholder='SELECT * FROM ...'
@@ -64,6 +60,7 @@ const QueryForm = props => {
     className='query-input'
     ref={textAreaRef}
     data-testid='query-input'
+    rows={3}
   />
   const submitButton = <button data-testid="submit-query-button" className="action-button" disabled={isQueryLoading} onClick={submit}>Submit</button>
   const cancelButton = <button data-testid="cancel-query-button" className="action-button" disabled={!isQueryLoading} onClick={cancel}>Cancel</button>
@@ -86,13 +83,43 @@ const QueryForm = props => {
     const toolTipText = 'These datasets have related fields or columns that may be suitable for joining in your query'
     if (!_.isEmpty(recommendations)) {
       return (
-        <div className="recommendation-section">
+        <div className="recommendation-section link-list">
           <div className="title">
             <span>Recommendations</span>
             <ReactTooltip effect="solid" />
             <InfoOutlined className="info-icon" data-tip={toolTipText} />
           </div>
           <RecommendationList recommendations={recommendations} />
+        </div>
+      )
+    }
+  }
+
+  const createDatasetLinks = (datasetIds) => {
+    return datasetIds.map((datasetId) => {
+      const dataset = datasetReferences[datasetId]
+      if (!dataset) {
+        return
+      }
+      return (
+        <span className="dataset-reference" key={datasetId}><MergeType className="icon"/><Link target="_blank" to={`/dataset/${dataset.org}/${dataset.name}`}>{dataset.title}</Link></span>
+      )
+    });
+  }
+
+  const usedDatasetsSection = () => {
+    const toolTipText = 'These datasets are used in the query. This list is regenerated whenever the visualization is saved.'
+    if (!_.isEmpty(usedDatasets)) {
+      return (
+        <div className="link-list">
+          <div className="title">
+            <span>Used Datasets</span>
+            <ReactTooltip effect="solid" />
+            <InfoOutlined className="info-icon" data-tip={toolTipText} />
+          </div>
+          <div className="used-datasets-section">
+            {createDatasetLinks(usedDatasets)}
+          </div>
         </div>
       )
     }
@@ -105,7 +132,10 @@ const QueryForm = props => {
           <div className="sql-title">Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</div>
           {textArea}
         </div>
-        {recommendationSection()}
+        <div className="query-info">
+          {recommendationSection()}
+          {usedDatasetsSection()}
+        </div>
       </div>
       <div>
         {submitButton}

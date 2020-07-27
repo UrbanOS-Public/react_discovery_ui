@@ -71,7 +71,7 @@ describe('getFreestyleQueryText', () => {
     });
 
     it('returns the default query when freestyleQueryText is empty', () => {
-      const expectedQuery = `SELECT * FROM ${tableName}\nLIMIT 20000`;
+      const expectedQuery = `SELECT * FROM ${tableName}\nLIMIT 200`;
 
       const receivedQuery = getFreestyleQueryText(state);
 

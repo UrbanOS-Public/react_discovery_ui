@@ -10,6 +10,8 @@ const QueryView = props => {
   const {
     dataSources,
     recommendations,
+    usedDatasets,
+    datasetReferences,
     isQueryLoading,
     isQueryDataAvailable,
     freestyleQueryText,
@@ -42,6 +44,8 @@ const QueryView = props => {
     <query-view data-testid="query-view">
       <QueryForm
         recommendations={recommendations}
+        usedDatasets={usedDatasets}
+        datasetReferences={datasetReferences}
 
         queryFailureMessage={queryFailureMessage}
         isQueryLoading={isQueryLoading}
