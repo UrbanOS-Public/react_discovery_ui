@@ -1,5 +1,5 @@
 import "./query-view.scss";
-import React from "react";
+import React, {useState} from "react";
 
 import QueryForm from "../../components/query-form";
 import DataView from "../../components/data-view";
@@ -23,12 +23,21 @@ const QueryView = props => {
     cancelQuery,
     setQueryText
   } = props;
+  const [page, setPage] = useState(0)
+
+  const onNextPageClicked = (pageNumber) => {
+    setPage(pageNumber)
+  }
 
   React.useEffect(() => {
     if (shouldAutoExecuteQuery) {
       executeQuery(freestyleQueryText)
     }
   }, [shouldAutoExecuteQuery])
+
+  React.useEffect(() => {
+    setPage(0)
+  }, [queryData])
 
   const numRecords = queryData ? queryData.length + " records returned" : "";
 
@@ -58,7 +67,12 @@ const QueryView = props => {
       />
       <div id="dataset-preview-table">
         <div id="numRecords">{numRecords}</div>
-        <DataView data={queryData} columns={Object.keys(dataSources)}></DataView>
+        <DataView
+          data={queryData}
+          page={page}
+          columns={Object.keys(dataSources)}
+          onNextPageClicked={onNextPageClicked}
+        ></DataView>
       </div>
     </query-view>
   );
