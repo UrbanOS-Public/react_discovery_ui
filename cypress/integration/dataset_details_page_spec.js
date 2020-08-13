@@ -152,7 +152,7 @@ describe('Write SQL Tab for System dataset', function () {
     cy.get(tableHeader).children().eq(2).contains('type')
   })
 
-  it.only('Submitting a new query resets the ReactTable to page 1', function () {
+  it('Submitting a new query resets the ReactTable to page 1', function () {
     const query = 'SELECT is_alive, name, type FROM Rosa_Lucky__Cesious_Black_OBWEG\nLIMIT 200'
     cy.get(queryInput).clear().type(query)
     cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query2).as('getQueryResults')
