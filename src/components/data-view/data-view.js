@@ -44,6 +44,8 @@ export default class extends Component {
                     height: '400px'
                   }}
                   className='-striped -highlight'
+                  page={this.props.page}
+                  onPageChange={this.props.onNextPageClicked}
                 />
               </div>
             </TabPanel>

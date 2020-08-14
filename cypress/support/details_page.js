@@ -23,6 +23,8 @@ export const Selectors = {
     tableHeader: '[data-testid=query-view] #data-view-table > .ReactTable > .rt-table > .rt-thead > .rt-tr',
     tableBody: '#data-view-table > .ReactTable > .rt-table > .rt-tbody',
     paginatorInput: '#data-view-table > .ReactTable input',
+    pageNumber: '#react-tabs-15 > #data-view-table > .ReactTable > .pagination-bottom > .-pagination > .-center > .-pageInfo > .-pageJump > input',
+    nextPageButton: '#react-tabs-15 > #data-view-table > .ReactTable > .pagination-bottom > .-pagination > .-next > .-btn',
     totalPages: '#data-view-table > .ReactTable .-totalPages',
     submitQueryButton: '[data-testid=submit-query-button]',
     cancelQueryButton: '[data-testid=cancel-query-button]',
