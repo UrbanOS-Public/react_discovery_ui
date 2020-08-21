@@ -70,7 +70,7 @@ describe('Search interactions on the page', function () {
     cy.contains(titleOfFirstDataset)
   })
 
-  it.only('returns a link to the search page if 0 datasets are found', function () {
+  it('returns a link to the search page if 0 datasets are found', function () {
     cy.route(routes.catarynDatasets)
     cy.get('[data-testid=search]').clear().type('cataryn{enter}')
     cy.get('#home').click()
