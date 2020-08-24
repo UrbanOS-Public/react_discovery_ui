@@ -29,6 +29,7 @@ dataset-list-view {
     width: 100%;
     border-bottom: 2px dotted $medium-grey;
     padding: 2rem 0;
+    overflow: hidden;
 
     .sort-by{
       float:right;
@@ -37,6 +38,15 @@ dataset-list-view {
       font-weight: bold;
       font-size: 1.25rem;
       float:left;
+      #home {
+        display: block;
+        margin-top: 15px;
+        font-size: 14px;
+        color: $light-blue;
+      }
+      #home:visited {
+        color: $light-blue;
+      }
     }
 
     .sort-select {
