@@ -37,6 +37,15 @@ dataset-list-view {
       font-weight: bold;
       font-size: 1.25rem;
       float:left;
+      #home {
+        position: relative;
+        top: 5px;
+        font-size: 14px;
+        color: $light-blue;
+      }
+      #home:visited {
+        color: $light-blue;
+      }
     }
 
     .sort-select {
