@@ -5,7 +5,7 @@ const ogrip_dataset = require('../fixtures/details_page_spec/ogrip_dataset')
 const { datasetDetailsTab, writeSqlTab, visualizeTab, organizationLogo, organizationTitle,
   organizationDescription, datasetTitle, datasetDescription, keywords, showFullDatasetCheckbox, leafletContainer,
   datasetApiExample, activityNodesButton, curlExample0, curlExample1, curlExample2, queryInput,
-  successMessage, errorMessage, numRecords, tableHeader, tableBody, reactTable, paginatorInput, totalPages,
+  successMessage, errorMessage, numRecords, tableHeader, tableBody, reactTable, paginatorInput, pageNumber, nextPageButton, totalPages,
   submitQueryButton, cancelQueryButton, savedVisualizationsIcon, savedVisualizationsPopover,
   loginButton, saveIcon, savePopover, queryPrompt, saveButton, saveIndicator, clearIcon, cancelButton,
   plotlyEditor, socialMediaTwitter, socialMediaFacebook, socialMediaLinkedin, clipboard, downloadButton } = Selectors
@@ -150,6 +150,19 @@ describe('Write SQL Tab for System dataset', function () {
     cy.get(tableHeader).children().eq(0).contains('is_alive')
     cy.get(tableHeader).children().eq(1).contains('name')
     cy.get(tableHeader).children().eq(2).contains('type')
+  })
+
+  it('Submitting a new query resets the ReactTable to page 1', function () {
+    const query = 'SELECT is_alive, name, type FROM Rosa_Lucky__Cesious_Black_OBWEG\nLIMIT 200'
+    cy.get(queryInput).clear().type(query)
+    cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query2).as('getQueryResults')
+    cy.get(submitQueryButton).click()
+    cy.wait(['@getQueryResults'])
+    cy.get(pageNumber).should('have.value', '1')
+    cy.get(nextPageButton).click()
+    cy.get(pageNumber).should('have.value', '2')
+    cy.get(submitQueryButton).click()
+    cy.get(pageNumber).should('have.value', '1')
   })
 
   it('Writing query and hitting submit returns nothing if cancel is hit before response returns', function () {

@@ -1,4 +1,5 @@
 import "./dataset-list-view.scss"
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import AlertComponent from '../../components/generic-elements/alert-component'
 import DatasetList from "../../components/dataset-list"
@@ -65,7 +66,11 @@ const DatasetListView = (props) => {
     const resultCountQueryText = searchParamsManager.searchText
           ? ` for "${searchParamsManager.searchText}"`
           : ""
-    return <div data-testid="result-count" className="result-count">{`${resultCountText}${resultCountQueryText}`}</div>
+    if (searchMetadata.totalDatasets === 0) {
+      return <div data-testid="result-count" className="result-count">{`${resultCountText}${resultCountQueryText}`}<br /><Link id="home" to="/">Click here to return home</Link></div>
+    } else {
+      return <div data-testid="result-count" className="result-count">{`${resultCountText}${resultCountQueryText}`}</div>
+    }
   }
 
     return (

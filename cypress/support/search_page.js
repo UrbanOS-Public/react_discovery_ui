@@ -49,6 +49,11 @@ export const Routes = {
         url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_asc&query=&facets[keywords][]=bicycle&apiAccessible=true',
         response: 'fixture:search_page_spec/bicycle_datasets'
     },
+    catarynDatasets: {
+        method: 'GET',
+        url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_asc&query=cataryn&apiAccessible=true',
+        response: 'fixture:search_page_spec/cataryn_datasets'
+    },
     cogoDatasets: {
         method: 'GET',
         url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_asc&query=&facets[organization][]=COGO&apiAccessible=true',

@@ -121,12 +121,11 @@ describe('QueryForm', () => {
       const newText = 'SELECT * FROM great_org__awesome_dataset LIMIT 55'
       const queryInput = subject.find('textarea')
       queryInput.instance().value = newText;
-      queryInput.simulate('change');
+      queryInput.simulate('blur');
 
       getButton(subject, 'Submit').simulate('click')
       expect(queryCallback).toHaveBeenCalledWith(newText)
     })
-
 
     test('hides loading element', () => {
       expect(subject.find(LoadingElement).length).toEqual(0)
