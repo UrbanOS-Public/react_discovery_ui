@@ -28,7 +28,6 @@ export default class extends Component {
 
   componentDidMount() {
     this.props.reset();
-
     this.props.retrieveDatasetDetails(
       this.props.match.params.organizationName,
       this.props.match.params.datasetName

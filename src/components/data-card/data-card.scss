@@ -21,6 +21,8 @@ data-card {
     @include link();
     @include header();
     margin-bottom: 0.5rem;
+    color:#00AEEF;
+    font-size:1.2em;
   }
 
   .description {
@@ -58,6 +60,29 @@ data-card {
       text-transform: uppercase;
     }
   }
+
+  @media only screen and (max-width: 600px) {
+    .title {
+      font-size:18px;
+      line-height:18px;
+      margin-bottom:4px;
+      color:#00aeef;
+    }
+    .description {
+      width: 100%;
+      line-height:1.4;
+      margin-top:4px;
+    }
+
+    .last-modified {
+      font-size:10px;
+      line-height: 1.4;;
+    }
+    .file-types{
+      font-size:11px;
+      line-height: 1.4;;
+    }
+  } 
 
   loading-element {
     margin: 0 auto;

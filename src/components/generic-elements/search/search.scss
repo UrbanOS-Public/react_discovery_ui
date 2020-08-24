@@ -16,15 +16,21 @@ search-box {
     height: 100%;
     width: calc(100% - (#{$input-padding} * 2));
     padding: 0 $input-padding;
-    background-color: white;
+    background-color:#edf1f5;
     box-shadow: 0 1px 4px 0 rgba(0,0,0,0.1);
+    border-radius: 20px;
     border: 1px solid $light-grey;
 
     &:hover {
       border: 1px solid $medium-grey;
     }
+    &:focus {
+      outline: none;
+    }
   }
-
+  .search .MuiSvgIcon-root  {
+    margin: 0 0 0 1rem;
+  }
   .clear, .search {
     @include flex-column();
     position: absolute;
@@ -41,6 +47,7 @@ search-box {
 
   .search {
     left: 0;
+
   }
 
   .clear-icon {
@@ -56,8 +63,28 @@ search-box {
       border-radius: 50%;
     }
   }
+  @media only screen and (max-width: 600px) {
 
+    .search {
+      box-shadow:none;
+    }
+  
+
+  
+    search-box.search {
+      margin-top:10px;
+    }
+  
+    search-box .search-bar {
+      box-shadow:none;
+      border-radius:6px;
+      font-size:13px;
+    }
+  
+  }
+}
   .disabled {
     display: none;
   }
-}
+
+  

@@ -27,6 +27,7 @@ collapsable-box {
 
   .title {
     @include header();
+    font-size:1.4em;
   }
 
   .collapse-icon {

@@ -23,9 +23,131 @@ dataset-detail-view {
     @include header();
     margin-bottom: 0.5rem;
     width: 65%;
+    font-size:1.4em;
   }
 
   .table-of-contents a {
     @include link();
   }
+  dataset-details .keywords {
+    display:block; 
+    clear:both;
+    min-height:60px;
+    width:100%;
+  }
+
+  dataset-details .keyword {
+    background:none;
+    border:none;
+    padding:0px;
+    margin:0;
+    color:#00aeef;
+    border-radius:0 !important;
+    display:block;
+    float:left;
+  }
+  dataset-details .keyword:after {
+    content:","
+  }
+  dataset-details .keyword:last-child:after {
+    content:""
+  }
+  dataset-metadata {
+    margin-bottom:2em;
+  }
+  dataset-quality .completeness-score {
+    float:left;
+    display:block;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .dataset-detail-view {
+      min-width:400px;
+      padding:4%;  
+    }
+    dataset-view .header {
+      display:none;
+    } 
+    .left-section, .right-section {
+      width:100%;
+      float:left;
+      clear:both;
+      display:block;
+    }
+    dataset-organization .logo {
+      display:none;
+    }
+    share-zone {
+      display:none;
+    }
+    .download-button {
+      display:none;
+    }
+    dataset-details .keywords {
+      word-wrap: break-word;
+    }
+    dataset-detail-view .name, dataset-organization .name {
+      font-size:1rem;
+      line-height:1.4;
+      color:#999999;
+      font-weight:normal;
+    } 
+    dataset-organization .organization-header {
+      display:none;
+    }
+    dataset-details .name {
+      font-size:1.5rem;
+      line-height: 1.5rem;
+      width:100%;
+    }
+
+    dataset-details .keyword {
+      background:none;
+      border:none;
+      padding:0px;
+      margin:0;
+      color:#00aeef;
+    }
+    dataset-details .keyword:after {
+      content:","
+    }
+    .preview-header, collapsable-box .title {
+      font-size:1.3rem !important;
+      text-transform:uppercase;
+    }
+    dataset-organization .description {
+      display:none;
+    } 
+    api-example .parameter-table {
+      font-size:0.8em;
+      line-height:1.2;
+    }
+    api-example .parameter-example {
+      word-wrap: break-word;
+      white-space: normal;
+      display:table-cell;
+    }
+    api-example .example-element {
+      display: table-cell;
+      padding: 10px;
+      vertical-align: middle;
+      font-size:12px;
+    }
+  } 
 }
+@media only screen and (max-width: 1000px) {
+  dataset-organization .name {
+    font-size:1rem;
+    line-height:1;
+  }
+  dataset-organization .description {
+    font-size:.9rem;
+    line-height:1.2;
+  }
+} 
+@media only screen and (max-width: 830px) {
+  dataset-detail-view,.dataset-detail-view {
+    min-width:auto;
+  }
+
+} 

@@ -3,7 +3,8 @@
 
 login-zone {
   div.login-block {
-    display: flex;
+    //display: flex;
+    margin-bottom:26px;
   }
 
   div.user-menu {
@@ -40,7 +41,6 @@ login-zone {
   
   login-svgs-and-text {
     display: flex;
-    line-height: 2rem;
     align-items: center;
     padding: 0.25rem 1rem;
   }
@@ -91,6 +91,11 @@ login-zone {
       background-color: $light-blue;
       color: white;
     }
+  }
+
+  .logintext {
+    display:block; 
+    margin-left:4px;
   }
 
   button {
