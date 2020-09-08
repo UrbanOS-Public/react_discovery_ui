@@ -7,6 +7,7 @@ import SQLIcon from '../../components/generic-elements/sql-icon'
 import qs from "qs";
 import routes from "../../routes"
 import { generatePath } from "react-router"
+import { Link } from "react-router-dom"
 
 import "./dataset-view.scss";
 import QueryView from "../query-view";
@@ -87,7 +88,13 @@ export default class extends Component {
             <span className='tab-area'>
               <Tab data-testid="dataset-details">Dataset Details</Tab>
               <Tab data-testid="dataset-write-sql">Write SQL <SQLIcon className='sqlIcon' /></Tab>
-              <Tab data-testid="visualize">Visualize <ChartIcon className='chartIcon' /></Tab>
+              <Tab data-testid="visualize" id="visualize-link">Visualize <ChartIcon className='chartIcon' /></Tab>
+              {this.isNotDatasetDetailsTab() &&
+              <>
+              <a className="helpLink" target="_blank" href="https://en.wikipedia.org/wiki/SQL_syntax">SQL Help&nbsp;&nbsp;</a>
+              <a className="helpLink" target="_blank" href="https://plotly.com/chart-studio-help/tutorials/#basic">Plot.ly Help</a>
+              </>
+              }
             </span>
             {this.isNotDatasetDetailsTab() &&
               <span className='action-area'>

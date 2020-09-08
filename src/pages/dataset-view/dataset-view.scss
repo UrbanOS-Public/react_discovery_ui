@@ -17,6 +17,22 @@ dataset-view {
     fill: $medium-grey;
   }
 
+  .helpLink {
+    padding: 5px;
+    color:#00aeef;
+    text-decoration: none;
+    font-size: 12px;
+  }
+
+  .helpLink:first-of-type {
+    border-left: 1px solid $light-grey;
+    padding-left: 15px;
+  }
+
+  .helpLink:first-of-type:after {
+    content: "|";
+  }
+
   .react-tabs__tab-list {
     border-bottom: 0;
     box-shadow: 0px 1px 3px $light-grey;
@@ -75,8 +91,6 @@ dataset-view {
   .visualization--selected {
     display: flex;
   }
-
-
 
   loading-element {
     @include default-loading-icon();
