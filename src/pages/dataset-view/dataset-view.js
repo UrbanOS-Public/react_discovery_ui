@@ -88,6 +88,12 @@ export default class extends Component {
               <Tab data-testid="dataset-details">Dataset Details</Tab>
               <Tab data-testid="dataset-write-sql">Write SQL <SQLIcon className='sqlIcon' /></Tab>
               <Tab data-testid="visualize">Visualize <ChartIcon className='chartIcon' /></Tab>
+              {this.isNotDatasetDetailsTab() &&
+              <>
+              <a className="helpLink" target="_blank" href="https://en.wikipedia.org/wiki/SQL_syntax">SQL Help&nbsp;&nbsp;</a>
+              <a className="helpLink" target="_blank" href="https://plotly.com/chart-studio-help/tutorials/#basic">Plot.ly Help</a>
+              </>
+              }
             </span>
             {this.isNotDatasetDetailsTab() &&
               <span className='action-area'>

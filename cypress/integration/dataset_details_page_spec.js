@@ -2,7 +2,7 @@ import { Selectors, Routes as routes } from '../support/details_page.js'
 import { URLs as urls } from '../support/urls.js'
 const ogrip_dataset = require('../fixtures/details_page_spec/ogrip_dataset')
 
-const { datasetDetailsTab, writeSqlTab, visualizeTab, organizationLogo, organizationTitle,
+const { datasetDetailsTab, writeSqlTab, visualizeTab, sqlHelp, plotlyHelp, organizationLogo, organizationTitle,
   organizationDescription, datasetTitle, datasetDescription, keywords, showFullDatasetCheckbox, leafletContainer,
   datasetApiExample, activityNodesButton, curlExample0, curlExample1, curlExample2, queryInput,
   successMessage, errorMessage, numRecords, tableHeader, tableBody, reactTable, paginatorInput, pageNumber, nextPageButton, totalPages,
@@ -68,6 +68,10 @@ function validateHeader() {
   cy.get(datasetDetailsTab).contains('Dataset Details')
   cy.get(writeSqlTab).contains('Write SQL')
   cy.get(visualizeTab).contains('Visualize')
+  cy.get(writeSqlTab).click({force: true})
+  cy.get(sqlHelp).contains('SQL Help').should('have.attr', 'target').and('include', '_blank')
+  cy.get(plotlyHelp).contains('Plot.ly Help').should('have.attr', 'target').and('include', '_blank')
+  cy.get(datasetDetailsTab).click({force: true})
 }
 
 describe('The Ogrip Dataset Details Tab', function () {
