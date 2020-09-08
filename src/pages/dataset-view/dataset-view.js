@@ -88,7 +88,7 @@ export default class extends Component {
             <span className='tab-area'>
               <Tab data-testid="dataset-details">Dataset Details</Tab>
               <Tab data-testid="dataset-write-sql">Write SQL <SQLIcon className='sqlIcon' /></Tab>
-              <Tab data-testid="visualize" id="visualize-link">Visualize <ChartIcon className='chartIcon' /></Tab>
+              <Tab data-testid="visualize">Visualize <ChartIcon className='chartIcon' /></Tab>
               {this.isNotDatasetDetailsTab() &&
               <>
               <a className="helpLink" target="_blank" href="https://en.wikipedia.org/wiki/SQL_syntax">SQL Help&nbsp;&nbsp;</a>
