@@ -7,7 +7,6 @@ import SQLIcon from '../../components/generic-elements/sql-icon'
 import qs from "qs";
 import routes from "../../routes"
 import { generatePath } from "react-router"
-import { Link } from "react-router-dom"
 
 import "./dataset-view.scss";
 import QueryView from "../query-view";
