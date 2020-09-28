@@ -69,7 +69,8 @@ class SearchParamsManager {
   }
 
   updateSearchText(searchText) {
-    this.updateParams({ q: searchText, page: 1 })
+    const sort = this.sortOrder==="name_asc" ? "relevance": this.sortOrder;
+    this.updateParams({ q: searchText, page: 1, sort })
   }
 
   updatePage(page) {

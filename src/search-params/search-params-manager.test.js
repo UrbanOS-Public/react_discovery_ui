@@ -282,36 +282,69 @@ describe('SearchParamsManager', () => {
     })
 
     describe('searchText', () => {
-      it('with a default search text, updates search text', () => {
+      it('with a default search text, updates search text and sort', () => {
         const {historyPushSpy, history} = createFakeHistory('')
 
         const subject = new SearchParamsManager(history)
         subject.updateSearchText('sweet_query')
 
         expect(historyPushSpy).toHaveBeenCalledWith({
-          search: 'q=sweet_query&page=1'
+          search: 'q=sweet_query&page=1&sort=relevance'
         })
       })
 
-      it('with an existing search text, updates search text', () => {
+      it('with an existing search text, updates search text and sort', () => {
         const {historyPushSpy, history} = createFakeHistory('?q=the_world&knuckles=true')
 
         const subject = new SearchParamsManager(history)
         subject.updateSearchText('sweet_query')
 
         expect(historyPushSpy).toHaveBeenCalledWith({
-          search: 'q=sweet_query&knuckles=true&page=1'
+          search: 'q=sweet_query&knuckles=true&page=1&sort=relevance'
         })
       })
 
-      it('resets the page number to 1', () => {
+      it('resets the page number to 1 and sort to relevance', () => {
         const {historyPushSpy, history} = createFakeHistory('?q=the_world&page=5')
 
         const subject = new SearchParamsManager(history)
         subject.updateSearchText('sweet_query')
 
         expect(historyPushSpy).toHaveBeenCalledWith({
-          search: 'q=sweet_query&page=1'
+          search: 'q=sweet_query&page=1&sort=relevance'
+        })
+      })
+
+      it('does not reset sort to relevance if sort is set to name_desc', () => {
+        const {historyPushSpy, history} = createFakeHistory('?q=the_world&sort=name_desc')
+
+        const subject = new SearchParamsManager(history)
+        subject.updateSearchText('sweet_query')
+
+        expect(historyPushSpy).toHaveBeenCalledWith({
+          search: 'q=sweet_query&sort=name_desc&page=1'
+        })
+      })
+
+      it('does not reset sort to relevance if sort is set to las_mod', () => {
+        const {historyPushSpy, history} = createFakeHistory('?q=the_world&sort=last_mod')
+        
+        const subject = new SearchParamsManager(history)
+        subject.updateSearchText('sweet_query')
+
+        expect(historyPushSpy).toHaveBeenCalledWith({
+          search: 'q=sweet_query&sort=last_mod&page=1'
+        })
+      })
+
+      it('keeps sort at relevance if sort is set to relevance', () => {
+        const {historyPushSpy, history} = createFakeHistory('?q=the_world&sort=relevance')
+
+        const subject = new SearchParamsManager(history)
+        subject.updateSearchText('sweet_query')
+
+        expect(historyPushSpy).toHaveBeenCalledWith({
+          search: 'q=sweet_query&sort=relevance&page=1'
         })
       })
     })

@@ -12,7 +12,7 @@ describe('Select', () => {
 
     expect(subject.find('option').at(0).text()).toEqual('Foo')
     expect(subject.find('option').at(1).props().value).toEqual('bar')
-    expect(subject.find('.selector').props().defaultValue).toEqual('foo')
+    expect(subject.find('.selector').props().value).toEqual('foo')
   })
 })
 
