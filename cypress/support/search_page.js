@@ -51,7 +51,7 @@ export const Routes = {
     },
     catarynDatasets: {
         method: 'GET',
-        url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_asc&query=cataryn&apiAccessible=true',
+        url: '/api/v2/dataset/search?offset=0&limit=10&sort=relevance&query=cataryn&apiAccessible=true',
         response: 'fixture:search_page_spec/cataryn_datasets'
     },
     cogoDatasets: {
@@ -61,7 +61,7 @@ export const Routes = {
     },
     cotaDatasets: {
         method: 'GET',
-        url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_asc&query=COTA&apiAccessible=true',
+        url: '/api/v2/dataset/search?offset=0&limit=10&sort=relevance&query=COTA&apiAccessible=true',
         response: 'fixture:search_page_spec/cota_datasets'
     },
     info: {

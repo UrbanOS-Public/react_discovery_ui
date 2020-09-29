@@ -29,7 +29,7 @@ const DatasetListView = (props) => {
       {
         value: "name_asc",
         label: "Name Ascending",
-        default: searchParamsManager.sortOrder === "name_asc"
+        default: searchParamsManager.sortOrder === "name_asc" || searchParamsManager.sortOrder === "start"
       },
       {
         value: "name_desc",

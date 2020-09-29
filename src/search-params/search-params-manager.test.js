@@ -81,7 +81,7 @@ describe('SearchParamsManager', () => {
           }
         }
         const subject = new SearchParamsManager(history)
-        expect(subject.sortOrder).toEqual('name_asc')
+        expect(subject.sortOrder).toEqual('start')
       })
     })
 
@@ -282,25 +282,48 @@ describe('SearchParamsManager', () => {
     })
 
     describe('searchText', () => {
-      it('with a default search text, updates search text', () => {
+
+      it('with a default search text and existing sort value, updates search text but keeps sort value', () => {
+        const {historyPushSpy, history} = createFakeHistory('?sort=name_asc')
+
+        const subject = new SearchParamsManager(history)
+        subject.updateSearchText('sweet_query')
+
+        expect(historyPushSpy).toHaveBeenCalledWith({
+          search: 'sort=name_asc&q=sweet_query&page=1'
+        })
+      })
+
+      it('with a default search text and default sort, updates search text and sorts by relevance', () => {
         const {historyPushSpy, history} = createFakeHistory('')
 
         const subject = new SearchParamsManager(history)
         subject.updateSearchText('sweet_query')
 
         expect(historyPushSpy).toHaveBeenCalledWith({
-          search: 'q=sweet_query&page=1'
+          search: 'q=sweet_query&page=1&sort=relevance'
         })
       })
 
-      it('with an existing search text, updates search text', () => {
+      it('with and existing search text and existing sort value, updates search text, but keeps sort value', () => {
+        const {historyPushSpy, history} = createFakeHistory('?q=the_world&knuckles=true&sort=name_asc')
+
+        const subject = new SearchParamsManager(history)
+        subject.updateSearchText('sweet_query')
+
+        expect(historyPushSpy).toHaveBeenCalledWith({
+          search: 'q=sweet_query&knuckles=true&sort=name_asc&page=1'
+        })
+      })
+
+      it('with an existing search text and default sort, updates search text and sorts by relevance', () => {
         const {historyPushSpy, history} = createFakeHistory('?q=the_world&knuckles=true')
 
         const subject = new SearchParamsManager(history)
         subject.updateSearchText('sweet_query')
 
         expect(historyPushSpy).toHaveBeenCalledWith({
-          search: 'q=sweet_query&knuckles=true&page=1'
+          search: 'q=sweet_query&knuckles=true&page=1&sort=relevance'
         })
       })
 
@@ -311,7 +334,7 @@ describe('SearchParamsManager', () => {
         subject.updateSearchText('sweet_query')
 
         expect(historyPushSpy).toHaveBeenCalledWith({
-          search: 'q=sweet_query&page=1'
+          search: 'q=sweet_query&page=1&sort=relevance'
         })
       })
     })
