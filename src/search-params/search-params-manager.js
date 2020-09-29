@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 
 const defaults = {
   apiAccessible: true,
-  sortOrder: 'name_asc',
+  sortOrder: 'start',
   page: 1,
   searchText: '',
   facets: {}
@@ -69,7 +69,8 @@ class SearchParamsManager {
   }
 
   updateSearchText(searchText) {
-    this.updateParams({ q: searchText, page: 1 })
+    const sort = this.sortOrder==="start" ? "relevance": this.sortOrder;
+    this.updateParams({ q: searchText, page: 1, sort })
   }
 
   updatePage(page) {

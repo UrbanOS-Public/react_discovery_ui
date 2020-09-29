@@ -11,7 +11,7 @@ export default ({ options, label, selectChangeCallback, className, testId = '' }
   return (
     <select-element class={className}>
       <label className='label' htmlFor={`select-${label}`}>{label}</label>
-      <select data-testid={testId} defaultValue={defaultOption ? defaultOption.value : options[0].value} className='selector' name={`select-${label}`} onChange={(event) => onChange(event, selectChangeCallback)}>
+      <select data-testid={testId} value={defaultOption ? defaultOption.value : options[0].value} className='selector' name={`select-${label}`} onChange={(event) => onChange(event, selectChangeCallback)}>
         {options.map(createOption)}
       </select>
     </select-element>

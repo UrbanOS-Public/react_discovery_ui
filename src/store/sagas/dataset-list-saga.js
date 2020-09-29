@@ -22,7 +22,7 @@ const queryParamBuilder = action => {
   return {
     offset: offset,
     limit: limit,
-    sort: action.value.sortOrder,
+    sort: action.value.sortOrder === 'start' ? 'name_asc' : action.value.sortOrder,
     query: action.value.searchText,
     facets: action.value.facets,
     apiAccessible: action.value.apiAccessible
