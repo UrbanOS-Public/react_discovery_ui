@@ -47,7 +47,7 @@ module.exports = (env, argv) => {
           use: [{ loader: 'svg-inline-loader' }]
         },
         {
-          test: /\.(css|scss)$/,
+          test: /\.css$/,
           use: [
             'style-loader',
             {
@@ -63,6 +63,10 @@ module.exports = (env, argv) => {
             },
             'sass-loader'
           ]
+        },
+        {
+          test: /\.scss$/,
+          use: ["style-loader", "css-loader", "sass-loader"]
         }
       ]
     },

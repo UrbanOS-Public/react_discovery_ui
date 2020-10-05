@@ -1,5 +1,5 @@
 import './collapsable-box.scss'
-import { breakpoints } from '../../styles/variables'
+import variables from '../../styles/variables.scss'
 import { Collapse } from 'react-collapse';
 import { Component } from 'react'
 import DetailToggleIcon from '../detail-toggle-icon';
@@ -8,8 +8,7 @@ export default class extends Component {
 
   constructor(props) {
     super(props);
-    const mediaTest = "(min-width: " + breakpoints.breakMax + ")"
-    const isDesktop = window.matchMedia(mediaTest).matches
+    const isDesktop = window.matchMedia(variables.aboveMaxBreak).matches
     this.state = { expanded: isDesktop || props.expanded };
   }
 

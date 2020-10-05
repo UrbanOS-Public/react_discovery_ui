@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Colors } from '../../styles/variables'
+import variables from '../../styles/variables.scss'
 import './data-view.scss'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
@@ -105,20 +105,20 @@ export default class extends Component {
     return {
       base00: "white", // Default Background
       base01: "white", // Lighter Background
-      base02: Colors.headerGrey, // Null background
-      base03: Colors.almostBlack, // Null Text
-      base04: Colors.mediumGrey, // Item counts
-      base05: Colors.darkGrey, // Unused
-      base06: Colors.darkGrey, // Unused
-      base07: Colors.lightBlue, // Field names
-      base08: Colors.darkGrey, // Unused
-      base09: Colors.green, // Field values
-      base0A: Colors.darkGrey, // Unused
-      base0B: Colors.darkGrey, // Unused
-      base0C: Colors.darkGrey, // Unused
-      base0D: Colors.mediumGrey, // Expanders
-      base0E: Colors.mediumGrey, // Expanders
-      base0F: Colors.mediumGrey // Expanders
+      base02: variables.headerGrey, // Null background
+      base03: variables.almostBlack, // Null Text
+      base04: variables.mediumGrey, // Item counts
+      base05: variables.darkGrey, // Unused
+      base06: variables.darkGrey, // Unused
+      base07: variables.lightBlue, // Field names
+      base08: variables.darkGrey, // Unused
+      base09: variables.green, // Field values
+      base0A: variables.darkGrey, // Unused
+      base0B: variables.darkGrey, // Unused
+      base0C: variables.darkGrey, // Unused
+      base0D: variables.mediumGrey, // Expanders
+      base0E: variables.mediumGrey, // Expanders
+      base0F: variables.mediumGrey // Expanders
     }
   }
 }
