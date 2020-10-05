@@ -3,7 +3,22 @@ import DatasetQuality from './dataset-quality'
 
 describe('Dataset Quality ', () => {
   describe('Completeness', () => {
-
+    beforeEach(() => {
+      const matchMedia = jest.fn()
+      Object.defineProperty(window, 'matchMedia', {
+        writable: true,
+        value: jest.fn().mockImplementation(query => ({
+          matches: true,
+          media: query,
+          onchange: null,
+          addListener: jest.fn(), // deprecated
+          removeListener: jest.fn(), // deprecated
+          addEventListener: jest.fn(),
+          removeEventListener: jest.fn(),
+          dispatchEvent: jest.fn(),
+        })),
+      });
+    })
 
     test('should convert quality to a percentage', () => {
       const subject = render(<DatasetQuality completeness={{ total_score: 0.95 }} />)
