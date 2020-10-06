@@ -9,18 +9,11 @@ describe('streaming-api-doc element', () => {
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation(query => ({
-        matches: true,
-        media: query,
-        onchange: null,
-        addListener: jest.fn(), // deprecated
-        removeListener: jest.fn(), // deprecated
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
-        dispatchEvent: jest.fn(),
+        matches: true
       })),
     });
   })
-  
+
   test('the example should have proper topic', () => {
     subject = render(<StreamingApiDoc dataset={{ id: 'coda_stuff', name: 'data_name', organization: { name: 'org_name', sourceType: "stream" } }} />)
 
