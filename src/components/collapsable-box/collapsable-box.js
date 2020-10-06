@@ -1,4 +1,5 @@
 import './collapsable-box.scss'
+import variables from '../../styles/variables.scss'
 import { Collapse } from 'react-collapse';
 import { Component } from 'react'
 import DetailToggleIcon from '../detail-toggle-icon';
@@ -7,7 +8,8 @@ export default class extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { expanded: props.expanded || false };
+    const isDesktop = window.matchMedia(variables.aboveMaxBreak).matches
+    this.state = { expanded: isDesktop || props.expanded };
   }
 
   toggleCollapsed() {

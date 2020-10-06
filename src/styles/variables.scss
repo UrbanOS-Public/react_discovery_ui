@@ -25,3 +25,17 @@ $break-max: 1110px;
 $break-min: 768px;
 $above-max-break: "only screen and (min-width: #{$break-max})";
 $below-min-break: "only screen and (max-width: #{$break-min})";
+
+:export {
+    almostBlack: $almost-black;
+    superLightGrey: $super-light-grey;
+    headerGrey: $header-grey;
+    lightGrey: $light-grey;
+    mediumGrey: $medium-grey;
+    darkGrey: $dark-grey;
+    csvGreen: $csv-green;
+    green: $green;
+    errorColor: $error-color;
+    lightBlue: $light-blue;
+    aboveMaxBreak: unquote($above-max-break);
+}

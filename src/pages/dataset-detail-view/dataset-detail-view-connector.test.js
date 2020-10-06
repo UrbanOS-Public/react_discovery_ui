@@ -8,6 +8,13 @@ describe('dataset view', () => {
   let storeMocker, state
 
   beforeEach(() => {
+    const matchMedia = jest.fn()
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: jest.fn().mockImplementation(query => ({
+        matches: true
+      })),
+    });
     storeMocker = configureStore([])
     state = {
       datasetReducer: {
