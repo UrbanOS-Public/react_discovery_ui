@@ -60,7 +60,7 @@ export function CallToActionButton({ url, format, sourceType, sourceUrl }) {
         style={customStyles}
         contentLabel="Call To Action Modal"
       >
-        <p>By clicking 'continue,' You will download<br /> this dataset from an external website.</p>
+        <p>By clicking 'continue,' You will open or download<br /> this dataset from an external website.</p>
         <div className="modal-button-group">
           <button className="modal-cancel modal-button" onClick={closeModal}>Cancel</button>
           <button className="modal-confirm modal-button" onClick={navigateToSourceUrl}>Continue</button>

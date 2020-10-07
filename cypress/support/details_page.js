@@ -70,6 +70,11 @@ export const Routes = {
             url: '/api/v1/dataset/622746a5-4e2a-4a4c-ac18-74cb1fb05ab3/preview?_format=geojson',
             response: 'fixture:details_page_spec/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3/preview_format_geojson.geojson'
         },
+        previewFormatJson: {
+            method: 'GET',
+            url: 'http://localhost:4000/api/v1/dataset/622746a5-4e2a-4a4c-ac18-74cb1fb05ab3/preview?_format=json',
+            response: 'fixture:details_page_spec/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3/preview_format_json.json'
+        },
         recommendations: {
             method: 'GET',
             url: '/api/v1/dataset/622746a5-4e2a-4a4c-ac18-74cb1fb05ab3/recommendations',
