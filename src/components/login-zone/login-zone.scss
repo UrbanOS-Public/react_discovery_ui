@@ -15,6 +15,7 @@ login-zone {
     width: 15rem;
     
     li {
+      min-height: 30px;
       list-style-type:none;
       cursor: pointer;
       display: flex;

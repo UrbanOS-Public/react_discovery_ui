@@ -8,6 +8,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import FolderIcon from '../generic-elements/folder-icon'
 import ExitIcon from '@material-ui/icons/ExitToApp'
+import Backup from '@material-ui/icons/Backup'
 import { isMobile } from "react-device-detect"
 
 const returnTo = `${window.location.origin}${routes.oauth}`
@@ -48,11 +49,18 @@ export const Auth0LoginZone = ({ auth: { isAuthenticated, isLoading, loginWithRe
           (isAuthenticated && isMenuExpanded) &&
           <div className="user-menu" onMouseEnter={mouseEnterMenu} onMouseLeave={mouseExitMenu}>
             <ul>
-              <li>
+              <li className="menu-item">
                 <FolderIcon />
                 <span className="menu-text"><Link to="/user">Workspaces</Link></span>
               </li>
-              <li id="logout-button" onClick={() => { logout({ returnTo }) }}>
+              {
+                (window.CONTRIBUTE_HOST) &&
+              <li className="menu-item">
+                <Backup />
+                <span className="menu-text"><a href={window.CONTRIBUTE_HOST}>My Datasets</a></span>
+              </li>
+              }
+              <li className="menu-item" id="logout-button" onClick={() => { logout({ returnTo }) }}>
                 <ExitIcon />
                 <span className="menu-text">Log Out</span>
               </li>
