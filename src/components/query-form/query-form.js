@@ -9,6 +9,8 @@ import MergeType from '@material-ui/icons/MergeType'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
 import CodeEditor from '../code-editor'
+import { MenuItem, } from '@trendmicro/react-dropdown'
+import Dropdown from '../download-dropdown/dropdown'
 
 const QueryForm = props => {
   const {
@@ -19,6 +21,7 @@ const QueryForm = props => {
     isQueryLoading,
     queryFailureMessage,
     isQueryDataAvailable,
+    queryData,
 
     executeQuery,
     cancelQuery,
@@ -123,11 +126,22 @@ const QueryForm = props => {
           {usedDatasetsSection()}
         </div>
       </div>
-      <div>
+      <div className="query-form__btn-group">
         {submitButton}
         {cancelButton}
         {failureMessage}
         {successMessage}
+
+        <Dropdown className="download-dropdown">
+          <Dropdown.Toggle title="Download" style={{background: "#00aeef", color:  "#f7f7f7", border: "none", padding: "1rem"}}/>
+          <Dropdown.MenuWrapper>
+            <Dropdown.Menu>
+              <MenuItem onSelect={() => {console.log("csv")}}>CSV</MenuItem>
+              <MenuItem onSelect={() => {console.log("json")}}>JSON</MenuItem>
+            </Dropdown.Menu>
+          </Dropdown.MenuWrapper>
+        </Dropdown>
+
         {isQueryLoading && <LoadingElement />}
       </div>
     </query-form>

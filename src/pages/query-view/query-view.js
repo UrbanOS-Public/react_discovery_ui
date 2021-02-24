@@ -60,6 +60,7 @@ const QueryView = props => {
         isQueryLoading={isQueryLoading}
         isQueryDataAvailable={isQueryDataAvailable}
         queryText={freestyleQueryText}
+        queryData={queryData}
 
         executeQuery={executeQuery}
         cancelQuery={cancelQuery}

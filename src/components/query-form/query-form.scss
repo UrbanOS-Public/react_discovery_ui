@@ -18,6 +18,14 @@ query-form {
     margin: 1rem 1rem 1rem 0rem;
   }
 
+  .download-dropdown {
+    float: right;
+  }
+
+  .query-form__btn-group {
+    width: 100%;
+  }
+
   button:disabled,
   button:disabled:hover {
     background: #efefef;

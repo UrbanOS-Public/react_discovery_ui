@@ -56,6 +56,11 @@ describe('QueryForm', () => {
       expect(button.find('[disabled=true]').length).toEqual(1)
     })
 
+    test('sets the download button to disabled', () => {
+      const button = getButton(subject, 'Download')
+      expect(button.find('[disabled=true]').length).toEqual(1)
+    })
+
     test('cancelling the query invokes a provided cancel handler', () => {
       getButton(subject, 'Cancel').simulate('click')
       expect(cancelCallback).toHaveBeenCalled()
@@ -103,6 +108,11 @@ describe('QueryForm', () => {
 
     test('defaults the submit button to enabled', () => {
       const button = getButton(subject, 'Submit')
+      expect(button.find('[disabled=false]').length).toEqual(1)
+    })
+
+    test('defaults the download button to enabled', () => {
+      const button = getButton(subject, 'Download')
       expect(button.find('[disabled=false]').length).toEqual(1)
     })
 
@@ -206,6 +216,7 @@ describe('QueryForm', () => {
 function createSubject(params) {
   const defaults = {
     queryText: "SELECT * FROM sky",
+    queryData: {},
     recommendations: recommendations,
     usedDatasets: [],
     datasetReferences: {},
