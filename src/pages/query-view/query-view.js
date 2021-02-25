@@ -23,6 +23,7 @@ const QueryView = props => {
     cancelQuery,
     setQueryText
   } = props;
+
   const [page, setPage] = useState(0)
 
   const onNextPageClicked = (pageNumber) => {

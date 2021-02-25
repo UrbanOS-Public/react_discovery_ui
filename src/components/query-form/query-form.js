@@ -114,6 +114,38 @@ const QueryForm = props => {
     }
   }
 
+  const queryDataDownloadLink = (fileType) => {
+    var dataObj = downloadLinkData(queryData, fileType)
+    var data = new Blob([dataObj], {type: fileType})
+    return  window.URL.createObjectURL(data)
+  }
+
+  const downloadLinkData = (queryData, fileType) => {
+    if(fileType == "text/csv"){
+      return jsonToCSV(queryData)
+    } 
+
+    return JSON.stringify(queryData)
+  }
+
+  const jsonToCSV = (jsonObj) => {
+    var obj = jsonObj[0]
+    var keys = []
+    if (obj != undefined && obj != null) {
+      keys = Object.keys(obj)
+    }
+
+    var csv = keys.join(",") + "\n"
+    var rowValues
+    jsonObj.forEach((row) => {
+      rowValues = Object.values(row)
+      csv += rowValues.join(",")
+      csv += "\n"
+    }) 
+
+    return csv
+  }
+
   return (
     <query-form>
       <div className="user-input">
@@ -136,8 +168,8 @@ const QueryForm = props => {
           <Dropdown.Toggle title="Download" style={{background: "#00aeef", color:  "#f7f7f7", border: "none", padding: "1rem"}}/>
           <Dropdown.MenuWrapper>
             <Dropdown.Menu>
-              <MenuItem onSelect={() => {console.log("csv")}}>CSV</MenuItem>
-              <MenuItem onSelect={() => {console.log("json")}}>JSON</MenuItem>
+              <MenuItem><a download="query_results.csv" href={queryDataDownloadLink("text/csv")}>CSV</a></MenuItem>
+              <MenuItem><a download="query_results.json" href={queryDataDownloadLink("application/json")}>JSON</a></MenuItem>
             </Dropdown.Menu>
           </Dropdown.MenuWrapper>
         </Dropdown>

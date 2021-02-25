@@ -20,6 +20,15 @@ query-form {
 
   .download-dropdown {
     float: right;
+
+    .dropdown---caret---3CkEt {
+      border-top: 4px dashed $super-light-grey;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
   }
 
   .query-form__btn-group {
