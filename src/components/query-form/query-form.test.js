@@ -57,7 +57,7 @@ describe('QueryForm', () => {
     })
 
     test('sets the download button to disabled', () => {
-      const button = getButton(subject, 'Download')
+      const button = subject.find('.download-dropdown button')
       expect(button.find('[disabled=true]').length).toEqual(1)
     })
 
@@ -112,7 +112,7 @@ describe('QueryForm', () => {
     })
 
     test('defaults the download button to enabled', () => {
-      const button = getButton(subject, 'Download')
+      const button = subject.find('.download-dropdown button')
       expect(button.find('[disabled=false]').length).toEqual(1)
     })
 
@@ -216,7 +216,7 @@ describe('QueryForm', () => {
 function createSubject(params) {
   const defaults = {
     queryText: "SELECT * FROM sky",
-    queryData: {},
+    queryData: [],
     recommendations: recommendations,
     usedDatasets: [],
     datasetReferences: {},
