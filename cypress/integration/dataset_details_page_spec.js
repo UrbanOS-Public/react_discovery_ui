@@ -177,7 +177,7 @@ describe('Write SQL Tab for System dataset', function () {
     cy.get(submitQueryButton).click()
     cy.get(cancelQueryButton).click()
     cy.get(errorMessage).should('be.visible')
-    cy.get(errorMessage).contains('Your query has been stopped')
+    cy.get(errorMessage).contains('Query cancelled by user')
   })
 
   it('Clicking Saved Visualizations icon shows you the login popup', function () {
