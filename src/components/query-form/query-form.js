@@ -141,10 +141,15 @@ const QueryForm = props => {
 
     keys = Object.keys(row)
     csv = keys.join(",") + "\n"
-    rowValues
     dataObj.forEach((row) => {
-      rowValues = Object.values(row)
-      csv += rowValues.join(",")
+      Object.values(row).forEach((colVal) => {
+        if(typeof colVal == 'object'){
+          colVal = JSON.stringify(colVal)
+          colVal = colVal.replaceAll("\"", "\"\"")
+          colVal = `"${colVal}"`
+        }
+        csv += colVal + ","
+      })
       csv += "\n"
     }) 
 
