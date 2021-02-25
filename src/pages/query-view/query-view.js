@@ -23,6 +23,7 @@ const QueryView = props => {
     cancelQuery,
     setQueryText
   } = props;
+
   const [page, setPage] = useState(0)
 
   const onNextPageClicked = (pageNumber) => {
@@ -60,6 +61,7 @@ const QueryView = props => {
         isQueryLoading={isQueryLoading}
         isQueryDataAvailable={isQueryDataAvailable}
         queryText={freestyleQueryText}
+        queryData={queryData}
 
         executeQuery={executeQuery}
         cancelQuery={cancelQuery}

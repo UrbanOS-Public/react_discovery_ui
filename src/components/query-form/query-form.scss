@@ -18,6 +18,23 @@ query-form {
     margin: 1rem 1rem 1rem 0rem;
   }
 
+  .download-dropdown {
+    float: right;
+
+    .dropdown---caret---3CkEt {
+      border-top: 4px dashed $super-light-grey;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  }
+
+  .query-form__btn-group {
+    width: 100%;
+  }
+
   button:disabled,
   button:disabled:hover {
     background: #efefef;
