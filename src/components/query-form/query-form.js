@@ -143,13 +143,17 @@ const QueryForm = props => {
     csv = keys.join(",") + "\n"
     dataObj.forEach((row) => {
       Object.values(row).forEach((colVal) => {
-        if(typeof colVal == 'object'){
+        if(colVal == null) {
+          colVal = ""
+        } else if(typeof colVal == 'object'){
           colVal = JSON.stringify(colVal)
           colVal = colVal.replaceAll("\"", "\"\"")
           colVal = `"${colVal}"`
         }
+
         csv += colVal + ","
       })
+
       csv += "\n"
     }) 
 
@@ -175,7 +179,7 @@ const QueryForm = props => {
         {successMessage}
 
         <Dropdown className="download-dropdown" disabled={isQueryLoading}>
-          <Dropdown.Toggle title="Download" style={{background: "#00aeef", color:  "#f7f7f7", border: "none", padding: "1rem"}}/>
+          <Dropdown.Toggle title="Download Returned Results" style={{background: "#00aeef", color:  "#f7f7f7", border: "none", padding: "1rem"}}/>
           <Dropdown.MenuWrapper>
             <Dropdown.Menu>
               <MenuItem onClick={() => queryDataDownloadLink("text/csv")}>CSV</MenuItem>
