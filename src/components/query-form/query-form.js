@@ -149,6 +149,8 @@ const QueryForm = props => {
           colVal = JSON.stringify(colVal)
           colVal = colVal.replaceAll("\"", "\"\"")
           colVal = `"${colVal}"`
+        } else {
+          colVal = `"${colVal}"`
         }
 
         csv += colVal + ","
