@@ -143,15 +143,8 @@ const QueryForm = props => {
     csv = keys.join(",") + "\n"
     dataObj.forEach((row) => {
       Object.values(row).forEach((colVal) => {
-        if(colVal == null) {
-          colVal = ""
-        } else if(typeof colVal == 'object'){
-          colVal = JSON.stringify(colVal)
-          colVal = colVal.replaceAll("\"", "\"\"")
-          colVal = `"${colVal}"`
-        } else {
-          colVal = `"${colVal}"`
-        }
+        colVal = parseJsonStringField(colVal)
+        colVal = prepareFieldForCSV(colVal)
 
         csv += colVal + ","
       })
@@ -160,6 +153,28 @@ const QueryForm = props => {
     }) 
 
     return csv
+  }
+
+  const prepareFieldForCSV = (colVal) => {
+    if(colVal == null) {
+      colVal = ""
+    } else if(typeof colVal == 'object'){
+      colVal = JSON.stringify(colVal)
+      colVal = colVal.replaceAll("\"", "\"\"")
+      colVal = `"${colVal}"`
+    } else {
+      colVal = `"${colVal}"`
+    }
+
+    return colVal
+  }
+
+  const parseJsonStringField = (stringifiedJson) => {
+    try {
+      return JSON.parse(stringifiedJson)
+    } catch (error) {
+      return stringifiedJson
+    }
   }
 
   return (
