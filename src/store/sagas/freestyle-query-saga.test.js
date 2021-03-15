@@ -12,7 +12,7 @@ import createSagaMiddleware from 'redux-saga'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import oneTrueReducer from '../reducers'
 
-const ERROR_MESSAGE_CONSTANT = 'Query failure.  There may be a syntax issue.'
+const ERROR_MESSAGE_CONSTANT = 'There may be a syntax issue or a table name might be misspelled'
 
 const setUpSagaMiddleware = reducer => {
   const sagaMiddleware = createSagaMiddleware()
@@ -77,7 +77,8 @@ describe('freestyle-query-saga', () => {
     })
 
     it('dispatches a QUERY_DATASET_FAILED event based on 400 code', () => {
-      const data = { message: "bad things happened" }
+      const mock_error_message = "bad things happened"
+      const data = { message: mock_error_message }
       const response = {
         status: 400,
         data
@@ -86,7 +87,7 @@ describe('freestyle-query-saga', () => {
 
       store.dispatch(executeFreestyleQuery(queryText))
 
-      expect(store.getState()).toContainEqual(setQueryFailure(ERROR_MESSAGE_CONSTANT))
+      expect(store.getState()).toContainEqual(setQueryFailure(mock_error_message))
     })
 
     it('dispatches a QUERY_DATASET_FAILED event on a catastrophic failure', () => {

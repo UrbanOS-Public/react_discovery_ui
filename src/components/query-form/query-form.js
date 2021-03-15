@@ -64,7 +64,8 @@ const QueryForm = props => {
   const showFailureMessage = queryFailureMessage && !isQueryLoading
   const failureMessage = (
     showFailureMessage && <span data-testid='error-message' className='error-message'>
-      {queryFailureMessage}
+      <span>Query Failed</span>
+      <div>{queryFailureMessage}</div>
     </span>
   )
 

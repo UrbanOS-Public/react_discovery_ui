@@ -72,12 +72,12 @@ describe('QueryForm', () => {
       subject = createSubject({ isQueryLoading: true })
 
       getButton(subject, 'Cancel').simulate('click')
-      subject.setProps({ queryFailureMessage: 'Your query has been stopped.' })
+      subject.setProps({ queryFailureMessage: 'Query cancelled by user.' })
     })
 
     test('cancelling the query sets the cancelled state to true', () => {
       subject.setProps({ isQueryLoading: false })
-      expect(subject.find('.error-message').text()).toEqual('Your query has been stopped.')
+      expect(subject.find('.error-message').text()).toContain('Query cancelled by user.')
     })
 
     test('resubmitting the query sets the cancelled state to false', () => {

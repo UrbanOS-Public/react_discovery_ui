@@ -4,8 +4,8 @@ import { getDatasetQueryCancelToken } from '../selectors'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import { getFreestyleQueryText } from '../query-selectors'
 
-const cancelMessage = 'Your query has been stopped'
-const failureMessage = 'Query failure.  There may be a syntax issue.'
+const cancelMessage = 'Query cancelled by user'
+const failureMessage = 'There may be a syntax issue or a table name might be misspelled'
 
 function* executeQuery({ queryText }) {
   const cancelToken = AuthenticatedHTTPClient.cancelTokenSource()
@@ -35,7 +35,7 @@ function* executeQuery({ queryText }) {
     if (response.status < 400) {
       yield put(setQuerySuccess(response.data))
     } else {
-      yield put(setQueryFailure(failureMessage))
+      yield put(setQueryFailure(error_message(response.data.message)))
     }
   } catch (e) {
     const catchMessage = (e.message === cancelMessage) ? cancelMessage : failureMessage
@@ -46,6 +46,14 @@ function* executeQuery({ queryText }) {
 const cancelQuery = function* () {
   const cancelToken = yield select(getDatasetQueryCancelToken)
   return cancelToken.cancel(cancelMessage)
+}
+
+function error_message(message) {
+  if (message == "Bad Request") {
+    return failureMessage
+  } else {
+    return message
+  }
 }
 
 export default function* freestyleQuerySaga() {
