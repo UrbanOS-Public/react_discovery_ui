@@ -20,9 +20,19 @@ query-form {
 
   .download-dropdown {
     float: right;
+    margin-top: 1rem;
 
     .dropdown---caret---3CkEt {
       border-top: 4px dashed $super-light-grey;
+    }
+
+    .dropdown---dropdown-menu-wrapper---3gX-X,
+    .dropdown---dropdown-menu---1fkH0 {
+      width: -webkit-fill-available;
+    }
+
+    .dropdown---menu-item---1LjoL {
+      text-align: right;
     }
 
     a {

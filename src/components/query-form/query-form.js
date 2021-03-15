@@ -144,17 +144,38 @@ const QueryForm = props => {
     csv = keys.join(",") + "\n"
     dataObj.forEach((row) => {
       Object.values(row).forEach((colVal) => {
-        if(typeof colVal == 'object'){
-          colVal = JSON.stringify(colVal)
-          colVal = colVal.replaceAll("\"", "\"\"")
-          colVal = `"${colVal}"`
-        }
+        colVal = parseJsonStringField(colVal)
+        colVal = prepareFieldForCSV(colVal)
+
         csv += colVal + ","
       })
+
       csv += "\n"
     }) 
 
     return csv
+  }
+
+  const prepareFieldForCSV = (colVal) => {
+    if(colVal == null) {
+      colVal = ""
+    } else if(typeof colVal == 'object'){
+      colVal = JSON.stringify(colVal)
+      colVal = colVal.replaceAll("\"", "\"\"")
+      colVal = `"${colVal}"`
+    } else {
+      colVal = `"${colVal}"`
+    }
+
+    return colVal
+  }
+
+  const parseJsonStringField = (stringifiedJson) => {
+    try {
+      return JSON.parse(stringifiedJson)
+    } catch (error) {
+      return stringifiedJson
+    }
   }
 
   return (
@@ -176,7 +197,7 @@ const QueryForm = props => {
         {successMessage}
 
         <Dropdown className="download-dropdown" disabled={isQueryLoading}>
-          <Dropdown.Toggle title="Download" style={{background: "#00aeef", color:  "#f7f7f7", border: "none", padding: "1rem"}}/>
+          <Dropdown.Toggle title="Download Returned Results" style={{background: "#00aeef", color:  "#f7f7f7", border: "none", padding: "1rem"}}/>
           <Dropdown.MenuWrapper>
             <Dropdown.Menu>
               <MenuItem onClick={() => queryDataDownloadLink("text/csv")}>CSV</MenuItem>
