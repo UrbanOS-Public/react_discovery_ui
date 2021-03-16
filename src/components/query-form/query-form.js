@@ -193,7 +193,6 @@ const QueryForm = props => {
       <div className="query-form__btn-group">
         {submitButton}
         {cancelButton}
-        {failureMessage}
         {successMessage}
 
         <Dropdown className="download-dropdown" disabled={isQueryLoading}>
@@ -206,6 +205,7 @@ const QueryForm = props => {
           </Dropdown.MenuWrapper>
         </Dropdown>
 
+        {failureMessage}
         {isQueryLoading && <LoadingElement />}
       </div>
     </query-form>
