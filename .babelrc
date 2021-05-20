@@ -4,7 +4,12 @@
     "@babel/preset-react"
   ],
   "plugins": [
-    "inline-svg",
+    [
+      "inline-svg",
+      {
+        "disableSVGO": true
+      }
+    ],
     "@babel/plugin-proposal-object-rest-spread",
     "@babel/plugin-proposal-class-properties"
   ]
