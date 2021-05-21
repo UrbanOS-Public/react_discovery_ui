@@ -68,7 +68,7 @@ const UserProfileView = (props) => {
   }
 
   if (!isAuthenticated) {
-    return <ErrorComponent errorText={"You must be signed in to see your saved visualizations."} />
+    return <ErrorComponent errorText={"You must be signed in to see your saved visualizations"} />
   }
 
   Modal.setAppElement('*')
