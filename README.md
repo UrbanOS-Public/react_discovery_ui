@@ -1,13 +1,14 @@
-[![Master](https://travis-ci.org/smartcitiesdata/react_discovery_ui.svg?branch=master)](https://travis-ci.org/smartcitiesdata/react_discovery_ui)
+[![Master](https://img.shields.io/npm/v/@smartcitiesdata/react-discovery-ui)](https://www.npmjs.com/package/@smartcitiesdata/react-discovery-ui)
+[![Master](https://img.shields.io/github/workflow/status/Datastillery/react_discovery_ui/Node.js%20Build)](https://github.com/Datastillery/react_discovery_ui/actions/workflows/npm-build.yml)
 
-# react_discovery_ui
+# React Discovery UI
 
 React (also known as React.js or ReactJS) is an open-source, front end, JavaScript library for building user interfaces or UI components.
 
-[react_discovery_ui](https://www.npmjs.com/package/@smartcitiesdata/react-discovery-ui) is a UI component for consuming the [Discovery API](https://github.com/smartcitiesdata/discovery_api) of the SmartCitiesData platform. It is exported as a React Component, `<ReactDiscoveryUI>`, and can be imported into another site such as seen in [SmartColumbusOS/Discovery_UI](https://github.com/SmartColumbusOS/discovery_ui).
+[react_discovery_ui](https://www.npmjs.com/package/@smartcitiesdata/react-discovery-ui) is a UI component for consuming the [Discovery API](https://github.com/Datastillery/smartcitiesdata/tree/master/apps/discovery_api) of the SmartCitiesData platform. It is exported as a React Component, `<ReactDiscoveryUI>`, and can be imported into another site such as seen in [SmartColumbusOS/Discovery_UI](https://github.com/SmartColumbusOS/discovery_ui).
 
 ## What to Install
-To run the commands below you will need to install node. For directions on installing both of these tools depending on your system see https://github.com/Datastillery/smartcitiesdata/wiki/macOS-Setup, https://github.com/Datastillery/smartcitiesdata/wiki/Linux-Setup, https://github.com/Datastillery/smartcitiesdata/wiki/Windows-Setup.
+To run the commands below you will need to install node. For directions on installing both of these tools depending on your system see the [NodeJS website](https://nodejs.org/en/download/).
 
 ## How to Use
 
