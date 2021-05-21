@@ -1,24 +1,34 @@
-[![Master](https://travis-ci.org/smartcitiesdata/react_discovery_ui.svg?branch=master)](https://travis-ci.org/smartcitiesdata/react_discovery_ui)
+[![Master](https://img.shields.io/npm/v/@smartcitiesdata/react-discovery-ui)](https://www.npmjs.com/package/@smartcitiesdata/react-discovery-ui)
+[![Master](https://img.shields.io/github/workflow/status/Datastillery/react_discovery_ui/Node.js%20Build)](https://github.com/Datastillery/react_discovery_ui/actions/workflows/npm-build.yml)
 
-# react_discovery_ui
+# React Discovery UI
 
-A UI component for consuming the [Discovery API](https://github.com/smartcitiesdata/discovery_api) of the SmartCitiesData platform. It is exported as a React Component, `<ReactDiscoveryUI>`, and can be imported into another site such as seen in [SmartColumbusOS/Discovery_UI](https://github.com/SmartColumbusOS/discovery_ui), or ran standalone if packaged such as in [SmartCitiesData/Discovery_UI](https://github.com/smartcitiesdata/discovery_ui).
+React (also known as React.js or ReactJS) is an open-source, front end, JavaScript library for building user interfaces or UI components.
+
+[react_discovery_ui](https://www.npmjs.com/package/@smartcitiesdata/react-discovery-ui) is a UI component for consuming the [Discovery API](https://github.com/Datastillery/smartcitiesdata/tree/master/apps/discovery_api) of the SmartCitiesData platform. It is exported as a React Component, `<ReactDiscoveryUI>`, and can be imported into another site such as seen in [SmartColumbusOS/Discovery_UI](https://github.com/SmartColumbusOS/discovery_ui).
+
+## What to Install
+To run the commands below you will need to install node. For directions on installing both of these tools depending on your system see the [NodeJS website](https://nodejs.org/en/download/).
 
 ## How to Use
 
 ### Install Dependencies
+Npm is a package manger that comes with node. This command creates a nodes_modules folder and installs your dependencies in there and also installs your devDependencies.
 
 `npm install`
 
 ### Run All Tests
+"test:all" is a script in the package.json file that when run with npm runs all unit and functional tests.
 
 `npm run test:all`
 
 ### Run Unit Tests
+"test" is a script in the package.json file that when run with npm run all the unit tests. It uses a JavaScript testing framework called [Jest](https://jestjs.io/)
 
 `npm run test`
 
 ### Run Functional Tests
+"cypress:run" is a script in the package.json file that when run with npm runs all the functional tests. It uses a JavaScript End to End Testing Framework called [Cypress](https://www.cypress.io/)
 
 `npm run cypress:run`
 
