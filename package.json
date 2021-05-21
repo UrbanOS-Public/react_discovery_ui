@@ -24,7 +24,7 @@
     "@material-ui/icons": "^3.0.2",
     "@trendmicro/react-dropdown": "^1.4.0",
     "acorn": ">=7.1.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "handlebars": "^4.7.6",
     "leaflet": "^1.5.1",
     "lodash": "^4.17.12",
