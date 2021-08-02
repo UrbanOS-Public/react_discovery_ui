@@ -1,4 +1,4 @@
-import moment from "moment";
+import {DateTime} from 'luxon';
 
 const NO_DATE_MESSAGE = "Date not provided";
 
@@ -8,12 +8,12 @@ const createDateString = dataset => {
       return "Updates to remote datasets are not tracked";
     case "ingest":
       return (
-        buildDate(dataset.modified, "MMM D, YYYY") +
+        buildDate(dataset.modified, DateTime.DATE_MED) +
         " (Last updated by provider)"
       );
     case "stream":
       return (
-        buildDate(dataset.lastUpdatedDate, "MMM D, YYYY h:mm A") +
+        buildDate(dataset.lastUpdatedDate, DateTime.DATETIME_MED) +
         " (Last Ingested)"
       );
     default:
@@ -23,10 +23,7 @@ const createDateString = dataset => {
 
 const buildDate = (date, format) => {
   if (!date) return NO_DATE_MESSAGE;
-  return moment
-    .utc(date, moment.ISO_8601)
-    .local()
-    .format(format);
+  return DateTime.fromISO(date).toLocaleString(format)
 };
 
 export default { createDateString };
