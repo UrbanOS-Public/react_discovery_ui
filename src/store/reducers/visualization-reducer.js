@@ -17,7 +17,7 @@ import {
 } from "../actions"
 import { isArray, isPlainObject } from 'lodash'
 import { Link } from 'react-router-dom'
-import moment from 'moment'
+import {DateTime} from 'luxon';
 
 const defaultVisualizationState = {
   visualization: { id: undefined },
@@ -143,7 +143,7 @@ const isValidChartLayout = layout => {
 }
 
 const utcToLocalTime = utcString => {
-  return moment.utc(utcString).local().format("YYYY-MM-DDTHH:mm:ss[Z]")
+  return DateTime.fromISO(utcString, {zone: 'utc'}).toLocal().toISO({includeOffset: false, suppressMilliseconds: true})
 }
 
 const formatVisualizationsForTable = visualizations => {
