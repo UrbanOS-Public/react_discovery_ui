@@ -57,9 +57,17 @@ module.exports = (env, argv) => {
             {
               loader: 'postcss-loader',
               options: {
-                ident: 'postcss',
-                plugins: [require('autoprefixer')()]
-              }
+                postcssOptions: {
+                  plugins: [
+                    [
+                      "autoprefixer",
+                      {
+                        ident: 'postcss',
+                      },
+                    ],
+                  ],
+                },
+              },
             },
             'sass-loader'
           ]
@@ -72,7 +80,6 @@ module.exports = (env, argv) => {
     },
     devServer: {
       historyApiFallback: true,
-      contentBase: path.join(__dirname, 'dist'),
       compress: productionOptimizationsEnabled,
       open: true,
       port: 9001
@@ -89,7 +96,7 @@ module.exports = (env, argv) => {
           }
         }),
       ],
-      moduleIds: 'hashed',
+      moduleIds: 'deterministic',
       runtimeChunk: 'single',
       splitChunks: {
         cacheGroups: {
