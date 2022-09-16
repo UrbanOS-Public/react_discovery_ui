@@ -15,8 +15,8 @@ describe('<GeoJSONVisualization />', () => {
     wrapper = shallow(<GeoJSONVisualization
       previewDataset={previewDataset}
       downloadDataset={downloadDataset}
-      datasetId={'345'}
-    />)
+      datasetId='345'
+                      />)
 
     expect(previewDataset).toHaveBeenCalledWith('345', 'geojson')
     expect(downloadDataset).toHaveBeenCalledWith('345', 'geojson')
@@ -28,7 +28,7 @@ describe('<GeoJSONVisualization />', () => {
         previewDataset={previewDataset}
         downloadDataset={downloadDataset}
         downloadedDatasetError
-      />)
+                        />)
     })
 
     it('renders an error component', () => {
@@ -50,8 +50,7 @@ describe('<GeoJSONVisualization />', () => {
       wrapper = shallow(<GeoJSONVisualization
         previewDataset={previewDataset}
         downloadDataset={downloadDataset}
-      />)
-
+                        />)
 
       expect(wrapper.find('LoadingElement').length).toEqual(1)
     })
@@ -93,7 +92,7 @@ describe('<GeoJSONVisualization />', () => {
           downloadDataset={downloadDataset}
           downloadedGeoJsonData={downloadedGeoJsonData}
           previewedGeoJsonData={previewedGeoJsonData}
-        />)
+                          />)
       })
 
       it('renders map', () => {
@@ -131,7 +130,7 @@ describe('<GeoJSONVisualization />', () => {
           previewDataset={previewDataset}
           downloadDataset={downloadDataset}
           previewedGeoJsonData={previewedGeoJsonData}
-        />)
+                          />)
       })
 
       it('renders map', () => {
@@ -162,7 +161,7 @@ describe('<GeoJSONVisualization />', () => {
           previewDataset={previewDataset}
           downloadDataset={downloadDataset}
           downloadedGeoJsonData={downloadedGeoJsonData}
-        />)
+                          />)
       })
 
       it('renders map', () => {
@@ -212,27 +211,28 @@ describe('<GeoJSONVisualization />', () => {
           previewDataset={previewDataset}
           downloadDataset={downloadDataset}
           previewedGeoJsonData={undefined}
-          downloadedGeoJsonData={undefined} />)
+          downloadedGeoJsonData={undefined}
+        />)
 
       expect(wrapper.find(Checkbox).props().disabled).toBeTruthy()
     })
   })
 })
 
-function isPreviewMapHidden(wrapper) {
+function isPreviewMapHidden (wrapper) {
   const previewMapWrapper = wrapper.find('[test-id="preview-map"]')
   return previewMapWrapper.hasClass('hidden')
 }
 
-function isDownloadedMapHidden(wrapper) {
+function isDownloadedMapHidden (wrapper) {
   const dowloadedMapWrapper = wrapper.find('[test-id="downloaded-map"]')
   return dowloadedMapWrapper.hasClass('hidden')
 }
 
-function isPreviewMapRendered(wrapper) {
+function isPreviewMapRendered (wrapper) {
   return wrapper.find('[test-id="preview-map"]').exists()
 }
 
-function isDownloadedMapRendered(wrapper) {
+function isDownloadedMapRendered (wrapper) {
   return wrapper.find('[test-id="downloaded-map"]').exists()
 }

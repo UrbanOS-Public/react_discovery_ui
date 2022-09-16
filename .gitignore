@@ -14,3 +14,7 @@ lib/
 cypress/videos
 
 .vscode/
+
+# Testing
+cypress/screenshots/
+

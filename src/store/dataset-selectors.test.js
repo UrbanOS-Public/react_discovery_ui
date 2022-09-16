@@ -1,4 +1,4 @@
-import { getDataset, isStreamingDataset, isIngestDataset, isRemoteDataset, isHostDataset, isCsvDataset, isGeoJSONDataset, isDatasetLoaded, downloadUrl } from "./dataset-selectors"
+import { getDataset, isStreamingDataset, isIngestDataset, isRemoteDataset, isHostDataset, isCsvDataset, isGeoJSONDataset, isDatasetLoaded, downloadUrl } from './dataset-selectors'
 
 describe('datasetSelectors', () => {
   const createState = datasetOpts => {

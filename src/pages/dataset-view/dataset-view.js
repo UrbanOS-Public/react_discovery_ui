@@ -1,71 +1,71 @@
-import React from "react";
-import { Component } from "react";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
+import React, { Component } from 'react'
+
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import 'react-tabs/style/react-tabs.css'
 import ChartIcon from '../../components/generic-elements/chart-icon'
 import SQLIcon from '../../components/generic-elements/sql-icon'
-import qs from "qs";
-import routes from "../../routes"
-import { generatePath } from "react-router"
+import qs from 'qs'
+import routes from '../../routes'
+import { generatePath } from 'react-router'
 
-import "./dataset-view.scss";
-import QueryView from "../query-view";
-import ChartView from "../chart-view";
-import DatasetDetailView from "../dataset-detail-view";
-import LoadingElement from "../../components/generic-elements/loading-element";
-import VisualizationListMenuItem from "../../components/visualization-list-menu-item"
-import VisualizationSaveMenuItem from "../../components/visualization-save-menu-item"
+import './dataset-view.scss'
+import QueryView from '../query-view'
+import ChartView from '../chart-view'
+import DatasetDetailView from '../dataset-detail-view'
+import LoadingElement from '../../components/generic-elements/loading-element'
+import VisualizationListMenuItem from '../../components/visualization-list-menu-item'
+import VisualizationSaveMenuItem from '../../components/visualization-save-menu-item'
 
 export default class extends Component {
-  constructor() {
-    super();
-    this.state = { index: 0, localTitle: '' };
+  constructor () {
+    super()
+    this.state = { index: 0, localTitle: '' }
   }
 
-  generateVisualizationLink() {
+  generateVisualizationLink () {
     return this.props.visualizationId && generatePath(routes.visualizationView, { id: this.props.visualizationId })
   }
 
-  componentDidMount() {
-    this.props.reset();
+  componentDidMount () {
+    this.props.reset()
     this.props.retrieveDatasetDetails(
       this.props.match.params.organizationName,
       this.props.match.params.datasetName
-    );
+    )
 
     if (this.state.index != this.getIndexFromQueryParams()) {
-      this.setState({ index: this.getIndexFromQueryParams() });
+      this.setState({ index: this.getIndexFromQueryParams() })
     }
   }
 
-  getIndexFromQueryParams() {
+  getIndexFromQueryParams () {
     const { selectedIndex } = qs.parse(this.props.location.search, {
       ignoreQueryPrefix: true
-    });
-    return selectedIndex ? parseInt(selectedIndex) : 0;
+    })
+    return selectedIndex ? parseInt(selectedIndex) : 0
   }
 
-  handleTitleChange(event) {
+  handleTitleChange (event) {
     if (event.target.value !== this.state.localTitle) {
       this.setState({ localTitle: event.target.value })
     }
   }
 
-  handleSaveOrUpdate({shouldCreateCopy}) {
+  handleSaveOrUpdate ({ shouldCreateCopy }) {
     this.props.save({ id: this.props.visualizationId, title: this.state.localTitle, query: this.props.query, shouldCreateCopy })
   }
 
-  isNotDatasetDetailsTab() {
+  isNotDatasetDetailsTab () {
     return this.state.index !== 0
   }
 
-  render() {
+  render () {
     if (!this.props.isDatasetLoaded) {
       return (
         <dataset-view>
           <LoadingElement />
         </dataset-view>
-      );
+      )
     }
 
     if (this.props.isRemoteDataset || this.props.isHostDataset) {
@@ -79,25 +79,24 @@ export default class extends Component {
     return (
       <dataset-view>
         <Tabs
-          className="dataset-view"
+          className='dataset-view'
           selectedIndex={this.state.index}
           onSelect={tabIndex => this.setState({ index: tabIndex })}
         >
-          <TabList className="header">
+          <TabList className='header'>
             <span className='tab-area'>
-              <Tab data-testid="dataset-details">Dataset Details</Tab>
-              <Tab data-testid="dataset-write-sql">Write SQL <SQLIcon className='sqlIcon' /></Tab>
-              <Tab data-testid="visualize">Visualize <ChartIcon className='chartIcon' /></Tab>
+              <Tab data-testid='dataset-details'>Dataset Details</Tab>
+              <Tab data-testid='dataset-write-sql'>Write SQL <SQLIcon className='sqlIcon' /></Tab>
+              <Tab data-testid='visualize'>Visualize <ChartIcon className='chartIcon' /></Tab>
               {this.isNotDatasetDetailsTab() &&
-              <>
-              <a className="helpLink" target="_blank" href="https://en.wikipedia.org/wiki/SQL_syntax">SQL Help&nbsp;&nbsp;</a>
-              <a className="helpLink" target="_blank" href="https://plotly.com/chart-studio-help/tutorials/#basic">Plot.ly Help</a>
-              </>
-              }
+                <>
+                  <a className='helpLink' target='_blank' href='https://en.wikipedia.org/wiki/SQL_syntax'>SQL Help&nbsp;&nbsp;</a>
+                  <a className='helpLink' target='_blank' href='https://plotly.com/chart-studio-help/tutorials/#basic'>Plot.ly Help</a>
+                </>}
             </span>
             {this.isNotDatasetDetailsTab() &&
               <span className='action-area'>
-                <React.Fragment >
+                <>
                   <VisualizationListMenuItem
                     isAuthenticated={this.props.auth.isAuthenticated}
                   />
@@ -112,22 +111,21 @@ export default class extends Component {
                     allowedActions={this.props.allowedActions}
                     isAuthenticated={this.props.auth.isAuthenticated}
                   />
-                </React.Fragment>
-              </span>
-            }
+                </>
+              </span>}
           </TabList>
-          <TabPanel forceRender={true}>
+          <TabPanel forceRender>
             <DatasetDetailView />
           </TabPanel>
           <TabPanel>
             <QueryView shouldAutoExecuteQuery={this.props.shouldAutoExecuteQuery} />
           </TabPanel>
-          <TabPanel className="visualization" selectedClassName="visualization--selected">
+          <TabPanel className='visualization' selectedClassName='visualization--selected'>
             <ChartView shouldAutoExecuteQuery={this.props.shouldAutoExecuteQuery} />
           </TabPanel>
 
         </Tabs>
       </dataset-view>
-    );
+    )
   }
 }

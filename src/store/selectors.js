@@ -1,40 +1,40 @@
-export const getDataSetList = state => state.datasetReducer.datasets;
-export const getDataSetReferences = state => state.presentation.datasetReferences;
-export const getFacetList = state => state.datasetReducer.facets;
-export const getTotalNumberOfDatasets = state => state.datasetReducer.total;
-export const getDataSetError = state => state.datasetReducer.datasetError;
-export const getGlobalErrorState = state => state.presentation.isError;
-export const getGlobalErrorMessage = state => state.presentation.errorMessage;
-export const getDataSet = state => state.datasetReducer.dataset;
-export const getDataSetPreview = (state, format) => state.presentation.dataset_preview[format];
+export const getDataSetList = state => state.datasetReducer.datasets
+export const getDataSetReferences = state => state.presentation.datasetReferences
+export const getFacetList = state => state.datasetReducer.facets
+export const getTotalNumberOfDatasets = state => state.datasetReducer.total
+export const getDataSetError = state => state.datasetReducer.datasetError
+export const getGlobalErrorState = state => state.presentation.isError
+export const getGlobalErrorMessage = state => state.presentation.errorMessage
+export const getDataSet = state => state.datasetReducer.dataset
+export const getDataSetPreview = (state, format) => state.presentation.dataset_preview[format]
 export const getDatasetRecommendations = state =>
-  state.datasetReducer.recommendations;
-export const determineIfLoading = state => state.presentation.isLoading;
+  state.datasetReducer.recommendations
+export const determineIfLoading = state => state.presentation.isLoading
 export const determineIfVisualizationQueryLoading = state =>
-  state.queryReducer.isVisualizationQueryLoading;
+  state.queryReducer.isVisualizationQueryLoading
 export const lastLoginAttemptFailed = state =>
-  state.presentation.lastLoginAttemptFailed;
+  state.presentation.lastLoginAttemptFailed
 export const lastLogoutAttemptFailed = state =>
-  state.presentation.lastLogoutAttemptFailed;
+  state.presentation.lastLogoutAttemptFailed
 export const getDownloadedDataset = state =>
-  state.datasetReducer.downloadedDataset;
+  state.datasetReducer.downloadedDataset
 export const getDownloadedDatasetError = state =>
-  state.datasetReducer.downloadedDatasetError;
+  state.datasetReducer.downloadedDatasetError
 export const getDatasetQueryCancelToken = state =>
-  state.queryReducer.cancelToken;
-export const getSearchParams = state => state.searchReducer.searchParams;
-export const getSearchResults = state => state.searchReducer.searchResults;
+  state.queryReducer.cancelToken
+export const getSearchParams = state => state.searchReducer.searchParams
+export const getSearchResults = state => state.searchReducer.searchResults
 export const getSearchMetadata = state =>
-  state.searchReducer.searchMetadata || [];
+  state.searchReducer.searchMetadata || []
 export const getPageNumber = state =>
-  calculatePageNumber(state.searchReducer.searchParams);
+  calculatePageNumber(state.searchReducer.searchParams)
 export const getNumberOfPages = state =>
   Math.ceil(
     state.searchReducer.searchMetadata.totalDatasets /
       state.searchReducer.searchMetadata.limit
-  );
-export const isSearchLoading = state => state.searchReducer.isRunning;
+  )
+export const isSearchLoading = state => state.searchReducer.isRunning
 
-function calculatePageNumber({ offset, limit }) {
-  return Math.ceil(offset / limit) + 1;
+function calculatePageNumber ({ offset, limit }) {
+  return Math.ceil(offset / limit) + 1
 }

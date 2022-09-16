@@ -1,9 +1,9 @@
 import './data-card.scss'
 import { Link } from 'react-router-dom'
 import SanitizedHTML from 'react-sanitized-html'
-import ReactImageFallback from 'react-image-fallback';
-import fallbackImage from '../../assets/no_image.png';
-import { ModifiedDateStringBuilder } from '../../utils/';
+import ReactImageFallback from 'react-image-fallback'
+import fallbackImage from '../../assets/no_image.png'
+import { ModifiedDateStringBuilder } from '../../utils/'
 import LoadingElement from '../../components/generic-elements/loading-element'
 
 const DataCard = props => {
@@ -31,7 +31,8 @@ const DataCard = props => {
             src={dataset.organization_image_url}
             fallbackImage={fallbackImage}
             initialImage={<LoadingElement />}
-            alt={`The logo for ${dataset.organization_title}`} />
+            alt={`The logo for ${dataset.organization_title}`}
+          />
         </Link>
       </div>
       <div className='details'>
@@ -62,7 +63,7 @@ const DataCard = props => {
   )
 }
 
-function truncateDescription(description, maxLength) {
+function truncateDescription (description, maxLength) {
   if (description.length > maxLength) {
     return `${description.substring(0, maxLength)}...`
   }

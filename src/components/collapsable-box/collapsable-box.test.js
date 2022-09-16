@@ -2,21 +2,20 @@ import { shallow } from 'enzyme'
 import CollapsableBox from './collapsable-box'
 
 describe('CollapsableBox ', () => {
-
   test('desktop default to expanded', () => {
     const matchMedia = jest.fn()
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation(query => ({
         matches: true
-      })),
-    });
+      }))
+    })
     const subject = shallow(
-      <CollapsableBox headerHtml={"<div />"} >
+      <CollapsableBox headerHtml='<div />'>
         <div />
       </CollapsableBox>
     )
-    expect(subject.state("expanded")).toEqual(true)
+    expect(subject.state('expanded')).toEqual(true)
   })
 
   test('mobile/table default to collapsed', () => {
@@ -25,14 +24,14 @@ describe('CollapsableBox ', () => {
       writable: true,
       value: jest.fn().mockImplementation(query => ({
         matches: false
-      })),
-    });
+      }))
+    })
     const subject = shallow(
-      <CollapsableBox headerHtml={"<div />"} >
+      <CollapsableBox headerHtml='<div />'>
         <div />
       </CollapsableBox>
     )
-    expect(subject.state("expanded")).toEqual(undefined)
+    expect(subject.state('expanded')).toEqual(undefined)
   })
 
   test('clicking the header changes the expanded state on mobile/tablet', () => {
@@ -41,15 +40,15 @@ describe('CollapsableBox ', () => {
       writable: true,
       value: jest.fn().mockImplementation(query => ({
         matches: false
-      })),
-    });
+      }))
+    })
     const subject = shallow(
-      <CollapsableBox headerHtml={"<div />"} expanded={false}>
+      <CollapsableBox headerHtml='<div />' expanded={false}>
         <div />
       </CollapsableBox>
     )
     subject.find('.header-container').simulate('click')
-    expect(subject.state("expanded")).toEqual(true)
+    expect(subject.state('expanded')).toEqual(true)
   })
 
   test('clicking the header changes the expanded state on Desktop', () => {
@@ -58,15 +57,15 @@ describe('CollapsableBox ', () => {
       writable: true,
       value: jest.fn().mockImplementation(query => ({
         matches: true
-      })),
-    });
+      }))
+    })
     const subject = shallow(
-      <CollapsableBox headerHtml={"<div />"} expanded={false}>
+      <CollapsableBox headerHtml='<div />' expanded={false}>
         <div />
       </CollapsableBox>
     )
     subject.find('.header-container').simulate('click')
-    expect(subject.state("expanded")).toEqual(false)
+    expect(subject.state('expanded')).toEqual(false)
   })
 
   test('clicking the header changes the expanded state on expanded', () => {
@@ -75,14 +74,14 @@ describe('CollapsableBox ', () => {
       writable: true,
       value: jest.fn().mockImplementation(query => ({
         matches: undefined
-      })),
-    });
+      }))
+    })
     const subject = shallow(
-      <CollapsableBox headerHtml={"<div />"} expanded={true}>
+      <CollapsableBox headerHtml='<div />' expanded>
         <div />
       </CollapsableBox>
     )
     subject.find('.header-container').simulate('click')
-    expect(subject.state("expanded")).toEqual(false)
+    expect(subject.state('expanded')).toEqual(false)
   })
 })

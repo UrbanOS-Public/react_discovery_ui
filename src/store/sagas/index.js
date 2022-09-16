@@ -12,7 +12,7 @@ import visualizationSaga from './visualization-saga'
 import datasetRecommendationSaga from './dataset-recommendation-saga'
 import oAuthSaga from './oauth-saga'
 
-export default function* allSagas() {
+export default function * allSagas () {
   yield all([
     fork(datasetListSaga),
     fork(datasetSaga),

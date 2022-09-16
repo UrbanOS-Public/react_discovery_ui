@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 class RemoteToggle extends Component {
-  render() {
+  render () {
     return <div>RemoteToggle</div>
   }
 }

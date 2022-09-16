@@ -5,16 +5,16 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import ReactJson from 'react-json-view'
 import LoadingElement from '../../components/generic-elements/loading-element'
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import _ from 'lodash'
 
 export default class extends Component {
-  constructor() {
-    super();
-    this.state = { index: 0 };
+  constructor () {
+    super()
+    this.state = { index: 0 }
   }
 
-  render() {
+  render () {
     const isGeojson = this.props.format == 'geojson'
     const cleanData = isGeojson ? undefined : this.getCleanData(this.props.data)
     const columns = this.props.columns.map((column) => {
@@ -25,11 +25,12 @@ export default class extends Component {
       <div id='data-view'>
         <Tabs
           selectedIndex={this.state.index}
-          onSelect={tabIndex => this.setState({ index: tabIndex })}>
-          <TabList className="header">
+          onSelect={tabIndex => this.setState({ index: tabIndex })}
+        >
+          <TabList className='header'>
             <span className='tab-area'>
-              {!isGeojson && (<Tab data-testid="data-table">Table</Tab>)}
-              <Tab data-testid="data-json">JSON</Tab>
+              {!isGeojson && (<Tab data-testid='data-table'>Table</Tab>)}
+              <Tab data-testid='data-json'>JSON</Tab>
             </span>
           </TabList>
           {!isGeojson && (
@@ -51,7 +52,7 @@ export default class extends Component {
             </TabPanel>
           )}
           <TabPanel>
-            <div id="data-view-raw">
+            <div id='data-view-raw'>
               {this.renderJsonOrLoading(this.props.loading)}
             </div>
           </TabPanel>
@@ -60,12 +61,12 @@ export default class extends Component {
     )
   }
 
-  cleanseData(data) {
+  cleanseData (data) {
     if (!data.map) { return [] }
     return data.map(row => this.cleanseRow(row))
   }
 
-  cleanseRow(row) {
+  cleanseRow (row) {
     const deconstructedObject = Object.entries(row)
     const listOfKeyValues = deconstructedObject.map(field =>
       ({ [field[0]]: this.cleanseField(field[1]) })
@@ -75,23 +76,23 @@ export default class extends Component {
     return reconstructedObject
   }
 
-  cleanseField(value) {
-    if (typeof value === "boolean") {
-      return value.toString();
+  cleanseField (value) {
+    if (typeof value === 'boolean') {
+      return value.toString()
     } else if (_.isNull(value) || _.isNaN(value)) {
       return ''
-    } else if (typeof value === "object") {
-      return JSON.stringify(value);
+    } else if (typeof value === 'object') {
+      return JSON.stringify(value)
     } else {
-      return value;
+      return value
     }
   }
 
-  getCleanData(queryData) {
+  getCleanData (queryData) {
     return queryData ? this.cleanseData(queryData) : queryData
   }
 
-  renderJsonOrLoading(isLoading) {
+  renderJsonOrLoading (isLoading) {
     if (isLoading) {
       return <LoadingElement className='spinner' />
     } else {
@@ -99,12 +100,12 @@ export default class extends Component {
     }
   }
 
-  getTheme() {
-    // react-json-view uses the 'base16' theme structure: 
+  getTheme () {
+    // react-json-view uses the 'base16' theme structure:
     // https://github.com/chriskempson/base16/blob/master/styling.md
     return {
-      base00: "white", // Default Background
-      base01: "white", // Lighter Background
+      base00: 'white', // Default Background
+      base01: 'white', // Lighter Background
       base02: variables.headerGrey, // Null background
       base03: variables.almostBlack, // Null Text
       base04: variables.mediumGrey, // Item counts

@@ -1,10 +1,9 @@
 import { visualizationSave, visualizationLoadFailure, visualizationSaveFailure, visualizationLoad, visualizationLoadSuccess, visualizationsLoadAll, visualizationsLoadAllSuccess, visualizationsLoadAllFailure, visualizationSaveSuccess, setQueryText, setChartInformation, executeFreestyleQuery, visualizationDelete, visualizationDeleteFailure, visualizationDeleteSuccess, retrieveDatasetReference } from '../actions'
-import visualizationSaga from './visualization-saga'
-import { saveVisualization, deleteVisualization, loadDatasetReferences } from './visualization-saga'
+import visualizationSaga, { saveVisualization, deleteVisualization, loadDatasetReferences } from './visualization-saga'
+
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware, { runSaga } from 'redux-saga'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
-
 
 describe('visualization-saga', () => {
   let store
@@ -24,10 +23,10 @@ describe('visualization-saga', () => {
   })
 
   describe('loadVisualization', () => {
-    const id = "hello"
+    const id = 'hello'
     const chart = { data: [], frames: [], layout: {} }
     const query = 'select * from stuff'
-    const usedDatasets = ["123", "432"]
+    const usedDatasets = ['123', '432']
     const visualization = { id, chart, query, usedDatasets }
     describe('successfully', () => {
       beforeEach(() => {
@@ -60,7 +59,7 @@ describe('visualization-saga', () => {
       let dispatched
       beforeEach(async () => {
         AuthenticatedHTTPClient.get = jest.fn(() => ({ status: 200 }))
-        dispatched = await recordSaga(loadDatasetReferences, visualizationLoadSuccess(visualization), {datasetReferences: {}})
+        dispatched = await recordSaga(loadDatasetReferences, visualizationLoadSuccess(visualization), { datasetReferences: {} })
       })
 
       it('sends a get reference action per dataset', () => {
@@ -106,7 +105,7 @@ describe('visualization-saga', () => {
       })
 
       it('calls the correct API endpoint', () => {
-        expect(AuthenticatedHTTPClient.get).toHaveBeenCalledWith(`/api/v1/visualization`)
+        expect(AuthenticatedHTTPClient.get).toHaveBeenCalledWith('/api/v1/visualization')
       })
 
       it('signals the visualization is available', () => {
@@ -140,31 +139,31 @@ describe('visualization-saga', () => {
 
   describe('saveVisualization', () => {
     describe('without an id', () => {
-      const title = "my first visualization"
-      const query = "select hello from world"
-      const usedDatasets = ["123", "432"]
-      const returnedVisualization = { id: "generated id from api", title, query, usedDatasets }
+      const title = 'my first visualization'
+      const query = 'select hello from world'
+      const usedDatasets = ['123', '432']
+      const returnedVisualization = { id: 'generated id from api', title, query, usedDatasets }
       const initialState = {
         visualization: { chart: { data: [{ x: [1, 2, 3], xsrc: 'col1' }], layout: {}, frames: [] } },
         queryReducer: { queryData: [{ col1: 1 }, { col1: 2 }, { col1: 3 }] }
       }
 
       describe('successfully', () => {
-        var dispatched = []
+        let dispatched = []
         beforeEach(async () => {
           AuthenticatedHTTPClient.post = jest.fn(() => ({ status: 200, data: returnedVisualization }))
           dispatched = await recordSaga(saveVisualization, visualizationSave({ title, query }), initialState)
         })
 
         it('calls api with parameters that include a dereferenced chart', () => {
-          expect(AuthenticatedHTTPClient.post).toHaveBeenCalledWith(`/api/v1/visualization`,
+          expect(AuthenticatedHTTPClient.post).toHaveBeenCalledWith('/api/v1/visualization',
             {
               title: title,
               query: query,
               chart: { data: [{ x: null, xsrc: 'col1' }], frames: [], layout: {} }
             }
           )
-        });
+        })
 
         it('signals the visualization is available', () => {
           expect(dispatched).toContainEqual(visualizationSaveSuccess(returnedVisualization))
@@ -183,7 +182,7 @@ describe('visualization-saga', () => {
         let dispatched = []
         beforeEach(async () => {
           AuthenticatedHTTPClient.get = jest.fn(() => ({ status: 200 }))
-          dispatched = await recordSaga(loadDatasetReferences, visualizationSaveSuccess(returnedVisualization), {datasetReferences: {}})
+          dispatched = await recordSaga(loadDatasetReferences, visualizationSaveSuccess(returnedVisualization), { datasetReferences: {} })
         })
 
         it('sends a get reference action per dataset', () => {
@@ -194,7 +193,7 @@ describe('visualization-saga', () => {
 
       describe('with a non-success status code', () => {
         const nonSuccessStatusCode = 400
-        var dispatched = []
+        let dispatched = []
         beforeEach(async () => {
           AuthenticatedHTTPClient.post = jest.fn(() => ({ status: nonSuccessStatusCode }))
           dispatched = await recordSaga(saveVisualization, visualizationSave({ title, query }), initialState)
@@ -207,7 +206,7 @@ describe('visualization-saga', () => {
 
       describe('with a thrown error', () => {
         const errorMessage = 'WRONG'
-        var dispatched = []
+        let dispatched = []
         beforeEach(async () => {
           AuthenticatedHTTPClient.post = jest.fn(() => { throw new Error(errorMessage) })
           dispatched = await recordSaga(saveVisualization, visualizationSave({ title, query }), initialState)
@@ -220,17 +219,17 @@ describe('visualization-saga', () => {
     })
 
     describe('with an id', () => {
-      const id = "hello"
-      const title = "my first visualization"
-      const query = "select hello from world"
+      const id = 'hello'
+      const title = 'my first visualization'
+      const query = 'select hello from world'
       const returnedVisualization = { id, title, query }
       const initialState = {
-        visualization: { chart: { data: [{ x: [1, 2, 3], xsrc: "col1" }], layout: {}, frames: [] } },
+        visualization: { chart: { data: [{ x: [1, 2, 3], xsrc: 'col1' }], layout: {}, frames: [] } },
         queryReducer: { queryData: [{ col1: 1 }, { col1: 2 }, { col1: 3 }] }
       }
 
       describe('successfully', () => {
-        var dispatched = []
+        let dispatched = []
         beforeEach(async () => {
           AuthenticatedHTTPClient.put = jest.fn(() => ({ status: 200, data: returnedVisualization }))
           dispatched = await recordSaga(saveVisualization, visualizationSave({ id, title, query }), initialState)
@@ -242,10 +241,10 @@ describe('visualization-saga', () => {
               id: id,
               title: title,
               query: query,
-              chart: { data: [{ x: null, xsrc: "col1" }], frames: [], layout: {} }
+              chart: { data: [{ x: null, xsrc: 'col1' }], frames: [], layout: {} }
             }
           )
-        });
+        })
 
         it('signals the visualization is available', () => {
           expect(dispatched).toContainEqual(visualizationSaveSuccess(returnedVisualization))
@@ -262,7 +261,7 @@ describe('visualization-saga', () => {
 
       describe('with a non-success status code', () => {
         const nonSuccessStatusCode = 400
-        var dispatched = []
+        let dispatched = []
         beforeEach(async () => {
           AuthenticatedHTTPClient.put = jest.fn(() => ({ status: nonSuccessStatusCode }))
           dispatched = await recordSaga(saveVisualization, visualizationSave({ id, title, query }), initialState)
@@ -275,7 +274,7 @@ describe('visualization-saga', () => {
 
       describe('with a thrown error', () => {
         const errorMessage = 'WRONG'
-        var dispatched = []
+        let dispatched = []
         beforeEach(async () => {
           AuthenticatedHTTPClient.put = jest.fn(() => { throw new Error(errorMessage) })
           dispatched = await recordSaga(saveVisualization, visualizationSave({ id, title, query }), initialState)
@@ -287,21 +286,21 @@ describe('visualization-saga', () => {
       })
 
       describe('creating a copy', () => {
-        var dispatched = []
+        let dispatched = []
         beforeEach(async () => {
           AuthenticatedHTTPClient.post = jest.fn(() => ({ status: 200, data: returnedVisualization }))
           dispatched = await recordSaga(saveVisualization, visualizationSave({ id, title, query, shouldCreateCopy: true }), initialState)
         })
 
         it('calls api with parameters that include a dereferenced chart', () => {
-          expect(AuthenticatedHTTPClient.post).toHaveBeenCalledWith(`/api/v1/visualization`,
+          expect(AuthenticatedHTTPClient.post).toHaveBeenCalledWith('/api/v1/visualization',
             {
               title: title,
               query: query,
-              chart: { data: [{ x: null, xsrc: "col1" }], frames: [], layout: {} }
+              chart: { data: [{ x: null, xsrc: 'col1' }], frames: [], layout: {} }
             }
           )
-        });
+        })
 
         it('signals the visualization is available', () => {
           expect(dispatched).toContainEqual(visualizationSaveSuccess(returnedVisualization))
@@ -322,10 +321,10 @@ describe('visualization-saga', () => {
     const initialState = {}
 
     describe('successfully', () => {
-      var dispatched = []
+      let dispatched = []
       beforeEach(async () => {
         AuthenticatedHTTPClient.delete = jest.fn(() => ({ status: 204, data: {} }))
-        dispatched = await recordSaga(deleteVisualization, visualizationDelete({ id: "3" }), initialState)
+        dispatched = await recordSaga(deleteVisualization, visualizationDelete({ id: '3' }), initialState)
       })
 
       it('signals the visualization is deleted', () => {
@@ -339,10 +338,10 @@ describe('visualization-saga', () => {
 
     describe('with a non-success status code', () => {
       const nonSuccessStatusCode = 400
-      var dispatched = []
+      let dispatched = []
       beforeEach(async () => {
         AuthenticatedHTTPClient.delete = jest.fn(() => ({ status: nonSuccessStatusCode }))
-        dispatched = await recordSaga(deleteVisualization, visualizationDelete({ id: "2" }), initialState)
+        dispatched = await recordSaga(deleteVisualization, visualizationDelete({ id: '2' }), initialState)
       })
 
       it('signals the visualization deletion failed', () => {
@@ -356,10 +355,10 @@ describe('visualization-saga', () => {
 
     describe('with a thrown error', () => {
       const errorMessage = 'WRONG'
-      var dispatched = []
+      let dispatched = []
       beforeEach(async () => {
         AuthenticatedHTTPClient.delete = jest.fn(() => { throw new Error(errorMessage) })
-        dispatched = await recordSaga(deleteVisualization, visualizationDelete({ id: "1" }), initialState)
+        dispatched = await recordSaga(deleteVisualization, visualizationDelete({ id: '1' }), initialState)
       })
 
       it('signals the visualization deletion failed', () => {
@@ -373,8 +372,8 @@ describe('visualization-saga', () => {
   })
 })
 
-async function recordSaga(saga, initialAction, initialState) {
-  const dispatched = [];
+async function recordSaga (saga, initialAction, initialState) {
+  const dispatched = []
 
   await runSaga(
     {
@@ -383,7 +382,7 @@ async function recordSaga(saga, initialAction, initialState) {
     },
     saga,
     initialAction
-  ).done;
+  ).done
 
-  return dispatched;
+  return dispatched
 }

@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, connect } from 'react-redux'
 import qs from 'qs'
 import _ from 'lodash'
-import { connect } from "react-redux"
-import { datasetSearch } from "../store/actions.js"
+
+import { datasetSearch } from '../store/actions.js'
 import PropTypes from 'prop-types'
 
 const defaults = {
@@ -15,7 +15,7 @@ const defaults = {
 }
 
 class SearchParamsManager {
-  constructor(history) {
+  constructor (history) {
     this.pushHistory = history.push
     this.params = qs.parse(history.location.search, { ignoreQueryPrefix: true })
 
@@ -37,11 +37,11 @@ class SearchParamsManager {
     this.facets = this.getParam('facets') || defaults.facets
   }
 
-  getParam(name) {
+  getParam (name) {
     return this.params[name]
   }
 
-  getParams() {
+  getParams () {
     return {
       apiAccessible: this.apiAccessible,
       page: this.page,
@@ -51,40 +51,40 @@ class SearchParamsManager {
     }
   }
 
-  toggleApiAccessible() {
-    const updatedApiAccessibleFlag = ! this.apiAccessible
+  toggleApiAccessible () {
+    const updatedApiAccessibleFlag = !this.apiAccessible
 
     this.updateParams({ apiAccessible: updatedApiAccessibleFlag, page: 1 })
   }
 
-  toggleFacet(name, value) {
+  toggleFacet (name, value) {
     const facetValues = this.facets[name]
     const updatedFacets = Object.assign({}, this.facets, { [name]: _.xor(facetValues, [value]) })
 
     this.updateParams({ facets: updatedFacets, page: 1 })
   }
 
-  updateSortOrder(sort) {
+  updateSortOrder (sort) {
     this.updateParams({ sort: sort })
   }
 
-  updateSearchText(searchText) {
-    const sort = this.sortOrder==="start" ? "relevance": this.sortOrder;
+  updateSearchText (searchText) {
+    const sort = this.sortOrder === 'start' ? 'relevance' : this.sortOrder
     this.updateParams({ q: searchText, page: 1, sort })
   }
 
-  updatePage(page) {
+  updatePage (page) {
     this.updateParams({ page: page })
   }
 
-  updateParams(params) {
+  updateParams (params) {
     const updatedSearch = Object.assign({}, this.params, params)
     const updatedSearchEncoded = qs.stringify(
       updatedSearch,
       { arrayFormat: 'brackets', addQueryPrefix: false }
     )
 
-    this.pushHistory({search: updatedSearchEncoded})
+    this.pushHistory({ search: updatedSearchEncoded })
   }
 }
 
@@ -102,7 +102,7 @@ SearchParamsManager.propTypes = {
 
 const withSearchParamsManager = (WrappedComponent) => {
   const SearchParamsWrapper = (props) => {
-    const {history} = props
+    const { history } = props
     const dispatch = useDispatch()
     const searchParamsManager = new SearchParamsManager(history)
 

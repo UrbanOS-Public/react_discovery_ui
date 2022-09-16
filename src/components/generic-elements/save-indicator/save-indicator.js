@@ -21,7 +21,7 @@ const SaveIndicator = ({ saving, success, failure, linkUrl }) => {
         <CheckCircleIcon className='success icon' />
         <span>
           <p>Your visualization has saved</p>
-          {linkUrl && <ShareLink linkUrl={linkUrl} className="link-button" />}
+          {linkUrl && <ShareLink linkUrl={linkUrl} className='link-button' />}
         </span>
       </save-indicator>
     )

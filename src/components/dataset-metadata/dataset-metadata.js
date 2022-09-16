@@ -5,12 +5,12 @@ import 'react-table/react-table.css'
 import CollapsableBox from '../../components/collapsable-box'
 
 export default class extends Component {
-  render() {
+  render () {
     const { dataset } = this.props
     if (!this.props.dataset) {
       return <div />
     }
-    document.body.className="body-dataset-detail" 
+    document.body.className = 'body-dataset-detail'
     const referenceUrls = dataset.referenceUrls || []
 
     const data = [
@@ -156,7 +156,7 @@ export default class extends Component {
   }
 }
 
-function mailto(email, name) {
+function mailto (email, name) {
   if (email) {
     return <a href={'mailto:' + email}>{name}</a>
   } else {

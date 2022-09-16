@@ -12,7 +12,7 @@ describe('OAuth View', () => {
 
   beforeEach(() => {
     callLoggedInHandler = jest.fn()
-    handleRedirectCallback = jest.fn(() => Promise.resolve({ appState: { path: "/test", search: "?blah" } }))
+    handleRedirectCallback = jest.fn(() => Promise.resolve({ appState: { path: '/test', search: '?blah' } }))
     history = createMemoryHistory(),
     setGlobalErrorStateHandler = jest.fn()
   })
@@ -27,7 +27,6 @@ describe('OAuth View', () => {
         setGlobalErrorState: setGlobalErrorStateHandler
       })
     })
-
 
     it('calls back to handle the redirect', done => {
       setTimeout(() => {
@@ -50,7 +49,6 @@ describe('OAuth View', () => {
         done()
       })
     })
-
   })
 
   describe('without an auth code in the url', () => {

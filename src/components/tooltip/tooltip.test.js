@@ -1,9 +1,9 @@
 import { render } from 'enzyme'
-import Tooltip from ".";
+import Tooltip from '.'
 
 describe('tooltip', () => {
   const text = 'LOL OMG'
-  var subject
+  let subject
 
   beforeEach(() => {
     subject = render(<Tooltip text={text} />)

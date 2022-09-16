@@ -13,16 +13,15 @@ import GeoJSONVisualization from '../../components/visualizations/geojson'
 import DatasetRecommendations from '../../components/dataset-recommendations'
 
 export default class extends Component {
-
-  componentWillUnmount() {
-    this.props.clearDatasetPreview();
-    this.props.clearDatasetDetails();
+  componentWillUnmount () {
+    this.props.clearDatasetPreview()
+    this.props.clearDatasetDetails()
   }
 
-  render() {
-    const dataset = this.props.dataset;
+  render () {
+    const dataset = this.props.dataset
     if (!dataset) {
-      return <div />;
+      return <div />
     }
 
     const {
@@ -33,22 +32,22 @@ export default class extends Component {
       isCsv,
       isGeoJSON,
       downloadUrl
-    } = this.props;
+    } = this.props
 
-    const streamingExpanded = !isCsv && isStreaming;
-    const apiDocExpanded = !isCsv && !isStreaming;
-    const showDatasetPreview = isIngest || isStreaming;
+    const streamingExpanded = !isCsv && isStreaming
+    const apiDocExpanded = !isCsv && !isStreaming
+    const showDatasetPreview = isIngest || isStreaming
 
     return (
       <dataset-detail-view>
-        <div className="left-section">
+        <div className='left-section'>
           <Organization organization={dataset.organization} />
           <Share />
         </div>
-        <div className="dataset-details right-section">
+        <div className='dataset-details right-section'>
           <DatasetDetails dataset={dataset} downloadUrl={downloadUrl} />
           {(isRemote || isHost) && !isGeoJSON && (
-            <div className="static-file-explanation">
+            <div className='static-file-explanation'>
               This dataset is hosted as a static file and cannot be previewed or
               queried via the API.
             </div>
@@ -72,6 +71,6 @@ export default class extends Component {
           <DatasetMetadata dataset={dataset} />
         </div>
       </dataset-detail-view>
-    );
+    )
   }
 }

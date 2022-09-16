@@ -3,12 +3,12 @@ import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, VISUALIZATIONS_LOAD_ALL, visual
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import { dereferencedChart } from '../visualization-selectors'
 
-export function* loadVisualizationSaga() {
+export function * loadVisualizationSaga () {
   yield takeEvery(VISUALIZATION_LOAD, loadVisualization)
   yield takeEvery(VISUALIZATION_LOAD_SUCCESS, loadDatasetReferences)
 }
 
-function* loadVisualization({ value: id }) {
+function * loadVisualization ({ value: id }) {
   try {
     const response = yield call(AuthenticatedHTTPClient.get, `/api/v1/visualization/${id}`)
 
@@ -25,13 +25,13 @@ function* loadVisualization({ value: id }) {
   }
 }
 
-function* loadUserVisualizationsSaga() {
+function * loadUserVisualizationsSaga () {
   yield takeEvery(VISUALIZATIONS_LOAD_ALL, loadUserVisualizations)
 }
 
-function* loadUserVisualizations() {
+function * loadUserVisualizations () {
   try {
-    const response = yield call(AuthenticatedHTTPClient.get, `/api/v1/visualization`)
+    const response = yield call(AuthenticatedHTTPClient.get, '/api/v1/visualization')
 
     if (response.status < 400) {
       yield put(visualizationsLoadAllSuccess(response.data))
@@ -43,12 +43,12 @@ function* loadUserVisualizations() {
   }
 }
 
-function* saveVisualizationSaga() {
+function * saveVisualizationSaga () {
   yield takeEvery(VISUALIZATION_SAVE, saveVisualization)
   yield takeEvery(VISUALIZATION_SAVE_SUCCESS, loadDatasetReferences)
 }
 
-export function* saveVisualization({ value: visualization, shouldCreateCopy }) {
+export function * saveVisualization ({ value: visualization, shouldCreateCopy }) {
   const chart = yield select(dereferencedChart)
 
   if (shouldCreateCopy) {
@@ -58,24 +58,24 @@ export function* saveVisualization({ value: visualization, shouldCreateCopy }) {
   if (visualization.id) {
     yield handleSaveResponse(() => AuthenticatedHTTPClient.put(`/api/v1/visualization/${visualization.id}`, { ...visualization, chart }))
   } else {
-    yield handleSaveResponse(() => AuthenticatedHTTPClient.post(`/api/v1/visualization`, { ...visualization, chart }))
+    yield handleSaveResponse(() => AuthenticatedHTTPClient.post('/api/v1/visualization', { ...visualization, chart }))
   }
 }
 
-function* deleteVisualizationSaga() {
+function * deleteVisualizationSaga () {
   yield takeEvery(VISUALIZATION_DELETE, deleteVisualization)
 }
 
-export function* deleteVisualization({ value }) {
+export function * deleteVisualization ({ value }) {
   yield handleDeleteResponse(() => AuthenticatedHTTPClient.delete(`/api/v1/visualization/${value.id}`))
 }
 
-function removeId(visualization) {
+function removeId (visualization) {
   const { id, ...withoutId } = visualization
   return withoutId
 }
 
-function* handleSaveResponse(clientFunction) {
+function * handleSaveResponse (clientFunction) {
   try {
     const response = yield call(clientFunction)
 
@@ -89,7 +89,7 @@ function* handleSaveResponse(clientFunction) {
   }
 }
 
-function* handleDeleteResponse(clientFunction) {
+function * handleDeleteResponse (clientFunction) {
   try {
     const response = yield call(clientFunction)
 
@@ -105,13 +105,13 @@ function* handleDeleteResponse(clientFunction) {
   yield put(visualizationsLoadAll())
 }
 
-export function* loadDatasetReferences({ value }) {
-  for (var datasetId of value.usedDatasets) {
-    yield put(retrieveDatasetReference(datasetId));
+export function * loadDatasetReferences ({ value }) {
+  for (const datasetId of value.usedDatasets) {
+    yield put(retrieveDatasetReference(datasetId))
   }
 }
 
-export default function* visualizationSaga() {
+export default function * visualizationSaga () {
   yield all([
     fork(loadVisualizationSaga),
     fork(saveVisualizationSaga),
@@ -119,4 +119,3 @@ export default function* visualizationSaga() {
     fork(deleteVisualizationSaga)
   ])
 }
-

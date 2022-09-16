@@ -7,7 +7,7 @@ const createDatasetCard = dataset => {
 
 export default ({ datasets = [] }) => {
   return (
-    <dataset-list data-testid="dataset-list">
+    <dataset-list data-testid='dataset-list'>
       {datasets.map(createDatasetCard) || <div />}
     </dataset-list>
   )

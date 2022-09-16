@@ -3,7 +3,7 @@ import createSagaMiddleware from 'redux-saga'
 import oAuthSaga from './oauth-saga'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import { exportSpecifier, exportAllDeclaration } from '@babel/types'
-import { oAuthCallLoggedIn , setGlobalErrorState} from '../actions'
+import { oAuthCallLoggedIn, setGlobalErrorState } from '../actions'
 
 describe('oauth-saga', () => {
   const reducer = (state = [], action) => {
@@ -17,11 +17,11 @@ describe('oauth-saga', () => {
     AuthenticatedHTTPClient.post = jest.fn()
   })
 
-  const expectedLoginErrorMessage = "Login was not successful. Please try again."
+  const expectedLoginErrorMessage = 'Login was not successful. Please try again.'
 
   it('calls the correct API endpoint', () => {
     store.dispatch(oAuthCallLoggedIn())
-    expect(AuthenticatedHTTPClient.post).toHaveBeenCalledWith(`/api/v1/logged-in`, '')
+    expect(AuthenticatedHTTPClient.post).toHaveBeenCalledWith('/api/v1/logged-in', '')
   })
 
   describe('api/v/1/logged-in returns a non-success status code', () => {

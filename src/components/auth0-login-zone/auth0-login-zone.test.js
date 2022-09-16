@@ -20,7 +20,7 @@ describe('OauthLoginZone component', () => {
 
     it('has a login button', () => {
       expect(button.length).toBe(1)
-      expect(button.text()).toMatch("Log in to your account")
+      expect(button.text()).toMatch('Log in to your account')
     })
 
     it('logs in with redirect when the button is clicked', () => {
@@ -43,18 +43,18 @@ describe('OauthLoginZone component', () => {
 
     it('has an account dropdown', () => {
       expect(button.length).toBe(1)
-      expect(button.text()).toMatch("My Account")
+      expect(button.text()).toMatch('My Account')
     })
 
     it('displays account dropdown on mouse enter', () => {
       button.simulate('mouseEnter')
-      let menuItems = subject.find('li')
+      const menuItems = subject.find('li')
       expect(menuItems.length).not.toBe(0)
     })
 
     it('does not toggle account dropdown on mouse click when not on mobile', () => {
       button.simulate('click')
-      let menuItems = subject.find('li')
+      const menuItems = subject.find('li')
       expect(menuItems.length).toBe(0)
     })
 
@@ -64,21 +64,21 @@ describe('OauthLoginZone component', () => {
       })
 
       it('has the expected menu items', () => {
-        let menuItems = subject.find('li')
+        const menuItems = subject.find('li')
         expect(menuItems.length).toBe(2)
-        expect(menuItems.at(0).text()).toMatch("Workspaces")
-        expect(menuItems.at(1).text()).toMatch("Log Out")
+        expect(menuItems.at(0).text()).toMatch('Workspaces')
+        expect(menuItems.at(1).text()).toMatch('Log Out')
       })
 
       it('logs out with the correct "returnTo" URL when the button is clicked', () => {
-        let logOut = subject.find('#logout-button')
+        const logOut = subject.find('#logout-button')
         logOut.simulate('click')
 
         expect(logoutHandler).toHaveBeenCalledWith({ returnTo: `${window.location.origin}/oauth` })
       })
 
       it('has a link to the workspaces page', () => {
-        let link = subject.find('a')
+        const link = subject.find('a')
         expect(link.at(0).props().href).toMatch('/user')
       })
 
@@ -88,7 +88,7 @@ describe('OauthLoginZone component', () => {
 
       it('closes on mouse exit', () => {
         button.simulate('mouseLeave')
-        let menuItems = subject.find('li')
+        const menuItems = subject.find('li')
         expect(menuItems.length).toBe(0)
       })
     })
@@ -112,7 +112,7 @@ describe('OauthLoginZone component', () => {
 
       it('does not display account dropdown on mouse enter', () => {
         button.simulate('mouseEnter')
-        let menuItems = subject.find('li')
+        const menuItems = subject.find('li')
         expect(menuItems.length).toBe(0)
       })
     })
@@ -145,14 +145,14 @@ const createSubject = (authProps = {}) => {
 
   return mount(
     <Router>
-    <Component
-      auth={{
-        isAuthenticated: auth0PropsWithDefaults.isAuthenticated,
-        isLoading: auth0PropsWithDefaults.isLoading,
-        loginWithRedirect: auth0PropsWithDefaults.loginWithRedirect,
-        logout: auth0PropsWithDefaults.logout
-      }}
-    />
+      <Component
+        auth={{
+          isAuthenticated: auth0PropsWithDefaults.isAuthenticated,
+          isLoading: auth0PropsWithDefaults.isLoading,
+          loginWithRedirect: auth0PropsWithDefaults.loginWithRedirect,
+          logout: auth0PropsWithDefaults.logout
+        }}
+      />
     </Router>
   )
 }

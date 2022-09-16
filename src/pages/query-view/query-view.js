@@ -1,9 +1,9 @@
-import "./query-view.scss";
-import React, {useState} from "react";
+import './query-view.scss'
+import React, { useState } from 'react'
 
-import QueryForm from "../../components/query-form";
-import DataView from "../../components/data-view";
-import LoadingElement from "../../components/generic-elements/loading-element";
+import QueryForm from '../../components/query-form'
+import DataView from '../../components/data-view'
+import LoadingElement from '../../components/generic-elements/loading-element'
 import _ from 'lodash'
 
 const QueryView = props => {
@@ -22,7 +22,7 @@ const QueryView = props => {
     executeQuery,
     cancelQuery,
     setQueryText
-  } = props;
+  } = props
 
   const [page, setPage] = useState(0)
 
@@ -40,18 +40,18 @@ const QueryView = props => {
     setPage(0)
   }, [queryData])
 
-  const numRecords = queryData ? queryData.length + " records returned" : "";
+  const numRecords = queryData ? queryData.length + ' records returned' : ''
 
   if (isQueryLoading && queryData.length === 0) {
     return (
       <query-view>
         <LoadingElement />
       </query-view>
-    );
+    )
   }
 
   return (
-    <query-view data-testid="query-view">
+    <query-view data-testid='query-view'>
       <QueryForm
         recommendations={recommendations}
         usedDatasets={usedDatasets}
@@ -67,17 +67,17 @@ const QueryView = props => {
         cancelQuery={cancelQuery}
         setQueryText={setQueryText}
       />
-      <div id="dataset-preview-table">
-        <div id="numRecords">{numRecords}</div>
+      <div id='dataset-preview-table'>
+        <div id='numRecords'>{numRecords}</div>
         <DataView
           data={queryData}
           page={page}
           columns={Object.keys(dataSources)}
           onNextPageClicked={onNextPageClicked}
-        ></DataView>
+        />
       </div>
     </query-view>
-  );
-};
+  )
+}
 
-export default QueryView;
+export default QueryView

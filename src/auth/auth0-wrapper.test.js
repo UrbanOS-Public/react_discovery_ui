@@ -1,7 +1,7 @@
 import { mount } from 'enzyme'
 import { default as createAuth0Client } from '@auth0/auth0-spa-js'
 import withAuth0 from './auth0-wrapper'
-import { AuthenticatedHTTPClient } from "../utils/http-clients"
+import { AuthenticatedHTTPClient } from '../utils/http-clients'
 
 jest.mock('@auth0/auth0-spa-js')
 jest.mock('axios')
@@ -23,7 +23,7 @@ describe('Auth0 wrapper component', () => {
         loginWithRedirect,
         logout
       })
-  })
+    })
 
     Auth0Wrapper = withAuth0(Wrapped)
     subject = mount(<Auth0Wrapper />)
@@ -66,11 +66,11 @@ describe('Auth0 wrapper component', () => {
       })
     })
   })
-  
+
   describe('provided logout', () => {
     const returnTo = 'http://example.com'
 
-    beforeEach(() => { 
+    beforeEach(() => {
       AuthenticatedHTTPClient.post = jest.fn()
       AuthenticatedHTTPClient.post.mockImplementationOnce(async () => ({
         status: 200,
@@ -78,24 +78,23 @@ describe('Auth0 wrapper component', () => {
       }))
 
       subject.update()
-      let wrapped = subject.find(Wrapped)
+      const wrapped = subject.find(Wrapped)
 
-      wrapped.props().auth.logout({returnTo})
+      wrapped.props().auth.logout({ returnTo })
     })
 
     it('calls auth0 logout', done => {
       setTimeout(() => {
-        expect(logout).toHaveBeenCalledWith({returnTo})
+        expect(logout).toHaveBeenCalledWith({ returnTo })
         done()
       })
     })
 
     it('calls logged-out endpoint on the API', done => {
       setTimeout(() => {
-        expect(AuthenticatedHTTPClient.post).toHaveBeenCalledWith('/api/v1/logged-out', '');
+        expect(AuthenticatedHTTPClient.post).toHaveBeenCalledWith('/api/v1/logged-out', '')
         done()
       })
     })
   })
 })
-

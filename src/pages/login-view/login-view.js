@@ -12,10 +12,10 @@ const LoginView = props => {
   return (
     sessionStorage.getItem('api-token')
       ? <Redirect
-        to={{
-          pathname: '/'
-        }}
-      />
+          to={{
+            pathname: '/'
+          }}
+        />
       : <login-view>
         <div className='box' onKeyPress={enterKeyLogin}>
           <h3>Restricted Dataset Login</h3>
@@ -30,7 +30,7 @@ const LoginView = props => {
           </div>
           <div className='submit' role='button' tabIndex={3} onClick={login} onKeyPress={spaceKeyLogin}>Login</div>
         </div>
-      </login-view >
+      </login-view>
   )
 }
 export default LoginView

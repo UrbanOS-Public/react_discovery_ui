@@ -2,15 +2,17 @@ import { Selectors, Routes as routes } from '../support/details_page.js'
 import { URLs as urls } from '../support/urls.js'
 const ogrip_dataset = require('../fixtures/details_page_spec/ogrip_dataset')
 
-const { datasetDetailsTab, writeSqlTab, visualizeTab, sqlHelp, plotlyHelp, organizationLogo, organizationTitle,
+const {
+  datasetDetailsTab, writeSqlTab, visualizeTab, sqlHelp, plotlyHelp, organizationLogo, organizationTitle,
   organizationDescription, datasetTitle, datasetDescription, keywords, showFullDatasetCheckbox, leafletContainer,
   datasetApiExample, activityNodesButton, curlExample0, curlExample1, curlExample2, queryInput,
   successMessage, errorMessage, numRecords, tableHeader, tableBody, reactTable, paginatorInput, pageNumber, nextPageButton, totalPages,
   submitQueryButton, cancelQueryButton, savedVisualizationsIcon, savedVisualizationsPopover,
   loginButton, saveIcon, savePopover, queryPrompt, saveButton, saveIndicator, clearIcon, cancelButton,
-  plotlyEditor, socialMediaTwitter, socialMediaFacebook, socialMediaLinkedin, clipboard, downloadButton } = Selectors
+  plotlyEditor, socialMediaTwitter, socialMediaFacebook, socialMediaLinkedin, clipboard, downloadButton
+} = Selectors
 
-function validateSocialMedia() {
+function validateSocialMedia () {
   cy.get(socialMediaTwitter)
   cy.get(socialMediaFacebook)
   cy.get(socialMediaLinkedin)
@@ -19,27 +21,27 @@ function validateSocialMedia() {
   cy.get(clipboard).contains('Copied!')
 }
 
-function validateLeftSection() {
+function validateLeftSection () {
   validateTopLeft()
   validateSocialMedia()
 }
 
-function validateTopRight() {
+function validateTopRight () {
   const ogripDatasetTitle = ogrip_dataset.title
   const ogripDatasetDescription = ogrip_dataset.description
   const numberOfKeywords = ogrip_dataset.keywords.length
   cy.get(datasetTitle).contains(ogripDatasetTitle)
-  cy.get(downloadButton).contains("Download")
+  cy.get(downloadButton).contains('Download')
   cy.get(datasetDescription).contains(ogripDatasetDescription)
   cy.get(keywords).children('a.keyword').should('have.length', numberOfKeywords)
 }
 
-function validateLeaflet() {
+function validateLeaflet () {
   cy.get(showFullDatasetCheckbox).not('have.class', 'selected')
   cy.get(leafletContainer)
 }
 
-function validateCurlExamples() {
+function validateCurlExamples () {
   const datasetApiValue = 'GET: http://localhost:4000/api/v1/organization/ogrip/dataset/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3/query?limit=200&_format=geojson'
   const get200RowsAllColumns = 'SELECT * FROM ohio_geographically_referenced_information_program_ogrip__622746a5_4e2a_4a4c_ac18_74cb1fb05ab3 LIMIT 200'
   const get200RowsFeatureColumns = 'SELECT feature FROM ohio_geographically_referenced_information_program_ogrip__622746a5_4e2a_4a4c_ac18_74cb1fb05ab3 WHERE feature IS NOT NULL LIMIT 200'
@@ -50,7 +52,7 @@ function validateCurlExamples() {
   cy.get(curlExample2).contains(exampleIdColumnsMatch)
 }
 
-function validateTopLeft() {
+function validateTopLeft () {
   const ogripTitle = ogrip_dataset.organization.title
   const ogripDescription = ogrip_dataset.organization.description
   cy.get(organizationLogo).should('have.attr', 'src').should('include', 'ohio_geographically_referenced_information_program_ogrip.jpg')
@@ -58,20 +60,20 @@ function validateTopLeft() {
   cy.get(organizationDescription).contains(ogripDescription)
 }
 
-function validateRightSection() {
+function validateRightSection () {
   validateTopRight()
   validateLeaflet()
   validateCurlExamples()
 }
 
-function validateHeader() {
+function validateHeader () {
   cy.get(datasetDetailsTab).contains('Dataset Details')
   cy.get(writeSqlTab).contains('Write SQL')
   cy.get(visualizeTab).contains('Visualize')
-  cy.get(writeSqlTab).click({force: true})
+  cy.get(writeSqlTab).click({ force: true })
   cy.get(sqlHelp).contains('SQL Help').should('have.attr', 'target').and('include', '_blank')
   cy.get(plotlyHelp).contains('Plot.ly Help').should('have.attr', 'target').and('include', '_blank')
-  cy.get(datasetDetailsTab).click({force: true})
+  cy.get(datasetDetailsTab).click({ force: true })
 }
 
 describe('The Ogrip Dataset Details Tab', function () {
@@ -79,9 +81,9 @@ describe('The Ogrip Dataset Details Tab', function () {
     cy.server()
     cy.route(routes.ogripDataset)
     cy.route(routes.info)
-    cy.route(routes["622746a5_4e2a_4a4c_ac18_74cb1fb05ab3"].downloadFormatGeojson)
-    cy.route(routes["622746a5_4e2a_4a4c_ac18_74cb1fb05ab3"].previewFormatGeojson)
-    cy.route(routes["622746a5_4e2a_4a4c_ac18_74cb1fb05ab3"].recommendations)
+    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].downloadFormatGeojson)
+    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatGeojson)
+    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].recommendations)
     cy.visit('/dataset/ogrip/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3')
   })
 
@@ -96,21 +98,19 @@ describe('The Ogrip Dataset Details Tab', function () {
     cy.get(activityNodesButton).click()
     cy.url().should('match', urls.datasetDetailsPage.activityNodesDatasets)
   })
-
 })
 
 describe('Write SQL Tab for Ogrip dataset', function () {
-
   it('Clicking Write SQL takes you to query page', function () {
     cy.server()
     cy.route(routes.ogripDataset)
     cy.route(routes.info)
-    cy.route(routes["622746a5_4e2a_4a4c_ac18_74cb1fb05ab3"].downloadFormatGeojson)
-    cy.route(routes["622746a5_4e2a_4a4c_ac18_74cb1fb05ab3"].previewFormatGeojson)
-    cy.route(routes["622746a5_4e2a_4a4c_ac18_74cb1fb05ab3"].previewFormatJson)
-    cy.route(routes["622746a5_4e2a_4a4c_ac18_74cb1fb05ab3"].recommendations)
+    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].downloadFormatGeojson)
+    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatGeojson)
+    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatJson)
+    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].recommendations)
     cy.visit('/dataset/ogrip/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3')
-    cy.route(routes["622746a5_4e2a_4a4c_ac18_74cb1fb05ab3"].query).as('getQueryResults')
+    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].query).as('getQueryResults')
     const query = 'SELECT * FROM ohio_geographically_referenced_information_program_ogrip__622746a5_4e2a_4a4c_ac18_74cb1fb05ab3\nLIMIT 200'
     const numberOfRowsPerPage = 50
     cy.get(writeSqlTab).click()
@@ -126,11 +126,9 @@ describe('Write SQL Tab for Ogrip dataset', function () {
     cy.get(paginatorInput).should('have.value', '1')
     cy.get(totalPages).contains('1')
   })
-
 })
 
 describe('Write SQL Tab for System dataset', function () {
-
   beforeEach(function () {
     cy.server()
     cy.route(routes.sysDataset)
@@ -190,7 +188,7 @@ describe('Write SQL Tab for System dataset', function () {
     cy.get(saveIcon).click()
     cy.get(savePopover).should('be.visible')
     cy.get(saveButton).should('be.disabled')
-    cy.get(queryPrompt).type("My Query")
+    cy.get(queryPrompt).type('My Query')
     cy.get(cancelButton).click()
     cy.get(saveIcon).click()
     cy.get(queryPrompt).clear()

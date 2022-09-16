@@ -12,10 +12,11 @@ describe('dataset preview', () => {
         writable: true,
         value: jest.fn().mockImplementation(query => ({
           matches: true
-        })),
-      });
+        }))
+      })
       retrieveDatasetPreviewMock = jest.fn()
-      mount(<DatasetPreview datasetId={'12345'}
+      mount(<DatasetPreview
+        datasetId='12345'
         retrieveDatasetPreview={retrieveDatasetPreviewMock}
         datasetPreview={
           {
@@ -23,7 +24,7 @@ describe('dataset preview', () => {
             meta: { columns: [] }
           }
         }
-      />)
+            />)
     })
 
     test('retrieveDatasetPreview should be called', () => {

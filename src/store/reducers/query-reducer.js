@@ -1,9 +1,9 @@
-import { SET_QUERY_TEXT, CLEAR_QUERY_TEXT, SET_QUERY_SUCCESS, SET_QUERY_FAILURE, SET_QUERY_IN_PROGRESS, RESET_QUERY, SET_USER_INTERACTED } from "../actions"
+import { SET_QUERY_TEXT, CLEAR_QUERY_TEXT, SET_QUERY_SUCCESS, SET_QUERY_FAILURE, SET_QUERY_IN_PROGRESS, RESET_QUERY, SET_USER_INTERACTED } from '../actions'
 
 const defaultQueryState = {
-  queryText: "",
+  queryText: '',
   queryData: null,
-  queryFailureMessage: "",
+  queryFailureMessage: '',
   isQueryLoading: false,
   cancelToken: null,
   queryHasBeenExecuted: false
@@ -13,16 +13,16 @@ export default (state = defaultQueryState, action) => {
   switch (action.type) {
     case SET_QUERY_TEXT:
       return Object.assign({}, state, {
-        queryText: action.queryText,
+        queryText: action.queryText
       })
     case CLEAR_QUERY_TEXT:
       return Object.assign({}, state, {
-        queryText: "",
+        queryText: ''
       })
     case SET_QUERY_SUCCESS:
       return Object.assign({}, state, {
         queryData: action.queryData,
-        queryFailureMessage: "",
+        queryFailureMessage: '',
         isQueryLoading: false,
         cancelToken: null
       })

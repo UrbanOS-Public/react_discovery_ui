@@ -41,23 +41,25 @@ const noMatch = () => (
 )
 
 const DiscoveryUI = () => {
-  return (<main-app-element>
-    <NetworkLoadingElement />
-    <Router>
-      <Switch>
-        <Route exact path={routes.root} component={DataSetListViewWrapper} />
-        <Route exact path={routes.datasetView} component={DatasetView} />
-        <Redirect exact path={routes.datasetVisualizationView} to={{ pathname: routes.datasetView, search: '?selectedIndex=1' }} />
-        <Route exact path={routes.healthCheck} component={() => <div>Everything is fine</div>} />
-        <Route exact path={routes.login} component={LoginView} />
-        <Route exact path={routes.oauth} component={OAuthView} />
-        <Route exact path={routes.oauthError} component={OAuthErrorView} />
-        <Route exact path={routes.visualizationView} component={VisualizationView} />
-        <Route exact path={routes.userProfile} component={UserProfileView} />
-        <Route component={noMatch} />
-      </Switch>
-    </Router>
-  </main-app-element>)
+  return (
+    <main-app-element>
+      <NetworkLoadingElement />
+      <Router>
+        <Switch>
+          <Route exact path={routes.root} component={DataSetListViewWrapper} />
+          <Route exact path={routes.datasetView} component={DatasetView} />
+          <Redirect exact path={routes.datasetVisualizationView} to={{ pathname: routes.datasetView, search: '?selectedIndex=1' }} />
+          <Route exact path={routes.healthCheck} component={() => <div>Everything is fine</div>} />
+          <Route exact path={routes.login} component={LoginView} />
+          <Route exact path={routes.oauth} component={OAuthView} />
+          <Route exact path={routes.oauthError} component={OAuthErrorView} />
+          <Route exact path={routes.visualizationView} component={VisualizationView} />
+          <Route exact path={routes.userProfile} component={UserProfileView} />
+          <Route component={noMatch} />
+        </Switch>
+      </Router>
+    </main-app-element>
+  )
 }
 
 const ReactDiscoveryUI = () => {

@@ -9,7 +9,7 @@ import * as ReactChartLibrary from 'react-chart-editor/lib'
 // We've utilized a strategy found here https://blog.carbonfive.com/2019/08/05/shallow-testing-hooks-with-enzyme/
 // which should become unneccessary in the near future
 const runUseEffect = () => {
-  const useEffect = jest.spyOn(React, "useEffect")
+  const useEffect = jest.spyOn(React, 'useEffect')
   useEffect.mockImplementation(f => f())
 }
 
@@ -114,7 +114,7 @@ describe('chart view', () => {
         col2: [3, 4]
       }
 
-      subject.setProps({dataSources: newDataSources})
+      subject.setProps({ dataSources: newDataSources })
 
       expect(subject.find(PlotlyEditor).props().dataSources).toBe(newDataSources)
     })
@@ -122,7 +122,7 @@ describe('chart view', () => {
     it('converts data sources to options for editor', () => {
       expect(subject.find(PlotlyEditor).props().dataSourceOptions).toEqual([
         { value: 'col1', label: 'col1' },
-        { value: 'col2', label: 'col2' },
+        { value: 'col2', label: 'col2' }
       ])
     })
 
@@ -157,7 +157,7 @@ describe('chart view', () => {
 
     beforeEach(() => {
       setChartInformation = jest.fn()
-      subject = createSubject({ dataSources: dataSources, chart: { data: plotlyData, frames: [], layout: {}}, setChartInformation })
+      subject = createSubject({ dataSources: dataSources, chart: { data: plotlyData, frames: [], layout: {} }, setChartInformation })
       setChartInformation.mockClear()
     })
 
@@ -167,40 +167,40 @@ describe('chart view', () => {
         col2: [3, 4]
       }
 
-      subject.setProps({dataSources: newDataSources})
+      subject.setProps({ dataSources: newDataSources })
 
       expect(setChartInformation).toHaveBeenCalledTimes(1)
       const firstPlotData = plotlyData[0]
-      const expected = {...firstPlotData, ...{x: newDataSources.col1, y: newDataSources.col2}}
-      expect(setChartInformation).toHaveBeenCalledWith({data: [expected], layout: {}, frames: []})
+      const expected = { ...firstPlotData, ...{ x: newDataSources.col1, y: newDataSources.col2 } }
+      expect(setChartInformation).toHaveBeenCalledWith({ data: [expected], layout: {}, frames: [] })
     })
   })
 
   describe('save chart', () => {
     it('sends a save chart event', () => {
-      var setChartInformation = jest.fn()
-      var subject = createSubject({ setChartInformation })
+      const setChartInformation = jest.fn()
+      const subject = createSubject({ setChartInformation })
       setChartInformation.mockClear()
 
-      var data = [{x:[1, 2, 3], xsrc: "col1"}]
+      const data = [{ x: [1, 2, 3], xsrc: 'col1' }]
       subject.find(PlotlyEditor).props().onUpdate(data, {}, [])
 
       expect(setChartInformation).toHaveBeenCalledTimes(1)
-      expect(setChartInformation).toHaveBeenCalledWith({data: data, layout: {}, frames: []})
+      expect(setChartInformation).toHaveBeenCalledWith({ data: data, layout: {}, frames: [] })
     })
   })
 })
 
-function createSubject(params = {}) {
+function createSubject (params = {}) {
   const defaultParams = {
-    chart: {data: [], layout: {}, frames: []},
+    chart: { data: [], layout: {}, frames: [] },
     isLoading: false,
-    dataSources: { data: ["sources"] },
+    dataSources: { data: ['sources'] },
     shouldAutoExecuteQuery: false,
     executeQuery: jest.fn(),
     setChartInformation: jest.fn()
   }
   const paramsWithDefaults = Object.assign({}, defaultParams, params)
 
-  return shallow(<ChartView {...paramsWithDefaults}/>)
+  return shallow(<ChartView {...paramsWithDefaults} />)
 }

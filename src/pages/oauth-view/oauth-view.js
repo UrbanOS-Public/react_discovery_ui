@@ -20,13 +20,13 @@ const getError = search => {
 const OAuthView = (props) => {
   const {
     callLoggedIn,
-    history: {location: { search }},
-    auth: { handleRedirectCallback, isLoading},
+    history: { location: { search } },
+    auth: { handleRedirectCallback, isLoading },
     setGlobalErrorState
   } = props
 
   const [handled, setHandled] = useState(false)
-  const [callbackState, setCallbackState] = useState({path: "/", search: ""})
+  const [callbackState, setCallbackState] = useState({ path: '/', search: '' })
 
   useEffect(() => {
     if (hasError(search)) {
@@ -41,9 +41,8 @@ const OAuthView = (props) => {
           const stateFromCallback = await handleRedirectCallback()
           setCallbackState(stateFromCallback.appState)
           callLoggedIn()
-        } 
-        catch { 
-          setGlobalErrorState(true, "Login was not successful. Please try again.")
+        } catch {
+          setGlobalErrorState(true, 'Login was not successful. Please try again.')
         }
       }
       setHandled(true)
@@ -53,14 +52,14 @@ const OAuthView = (props) => {
 
   return (
     <oauth-view>
-    {
+      {
       isLoading || !handled
         ? <LoadingElement />
         : <Redirect to={{ pathname: callbackState.path, search: callbackState.search }} />
     }
     </oauth-view>
   )
-  }
+}
 
 OAuthView.propTypes = {
   callLoggedIn: PropTypes.func.isRequired,
@@ -69,7 +68,7 @@ OAuthView.propTypes = {
     handleRedirectCallback: PropTypes.func.isRequired,
     isLoading: PropTypes.bool
   }).isRequired,
-  setGlobalErrorState: PropTypes.func,
+  setGlobalErrorState: PropTypes.func
 }
 
 export default OAuthView

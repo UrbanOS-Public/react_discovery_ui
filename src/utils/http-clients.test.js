@@ -7,9 +7,9 @@ describe('http-clients', () => {
 
   describe('AuthenticatedHTTPClient', () => {
     const token = 'token'
-    let fakeAuth0Client = {
-      isAuthenticated: (() => Promise.resolve(false)),
-      getTokenSilently: (() => Promise.resolve(token))
+    const fakeAuth0Client = {
+      isAuthenticated: () => Promise.resolve(false),
+      getTokenSilently: () => Promise.resolve(token)
     }
     beforeEach(() => {
       Auth0Client.get = jest.fn(() => Promise.resolve(fakeAuth0Client))
@@ -17,7 +17,7 @@ describe('http-clients', () => {
 
     describe('.get', () => {
       it('given a custom config, it passes it along to axios', async () => {
-        const config = {myCustomConfig: true}
+        const config = { myCustomConfig: true }
 
         await AuthenticatedHTTPClient.get(url, config)
 
@@ -31,9 +31,9 @@ describe('http-clients', () => {
     })
 
     describe('.post', () => {
-      const body = {stuff: true}
+      const body = { stuff: true }
       it('given a custom config, it passes it along to axios', async () => {
-        const config = {myCustomConfig: true}
+        const config = { myCustomConfig: true }
 
         await AuthenticatedHTTPClient.post(url, body, config)
 
@@ -45,13 +45,13 @@ describe('http-clients', () => {
         expect(mockAxios.post).toHaveBeenCalledWith(url, body, {})
       })
     })
-    
+
     describe('.initializeClient', () => {
       let client
 
       describe('isAuthenticated is true', () => {
         beforeEach(async () => {
-          fakeAuth0Client.isAuthenticated = (() => Promise.resolve(true))
+          fakeAuth0Client.isAuthenticated = () => Promise.resolve(true)
           client = await AuthenticatedHTTPClient.initializeClient()
         })
 
@@ -65,13 +65,13 @@ describe('http-clients', () => {
         })
 
         it('sends an auth header', () => {
-          expect(client.defaults.headers['Authorization']).toBe(`Bearer ${token}`)
+          expect(client.defaults.headers.Authorization).toBe(`Bearer ${token}`)
         })
       })
 
-      describe('isAuthenticated is false', () => {        
+      describe('isAuthenticated is false', () => {
         beforeEach(async () => {
-          fakeAuth0Client.isAuthenticated = (() => Promise.resolve(false))
+          fakeAuth0Client.isAuthenticated = () => Promise.resolve(false)
           client = await AuthenticatedHTTPClient.initializeClient()
         })
 
@@ -80,7 +80,7 @@ describe('http-clients', () => {
         })
 
         it('sends an auth header', () => {
-          expect(client.defaults.headers['Authorization']).toBe(undefined)
+          expect(client.defaults.headers.Authorization).toBe(undefined)
         })
       })
     })

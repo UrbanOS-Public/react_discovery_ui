@@ -7,7 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin')
 module.exports = (env, argv) => {
   const productionOptimizationsEnabled = argv.mode === 'production'
 
-  let plugins = [
+  const plugins = [
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: './index.html'
@@ -66,7 +66,7 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.scss$/,
-          use: ["style-loader", "css-loader", "sass-loader"]
+          use: ['style-loader', 'css-loader', 'sass-loader']
         }
       ]
     },
@@ -87,7 +87,7 @@ module.exports = (env, argv) => {
               typeofs: false
             }
           }
-        }),
+        })
       ],
       moduleIds: 'hashed',
       runtimeChunk: 'single',
@@ -96,7 +96,7 @@ module.exports = (env, argv) => {
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
-            chunks: 'all',
+            chunks: 'all'
           }
         }
       }

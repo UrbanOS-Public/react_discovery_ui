@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import './chart-view.scss'
 import React from 'react'
-import { dereference } from 'react-chart-editor/lib'
-import PlotlyEditor, { DefaultEditor } from 'react-chart-editor'
+import PlotlyEditor, { dereference, DefaultEditor } from 'react-chart-editor/lib'
+
 import plotly from 'plotly.js/dist/plotly'
 import { cloneDeep } from 'lodash'
 
@@ -17,7 +17,7 @@ const hasDataSources = dataSources => {
 const getDataSourceOptions = dataSources => {
   return Object.keys(dataSources).map(name => ({
     value: name,
-    label: name,
+    label: name
   }))
 }
 
@@ -34,7 +34,7 @@ const ChartView = (props) => {
   React.useEffect(() => {
     const clonedData = cloneDeep(data)
     dereference(clonedData, dataSources)
-    setChartInformation({data: clonedData, layout, frames})
+    setChartInformation({ data: clonedData, layout, frames })
   }, [dataSources])
 
   if (isLoading) {
@@ -54,7 +54,7 @@ const ChartView = (props) => {
   }
 
   const onUpdate = (data, layout, frames) => {
-    setChartInformation({data, layout, frames})
+    setChartInformation({ data, layout, frames })
   }
 
   return (
@@ -70,7 +70,7 @@ const ChartView = (props) => {
         advancedTraceTypeSelector
         useResizeHandler
         config={{ mapboxAccessToken: window.MAPBOX_ACCESS_TOKEN }}
-        data-testid="plotly-editor"
+        data-testid='plotly-editor'
       >
         <DefaultEditor logoSrc={window.LOGO_URL} />
       </PlotlyEditor>

@@ -14,5 +14,4 @@ const tagManagerArgs = {
 
 TagManager.initialize(tagManagerArgs)
 
-ReactDOM.render(<ReactDiscoveryUI />, document.getElementById("root"));
-
+ReactDOM.render(<ReactDiscoveryUI />, document.getElementById('root'))

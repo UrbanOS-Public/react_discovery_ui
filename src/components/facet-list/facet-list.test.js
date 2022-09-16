@@ -5,7 +5,7 @@ import { shallow, mount } from 'enzyme'
 describe('facet list', () => {
   let subject, mockClickHandler, mockShowMoreHandler
 
-  let facets = [
+  const facets = [
     { name: 'neat COTA', count: 1, selected: true },
     { name: 'Apple', count: 1, selected: false },
     { name: 'Massive Data', count: 5, selected: false },
@@ -48,7 +48,6 @@ describe('facet list', () => {
     expect(subject.find(Checkbox).filterWhere(n => n.props().selected)).toHaveLength(2)
   })
 
-
   describe('show more', () => {
     it('button appears when there are more facets than limit', () => {
       expect(subject.find('.show-more')).toHaveLength(1)
@@ -76,18 +75,18 @@ describe('facet list', () => {
 
   describe('title', () => {
     it('should add s to title when it does not exist', () => {
-        expect(subject.find('.section-header').text()).toEqual('Organizations')
+      expect(subject.find('.section-header').text()).toEqual('Organizations')
     })
 
     it('should not add s to title when it does exist', () => {
       subject = shallow(
-          <FacetList
-        facets={facets}
-        clickHandler={mockClickHandler}
-        title='Organizations'
-        limit={6}
-        showMoreHandler={mockShowMoreHandler}
-          />)
+        <FacetList
+          facets={facets}
+          clickHandler={mockClickHandler}
+          title='Organizations'
+          limit={6}
+          showMoreHandler={mockShowMoreHandler}
+        />)
 
       expect(subject.find('.section-header').text()).toEqual('Organizations')
     })

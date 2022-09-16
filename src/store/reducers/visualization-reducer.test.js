@@ -28,7 +28,7 @@ describe('Visualization Reducer', () => {
         loadSuccess: true,
         loadFailure: true
       }
-      newState = reducer(previousState, visualizationLoad("viz_id"))
+      newState = reducer(previousState, visualizationLoad('viz_id'))
     })
 
     it('sets `loading` state to true', () => {
@@ -59,7 +59,7 @@ describe('Visualization Reducer', () => {
         saveSuccess: true,
         saveFailure: true
       }
-      newState = reducer(previousState, visualizationSave("hello", "world"))
+      newState = reducer(previousState, visualizationSave('hello', 'world'))
     })
 
     it('sets `saving` state to true', () => {
@@ -112,7 +112,7 @@ describe('Visualization Reducer', () => {
   })
 
   describe('VISUALIZATION_LOAD_ALL', () => {
-    const newVisualizations = [{title: "title1", id: "id1"}, {title: "title2", id: "id2"}]
+    const newVisualizations = [{ title: 'title1', id: 'id1' }, { title: 'title2', id: 'id2' }]
     beforeEach(() => {
       previousState = {
         loading: false,
@@ -137,8 +137,8 @@ describe('Visualization Reducer', () => {
 
   describe('VISUALIZATION_LOAD_ALL_SUCCESS', () => {
     const newVisualizations = [
-      {title: "title1", id: "id1", created: "2019-12-12T14:33:08", updated: "2019-12-12T14:33:08"},
-      {title: "title2", id: "id2", created: "2019-12-09T15:40:15", updated: "2019-12-12T15:53:54"}
+      { title: 'title1', id: 'id1', created: '2019-12-12T14:33:08', updated: '2019-12-12T14:33:08' },
+      { title: 'title2', id: 'id2', created: '2019-12-09T15:40:15', updated: '2019-12-12T15:53:54' }
     ]
 
     beforeEach(() => {
@@ -163,7 +163,7 @@ describe('Visualization Reducer', () => {
       expect(newState.loadFailure).toBeFalsy()
     })
 
-    it("provides a link to each saved visualization in the title field", () => {
+    it('provides a link to each saved visualization in the title field', () => {
       expect(newState.userVisualizations[0].title).toEqual(<Link to='/visualization/id1'>title1</Link>)
       expect(newState.userVisualizations[1].title).toEqual(<Link to='/visualization/id2'>title2</Link>)
     })
@@ -171,8 +171,8 @@ describe('Visualization Reducer', () => {
 
   describe('VISUALIZATION_LOAD_ALL_FAILURE', () => {
     const newVisualizations = [
-      {title: "title1", id: "id1", created: "2019-12-12T14:33:08", updated: "2019-12-12T14:33:08"},
-      {title: "title2", id: "id2", created: "2019-12-09T15:40:15", updated: "2019-12-12T15:53:54"}
+      { title: 'title1', id: 'id1', created: '2019-12-12T14:33:08', updated: '2019-12-12T14:33:08' },
+      { title: 'title2', id: 'id2', created: '2019-12-09T15:40:15', updated: '2019-12-12T15:53:54' }
     ]
 
     beforeEach(() => {
@@ -196,7 +196,6 @@ describe('Visualization Reducer', () => {
       expect(newState.loadFailure).toBeTruthy()
     })
   })
-
 
   describe('VISUALIZATION_LOAD_SUCCESS', () => {
     const newVisualization = { id: 'new' }
@@ -346,21 +345,21 @@ describe('Visualization Reducer', () => {
     })
 
     it('updates the chart value in the store', () => {
-      newState = reducer(previousState, setChartInformation({ data: [{x: 1}], frames: [], layout: {}}))
+      newState = reducer(previousState, setChartInformation({ data: [{ x: 1 }], frames: [], layout: {} }))
 
-      expect(newState.chart).toEqual({ data: [{x: 1}], frames: [], layout: {}})
+      expect(newState.chart).toEqual({ data: [{ x: 1 }], frames: [], layout: {} })
     })
 
     it('gives sane defaults to the chart properties when they are not set', () => {
       newState = reducer(previousState, setChartInformation({}))
 
-      expect(newState.chart).toEqual({ data: [], frames: [], layout: {}})
+      expect(newState.chart).toEqual({ data: [], frames: [], layout: {} })
     })
 
     it('gives sane defaults to the chart properties when they are set to the wrong types', () => {
-      newState = reducer(previousState, setChartInformation({ data: [[]], frames: {more: 'stuff'}, layout: []}))
+      newState = reducer(previousState, setChartInformation({ data: [[]], frames: { more: 'stuff' }, layout: [] }))
 
-      expect(newState.chart).toEqual({ data: [], frames: [], layout: {}})
+      expect(newState.chart).toEqual({ data: [], frames: [], layout: {} })
     })
   })
 
@@ -371,7 +370,7 @@ describe('Visualization Reducer', () => {
         deleteSuccess: true,
         deleteFailure: true
       }
-      newState = reducer(previousState, visualizationDelete({id: "Frank"}))
+      newState = reducer(previousState, visualizationDelete({ id: 'Frank' }))
     })
 
     it('sets `deleting` state to true', () => {

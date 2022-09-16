@@ -24,16 +24,18 @@ export default class extends Component {
             return Object.assign({}, facet, { selected })
           })
 
-          return <FacetList
-            facets={facets}
-            title={title}
-            clickHandler={(name) => this.clickHandler(title, name)}
-            showMoreHandler={(title, facets) => this.showMoreHandler(title, facets)}
-            limit={10}
-            key={title}
-          />
+          return (
+            <FacetList
+              facets={facets}
+              title={title}
+              clickHandler={(name) => this.clickHandler(title, name)}
+              showMoreHandler={(title, facets) => this.showMoreHandler(title, facets)}
+              limit={10}
+              key={title}
+            />
+          )
         })}
-        <Dialog open={this.state.showDialog} onClose={() => { this.setState({ showDialog: false }) }} >
+        <Dialog open={this.state.showDialog} onClose={() => { this.setState({ showDialog: false }) }}>
           <div data-testid='dialog-content' className='dialog-content'>
             <FacetList
               facets={this.state.dialogFacets}

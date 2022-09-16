@@ -6,9 +6,9 @@ import qs from 'qs'
 const defaultParamFunction = () => ({})
 
 export default ({ endpoint, actionator, errorAction = displayError(), queryParameterBuilder = defaultParamFunction }) => {
-  return function* retrieveData(action) {
+  return function * retrieveData (action) {
     try {
-      let query = {
+      const query = {
         baseURL: window.API_HOST,
         params: queryParameterBuilder(action),
         paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'brackets' }),

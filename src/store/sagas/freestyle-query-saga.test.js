@@ -29,7 +29,7 @@ describe('freestyle-query-saga', () => {
   }
 
   const queryText = 'select * from lettuce'
-  const queryData = [{ hello: "world" }, { hello: "columbus" }]
+  const queryData = [{ hello: 'world' }, { hello: 'columbus' }]
   const response = {
     status: 200,
     data: queryData
@@ -57,7 +57,7 @@ describe('freestyle-query-saga', () => {
         cancelToken: expect.any(Object),
         baseURL: window.API_HOST,
         withCredentials: true,
-        headers: { "Content-Type": "text/plain" },
+        headers: { 'Content-Type': 'text/plain' },
         validateStatus: false
       })
     })
@@ -77,7 +77,7 @@ describe('freestyle-query-saga', () => {
     })
 
     it('dispatches a QUERY_DATASET_FAILED event based on 400 code', () => {
-      const mock_error_message = "bad things happened"
+      const mock_error_message = 'bad things happened'
       const data = { message: mock_error_message }
       const response = {
         status: 400,
@@ -117,7 +117,7 @@ describe('freestyle-query-saga', () => {
         cancelToken: expect.any(Object),
         baseURL: window.API_HOST,
         withCredentials: true,
-        headers: { "Content-Type": "text/plain" },
+        headers: { 'Content-Type': 'text/plain' },
         validateStatus: false
       })
     })
