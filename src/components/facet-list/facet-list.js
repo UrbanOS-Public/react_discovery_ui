@@ -2,7 +2,6 @@ import _ from 'lodash'
 import Checkbox from '../generic-elements/checkbox'
 import './facet-list.scss'
 
-
 const FacetList = props => {
   const getText = (name, count) => {
     return `${name || 'Unorganized'} (${count})`
@@ -28,7 +27,8 @@ const FacetList = props => {
               clickHandler={() => props.clickHandler(name)}
               text={getText(name, count)}
               selected={selected}
-              key={name}/>
+              key={name}
+            />
           ))
           .value()
       }

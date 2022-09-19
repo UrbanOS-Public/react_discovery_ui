@@ -28,7 +28,7 @@ export const FREESTYLE_QUERY_UPDATE = 'FREESTYLE_QUERY_UPDATE'
 export const QUERY_DATASET_IN_PROGRESS = 'QUERY_DATASET_IN_PROGRESS'
 export const QUERY_DATASET_CANCELLED = 'QUERY_DATASET_CANCELLED'
 
-//-- Freestyle Query Actions ----------------------------------
+// -- Freestyle Query Actions ----------------------------------
 export const EXECUTE_FREESTYLE_QUERY = 'EXECUTE_FREESTYLE_QUERY'
 export const executeFreestyleQuery = queryText => ({ type: EXECUTE_FREESTYLE_QUERY, queryText })
 
@@ -62,7 +62,7 @@ export const setQueryInProgress = cancelToken => ({ type: SET_QUERY_IN_PROGRESS,
 export const RESET_QUERY = 'RESET_QUERY'
 export const resetQuery = () => ({ type: RESET_QUERY })
 
-//-------------------------------------------------------------
+// -------------------------------------------------------------
 
 export const displayError = () => ({
   type: DISPLAY_ERROR
@@ -101,7 +101,7 @@ export const retrieveDatasetPreview = (id, format = 'json') => ({
 })
 
 export const datasetPreview = (data, format = 'json') => ({
-  type: DATASET_PREVIEW, value: {data, format}
+  type: DATASET_PREVIEW, value: { data, format }
 })
 
 export const clearDatasetPreview = () => ({
@@ -247,7 +247,7 @@ export const visualizationReset = () => ({
   type: VISUALIZATION_RESET
 })
 
-export const DATASET_SEARCH = "DATASET_SEARCH"
+export const DATASET_SEARCH = 'DATASET_SEARCH'
 export const datasetSearch = (params) => ({
   type: DATASET_SEARCH, value: params
 })
@@ -257,13 +257,12 @@ export const datasetSearchSucceeded = (data) => ({
   type: DATASET_SEARCH_SUCCEEDED, value: data
 })
 
-export const OAUTH_LOGGED_IN = "OAUTH_LOGGED_IN"
+export const OAUTH_LOGGED_IN = 'OAUTH_LOGGED_IN'
 export const oAuthCallLoggedIn = () => ({
   type: OAUTH_LOGGED_IN
 })
 
-export const SET_GLOBAL_ERROR_STATE = "SET_GLOBAL_ERROR_STATE"
+export const SET_GLOBAL_ERROR_STATE = 'SET_GLOBAL_ERROR_STATE'
 export const setGlobalErrorState = (isGlobalError, globalErrorMessage) => ({
-  type: SET_GLOBAL_ERROR_STATE, value: {isGlobalError, globalErrorMessage}
+  type: SET_GLOBAL_ERROR_STATE, value: { isGlobalError, globalErrorMessage }
 })
-

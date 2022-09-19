@@ -7,7 +7,7 @@ import { getFreestyleQueryText } from '../query-selectors'
 const cancelMessage = 'Query cancelled by user'
 const failureMessage = 'There may be a syntax issue or a table name might be misspelled'
 
-function* executeQuery({ queryText }) {
+function * executeQuery ({ queryText }) {
   const cancelToken = AuthenticatedHTTPClient.cancelTokenSource()
 
   let queryBody
@@ -27,7 +27,7 @@ function* executeQuery({ queryText }) {
         cancelToken: cancelToken.token,
         baseURL: window.API_HOST,
         withCredentials: true,
-        headers: { "Content-Type": "text/plain" },
+        headers: { 'Content-Type': 'text/plain' },
         validateStatus: false
       }
     )
@@ -43,20 +43,20 @@ function* executeQuery({ queryText }) {
   }
 }
 
-const cancelQuery = function* () {
+const cancelQuery = function * () {
   const cancelToken = yield select(getDatasetQueryCancelToken)
   return cancelToken.cancel(cancelMessage)
 }
 
-function error_message(message) {
-  if (message == "Bad Request") {
+function error_message (message) {
+  if (message == 'Bad Request') {
     return failureMessage
   } else {
     return message
   }
 }
 
-export default function* freestyleQuerySaga() {
+export default function * freestyleQuerySaga () {
   yield takeEvery(EXECUTE_FREESTYLE_QUERY, executeQuery)
   yield takeEvery(CANCEL_FREESTYLE_QUERY, cancelQuery)
 }

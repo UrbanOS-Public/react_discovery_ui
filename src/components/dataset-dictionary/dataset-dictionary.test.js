@@ -2,7 +2,7 @@ import { shallow, mount } from 'enzyme'
 import DatasetDictionary from './dataset-dictionary'
 import CollapsableBox from '../collapsable-box'
 import ReactTable from 'react-table'
-import Tooltip from '../tooltip';
+import Tooltip from '../tooltip'
 
 describe('dataset dictionary', () => {
   const basicSchema = [
@@ -10,7 +10,7 @@ describe('dataset dictionary', () => {
     { name: 'age', type: 'integer', description: 'the age' }
   ]
 
-  var subject;
+  let subject
 
   describe('with a basic schema', () => {
     beforeEach(() => {
@@ -19,8 +19,8 @@ describe('dataset dictionary', () => {
         writable: true,
         value: jest.fn().mockImplementation(query => ({
           matches: true
-        })),
-      });
+        }))
+      })
       subject = mount(<DatasetDictionary schema={basicSchema} expanded />)
     })
 
@@ -80,7 +80,7 @@ describe('dataset dictionary', () => {
       const table = subject.find('.dataset-schema-table')
       const cells = table.find('.rt-td')
 
-      const typeIndex = 2;
+      const typeIndex = 2
       expect(cells.at(typeIndex).text()).toBe(`list of ${schemaWithList[0].itemType}`)
     })
   })
@@ -89,10 +89,17 @@ describe('dataset dictionary', () => {
     const schemaWithMaps = [
       { name: 'name', type: 'string', description: 'the name' },
       {
-        name: 'mother', type: 'map', description: 'the mother', subSchema: [
+        name: 'mother',
+        type: 'map',
+        description: 'the mother',
+        subSchema: [
           { name: 'name', type: 'string', description: 'mother\'s name' },
           {
-            name: 'children', type: 'list', description: 'the chillins', itemType: 'map', subSchema: [
+            name: 'children',
+            type: 'list',
+            description: 'the chillins',
+            itemType: 'map',
+            subSchema: [
               { name: 'age', type: 'integer', description: 'the child\'s age' }
             ]
           }
@@ -100,7 +107,7 @@ describe('dataset dictionary', () => {
       }
     ]
 
-    var topLevelTable, topLevelCells
+    let topLevelTable, topLevelCells
 
     beforeEach(() => {
       subject = mount(<DatasetDictionary schema={schemaWithMaps} expanded />)
@@ -122,7 +129,7 @@ describe('dataset dictionary', () => {
     describe('with the map type expanded', () => {
       const expanderCellIndex = 4
 
-      var subTable, subTableCells
+      let subTable, subTableCells
 
       beforeEach(() => {
         topLevelCells.at(expanderCellIndex).simulate('click')
@@ -161,7 +168,7 @@ describe('dataset dictionary', () => {
       })
 
       describe('and the list of map type expanded', () => {
-        var subSubTable, subSubTableCells
+        let subSubTable, subSubTableCells
 
         beforeEach(() => {
           subTableCells.at(expanderCellIndex).simulate('click')
@@ -195,7 +202,7 @@ describe('dataset dictionary', () => {
       }
     ]
 
-    var topLevelTable
+    let topLevelTable
 
     beforeEach(() => {
       subject = mount(<DatasetDictionary schema={schemaWithMaps} expanded />)
@@ -207,7 +214,7 @@ describe('dataset dictionary', () => {
 
     it('displays an informative message', () => {
       const messageDiv = topLevelTable.find('.error')
-      expect(messageDiv.text()).toBe("Schema information not found. Contact the data curator.")
+      expect(messageDiv.text()).toBe('Schema information not found. Contact the data curator.')
     })
   })
 
@@ -219,7 +226,7 @@ describe('dataset dictionary', () => {
     it('renders the collapsable box with an informative message', () => {
       const collapsableBox = subject.find(CollapsableBox)
       expect(collapsableBox.length).toBe(1)
-      expect(collapsableBox.props().title).toBe("Data Dictionary Unavailable")
+      expect(collapsableBox.props().title).toBe('Data Dictionary Unavailable')
     })
 
     it('does not render the table', () => {
@@ -239,7 +246,7 @@ describe('dataset dictionary', () => {
     it('renders the collapsable box with an informative message', () => {
       const collapsableBox = subject.find(CollapsableBox)
       expect(collapsableBox.length).toBe(1)
-      expect(collapsableBox.props().title).toBe("Data Dictionary Unavailable")
+      expect(collapsableBox.props().title).toBe('Data Dictionary Unavailable')
     })
 
     it('does not render the table', () => {
@@ -261,7 +268,7 @@ describe('dataset dictionary', () => {
 
   it('renders a view link', () => {
     window.API_HOST = 'http://right.here.com'
-    subject = mount(<DatasetDictionary schema={basicSchema} datasetId={'all-the-datas'} />)
+    subject = mount(<DatasetDictionary schema={basicSchema} datasetId='all-the-datas' />)
 
     const link = subject.find('.view-link a')
     expect(link.props().href).toBe(`${window.API_HOST}/api/v1/dataset/all-the-datas/dictionary`)

@@ -1,17 +1,17 @@
-import './checkbox.scss';
-import PropTypes from 'prop-types';
+import './checkbox.scss'
+import PropTypes from 'prop-types'
 
 const Checkbox = props => {
   const keyHandler = (e) => {
     const SPACEBAR = 32
     if (e.keyCode === SPACEBAR) {
-        handleClick()
-        e.preventDefault()
+      handleClick()
+      e.preventDefault()
     }
   }
 
   const handleClick = () => {
-    if(!props.disabled) {
+    if (!props.disabled) {
       props.clickHandler()
     }
   }
@@ -23,7 +23,8 @@ const Checkbox = props => {
       tabIndex='0'
       key={name}
       onClick={() => handleClick()}
-      onKeyDown={(e) => keyHandler(e)}>
+      onKeyDown={(e) => keyHandler(e)}
+    >
       <span data-testid={`checkbox-indicator-${props.text}`} className={`checkbox-indicator ${props.selected ? 'selected' : ''}`}>
         {props.selected && <div className='checkmark' />}
       </span>

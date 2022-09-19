@@ -1,5 +1,5 @@
-import { createSelector } from "reselect"
-import { isQueryTextAvailable, getVisualizationDataSources } from "./query-selectors"
+import { createSelector } from 'reselect'
+import { isQueryTextAvailable, getVisualizationDataSources } from './query-selectors'
 import { mapValues, cloneDeep } from 'lodash'
 import { dereference } from 'react-chart-editor/lib'
 
@@ -37,7 +37,7 @@ const clearValues = dataSources => {
 }
 
 const dereferenceAndClone = (data, dataSources) => {
-  var clonedData = cloneDeep(data)
+  const clonedData = cloneDeep(data)
   dereference(clonedData, dataSources)
   return clonedData
 }

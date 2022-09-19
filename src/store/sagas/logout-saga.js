@@ -8,7 +8,7 @@ function * logout ({ value: { username, password, history } }) {
     const location = _.get(history, 'location.state.from', { pathname: '/', search: '' })
     const response = yield call(axios.get, '/api/v1/logout', {
       baseURL: window.API_HOST,
-      headers: { 'Authorization': `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${token}` },
       withCredentials: true
     })
 

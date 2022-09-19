@@ -1,7 +1,7 @@
 import {
   datasetSearch
 } from '../actions'
-import theRealDatasetSaga  from './dataset-list-saga'
+import theRealDatasetSaga from './dataset-list-saga'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
@@ -24,7 +24,7 @@ describe('dataset-list-saga', () => {
       }
 
       const queryData = {
-        results: "my-results"
+        results: 'my-results'
       }
 
       const response = {
@@ -39,7 +39,7 @@ describe('dataset-list-saga', () => {
       const params = {
         apiAccessible: true,
         page: 1,
-        facets: {organization: ['my-org']},
+        facets: { organization: ['my-org'] },
         searchText: 'mcsearchin',
         sortOrder: 'name_asc'
       }
@@ -49,8 +49,8 @@ describe('dataset-list-saga', () => {
       const expectedParams = {
         facets: {
           organization: [
-            'my-org',
-          ],
+            'my-org'
+          ]
         },
         limit: 10,
         offset: 0,

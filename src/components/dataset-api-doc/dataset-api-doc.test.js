@@ -8,7 +8,7 @@ describe('dataset api doc ', () => {
     fileTypes: ['CSV'],
     systemName: 'test__dataset',
     organization: { name: 'coda_name' },
-    schema: [{ name: "id" }]
+    schema: [{ name: 'id' }]
   }
   let subject
 
@@ -17,9 +17,9 @@ describe('dataset api doc ', () => {
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation(query => ({
-        matches: true,
-      })),
-    });
+        matches: true
+      }))
+    })
     subject = render(<DatasetApiDoc dataset={dataset} />)
   })
 

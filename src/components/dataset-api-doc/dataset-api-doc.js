@@ -37,7 +37,7 @@ const simpleApiParams = [
     default: '',
     description:
       'A whole number limiting the total rows returned. The API does not guarantee the same list of rows every time when limited this way.',
-    example: "200"
+    example: '200'
   },
   {
     name: '_format',
@@ -56,7 +56,7 @@ const freestyleApiParams = [
   }
 ]
 
-function getFreestyleApiExamples(dataset) {
+function getFreestyleApiExamples (dataset) {
   return [
     {
       body: `SELECT * FROM ${dataset.systemName} LIMIT 200`,
@@ -67,13 +67,13 @@ function getFreestyleApiExamples(dataset) {
       description: `Get only the column ${dataset.schema[0].name} from the dataset where ${dataset.schema[0].name} contains data.`
     },
     {
-      body: `SELECT t1.example_column, t2.joined_column FROM example_dataset_one t1 INNER JOIN example_dataset_two t2 ON t1.example_id = t2.example_id LIMIT 200`,
-      description: `Get rows from two example datasets where the example_id columns match. Get example_column from one and joined_column from the other.`
+      body: 'SELECT t1.example_column, t2.joined_column FROM example_dataset_one t1 INNER JOIN example_dataset_two t2 ON t1.example_id = t2.example_id LIMIT 200',
+      description: 'Get rows from two example datasets where the example_id columns match. Get example_column from one and joined_column from the other.'
     }
   ]
 }
 
-function freestyleDescription() {
+function freestyleDescription () {
   return (
     <div>
       This query supports the full ANSI SQL syntax, and only selects from the tables specified in the query.<br />
@@ -88,7 +88,7 @@ function freestyleDescription() {
   )
 }
 
-function renderHeader() {
+function renderHeader () {
   return (
     <div>
       Access Operating System data with supported queries. All supported
@@ -97,19 +97,19 @@ function renderHeader() {
   )
 }
 
-function renderExamples(dataset) {
+function renderExamples (dataset) {
   const format = getDefaultFormat(dataset)
   return (
     <div>
       <ApiExample
-        title={'Simple query'}
+        title='Simple query'
         descriptionHtml={<div>This query selects all columns from the dataset, limited to 200 rows returned.</div>}
         url={`${window.API_HOST}/api/v1/organization/${dataset.organization.name}/dataset/${dataset.name}/query?limit=200&_format=${format}`}
         action='GET'
         params={simpleApiParams}
       />
       <ApiExample
-        title={'Freestyle query'}
+        title='Freestyle query'
         descriptionHtml={freestyleDescription()}
         url={`${window.API_HOST}/api/v1/query?_format=${format}`}
         action='POST'
@@ -122,13 +122,14 @@ function renderExamples(dataset) {
 
 export default ({ expanded, dataset }) => {
   return (
-    <dataset-api-doc >
+    <dataset-api-doc>
       <CollapsableBox
-        title="API Examples"
+        title='API Examples'
         headerHtml={renderHeader()}
-        expanded={expanded}>
+        expanded={expanded}
+      >
         {renderExamples(dataset)}
       </CollapsableBox>
-    </dataset-api-doc >
+    </dataset-api-doc>
   )
 }

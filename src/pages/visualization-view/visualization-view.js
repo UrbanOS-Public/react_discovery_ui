@@ -13,8 +13,6 @@ import QueryView from '../query-view'
 import routes from '../../routes'
 import VisualizationListMenuItem from '../../components/visualization-list-menu-item'
 
-
-
 const VisualizationView = (props) => {
   const {
     reset,
@@ -38,8 +36,8 @@ const VisualizationView = (props) => {
   const startIndex = idFromUrl ? 1 : 0
   const [index, setIndex] = useState(startIndex)
 
-  React.useEffect(() => { return function cleanup() { reset() }}, [])
-  React.useEffect(() => { if (idFromUrl &&  idFromUrl !== idFromState) load(idFromUrl) }, [idFromUrl])
+  React.useEffect(() => { return function cleanup () { reset() } }, [])
+  React.useEffect(() => { if (idFromUrl && idFromUrl !== idFromState) load(idFromUrl) }, [idFromUrl])
   React.useEffect(() => { if (idFromState && idFromUrl !== idFromState) history.push(linkUrl) }, [idFromState])
   React.useEffect(() => { setLocalTitle(title) }, [title])
 
@@ -63,7 +61,7 @@ const VisualizationView = (props) => {
 
   return (
     <visualization-view>
-      <Tabs selectedIndex={index} onSelect={tabIndex => setIndex(tabIndex)} >
+      <Tabs selectedIndex={index} onSelect={tabIndex => setIndex(tabIndex)}>
         <TabList className='header'>
           <span className='tab-area'>
             <Tab className='header-item tab' selectedClassName='selected'>
@@ -74,7 +72,7 @@ const VisualizationView = (props) => {
             </Tab>
           </span>
           <span className='action-area'>
-            <React.Fragment >
+            <>
               <VisualizationListMenuItem
                 isAuthenticated={isAuthenticated}
               />
@@ -89,17 +87,17 @@ const VisualizationView = (props) => {
                 allowedActions={allowedActions}
                 isAuthenticated={isAuthenticated}
               />
-            </React.Fragment>
+            </>
           </span>
         </TabList>
         <TabPanel>
           <QueryView />
         </TabPanel>
-        <TabPanel className="visualization" selectedClassName="visualization--selected">
+        <TabPanel className='visualization' selectedClassName='visualization--selected'>
           <ChartView />
         </TabPanel>
       </Tabs>
-    </visualization-view >
+    </visualization-view>
   )
 }
 

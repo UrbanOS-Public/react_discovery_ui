@@ -30,22 +30,22 @@ class Share extends React.Component {
 
         <TwitterShareButton url={shareLocation} className='twitter button'>
           <TwitterIcon iconBgStyle={iconBgStyle} className='icon' size={iconSize} />
-          <div data-testid="social-media-twitter" className='share'>Tweet</div>
+          <div data-testid='social-media-twitter' className='share'>Tweet</div>
         </TwitterShareButton>
 
         <FacebookShareButton url={shareLocation} className='facebook button'>
           <FacebookIcon iconBgStyle={iconBgStyle} className='icon' size={iconSize} />
-          <div data-testid="social-media-facebook" className='share'>Share</div>
+          <div data-testid='social-media-facebook' className='share'>Share</div>
         </FacebookShareButton>
 
         <LinkedinShareButton url={shareLocation} className='linkedin button'>
           <LinkedinIcon iconBgStyle={iconBgStyle} className='icon' size={iconSize} />
-          <div data-testid="social-media-linkedin" className='share'>Share</div>
+          <div data-testid='social-media-linkedin' className='share'>Share</div>
         </LinkedinShareButton>
 
         <CopyToClipboard style={{ height: `${iconSize}px` }} text={shareLocation} onCopy={() => this.setState({ copyMessage: 'Copied!' })}>
           <button tabIndex='0' className='clipboard button'>
-            <div data-testid="clipboard" className='copy'>{this.state.copyMessage}</div>
+            <div data-testid='clipboard' className='copy'>{this.state.copyMessage}</div>
           </button>
         </CopyToClipboard>
       </share-zone>

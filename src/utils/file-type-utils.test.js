@@ -1,11 +1,11 @@
-import {getDefaultFormat} from './file-type-utils'
+import { getDefaultFormat } from './file-type-utils'
 describe('datasetUrl', () => {
-    it('returns the first file type downcased', () => {
-        const dataset = {
-        id: 'dataset_id',
-        sourceType: 'ingest',
-        fileTypes: ['A-Positive', 'ONEGATIVE']
-        }
+  it('returns the first file type downcased', () => {
+    const dataset = {
+      id: 'dataset_id',
+      sourceType: 'ingest',
+      fileTypes: ['A-Positive', 'ONEGATIVE']
+    }
 
     expect(getDefaultFormat(dataset)).toBe('a-positive')
   })
@@ -25,5 +25,5 @@ describe('datasetUrl', () => {
       fileTypes: []
     }
     expect(getDefaultFormat(dataset)).toBe('json')
-    })
+  })
 })

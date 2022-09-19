@@ -19,7 +19,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   getUserVisualizations: () => dispatch(visualizationsLoadAll()),
   deleteVisualization: (id) => dispatch(visualizationDelete({ id })),
-  clearDeleteVisualizationState: () => dispatch(visualizationDeleteClear()),
+  clearDeleteVisualizationState: () => dispatch(visualizationDeleteClear())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withAuth0(UserProfileView))

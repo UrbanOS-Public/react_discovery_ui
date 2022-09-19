@@ -3,6 +3,6 @@ const mock = {
   post: jest.fn()
 }
 
-mock.create = jest.fn(config => ({...mock, defaults: config}))
+mock.create = jest.fn(config => ({ ...mock, defaults: config }))
 
 export default mock

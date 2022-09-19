@@ -1,10 +1,10 @@
 import { render } from 'enzyme'
 import LoginZone from './login-zone'
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom'
 
 describe('LoginZone ', () => {
   test('Should Render logout when token is present', () => {
-    const subject = render(<LoginZone token="blah" logout={jest.fn()} />)
+    const subject = render(<LoginZone token='blah' logout={jest.fn()} />)
     expect(subject.find('logout-component').length).toEqual(1)
     expect(subject.length).toEqual(1)
   })

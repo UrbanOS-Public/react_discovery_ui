@@ -1,9 +1,9 @@
 import React from 'react'
 import { Map, TileLayer, GeoJSON } from 'react-leaflet'
 import './geojson-visualization.scss'
-import "!style-loader!css-loader!leaflet/dist/leaflet.css"
+import '!style-loader!css-loader!leaflet/dist/leaflet.css'
 import LoadingElement from '../../../components/generic-elements/loading-element'
-import { GeoJsonUtils } from '../../../utils';
+import { GeoJsonUtils } from '../../../utils'
 import ErrorComponent from '../../../components/generic-elements/error-component'
 import Checkbox from '../../../components/generic-elements/checkbox'
 import CollapsableBox from '../../../components/collapsable-box'
@@ -14,7 +14,7 @@ delete L.Icon.Default.prototype._getIconUrl
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
   iconUrl: require('leaflet/dist/images/marker-icon.png'),
-  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 })
 
 const ohioBBox = [-84.811309, 38.483320, -80.541532, 41.971108]
@@ -22,23 +22,23 @@ const ohioBBox = [-84.811309, 38.483320, -80.541532, 41.971108]
 const description = 'This only shows the first 50 features in the dataset, to view all features press the toggle below or download the dataset'
 
 export default class GeoJSONVisualization extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = { showFullMap: false }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.props.downloadDataset(this.props.datasetId, 'geojson')
     this.props.previewDataset(this.props.datasetId, 'geojson')
   }
 
-  onMapToggleClick() {
+  onMapToggleClick () {
     this.setState({
       showFullMap: !this.state.showFullMap
     })
   }
 
-  isMapToggleDisabled() {
+  isMapToggleDisabled () {
     const downloaded = this.props.downloadedGeoJsonData
     const previewed = this.props.previewedGeoJsonData
     if (previewed && downloaded) {
@@ -48,29 +48,29 @@ export default class GeoJSONVisualization extends React.Component {
     }
   }
 
-  formatBboxToLeafletBounds(bbox) {
+  formatBboxToLeafletBounds (bbox) {
     const [xmin, ymin, xmax, ymax] = bbox
     return [[ymin, xmin], [ymax, xmax]]
   }
 
-  renderMap(geoJsonData, source, isHidden) {
+  renderMap (geoJsonData, source, isHidden) {
     if (geoJsonData) {
       let bBox = GeoJsonUtils.determineBBox(geoJsonData)
       bBox = GeoJsonUtils.isValidBBox(bBox) ? bBox : ohioBBox
 
       return (
         <div data-testid={`${source}-map`} className={isHidden ? 'hidden' : ''} test-id={`${source}-map`}>
-            <Map bounds={this.formatBboxToLeafletBounds(bBox)}>
-              <TileLayer url={window.STREETS_TILE_LAYER_URL} className='geo-json' />
-              <GeoJSON data={geoJsonData} className='geo-json' />
-            </Map>
+          <Map bounds={this.formatBboxToLeafletBounds(bBox)}>
+            <TileLayer url={window.STREETS_TILE_LAYER_URL} className='geo-json' />
+            <GeoJSON data={geoJsonData} className='geo-json' />
+          </Map>
         </div>
       )
     }
     return <div />
   }
 
-  renderMapOrLoading() {
+  renderMapOrLoading () {
     const isLoading = !this.props.previewedGeoJsonData && !this.props.downloadedGeoJsonData
 
     if (isLoading) {
@@ -82,28 +82,29 @@ export default class GeoJSONVisualization extends React.Component {
     } else {
       return (
         <div>
-          {this.renderMap(this.props.previewedGeoJsonData, "preview", this.state.showFullMap)}
-          {this.renderMap(this.props.downloadedGeoJsonData, "downloaded", !this.state.showFullMap)}
+          {this.renderMap(this.props.previewedGeoJsonData, 'preview', this.state.showFullMap)}
+          {this.renderMap(this.props.downloadedGeoJsonData, 'downloaded', !this.state.showFullMap)}
         </div>
       )
     }
   }
 
-  render() {
+  render () {
     if (this.props.downloadedDatasetError) {
       return (
-        <ErrorComponent errorText={'Unable to load GeoJson Data'} />
+        <ErrorComponent errorText='Unable to load GeoJson Data' />
       )
     }
 
     return (
-      <CollapsableBox title="Map Preview" headerHtml={description} expanded={true}>
+      <CollapsableBox title='Map Preview' headerHtml={description} expanded>
         <div>
           <Checkbox
             clickHandler={() => this.onMapToggleClick()}
-            text="Show Full Dataset"
+            text='Show Full Dataset'
             selected={this.state.showFullMap}
-            disabled={this.isMapToggleDisabled()} />
+            disabled={this.isMapToggleDisabled()}
+          />
           {this.renderMapOrLoading()}
         </div>
       </CollapsableBox>

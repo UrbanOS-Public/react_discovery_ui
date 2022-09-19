@@ -3,7 +3,7 @@ import QueryView from './query-view'
 import { executeFreestyleQuery, cancelFreestyleQuery, setQueryText } from '../../store/actions'
 import { getVisualizationDataSources, getQueryIsLoading, getFreestyleQueryText, getQueryData, getQueryFailureMessage, isQueryDataAvailable } from '../../store/query-selectors'
 import { visualizationUsedDatasets } from '../../store/visualization-selectors'
-import { getDatasetRecommendations, getDataSetReferences } from "../../store/selectors"
+import { getDatasetRecommendations, getDataSetReferences } from '../../store/selectors'
 
 const mapStateToProps = state => {
   return {

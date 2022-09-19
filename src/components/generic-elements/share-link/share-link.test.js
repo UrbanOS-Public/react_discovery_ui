@@ -24,5 +24,5 @@ describe('share-link', () => {
 })
 
 const setOrigin = origin => {
-  Object.defineProperty(window, 'location', { value: { origin }})
+  Object.defineProperty(window, 'location', { value: { origin } })
 }

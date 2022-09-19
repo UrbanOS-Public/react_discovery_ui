@@ -14,10 +14,10 @@ import {
   VISUALIZATION_DELETE_CLEAR,
   VISUALIZATION_RESET,
   SET_CHART_INFORMATION
-} from "../actions"
+} from '../actions'
 import { isArray, isPlainObject } from 'lodash'
 import { Link } from 'react-router-dom'
-import {DateTime} from 'luxon';
+import { DateTime } from 'luxon'
 
 const defaultVisualizationState = {
   visualization: { id: undefined },
@@ -77,7 +77,7 @@ const visualizationReducer = (state = defaultVisualizationState, action) => {
       return Object.assign({}, state, {
         deleteFailure: false,
         deleteSuccess: false,
-        deleting: true,
+        deleting: true
       })
     case VISUALIZATION_DELETE_FAILURE:
       return Object.assign({}, state, {
@@ -143,7 +143,7 @@ const isValidChartLayout = layout => {
 }
 
 const utcToLocalTime = utcString => {
-  return DateTime.fromISO(utcString, {zone: 'utc'}).toLocal().toISO({includeOffset: false, suppressMilliseconds: true})
+  return DateTime.fromISO(utcString, { zone: 'utc' }).toLocal().toISO({ includeOffset: false, suppressMilliseconds: true })
 }
 
 const formatVisualizationsForTable = visualizations => {

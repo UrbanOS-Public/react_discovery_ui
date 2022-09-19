@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import DatasetView from './dataset-view'
 import { retrieveDatasetDetails, resetQuery, visualizationSave, visualizationReset, resetDatasetReferences } from '../../store/actions'
 import { getDataset, isRemoteDataset, isHostDataset, isDatasetLoaded } from '../../store/dataset-selectors'
-import { getFreestyleQueryText } from '../../store/query-selectors'
+import { getFreestyleQueryText, shouldAutoExecuteQuery } from '../../store/query-selectors'
 import {
   isVisualizationSaveable,
   visualizationSaveSuccess,
@@ -11,8 +11,8 @@ import {
   visualizationTitle,
   visualizationAllowedActions
 } from '../../store/visualization-selectors'
-import { shouldAutoExecuteQuery } from '../../store/query-selectors'
-import withAuth0 from "../../auth/auth0-wrapper"
+
+import withAuth0 from '../../auth/auth0-wrapper'
 
 const mapStateToProps = state => {
   return {
@@ -32,7 +32,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  save: ({id, title, query, shouldCreateCopy}) => dispatch(visualizationSave({id, title, query, shouldCreateCopy})),
+  save: ({ id, title, query, shouldCreateCopy }) => dispatch(visualizationSave({ id, title, query, shouldCreateCopy })),
   retrieveDatasetDetails: (org_name, dataset_name) => dispatch(retrieveDatasetDetails(org_name, dataset_name)),
   reset: () => { dispatch(visualizationReset()); dispatch(resetQuery()); dispatch(resetDatasetReferences()) }
 })

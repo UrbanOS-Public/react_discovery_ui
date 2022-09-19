@@ -9,7 +9,7 @@ import MergeType from '@material-ui/icons/MergeType'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
 import CodeEditor from '../code-editor'
-import { MenuItem, } from '@trendmicro/react-dropdown'
+import { MenuItem } from '@trendmicro/react-dropdown'
 import Dropdown from '../download-dropdown/dropdown'
 
 const QueryForm = props => {
@@ -30,7 +30,7 @@ const QueryForm = props => {
 
   const [localQueryText, setLocalQueryText] = useState(queryText)
   React.useEffect(() => {
-    setLocalQueryText(queryText);
+    setLocalQueryText(queryText)
   }, [queryText])
 
   const updateReduxQueryText = e => {
@@ -46,13 +46,15 @@ const QueryForm = props => {
     cancelQuery()
   }
 
-  const textArea = <CodeEditor
-    code={localQueryText}
-    onBlur={updateReduxQueryText}
-    data-testid='query-input'
-  />
-  const submitButton = <button data-testid="submit-query-button" className="action-button" disabled={isQueryLoading} onClick={submit}>Submit</button>
-  const cancelButton = <button data-testid="cancel-query-button" className="action-button" disabled={!isQueryLoading} onClick={cancel}>Cancel</button>
+  const textArea = (
+    <CodeEditor
+      code={localQueryText}
+      onBlur={updateReduxQueryText}
+      data-testid='query-input'
+    />
+  )
+  const submitButton = <button data-testid='submit-query-button' className='action-button' disabled={isQueryLoading} onClick={submit}>Submit</button>
+  const cancelButton = <button data-testid='cancel-query-button' className='action-button' disabled={!isQueryLoading} onClick={cancel}>Cancel</button>
 
   const showSuccessMessage = !queryFailureMessage && isQueryDataAvailable && !isQueryLoading
   const successMessage = showSuccessMessage && (
@@ -73,11 +75,11 @@ const QueryForm = props => {
     const toolTipText = 'These datasets have related fields or columns that may be suitable for joining in your query'
     if (!_.isEmpty(recommendations)) {
       return (
-        <div className="recommendation-section link-list">
-          <div className="title">
+        <div className='recommendation-section link-list'>
+          <div className='title'>
             <span>Recommendations</span>
-            <ReactTooltip effect="solid" />
-            <InfoOutlined className="info-icon" data-tip={toolTipText} />
+            <ReactTooltip effect='solid' />
+            <InfoOutlined className='info-icon' data-tip={toolTipText} />
           </div>
           <RecommendationList recommendations={recommendations} />
         </div>
@@ -92,22 +94,22 @@ const QueryForm = props => {
         return
       }
       return (
-        <span className="dataset-reference" key={datasetId}><MergeType className="icon" /><Link target="_blank" to={`/dataset/${dataset.org}/${dataset.name}`}>{dataset.title}</Link></span>
+        <span className='dataset-reference' key={datasetId}><MergeType className='icon' /><Link target='_blank' to={`/dataset/${dataset.org}/${dataset.name}`}>{dataset.title}</Link></span>
       )
-    });
+    })
   }
 
   const usedDatasetsSection = () => {
     const toolTipText = 'These datasets are used in the query. This list is regenerated whenever the visualization is saved.'
     if (!_.isEmpty(usedDatasets)) {
       return (
-        <div className="link-list">
-          <div className="title">
+        <div className='link-list'>
+          <div className='title'>
             <span>Used Datasets</span>
-            <ReactTooltip effect="solid" />
-            <InfoOutlined className="info-icon" data-tip={toolTipText} />
+            <ReactTooltip effect='solid' />
+            <InfoOutlined className='info-icon' data-tip={toolTipText} />
           </div>
-          <div className="used-datasets-section">
+          <div className='used-datasets-section'>
             {createDatasetLinks(usedDatasets)}
           </div>
         </div>
@@ -118,8 +120,8 @@ const QueryForm = props => {
   let dataObj, data, filename, tempLink
   const queryDataDownloadLink = (fileType) => {
     dataObj = downloadLinkData(queryData, fileType)
-    data = new Blob([dataObj], {type: fileType})
-    filename = fileType == "text/csv" ? "query_results.csv" : "query_results.json"
+    data = new Blob([dataObj], { type: fileType })
+    filename = fileType == 'text/csv' ? 'query_results.csv' : 'query_results.json'
 
     tempLink = document.createElement('a')
     tempLink.href = window.URL.createObjectURL(data)
@@ -128,40 +130,40 @@ const QueryForm = props => {
   }
 
   const downloadLinkData = (queryData, fileType) => {
-    if(fileType == "text/csv") return queryDataToCSV(queryData)
+    if (fileType == 'text/csv') return queryDataToCSV(queryData)
 
     return JSON.stringify(queryData)
   }
 
   let keys, csv, row, rowValues
   const queryDataToCSV = (dataObj) => {
-    if(dataObj == undefined || dataObj == null || dataObj == []) return ""
+    if (dataObj == undefined || dataObj == null || dataObj == []) return ''
 
     row = dataObj[0]
-    if(row == undefined || row == null) return ""
+    if (row == undefined || row == null) return ''
 
     keys = Object.keys(row)
-    csv = keys.join(",") + "\n"
+    csv = keys.join(',') + '\n'
     dataObj.forEach((row) => {
       Object.values(row).forEach((colVal) => {
         colVal = parseJsonStringField(colVal)
         colVal = prepareFieldForCSV(colVal)
 
-        csv += colVal + ","
+        csv += colVal + ','
       })
 
-      csv += "\n"
-    }) 
+      csv += '\n'
+    })
 
     return csv
   }
 
   const prepareFieldForCSV = (colVal) => {
-    if(colVal == null) {
-      colVal = ""
-    } else if(typeof colVal == 'object'){
+    if (colVal == null) {
+      colVal = ''
+    } else if (typeof colVal === 'object') {
       colVal = JSON.stringify(colVal)
-      colVal = colVal.replaceAll("\"", "\"\"")
+      colVal = colVal.replaceAll('"', '""')
       colVal = `"${colVal}"`
     } else {
       colVal = `"${colVal}"`
@@ -180,27 +182,27 @@ const QueryForm = props => {
 
   return (
     <query-form>
-      <div className="user-input">
-        <div className="sql-section">
-          <div className="sql-title">Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</div>
+      <div className='user-input'>
+        <div className='sql-section'>
+          <div className='sql-title'>Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</div>
           {textArea}
         </div>
-        <div className="query-info">
+        <div className='query-info'>
           {recommendationSection()}
           {usedDatasetsSection()}
         </div>
       </div>
-      <div className="query-form__btn-group">
+      <div className='query-form__btn-group'>
         {submitButton}
         {cancelButton}
         {successMessage}
 
-        <Dropdown className="download-dropdown" disabled={isQueryLoading}>
-          <Dropdown.Toggle title="Download Returned Results" style={{background: "#00aeef", color:  "#f7f7f7", border: "none", padding: "1rem"}}/>
+        <Dropdown className='download-dropdown' disabled={isQueryLoading}>
+          <Dropdown.Toggle title='Download Returned Results' style={{ background: '#00aeef', color: '#f7f7f7', border: 'none', padding: '1rem' }} />
           <Dropdown.MenuWrapper>
             <Dropdown.Menu>
-              <MenuItem onClick={() => queryDataDownloadLink("text/csv")}>CSV</MenuItem>
-              <MenuItem onClick={() => queryDataDownloadLink("application/json")}>JSON</MenuItem>
+              <MenuItem onClick={() => queryDataDownloadLink('text/csv')}>CSV</MenuItem>
+              <MenuItem onClick={() => queryDataDownloadLink('application/json')}>JSON</MenuItem>
             </Dropdown.Menu>
           </Dropdown.MenuWrapper>
         </Dropdown>

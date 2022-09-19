@@ -7,17 +7,16 @@ import Auth0LoginZone from '../auth0-login-zone'
 
 import './visualization-list-menu-item.scss'
 
-
-const VisualizationListMenuItem = ({isAuthenticated}) => {
+const VisualizationListMenuItem = ({ isAuthenticated }) => {
   const [userNeedsLoginInfo, setUserNeedsLoginInfo] = useState(false)
-  const showLoginPrompt = () => { setUserNeedsLoginInfo(true)}
-  const closeLoginPrompt = () => { setUserNeedsLoginInfo(false)}
+  const showLoginPrompt = () => { setUserNeedsLoginInfo(true) }
+  const closeLoginPrompt = () => { setUserNeedsLoginInfo(false) }
 
   return (
     <visualization-list-menu-item>
-      <TabButton data-testid="visualization-list-menu-item" className={`button-${isAuthenticated ? 'enabled' : 'disabled'} ${userNeedsLoginInfo && 'dialog-open'}`} onClick={showLoginPrompt}>
+      <TabButton data-testid='visualization-list-menu-item' className={`button-${isAuthenticated ? 'enabled' : 'disabled'} ${userNeedsLoginInfo && 'dialog-open'}`} onClick={showLoginPrompt}>
         <div title='Saved Workspaces'>
-          <Link to="/user" target="_blank" rel="noopener noreferrer" className={`header-item link-${isAuthenticated ? 'enabled' : 'disabled'}`}>
+          <Link to='/user' target='_blank' rel='noopener noreferrer' className={`header-item link-${isAuthenticated ? 'enabled' : 'disabled'}`}>
             <FolderIcon />
           </Link>
         </div>

@@ -28,10 +28,10 @@ describe('DatasetRecommendations', () => {
   })
 })
 
-function createSubject(recommendations) {
+function createSubject (recommendations) {
   return shallow(<DatasetRecommendations
     dataset={{}}
     getRecommendations={jest.fn}
     recommendations={recommendations}
-  />)
+                 />)
 }

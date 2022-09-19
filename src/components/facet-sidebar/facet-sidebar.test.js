@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 
 describe('facet sidebar', () => {
   let subject, mockClickHandler
-  let availableFacets = {
+  const availableFacets = {
     organization: [
       { name: 'neat COTA', count: 1 },
       { name: 'Apple', count: 1 },
@@ -19,7 +19,7 @@ describe('facet sidebar', () => {
       { name: 'Zoo', count: 2 }
     ]
   }
-  let appliedFacets = {
+  const appliedFacets = {
     tags: [
       'foo', 'dilbert'
     ],

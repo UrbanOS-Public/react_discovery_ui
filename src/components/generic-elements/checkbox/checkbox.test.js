@@ -13,8 +13,8 @@ describe('checkbox', () => {
     subject = shallow(
       <Checkbox
         clickHandler={mockClickHandler}
-        text={"The label"}
-        selected={true}
+        text='The label'
+        selected
       />
     )
   })
@@ -25,13 +25,13 @@ describe('checkbox', () => {
   })
 
   test('calls clickHandler on spacebar', () => {
-    subject.simulate('keyDown', {keyCode: 32, preventDefault: mockPreventDefault})
+    subject.simulate('keyDown', { keyCode: 32, preventDefault: mockPreventDefault })
     expect(mockClickHandler).toHaveBeenCalled()
     expect(mockPreventDefault).toHaveBeenCalled()
   })
 
   test('does not call clickHandler on non-spacebar', () => {
-    subject.simulate('keyDown', {keyCode: 348, preventDefault: mockPreventDefault})
+    subject.simulate('keyDown', { keyCode: 348, preventDefault: mockPreventDefault })
     expect(mockClickHandler).not.toHaveBeenCalled()
     expect(mockPreventDefault).not.toHaveBeenCalled()
   })
@@ -43,11 +43,11 @@ describe('checkbox', () => {
 
   test('does not display checkmark when not selected', () => {
     subject = shallow(
-        <Checkbox
-      clickHandler={mockClickHandler}
-      text={"The label"}
-      selected={false}
-        />
+      <Checkbox
+        clickHandler={mockClickHandler}
+        text='The label'
+        selected={false}
+      />
     )
 
     expect(subject.exists('.selected')).toBeFalsy()
@@ -56,11 +56,11 @@ describe('checkbox', () => {
 
   test('is not clickable when disabled', () => {
     subject = shallow(
-        <Checkbox
-      clickHandler={mockClickHandler}
-      text={"The Label"}
-      selected={false}
-      disabled={true}
+      <Checkbox
+        clickHandler={mockClickHandler}
+        text='The Label'
+        selected={false}
+        disabled
       />
     )
     subject.simulate('click')
@@ -68,5 +68,4 @@ describe('checkbox', () => {
     expect(subject.exists('.disabled')).toBeTruthy()
     expect(mockPreventDefault).not.toHaveBeenCalled()
   })
-
 })

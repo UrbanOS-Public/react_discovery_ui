@@ -9,7 +9,7 @@ const auth0Options = {
 }
 
 class Auth0ClientProvider {
-  get() {
+  get () {
     if (!this.auth0Promise) { this.auth0Promise = createAuth0Client(auth0Options) }
     return this.auth0Promise
   }

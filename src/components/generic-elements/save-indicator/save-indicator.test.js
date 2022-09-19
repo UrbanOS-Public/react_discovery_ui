@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
-import SaveIndicator from './';
-import LoadingElement from '../loading-element';
+import SaveIndicator from './'
+import LoadingElement from '../loading-element'
 import ErrorIcon from '@material-ui/icons/Error'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import ShareLink from '../share-link'
@@ -26,14 +26,14 @@ describe('SaveIndicator', () => {
     })
 
     it('displays correct text', () => {
-      expect(subject.text()).toContain("Your visualization is being saved")
+      expect(subject.text()).toContain('Your visualization is being saved')
     })
   })
 
   describe('when saving is not in progress', () => {
     describe('and save failed', () => {
       beforeEach(() => {
-        subject = shallow(<SaveIndicator failure/>)
+        subject = shallow(<SaveIndicator failure />)
       })
 
       it('does not display the loading element', () => {
@@ -45,7 +45,7 @@ describe('SaveIndicator', () => {
       })
 
       it('displays correct text', () => {
-        expect(subject.text()).toContain("Your visualization failed to save")
+        expect(subject.text()).toContain('Your visualization failed to save')
       })
     })
 
@@ -53,7 +53,7 @@ describe('SaveIndicator', () => {
       const linkUrl = 'path/to/visualization'
 
       beforeEach(() => {
-        subject = shallow(<SaveIndicator success linkUrl={linkUrl}/>)
+        subject = shallow(<SaveIndicator success linkUrl={linkUrl} />)
       })
 
       it('does not display the loading element', () => {
@@ -65,7 +65,7 @@ describe('SaveIndicator', () => {
       })
 
       it('displays correct text', () => {
-        expect(subject.text()).toContain("Your visualization has saved")
+        expect(subject.text()).toContain('Your visualization has saved')
       })
 
       it('displays a shareable link for the saved visualziation', () => {
@@ -78,7 +78,7 @@ describe('SaveIndicator', () => {
 
     describe('and save succeeded with no link path', () => {
       beforeEach(() => {
-        subject = shallow(<SaveIndicator success/>)
+        subject = shallow(<SaveIndicator success />)
       })
 
       it('does not display a shareable link', () => {

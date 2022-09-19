@@ -9,7 +9,7 @@ import { visualizationSave } from '../../store/actions'
 import Auth0Client from '../../auth/auth0-client-provider'
 
 const fakeAuth0Client = {
-  isAuthenticated: (() => Promise.resolve(false)),
+  isAuthenticated: () => Promise.resolve(false)
 }
 
 describe('visualization view', () => {
@@ -18,7 +18,7 @@ describe('visualization view', () => {
   const id = 'id'
   const query = 'query'
   const title = 'title'
-  const chart = {data: [], layout: {}, frames: []}
+  const chart = { data: [], layout: {}, frames: [] }
 
   beforeEach(() => {
     Auth0Client.get = jest.fn(() => Promise.resolve(fakeAuth0Client))
@@ -26,7 +26,7 @@ describe('visualization view', () => {
     state = {
       visualization: {
         visualization: {
-          id, title, allowedActions: [{name: 'create_copy'}]
+          id, title, allowedActions: [{ name: 'create_copy' }]
         },
         chart
       },
@@ -57,6 +57,6 @@ describe('visualization view', () => {
 
     subject.find(VisualizationSaveMenuItem).props().handleSaveOrUpdate({ shouldCreateCopy })
 
-    expect(store.getActions()).toContainEqual(visualizationSave({id, query, title, shouldCreateCopy}))
+    expect(store.getActions()).toContainEqual(visualizationSave({ id, query, title, shouldCreateCopy }))
   })
 })

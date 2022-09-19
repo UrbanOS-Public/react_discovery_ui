@@ -29,13 +29,13 @@ const DatasetDetails = ({ dataset, downloadUrl }) => {
       </div>
       {
         !_.isEmpty(dataset.keywords) && (
-          <div data-testid="dataset-keywords" className='keywords'>
+          <div data-testid='dataset-keywords' className='keywords'>
             <div className='keyword-label'>KEYWORDS</div>
             {dataset.keywords.map(createKeyword)}
           </div>
         )
       }
-    </dataset-details >
+    </dataset-details>
   )
 }
 

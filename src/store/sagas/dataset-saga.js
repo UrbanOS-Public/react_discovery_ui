@@ -11,6 +11,6 @@ const invokeApiWithNames = ({ value }) => {
   return apiInvoker({ endpoint: `/api/v1/organization/${value.organization_name}/dataset/${value.dataset_name}`, actionator: datasetDetails })()
 }
 
-const invokeApiWithId = ({value}) => {
+const invokeApiWithId = ({ value }) => {
   return apiInvoker({ endpoint: `/api/v1/dataset/${value}`, actionator: datasetReference })()
 }

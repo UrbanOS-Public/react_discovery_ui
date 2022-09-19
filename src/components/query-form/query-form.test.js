@@ -1,7 +1,7 @@
 import { mount } from 'enzyme'
 import QueryForm from './query-form'
 import { BrowserRouter as Router } from 'react-router-dom'
-import LoadingElement from '../generic-elements/loading-element';
+import LoadingElement from '../generic-elements/loading-element'
 import RecommendationList from '../recommendation-list'
 import { recommendations } from '../../../test-helpers/recommendations'
 
@@ -31,7 +31,7 @@ describe('QueryForm', () => {
   })
 
   describe('on user submitted running query', () => {
-    let cancelCallback = jest.fn()
+    const cancelCallback = jest.fn()
     beforeEach(() => {
       queryCallback = jest.fn()
       subject = createSubject({ executeQuery: queryCallback, isQueryLoading: true, cancelQuery: cancelCallback })
@@ -98,7 +98,7 @@ describe('QueryForm', () => {
     })
 
     test('defaults the query input field to use the default query', () => {
-      expect(subject.find('textarea').render().text()).toEqual("SELECT * FROM sky")
+      expect(subject.find('textarea').render().text()).toEqual('SELECT * FROM sky')
     })
 
     test('defaults the cancel button to disabled', () => {
@@ -130,8 +130,8 @@ describe('QueryForm', () => {
     test('calls the submit handler on click of the submit button', () => {
       const newText = 'SELECT * FROM great_org__awesome_dataset LIMIT 55'
       const queryInput = subject.find('textarea')
-      queryInput.instance().value = newText;
-      queryInput.simulate('blur');
+      queryInput.instance().value = newText
+      queryInput.simulate('blur')
 
       getButton(subject, 'Submit').simulate('click')
       expect(queryCallback).toHaveBeenCalledWith(newText)
@@ -186,47 +186,47 @@ describe('QueryForm', () => {
   describe('used datasets', () => {
     let subject
     beforeEach(() => {
-      const fakeDataset1 = { org: "org_name_1", name: "data_name_1", title: "Dataset 1", id: "123" }
-      const fakeDataset2 = { org: "org_name_2", name: "data_name_2", title: "Dataset 2", id: "456" }
+      const fakeDataset1 = { org: 'org_name_1', name: 'data_name_1', title: 'Dataset 1', id: '123' }
+      const fakeDataset2 = { org: 'org_name_2', name: 'data_name_2', title: 'Dataset 2', id: '456' }
       const datasetReferences = { [fakeDataset1.id]: fakeDataset1, [fakeDataset2.id]: fakeDataset2 }
-      const usedDatasets = [fakeDataset1.id, fakeDataset2.id, "no_ref"]
+      const usedDatasets = [fakeDataset1.id, fakeDataset2.id, 'no_ref']
       subject = createSubject({ usedDatasets, datasetReferences })
     })
 
     test('do not render if none are provided', () => {
       const subject_with_no_datasets = createSubject({ usedDatasets: undefined })
-      expect(subject_with_no_datasets.exists(".used-datasets-section")).toBeFalsy()
+      expect(subject_with_no_datasets.exists('.used-datasets-section')).toBeFalsy()
     })
 
     test('shows the used datasets section', () => {
-      expect(subject.exists(".used-datasets-section")).toBeTruthy()
+      expect(subject.exists('.used-datasets-section')).toBeTruthy()
     })
 
     test('renders a link per dataset with a reference', () => {
-      const links = subject.find(".dataset-reference Link")
+      const links = subject.find('.dataset-reference Link')
       expect(links.length).toEqual(2)
-      expect(links.at(0).prop('to')).toEqual("/dataset/org_name_1/data_name_1")
-      expect(links.at(0).text()).toEqual("Dataset 1")
-      expect(links.at(1).prop('to')).toEqual("/dataset/org_name_2/data_name_2")
-      expect(links.at(1).text()).toEqual("Dataset 2")
+      expect(links.at(0).prop('to')).toEqual('/dataset/org_name_1/data_name_1')
+      expect(links.at(0).text()).toEqual('Dataset 1')
+      expect(links.at(1).prop('to')).toEqual('/dataset/org_name_2/data_name_2')
+      expect(links.at(1).text()).toEqual('Dataset 2')
     })
   })
 })
 
-function createSubject(params) {
+function createSubject (params) {
   const defaults = {
-    queryText: "SELECT * FROM sky",
+    queryText: 'SELECT * FROM sky',
     queryData: [],
     recommendations: recommendations,
     usedDatasets: [],
     datasetReferences: {},
-    queryFailureMessage: "",
+    queryFailureMessage: '',
     isQueryDataAvailable: false,
     isQueryLoading: false,
     isQueryLoaded: true,
-    executeQuery: queryCallback ? queryCallback : jest.fn(),
+    executeQuery: queryCallback || jest.fn(),
     cancelQuery: jest.fn(),
-    setQueryText: updateCallback ? updateCallback : jest.fn()
+    setQueryText: updateCallback || jest.fn()
   }
 
   const paramsWithDefaults = Object.assign({}, defaults, params)
@@ -242,7 +242,7 @@ function createSubject(params) {
   )
 }
 
-function getButton(subject, text) {
+function getButton (subject, text) {
   const isButton = x => x.type() === 'button' && x.text() === text
   return subject.findWhere(isButton)
 }

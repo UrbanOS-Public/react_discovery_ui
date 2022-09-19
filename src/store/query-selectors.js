@@ -19,17 +19,17 @@ export const shouldAutoExecuteQuery = createSelector(queryHasBeenExecuted,
 export const getVisualizationDataSources = createSelector(
   getQueryData,
   data => {
-    var dataSources = {};
+    const dataSources = {}
     if (data && data.length > 0) {
       Object.keys(data[0]).forEach(key => {
-        dataSources[key] = data.map(datum => datum[key]);
-      });
+        dataSources[key] = data.map(datum => datum[key])
+      })
     }
-    return dataSources;
+    return dataSources
   }
 )
 
-const defaultQuery = tablename => `SELECT * FROM ${tablename}\nLIMIT 200`;
+const defaultQuery = tablename => `SELECT * FROM ${tablename}\nLIMIT 200`
 
 export const getFreestyleQueryText = createSelector(
   state => state.queryReducer.queryText,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Auth0LoginZone from '../../components/auth0-login-zone'
 import ReactTable from 'react-table'
-import Modal from 'react-modal';
+import Modal from 'react-modal'
 import DeleteIcon from '@material-ui/icons/DeleteForever'
 
 import './user-profile-view.scss'
@@ -17,12 +17,12 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)'
   }
-};
+}
 
 const UserProfileView = (props) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [datasetToDelete, setVisualizationToDelete] = useState(null);
-  
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [datasetToDelete, setVisualizationToDelete] = useState(null)
+
   const {
     visualizations,
     getUserVisualizations,
@@ -68,41 +68,45 @@ const UserProfileView = (props) => {
   }
 
   if (!isAuthenticated) {
-    return <ErrorComponent errorText={"You must be signed in to see your saved visualizations"} />
+    return <ErrorComponent errorText='You must be signed in to see your saved visualizations' />
   }
 
   Modal.setAppElement('*')
 
   const columns = [
-    { Header: "Title", accessor: "title", headerClassName: "table-header" },
-    { Header: "Date Created", accessor: "created", headerClassName: "table-header" },
-    { Header: "Date Modified", accessor: "updated", headerClassName: "table-header" },
+    { Header: 'Title', accessor: 'title', headerClassName: 'table-header' },
+    { Header: 'Date Created', accessor: 'created', headerClassName: 'table-header' },
+    { Header: 'Date Modified', accessor: 'updated', headerClassName: 'table-header' },
     {
-      Header: "", accessor: "delete", headerClassName: "table-header", className: "centered", width: 50, Cell: ({ original }) => (
-        <span className="delete-icon" onClick={() => { openDeleteModalForVisualization(original.id) }}>
+      Header: '',
+      accessor: 'delete',
+      headerClassName: 'table-header',
+      className: 'centered',
+      width: 50,
+      Cell: ({ original }) => (
+        <span className='delete-icon' onClick={() => { openDeleteModalForVisualization(original.id) }}>
           <DeleteIcon />
         </span>
       )
     }
   ]
 
-
   return (
     <user-profile-view>
-      <div className="left-section">
+      <div className='left-section'>
         <Auth0LoginZone />
       </div>
-      <div className="saved-workspaces right-section">
-        <div className="header-container">
-          <div className="header-text-items">
-            <div className="workspaces-header">Saved Workspaces</div>
+      <div className='saved-workspaces right-section'>
+        <div className='header-container'>
+          <div className='header-text-items'>
+            <div className='workspaces-header'>Saved Workspaces</div>
           </div>
         </div>
-        <div id="user-visualizations-table">
+        <div id='user-visualizations-table'>
           <ReactTable
             data={visualizations}
             columns={columns}
-            defaultSorted={[{ id: 'updated', 'desc': true }]}
+            defaultSorted={[{ id: 'updated', desc: true }]}
             loading={props.loading}
             defaultPageSize={10}
             className='-striped -highlight'
@@ -112,18 +116,17 @@ const UserProfileView = (props) => {
       <Modal
         isOpen={showModal}
         style={customStyles}
-        contentLabel="Delete Modal"
+        contentLabel='Delete Modal'
       >
         <p>Are you sure you want to delete this workspace?</p>
-        {deleteFailure && <p className="modal-error-text">There was an error deleting the visualization</p>}
-        <div className="modal-button-group">
-          <button className="modal-cancel modal-button" onClick={cancelDeletion}>Cancel</button>
-          <button className="modal-confirm modal-button" onClick={() => {confirmDeletion(datasetToDelete)}}>Delete</button>
+        {deleteFailure && <p className='modal-error-text'>There was an error deleting the visualization</p>}
+        <div className='modal-button-group'>
+          <button className='modal-cancel modal-button' onClick={cancelDeletion}>Cancel</button>
+          <button className='modal-confirm modal-button' onClick={() => { confirmDeletion(datasetToDelete) }}>Delete</button>
         </div>
       </Modal>
     </user-profile-view>
   )
 }
-
 
 export default UserProfileView

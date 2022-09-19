@@ -1,5 +1,5 @@
-import {shallow} from 'enzyme'
-import VisualizationListMenuItem from "./visualization-list-menu-item"
+import { shallow } from 'enzyme'
+import VisualizationListMenuItem from './visualization-list-menu-item'
 import Auth0LoginZone from '../auth0-login-zone'
 
 describe('visualization list menu item', () => {
@@ -8,12 +8,12 @@ describe('visualization list menu item', () => {
     describe('and when the user is not logged in', () => {
       beforeEach(() => {
         subject = createSubject({ isAuthenticated: false })
-        subject.find('.button-disabled').simulate("click")
-        subject.find('.link-disabled').simulate("click")
+        subject.find('.button-disabled').simulate('click')
+        subject.find('.link-disabled').simulate('click')
       })
 
-      it("displays a prompt for the user to log in", () => {
-        expect(subject.find(".login-prompt").props().open).toBeTruthy()
+      it('displays a prompt for the user to log in', () => {
+        expect(subject.find('.login-prompt').props().open).toBeTruthy()
         expect(subject.find(Auth0LoginZone)).toHaveLength(1)
       })
     })
@@ -21,7 +21,7 @@ describe('visualization list menu item', () => {
     describe('and when the user is logged in', () => {
       beforeEach(() => {
         subject = createSubject({ isAuthenticated: true })
-        subject.find('.button-enabled').simulate("click")
+        subject.find('.button-enabled').simulate('click')
       })
 
       it('marks the link to the user\'s saved visualizations as enabled', () => {
@@ -32,8 +32,8 @@ describe('visualization list menu item', () => {
         expect(subject.find('.link-enabled').props().to).toEqual('/user')
       })
 
-      it("does not display a login prompt", () => {
-        expect(subject.find(".login-prompt").props().open).toBeFalsy()
+      it('does not display a login prompt', () => {
+        expect(subject.find('.login-prompt').props().open).toBeFalsy()
       })
     })
   })

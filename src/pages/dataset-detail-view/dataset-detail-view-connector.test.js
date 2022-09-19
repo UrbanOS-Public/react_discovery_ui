@@ -13,8 +13,8 @@ describe('dataset view', () => {
       writable: true,
       value: jest.fn().mockImplementation(query => ({
         matches: true
-      })),
-    });
+      }))
+    })
     storeMocker = configureStore([])
     state = {
       datasetReducer: {
@@ -28,7 +28,7 @@ describe('dataset view', () => {
         }
 
       },
-      presentation: {dataset_preview: {}}
+      presentation: { dataset_preview: {} }
     }
   })
 

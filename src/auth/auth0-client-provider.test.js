@@ -31,4 +31,3 @@ describe('auth0-client-provider', () => {
     })
   })
 })
-

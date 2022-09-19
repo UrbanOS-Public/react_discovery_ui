@@ -2,8 +2,8 @@ import {
   isVisualizationSaveable,
   dereferencedChart,
   visualizationAllowedActions
-} from './visualization-selectors';
-import { getVisualizationDataSources } from './query-selectors';
+} from './visualization-selectors'
+import { getVisualizationDataSources } from './query-selectors'
 import { cloneDeep } from 'lodash'
 
 describe('visualizationSaveable', () => {
@@ -25,7 +25,7 @@ describe('visualizationSaveable', () => {
         state.queryReducer = { queryText: 'select * from stuff' }
 
         expect(isVisualizationSaveable(state)).toBe(false)
-      });
+      })
     })
 
     describe('and dataset available', () => {
@@ -37,7 +37,7 @@ describe('visualizationSaveable', () => {
         state.queryReducer = { queryText: '' }
 
         expect(isVisualizationSaveable(state)).toBe(false)
-      });
+      })
     })
   })
 
@@ -59,7 +59,7 @@ describe('visualizationSaveable', () => {
         state.queryReducer = { queryText: 'select * from stuff' }
 
         expect(isVisualizationSaveable(state)).toBe(false)
-      });
+      })
     })
 
     describe('and dataset available', () => {
@@ -71,7 +71,7 @@ describe('visualizationSaveable', () => {
         state.queryReducer = { queryText: '' }
 
         expect(isVisualizationSaveable(state)).toBe(false)
-      });
+      })
     })
   })
 
@@ -95,19 +95,19 @@ describe('visualizationSaveable', () => {
         state.queryReducer = { queryText: '' }
 
         expect(isVisualizationSaveable(state)).toBe(false)
-      });
+      })
 
       it('returns false if query text is undefined', () => {
         state.queryReducer = {}
 
         expect(isVisualizationSaveable(state)).toBe(false)
-      });
+      })
 
       it('returns true if query text is available', () => {
         state.queryReducer = { queryText: 'select * from stuff' }
 
         expect(isVisualizationSaveable(state)).toBe(true)
-      });
+      })
     })
 
     describe('and dataset available', () => {
@@ -119,10 +119,10 @@ describe('visualizationSaveable', () => {
         state.queryReducer = { queryText: '' }
 
         expect(isVisualizationSaveable(state)).toBe(true)
-      });
+      })
     })
   })
-});
+})
 
 describe('dererencedChart', () => {
   const queryDataRow = {
@@ -177,7 +177,7 @@ describe('visualizationAllowedActions', () => {
     const state = {
       visualization: {
         visualization: {
-          allowedActions: [{name: 'xxxx'}, {name: 'yyyy'}]
+          allowedActions: [{ name: 'xxxx' }, { name: 'yyyy' }]
         }
       }
     }

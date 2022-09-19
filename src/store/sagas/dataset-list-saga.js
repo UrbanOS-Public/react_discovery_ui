@@ -17,7 +17,7 @@ export default function * theRealDatasetSaga () {
 
 const queryParamBuilder = action => {
   const limit = 10
-  const offset = (action.value.page - 1) * limit;
+  const offset = (action.value.page - 1) * limit
 
   return {
     offset: offset,

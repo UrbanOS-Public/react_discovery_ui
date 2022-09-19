@@ -1,5 +1,5 @@
 import './error-component.scss'
-import React from "react"
+import React from 'react'
 import ErrorOutline from '@material-ui/icons/ErrorOutline'
 
 const ErrorComponent = props => {
@@ -7,7 +7,7 @@ const ErrorComponent = props => {
     <error-component>
       <div className='error-container'>
         <ErrorOutline className='error-icon' />
-        <div data-testid="error-text" className='error-text'>{props.errorText}</div>
+        <div data-testid='error-text' className='error-text'>{props.errorText}</div>
       </div>
     </error-component>
   )

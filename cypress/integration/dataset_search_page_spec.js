@@ -9,8 +9,10 @@ const cotaDatasets = require('../fixtures/search_page_spec/cota_datasets')
 const cogoDatasets = require('../fixtures/search_page_spec/cogo_datasets')
 const bicycleDatasets = require('../fixtures/search_page_spec/bicycle_datasets')
 
-const { sortSelectBox, datasetsFoundCount, paginator, dialogContent, search, datasets, firstDataset, 
-  apiAccessibleCheckbox, organizations, cogoCheckBox, keywords, bicycleCheckBox} = Selectors
+const {
+  sortSelectBox, datasetsFoundCount, paginator, dialogContent, search, datasets, firstDataset,
+  apiAccessibleCheckbox, organizations, cogoCheckBox, keywords, bicycleCheckBox
+} = Selectors
 
 function isCoGoPage () {
   const numberOfOrganizations = Math.min(10, cogoDatasets.metadata.facets.organization.length)
@@ -48,7 +50,7 @@ describe('Search interactions on the page', function () {
     const numberOfTotalDatasets = all_datasets_name_asc.metadata.totalDatasets
     const numberOfOrganizationsOnFirstPage = Math.min(10, all_datasets_name_asc.metadata.facets.organization.length)
     const numberOfKeywordsOnFirstPage = Math.min(10, all_datasets_name_asc.metadata.facets.keywords.length)
-    const numberOfPages = Math.floor(numberOfTotalDatasets/maximumNumberOfDatasetsPerPage)+1
+    const numberOfPages = Math.floor(numberOfTotalDatasets / maximumNumberOfDatasetsPerPage) + 1
     const titleOfFirstDataset = all_datasets_name_asc.results[0].title
     cy.url().should('match', urls.datasetSearchPage.base)
     cy.get(organizations).children('.checkbox').should('have.length', numberOfOrganizationsOnFirstPage)
@@ -77,14 +79,14 @@ describe('Search interactions on the page', function () {
     cy.url().should('match', urls.datasetSearchPage.base)
   })
 
-  it('API Accessible works', function() {
+  it('API Accessible works', function () {
     cy.route(routes.apiAccessibleFalseDatasets)
     cy.get(apiAccessibleCheckbox).click()
     cy.get(apiAccessibleCheckbox).not('have.class', 'selected')
     cy.url().should('match', urls.datasetSearchPage.apiAccessible)
   })
 
-  it('Dataset links work', function() {
+  it('Dataset links work', function () {
     cy.route(routes.ogripDataset)
     cy.get(firstDataset).find('.details > .title').click()
     cy.url().should('match', urls.datasetDetailsPage.ogrip)
@@ -139,7 +141,7 @@ describe('sort', function () {
   })
 })
 
-describe('Facet interaction on the page', function() {
+describe('Facet interaction on the page', function () {
   beforeEach(function () {
     cy.server()
     cy.route(routes.allDatasetsNameAsc)
@@ -167,7 +169,6 @@ describe('Facet interaction on the page', function() {
     cy.get(keywords).contains('Show more').click()
     isFacetList()
   })
-
 })
 
 describe('Deep linking', function () {

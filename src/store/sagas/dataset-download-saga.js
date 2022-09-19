@@ -2,7 +2,7 @@ import { takeEvery } from 'redux-saga/effects'
 import { DOWNLOAD_DATASET, downloadDatasetSucceeded, downloadDatasetFailed } from '../actions'
 import apiInvoker from './api-invoker'
 
-export default function* theRealDatasetSaga() {
+export default function * theRealDatasetSaga () {
   yield takeEvery(DOWNLOAD_DATASET, invokeApiWithParameter)
 }
 

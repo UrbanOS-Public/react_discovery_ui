@@ -1,4 +1,4 @@
-import withSearchParamsManager, {SearchParamsManager, defaults} from './search-params-manager'
+import withSearchParamsManager, { SearchParamsManager, defaults } from './search-params-manager'
 import { mount, shallow } from 'enzyme'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
@@ -16,7 +16,7 @@ describe('SearchParamsManager', () => {
           }
         }
         const subject = new SearchParamsManager(history)
-        expect(subject.getParams()).toMatchObject({apiAccessible: false, page: 9000})
+        expect(subject.getParams()).toMatchObject({ apiAccessible: false, page: 9000 })
       })
 
       it('returns all the defaults if the query params are empty', () => {
@@ -189,7 +189,7 @@ describe('SearchParamsManager', () => {
   describe('updates', () => {
     describe('apiAccessible', () => {
       it('with a default flag, updates apiAccessible', () => {
-        const {historyPushSpy, history} = createFakeHistory('')
+        const { historyPushSpy, history } = createFakeHistory('')
 
         const subject = new SearchParamsManager(history)
         subject.toggleApiAccessible()
@@ -200,7 +200,7 @@ describe('SearchParamsManager', () => {
       })
 
       it('with a true flag, updates apiAccessible', () => {
-        const {historyPushSpy, history} = createFakeHistory('?apiAccessible=true')
+        const { historyPushSpy, history } = createFakeHistory('?apiAccessible=true')
 
         const subject = new SearchParamsManager(history)
         subject.toggleApiAccessible()
@@ -211,7 +211,7 @@ describe('SearchParamsManager', () => {
       })
 
       it('with a false flag updates apiAccessible', () => {
-        const {historyPushSpy, history} = createFakeHistory('?apiAccessible=false&knuckles=true')
+        const { historyPushSpy, history } = createFakeHistory('?apiAccessible=false&knuckles=true')
 
         const subject = new SearchParamsManager(history)
         subject.toggleApiAccessible()
@@ -222,7 +222,7 @@ describe('SearchParamsManager', () => {
       })
 
       it('resets the page number to 1', () => {
-        const {historyPushSpy, history} = createFakeHistory('?apiAccessible=true&page=5')
+        const { historyPushSpy, history } = createFakeHistory('?apiAccessible=true&page=5')
 
         const subject = new SearchParamsManager(history)
         subject.toggleApiAccessible()
@@ -235,7 +235,7 @@ describe('SearchParamsManager', () => {
 
     describe('sortOrder', () => {
       it('with a default sort order, updates sort order', () => {
-        const {historyPushSpy, history} = createFakeHistory('')
+        const { historyPushSpy, history } = createFakeHistory('')
 
         const subject = new SearchParamsManager(history)
         subject.updateSortOrder('last_mod')
@@ -246,7 +246,7 @@ describe('SearchParamsManager', () => {
       })
 
       it('with an existing sort order, updates sort order', () => {
-        const {historyPushSpy, history} = createFakeHistory('?sort=last_mod&knuckles=true')
+        const { historyPushSpy, history } = createFakeHistory('?sort=last_mod&knuckles=true')
 
         const subject = new SearchParamsManager(history)
         subject.updateSortOrder('name_asc')
@@ -259,7 +259,7 @@ describe('SearchParamsManager', () => {
 
     describe('page', () => {
       it('with a default page number, updates page number', () => {
-        const {historyPushSpy, history} = createFakeHistory('')
+        const { historyPushSpy, history } = createFakeHistory('')
 
         const subject = new SearchParamsManager(history)
         subject.updatePage(5)
@@ -270,7 +270,7 @@ describe('SearchParamsManager', () => {
       })
 
       it('with an existing search text, updates page number', () => {
-        const {historyPushSpy, history} = createFakeHistory('?page=1&knuckles=true')
+        const { historyPushSpy, history } = createFakeHistory('?page=1&knuckles=true')
 
         const subject = new SearchParamsManager(history)
         subject.updatePage(5)
@@ -282,9 +282,8 @@ describe('SearchParamsManager', () => {
     })
 
     describe('searchText', () => {
-
       it('with a default search text and existing sort value, updates search text but keeps sort value', () => {
-        const {historyPushSpy, history} = createFakeHistory('?sort=name_asc')
+        const { historyPushSpy, history } = createFakeHistory('?sort=name_asc')
 
         const subject = new SearchParamsManager(history)
         subject.updateSearchText('sweet_query')
@@ -295,7 +294,7 @@ describe('SearchParamsManager', () => {
       })
 
       it('with a default search text and default sort, updates search text and sorts by relevance', () => {
-        const {historyPushSpy, history} = createFakeHistory('')
+        const { historyPushSpy, history } = createFakeHistory('')
 
         const subject = new SearchParamsManager(history)
         subject.updateSearchText('sweet_query')
@@ -306,7 +305,7 @@ describe('SearchParamsManager', () => {
       })
 
       it('with and existing search text and existing sort value, updates search text, but keeps sort value', () => {
-        const {historyPushSpy, history} = createFakeHistory('?q=the_world&knuckles=true&sort=name_asc')
+        const { historyPushSpy, history } = createFakeHistory('?q=the_world&knuckles=true&sort=name_asc')
 
         const subject = new SearchParamsManager(history)
         subject.updateSearchText('sweet_query')
@@ -317,7 +316,7 @@ describe('SearchParamsManager', () => {
       })
 
       it('with an existing search text and default sort, updates search text and sorts by relevance', () => {
-        const {historyPushSpy, history} = createFakeHistory('?q=the_world&knuckles=true')
+        const { historyPushSpy, history } = createFakeHistory('?q=the_world&knuckles=true')
 
         const subject = new SearchParamsManager(history)
         subject.updateSearchText('sweet_query')
@@ -328,7 +327,7 @@ describe('SearchParamsManager', () => {
       })
 
       it('resets the page number to 1', () => {
-        const {historyPushSpy, history} = createFakeHistory('?q=the_world&page=5')
+        const { historyPushSpy, history } = createFakeHistory('?q=the_world&page=5')
 
         const subject = new SearchParamsManager(history)
         subject.updateSearchText('sweet_query')
@@ -341,7 +340,7 @@ describe('SearchParamsManager', () => {
 
     describe('facets', () => {
       it('with default facets (none), updates facets', () => {
-        const {historyPushSpy, history} = createFakeHistory('')
+        const { historyPushSpy, history } = createFakeHistory('')
 
         const subject = new SearchParamsManager(history)
         subject.toggleFacet('organization', 'SCOS')
@@ -352,16 +351,16 @@ describe('SearchParamsManager', () => {
       })
 
       it('with existing facets for the name (organization), toggles facet', () => {
-        const {historyPushSpy, history} = createFakeHistory('?facets%5Borganization%5D%5B%5D=SCOS')
+        const { historyPushSpy, history } = createFakeHistory('?facets%5Borganization%5D%5B%5D=SCOS')
 
         const subject = new SearchParamsManager(history)
         subject.toggleFacet('organization', 'SCOS')
 
-        expect(historyPushSpy).toHaveBeenCalledWith({search: 'page=1'})
+        expect(historyPushSpy).toHaveBeenCalledWith({ search: 'page=1' })
       })
 
       it('with existing facets for the name (keywords), add new facets', () => {
-        const {historyPushSpy, history} = createFakeHistory('?facets%5Bkeywords%5D%5B%5D=Ohio')
+        const { historyPushSpy, history } = createFakeHistory('?facets%5Bkeywords%5D%5B%5D=Ohio')
 
         const subject = new SearchParamsManager(history)
         subject.toggleFacet('keywords', 'Transportation')
@@ -372,7 +371,7 @@ describe('SearchParamsManager', () => {
       })
 
       it('with existing facets for the other names (organization), add new facets and keeps others', () => {
-        const {historyPushSpy, history} = createFakeHistory('?facets%5Bkeywords%5D%5B%5D=Ohio&facets%5Borganization%5D%5B%5D=SCOS')
+        const { historyPushSpy, history } = createFakeHistory('?facets%5Bkeywords%5D%5B%5D=Ohio&facets%5Borganization%5D%5B%5D=SCOS')
 
         const subject = new SearchParamsManager(history)
         subject.toggleFacet('keywords', 'Ohio')
@@ -383,7 +382,7 @@ describe('SearchParamsManager', () => {
       })
 
       it('resets the page number to 1', () => {
-        const {historyPushSpy, history} = createFakeHistory('?facets%5Bkeywords%5D%5B%5D=Ohio&facets%5Borganization%5D%5B%5D=SCOS&page=5')
+        const { historyPushSpy, history } = createFakeHistory('?facets%5Bkeywords%5D%5B%5D=Ohio&facets%5Borganization%5D%5B%5D=SCOS&page=5')
 
         const subject = new SearchParamsManager(history)
         subject.toggleFacet('keywords', 'Ohio')
@@ -404,7 +403,7 @@ describe('withSearchParamsManager', () => {
 
   beforeEach(() => {
     const wrappedComponent = (props) => {
-      return <wrapped-component {...props}/>
+      return <wrapped-component {...props} />
     }
     store = createStore(reducer)
     Rapper = withSearchParamsManager(wrappedComponent)
@@ -413,7 +412,7 @@ describe('withSearchParamsManager', () => {
   it('injects an instance of the query params manager into the wrapped component', () => {
     const subject = mount(
       <TestableProvider store={store}>
-        <Rapper history={{location: {}}} />
+        <Rapper history={{ location: {} }} />
       </TestableProvider>
     )
 
@@ -423,55 +422,55 @@ describe('withSearchParamsManager', () => {
   it('dispatches search on the initial render', () => {
     const subject = mount(
       <TestableProvider store={store}>
-        <Rapper history={{location: {search: '?apiAccessible=false'}}} />
+        <Rapper history={{ location: { search: '?apiAccessible=false' } }} />
       </TestableProvider>
     )
 
-    expect(store.getState()).toContainEqual(datasetSearch(expect.objectContaining({apiAccessible: false})))
+    expect(store.getState()).toContainEqual(datasetSearch(expect.objectContaining({ apiAccessible: false })))
   })
 
   it('dispatches search on string updates', () => {
     const subject = mount(
       <TestableProvider store={store}>
-        <Rapper history={{location: {search: '?apiAccessible=false'}}} />
+        <Rapper history={{ location: { search: '?apiAccessible=false' } }} />
       </TestableProvider>
     )
 
-    expect(store.getState()).toContainEqual(datasetSearch(expect.objectContaining({apiAccessible: false})))
+    expect(store.getState()).toContainEqual(datasetSearch(expect.objectContaining({ apiAccessible: false })))
 
-    subject.setProps({history: {location: {search: '?apiAccessible=true'}}})
+    subject.setProps({ history: { location: { search: '?apiAccessible=true' } } })
 
-    expect(store.getState()).toContainEqual(datasetSearch(expect.objectContaining({apiAccessible: true})))
+    expect(store.getState()).toContainEqual(datasetSearch(expect.objectContaining({ apiAccessible: true })))
   })
 
   it('does not dispatch search on other updates', () => {
     const subject = mount(
       <TestableProvider store={store}>
-        <Rapper history={{location: {search: '?apiAccessible=false'}}} />
+        <Rapper history={{ location: { search: '?apiAccessible=false' } }} />
       </TestableProvider>
     )
 
-    expect(store.getState()).toContainEqual(datasetSearch(expect.objectContaining({apiAccessible: false})))
+    expect(store.getState()).toContainEqual(datasetSearch(expect.objectContaining({ apiAccessible: false })))
 
-    subject.setProps({otherThing: 'stuff'})
+    subject.setProps({ otherThing: 'stuff' })
 
-    expect(store.getState().pop()).toEqual(datasetSearch(expect.objectContaining({apiAccessible: false})))
+    expect(store.getState().pop()).toEqual(datasetSearch(expect.objectContaining({ apiAccessible: false })))
   })
 })
 
-function createFakeHistory(search) {
+function createFakeHistory (search) {
   const historyPushSpy = jest.fn()
   const history = {
     push: historyPushSpy,
-    location: {search}
+    location: { search }
   }
-  return {historyPushSpy, history}
+  return { historyPushSpy, history }
 }
 
-function TestableProvider({children, store, ...props}) {
+function TestableProvider ({ children, store, ...props }) {
   return (
     <Provider store={store}>
-      {React.cloneElement(children, {...props})}
+      {React.cloneElement(children, { ...props })}
     </Provider>
   )
 }
