@@ -155,7 +155,8 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "cypress:debug": "DEBUG=cypress:* cypress run",
-    "test:all": "npm run test && npm run start & wait-on http://localhost:9001 && npm run cypress:run && npm run stop"
+    "test:all": "npm run test && npm run test:cypress",
+    "test:cypress": "npm run start & wait-on http://localhost:9001 && npm run cypress:run && npm run stop"
   },
   "publishConfig": {
     "access": "public"
