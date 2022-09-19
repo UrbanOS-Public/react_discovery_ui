@@ -72,7 +72,7 @@ export const Routes = {
         },
         previewFormatJson: {
             method: 'GET',
-            url: 'http://localhost:4000/api/v1/dataset/622746a5-4e2a-4a4c-ac18-74cb1fb05ab3/preview?_format=json',
+            url: '/api/v1/dataset/622746a5-4e2a-4a4c-ac18-74cb1fb05ab3/preview?_format=json',
             response: 'fixture:details_page_spec/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3/preview_format_json.json'
         },
         recommendations: {

@@ -81,7 +81,9 @@ describe('The Ogrip Dataset Details Tab', function () {
     cy.route(routes.info)
     cy.route(routes["622746a5_4e2a_4a4c_ac18_74cb1fb05ab3"].downloadFormatGeojson)
     cy.route(routes["622746a5_4e2a_4a4c_ac18_74cb1fb05ab3"].previewFormatGeojson)
+    cy.route(routes["622746a5_4e2a_4a4c_ac18_74cb1fb05ab3"].previewFormatJson)
     cy.route(routes["622746a5_4e2a_4a4c_ac18_74cb1fb05ab3"].recommendations)
+    cy.route(routes["622746a5_4e2a_4a4c_ac18_74cb1fb05ab3"].query)
     cy.visit('/dataset/ogrip/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3')
   })
 
