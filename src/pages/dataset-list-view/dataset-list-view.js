@@ -106,7 +106,7 @@ const DatasetListView = (props) => {
             options={createSortOptions()}
             selectChangeCallback={searchParamsManager.updateSortOrder}
             testId='sort-select'
-                                   />
+          />
           </div>
         </div>
         {renderDatasetList()}
@@ -115,7 +115,7 @@ const DatasetListView = (props) => {
           numberOfPages={numberOfPages}
           currentPage={searchParamsManager.page}
           pageChangeCallback={searchParamsManager.updatePage}
-                                             />
+        />
         </div>
       </div>
     </dataset-list-view>

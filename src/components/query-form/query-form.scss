@@ -96,6 +96,7 @@ query-form {
     a {
       @include link();
       color: $light-blue;
+
       &:hover {
         color: $almost-black;
       }
@@ -150,17 +151,17 @@ query-form {
     padding: 0.5rem;
 
     &::-webkit-scrollbar {
-        -webkit-appearance: none;
+      -webkit-appearance: none;
     }
 
     &::-webkit-scrollbar:vertical {
-        width: 11px;
+      width: 11px;
     }
 
     &::-webkit-scrollbar-thumb {
-        border-radius: 8px;
-        border: 2px solid white;
-        background-color: $almost-black;
+      border-radius: 8px;
+      border: 2px solid white;
+      background-color: $almost-black;
     }
   }
 }

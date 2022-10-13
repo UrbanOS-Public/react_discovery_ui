@@ -72,12 +72,9 @@ This starts a simple React site with the main Discovery UI component as the sole
 
 `npm run stop`
 
-## Build Package
-
-`npm run build:library`
-
 ## Using the Package Locally
 
+- Run `npm run build:library` in the component root directory.
 - Run `npm link` in the component root directory.
 - Run `npm pack` in the component root directory.
 - Run `npm install $COMPONENT_ROOT/$COMPONENT_PACKAGE.tgz` in the consuming application.
