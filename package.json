@@ -94,7 +94,7 @@
     "babel-jest": "^27.0.6",
     "babel-loader": "^8.1.0",
     "babel-plugin-inline-svg": "^1.0.1",
-    "copy-webpack-plugin": "^4.6.0",
+    "copy-webpack-plugin": "^11.0.0",
     "create-react-component-folder": "^0.3.7",
     "cross-env": "^7.0.3",
     "css-loader": "^1.0.1",
