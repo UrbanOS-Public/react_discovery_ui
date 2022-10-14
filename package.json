@@ -63,7 +63,7 @@
     "redux": "^4.0.1",
     "redux-saga": "^0.16.2",
     "reselect": "^4.0.0",
-    "sanitize-html": "^2.7.2",
+    "sanitize-html": "^1.27.5",
     "storage2": "^0.1.0",
     "typescript": "^4.2.2",
     "wait-on": "^3.3.0",
@@ -144,6 +144,7 @@
     ]
   },
   "scripts": {
+    "build": "webpack --mode production",
     "build:library": "rm -rf lib && cross-env BABEL_OUTPUT=commonjs babel src --out-dir lib/ --ignore 'src/**/*.spec.js','src/**/*.test.js','__mocks__/**' --copy-files",
     "start": "webpack-dev-server --mode development",
     "stop": "killall node",
