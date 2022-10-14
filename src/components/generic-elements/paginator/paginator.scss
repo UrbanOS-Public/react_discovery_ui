@@ -5,31 +5,30 @@ paginator-element {
   /*@include flex-row();*/
 
   .pagination-box {
-   /* @include flex-column();*/
+    /* @include flex-column();*/
     height: 2.875rem;
     width: 2.875rem;
     border: 1px solid #D2D4D6;
     background-color: white;
-    &:not(:last-child) {
-      border-right: none;
-    }
+    margin: 0px 2px;
   }
-  .page-number, .arrow {
+
+  .page-number,
+  .arrow {
     &:hover:not(.selected):not(.disabled) {
-      background-color: rgba(235,237,240,0.4);
+      background-color: rgba(235, 237, 240, 0.4);
       color: $light-blue;
       cursor: pointer;
     }
   }
 
-  .right-arrow {
+  .right-arrow svg {
     transform: rotate(180deg);
-    display:block;
-    margin-top:-2px;
   }
 
-  .right-arrow, .left-arrow {
-    height: 1rem;
+  .right-arrow,
+  .left-arrow {
+    height: .9rem;
   }
 
   .selected {
