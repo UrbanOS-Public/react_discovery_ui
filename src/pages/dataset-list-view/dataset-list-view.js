@@ -11,9 +11,12 @@ import LoadingElement from '../../components/generic-elements/loading-element'
 import Checkbox from '../../components/generic-elements/checkbox'
 import { SearchParamsManager } from '../../search-params/search-params-manager'
 import Auth0LoginZone from '../../components/auth0-login-zone'
+import { useEffect } from 'react'
+import withAuth0 from '../../auth/auth0-wrapper'
 
-const DatasetListView = (props) => {
+export const DatasetListView = (props) => {
   const {
+    auth,
     searchParamsManager,
     searchResults,
     searchMetadata,
@@ -23,6 +26,12 @@ const DatasetListView = (props) => {
     globalErrorMessage,
     dismissGlobalError
   } = props
+
+  useEffect(() => {
+    if (auth.isLoading === false && !auth.isAuthenticated) {
+      auth.loginWithRedirect()
+    }
+  }, [auth])
 
   const createSortOptions = () => {
     return [
@@ -133,4 +142,4 @@ DatasetListView.propTypes = {
   dismissGlobalError: PropTypes.func
 }
 
-export default DatasetListView
+export default withAuth0(DatasetListView)
