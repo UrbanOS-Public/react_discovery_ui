@@ -37,4 +37,4 @@ const mapDispatchToProps = dispatch => ({
   reset: () => { dispatch(visualizationReset()); dispatch(resetQuery()); dispatch(resetDatasetReferences()) }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withAuth0(DatasetView))
+export default connect(mapStateToProps, mapDispatchToProps)(DatasetView)

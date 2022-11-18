@@ -22,6 +22,7 @@ import OAuthErrorView from './pages/oauth-error-view'
 import NetworkLoadingElement from './components/network-loading-element'
 
 import routes from './routes'
+import ProtectedRoute from './components/protected-route/protected-route'
 
 const Redux = {
   start: (reducerMap = {}) => {
@@ -46,15 +47,15 @@ const DiscoveryUI = () => {
       <NetworkLoadingElement />
       <Router>
         <Switch>
-          <Route exact path={routes.root} component={DataSetListViewWrapper} />
-          <Route exact path={routes.datasetView} component={DatasetView} />
+          <ProtectedRoute exact path={routes.root} component={DataSetListViewWrapper} />
+          <ProtectedRoute exact path={routes.datasetView} component={DatasetView} />
           <Redirect exact path={routes.datasetVisualizationView} to={{ pathname: routes.datasetView, search: '?selectedIndex=1' }} />
-          <Route exact path={routes.healthCheck} component={() => <div>Everything is fine</div>} />
-          <Route exact path={routes.login} component={LoginView} />
+          <ProtectedRoute exact path={routes.healthCheck} component={() => <div>Everything is fine</div>} />
+          <ProtectedRoute exact path={routes.login} component={LoginView} />
           <Route exact path={routes.oauth} component={OAuthView} />
-          <Route exact path={routes.oauthError} component={OAuthErrorView} />
-          <Route exact path={routes.visualizationView} component={VisualizationView} />
-          <Route exact path={routes.userProfile} component={UserProfileView} />
+          <ProtectedRoute exact path={routes.oauthError} component={OAuthErrorView} />
+          <ProtectedRoute exact path={routes.visualizationView} component={VisualizationView} />
+          <ProtectedRoute exact path={routes.userProfile} component={UserProfileView} />
           <Route component={noMatch} />
         </Switch>
       </Router>

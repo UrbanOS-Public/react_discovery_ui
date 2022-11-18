@@ -27,11 +27,7 @@ export const DatasetListView = (props) => {
     dismissGlobalError
   } = props
 
-  useEffect(() => {
-    if (auth.isLoading === false && !auth.isAuthenticated) {
-      auth.loginWithRedirect()
-    }
-  }, [auth])
+
 
   const createSortOptions = () => {
     return [
@@ -142,4 +138,4 @@ DatasetListView.propTypes = {
   dismissGlobalError: PropTypes.func
 }
 
-export default withAuth0(DatasetListView)
+export default DatasetListView
