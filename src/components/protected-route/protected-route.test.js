@@ -1,25 +1,21 @@
 import ProtectedRoute from './protected-route'
 import React from 'react'
-import { default as createAuth0Client } from '@auth0/auth0-spa-js'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { screen, render, waitFor } from '@testing-library/react'
+import auth0ClientProvider from '../../auth/auth0-client-provider'
 
 jest.mock('@auth0/auth0-spa-js')
 
 describe('ProtectedRoute component', () => {
   describe('unauthenticated', () => {
-    let loginWithRedirect
+    const mockLoginWithRedirect = jest.fn(() => Promise.resolve({}))
     beforeEach(() => {
       jest.resetAllMocks()
-      createAuth0Client.mockImplementation(() => {
-        loginWithRedirect = jest.fn(() => Promise.resolve({}))
-
-        return Promise.resolve({
-          isAuthenticated: jest.fn(() => Promise.resolve(false)),
-          handleRedirectCallback: jest.fn(() => Promise.resolve({})),
-          loginWithRedirect
-        })
-      })
+      jest.spyOn(auth0ClientProvider, 'get').mockImplementation(() => Promise.resolve({
+        isAuthenticated: jest.fn(() => Promise.resolve(false)),
+        handleRedirectCallback: jest.fn(() => Promise.resolve({})),
+        loginWithRedirect: mockLoginWithRedirect
+      }))
     })
 
     it('logs in with redirect when the REQUIRE_API_KEY is true and user is not authenticated', async () => {
@@ -29,7 +25,7 @@ describe('ProtectedRoute component', () => {
 
       await waitFor(() => screen.getByText('Test Div'))
 
-      expect(loginWithRedirect).toHaveBeenCalled()
+      expect(mockLoginWithRedirect).toHaveBeenCalled()
     })
 
     it('does not attempt to log in when the REQUIRE_API_KEY is false and user is not authenticated', async () => {
@@ -39,22 +35,19 @@ describe('ProtectedRoute component', () => {
 
       await waitFor(() => screen.getByText('Test Div'))
 
-      expect(loginWithRedirect).not.toHaveBeenCalled()
+      expect(mockLoginWithRedirect).not.toHaveBeenCalled()
     })
   })
 
   describe('authenticated', () => {
-    let loginWithRedirect
+    const mockLoginWithRedirect = jest.fn(() => Promise.resolve({}))
     beforeEach(() => {
-      createAuth0Client.mockImplementation(() => {
-        loginWithRedirect = jest.fn()
-
-        return Promise.resolve({
-          isAuthenticated: jest.fn(() => Promise.resolve(true)),
-          handleRedirectCallback: jest.fn(() => Promise.resolve({})),
-          loginWithRedirect
-        })
-      })
+      jest.resetAllMocks()
+      jest.spyOn(auth0ClientProvider, 'get').mockImplementation(() => Promise.resolve({
+        isAuthenticated: jest.fn(() => Promise.resolve(true)),
+        handleRedirectCallback: jest.fn(() => Promise.resolve({})),
+        loginWithRedirect: mockLoginWithRedirect
+      }))
     })
 
     it('does not attempt to log in when the REQUIRE_API_KEY is true and user is authenticated', async () => {
@@ -64,7 +57,7 @@ describe('ProtectedRoute component', () => {
 
       await waitFor(() => screen.getByText('Test Div'))
 
-      expect(loginWithRedirect).not.toHaveBeenCalled()
+      expect(mockLoginWithRedirect).not.toHaveBeenCalled()
     })
   })
 })
