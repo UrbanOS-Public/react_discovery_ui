@@ -4,7 +4,7 @@ import loadingIcon from '../../../assets/loadingicon.svg'
 
 const LoadingElement = ({ className = '' }) => {
   return (
-    <loading-element class={`loading-container ${className}`}>
+    <loading-element class={`loading-container ${className}`} data-testid='loading-spinner'>
       <InlineSVG svg={loadingIcon} accessibilityDesc='Loading...' />
     </loading-element>
   )
