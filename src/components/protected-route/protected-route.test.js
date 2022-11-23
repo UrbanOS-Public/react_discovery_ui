@@ -33,7 +33,7 @@ describe('ProtectedRoute component', () => {
 
       render(<Router><ProtectedRoute exact path='/' component={() => <div>Test Div</div>} /></Router>)
 
-      await waitFor(() => screen.getByTestId('loading-spinner'))
+      await waitFor(() => screen.getByText('Test Div'))
 
       expect(mockLoginWithRedirect).not.toHaveBeenCalled()
     })

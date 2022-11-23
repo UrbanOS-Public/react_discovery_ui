@@ -23,6 +23,8 @@ const ProtectedRoute = ({ component, ...args }) => {
 
     if (window.REQUIRE_API_KEY === 'true') {
       loginAuth0()
+    } else {
+      setIsLoading(false)
     }
   }, [])
 
