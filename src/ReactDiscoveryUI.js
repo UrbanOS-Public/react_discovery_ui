@@ -56,6 +56,7 @@ const DiscoveryUI = () => {
           <ProtectedRoute exact path={routes.oauthError} component={OAuthErrorView} />
           <ProtectedRoute exact path={routes.visualizationView} component={VisualizationView} />
           <ProtectedRoute exact path={routes.userProfile} component={UserProfileView} />
+          <ProtectedRoute exact path={routes.apiKey} component={ApiKeyView} />
           <Route component={noMatch} />
         </Switch>
       </Router>

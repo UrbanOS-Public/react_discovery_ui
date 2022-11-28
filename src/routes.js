@@ -4,6 +4,7 @@ export default {
   datasetVisualizationView: '/dataset/:organizationName/:datasetName/visualization',
   visualizationView: '/visualization/:id?',
   userProfile: '/user',
+  apiKey: '/apiKey',
 
   healthCheck: '/healthcheck',
   login: '/login',
