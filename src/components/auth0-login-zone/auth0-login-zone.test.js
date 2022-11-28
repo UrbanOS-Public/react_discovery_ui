@@ -65,9 +65,10 @@ describe('OauthLoginZone component', () => {
 
       it('has the expected menu items', () => {
         const menuItems = subject.find('li')
-        expect(menuItems.length).toBe(2)
+        expect(menuItems.length).toBe(3)
         expect(menuItems.at(0).text()).toMatch('Workspaces')
-        expect(menuItems.at(1).text()).toMatch('Log Out')
+        expect(menuItems.at(1).text()).toMatch('API Key')
+        expect(menuItems.at(2).text()).toMatch('Log Out')
       })
 
       it('logs out with the correct "returnTo" URL when the button is clicked', () => {
@@ -80,6 +81,11 @@ describe('OauthLoginZone component', () => {
       it('has a link to the workspaces page', () => {
         const link = subject.find('a')
         expect(link.at(0).props().href).toMatch('/user')
+      })
+
+      it('has a link to the apikey page', () => {
+        const link = subject.find('a')
+        expect(link.at(1).props().href).toMatch('/apiKey')
       })
 
       it('does not have a loading element', () => {
