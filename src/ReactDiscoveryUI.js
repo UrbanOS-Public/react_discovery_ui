@@ -23,6 +23,7 @@ import NetworkLoadingElement from './components/network-loading-element'
 
 import routes from './routes'
 import ProtectedRoute from './components/protected-route/protected-route'
+import ApiKeyView from './pages/apikey-view/connector'
 
 const Redux = {
   start: (reducerMap = {}) => {

@@ -53,11 +53,11 @@ export const Auth0LoginZone = ({ auth: { isAuthenticated, isLoading, loginWithRe
             <ul>
               <li className='menu-item'>
                 <FolderIcon />
-                <span className='menu-text'><Link to='/user' target='_blank' rel='noopener noreferrer'>Workspaces</Link></span>
+                <span className='menu-text'><Link to='/user' rel='noopener noreferrer'>Workspaces</Link></span>
               </li>
               <li className='menu-item'>
                 <VpnKeyIcon />
-                <span className='menu-text'><Link to='/apiKey' target='_blank' rel='noopener noreferrer'>API Key</Link></span>
+                <span className='menu-text'><Link to='/apiKey' rel='noopener noreferrer'>API Key</Link></span>
               </li>
               {
                 (window.CONTRIBUTE_HOST) &&

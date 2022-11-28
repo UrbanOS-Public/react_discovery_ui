@@ -1,0 +1,93 @@
+@import '../../styles/mixins.scss';
+
+.apiKey-view-title {
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  display: flex;
+  align-items: center;
+
+  color: #000000;
+
+  flex: none;
+  flex-grow: 0;
+}
+
+.apiKey-view-paragraph {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+
+  display: flex;
+  align-items: center;
+
+  color: #000000;
+
+  padding-bottom: 65px;
+
+  flex: none;
+  flex-grow: 0;
+}
+
+.apiKey-view-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 40px 30px;
+  margin: 20px 20px;
+  gap: 20px;
+  box-shadow:  0 0 6px gray;
+
+  background: #FFFFFF;
+
+  flex: none;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.apiKey-view-generate-button {
+  //display: flex;
+  //flex-direction: column;
+  //align-items: center;
+  //padding: 8px 16px;
+  //gap: 8px;
+  //
+  //width: 134px;
+  //height: 40px;
+  //
+  //background: #28807C;
+  //color: #FFFFFF;
+  //border-radius: 2px;
+  //
+  //flex: none;
+  //order: 3;
+  //flex-grow: 0;
+
+  @include button();
+  display: flex;
+
+  padding: 1rem;
+  background-color: $light-blue;
+  color: $super-light-grey;
+  letter-spacing: 0.05rem;
+  margin: 1rem 1rem 1rem 0rem;
+}
+
+.apiKey-modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 40px 30px;
+  margin: 20px 20px;
+  gap: 20px;
+  box-shadow:  0 0 6px gray;
+
+  background: #FFFFFF;
+
+  flex: none;
+  align-self: stretch;
+  flex-grow: 0;
+}
