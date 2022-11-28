@@ -18,3 +18,5 @@ cypress/videos
 # Testing
 cypress/screenshots/
 
+.idea/
+
