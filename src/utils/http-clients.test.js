@@ -57,7 +57,7 @@ describe('http-clients', () => {
 
         it('defaults the base url to the value in global config', () => {
           expect(client.defaults.baseURL).not.toBe(undefined)
-          expect(client.defaults.baseURL).toBe(window.API_HOST)
+          expect(client.defaults.baseURL).toBe(window.DISC_API_URL)
         })
 
         it('sets the client to send cross-domain auth headers, etc.', () => {

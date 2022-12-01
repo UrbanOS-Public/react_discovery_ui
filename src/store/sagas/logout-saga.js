@@ -7,7 +7,7 @@ function * logout ({ value: { username, password, history } }) {
     const token = sessionStorage.getItem('api-token')
     const location = _.get(history, 'location.state.from', { pathname: '/', search: '' })
     const response = yield call(axios.get, '/api/v1/logout', {
-      baseURL: window.API_HOST,
+      baseURL: window.DISC_API_URL,
       headers: { Authorization: `Bearer ${token}` },
       withCredentials: true
     })

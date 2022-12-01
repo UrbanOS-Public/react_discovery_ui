@@ -25,7 +25,7 @@ function * executeQuery ({ queryText }) {
       queryBody,
       {
         cancelToken: cancelToken.token,
-        baseURL: window.API_HOST,
+        baseURL: window.DISC_API_URL,
         withCredentials: true,
         headers: { 'Content-Type': 'text/plain' },
         validateStatus: false

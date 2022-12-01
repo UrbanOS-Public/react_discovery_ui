@@ -50,16 +50,19 @@ are found in `test-start-point.js`
 
 ### Configuration
 
-Runtime configuration for running the test app locally is stored in `config/config.js`. The component expects configuration to be on the `window` object i.e: `window.BASE_URL = 'example.com'`
+Runtime configuration for running the test app locally is stored in `config/config.js`. The component expects configuration to be on the `window` object i.e: `window.DISC_UI_URL = 'https://www.example.com'`
 
-- `API_HOST`
+- `DISC_API_URL`
   This application is designed to be used with [discovery-api](https://github.com/smartcitiesdata/discovery_api) as the backend. Set this value to the URL of the local `discovery-api` endpoint. (Note: this can also be set to a known public discovery api endpoint, though certain features, such as user logins, are not guaranteed to work properly.)
 
 - `GTM_ID`
   Set this value to the Google Tag Manager ID to enable analytics.
 
-- `BASE_URL`
+- `DISC_UI_URL`
   The domain that the site will be hosted on
+
+- `DISC_STREAMS_URL`
+  This application is designed to be used with [discovery-streams](https://github.com/smartcitiesdata/discovery_streams) for providing live updates for streaming datasets. Set this value to the URL of the local `discovery-streams` endpoint. (Note: this can also be set to a known public discovery streams endpoint, though certain features, such as user logins, are not guaranteed to work properly.)
 
 - `STREETS_TILE_LAYER_URL`
   This is the url source of the mapbox tiles used in Leaflet. Example: `https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`
