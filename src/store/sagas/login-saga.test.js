@@ -17,7 +17,7 @@ describe('login-saga', () => {
   const history = jest.fn()
 
   beforeEach(() => {
-    window.API_HOST = 'http://example.com/'
+    window.DISC_API_URL = 'http://example.com/'
 
     sagaMiddleware = createSagaMiddleware()
     store = createStore(reducer, applyMiddleware(sagaMiddleware))
@@ -46,7 +46,7 @@ describe('login-saga', () => {
 
     it('calls login api with the correct credentials', () => {
       expect(mockAxios.get).toHaveBeenCalledWith('/api/v1/login', {
-        baseURL: window.API_HOST,
+        baseURL: window.DISC_API_URL,
         auth: { username, password },
         withCredentials: true
       })

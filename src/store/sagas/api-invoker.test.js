@@ -17,7 +17,7 @@ describe('api-invoker', () => {
   beforeEach(() => {
     AuthenticatedHTTPClient.get = jest.fn()
 
-    window.API_HOST = 'http://fake.com/'
+    window.DISC_API_URL = 'http://fake.com/'
 
     sagaMiddleware = createSagaMiddleware()
     store = createStore(reducer, applyMiddleware(sagaMiddleware))
@@ -36,7 +36,7 @@ describe('api-invoker', () => {
     sagaMiddleware.run(apiInvoker({ endpoint: '/gohome', actionator }))
 
     expect(AuthenticatedHTTPClient.get).toHaveBeenCalledWith('/gohome', {
-      baseURL: window.API_HOST,
+      baseURL: window.DISC_API_URL,
       params: {},
       paramsSerializer: expect.anything(),
       withCredentials: true
@@ -55,7 +55,7 @@ describe('api-invoker', () => {
     )
 
     expect(AuthenticatedHTTPClient.get).toHaveBeenCalledWith('my-url', {
-      baseURL: window.API_HOST,
+      baseURL: window.DISC_API_URL,
       params: mockQueryParam,
       paramsSerializer: expect.anything(),
       withCredentials: true

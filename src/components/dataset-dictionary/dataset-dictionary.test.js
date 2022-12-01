@@ -267,11 +267,11 @@ describe('dataset dictionary', () => {
   })
 
   it('renders a view link', () => {
-    window.API_HOST = 'http://right.here.com'
+    window.DISC_API_URL = 'http://right.here.com'
     subject = mount(<DatasetDictionary schema={basicSchema} datasetId='all-the-datas' />)
 
     const link = subject.find('.view-link a')
-    expect(link.props().href).toBe(`${window.API_HOST}/api/v1/dataset/all-the-datas/dictionary`)
+    expect(link.props().href).toBe(`${window.DISC_API_URL}/api/v1/dataset/all-the-datas/dictionary`)
   })
 
   const expectCorrectCellValues = (expectedCellValues, cells) => {

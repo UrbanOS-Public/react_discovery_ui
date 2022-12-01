@@ -104,14 +104,14 @@ function renderExamples (dataset) {
       <ApiExample
         title='Simple query'
         descriptionHtml={<div>This query selects all columns from the dataset, limited to 200 rows returned.</div>}
-        url={`${window.API_HOST}/api/v1/organization/${dataset.organization.name}/dataset/${dataset.name}/query?limit=200&_format=${format}`}
+        url={`${window.DISC_API_URL}/api/v1/organization/${dataset.organization.name}/dataset/${dataset.name}/query?limit=200&_format=${format}`}
         action='GET'
         params={simpleApiParams}
       />
       <ApiExample
         title='Freestyle query'
         descriptionHtml={freestyleDescription()}
-        url={`${window.API_HOST}/api/v1/query?_format=${format}`}
+        url={`${window.DISC_API_URL}/api/v1/query?_format=${format}`}
         action='POST'
         params={freestyleApiParams}
         examples={getFreestyleApiExamples(dataset)}

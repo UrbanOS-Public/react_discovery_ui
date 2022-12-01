@@ -36,7 +36,7 @@ describe('freestyle-query-saga', () => {
   }
 
   beforeEach(() => {
-    window.API_HOST = 'http://example.com/'
+    window.DISC_API_URL = 'http://example.com/'
     AuthenticatedHTTPClient.post = jest.fn()
     AuthenticatedHTTPClient.cancelTokenSource = jest.fn(() => ({ token: {} }))
   })
@@ -55,7 +55,7 @@ describe('freestyle-query-saga', () => {
     it('calls multiple query api with query', () => {
       expect(AuthenticatedHTTPClient.post).toHaveBeenCalledWith('/api/v1/query', queryText, {
         cancelToken: expect.any(Object),
-        baseURL: window.API_HOST,
+        baseURL: window.DISC_API_URL,
         withCredentials: true,
         headers: { 'Content-Type': 'text/plain' },
         validateStatus: false
@@ -115,7 +115,7 @@ describe('freestyle-query-saga', () => {
     it('calls multiple query api with the query from store', () => {
       expect(AuthenticatedHTTPClient.post).toHaveBeenCalledWith('/api/v1/query', queryTextInStore, {
         cancelToken: expect.any(Object),
-        baseURL: window.API_HOST,
+        baseURL: window.DISC_API_URL,
         withCredentials: true,
         headers: { 'Content-Type': 'text/plain' },
         validateStatus: false

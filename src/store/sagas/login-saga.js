@@ -5,7 +5,7 @@ import axios from 'axios'
 function * login ({ value: { username, password, history } }) {
   try {
     const response = yield call(axios.get, '/api/v1/login', {
-      baseURL: window.API_HOST,
+      baseURL: window.DISC_API_URL,
       auth: { username, password },
       withCredentials: true
     })

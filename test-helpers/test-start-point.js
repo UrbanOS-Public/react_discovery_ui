@@ -13,7 +13,7 @@ window.HTMLCanvasElement.prototype.getContext = jest.fn()
 window.AUTH0_DOMAIN = 'domainator'
 window.AUTH0_CLIENT_ID = 'client_identifinator'
 window.AUTH0_AUDIENCE = 'audiencinator'
-window.API_HOST = 'http://test.example.com'
+window.DISC_API_URL = 'http://test.example.com'
 
 // This is the recommended approach for suppressing warnings around not using the `act` function pre React 16.9
 const originalError = console.error
