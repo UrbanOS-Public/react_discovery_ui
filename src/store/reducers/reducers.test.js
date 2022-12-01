@@ -13,7 +13,7 @@ import {
   DOWNLOAD_DATASET_SUCCEEDED,
   CLEAR_DATASET_PREVIEW,
   DATASET_SEARCH,
-  DATASET_SEARCH_SUCCEEDED
+  DATASET_SEARCH_SUCCEEDED, GENERATE_API_KEY_SUCCEEDED
 } from '../actions'
 import datasetStub from '../../../stubs/dataset-details-stub'
 
@@ -221,6 +221,40 @@ describe('UI Reducer', () => {
     const newState = reducer(currentState, { type: LOGIN_FAILURE })
 
     expect(newState.presentation.lastLoginAttemptFailed).toEqual(true)
+    expect(newState.presentation.isLoading).toEqual(false)
+  })
+
+  it('GENERATE_API_KEY sets isLoading to true', () => {
+    const currentState = {
+      presentation: {
+        isLoading: false
+      }
+    }
+    const newState = reducer(currentState, { value: { }, type: GENERATE_API_KEY_SUCCEEDED })
+
+    expect(newState.presentation.isLoading).toEqual(true)
+  })
+
+  it('GENERATE_API_KEY_SUCCEEDED sets apiKey to the obtained value', () => {
+    const expectedApiKey = 'newApiKey'
+    const currentState = {
+      presentation: {
+        apiKey: 'oldApiKey'
+      }
+    }
+    const newState = reducer(currentState, { value: { apiKey: expectedApiKey }, type: GENERATE_API_KEY_SUCCEEDED })
+
+    expect(newState.presentation.apiKey).toEqual(expectedApiKey)
+  })
+
+  it('GENERATE_API_KEY_SUCCEEDED sets isLoading to false', () => {
+    const currentState = {
+      presentation: {
+        isLoading: true
+      }
+    }
+    const newState = reducer(currentState, { value: { }, type: GENERATE_API_KEY_SUCCEEDED })
+
     expect(newState.presentation.isLoading).toEqual(false)
   })
 })

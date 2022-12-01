@@ -38,6 +38,12 @@ class AuthenticatedHTTPClient {
     return axiosClient.put(url, body, config)
   }
 
+  static async patch (url, body, config = {}) {
+    const axiosClient = await AuthenticatedHTTPClient.initializeClient()
+
+    return axiosClient.patch(url, body, config)
+  }
+
   static async delete (url, body, config = {}) {
     const axiosClient = await AuthenticatedHTTPClient.initializeClient()
 

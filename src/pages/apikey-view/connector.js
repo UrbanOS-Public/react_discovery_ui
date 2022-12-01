@@ -1,15 +1,19 @@
 import { connect } from 'react-redux'
 import ApiKeyView from './apikey-view'
-import { lastLoginAttemptFailed } from '../../store/selectors'
-import { login } from '../../store/actions'
+import { determineIfLoading, getApiKeyState, getGlobalErrorMessage, getGlobalErrorState } from '../../store/selectors'
+import { generateApiKey, setGlobalErrorState } from '../../store/actions'
 import { withRouter } from 'react-router-dom'
 
 const mapStateToProps = state => ({
-  lastAttemptFailed: lastLoginAttemptFailed(state) // TODO: remove/change?
+  apiKey: getApiKeyState(state),
+  isLoading: determineIfLoading(state),
+  isError: getGlobalErrorState(state),
+  errorMessage: getGlobalErrorMessage(state)
 })
 
 const mapDispatchToProps = dispatch => ({
-  login: (credentials) => dispatch(login(credentials)) // TODO: remove/change?
+  generate: () => dispatch(generateApiKey()),
+  dismissGlobalError: () => dispatch(setGlobalErrorState(false, ''))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ApiKeyView))
