@@ -13,7 +13,7 @@ import {
   DOWNLOAD_DATASET_SUCCEEDED,
   CLEAR_DATASET_PREVIEW,
   DATASET_SEARCH,
-  DATASET_SEARCH_SUCCEEDED, GENERATE_API_KEY_SUCCEEDED
+  DATASET_SEARCH_SUCCEEDED, GENERATE_API_KEY_SUCCEEDED, GENERATE_API_KEY
 } from '../actions'
 import datasetStub from '../../../stubs/dataset-details-stub'
 
@@ -230,7 +230,7 @@ describe('UI Reducer', () => {
         isLoading: false
       }
     }
-    const newState = reducer(currentState, { value: { }, type: GENERATE_API_KEY_SUCCEEDED })
+    const newState = reducer(currentState, { value: { }, type: GENERATE_API_KEY })
 
     expect(newState.presentation.isLoading).toEqual(true)
   })
