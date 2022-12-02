@@ -9,7 +9,7 @@ export default ({ endpoint, actionator, errorAction = displayError(), queryParam
   return function * retrieveData (action) {
     try {
       const query = {
-        baseURL: window.API_HOST,
+        baseURL: window.DISC_API_URL,
         params: queryParameterBuilder(action),
         paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'brackets' }),
         withCredentials: true

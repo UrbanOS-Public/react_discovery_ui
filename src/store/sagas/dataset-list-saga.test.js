@@ -32,7 +32,7 @@ describe('dataset-list-saga', () => {
         data: queryData
       }
 
-      window.API_HOST = 'http://example.com/'
+      window.DISC_API_URL = 'http://example.com/'
       AuthenticatedHTTPClient.get.mockImplementationOnce(() => (response))
       const store = setUpSagaMiddleware(actionTrackingReducer)
 
@@ -62,7 +62,7 @@ describe('dataset-list-saga', () => {
       expect(AuthenticatedHTTPClient.get).toHaveBeenCalledWith(
         '/api/v2/dataset/search',
         expect.objectContaining({
-          baseURL: window.API_HOST,
+          baseURL: window.DISC_API_URL,
           params: expectedParams,
           withCredentials: true
         })

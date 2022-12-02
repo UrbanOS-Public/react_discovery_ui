@@ -99,7 +99,7 @@ const SchemaTable = ({ schema, parentFieldName = '', style }) => {
 const viewLink = datasetId => (
   <div className='view-link'>
     <a
-      href={`${window.API_HOST}/api/v1/dataset/${datasetId}/dictionary`}
+      href={`${window.DISC_API_URL}/api/v1/dataset/${datasetId}/dictionary`}
       target='_blank'
     >
       <span className='view-text'>View as JSON</span>

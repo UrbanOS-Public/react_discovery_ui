@@ -7,7 +7,7 @@ class AuthenticatedHTTPClient {
   }
 
   static async initializeClient () {
-    const config = { baseURL: window.API_HOST, headers: {}, validateStatus: false }
+    const config = { baseURL: window.DISC_API_URL, headers: {}, validateStatus: false }
     const authClient = await Auth0Client.get()
     const isAuthenticated = await authClient.isAuthenticated()
 
