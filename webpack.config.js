@@ -75,7 +75,7 @@ module.exports = (env, argv) => {
       contentBase: path.join(__dirname, 'dist'),
       compress: productionOptimizationsEnabled,
       open: true,
-      port: 9002
+      port: 9001
     },
     plugins: plugins,
     optimization: {
