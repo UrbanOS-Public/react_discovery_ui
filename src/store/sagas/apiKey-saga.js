@@ -5,10 +5,8 @@ import { GENERATE_API_KEY, generateApiKeySucceeded, setGlobalErrorState } from '
 function * generateApiKey () {
   try {
     const response = yield call(() => AuthenticatedHTTPClient.patch('/api/v1/regenerateApiKey', ''))
-    console.log("RESPONSE")
-    console.log(response)
-    // const response = { status: 500, data: 'WWWWWWWWWWWWWWWWWWWWWWWW' }
-    yield put(generateApiKeySucceeded(response.data))
+
+    yield put(generateApiKeySucceeded(response.data.apiKey))
 
     if (response.status >= 400) {
       yield put(setGlobalErrorState(true, 'Could not generate api key. Please try again.'))
