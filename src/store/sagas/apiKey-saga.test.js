@@ -20,12 +20,12 @@ describe('apiKey-saga', () => {
 
   it('calls the correct API endpoint', () => {
     store.dispatch(generateApiKey())
-    expect(AuthenticatedHTTPClient.patch).toHaveBeenCalledWith('/api/v1/generateApiKey', '')
+    expect(AuthenticatedHTTPClient.patch).toHaveBeenCalledWith('/api/v1/regenerateApiKey', '')
   })
 
   it('dispatches a success message', () => {
     const fakeApiKey = 'someApiKey'
-    AuthenticatedHTTPClient.patch = jest.fn(() => ({ status: 200, data: fakeApiKey }))
+    AuthenticatedHTTPClient.patch = jest.fn(() => ({ status: 200, data: { apiKey: fakeApiKey } }))
     store.dispatch(generateApiKey())
     expect(store.getState()).toContainEqual(generateApiKeySucceeded(fakeApiKey))
   })
