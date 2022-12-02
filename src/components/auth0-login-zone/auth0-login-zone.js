@@ -27,6 +27,8 @@ export const Auth0LoginZone = ({ auth: { isAuthenticated, isLoading, loginWithRe
   const clickOutMenu = () => { if (isMobile) { setMenuToggled(false) } }
   const isMenuExpanded = (isMenuToggled || isMouseInMenu)
 
+  const regenerateApiKeyFF = window.REGENERATE_API_KEY_FF
+
   useClickOutWatcher(wrapperRef, clickOutMenu)
 
   if (isLoading) {
@@ -55,10 +57,11 @@ export const Auth0LoginZone = ({ auth: { isAuthenticated, isLoading, loginWithRe
                 <FolderIcon />
                 <span className='menu-text'><Link to='/user' rel='noopener noreferrer'>Workspaces</Link></span>
               </li>
+              {(regenerateApiKeyFF === 'true') &&
               <li className='menu-item'>
                 <VpnKeyIcon />
                 <span className='menu-text'><Link to='/apiKey' rel='noopener noreferrer'>API Key</Link></span>
-              </li>
+              </li>}
               {
                 (window.CONTRIBUTE_HOST) &&
                 <li className='menu-item'>

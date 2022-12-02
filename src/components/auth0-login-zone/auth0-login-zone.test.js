@@ -64,11 +64,26 @@ describe('OauthLoginZone component', () => {
       })
 
       it('has the expected menu items', () => {
+        window.REGENERATE_API_KEY_FF = 'true'
+        subject = createSubject({ isAuthenticated: true, loginWithRedirect: loginHandler, logout: logoutHandler })
+        button = subject.find('button')
+        button.simulate('mouseEnter')
         const menuItems = subject.find('li')
         expect(menuItems.length).toBe(3)
         expect(menuItems.at(0).text()).toMatch('Workspaces')
         expect(menuItems.at(1).text()).toMatch('API Key')
         expect(menuItems.at(2).text()).toMatch('Log Out')
+      })
+
+      it('does not contain API Key when FF is not active', () => {
+        window.REGENERATE_API_KEY_FF = 'false'
+        subject = createSubject({ isAuthenticated: true, loginWithRedirect: loginHandler, logout: logoutHandler })
+        button = subject.find('button')
+        button.simulate('mouseEnter')
+        const menuItems = subject.find('li')
+        expect(menuItems.length).toBe(2)
+        expect(menuItems.at(0).text()).toMatch('Workspaces')
+        expect(menuItems.at(1).text()).toMatch('Log Out')
       })
 
       it('logs out with the correct "returnTo" URL when the button is clicked', () => {
@@ -84,6 +99,10 @@ describe('OauthLoginZone component', () => {
       })
 
       it('has a link to the apikey page', () => {
+        window.REGENERATE_API_KEY_FF = 'true'
+        subject = createSubject({ isAuthenticated: true, loginWithRedirect: loginHandler, logout: logoutHandler })
+        button = subject.find('button')
+        button.simulate('mouseEnter')
         const link = subject.find('a')
         expect(link.at(1).props().href).toMatch('/apiKey')
       })

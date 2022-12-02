@@ -25,6 +25,8 @@ import routes from './routes'
 import ProtectedRoute from './components/protected-route/protected-route'
 import ApiKeyView from './pages/apikey-view/connector'
 
+const regenerateApiKeyFF = window.REGENERATE_API_KEY_FF
+
 const Redux = {
   start: (reducerMap = {}) => {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -57,7 +59,7 @@ const DiscoveryUI = () => {
           <ProtectedRoute exact path={routes.oauthError} component={OAuthErrorView} />
           <ProtectedRoute exact path={routes.visualizationView} component={VisualizationView} />
           <ProtectedRoute exact path={routes.userProfile} component={UserProfileView} />
-          <ProtectedRoute exact path={routes.apiKey} component={ApiKeyView} />
+          {(regenerateApiKeyFF === 'true') && <ProtectedRoute exact path={routes.apiKey} component={ApiKeyView} />}
           <Route component={noMatch} />
         </Switch>
       </Router>
