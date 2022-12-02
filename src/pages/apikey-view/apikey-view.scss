@@ -78,9 +78,7 @@
 
   background: $white;
 
-  //flex: none;
   align-self: stretch;
-  //flex-grow: 0;
 }
 
 .apikey-modal-header-box {
@@ -95,8 +93,6 @@
 
   &:hover {
     background-color: $light-gray;
-    //color: white;
-    //border: 1px solid $error-color;
   }
 }
 

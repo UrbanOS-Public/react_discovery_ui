@@ -181,7 +181,6 @@ describe('apiKeyView component display page', () => {
   })
 
   it('Copies the api key when clicking on the copy button', () => {
-    // navigator.clipboard.writeText = jest.fn()
     navigator.clipboard = {
       writeText: jest.fn()
     }
@@ -201,16 +200,4 @@ describe('apiKeyView component display page', () => {
     expect(subject).toBeInTheDocument()
     expect(subject).toHaveClass('apiKey-view-display-page-return-button')
   })
-
-
-
-  // it('Contains a generate api key button', () => {
-  //   const expectedText = 'Generate'
-  //
-  //   const subject = screen.getByRole('button', { name: expectedText })
-  //
-  //   expect(subject).toBeInTheDocument()
-  //
-  //   expect(subject).toHaveClass('apiKey-view-generate-button')
-  // })
 })
