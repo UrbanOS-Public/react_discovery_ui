@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom'
 import FolderIcon from '../generic-elements/folder-icon'
 import ExitIcon from '@material-ui/icons/ExitToApp'
 import Backup from '@material-ui/icons/Backup'
+import VpnKeyIcon from '@material-ui/icons/VpnKey'
+
 import { isMobile } from 'react-device-detect'
 
 const returnTo = `${window.location.origin}${routes.oauth}`
@@ -24,6 +26,8 @@ export const Auth0LoginZone = ({ auth: { isAuthenticated, isLoading, loginWithRe
   const toggleMenu = () => { if (isMobile) { setMenuToggled(!isMenuToggled) } }
   const clickOutMenu = () => { if (isMobile) { setMenuToggled(false) } }
   const isMenuExpanded = (isMenuToggled || isMouseInMenu)
+
+  const regenerateApiKeyFF = window.REGENERATE_API_KEY_FF
 
   useClickOutWatcher(wrapperRef, clickOutMenu)
 
@@ -51,8 +55,13 @@ export const Auth0LoginZone = ({ auth: { isAuthenticated, isLoading, loginWithRe
             <ul>
               <li className='menu-item'>
                 <FolderIcon />
-                <span className='menu-text'><Link to='/user' target='_blank' rel='noopener noreferrer'>Workspaces</Link></span>
+                <span className='menu-text'><Link to='/user' rel='noopener noreferrer'>Workspaces</Link></span>
               </li>
+              {(regenerateApiKeyFF === 'true') &&
+              <li className='menu-item'>
+                <VpnKeyIcon />
+                <span className='menu-text'><Link to='/apiKey' rel='noopener noreferrer'>API Key</Link></span>
+              </li>}
               {
                 (window.CONTRIBUTE_HOST) &&
                 <li className='menu-item'>

@@ -257,10 +257,24 @@ export const datasetSearchSucceeded = (data) => ({
   type: DATASET_SEARCH_SUCCEEDED, value: data
 })
 
-export const OAUTH_LOGGED_IN = 'OAUTH_LOGGED_IN'
-export const oAuthCallLoggedIn = () => ({
-  type: OAUTH_LOGGED_IN
+export const GENERATE_API_KEY = 'GENERATE_API_KEY'
+export const generateApiKey = () => {
+  return ({
+    type: GENERATE_API_KEY
+  })
+}
+
+export const GENERATE_API_KEY_SUCCEEDED = 'GENERATE_API_KEY_SUCCEEDED'
+export const generateApiKeySucceeded = (apiKey) => ({
+  type: GENERATE_API_KEY_SUCCEEDED, value: { apiKey }
 })
+
+export const OAUTH_LOGGED_IN = 'OAUTH_LOGGED_IN'
+export const oAuthCallLoggedIn = () => {
+  return ({
+    type: OAUTH_LOGGED_IN
+  })
+}
 
 export const SET_GLOBAL_ERROR_STATE = 'SET_GLOBAL_ERROR_STATE'
 export const setGlobalErrorState = (isGlobalError, globalErrorMessage) => ({

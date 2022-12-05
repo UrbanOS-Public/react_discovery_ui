@@ -19,7 +19,7 @@ import {
   DOWNLOAD_DATASET_FAILED,
   DATASET_SEARCH,
   DATASET_SEARCH_SUCCEEDED,
-  SET_GLOBAL_ERROR_STATE
+  SET_GLOBAL_ERROR_STATE, GENERATE_API_KEY_SUCCEEDED, GENERATE_API_KEY
 } from '../actions'
 import visualizationReducer from './visualization-reducer'
 
@@ -66,7 +66,8 @@ const defaultPresentationState = {
   isLoading: false,
   isVisualizationQueryLoading: false,
   dataset_preview: {},
-  datasetReferences: {}
+  datasetReferences: {},
+  apiKey: ''
 }
 
 const presentationReducer = (state = defaultPresentationState, action) => {
@@ -123,6 +124,15 @@ const presentationReducer = (state = defaultPresentationState, action) => {
       return Object.assign({}, state, {
         isError: action.value.isGlobalError,
         errorMessage: action.value.globalErrorMessage
+      })
+    case GENERATE_API_KEY:
+      return Object.assign({}, state, {
+        isLoading: true
+      })
+    case GENERATE_API_KEY_SUCCEEDED:
+      return Object.assign({}, state, {
+        apiKey: action.value.apiKey,
+        isLoading: false
       })
     default:
       return state

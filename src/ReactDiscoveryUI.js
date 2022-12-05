@@ -23,6 +23,9 @@ import NetworkLoadingElement from './components/network-loading-element'
 
 import routes from './routes'
 import ProtectedRoute from './components/protected-route/protected-route'
+import ApiKeyView from './pages/apikey-view/connector'
+
+const regenerateApiKeyFF = window.REGENERATE_API_KEY_FF
 
 const Redux = {
   start: (reducerMap = {}) => {
@@ -56,6 +59,7 @@ const DiscoveryUI = () => {
           <ProtectedRoute exact path={routes.oauthError} component={OAuthErrorView} />
           <ProtectedRoute exact path={routes.visualizationView} component={VisualizationView} />
           <ProtectedRoute exact path={routes.userProfile} component={UserProfileView} />
+          {(regenerateApiKeyFF === 'true') && <ProtectedRoute exact path={routes.apiKey} component={ApiKeyView} />}
           <Route component={noMatch} />
         </Switch>
       </Router>
