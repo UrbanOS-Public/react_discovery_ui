@@ -7,14 +7,14 @@ import './code-editor.css'
 const code = 'SELECT * FROM ...'
 
 class CodeEditor extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       code: props.code || code
     }
   }
 
-  render () {
+  render() {
     return (
       <Editor
         value={this.state.code}
@@ -27,6 +27,7 @@ class CodeEditor extends React.Component {
           fontSize: 12,
           border: '1px black solid'
         }}
+        textareaId="code-editor"
       />
     )
   }
