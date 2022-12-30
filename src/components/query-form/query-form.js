@@ -51,6 +51,7 @@ const QueryForm = props => {
       code={localQueryText}
       onBlur={updateReduxQueryText}
       data-testid='query-input'
+      aria-label="SQL Query Input"
     />
   )
   const submitButton = <button data-testid='submit-query-button' className='action-button' disabled={isQueryLoading} onClick={submit}>Submit</button>
@@ -186,7 +187,7 @@ const QueryForm = props => {
     <query-form>
       <div className='user-input'>
         <div className='sql-section'>
-          <div className='sql-title'>Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</div>
+          <label for="code-editor" className='sql-title'>Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</label>
           {textArea}
         </div>
         <div className='query-info'>

@@ -96,11 +96,11 @@ const ApiKeyView = ({ apiKey, isLoading, isError, errorMessage, generate, dismis
         <div className='apiKey-view-paragraph'>This API key will only be displayed once. Please store it somewhere
           secure. If you lose it, you will need to reset your key to get a new one.
         </div>
-        <div className='apiKey-view-sub-title'>
+        <label className='apiKey-view-sub-title' for="apiKey">
           API Key
-        </div>
+        </label>
         <div className='apiKey-view-display-page-display-window-container'>
-          <input className='apiKey-view-display-page-display-window' type='text' value={apiKey} readOnly />
+          <input className='apiKey-view-display-page-display-window' id="apiKey" type='text' value={apiKey} readOnly />
           <button className='apiKey-view-display-page-copy-button primary-background-color' onClick={copyApiKeyToClipboard}>
             Copy
             <FileCopyIcon />
