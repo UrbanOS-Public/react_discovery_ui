@@ -103,7 +103,10 @@ function renderExamples (dataset) {
     <div>
       <ApiExample
         title='Simple query'
-        descriptionHtml={<div>This query selects all columns from the dataset, limited to 200 rows returned.</div>}
+        descriptionHtml={<><div>This query selects all columns from the dataset, limited to 200 rows returned.</div>
+          <div>If this dataset is private, or the system is in "API Key Required" mode, you'll need to include your key in the value of the "api_key" header.</div>
+          <div>Additional examples of API key usage are in the curl examples below.</div>
+          </>}
         url={`${window.DISC_API_URL}/api/v1/organization/${dataset.organization.name}/dataset/${dataset.name}/query?limit=200&_format=${format}`}
         action='GET'
         params={simpleApiParams}
