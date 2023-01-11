@@ -1,14 +1,14 @@
 @import '../../../styles/variables.scss';
 @import '../../../styles/mixins.scss';
 
-  .back-button {
-    @include button();
-    padding: 1.0rem;
-    width: auto;
-    background-color: $light-blue;
-    color: $super-light-grey;
-    letter-spacing: 0.05rem;
-    margin: 1rem;
-    align-self: flex-end;
-    float: right;
-  }
+.back-button {
+  @include button();
+  padding: 1.0rem;
+  width: auto;
+  background-color: $light-blue;
+  color: white;
+  letter-spacing: 0.05rem;
+  margin: 1rem;
+  align-self: flex-end;
+  float: right;
+}

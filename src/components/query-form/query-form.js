@@ -181,7 +181,7 @@ const QueryForm = props => {
     }
   }
 
-  const downloadButtonColor = window.PRIMARY_COLOR || '#00aeef';
+  const downloadButtonColor = window.PRIMARY_COLOR || '#0F64B3';
 
   return (
     <query-form>
@@ -201,7 +201,7 @@ const QueryForm = props => {
         {successMessage}
 
         <Dropdown className='download-dropdown' disabled={isQueryLoading}>
-          <Dropdown.Toggle title='Download Returned Results' style={{ background: downloadButtonColor, color: '#f7f7f7', border: 'none', padding: '1rem' }} />
+          <Dropdown.Toggle title='Download Returned Results' style={{ background: downloadButtonColor, color: 'white', border: 'none', padding: '1rem' }} />
           <Dropdown.MenuWrapper>
             <Dropdown.Menu>
               <MenuItem onClick={() => queryDataDownloadLink('text/csv')}>CSV</MenuItem>

@@ -6,15 +6,16 @@
   position: relative;
   list-style: initial;
   cursor: pointer;
-  color: $medium-grey;
+  color: $dark-grey;
   background-color: transparent;
 
   &:hover {
     color: $almost-black;
   }
 
-  &:disabled, &:disabled:hover {
+  &:disabled,
+  &:disabled:hover {
     cursor: default;
-    color: $medium-grey;
+    color: $dark-grey;
   }
 }
