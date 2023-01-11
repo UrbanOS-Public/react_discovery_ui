@@ -29,17 +29,21 @@ class Share extends React.Component {
       <share-zone>
         <div className='share-header'>SHARE DATASET</div>
         <div className='share-icons'>
-          <TwitterShareButton url={shareLocation} className="shareButton">
-            <TwitterIcon data-testid='social-media-twitter' iconBgStyle={iconBgStyle} round iconFillColor="#00aced" size={iconSize} />
-          </TwitterShareButton>
-
-          <FacebookShareButton url={shareLocation} className='shareButton'>
-            <FacebookIcon data-testid='social-media-facebook' iconBgStyle={iconBgStyle} round iconFillColor="#3b5998" className='icon' size={iconSize} />
-          </FacebookShareButton>
-
-          <LinkedinShareButton url={shareLocation} className='shareButton'>
-            <LinkedinIcon iconBgStyle={iconBgStyle} round iconFillColor="#3b5998" className='icon' size={iconSize} />
-          </LinkedinShareButton>
+          <div data-testid='social-media-twitter'>
+            <TwitterShareButton url={shareLocation} className="shareButton">
+              <TwitterIcon iconBgStyle={iconBgStyle} round iconFillColor="#00aced" size={iconSize} />
+            </TwitterShareButton>
+          </div>
+          <div data-testid='social-media-facebook'>
+            <FacebookShareButton url={shareLocation} className='shareButton'>
+              <FacebookIcon iconBgStyle={iconBgStyle} round iconFillColor="#3b5998" className='icon' size={iconSize} />
+            </FacebookShareButton>
+          </div>
+          <div data-testid='social-media-linkedin'>
+            <LinkedinShareButton url={shareLocation} className='shareButton'>
+              <LinkedinIcon iconBgStyle={iconBgStyle} round iconFillColor="#3b5998" className='icon' size={iconSize} />
+            </LinkedinShareButton>
+          </div>
         </div>
         <CopyToClipboard style={{ height: `${iconSize}px` }} text={shareLocation} onCopy={() => this.setState({ copyMessage: 'Copied!' })}>
           <button tabIndex='0' className='primary-background-color clipboard button'>
