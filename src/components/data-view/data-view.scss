@@ -1,9 +1,14 @@
 @import '../../styles/variables.scss';
 @import '../../styles/mixins.scss';
+
 #data-view {
   .header-container {
     display: flex;
     justify-content: space-between;
+  }
+
+  .ReactTable .rt-noData {
+    color: black;
   }
 
   .header-text-items {
@@ -16,7 +21,7 @@
 
   #data-view-table {
     color: $almost-black;
-    
+
     .table-header {
       background-color: $header-grey;
       text-align: left;
@@ -30,5 +35,5 @@
     min-height: 10rem;
     padding: 1rem;
   }
-  
+
 }

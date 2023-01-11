@@ -56,7 +56,7 @@ const freestyleApiParams = [
   }
 ]
 
-function getFreestyleApiExamples (dataset) {
+function getFreestyleApiExamples(dataset) {
   return [
     {
       body: `SELECT * FROM ${dataset.systemName} LIMIT 200`,
@@ -73,22 +73,22 @@ function getFreestyleApiExamples (dataset) {
   ]
 }
 
-function freestyleDescription () {
+function freestyleDescription() {
   return (
     <div>
       This query supports the full ANSI SQL syntax, and only selects from the tables specified in the query.<br />
       The query to run must be submitted as plain text in the body of the request.<br />
       Documentation can be found at:
       <ul>
-        <li><a href='https://en.wikipedia.org/wiki/SQL_syntax' target='_blank'>SQL Syntax (Wikipedia)</a></li>
-        <li><a href='https://www.w3schools.com/sql/sql_quickref.asp' target='_blank'>Quick Reference (W3 Schools)</a></li>
-        <li><a href='https://prestodb.github.io/docs/current/sql/select.html' target='_blank'>PrestoDB Specific Syntax</a></li>
+        <li><a className="primary-color" href='https://en.wikipedia.org/wiki/SQL_syntax' target='_blank'>SQL Syntax (Wikipedia)</a></li>
+        <li><a className="primary-color" href='https://www.w3schools.com/sql/sql_quickref.asp' target='_blank'>Quick Reference (W3 Schools)</a></li>
+        <li><a className="primary-color" href='https://prestodb.github.io/docs/current/sql/select.html' target='_blank'>PrestoDB Specific Syntax</a></li>
       </ul>
     </div>
   )
 }
 
-function renderHeader () {
+function renderHeader() {
   return (
     <div>
       Access Operating System data with supported queries. All supported
@@ -97,7 +97,7 @@ function renderHeader () {
   )
 }
 
-function renderExamples (dataset) {
+function renderExamples(dataset) {
   const format = getDefaultFormat(dataset)
   return (
     <div>
@@ -106,7 +106,7 @@ function renderExamples (dataset) {
         descriptionHtml={<><div>This query selects all columns from the dataset, limited to 200 rows returned.</div>
           <div>If this dataset is private, or the system is in "API Key Required" mode, you'll need to include your key in the value of the "api_key" header.</div>
           <div>Additional examples of API key usage are in the curl examples below.</div>
-          </>}
+        </>}
         url={`${window.DISC_API_URL}/api/v1/organization/${dataset.organization.name}/dataset/${dataset.name}/query?limit=200&_format=${format}`}
         action='GET'
         params={simpleApiParams}

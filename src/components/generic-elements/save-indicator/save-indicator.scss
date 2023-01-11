@@ -11,11 +11,11 @@ save-indicator {
   margin-top: 10px;
 
   .success {
-    color: green;
+    color: #158655;
   }
 
   .failure {
-    color: red;
+    color: #B80000;
   }
 
   .icon {
@@ -25,5 +25,7 @@ save-indicator {
     align-self: start;
   }
 
-  p { margin: 0 }
+  p {
+    margin: 0
+  }
 }

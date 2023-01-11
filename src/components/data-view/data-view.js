@@ -9,12 +9,12 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import _ from 'lodash'
 
 export default class extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = { index: 0 }
   }
 
-  render () {
+  render() {
     const isGeojson = this.props.format == 'geojson'
     const cleanData = isGeojson ? undefined : this.getCleanData(this.props.data)
     const columns = this.props.columns.map((column) => {
@@ -61,12 +61,12 @@ export default class extends Component {
     )
   }
 
-  cleanseData (data) {
+  cleanseData(data) {
     if (!data.map) { return [] }
     return data.map(row => this.cleanseRow(row))
   }
 
-  cleanseRow (row) {
+  cleanseRow(row) {
     const deconstructedObject = Object.entries(row)
     const listOfKeyValues = deconstructedObject.map(field =>
       ({ [field[0]]: this.cleanseField(field[1]) })
@@ -76,7 +76,7 @@ export default class extends Component {
     return reconstructedObject
   }
 
-  cleanseField (value) {
+  cleanseField(value) {
     if (typeof value === 'boolean') {
       return value.toString()
     } else if (_.isNull(value) || _.isNaN(value)) {
@@ -88,11 +88,11 @@ export default class extends Component {
     }
   }
 
-  getCleanData (queryData) {
+  getCleanData(queryData) {
     return queryData ? this.cleanseData(queryData) : queryData
   }
 
-  renderJsonOrLoading (isLoading) {
+  renderJsonOrLoading(isLoading) {
     if (isLoading) {
       return <LoadingElement className='spinner' />
     } else {
@@ -100,7 +100,7 @@ export default class extends Component {
     }
   }
 
-  getTheme () {
+  getTheme() {
     // react-json-view uses the 'base16' theme structure:
     // https://github.com/chriskempson/base16/blob/master/styling.md
     return {
@@ -117,9 +117,9 @@ export default class extends Component {
       base0A: variables.darkGrey, // Unused
       base0B: variables.darkGrey, // Unused
       base0C: variables.darkGrey, // Unused
-      base0D: variables.mediumGrey, // Expanders
-      base0E: variables.mediumGrey, // Expanders
-      base0F: variables.mediumGrey // Expanders
+      base0D: variables.darkGrey, // Expanders
+      base0E: variables.darkGrey, // Expanders
+      base0F: variables.darkGrey // Expanders
     }
   }
 }

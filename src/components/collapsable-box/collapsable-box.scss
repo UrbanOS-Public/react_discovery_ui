@@ -7,6 +7,7 @@ collapsable-box {
   border: 1px solid $light-grey;
   width: 100%;
   margin-top: 2.5rem;
+
   .header-container {
     display: flex;
     justify-content: space-between;
@@ -27,12 +28,12 @@ collapsable-box {
 
   .title {
     @include header();
-    font-size:1.4em;
+    font-size: 1.4em;
   }
 
   .collapse-icon {
     font-size: 30px;
-    color: $medium-grey;
+    color: $dark-grey;
     margin: 10px 10px 0 0;
   }
 }

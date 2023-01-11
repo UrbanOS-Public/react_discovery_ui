@@ -13,10 +13,10 @@ login-zone {
     z-index: 10000;
     box-shadow: 2px 2px 5px grey;
     width: 15rem;
-    
+
     li {
       min-height: 30px;
-      list-style-type:none;
+      list-style-type: none;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -35,7 +35,7 @@ login-zone {
       margin-left: 0.5rem;
     }
   }
-  
+
   login-svgs-and-text {
     display: flex;
     align-items: center;
@@ -91,13 +91,13 @@ login-zone {
   }
 
   .logintext {
-    display:block; 
-    margin-left:4px;
+    display: block;
+    margin-left: 4px;
   }
 
   button {
-    border:none;
-    cursor:pointer;
+    border: none;
+    cursor: pointer;
     font-weight: bold;
     text-align: left;
     padding: 1px 0px 2px;

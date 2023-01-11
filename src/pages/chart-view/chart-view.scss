@@ -20,3 +20,16 @@ chart-view {
     color: $almost-black;
   }
 }
+
+.plotly-editor--theme-provider {
+  --color-button-primary-base-fill: hsl(205, 100%, 30%);
+  --color-button-primary-hover-fill: hsl(205, 87%, 30%);
+  --color-button-primary-active-fill: hsl(205, 87%, 20%);
+  --color-text-light: #595959;
+  --color-text-placeholder: #595959;
+}
+
+.editor_controls .rich-text-editor__editor .public-DraftEditorPlaceholder-root,
+.editor_controls .rich-text-editor__editor .public-DraftEditor-content {
+  color: #595959;
+}
