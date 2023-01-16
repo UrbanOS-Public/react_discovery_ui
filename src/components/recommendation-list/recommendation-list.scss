@@ -22,17 +22,17 @@ recommendation-list {
     padding: 0.5em;
 
     &::-webkit-scrollbar {
-        -webkit-appearance: none;
+      -webkit-appearance: none;
     }
 
     &::-webkit-scrollbar:vertical {
-        width: 11px;
+      width: 11px;
     }
 
     &::-webkit-scrollbar-thumb {
-        border-radius: 8px;
-        border: 2px solid white;
-        background-color: $almost-black;
+      border-radius: 8px;
+      border: 2px solid white;
+      background-color: $almost-black;
     }
   }
 
@@ -44,13 +44,14 @@ recommendation-list {
   }
 
   .action {
-    color: $light-blue;
+    color: $dark-blue;
+
     &:hover {
       color: $almost-black;
     }
 
     &:active {
-      color: $medium-grey;
+      color: $dark-grey;
     }
   }
 

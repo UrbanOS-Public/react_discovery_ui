@@ -1,15 +1,14 @@
 @import '../../../styles/variables.scss';
 @import '../../../styles/mixins.scss';
 
-  .visualize-button {
-    @include button();
-    display: inline-block;
-    padding: 1.0rem;
-    width: auto;
-    background-color: $light-blue;
-    color: $super-light-grey;
-    letter-spacing: 0.05rem;
-    margin: 1rem 0rem 1rem 1rem;
-    align-self: flex-end;
-  }
-
+.visualize-button {
+  @include button();
+  display: inline-block;
+  padding: 1.0rem;
+  width: auto;
+  background-color: $light-blue;
+  color: white;
+  letter-spacing: 0.05rem;
+  margin: 1rem 0rem 1rem 1rem;
+  align-self: flex-end;
+}

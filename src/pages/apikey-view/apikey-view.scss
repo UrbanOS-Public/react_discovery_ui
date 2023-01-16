@@ -56,7 +56,7 @@
 
   padding: 1rem;
   background-color: $light-blue;
-  color: $super-light-grey;
+  color: white;
   letter-spacing: 0.05rem;
   margin: 1rem 1rem 1rem 0rem;
 }
@@ -276,7 +276,7 @@ hr.solid {
   flex-grow: 0;
 }
 
-.apiKey-view-display-page-copy-button{
+.apiKey-view-display-page-copy-button {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -315,7 +315,7 @@ hr.solid {
 
   padding: 1rem;
   background-color: $light-blue;
-  color: $super-light-grey;
+  color: white;
   letter-spacing: 0.05rem;
 
   font-style: normal;

@@ -15,7 +15,7 @@ const customStyles = {
   }
 }
 
-export function CallToActionButton ({ url, format, sourceType, sourceUrl }) {
+export function CallToActionButton({ url, format, sourceType, sourceUrl }) {
   const [modalIsOpen, setIsOpen] = useState(false)
   const isRemote = (sourceType && sourceType == 'remote')
 
@@ -66,7 +66,7 @@ export function CallToActionButton ({ url, format, sourceType, sourceUrl }) {
         </div>
       </Modal>
       <div>
-        <call-to-action-button>
+        <call-to-action-button className="primary-background-color">
           <a
             data-testid='call-to-action-button'
             className='call-to-action-button'

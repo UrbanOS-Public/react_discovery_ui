@@ -13,7 +13,7 @@ query-form {
     @include button();
     padding: 1rem;
     background-color: $light-blue;
-    color: $super-light-grey;
+    color: white;
     letter-spacing: 0.05rem;
     margin: 1rem 1rem 1rem 0rem;
   }
@@ -95,7 +95,7 @@ query-form {
 
     a {
       @include link();
-      color: $light-blue;
+      color: $dark-blue;
 
       &:hover {
         color: $almost-black;

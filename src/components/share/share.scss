@@ -8,53 +8,59 @@ share-zone {
     margin-top: 1rem;
     border-top: 1px solid $light-grey;
 
-    .share-header, .name {
+    .share-header,
+    .name {
         @include header-small();
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
     }
 
     .button {
-        margin-bottom: 0.5rem;
-        width: 6rem;
-        border-radius: 2px;
+        text-decoration: none;
+        border-width: 0px;
+        margin-top: 0.75rem;
         border-style: none;
         display: flex;
         align-items: center;
         text-align: center;
         overflow: hidden;
         cursor: pointer;
-        padding: 0;
-        @include button();
+        border-radius: 8px;
+        height: 32px;
+        color: white;
+        padding: 6px;
 
-        .share {
+        &:hover {
             color: white;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-left: 0.5rem;
-        }
-        .icon {
-            margin-left: 0.25rem;
+            background-color: $almost-black;
+            text-decoration: underline;
         }
     }
 
-    .facebook {
-        background-color: $facebook-blue;
+    .share-icons {
+        display: flex;
     }
-    .twitter {
-        background-color: $twitter-blue;
+
+    .shareButton {
+        margin: 0 0.5rem 0 0;
+        cursor: pointer;
+        width: 32px;
+        height: 32px;
+        border-radius: 32px;
     }
-    .linkedin {
-        background-color: $linkedin-blue;
+
+    .shareButton:hover {
+        opacity: 0.75;
     }
+
     .clipboard {
-        background-color: $light-blue;
         text-align: center;
-        display: block;
-
-        .copy {
-            color: white;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
+        display: flex;
+        color: white;
+        font-weight: bold;
+        font-size: 0.9rem;
+        height: 32px;
+        color: white;
+        display: flex;
+        padding: 6px;
     }
 }

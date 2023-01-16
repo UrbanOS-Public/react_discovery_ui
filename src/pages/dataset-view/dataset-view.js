@@ -90,8 +90,8 @@ export default class extends Component {
               <Tab data-testid='visualize'>Visualize <ChartIcon className='chartIcon' /></Tab>
               {this.isNotDatasetDetailsTab() &&
                 <>
-                  <a className='helpLink' target='_blank' href='https://en.wikipedia.org/wiki/SQL_syntax'>SQL Help&nbsp;&nbsp;</a>
-                  <a className='helpLink' target='_blank' href='https://plotly.com/chart-studio-help/tutorials/#basic'>Plot.ly Help</a>
+                  <a className='helpLink primary-color' target='_blank' href='https://en.wikipedia.org/wiki/SQL_syntax'>SQL Help&nbsp;&nbsp;</a>
+                  <a className='helpLink primary-color' target='_blank' href='https://plotly.com/chart-studio-help/tutorials/#basic'>Plot.ly Help</a>
                 </>}
             </span>
             {this.isNotDatasetDetailsTab() &&

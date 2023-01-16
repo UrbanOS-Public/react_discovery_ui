@@ -6,7 +6,7 @@ query-view {
     @include button();
     padding: 1rem;
     background-color: $light-blue;
-    color: $super-light-grey;
+    color: white;
     letter-spacing: 0.05rem;
     margin: 1rem;
     min-width: 9rem;
@@ -30,7 +30,7 @@ query-view {
   }
 
   .success-message {
-    color: $green;
+    color: #158655;
   }
 
   loading-element {

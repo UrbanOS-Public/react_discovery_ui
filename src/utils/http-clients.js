@@ -2,11 +2,11 @@ import axios from 'axios'
 import Auth0Client from '../auth/auth0-client-provider'
 
 class AuthenticatedHTTPClient {
-  static cancelTokenSource () {
+  static cancelTokenSource() {
     return axios.CancelToken.source()
   }
 
-  static async initializeClient () {
+  static async initializeClient() {
     const config = { baseURL: window.DISC_API_URL, headers: {}, validateStatus: false }
     const authClient = await Auth0Client.get()
     const isAuthenticated = await authClient.isAuthenticated()
@@ -20,31 +20,31 @@ class AuthenticatedHTTPClient {
     return axios.create(config)
   }
 
-  static async get (url, config = {}) {
+  static async get(url, config = {}) {
     const axiosClient = await AuthenticatedHTTPClient.initializeClient()
 
     return axiosClient.get(url, config)
   }
 
-  static async post (url, body, config = {}) {
+  static async post(url, body, config = {}) {
     const axiosClient = await AuthenticatedHTTPClient.initializeClient()
 
     return axiosClient.post(url, body, config)
   }
 
-  static async put (url, body, config = {}) {
+  static async put(url, body, config = {}) {
     const axiosClient = await AuthenticatedHTTPClient.initializeClient()
 
     return axiosClient.put(url, body, config)
   }
 
-  static async patch (url, body, config = {}) {
+  static async patch(url, body, config = {}) {
     const axiosClient = await AuthenticatedHTTPClient.initializeClient()
 
     return axiosClient.patch(url, body, config)
   }
 
-  static async delete (url, body, config = {}) {
+  static async delete(url, body, config = {}) {
     const axiosClient = await AuthenticatedHTTPClient.initializeClient()
 
     return axiosClient.delete(url, body, config)
