@@ -1,6 +1,6 @@
 window.CONTRIBUTE_HOST = 'http://localhost:4001'
 window.GTM_ID = ''
-window.DISC_API_URL = 'https://data.dev.apps.hsrqs9l3.eastus.aroapp.io'
+window.DISC_API_URL = 'http://localhost:4000'
 window.DISC_STREAMS_URL = 'wss://streams.example.com'
 window.DISC_UI_URL = 'https://www.example.com'
 window.STREETS_TILE_LAYER_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
