@@ -23,7 +23,7 @@ export const Auth0LoginZone = ({ auth: { isAuthenticated, isLoading, loginWithRe
   const mouseEnterMenu = () => { if (!isMobile) { setMouseInMenu(true) } }
   const mouseExitMenu = () => { if (!isMobile) { setMouseInMenu(false) } }
 
-  const toggleMenu = () => { if (isMobile) { setMenuToggled(!isMenuToggled) } }
+  const toggleMenu = () => { setMenuToggled(!isMenuToggled) }
   const clickOutMenu = () => { if (isMobile) { setMenuToggled(false) } }
   const isMenuExpanded = (isMenuToggled || isMouseInMenu)
 
