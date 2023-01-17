@@ -185,6 +185,7 @@ const QueryForm = props => {
 
   return (
     <query-form>
+      <h1>Query Dataset</h1>
       <div className='user-input'>
         <div className='sql-section'>
           <label for="code-editor" className='sql-title'>Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</label>

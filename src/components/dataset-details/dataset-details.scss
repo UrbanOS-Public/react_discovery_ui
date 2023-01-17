@@ -14,6 +14,9 @@ dataset-details {
   .name {
     @include header();
     margin-bottom: 0.5rem;
+    h1 {
+      font-size: 20px
+    }
   }
 
   .description {

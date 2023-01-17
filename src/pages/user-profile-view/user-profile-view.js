@@ -99,7 +99,7 @@ const UserProfileView = (props) => {
       <div className='saved-workspaces right-section'>
         <div className='header-container'>
           <div className='header-text-items'>
-            <div className='workspaces-header'>Saved Workspaces</div>
+            <h1 className='workspaces-header'>Saved Workspaces</h1>
           </div>
         </div>
         <div id='user-visualizations-table'>
