@@ -71,7 +71,7 @@ export const Auth0LoginZone = ({ auth: { isAuthenticated, isLoading, loginWithRe
               }
               <li className='menu-item' id='logout-button' onClick={() => { logout({ returnTo }) }}>
                 <ExitIcon />
-                <span className='menu-text'>Log Out</span>
+                <span className='menu-text'><a href="#">Log Out</a></span>
               </li>
             </ul>
           </div>
