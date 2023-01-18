@@ -72,9 +72,9 @@ const ApiKeyView = ({ apiKey, isLoading, isError, errorMessage, generate, dismis
     return (
       <div>
         {renderModal()}
-        <div className='apiKey-view-title'>
+        <h1 className='apiKey-view-title'>
           Generate API Key {apiKey}
-        </div>
+        </h1>
         <div className='apiKey-view-paragraph'>Your API key should be kept secure and never shared. For security
           reasons,
           we do not display your API key.
@@ -90,9 +90,9 @@ const ApiKeyView = ({ apiKey, isLoading, isError, errorMessage, generate, dismis
   const renderDisplayPage = () => {
     return (
       <div>
-        <div className='apiKey-view-title'>
+        <h1 className='apiKey-view-title'>
           Your API Key
-        </div>
+        </h1>
         <div className='apiKey-view-paragraph'>This API key will only be displayed once. Please store it somewhere
           secure. If you lose it, you will need to reset your key to get a new one.
         </div>

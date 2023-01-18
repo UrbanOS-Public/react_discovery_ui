@@ -66,9 +66,9 @@ const DatasetListView = (props) => {
       ? ` for "${searchParamsManager.searchText}"`
       : ''
     if (searchMetadata.totalDatasets === 0) {
-      return <div data-testid='result-count' className='result-count'>{`${resultCountText}${resultCountQueryText}`}<br /><Link id='home' to='/'>Click here to return home</Link></div>
+      return <div data-testid='result-count' className='result-count'><h1>{`${resultCountText}${resultCountQueryText}`}</h1><br /><Link id='home' to='/'>Click here to return home</Link></div>
     } else {
-      return <div data-testid='result-count' className='result-count'>{`${resultCountText}${resultCountQueryText}`}</div>
+      return <div data-testid='result-count' className='result-count'><h1>{`${resultCountText}${resultCountQueryText}`}</h1></div>
     }
   }
 

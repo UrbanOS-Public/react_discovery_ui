@@ -13,7 +13,7 @@ const DatasetDetails = ({ dataset, downloadUrl }) => {
   return (
     <dataset-details>
       <div className='dataset-details-header'>
-        <div data-testid='dataset-title' className='name'>{dataset.title}</div>
+        <div data-testid='dataset-title' className='name'><h1>{dataset.title}</h1></div>
         <div className='buttons'>
           <CallToActionButton url={downloadUrl} format={getDefaultFormat(dataset)} filename={dataset.id} sourceType={dataset.sourceType} sourceUrl={dataset.sourceUrl} />
         </div>
