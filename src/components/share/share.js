@@ -30,17 +30,17 @@ class Share extends React.Component {
         <div className='share-header'>SHARE DATASET</div>
         <div className='share-icons'>
           <div data-testid='social-media-twitter'>
-            <TwitterShareButton url={shareLocation} className="shareButton">
+            <TwitterShareButton url={shareLocation} className="shareButton" additionalProps={{'aria-label':'Twitter Share'}}>
               <TwitterIcon iconBgStyle={iconBgStyle} round iconFillColor="#00aced" size={iconSize} />
             </TwitterShareButton>
           </div>
           <div data-testid='social-media-facebook'>
-            <FacebookShareButton url={shareLocation} className='shareButton'>
+            <FacebookShareButton url={shareLocation} className='shareButton' additionalProps={{'aria-label':'Facebook Share'}}>
               <FacebookIcon iconBgStyle={iconBgStyle} round iconFillColor="#3b5998" className='icon' size={iconSize} />
             </FacebookShareButton>
           </div>
           <div data-testid='social-media-linkedin'>
-            <LinkedinShareButton url={shareLocation} className='shareButton'>
+            <LinkedinShareButton url={shareLocation} className='shareButton' additionalProps={{'aria-label':'Linked In Share'}}>
               <LinkedinIcon iconBgStyle={iconBgStyle} round iconFillColor="#3b5998" className='icon' size={iconSize} />
             </LinkedinShareButton>
           </div>

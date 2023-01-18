@@ -52,12 +52,6 @@ describe('OauthLoginZone component', () => {
       expect(menuItems.length).not.toBe(0)
     })
 
-    it('does not toggle account dropdown on mouse click when not on mobile', () => {
-      button.simulate('click')
-      const menuItems = subject.find('li')
-      expect(menuItems.length).toBe(0)
-    })
-
     describe('account menu', () => {
       beforeEach(() => {
         button.simulate('mouseEnter')

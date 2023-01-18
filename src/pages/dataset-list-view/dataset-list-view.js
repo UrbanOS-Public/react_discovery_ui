@@ -100,22 +100,24 @@ const DatasetListView = (props) => {
 
         <div className='list-header'>
           {renderResultsCountText()}
-          <div className='sort-by'><Select
-            className='searchParamsManager.sortOrder-select'
-            label='order by'
-            options={createSortOptions()}
-            selectChangeCallback={searchParamsManager.updateSortOrder}
-            testId='sort-select'
-          />
+          <div className='sort-by'>
+            <Select
+              className='searchParamsManager.sortOrder-select'
+              label='order by'
+              options={createSortOptions()}
+              selectChangeCallback={searchParamsManager.updateSortOrder}
+              testId='sort-select'
+            />
           </div>
         </div>
         {renderDatasetList()}
-        <div className='paginator-container'><Paginator
-          className='paginator'
-          numberOfPages={numberOfPages}
-          currentPage={searchParamsManager.page}
-          pageChangeCallback={searchParamsManager.updatePage}
-        />
+        <div className='paginator-container'>
+          <Paginator
+            className='paginator'
+            numberOfPages={numberOfPages}
+            currentPage={searchParamsManager.page}
+            pageChangeCallback={searchParamsManager.updatePage}
+          />
         </div>
       </div>
     </dataset-list-view>
