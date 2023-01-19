@@ -5,6 +5,7 @@ window.DISC_STREAMS_URL = 'wss://streams.example.com'
 window.DISC_UI_URL = 'https://www.example.com'
 window.STREETS_TILE_LAYER_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 window.LOGO_URL = 'https://placekitten.com/530/530'
+// omitting mapbox will default plot.ly to use openstreetmap.org
 window.MAPBOX_ACCESS_TOKEN = ''
 window.AUTH0_DOMAIN = 'urbanos-dev.us.auth0.com'
 window.AUTH0_CLIENT_ID = 'SHqaonqYEYiS4El57rGHplqLMG00pQKR'
