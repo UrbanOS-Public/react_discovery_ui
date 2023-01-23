@@ -1,6 +1,6 @@
 {
   "name": "@smartcitiesdata/react-discovery-ui",
-  "version": "2.1.11",
+  "version": "2.1.12",
   "description": "React component for dataset discovery UI",
   "main": "./lib/ReactDiscoveryUI.js",
   "repository": {
@@ -100,7 +100,7 @@
     "create-react-component-folder": "^0.3.7",
     "cross-env": "^7.0.3",
     "css-loader": "^1.0.1",
-    "cypress": "^8.0.0",
+    "cypress": "^12.3.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
     "eslint-utils": "^1.4.2",

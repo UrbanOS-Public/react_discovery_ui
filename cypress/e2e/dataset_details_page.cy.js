@@ -78,14 +78,13 @@ function validateHeader () {
 
 describe('The Ogrip Dataset Details Tab', function () {
   beforeEach(function () {
-    cy.server()
-    cy.route(routes.ogripDataset)
-    cy.route(routes.info)
-    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].downloadFormatGeojson)
-    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatGeojson)
-    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatJson)
-    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].recommendations)
-    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].query)
+    cy.intercept(routes.ogripDataset.method, routes.ogripDataset.url, routes.ogripDataset.response)
+    cy.intercept(routes.info.method, routes.info.url, routes.info.response)
+    cy.intercept(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].downloadFormatGeojson.method, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].downloadFormatGeojson.url, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].downloadFormatGeojson.response)
+    cy.intercept(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatGeojson.method, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatGeojson.url, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatGeojson.response)
+    cy.intercept(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatJson.method, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatJson.url, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatJson.response)
+    cy.intercept(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].recommendations.method, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].recommendations.url, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].recommendations.response)
+    cy.intercept(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].query.method, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].query.url, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].query.response)
     cy.visit('/dataset/ogrip/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3')
   })
 
@@ -104,15 +103,15 @@ describe('The Ogrip Dataset Details Tab', function () {
 
 describe('Write SQL Tab for Ogrip dataset', function () {
   it('Clicking Write SQL takes you to query page', function () {
-    cy.server()
-    cy.route(routes.ogripDataset)
-    cy.route(routes.info)
-    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].downloadFormatGeojson)
-    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatGeojson)
-    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatJson)
-    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].recommendations)
+    cy.intercept(routes.ogripDataset.method, routes.ogripDataset.url, routes.ogripDataset.response)
+    cy.intercept(routes.info.method, routes.info.url, routes.info.response)
+    cy.intercept(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].downloadFormatGeojson.method, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].downloadFormatGeojson.url, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].downloadFormatGeojson.response)
+    cy.intercept(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatGeojson.method, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatGeojson.url, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatGeojson.response)
+    cy.intercept(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatJson.method, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatJson.url, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].previewFormatJson.response)
+    cy.intercept(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].recommendations.method, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].recommendations.url, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].recommendations.response)
+    cy.intercept(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].query.method, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].query.url, routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].query.response)
     cy.visit('/dataset/ogrip/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3')
-    cy.route(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].query).as('getQueryResults')
+    cy.intercept(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].query.url).as('getQueryResults')
     const query = 'SELECT * FROM ohio_geographically_referenced_information_program_ogrip__622746a5_4e2a_4a4c_ac18_74cb1fb05ab3\nLIMIT 200'
     const numberOfRowsPerPage = 50
     cy.get(writeSqlTab).click()
@@ -132,12 +131,11 @@ describe('Write SQL Tab for Ogrip dataset', function () {
 
 describe('Write SQL Tab for System dataset', function () {
   beforeEach(function () {
-    cy.server()
-    cy.route(routes.sysDataset)
-    cy.route(routes.info)
-    cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.previewFormatJson)
-    cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.recommendations)
-    cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query1).as('getQueryResults')
+    cy.intercept(routes.sysDataset.method, routes.sysDataset.url, routes.sysDataset.response)
+    cy.intercept(routes.info.method, routes.info.url, routes.info.response)
+    cy.intercept(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.previewFormatJson.method, routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.previewFormatJson.url, routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.previewFormatJson.response)
+    cy.intercept(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.recommendations.method, routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.recommendations.url, routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.recommendations.response)
+    cy.intercept(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query2.method, routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query2.url, routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query2.response).as('getQueryResults')
     cy.visit('/dataset/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002_ORG/Cesious_Black_OBWEG')
     cy.get(writeSqlTab).click()
     cy.wait(['@getQueryResults'])
@@ -146,7 +144,7 @@ describe('Write SQL Tab for System dataset', function () {
   it('Writing query and hitting submit returns correct query result', function () {
     const query = 'SELECT is_alive, name, type FROM Rosa_Lucky__Cesious_Black_OBWEG\nLIMIT 200'
     cy.get(queryInput).clear().type(query)
-    cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query2).as('getQueryResults')
+    cy.intercept(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query2.url).as('getQueryResults')
     cy.get(submitQueryButton).click()
     cy.wait(['@getQueryResults'])
     cy.get(successMessage).should('be.visible')
@@ -160,7 +158,7 @@ describe('Write SQL Tab for System dataset', function () {
   it('Submitting a new query resets the ReactTable to page 1', function () {
     const query = 'SELECT is_alive, name, type FROM Rosa_Lucky__Cesious_Black_OBWEG\nLIMIT 200'
     cy.get(queryInput).clear().type(query)
-    cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query2).as('getQueryResults')
+    cy.intercept(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query2.url).as('getQueryResults')
     cy.get(submitQueryButton).click()
     cy.wait(['@getQueryResults'])
     cy.get(pageNumber).should('have.value', '1')
@@ -173,7 +171,7 @@ describe('Write SQL Tab for System dataset', function () {
   it('Writing query and hitting submit returns nothing if cancel is hit before response returns', function () {
     const query = 'SELECT is_alive, name, type FROM Rosa_Lucky__Cesious_Black_OBWEG\nLIMIT 200'
     cy.get(queryInput).clear().type(query)
-    cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query3).as('getQueryResults')
+    cy.intercept({url: routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query3.url, method: routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query3.method}, (req) => {req.on('response', (res) => {res.setDelay(1000)})}).as('getQueryResults')
     cy.get(submitQueryButton).click()
     cy.get(cancelQueryButton).click()
     cy.get(errorMessage).should('be.visible')
@@ -200,12 +198,11 @@ describe('Write SQL Tab for System dataset', function () {
 
 describe('Visualize Tab for System dataset', function () {
   beforeEach(function () {
-    cy.server()
-    cy.route(routes.sysDataset)
-    cy.route(routes.info)
-    cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.previewFormatJson)
-    cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.recommendations)
-    cy.route(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query1).as('getQueryResults')
+    cy.intercept(routes.sysDataset.method, routes.sysDataset.url, routes.sysDataset.response)
+    cy.intercept(routes.info.method, routes.info.url, routes.info.response)
+    cy.intercept(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.previewFormatJson.method, routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.previewFormatJson.url, routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.previewFormatJson.response)
+    cy.intercept(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.recommendations.method, routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.recommendations.url, routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.recommendations.response)
+    cy.intercept(routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query1.method, routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query1.url, routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query1.response).as('getQueryResults')
     cy.visit('/dataset/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002_ORG/Cesious_Black_OBWEG')
   })
 

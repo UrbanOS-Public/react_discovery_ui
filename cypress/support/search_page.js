@@ -17,61 +17,61 @@ export const Routes = {
   allDatasetsLastModified: {
     method: 'GET',
     url: '/api/v2/dataset/search?offset=0&limit=10&sort=last_mod&query=&apiAccessible=true',
-    response: 'fixture:search_page_spec/all_datasets_last_modified'
+    response: {fixture: 'search_page_spec/all_datasets_last_modified'}
   },
   allDatasetsNameAsc: {
     method: 'GET',
     url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_asc&query=&apiAccessible=true',
-    response: 'fixture:search_page_spec/all_datasets_name_asc'
+    response: {fixture: 'search_page_spec/all_datasets_name_asc'}
   },
   allDatasetsRelevance: {
     method: 'GET',
     url: '/api/v2/dataset/search?offset=0&limit=10&sort=relevance&query=&apiAccessible=true',
-    response: 'fixture:search_page_spec/all_datasets_relevance'
+    response: {fixture: 'search_page_spec/all_datasets_relevance'}
   },
   allDatasetsNameDesc: {
     method: 'GET',
     url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_desc&query=&apiAccessible=true',
-    response: 'fixture:search_page_spec/all_datasets_name_desc'
+    response: {fixture: 'search_page_spec/all_datasets_name_desc'}
   },
   allDatasetsPage2: {
     method: 'GET',
     url: '/api/v2/dataset/search?offset=10&limit=10&sort=name_asc&query=&apiAccessible=true',
-    response: 'fixture:search_page_spec/all_datasets_page_2'
+    response: {fixture: 'search_page_spec/all_datasets_page_2'}
   },
   apiAccessibleFalseDatasets: {
     method: 'GET',
     url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_asc&query=&apiAccessible=false',
-    response: 'fixture:search_page_spec/apiAccessible_false_datasets'
+    response: {fixture: 'search_page_spec/apiAccessible_false_datasets'}
   },
   bicycleDatasets: {
     method: 'GET',
-    url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_asc&query=&facets[keywords][]=bicycle&apiAccessible=true',
-    response: 'fixture:search_page_spec/bicycle_datasets'
+    url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_asc&query=&facets%5Bkeywords%5D%5B%5D=bicycle&apiAccessible=true',
+    response: {fixture: 'search_page_spec/bicycle_datasets'}
   },
   catarynDatasets: {
     method: 'GET',
     url: '/api/v2/dataset/search?offset=0&limit=10&sort=relevance&query=cataryn&apiAccessible=true',
-    response: 'fixture:search_page_spec/cataryn_datasets'
+    response: {fixture: 'search_page_spec/cataryn_datasets'}
   },
   cogoDatasets: {
     method: 'GET',
-    url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_asc&query=&facets[organization][]=COGO&apiAccessible=true',
-    response: 'fixture:search_page_spec/cogo_datasets'
+    url: '/api/v2/dataset/search?offset=0&limit=10&sort=name_asc&query=&facets%5Borganization%5D%5B%5D=COGO&apiAccessible=true',
+    response: {fixture: 'search_page_spec/cogo_datasets'}
   },
   cotaDatasets: {
     method: 'GET',
     url: '/api/v2/dataset/search?offset=0&limit=10&sort=relevance&query=COTA&apiAccessible=true',
-    response: 'fixture:search_page_spec/cota_datasets'
+    response: {fixture: 'search_page_spec/cota_datasets'}
   },
   info: {
     method: 'GET',
     url: '/sockjs-node/*',
-    response: 'fixture:info.json'
+    response: {fixture: 'info.json'}
   },
   ogripDataset: {
     method: 'GET',
     url: '/api/v1/organization/ogrip/dataset/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3',
-    response: 'fixture:details_page_spec/ogrip_dataset'
+    response: {fixture: 'details_page_spec/ogrip_dataset'}
   }
 }
