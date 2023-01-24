@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -13,16 +14,24 @@ module.exports = (env, argv) => {
       filename: './index.html'
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',
-      chunkFilename: '[id].[hash].css'
+      filename: '[name].[fullhash].css',
+      chunkFilename: '[id].[fullhash].css'
     }),
-    new CopyWebpackPlugin([
-      { from: 'config' }
-    ])
+    new CopyWebpackPlugin({
+      patterns: [{ from: 'config' }]
+    }),
+    new webpack.ProvidePlugin({
+        process: 'process/browser',
+    })
   ]
 
   return {
     watch: true,
+    resolve: {
+        fallback: {
+            "assert": require.resolve("assert/")
+        }
+    },
     entry: {
       main: ['@babel/polyfill', path.join(__dirname, 'src', 'index.js')]
     },
@@ -49,7 +58,6 @@ module.exports = (env, argv) => {
         {
           test: /\.css$/,
           use: [
-            'style-loader',
             {
               loader: MiniCssExtractPlugin.loader
             },
@@ -71,8 +79,8 @@ module.exports = (env, argv) => {
       ]
     },
     devServer: {
+      static: {directory: path.join(__dirname, 'dist')},
       historyApiFallback: true,
-      contentBase: path.join(__dirname, 'dist'),
       compress: productionOptimizationsEnabled,
       open: true,
       port: 9001
@@ -89,7 +97,7 @@ module.exports = (env, argv) => {
           }
         })
       ],
-      moduleIds: 'hashed',
+      moduleIds: 'deterministic',
       runtimeChunk: 'single',
       splitChunks: {
         cacheGroups: {
