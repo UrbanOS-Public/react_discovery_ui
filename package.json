@@ -115,7 +115,7 @@
     "mini-css-extract-plugin": "^2.7.2",
     "node-forge": "^1.3.1",
     "postcss": "^8.4.21",
-    "postcss-loader": "^3.0.0",
+    "postcss-loader": "^7.0.2",
     "postcss-preset-env": "^6.6.0",
     "postcss-scss": "^2.1.1",
     "process": "^0.11.10",
@@ -161,7 +161,8 @@
     "cypress:run": "cypress run",
     "cypress:debug": "DEBUG=cypress:* cypress run",
     "test:all": "npm run test && npm run test:cypress",
-    "test:cypress": "npm run start & wait-on http://localhost:9001 && npm run cypress:run && npm run stop"
+    "test:cypress": "npm run start & wait-on http://localhost:9001 && npm run cypress:run && npm run stop",
+    "test:ci": "npm run test && npm run start & wait-on http://localhost:9001 && npm run cypress:run"
   },
   "publishConfig": {
     "access": "public"
