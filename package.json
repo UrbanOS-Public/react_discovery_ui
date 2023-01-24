@@ -104,7 +104,7 @@
     "cypress": "^12.3.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.7",
-    "eslint-utils": "^1.4.2",
+    "eslint-utils": "^3.0.0",
     "faker": "^5.5.3",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
