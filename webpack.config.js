@@ -26,7 +26,6 @@ module.exports = (env, argv) => {
   ]
 
   return {
-    watch: true,
     resolve: {
         fallback: {
             "assert": require.resolve("assert/")

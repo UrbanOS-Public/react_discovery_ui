@@ -151,7 +151,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "build:library": "rm -rf lib && cross-env BABEL_OUTPUT=commonjs babel src --out-dir lib/ --ignore 'src/**/*.spec.js','src/**/*.test.js','__mocks__/**' --copy-files",
-    "start": "webpack-dev-server --mode development",
+    "start": "webpack serve --mode development",
     "stop": "killall node",
     "lint": "standard --fix",
     "test": "jest",
