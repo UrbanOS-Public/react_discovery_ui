@@ -17,16 +17,16 @@ import VisualizationListMenuItem from '../../components/visualization-list-menu-
 import VisualizationSaveMenuItem from '../../components/visualization-save-menu-item'
 
 export default class extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = { index: 0, localTitle: '' }
   }
 
-  generateVisualizationLink () {
+  generateVisualizationLink() {
     return this.props.visualizationId && generatePath(routes.visualizationView, { id: this.props.visualizationId })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.reset()
     this.props.retrieveDatasetDetails(
       this.props.match.params.organizationName,
@@ -38,28 +38,28 @@ export default class extends Component {
     }
   }
 
-  getIndexFromQueryParams () {
+  getIndexFromQueryParams() {
     const { selectedIndex } = qs.parse(this.props.location.search, {
       ignoreQueryPrefix: true
     })
     return selectedIndex ? parseInt(selectedIndex) : 0
   }
 
-  handleTitleChange (event) {
+  handleTitleChange(event) {
     if (event.target.value !== this.state.localTitle) {
       this.setState({ localTitle: event.target.value })
     }
   }
 
-  handleSaveOrUpdate ({ shouldCreateCopy }) {
+  handleSaveOrUpdate({ shouldCreateCopy }) {
     this.props.save({ id: this.props.visualizationId, title: this.state.localTitle, query: this.props.query, shouldCreateCopy })
   }
 
-  isNotDatasetDetailsTab () {
+  isNotDatasetDetailsTab() {
     return this.state.index !== 0
   }
 
-  render () {
+  render() {
     if (!this.props.isDatasetLoaded) {
       return (
         <dataset-view>
@@ -96,22 +96,20 @@ export default class extends Component {
             </span>
             {this.isNotDatasetDetailsTab() &&
               <span className='action-area'>
-                <>
-                  <VisualizationListMenuItem
-                    isAuthenticated={this.props.auth.isAuthenticated}
-                  />
-                  <VisualizationSaveMenuItem
-                    isSaveable={this.props.isSaveable}
-                    handleTitleChange={this.handleTitleChange.bind(this)}
-                    handleSaveOrUpdate={this.handleSaveOrUpdate.bind(this)}
-                    linkUrl={this.generateVisualizationLink()}
-                    isSaveFailure={this.props.isSaveFailure}
-                    isSaveSuccess={this.props.isSaveSuccess}
-                    title={this.state.localTitle}
-                    allowedActions={this.props.allowedActions}
-                    isAuthenticated={this.props.auth.isAuthenticated}
-                  />
-                </>
+                <VisualizationListMenuItem
+                  isAuthenticated={this.props.auth.isAuthenticated}
+                />
+                <VisualizationSaveMenuItem
+                  isSaveable={this.props.isSaveable}
+                  handleTitleChange={this.handleTitleChange.bind(this)}
+                  handleSaveOrUpdate={this.handleSaveOrUpdate.bind(this)}
+                  linkUrl={this.generateVisualizationLink()}
+                  isSaveFailure={this.props.isSaveFailure}
+                  isSaveSuccess={this.props.isSaveSuccess}
+                  title={this.state.localTitle}
+                  allowedActions={this.props.allowedActions}
+                  isAuthenticated={this.props.auth.isAuthenticated}
+                />
               </span>}
           </TabList>
           <TabPanel forceRender>
