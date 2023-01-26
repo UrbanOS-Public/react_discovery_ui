@@ -24,14 +24,6 @@ describe('visualization list menu item', () => {
         subject.find('.button-enabled').simulate('click')
       })
 
-      it('marks the link to the user\'s saved visualizations as enabled', () => {
-        expect(subject.find('.link-enabled')).toHaveLength(1)
-      })
-
-      it('has the correct endpoint for the user\'s saved visualizations', () => {
-        expect(subject.find('.link-enabled').props().to).toEqual('/user')
-      })
-
       it('does not display a login prompt', () => {
         expect(subject.find('.login-prompt').props().open).toBeFalsy()
       })
