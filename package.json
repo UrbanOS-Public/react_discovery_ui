@@ -44,7 +44,7 @@
     "react-chart-editor": "^0.45.0",
     "react-collapse": "^4.0.3",
     "react-copy-to-clipboard": "^5.0.1",
-    "react-device-detect": "^1.13.1",
+    "react-device-detect": "^2.2.2",
     "react-dom": "~16.8.6",
     "react-gtm-module": "^2.0.4",
     "react-image-fallback": "^8.0.0",
