@@ -28,7 +28,11 @@ module.exports = (env, argv) => {
   return {
     resolve: {
         fallback: {
-            "assert": require.resolve("assert/")
+            "assert": require.resolve("assert/"),
+            "fs": false,
+            "module": false,
+            "os": require.resolve("os-browserify/browser"),
+            "path": require.resolve("path-browserify")
         }
     },
     entry: {
@@ -73,6 +77,10 @@ module.exports = (env, argv) => {
         {
           test: /\.scss$/,
           use: ['style-loader', 'css-loader', 'sass-loader']
+        },
+        {
+          test: /\.m?js/,
+          resolve: { fullySpecified: false }
         }
       ]
     },
@@ -82,6 +90,9 @@ module.exports = (env, argv) => {
       compress: productionOptimizationsEnabled,
       open: true,
       port: 9001
+    },
+    experiments: {
+      topLevelAwait: true
     },
     plugins: plugins,
     optimization: {
