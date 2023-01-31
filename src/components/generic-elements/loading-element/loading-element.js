@@ -1,10 +1,11 @@
 import './loading-element.scss'
-import LoadingIcon from '../../../assets/loadingicon.svg'
+import InlineSVG from 'react-svg-inline'
+import loadingIcon from '../../../assets/loadingicon.svg'
 
 const LoadingElement = ({ className = '' }) => {
   return (
     <loading-element class={`loading-container ${className}`} data-testid='loading-spinner'>
-      <LoadingIcon accessibilityDesc='Loading...' />
+      <InlineSVG svg={loadingIcon} accessibilityDesc='Loading...' />
     </loading-element>
   )
 }

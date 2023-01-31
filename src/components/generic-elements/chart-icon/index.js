@@ -1,5 +1,6 @@
-import ChartSVG from '../../../assets/chart.svg'
+import chartSVG from '../../../assets/chart.svg'
+import InlineSVG from 'react-svg-inline'
 
 export default ({ className }) => {
-  return (<span className={className}><ChartSVG style={{ marginLeft: '.3rem' }} height='14px' width='25px' accessibilityDesc='Chart' /></span>)
+  return (<span className={className}><InlineSVG style={{ marginLeft: '.3rem' }} svg={chartSVG} height='14px' width='25px' accessibilityDesc='Chart' /></span>)
 }
