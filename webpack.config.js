@@ -52,7 +52,7 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.svg$/,
-          use: ['@svgr/webpack']
+          use: [{ loader: 'svg-inline-loader' }]
         },
         {
           test: /\.css$/,
