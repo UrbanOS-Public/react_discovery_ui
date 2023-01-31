@@ -16,9 +16,7 @@ const VisualizationListMenuItem = ({ isAuthenticated }) => {
     <visualization-list-menu-item>
       <TabButton data-testid='visualization-list-menu-item' className={`button-${isAuthenticated ? 'enabled' : 'disabled'} ${userNeedsLoginInfo && 'dialog-open'}`} onClick={showLoginPrompt}>
         <div title='Saved Workspaces'>
-          <Link to='/user' target='_blank' rel='noopener noreferrer' className={`header-item link-${isAuthenticated ? 'enabled' : 'disabled'}`}>
-            <FolderIcon />
-          </Link>
+          <FolderIcon className={`header-item link-${isAuthenticated ? 'enabled' : 'disabled'}`} accessibilityDesc="Open Saved Workspaces" />
         </div>
       </TabButton>
       <AutoAnchoringPopover className='login-prompt popover-anchor' open={!isAuthenticated && userNeedsLoginInfo} onClose={closeLoginPrompt} classes={{ paper: 'popover', root: 'popover-root' }}>
