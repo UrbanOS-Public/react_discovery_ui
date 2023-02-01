@@ -1,5 +1,6 @@
 import { Selectors, Routes as routes } from '../support/search_page.js'
 import { URLs as urls } from '../support/urls.js'
+
 const all_datasets_name_asc = require('../fixtures/search_page_spec/all_datasets_name_asc')
 const all_datasets_name_desc = require('../fixtures/search_page_spec/all_datasets_name_desc')
 const all_datasets_last_modified = require('../fixtures/search_page_spec/all_datasets_last_modified')
@@ -38,9 +39,8 @@ function isFacetList () {
 
 describe('Search interactions on the page', function () {
   beforeEach(function () {
-    cy.server()
-    cy.route(routes.allDatasetsNameAsc)
-    cy.route(routes.info)
+    cy.intercept(routes.allDatasetsNameAsc.method, routes.allDatasetsNameAsc.url, routes.allDatasetsNameAsc.response)
+    cy.intercept(routes.info.method, routes.info.url, routes.info.response)
     cy.visit('/')
   })
 
@@ -66,28 +66,28 @@ describe('Search interactions on the page', function () {
   it('search works', function () {
     const numberOfTotalDatasets = cotaDatasets.metadata.totalDatasets
     const titleOfFirstDataset = cotaDatasets.results[0].title
-    cy.route(routes.cotaDatasets)
+    cy.intercept(routes.cotaDatasets.method, routes.cotaDatasets.url, routes.cotaDatasets.response)
     cy.get(search).type('COTA{enter}')
     cy.get(datasetsFoundCount).contains(`${numberOfTotalDatasets} datasets found for "COTA"`)
     cy.contains(titleOfFirstDataset)
   })
 
   it('returns a link to the search page if 0 datasets are found', function () {
-    cy.route(routes.catarynDatasets)
+    cy.intercept(routes.catarynDatasets.method, routes.catarynDatasets.url, routes.catarynDatasets.response)
     cy.get('[data-testid=search]').clear().type('cataryn{enter}')
     cy.get('#home').click()
     cy.url().should('match', urls.datasetSearchPage.base)
   })
 
   it('API Accessible works', function () {
-    cy.route(routes.apiAccessibleFalseDatasets)
+    cy.intercept(routes.apiAccessibleFalseDatasets.method, routes.apiAccessibleFalseDatasets.url, routes.apiAccessibleFalseDatasets.response)
     cy.get(apiAccessibleCheckbox).click()
     cy.get(apiAccessibleCheckbox).not('have.class', 'selected')
     cy.url().should('match', urls.datasetSearchPage.apiAccessible)
   })
 
   it('Dataset links work', function () {
-    cy.route(routes.ogripDataset)
+    cy.intercept(routes.ogripDataset.method, routes.ogripDataset.url, routes.ogripDataset.response)
     cy.get(firstDataset).find('.details > .title').click()
     cy.url().should('match', urls.datasetDetailsPage.ogrip)
   })
@@ -95,13 +95,12 @@ describe('Search interactions on the page', function () {
 
 describe('sort', function () {
   beforeEach(function () {
-    cy.server()
-    cy.route(routes.allDatasetsNameAsc)
-    cy.route(routes.info)
-    cy.route(routes.allDatasetsNameAsc).as('getDatasetsInAscendingOrderByName')
-    cy.route(routes.allDatasetsNameDesc).as('getDatasetsInDescendingOrderByName')
-    cy.route(routes.allDatasetsLastModified).as('getDatasetsByLastModifiedDate')
-    cy.route(routes.allDatasetsRelevance).as('getDatasetsByRelevance')
+    cy.intercept(routes.allDatasetsNameAsc.method, routes.allDatasetsNameAsc.url, routes.allDatasetsNameAsc.response)
+    cy.intercept(routes.info.method, routes.info.url, routes.info.response)
+    cy.intercept(routes.allDatasetsNameAsc.method, routes.allDatasetsNameAsc.url, routes.allDatasetsNameAsc.response).as('getDatasetsInAscendingOrderByName')
+    cy.intercept(routes.allDatasetsNameDesc.method, routes.allDatasetsNameDesc.url, routes.allDatasetsNameDesc.response).as('getDatasetsInDescendingOrderByName')
+    cy.intercept(routes.allDatasetsLastModified.method, routes.allDatasetsLastModified.url, routes.allDatasetsLastModified.response).as('getDatasetsByLastModifiedDate')
+    cy.intercept(routes.allDatasetsRelevance.method, routes.allDatasetsRelevance.url, routes.allDatasetsRelevance.response).as('getDatasetsByRelevance')
   })
 
   it('can sort by name descending', function () {
@@ -143,12 +142,11 @@ describe('sort', function () {
 
 describe('Facet interaction on the page', function () {
   beforeEach(function () {
-    cy.server()
-    cy.route(routes.allDatasetsNameAsc)
-    cy.route(routes.info)
+    cy.intercept(routes.allDatasetsNameAsc.method, routes.allDatasetsNameAsc.url, routes.allDatasetsNameAsc.response)
+    cy.intercept(routes.info.method, routes.info.url, routes.info.response)
     cy.visit('/')
-    cy.route(routes.cogoDatasets)
-    cy.route(routes.bicycleDatasets)
+    cy.intercept(routes.cogoDatasets.method, routes.cogoDatasets.url, routes.cogoDatasets.response)
+    cy.intercept(routes.bicycleDatasets.method, routes.bicycleDatasets.url, routes.bicycleDatasets.response)
   })
 
   it('Clicking an organization takes you to that organization\'s datasets', function () {
@@ -173,13 +171,12 @@ describe('Facet interaction on the page', function () {
 
 describe('Deep linking', function () {
   beforeEach(function () {
-    cy.server()
-    cy.route(routes.info)
+    cy.intercept(routes.info.method, routes.info.url, routes.info.response)
   })
 
   it('sort desc works', function () {
-    cy.route(routes.allDatasetsNameDesc)
-    cy.route(routes.allDatasetsNameAsc)
+    cy.intercept(routes.allDatasetsNameDesc.method, routes.allDatasetsNameDesc.url, routes.allDatasetsNameDesc.response)
+    cy.intercept(routes.allDatasetsNameAsc.method, routes.allDatasetsNameAsc.url, routes.allDatasetsNameAsc.response)
     cy.visit('/?sort=name_desc')
     cy.get(sortSelectBox).should('have.value', 'name_desc')
     cy.visit('/?sort=name_asc')
@@ -187,8 +184,8 @@ describe('Deep linking', function () {
   })
 
   it('api accessible works', function () {
-    cy.route(routes.apiAccessibleFalseDatasets)
-    cy.route(routes.allDatasetsNameAsc)
+    cy.intercept(routes.apiAccessibleFalseDatasets.method, routes.apiAccessibleFalseDatasets.url, routes.apiAccessibleFalseDatasets.response)
+    cy.intercept(routes.allDatasetsNameAsc.method, routes.allDatasetsNameAsc.url, routes.allDatasetsNameAsc.response)
     cy.visit('/?apiAccessible=false')
     cy.get(apiAccessibleCheckbox).not('have.class', 'selected')
     cy.visit('/?apiAccessible=true')
@@ -197,14 +194,14 @@ describe('Deep linking', function () {
 
   it('page=2 works', function () {
     const titleOfFirstDataset = all_datasets_page_2.results[0].title
-    cy.route(routes.allDatasetsPage2)
+    cy.intercept(routes.allDatasetsPage2.method, routes.allDatasetsPage2.url, routes.allDatasetsPage2.response)
     cy.visit('/?page=2')
     cy.get(firstDataset).contains(titleOfFirstDataset)
   })
 
   it('organization=COGO works', function () {
     const titleOfFirstDataset = cogoDatasets.results[0].title
-    cy.route(routes.cogoDatasets)
+    cy.intercept(routes.cogoDatasets.method, routes.cogoDatasets.url, routes.cogoDatasets.response)
     cy.visit('/?page=1&apiAccessible=true&facets%5Borganization%5D%5B%5D=COGO')
     cy.get(firstDataset).contains(titleOfFirstDataset)
   })

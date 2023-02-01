@@ -52,38 +52,28 @@ export const Routes = {
   info: {
     method: 'GET',
     url: '/sockjs-node/*',
-    response: 'fixture:info.json'
+    response: {fixture: 'info.json'}
   },
   ogripDataset: {
     method: 'GET',
     url: '/api/v1/organization/ogrip/dataset/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3',
-    response: 'fixture:details_page_spec/ogrip_dataset'
+    response: {fixture: 'details_page_spec/ogrip_dataset'}
   },
   '622746a5_4e2a_4a4c_ac18_74cb1fb05ab3': {
     downloadFormatGeojson: {
       method: 'GET',
       url: '/api/v1/dataset/622746a5-4e2a-4a4c-ac18-74cb1fb05ab3/download?_format=geojson',
-      response: 'fixture:details_page_spec/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3/download_format_geojson.geojson'
+      response: {fixture: 'details_page_spec/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3/download_format_geojson.geojson'}
     },
     previewFormatGeojson: {
       method: 'GET',
       url: '/api/v1/dataset/622746a5-4e2a-4a4c-ac18-74cb1fb05ab3/preview?_format=geojson',
-      response: 'fixture:details_page_spec/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3/preview_format_geojson.geojson'
-    },
-    downloadFormatGeojson: {
-      method: 'GET',
-      url: '/api/v1/dataset/622746a5-4e2a-4a4c-ac18-74cb1fb05ab3/download?_format=geojson',
-      response: 'fixture:details_page_spec/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3/download_format_geojson.geojson'
-    },
-    previewFormatGeojson: {
-      method: 'GET',
-      url: '/api/v1/dataset/622746a5-4e2a-4a4c-ac18-74cb1fb05ab3/preview?_format=geojson',
-      response: 'fixture:details_page_spec/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3/preview_format_geojson.geojson'
+      response: {fixture: 'details_page_spec/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3/preview_format_geojson.geojson'}
     },
     previewFormatJson: {
       method: 'GET',
       url: '/api/v1/dataset/622746a5-4e2a-4a4c-ac18-74cb1fb05ab3/preview?_format=json',
-      response: 'fixture:details_page_spec/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3/preview_format_json.json'
+      response: {fixture: 'details_page_spec/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3/preview_format_json.json'}
     },
     recommendations: {
       method: 'GET',
@@ -93,19 +83,19 @@ export const Routes = {
     query: {
       method: 'POST',
       url: '/api/v1/query',
-      response: 'fixture:details_page_spec/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3/query_response.json'
+      response: {fixture: 'details_page_spec/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3/query_response.json'}
     }
   },
   sysDataset: {
     method: 'GET',
     url: '/api/v1/organization/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002_ORG/dataset/Cesious_Black_OBWEG',
-    response: 'fixture:details_page_spec/sysDataset'
+    response: {fixture: 'details_page_spec/sysDataset'}
   },
   SYS_d3bf2154_1cda_11ea_a56a_0242ac110002: {
     previewFormatJson: {
       method: 'GET',
       url: '/api/v1/dataset/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002/preview?_format=json',
-      response: 'fixture:details_page_spec/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002/preview_format_json.json'
+      response: {fixture: 'details_page_spec/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002/preview_format_json.json'}
     },
     recommendations: {
       method: 'GET',
@@ -115,17 +105,17 @@ export const Routes = {
     query1: {
       method: 'POST',
       url: '/api/v1/query',
-      response: 'fixture:details_page_spec/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002/query_response.json'
+      response: {fixture: 'details_page_spec/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002/query_response.json'}
     },
     query2: {
       method: 'POST',
       url: '/api/v1/query',
-      response: 'fixture:details_page_spec/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002/query_response2.json'
+      response: {fixture: 'details_page_spec/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002/query_response2.json'}
     },
     query3: {
       method: 'POST',
       url: '/api/v1/query',
-      response: 'fixture:details_page_spec/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002/query_response2.json',
+      response: {fixture: 'details_page_spec/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002/query_response2.json'},
       delay: 1000
     }
   }

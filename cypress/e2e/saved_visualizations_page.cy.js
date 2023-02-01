@@ -4,9 +4,8 @@ const { errorText } = Selectors
 
 describe('Saved visualizations', function () {
   beforeEach(function () {
-    cy.server()
-    cy.route(routes.info)
-    cy.route(routes.user)
+    cy.intercept(routes.info.url)
+    cy.intercept(routes.user.url)
   })
 
   it('/user is not accessible to non-logged-in users', function () {
