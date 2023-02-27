@@ -30,7 +30,7 @@
 @media only screen and (max-width: 600px) {
   .checkbox {
     float: right;
-    text-align: right;
+    text-align: left;
     display: block;
   }
 
@@ -52,10 +52,6 @@
     margin-top: 10px;
     clear: both;
     width: 100%;
-  }
-
-  .facet-sidebar .checkbox {
-    display: none;
   }
 
   .facet-sidebar .checkbox.selected {
