@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import CodeEditor from '../code-editor'
 import { MenuItem } from '@trendmicro/react-dropdown'
 import Dropdown from '../download-dropdown/dropdown'
+import { parse } from 'js2xmlparser'
 
 const QueryForm = props => {
   const {
@@ -118,25 +119,35 @@ const QueryForm = props => {
     }
   }
 
-  let dataObj, data, filename, tempLink
-  const queryDataDownloadLink = (fileType) => {
-    dataObj = downloadLinkData(queryData, fileType)
-    data = new Blob([dataObj], { type: fileType })
-    filename = fileType == 'text/csv' ? 'query_results.csv' : 'query_results.json'
-
+  let dataObj, data, tempLink
+  const queryDataDownloadLinkAsCsv = () => {
+    dataObj = queryDataToCSV(queryData)
+    data = new Blob([dataObj], { type: "application/json" })
     tempLink = document.createElement('a')
     tempLink.href = window.URL.createObjectURL(data)
-    tempLink.setAttribute('download', filename)
+    tempLink.setAttribute('download', 'query_results.csv')
     tempLink.click()
   }
 
-  const downloadLinkData = (queryData, fileType) => {
-    if (fileType == 'text/csv') return queryDataToCSV(queryData)
-
-    return JSON.stringify(queryData)
+  const queryDataDownloadLinkAsJson = () => {
+    dataObj = JSON.stringify(queryData)
+    data = new Blob([dataObj], { type: "text/csv" })
+    tempLink = document.createElement('a')
+    tempLink.href = window.URL.createObjectURL(data)
+    tempLink.setAttribute('download', 'query_results.json')
+    tempLink.click()
   }
 
-  let keys, csv, row, rowValues
+  const queryDataDownloadLinkAsXml = () => {
+    dataObj = parse("results", queryData)
+    data = new Blob([dataObj], { type: "application/xml" })
+    tempLink = document.createElement('a')
+    tempLink.href = window.URL.createObjectURL(data)
+    tempLink.setAttribute('download', 'query_results.xml')
+    tempLink.click()
+  }
+
+  let keys, csv, row
   const queryDataToCSV = (dataObj) => {
     if (dataObj == undefined || dataObj == null || dataObj == []) return ''
 
@@ -205,8 +216,9 @@ const QueryForm = props => {
           <Dropdown.Toggle title='Download Returned Results' style={{ background: downloadButtonColor, color: 'white', border: 'none', padding: '1rem' }} />
           <Dropdown.MenuWrapper>
             <Dropdown.Menu>
-              <MenuItem onClick={() => queryDataDownloadLink('text/csv')}>CSV</MenuItem>
-              <MenuItem onClick={() => queryDataDownloadLink('application/json')}>JSON</MenuItem>
+              <MenuItem onClick={() => queryDataDownloadLinkAsCsv()}>CSV</MenuItem>
+              <MenuItem onClick={() => queryDataDownloadLinkAsJson()}>JSON</MenuItem>
+              <MenuItem onClick={() => queryDataDownloadLinkAsXml()}>XML</MenuItem>
             </Dropdown.Menu>
           </Dropdown.MenuWrapper>
         </Dropdown>
