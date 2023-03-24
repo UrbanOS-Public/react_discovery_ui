@@ -8,10 +8,12 @@ import DatasetDetailView from '../dataset-detail-view'
 import LoadingElement from '../../components/generic-elements/loading-element'
 import VisualizationSaveMenuItem from '../../components/visualization-save-menu-item'
 import VisualizationListMenuItem from '../../components/visualization-list-menu-item'
+import ChartIcon from '../../components/generic-elements/chart-icon'
 
 describe('dataset view', () => {
   let subject
   beforeEach(() => {
+    window.DISABLE_VISUALIZATIONS = 'false'
     subject = createSubject()
   })
 
@@ -59,6 +61,26 @@ describe('dataset view', () => {
     subject.setState({ index: 0 })
     expect(subject.find(VisualizationSaveMenuItem)).toHaveLength(0)
     expect(subject.find(VisualizationListMenuItem)).toHaveLength(0)
+  })
+})
+
+describe('Visualizations when DISABLE_VISUALIZATIONS is true', () => {
+  let subject
+  beforeEach(() => {
+    window.DISABLE_VISUALIZATIONS = 'true'
+    subject = createSubject()
+  })
+
+  afterEach(() => {
+    window.DISABLE_VISUALIZATIONS = 'false'
+  })
+
+  it('does not have the visualizations tab', () => {
+    expect(subject.find(ChartIcon).length).toEqual(0)
+  })
+
+  it('does not have the visualizations view', () => {
+    expect(subject.find(ChartView).length).toEqual(0)
   })
 })
 

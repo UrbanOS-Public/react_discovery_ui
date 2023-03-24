@@ -59,6 +59,10 @@ export default class extends Component {
     return this.state.index !== 0
   }
 
+  isVisualizationEnabled() {
+    return window.DISABLE_VISUALIZATIONS === 'false'
+  }
+
   render() {
     if (!this.props.isDatasetLoaded) {
       return (
@@ -87,7 +91,9 @@ export default class extends Component {
             <span className='tab-area'>
               <Tab data-testid='dataset-details'>Dataset Details</Tab>
               <Tab data-testid='dataset-write-sql'>Write SQL <SQLIcon className='sqlIcon' /></Tab>
-              <Tab data-testid='visualize'>Visualize <ChartIcon className='chartIcon' /></Tab>
+              {this.isVisualizationEnabled() &&
+                <Tab data-testid='visualize'>Visualize <ChartIcon className='chartIcon'/></Tab>
+              }
               {this.isNotDatasetDetailsTab() &&
                 <>
                   <a className='helpLink primary-color' target='_blank' href='https://en.wikipedia.org/wiki/SQL_syntax'>SQL Help&nbsp;&nbsp;</a>
@@ -118,9 +124,11 @@ export default class extends Component {
           <TabPanel>
             <QueryView shouldAutoExecuteQuery={this.props.shouldAutoExecuteQuery} />
           </TabPanel>
+          {this.isVisualizationEnabled() &&
           <TabPanel className='visualization' selectedClassName='visualization--selected'>
             <ChartView shouldAutoExecuteQuery={this.props.shouldAutoExecuteQuery} />
           </TabPanel>
+          }
 
         </Tabs>
       </dataset-view>
