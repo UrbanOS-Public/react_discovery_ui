@@ -1,4 +1,4 @@
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import CallToActionButton from './call-to-action-button'
 import Modal from 'react-modal'
 import { AuthenticatedHTTPClient } from '../../../utils/http-clients'
@@ -10,29 +10,28 @@ describe('call-to-action-button', () => {
     )
   }
 
-  test('it calls window.location.href onClick', done => {
+  beforeEach(() => {
+    window.open = jest.fn()
+  })
+
+  afterEach(() => {
+    jest.restoreAllMocks()
+  })
+
+  test('it calls window.open onClick', done => {
     AuthenticatedHTTPClient.get = jest.fn()
+    const presignedUrl = 'http://test.example.com/api/v1/presigned/url?key=123'
     AuthenticatedHTTPClient.get.mockImplementationOnce(() => ({
       status: 200,
-      data: 'http://test.example.com/api/v1/presigned/url?key=123'
+      data: presignedUrl
     }))
-
-    const url = 'http://dummy.com'
-    Object.defineProperty(window, 'location', {
-      value: {
-        href: url
-      },
-      writable: true
-    })
-
     const subject = createCallToActionButton({ url: 'abc', format: 'csv', filename: 'dataset.csv' })
 
     subject.find('.call-to-action-button').simulate('click')
 
+    const expectedUrl = presignedUrl + '&_format=csv'
     setTimeout(() => {
-      expect(window.location.href).toEqual(
-        'http://test.example.com/api/v1/presigned/url?key=123&_format=csv'
-      )
+      expect(window.open).toBeCalledWith(expectedUrl)
       done()
     }, 100)
   })
