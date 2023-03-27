@@ -21,15 +21,23 @@ module.exports = (env, argv) => {
       patterns: [{ from: 'config' }]
     }),
     new webpack.ProvidePlugin({
-        process: 'process/browser',
+      process: 'process/browser',
+    }),
+    new webpack.ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
+    }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
     })
   ]
 
   return {
     resolve: {
-        fallback: {
-            "assert": require.resolve("assert/")
-        }
+      fallback: {
+        "assert": require.resolve("assert/"),
+        "stream": require.resolve("stream-browserify"),
+        "buffer": require.resolve("buffer/")
+      }
     },
     entry: {
       main: ['@babel/polyfill', path.join(__dirname, 'src', 'index.js')]
@@ -64,7 +72,7 @@ module.exports = (env, argv) => {
             {
               loader: 'postcss-loader',
               options: {
-                postcssOptions: {plugins: [require('autoprefixer')()]}
+                postcssOptions: { plugins: [require('autoprefixer')()] }
               }
             },
             'sass-loader'
@@ -77,7 +85,7 @@ module.exports = (env, argv) => {
       ]
     },
     devServer: {
-      static: {directory: path.join(__dirname, 'dist')},
+      static: { directory: path.join(__dirname, 'dist') },
       historyApiFallback: true,
       compress: productionOptimizationsEnabled,
       open: true,
