@@ -1,4 +1,3 @@
-
 import './call-to-action-button.scss'
 import { useState } from 'react'
 import Modal from 'react-modal'
@@ -35,7 +34,7 @@ export function CallToActionButton({ url, format, sourceType, sourceUrl }) {
     } else {
       const result = await AuthenticatedHTTPClient.get(url)
       const downloadUrl = result.data + '&_format=' + format
-      window.location.href = downloadUrl
+      window.open(downloadUrl)
     }
   }
 
@@ -66,7 +65,7 @@ export function CallToActionButton({ url, format, sourceType, sourceUrl }) {
         </div>
       </Modal>
       <div>
-        <call-to-action-button className="primary-background-color">
+        <call-to-action-button className='primary-background-color'>
           <a
             data-testid='call-to-action-button'
             className='call-to-action-button'
