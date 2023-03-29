@@ -89,7 +89,7 @@ module.exports = (env, argv) => {
       historyApiFallback: true,
       compress: productionOptimizationsEnabled,
       open: true,
-      port: 9002
+      port: 9001
     },
     plugins: plugins,
     optimization: {
