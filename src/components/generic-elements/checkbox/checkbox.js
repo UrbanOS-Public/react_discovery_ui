@@ -18,6 +18,7 @@ const Checkbox = props => {
 
   return (
     <div
+      id={props.id}
       className={`checkbox ${props.disabled ? 'disabled' : ''} ${props.selected ? 'selected' : ''}`}
       role='button'
       tabIndex='0'
