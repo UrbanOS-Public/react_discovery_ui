@@ -104,12 +104,17 @@ const UserProfileView = (props) => {
         </div>
         <div id='user-visualizations-table'>
           <ReactTable
+            tabIndex={0}
             data={visualizations}
             columns={columns}
             defaultSorted={[{ id: 'updated', desc: true }]}
             loading={props.loading}
             defaultPageSize={10}
             className='-striped -highlight'
+            getTheadThProps={() => { return { tabIndex: '0' } }}
+            getTdProps={(state, rowInfo, _) => {
+              return rowInfo != null ? { tabIndex: '0' } : {}
+            }}
           />
         </div>
       </div>
