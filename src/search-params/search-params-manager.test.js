@@ -443,6 +443,20 @@ describe('withSearchParamsManager', () => {
     expect(store.getState()).toContainEqual(datasetSearch(expect.objectContaining({ apiAccessible: true })))
   })
 
+  it('refocuses any cached element after the search', () => {
+    let fakeElementId = 'fakeElement'
+    let fakeElement = {focus: jest.fn()}
+    sessionStorage.setItem('cachedFocusedElement', fakeElementId)
+    document.getElementById = jest.fn(() => fakeElement)
+
+    const subject = mount(
+      <TestableProvider store={store}>
+        <Rapper history={{ location: { search: '?apiAccessible=false' } }} />
+      </TestableProvider>)
+
+    expect(fakeElement.focus).toHaveBeenCalledTimes(1)
+  })
+
   it('does not dispatch search on other updates', () => {
     const subject = mount(
       <TestableProvider store={store}>

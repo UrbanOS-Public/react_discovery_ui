@@ -100,6 +100,7 @@ export default class GeoJSONVisualization extends React.Component {
       <CollapsableBox title='Map Preview' headerHtml={description} expanded>
         <div>
           <Checkbox
+            id='toggleFullDataset'
             clickHandler={() => this.onMapToggleClick()}
             text='Show Full Dataset'
             selected={this.state.showFullMap}

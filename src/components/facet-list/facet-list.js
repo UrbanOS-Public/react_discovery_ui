@@ -24,6 +24,7 @@ const FacetList = props => {
           .slice(0, props.limit)
           .map(({ name, count, selected }) => (
             <Checkbox
+              id={`facet-list-${name}`}
               clickHandler={() => props.clickHandler(name)}
               text={getText(name, count)}
               selected={selected}
