@@ -60,7 +60,6 @@ class SearchParamsManager {
   toggleFacet (name, value) {
     const facetValues = this.facets[name]
     const updatedFacets = Object.assign({}, this.facets, { [name]: _.xor(facetValues, [value]) })
-
     this.updateParams({ facets: updatedFacets, page: 1 })
   }
 
@@ -78,6 +77,7 @@ class SearchParamsManager {
   }
 
   updateParams (params) {
+    this.cacheFocusedElement()
     const updatedSearch = Object.assign({}, this.params, params)
     const updatedSearchEncoded = qs.stringify(
       updatedSearch,
@@ -85,6 +85,15 @@ class SearchParamsManager {
     )
 
     this.pushHistory({ search: updatedSearchEncoded })
+  }
+
+  cacheFocusedElement(){
+    var focusedElement = document.activeElement;
+    var focusedID = null;
+    if (focusedElement !== null && focusedElement !== document.body){
+      focusedID = focusedElement.id
+    }
+    sessionStorage.setItem("cachedFocusedElement", focusedID)
   }
 }
 
@@ -107,6 +116,13 @@ const withSearchParamsManager = (WrappedComponent) => {
     const searchParamsManager = new SearchParamsManager(history)
 
     const dispatchDatasetSearch = () => {
+      try{
+        var cachedElementID = sessionStorage.getItem("cachedFocusedElement")
+        sessionStorage.removeItem("cachedFocusedElement")
+        var cachedElement = document.getElementById(cachedElementID)
+        cachedElement.focus()
+      } catch (e) {}
+
       const updatedParams = searchParamsManager.getParams()
       dispatch(datasetSearch(updatedParams))
     }
