@@ -84,7 +84,7 @@ const UserProfileView = (props) => {
       className: 'centered',
       width: 50,
       Cell: ({ original }) => (
-        <span className='delete-icon' onClick={() => { openDeleteModalForVisualization(original.id) }}>
+        <span className='delete-icon' tabIndex='0' aria-label='Delete' role='button' onKeyDownCapture={(event) => { if (event.key === ' ' || event.key === 'Enter') { openDeleteModalForVisualization(original.id) } }} onClick={() => { openDeleteModalForVisualization(original.id) }}>
           <DeleteIcon />
         </span>
       )
@@ -121,8 +121,8 @@ const UserProfileView = (props) => {
         <p>Are you sure you want to delete this workspace?</p>
         {deleteFailure && <p className='modal-error-text'>There was an error deleting the visualization</p>}
         <div className='modal-button-group'>
-          <button className='modal-cancel modal-button' onClick={cancelDeletion}>Cancel</button>
-          <button className='modal-confirm modal-button' onClick={() => { confirmDeletion(datasetToDelete) }}>Delete</button>
+          <button id='workspace-delete-cancel-button' type='button' className='modal-cancel modal-button' onClick={cancelDeletion}>Cancel</button>
+          <button id='workspace-delete-confirm-button' type='button' className='modal-confirm modal-button' onClick={() => { confirmDeletion(datasetToDelete) }}>Delete</button>
         </div>
       </Modal>
     </user-profile-view>
