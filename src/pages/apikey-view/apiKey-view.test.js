@@ -76,13 +76,13 @@ describe('apiKeyView component', () => {
       const modalGenerateButton = screen.getByRole('button', { name: 'Confirm', hidden: true })
       expect(modalGenerateButton).toBeInTheDocument()
 
-      expect(modalGenerateButton).toHaveClass('apikey-modal-confirm-button')
+      expect(modalGenerateButton).toHaveClass('modal-confirm-button')
     })
 
     it('Generates the API key when the generate button is clicked', () => {
       const modalGenerateButton = screen.getByRole('button', { name: 'Confirm', hidden: true })
       expect(modalGenerateButton).toBeInTheDocument()
-      expect(modalGenerateButton).toHaveClass('apikey-modal-confirm-button')
+      expect(modalGenerateButton).toHaveClass('modal-confirm-button')
 
       fireEvent.click(modalGenerateButton)
 
@@ -93,13 +93,13 @@ describe('apiKeyView component', () => {
       const modalCancelButton = screen.getByRole('button', { name: 'Cancel', hidden: true })
 
       expect(modalCancelButton).toBeInTheDocument()
-      expect(modalCancelButton).toHaveClass('apikey-modal-cancel-button')
+      expect(modalCancelButton).toHaveClass('modal-cancel-button')
     })
 
     it('Closes the modal when cancel button is clicked', () => {
       const modalCancelButton = screen.getByRole('button', { name: 'Cancel', hidden: true })
       expect(modalCancelButton).toBeInTheDocument()
-      expect(modalCancelButton).toHaveClass('apikey-modal-cancel-button')
+      expect(modalCancelButton).toHaveClass('modal-cancel-button')
 
       fireEvent.click(modalCancelButton)
 

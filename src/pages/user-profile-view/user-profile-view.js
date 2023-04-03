@@ -86,18 +86,18 @@ const UserProfileView = (props) => {
       <AriaModal
         titleText='Confirm Delete Workspace'
       >
-        <div className='apiKey-modal-container'>
-          <div className='apikey-modal-header-box'>
-            <div className='apiKey-modal-title'>
+        <div className='modal-container'>
+          <div className='modal-header-box'>
+            <div className='modal-title'>
               Confirm Workspace Deletion
             </div>
           </div>
-          <div className='apikey-modal-paragraph-text'>
+          <div className='paragraph-text'>
             {deleteFailure && <p className='modal-error-text'>There was an error deleting the visualization</p>}
           </div>
-          <div className='apikey-modal-button-group'>
-            <button className='apikey-modal-confirm-button' onClick={() => { confirmDeletion(datasetToDelete) }}>Delete</button>
-            <button className='apikey-modal-cancel-button' onClick={cancelDeletion}>Cancel</button>
+          <div className='modal-button-group'>
+            <button className='modal-confirm-button' onClick={() => { confirmDeletion(datasetToDelete) }}>Delete</button>
+            <button className='modal-cancel-button' onClick={cancelDeletion}>Cancel</button>
           </div>
         </div>
       </AriaModal>

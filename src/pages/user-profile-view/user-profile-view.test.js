@@ -66,22 +66,22 @@ describe('user profile view', () => {
     })
 
     it('closes the modal when the cancel button is clicked', () => {
-      subject.find('.apikey-modal-cancel-button').simulate('click')
+      subject.find('.modal-cancel-button').simulate('click')
       expect(subject.find(AriaModal).length).toBe(0)
     })
 
     it('dispatches a request to clear the state, when the cancel button is clicked', () => {
-      subject.find('.apikey-modal-cancel-button').simulate('click')
+      subject.find('.modal-cancel-button').simulate('click')
       expect(clearFunction).toHaveBeenCalled()
     })
 
     it('dispatches a request to delete a visualization when the confirm button is clicked', () => {
-      subject.find('.apikey-modal-confirm-button').simulate('click')
+      subject.find('.modal-confirm-button').simulate('click')
       expect(deleteFunction).toHaveBeenCalledWith('2')
     })
 
     it('keeps the modal open while deleting', () => {
-      subject.find('.apikey-modal-confirm-button').simulate('click')
+      subject.find('.modal-confirm-button').simulate('click')
       subject.setProps({ deleting: true })
       expect(subject.find(AriaModal).length).toBe(1)
     })

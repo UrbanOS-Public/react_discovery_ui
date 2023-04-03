@@ -1,5 +1,4 @@
 import './apikey-view.scss'
-import Modal from 'react-modal'
 import AriaModal from 'react-aria-modal'
 import { useState } from 'react'
 import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined'
@@ -11,8 +10,6 @@ import CloseIcon from '@material-ui/icons/Close'
 
 const ApiKeyView = ({ apiKey, isLoading, isError, errorMessage, generate, dismissGlobalError }) => {
   const [modalIsOpen, setIsOpen] = useState(false)
-
-  Modal.setAppElement('*')
 
   const openModal = () => {
     setIsOpen(true)
@@ -37,20 +34,20 @@ const ApiKeyView = ({ apiKey, isLoading, isError, errorMessage, generate, dismis
           isOpen={modalIsOpen}
           titleText='Generate API Key'
         >
-          <div className='apiKey-modal-container'>
-            <div className='apikey-modal-header-box'>
-              <div className='apiKey-modal-title'>
+          <div className='modal-container'>
+            <div className='modal-header-box'>
+              <div className='modal-title'>
                 Generate API Key
               </div>
-              <CloseIcon className='apiKey-modal-close-button' onClick={closeModal} />
+              <CloseIcon className='modal-close-button' onClick={closeModal} />
             </div>
 
             <hr className='solid' />
-            <div className='apikey-modal-paragraph'>
+            <div className='modal-paragraph'>
               <div className='apikey-modal-warning-icon-container'>
                 <ReportProblemOutlinedIcon className='apikey-modal-warning-icon' />
               </div>
-              <div className='apikey-modal-paragraph-text'>
+              <div className='paragraph-text'>
                 Please note that generating a new API key will invalidate any existing API configurations. You will need to
                 update any system using your API key with the newly generated key.
               </div>
@@ -63,9 +60,9 @@ const ApiKeyView = ({ apiKey, isLoading, isError, errorMessage, generate, dismis
               }
             </div>
             <hr className='solid' />
-            <div className='apikey-modal-button-group'>
-              <button className='apikey-modal-confirm-button' onClick={generate}>Confirm</button>
-              <button className='apikey-modal-cancel-button' onClick={closeModal}>Cancel</button>
+            <div className='modal-button-group'>
+              <button className='modal-confirm-button' onClick={generate}>Confirm</button>
+              <button className='modal-cancel-button' onClick={closeModal}>Cancel</button>
             </div>
           </div>
         </AriaModal>
