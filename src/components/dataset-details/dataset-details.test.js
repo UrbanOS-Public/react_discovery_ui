@@ -23,4 +23,9 @@ describe('dataset details', () => {
     subject = shallow(<DatasetDetails dataset={{ keywords: ['COTA', 'Transit Stops'], id: '12345' }} />)
     expect(subject.find('.keyword').filterWhere(n => { return n.text() === 'COTA' }).prop('href')).toMatch(encodeURI('/?facets[keywords][]=COTA'))
   })
+
+  test('button to download api docs', () => {
+    subject = shallow(<DatasetDetails dataset={{ keywords: [] }} />)
+    expect(subject.find('.print-api-docs-button').length).toEqual(1)
+  })
 })

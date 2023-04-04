@@ -7,6 +7,19 @@ dataset-detail-view {
     margin-top: 2.5rem
   }
 
+  .print-api-docs-button {
+    @include button();
+    display: inline-block;
+    padding: 1.0rem;
+    width: auto;
+    color: white;
+    letter-spacing: 0.05rem;
+    margin: 1rem 1rem 1rem 0.5rem;
+    align-self: flex-end;
+    float: right;
+    line-height: 150%;
+  }
+
   .static-file-explanation {
     border: 1px solid #D2D4D6;
     padding: 1rem;
