@@ -2,22 +2,12 @@ import React, { useEffect, useState } from 'react'
 import Auth0LoginZone from '../../components/auth0-login-zone'
 import ReactTable from 'react-table'
 import Modal from 'react-modal'
+import AriaModal from 'react-aria-modal'
 import DeleteIcon from '@material-ui/icons/DeleteForever'
 
 import './user-profile-view.scss'
 import LoadingElement from '../../components/generic-elements/loading-element'
 import ErrorComponent from '../../components/generic-elements/error-component'
-
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
-  }
-}
 
 const UserProfileView = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -91,6 +81,29 @@ const UserProfileView = (props) => {
     }
   ]
 
+  const modal = showModal
+    ? (
+      <AriaModal
+        titleText='Confirm Delete Workspace'
+      >
+        <div className='modal-container'>
+          <div className='modal-header-box'>
+            <div className='modal-title'>
+              Confirm Workspace Deletion
+            </div>
+          </div>
+          <div className='paragraph-text'>
+            {deleteFailure && <p className='modal-error-text'>There was an error deleting the visualization</p>}
+          </div>
+          <div className='modal-button-group'>
+            <button className='modal-confirm-button' onClick={() => { confirmDeletion(datasetToDelete) }}>Delete</button>
+            <button className='modal-cancel-button' onClick={cancelDeletion}>Cancel</button>
+          </div>
+        </div>
+      </AriaModal>
+      )
+    : false
+
   return (
     <user-profile-view>
       <div className='left-section'>
@@ -113,18 +126,7 @@ const UserProfileView = (props) => {
           />
         </div>
       </div>
-      <Modal
-        isOpen={showModal}
-        style={customStyles}
-        contentLabel='Delete Modal'
-      >
-        <p>Are you sure you want to delete this workspace?</p>
-        {deleteFailure && <p className='modal-error-text'>There was an error deleting the visualization</p>}
-        <div className='modal-button-group'>
-          <button id='workspace-delete-cancel-button' type='button' className='modal-cancel modal-button' onClick={cancelDeletion}>Cancel</button>
-          <button id='workspace-delete-confirm-button' type='button' className='modal-confirm modal-button' onClick={() => { confirmDeletion(datasetToDelete) }}>Delete</button>
-        </div>
-      </Modal>
+      {modal}
     </user-profile-view>
   )
 }

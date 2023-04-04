@@ -1,11 +1,9 @@
 import { shallow, mount } from 'enzyme'
-
 import UserProfileView from './user-profile-view'
 import LoadingElement from '../../components/generic-elements/loading-element'
 import ReactTable from 'react-table'
-import { Link } from 'react-router-dom'
-import Modal from 'react-modal'
 import ErrorComponent from '../../components/generic-elements/error-component'
+import AriaModal from 'react-aria-modal'
 
 describe('user profile view', () => {
   let subject
@@ -56,6 +54,7 @@ describe('user profile view', () => {
       subject = createSubject({ clearDeleteVisualizationState: clearFunction, deleteVisualization: deleteFunction, auth: { isAuthenticated: true }, loadSuccess: true, visualizations: [{ title: 'Bobviz', id: '2' }] }, mount)
       deleteElements = subject.find('.delete-icon')
       deleteElements.at(0).simulate('click')
+      setTimeout(() => {}, 100)
     })
 
     it('shows a delete element', () => {
@@ -63,34 +62,34 @@ describe('user profile view', () => {
     })
 
     it('shows a confirmation modal, when the delete element is clicked', () => {
-      expect(subject.find(Modal).prop('isOpen')).toBe(true)
+      expect(subject.find(AriaModal).length).toBe(1)
     })
 
     it('closes the modal when the cancel button is clicked', () => {
-      subject.find('.modal-cancel').simulate('click')
-      expect(subject.find(Modal).prop('isOpen')).toBe(false)
+      subject.find('.modal-cancel-button').simulate('click')
+      expect(subject.find(AriaModal).length).toBe(0)
     })
 
     it('dispatches a request to clear the state, when the cancel button is clicked', () => {
-      subject.find('.modal-cancel').simulate('click')
+      subject.find('.modal-cancel-button').simulate('click')
       expect(clearFunction).toHaveBeenCalled()
     })
 
     it('dispatches a request to delete a visualization when the confirm button is clicked', () => {
-      subject.find('.modal-confirm').simulate('click')
+      subject.find('.modal-confirm-button').simulate('click')
       expect(deleteFunction).toHaveBeenCalledWith('2')
     })
 
     it('keeps the modal open while deleting', () => {
-      subject.find('.modal-confirm').simulate('click')
+      subject.find('.modal-confirm-button').simulate('click')
       subject.setProps({ deleting: true })
-      expect(subject.find(Modal).prop('isOpen')).toBe(true)
+      expect(subject.find(AriaModal).length).toBe(1)
     })
 
     it('shows an error message and does not close the modal when deletion fails', () => {
       subject.setProps({ deleteFailure: true })
       expect(subject.find('.modal-error-text')).toHaveLength(1)
-      expect(subject.find(Modal).prop('isOpen')).toBe(true)
+      expect(subject.find(AriaModal).length).toBe(1)
     })
   })
 })

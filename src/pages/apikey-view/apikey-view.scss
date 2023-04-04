@@ -61,7 +61,7 @@
   margin: 1rem 1rem 1rem 0rem;
 }
 
-.apiKey-modal-container {
+.modal-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -81,12 +81,12 @@
   align-self: stretch;
 }
 
-.apikey-modal-header-box {
+.modal-header-box {
   display: flex;
   width: 100%;
 }
 
-.MuiSvgIcon-root.apiKey-modal-close-button {
+.MuiSvgIcon-root.modal-close-button {
 
   height: 1.5em;
   width: 1.5em;
@@ -96,7 +96,7 @@
   }
 }
 
-.apiKey-modal-title {
+.modal-title {
   font-style: normal;
   font-weight: 700;
   font-size: 24px;
@@ -111,7 +111,7 @@
   flex: 9
 }
 
-.apikey-modal-paragraph {
+.modal-paragraph {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -149,19 +149,19 @@ hr.solid {
   color: $error-color;
 }
 
-.apikey-modal-paragraph-text {
+.paragraph-text {
   display: flex;
 
   flex: 15;
 }
 
-.apikey-modal-button-group {
+.modal-button-group {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-.apikey-modal-confirm-button {
+.modal-confirm-button {
   box-sizing: border-box;
 
   display: flex;
@@ -191,7 +191,7 @@ hr.solid {
 
 }
 
-.apikey-modal-cancel-button {
+.modal-cancel-button {
 
   display: flex;
   flex-direction: row;
