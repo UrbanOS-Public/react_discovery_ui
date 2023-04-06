@@ -125,7 +125,7 @@ function renderExamples(dataset) {
 
 export default ({ expanded, dataset }) => {
   return (
-    <dataset-api-doc>
+    <dataset-api-doc class='dataset-api-doc'>
       <CollapsableBox
         title='API Examples'
         headerHtml={renderHeader()}

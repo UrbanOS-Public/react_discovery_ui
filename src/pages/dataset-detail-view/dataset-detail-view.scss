@@ -172,27 +172,26 @@ dataset-detail-view {
     overflow: initial !important;
   }
 
-  .tab-area {
-    display: none !important;
+  .streaming-api-doc,
+  .dataset-api-doc,
+  .dataset-dictionary {
+    display: block;
   }
 
-  .left-section {
-    display: none !important;
+  .dataset-metadata {
+    break-inside: avoid;
+    display: block;
   }
 
-  .buttons {
-    display: none !important;
-  }
-
-  #dataset-preview {
-    display: none !important;
-  }
-
-  .dataset-recommendations {
-    display: none !important;
-  }
-
-  .dataset-quality {
+  .tab-area,
+  .left-section,
+  .buttons,
+  .collapse-icon,
+  .geo-json-visualization,
+  #dataset-preview,
+  .dataset-recommendations,
+  .dataset-quality,
+  .view-link {
     display: none !important;
   }
 }
