@@ -21,7 +21,7 @@ const DatasetRecommendations = (props) => {
   }
 
   return (
-    <dataset-recommendations>
+    <dataset-recommendations class='dataset-recommendations'>
       <CollapsableBox title='Recommended Datasets' expanded={false}>
         <div className='recommendation-content'>
           {recommendations.map(rec =>

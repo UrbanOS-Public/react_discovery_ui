@@ -20,7 +20,7 @@ export default class extends Component {
 
   render () {
     return (
-      <dataset-quality>
+      <dataset-quality class='dataset-quality'>
         <CollapsableBox title='Completeness' headerHtml={this.streamingHeader()} expanded={false}>
           <div />
         </CollapsableBox>

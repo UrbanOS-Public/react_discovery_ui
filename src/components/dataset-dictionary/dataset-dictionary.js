@@ -107,7 +107,7 @@ const viewLink = datasetId => (
   </div>
 )
 
-export default ({ schema, datasetId, expanded = false }) => {
+export default ({ schema, datasetId, expanded = true }) => {
   let title = 'Data Dictionary'
   if (isEmpty(schema)) {
     title = title + ' Unavailable'

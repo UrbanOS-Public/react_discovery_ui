@@ -164,3 +164,35 @@ dataset-detail-view {
   }
 
 } 
+
+@media print {
+  body, html {
+    width: 100%;
+    height: initial !important;
+    overflow: initial !important;
+  }
+
+  .tab-area {
+    display: none !important;
+  }
+
+  .left-section {
+    display: none !important;
+  }
+
+  .buttons {
+    display: none !important;
+  }
+
+  #dataset-preview {
+    display: none !important;
+  }
+
+  .dataset-recommendations {
+    display: none !important;
+  }
+
+  .dataset-quality {
+    display: none !important;
+  }
+}
