@@ -52,7 +52,7 @@ export function CallToActionButton({ url, format, sourceType, sourceUrl }) {
   }
 
   return (
-    <div className='call-to-action-container'>
+    <div>
       <Modal
         isOpen={modalIsOpen}
         style={customStyles}
