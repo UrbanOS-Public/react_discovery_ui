@@ -33,8 +33,7 @@ const VisualizationView = (props) => {
 
   const linkUrl = idFromState && generatePath(routes.visualizationView, { id: idFromState })
   const [localTitle, setLocalTitle] = useState(title || '')
-  const startIndex = idFromUrl ? 1 : 0
-  const [index, setIndex] = useState(startIndex)
+  const [index, setIndex] = useState(0)
 
   React.useEffect(() => { return function cleanup () { reset() } }, [])
   React.useEffect(() => { if (idFromUrl && idFromUrl !== idFromState) load(idFromUrl) }, [idFromUrl])
@@ -49,6 +48,10 @@ const VisualizationView = (props) => {
 
   const handleSaveOrUpdate = ({ shouldCreateCopy }) => {
     save({ id: idFromState, title: localTitle, query, shouldCreateCopy })
+  }
+
+  const isVisualizationEnabled = () => {
+    return window.DISABLE_VISUALIZATIONS === 'false'
   }
 
   if (isLoadFailure) {
@@ -67,9 +70,11 @@ const VisualizationView = (props) => {
             <Tab className='header-item tab' selectedClassName='selected'>
               Write SQL <SQLIcon className='sql-icon' />
             </Tab>
-            <Tab className='header-item tab' selectedClassName='selected'>
-              Visualize <ChartIcon className='chart-icon' />
-            </Tab>
+            {isVisualizationEnabled() &&
+              <Tab className='header-item tab' selectedClassName='selected'>
+                Visualize <ChartIcon className='chart-icon'/>
+              </Tab>
+            }
           </span>
           <span className='action-area'>
             <>

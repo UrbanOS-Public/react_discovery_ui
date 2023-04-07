@@ -7,6 +7,7 @@ import ChartView from '../chart-view'
 import ErrorComponent from '../../components/generic-elements/error-component'
 import VisualizationSaveMenuItem from '../../components/visualization-save-menu-item'
 import VisualizationListMenuItem from '../../components/visualization-list-menu-item'
+import ChartIcon from '../../components/generic-elements/chart-icon'
 
 const runUseEffect = () => {
   const useEffect = jest.spyOn(React, 'useEffect')
@@ -62,10 +63,6 @@ describe('visualization view', () => {
     it('calls the load function', () => {
       expect(loadHandler).toHaveBeenCalledWith(id)
     })
-
-    it('lands on the chart visualization page', () => {
-      expect(subject.find(Tabs).props().selectedIndex).toEqual(1)
-    })
   })
 
   describe('when visualization id from URL matches visualization id from state', () => {
@@ -87,6 +84,7 @@ describe('visualization view', () => {
 
   describe('when visualization is loaded with no errors', () => {
     beforeEach(() => {
+      window.DISABLE_VISUALIZATIONS = 'false'
       subject = createSubject()
     })
 
@@ -146,6 +144,21 @@ describe('visualization view', () => {
     it('displays the user page icon in the header with expected props', () => {
       expect(subject.find(VisualizationListMenuItem)).toHaveLength(1)
       expect(subject.find(VisualizationListMenuItem).props().isAuthenticated).toBe(true)
+    })
+  })
+
+  describe('when disable visualizations env flag is enabled', () => {
+    beforeEach(() => {
+      window.DISABLE_VISUALIZATIONS = 'true'
+      subject = createSubject()
+    })
+
+    afterEach(() => {
+      window.DISABLE_VISUALIZATIONS = 'false'
+    })
+
+    it('Does not display a visualization tab', () => {
+      expect(subject.find(ChartIcon).length).toEqual(0)
     })
   })
 })
