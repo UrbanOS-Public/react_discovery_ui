@@ -11,6 +11,10 @@ dataset-details {
     justify-content: space-between;
   }
 
+  .buttons {
+    display: flex;
+  }
+
   .name {
     @include header();
     margin-bottom: 0.5rem;
