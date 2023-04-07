@@ -97,7 +97,7 @@ export default class GeoJSONVisualization extends React.Component {
     }
 
     return (
-      <CollapsableBox title='Map Preview' headerHtml={description} expanded>
+      <CollapsableBox class='geo-json-visualization' title='Map Preview' headerHtml={description} expanded>
         <div>
           <Checkbox
             id='toggleFullDataset'

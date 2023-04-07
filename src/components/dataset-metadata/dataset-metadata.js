@@ -139,7 +139,7 @@ export default class extends Component {
     ]
 
     return (
-      <dataset-metadata>
+      <dataset-metadata class='dataset-metadata'>
         <CollapsableBox title='Additional Information' expanded>
           <ReactTable
             data={data}
