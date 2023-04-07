@@ -7,6 +7,19 @@ dataset-detail-view {
     margin-top: 2.5rem
   }
 
+  .print-api-docs-button {
+    @include button();
+    display: inline-block;
+    padding: 1.0rem;
+    width: auto;
+    color: white;
+    letter-spacing: 0.05rem;
+    margin: 1rem 1rem 1rem 0.5rem;
+    align-self: flex-end;
+    float: right;
+    line-height: 150%;
+  }
+
   .static-file-explanation {
     border: 1px solid #D2D4D6;
     padding: 1rem;
@@ -151,3 +164,35 @@ dataset-detail-view {
   }
 
 } 
+
+@media print {
+  body, html {
+    width: 100%;
+    height: initial !important;
+    overflow: initial !important;
+  }
+
+  .streaming-api-doc,
+  .dataset-api-doc,
+  .dataset-dictionary {
+    display: block;
+  }
+
+  .dataset-metadata {
+    break-inside: avoid;
+    display: block;
+  }
+
+  .nav-wrapper,
+  .tab-area,
+  .left-section,
+  .buttons,
+  .collapse-icon,
+  .geo-json-visualization,
+  #dataset-preview,
+  .dataset-recommendations,
+  .dataset-quality,
+  .view-link {
+    display: none !important;
+  }
+}

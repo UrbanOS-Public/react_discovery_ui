@@ -11,11 +11,12 @@ const DatasetDetails = ({ dataset, downloadUrl }) => {
   }
 
   return (
-    <dataset-details>
+    <dataset-details class='dataset-details'>
       <div className='dataset-details-header'>
         <div data-testid='dataset-title' className='name'><h1>{dataset.title}</h1></div>
         <div className='buttons'>
           <CallToActionButton url={downloadUrl} format={getDefaultFormat(dataset)} filename={dataset.id} sourceType={dataset.sourceType} sourceUrl={dataset.sourceUrl} />
+          <button className='print-api-docs-button' onClick={() => window.print()}>Print API Docs</button>
         </div>
       </div>
       <div data-testid='dataset-description' className='description'>

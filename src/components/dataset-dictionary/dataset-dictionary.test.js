@@ -258,12 +258,12 @@ describe('dataset dictionary', () => {
     })
   })
 
-  it('is rendered in a collapsed box by default', () => {
+  it('is rendered in an expanded box by default', () => {
     subject = shallow(<DatasetDictionary schema={basicSchema} />)
 
     const collapsableBox = subject.find(CollapsableBox)
     expect(collapsableBox.length).toBe(1)
-    expect(collapsableBox.props().expanded).toBe(false)
+    expect(collapsableBox.props().expanded).toBe(true)
   })
 
   it('renders a view link', () => {

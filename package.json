@@ -1,6 +1,6 @@
 {
   "name": "@smartcitiesdata/react-discovery-ui",
-  "version": "2.1.23",
+  "version": "2.1.25",
   "description": "React component for dataset discovery UI",
   "main": "./lib/ReactDiscoveryUI.js",
   "repository": {

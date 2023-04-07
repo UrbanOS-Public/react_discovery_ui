@@ -42,7 +42,7 @@ export default class extends Component {
     }
 
     return (
-      <streaming-api-doc>
+      <streaming-api-doc class='streaming-api-doc'>
         <CollapsableBox title='Websocket Streaming Example' headerHtml={this.streamingHeader()} expanded={this.props.expanded}>
           {this.streamingBody()}
         </CollapsableBox>

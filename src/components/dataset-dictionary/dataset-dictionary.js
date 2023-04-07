@@ -107,14 +107,14 @@ const viewLink = datasetId => (
   </div>
 )
 
-export default ({ schema, datasetId, expanded = false }) => {
+export default ({ schema, datasetId, expanded = true }) => {
   let title = 'Data Dictionary'
   if (isEmpty(schema)) {
     title = title + ' Unavailable'
   }
 
   return (
-    <dataset-dictionary>
+    <dataset-dictionary class='dataset-dictionary'>
       <CollapsableBox title={title} expanded={expanded}>
         {!isEmpty(schema) && (
           <div>

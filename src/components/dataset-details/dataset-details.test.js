@@ -3,6 +3,7 @@ import DatasetDetails from './dataset-details'
 
 describe('dataset details', () => {
   let subject
+  jest.spyOn(window, 'print').mockReturnValue()
 
   test('card to render text based on props', () => {
     subject = shallow(<DatasetDetails dataset={{ keywords: ['COTA', 'Transit Stops'] }} />)
@@ -22,5 +23,16 @@ describe('dataset details', () => {
   test('keywords link to filtered search', () => {
     subject = shallow(<DatasetDetails dataset={{ keywords: ['COTA', 'Transit Stops'], id: '12345' }} />)
     expect(subject.find('.keyword').filterWhere(n => { return n.text() === 'COTA' }).prop('href')).toMatch(encodeURI('/?facets[keywords][]=COTA'))
+  })
+
+  test('button to download api docs', () => {
+    subject = shallow(<DatasetDetails dataset={{ keywords: [] }} />)
+    expect(subject.find('.print-api-docs-button').length).toEqual(1)
+  })
+
+  test('click print button to print', () => {
+    subject = shallow(<DatasetDetails dataset={{ keywords: [] }} />)
+    subject.find('.print-api-docs-button').simulate('click')
+    expect(window.print).toHaveBeenCalled()
   })
 })
