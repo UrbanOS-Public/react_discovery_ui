@@ -183,7 +183,8 @@ dataset-detail-view {
     display: block;
   }
 
-  .nav-wrapper,
+  header,
+  footer,
   .tab-area,
   .left-section,
   .buttons,
@@ -194,5 +195,9 @@ dataset-detail-view {
   .dataset-quality,
   .view-link {
     display: none !important;
+  }
+
+  .main-app-element {
+    margin-top: 0;
   }
 }
