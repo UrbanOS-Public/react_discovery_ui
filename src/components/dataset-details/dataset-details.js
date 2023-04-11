@@ -16,7 +16,7 @@ const DatasetDetails = ({ dataset, downloadUrl }) => {
         <div data-testid='dataset-title' className='name'><h1>{dataset.title}</h1></div>
         <div className='buttons'>
           <CallToActionButton url={downloadUrl} format={getDefaultFormat(dataset)} filename={dataset.id} sourceType={dataset.sourceType} sourceUrl={dataset.sourceUrl} />
-          <button className='print-api-docs-button primary-background-color' onClick={() => window.print()}>Print API Docs</button>
+          <button className='print-api-docs-button call-to-action-button' onClick={() => window.print()}>Print API Docs</button>
         </div>
       </div>
       <div data-testid='dataset-description' className='description'>
