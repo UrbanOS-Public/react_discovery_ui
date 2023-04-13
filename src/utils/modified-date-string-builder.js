@@ -13,7 +13,7 @@ const createDateString = dataset => {
       )
     case 'stream':
       return (
-        buildDate(dataset.lastUpdatedDate, DateTime.DATETIME_MED) +
+        buildDate(dataset.lastUpdatedDate, DateTime.DATE_MED) +
         ' (Last Ingested)'
       )
     default:

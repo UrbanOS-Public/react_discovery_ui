@@ -45,7 +45,7 @@ describe('create date string', () => {
     expect(result).toEqual('Date not provided (Last Ingested)')
   })
 
-  it('returns modified date as DATE TIME (Last ingested) for streaming datasets', () => {
+  it('returns modified date as DATE (Last ingested) for streaming datasets', () => {
     const dataset = {
       sourceType: 'stream',
       modified: 'tomorrow',
@@ -53,7 +53,7 @@ describe('create date string', () => {
     }
     const result = ModifiedDateStringBuilder.createDateString(dataset)
 
-    expect(result).toMatch(/Sep \d+, 2019, \d+:\d+ (AM|PM) \(Last Ingested\)/)
+    expect(result).toEqual('Sep 6, 2019 (Last Ingested)')
   })
 
   it('returns modified date as DATE (Last updated by provider) for ingest datasets', () => {
