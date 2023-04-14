@@ -23,7 +23,7 @@ const createDateString = dataset => {
 
 const buildDate = (date, format) => {
   if (!date) return NO_DATE_MESSAGE
-  return DateTime.fromISO(date).toLocaleString(format)
+  return DateTime.fromISO(date, {zone: 'utc'}).endOf("day").setZone('local').toLocaleString(format)
 }
 
 export default { createDateString }
