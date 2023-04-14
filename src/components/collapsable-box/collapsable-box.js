@@ -22,7 +22,16 @@ export default class extends Component {
   render () {
     return (
       <collapsable-box>
-        <div data-testid={this.props.testId} className={`header-container ${this.headerOpenClass()}`} onClick={e => { this.toggleCollapsed() }}>
+        <div
+          data-testid={this.props.testId}
+          className={`header-container ${this.headerOpenClass()}`}
+          onClick={e => { this.toggleCollapsed() }}
+          onKeyDown={(event) => { if (event.key === ' ' || event.key === 'Enter') { this.toggleCollapsed() } }}
+          role='button'
+          tabIndex='0'
+          aria-label={`${this.props.title} collapsable box`}
+          aria-pressed={this.state.expanded}
+        >
           <div className='header-text-items'>
             <div className='title'>{this.props.title}</div>
             {this.props.headerHtml}
