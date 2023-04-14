@@ -69,13 +69,14 @@ function renderExamples (examples, url) {
 }
 
 function renderExample (example, index) {
-  const copyToClipboard = (e) => {
+  const copyToClipboard = (event) => {
     const textField = document.createElement('textarea')
     textField.innerText = example.curl
     document.body.appendChild(textField)
     textField.select()
     document.execCommand('copy')
     textField.remove()
+    event.target.focus();
   }
 
   return (
@@ -85,7 +86,14 @@ function renderExample (example, index) {
       </div>
       <div className='example-code'>
         <code data-testid={`curl-example-${index}`} className='example-element'>{example.body}</code>
-        <div className='example-element curl' onClick={copyToClipboard}>
+        <div
+          className='example-element curl'
+          onClick={(event) => copyToClipboard(event)}
+          onKeyDownCapture={(event) => { if (event.key === ' ' || event.key === 'Enter') { copyToClipboard(event) } }}
+          role='button'
+          tabIndex='0'
+          aria-label={`cURL ${index}`}
+        >
           cURL
           <FilterNoneIcon className='copy-FilterNoneIcon'>
             filter_none
