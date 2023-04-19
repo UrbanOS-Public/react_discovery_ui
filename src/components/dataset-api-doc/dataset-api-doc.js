@@ -56,6 +56,15 @@ const freestyleApiParams = [
   }
 ]
 
+const apiHeaders = [
+  {
+    name: 'api_key',
+    default: '',
+    description: 'Include your unique api key as the value. You can generate your key by navigating to the “API Key” item on the “My Account” menu.',
+    required: window.REQUIRE_API_KEY === 'true'
+  }
+]
+
 function getFreestyleApiExamples(dataset) {
   return [
     {
@@ -110,6 +119,7 @@ function renderExamples(dataset) {
         url={`${window.DISC_API_URL}/api/v1/organization/${dataset.organization.name}/dataset/${dataset.name}/query?limit=200&_format=${format}`}
         action='GET'
         params={simpleApiParams}
+        headers={apiHeaders}
       />
       <ApiExample
         title='Freestyle query'
@@ -118,6 +128,7 @@ function renderExamples(dataset) {
         action='POST'
         params={freestyleApiParams}
         examples={getFreestyleApiExamples(dataset)}
+        headers={apiHeaders}
       />
     </div>
   )
