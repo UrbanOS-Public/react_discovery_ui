@@ -17,7 +17,7 @@ describe('additional info element', () => {
 
   test('referenceUrls renders correctly', () => {
     const subject = shallow(<DatasetMetadata dataset={{ referenceUrls: ['https://www.google.com', 'https://www.facebook.com'] }} />)
-    const actual = JSON.stringify(subject.find('ReactTable').prop('data')[14])
+    const actual = JSON.stringify(subject.find('ReactTable').prop('data')[13])
     const expected = JSON.stringify({ Field: 'Related Documents', Value: [<div><a href='https://www.google.com' target='_blank'>https://www.google.com</a></div>, <div><a href='https://www.facebook.com' target='_blank'>https://www.facebook.com</a></div>] })
     expect(actual).toEqual(expected)
   })
