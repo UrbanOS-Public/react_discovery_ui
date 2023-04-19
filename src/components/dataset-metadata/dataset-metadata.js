@@ -10,7 +10,6 @@ export default class extends Component {
     if (!this.props.dataset) {
       return <div />
     }
-    document.body.className = 'body-dataset-detail'
     const referenceUrls = dataset.referenceUrls || []
 
     const data = [
@@ -45,12 +44,6 @@ export default class extends Component {
       {
         Field: 'Frequency',
         Value: dataset.publishFrequency
-      },
-      {
-        Field: 'Data Standard',
-        Value: (<a href={dataset.conformsToUri} target='_blank'>
-          {dataset.conformsToUri}
-        </a>)
       },
       {
         Field: 'Data Dictionary URL',
