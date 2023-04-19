@@ -2,7 +2,7 @@ import { shallow, mount } from 'enzyme'
 import ApiExample from './api-example'
 
 describe('api example', () => {
-  it('renders parameters in a table', () => {
+  it('renders parameters and headers in tables', () => {
     const params = [
       {
         name: 'bob',
@@ -22,7 +22,7 @@ describe('api example', () => {
 
     const cells = wrapper.find('td')
 
-    expect(cells.length).toBe(8)
+    expect(cells.length).toBe(12)
     expect(cells.at(0).text()).toBe('bob')
     expect(cells.at(1).text()).toBe('smith')
     expect(cells.at(2).text()).toBe('robert')
@@ -31,6 +31,10 @@ describe('api example', () => {
     expect(cells.at(5).text()).toBe('johnson')
     expect(cells.at(6).text()).toBe('william')
     expect(cells.at(7).text()).toBe('a guy named bill')
+    expect(cells.at(8).text()).toBe('api_key')
+    expect(cells.at(9).text()).toBe('')
+    expect(cells.at(10).text()).toBe('')
+    expect(cells.at(11).text()).toBe('Include your unique api key as the value. You can generate your key by navigating to the “API Key” item on the “My Account” menu.')
   })
 
   it('does not render a table of params if no params are provided', () => {

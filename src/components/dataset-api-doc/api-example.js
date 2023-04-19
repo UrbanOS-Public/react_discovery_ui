@@ -1,7 +1,16 @@
 import './api-example.scss'
 import FilterNoneIcon from '@material-ui/icons/FilterNone'
 
-export default ({ title, descriptionHtml, action, url, params, examples, headers }) => {
+const defaultHeaders = [
+  {
+    name: 'api_key',
+    default: '',
+    description: 'Include your unique api key as the value. You can generate your key by navigating to the “API Key” item on the “My Account” menu.',
+    required: false
+  }
+]
+
+export default ({ title, descriptionHtml, action, url, params, examples, headers = defaultHeaders }) => {
   return (
     <api-example>
       <div className='example-container'>
@@ -62,7 +71,7 @@ function renderHeaders(headers) {
   return (
     <div>
       <div className='example-header'>Headers</div>
-      <div className='example-parameters'>
+      <div>
         <table className='example-table'>
           <thead>
             <tr>
