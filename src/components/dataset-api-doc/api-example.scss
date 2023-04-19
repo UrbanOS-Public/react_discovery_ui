@@ -53,19 +53,20 @@ api-example {
   }
 
   .parameter-example {
-    white-space:nowrap;
+    white-space: nowrap;
   }
 
-  .parameter-table {
+  .example-table {
     border-collapse: collapse;
     width: 100%
   }
 
-  .parameter-table td {
+  .example-table td {
     padding: 5px
   }
 
-  .parameter-table td, th{
+  .example-table td,
+  th {
     border: 1px solid $light-grey;
   }
 
@@ -75,5 +76,9 @@ api-example {
 
   .example-description {
     margin-bottom: 0.5rem
+  }
+
+  .required-marker {
+    text-align: center;
   }
 }
