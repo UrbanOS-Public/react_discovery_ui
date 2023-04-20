@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme'
-import { Tab, TabPanel } from 'react-tabs'
+import { Tab, TabPanel, TabList } from 'react-tabs'
 
 import DatasetView from './dataset-view'
 import QueryView from '../query-view'
@@ -81,6 +81,11 @@ describe('Visualizations when DISABLE_VISUALIZATIONS is true', () => {
 
   it('does not have the visualizations view', () => {
     expect(subject.find(ChartView).length).toEqual(0)
+  })
+  it('does not have the plot.ly help link', () => {
+    subject.setState({ index: 1 })
+    const test = subject.find('#plotlyhelp')
+    expect(test.length).toEqual(0)
   })
 })
 
