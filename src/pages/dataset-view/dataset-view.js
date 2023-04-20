@@ -97,7 +97,10 @@ export default class extends Component {
               {this.isNotDatasetDetailsTab() &&
                 <>
                   <a className='helpLink primary-color' target='_blank' href='https://en.wikipedia.org/wiki/SQL_syntax'>SQL Help&nbsp;&nbsp;</a>
-                  <a className='helpLink primary-color' target='_blank' href='https://plotly.com/chart-studio-help/tutorials/#basic'>Plot.ly Help</a>
+                  {this.isVisualizationEnabled() &&
+                    <a id='plotlyhelp' className='helpLink primary-color' target='_blank' href='https://plotly.com/chart-studio-help/tutorials/#basic'>Plot.ly Help</a>
+                  }
+
                 </>}
             </span>
             {this.isNotDatasetDetailsTab() &&
