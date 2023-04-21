@@ -89,9 +89,9 @@ function freestyleDescription() {
       The query to run must be submitted as plain text in the body of the request.<br />
       Documentation can be found at:
       <ul>
-        <li><a className="primary-color" href='https://en.wikipedia.org/wiki/SQL_syntax' target='_blank'>SQL Syntax (Wikipedia)</a></li>
-        <li><a className="primary-color" href='https://www.w3schools.com/sql/sql_quickref.asp' target='_blank'>Quick Reference (W3 Schools)</a></li>
-        <li><a className="primary-color" href='https://prestodb.github.io/docs/current/sql/select.html' target='_blank'>PrestoDB Specific Syntax</a></li>
+        <li><a role="link" className="primary-color" href='https://en.wikipedia.org/wiki/SQL_syntax' target='_blank'>SQL Syntax (Wikipedia)</a></li>
+        <li><a role="link" className="primary-color" href='https://www.w3schools.com/sql/sql_quickref.asp' target='_blank'>Quick Reference (W3 Schools)</a></li>
+        <li><a role="link" className="primary-color" href='https://prestodb.github.io/docs/current/sql/select.html' target='_blank'>PrestoDB Specific Syntax</a></li>
       </ul>
     </div>
   )

@@ -5,7 +5,7 @@ import 'react-table/react-table.css'
 import CollapsableBox from '../../components/collapsable-box'
 
 export default class extends Component {
-  render () {
+  render() {
     const { dataset } = this.props
     if (!this.props.dataset) {
       return <div />
@@ -48,7 +48,7 @@ export default class extends Component {
       {
         Field: 'Data Dictionary URL',
         Value: (
-          <a href={dataset.describedByUrl} target='_blank'>
+          <a role="link" href={dataset.describedByUrl} target='_blank'>
             {dataset.describedByUrl}
           </a>
         )
@@ -67,13 +67,13 @@ export default class extends Component {
       },
       {
         Field: 'Homepage URL',
-        Value: <a href={dataset.homepage} target='_blank'>{dataset.homepage}</a>
+        Value: <a role="link" href={dataset.homepage} target='_blank'>{dataset.homepage}</a>
       },
       {
         Field: 'Related Documents',
         Value: referenceUrls.map(url => (
           <div>
-            <a href={url} target='_blank'>
+            <a role="link" href={url} target='_blank'>
               {url}
             </a>
           </div>
@@ -82,7 +82,7 @@ export default class extends Component {
       {
         Field: 'Source URL',
         Value: (
-          <a href={dataset.sourceUrl} target='_blank'>
+          <a role="link" href={dataset.sourceUrl} target='_blank'>
             {dataset.sourceUrl}
           </a>
         )
@@ -94,7 +94,7 @@ export default class extends Component {
       {
         Field: 'License',
         Value: (
-          <a href={dataset.license} target='_blank'>
+          <a role="link" href={dataset.license} target='_blank'>
             {dataset.license}
           </a>
         )
@@ -149,9 +149,9 @@ export default class extends Component {
   }
 }
 
-function mailto (email, name) {
+function mailto(email, name) {
   if (email) {
-    return <a href={'mailto:' + email}>{name}</a>
+    return <a role="link" href={'mailto:' + email}>{name}</a>
   } else {
     return <span>{name}</span>
   }

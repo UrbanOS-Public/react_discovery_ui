@@ -69,6 +69,11 @@ dataset-list-view {
       border: 1px solid #d2d4d6;
       outline: 0;
       color: $dark-gray;
+
+      &:focus {
+        color: $almost-black;
+        border: 1px solid $almost-black;
+      }
     }
   }
 

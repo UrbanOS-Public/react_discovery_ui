@@ -64,19 +64,9 @@ export function CallToActionButton({ url, format, sourceType, sourceUrl }) {
           <button className='modal-confirm modal-button' onClick={navigateToSourceUrl}>Continue</button>
         </div>
       </Modal>
-      <div>
-        <call-to-action-button className='primary-background-color'>
-          <a
-            data-testid='call-to-action-button'
-            className='call-to-action-button'
-            role='button'
-            rel='noopener noreferrer'
-            onClick={handleAction}
-          >
-            {callToActionText()}
-          </a>
-        </call-to-action-button>
-      </div>
+      <button onClick={handleAction} rel='noopener noreferrer' data-testid='call-to-action-button' className='call-to-action-button primary-background-color'>
+        {callToActionText()}
+      </button>
     </div>
   )
 }
