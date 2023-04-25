@@ -1,6 +1,9 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 import './query-form.scss'
+import '@trendmicro/react-buttons/dist/react-buttons.css'
+import '@trendmicro/react-dropdown/dist/react-dropdown.css'
+import Dropdown, { MenuItem } from '@trendmicro/react-dropdown';
 import LoadingElement from '../generic-elements/loading-element'
 import RecommendationList from '../recommendation-list'
 import ReactTooltip from 'react-tooltip'
@@ -9,8 +12,6 @@ import MergeType from '@material-ui/icons/MergeType'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
 import CodeEditor from '../code-editor'
-import { MenuItem } from '@trendmicro/react-dropdown'
-import Dropdown from '../download-dropdown/dropdown'
 import { parse } from 'js2xmlparser'
 
 const QueryForm = props => {
@@ -216,9 +217,9 @@ const QueryForm = props => {
           <Dropdown.Toggle title='Download Returned Results' style={{ background: downloadButtonColor, color: 'white', border: 'none', padding: '1rem' }} />
           <Dropdown.MenuWrapper>
             <Dropdown.Menu>
-              <MenuItem onClick={() => queryDataDownloadLinkAsCsv()}>CSV</MenuItem>
-              <MenuItem onClick={() => queryDataDownloadLinkAsJson()}>JSON</MenuItem>
-              <MenuItem onClick={() => queryDataDownloadLinkAsXml()}>XML</MenuItem>
+              <MenuItem onKeyDown={(event) => (event.key === ' ' || event.key === 'Enter') && queryDataDownloadLinkAsCsv()} onClick={() => queryDataDownloadLinkAsCsv()}>CSV</MenuItem>
+              <MenuItem onKeyDown={(event) => (event.key === ' ' || event.key === 'Enter') && queryDataDownloadLinkAsJson()} onClick={() => queryDataDownloadLinkAsJson()}>JSON</MenuItem>
+              <MenuItem onKeyDown={(event) => (event.key === ' ' || event.key === 'Enter') && queryDataDownloadLinkAsJson()} onClick={() => queryDataDownloadLinkAsXml()}>XML</MenuItem>
             </Dropdown.Menu>
           </Dropdown.MenuWrapper>
         </Dropdown>
