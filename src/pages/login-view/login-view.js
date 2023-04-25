@@ -6,16 +6,16 @@ const LoginView = props => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const enterKeyLogin = (event) => event.key === 'Enter' && login()
-  const spaceKeyLogin = (event) => event.key === ' ' && login()
+  const enterKeyLogin = (event) => event.key === 'Enter' && event.preventDefault() && login()
+  const spaceKeyLogin = (event) => event.key === ' ' && event.preventDefault() && login()
   const login = () => props.login({ username, password, history: props.history })
   return (
     sessionStorage.getItem('api-token')
       ? <Redirect
-          to={{
-            pathname: '/'
-          }}
-        />
+        to={{
+          pathname: '/'
+        }}
+      />
       : <login-view>
         <div className='box' onKeyPress={enterKeyLogin}>
           <h3>Restricted Dataset Login</h3>
@@ -26,7 +26,7 @@ const LoginView = props => {
           <label htmlFor='password'>Password</label>
           <input id='password' className='password' type='password' tabIndex={2} value={password} onChange={(e) => setPassword(e.target.value)} />
           <div className='login-row'>
-            <a href={`${window.DISC_UI_URL}/reset-password`}>Forgot your username and/or password?</a>
+            <a role="link" href={`${window.DISC_UI_URL}/reset-password`}>Forgot your username and/or password?</a>
           </div>
           <div className='submit' role='button' tabIndex={3} onClick={login} onKeyPress={spaceKeyLogin}>Login</div>
         </div>

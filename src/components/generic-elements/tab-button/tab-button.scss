@@ -8,13 +8,19 @@
   cursor: pointer;
   color: $dark-grey;
   background-color: transparent;
+  fill: currentColor;
 
   &:hover {
     color: $almost-black;
   }
 
+  &:focus {
+    color: $almost-black;
+  }
+
   &:disabled,
-  &:disabled:hover {
+  &:disabled:hover,
+  &:disabled:focus {
     cursor: default;
     color: $dark-grey;
   }

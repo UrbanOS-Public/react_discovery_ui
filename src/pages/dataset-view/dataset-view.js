@@ -92,13 +92,13 @@ export default class extends Component {
               <Tab data-testid='dataset-details'>Dataset Details</Tab>
               <Tab data-testid='dataset-write-sql'>Write SQL <SQLIcon className='sqlIcon' /></Tab>
               {this.isVisualizationEnabled() &&
-                <Tab data-testid='visualize'>Visualize <ChartIcon className='chartIcon'/></Tab>
+                <Tab data-testid='visualize'>Visualize <ChartIcon className='chartIcon' /></Tab>
               }
               {this.isNotDatasetDetailsTab() &&
                 <>
-                  <a className='helpLink primary-color' target='_blank' href='https://en.wikipedia.org/wiki/SQL_syntax'>SQL Help&nbsp;&nbsp;</a>
+                  <a role="link" className='helpLink primary-color' target='_blank' href='https://en.wikipedia.org/wiki/SQL_syntax'>SQL Help&nbsp;&nbsp;</a>
                   {this.isVisualizationEnabled() &&
-                    <a id='plotlyhelp' className='helpLink primary-color' target='_blank' href='https://plotly.com/chart-studio-help/tutorials/#basic'>Plot.ly Help</a>
+                    <a role="link" id='plotlyhelp' className='helpLink primary-color' target='_blank' href='https://plotly.com/chart-studio-help/tutorials/#basic'>Plot.ly Help</a>
                   }
 
                 </>}
@@ -128,9 +128,9 @@ export default class extends Component {
             <QueryView shouldAutoExecuteQuery={this.props.shouldAutoExecuteQuery} />
           </TabPanel>
           {this.isVisualizationEnabled() &&
-          <TabPanel className='visualization' selectedClassName='visualization--selected'>
-            <ChartView shouldAutoExecuteQuery={this.props.shouldAutoExecuteQuery} />
-          </TabPanel>
+            <TabPanel className='visualization' selectedClassName='visualization--selected'>
+              <ChartView shouldAutoExecuteQuery={this.props.shouldAutoExecuteQuery} />
+            </TabPanel>
           }
 
         </Tabs>

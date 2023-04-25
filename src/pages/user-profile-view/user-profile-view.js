@@ -74,7 +74,7 @@ const UserProfileView = (props) => {
       className: 'centered',
       width: 50,
       Cell: ({ original }) => (
-        <span className='delete-icon' tabIndex='0' aria-label='Delete' role='button' onKeyDownCapture={(event) => { if (event.key === ' ' || event.key === 'Enter') { openDeleteModalForVisualization(original.id) } }} onClick={() => { openDeleteModalForVisualization(original.id) }}>
+        <span className='delete-icon' tabIndex='0' aria-label='Delete' role='button' onKeyDownCapture={(event) => { if (event.key === ' ' || event.key === 'Enter') { event.preventDefault() && openDeleteModalForVisualization(original.id) } }} onClick={() => { openDeleteModalForVisualization(original.id) }}>
           <DeleteIcon />
         </span>
       )
@@ -101,7 +101,7 @@ const UserProfileView = (props) => {
           </div>
         </div>
       </AriaModal>
-      )
+    )
     : false
 
   return (

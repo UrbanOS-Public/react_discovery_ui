@@ -66,7 +66,7 @@ const ApiKeyView = ({ apiKey, isLoading, isError, errorMessage, generate, dismis
             </div>
           </div>
         </AriaModal>
-        )
+      )
       : false
   }
 
@@ -109,7 +109,7 @@ const ApiKeyView = ({ apiKey, isLoading, isError, errorMessage, generate, dismis
           </button>
         </div>
         <div className='apiKey-view-display-page-return-button-container'>
-          <a className='apiKey-view-display-page-return-button-link' tabIndex='-1' href={routes.root}>
+          <a role="link" className='apiKey-view-display-page-return-button-link' tabIndex='-1' href={routes.root}>
             <button className='apiKey-view-display-page-return-button primary-background-color'> Return Home</button>
           </a>
         </div>

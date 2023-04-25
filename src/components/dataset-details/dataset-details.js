@@ -44,6 +44,7 @@ const createKeyword = name => (
   <a
     key={`dataset-keyword-${name}`}
     className='keyword'
+    role="link"
     href={`/?${QueryStringBuilder.createFilterQueryString('keywords', name)}`}
   >
     {name}

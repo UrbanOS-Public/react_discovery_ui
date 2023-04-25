@@ -137,7 +137,7 @@ function renderExample(example, index) {
         <div
           className='example-element curl'
           onClick={(event) => copyToClipboard(event)}
-          onKeyDownCapture={(event) => { if (event.key === ' ' || event.key === 'Enter') { copyToClipboard(event) } }}
+          onKeyDownCapture={(event) => { if (event.key === ' ' || event.key === 'Enter') { event.preventDefault() && copyToClipboard(event) } }}
           role='button'
           tabIndex='0'
           aria-label={`cURL ${index}`}

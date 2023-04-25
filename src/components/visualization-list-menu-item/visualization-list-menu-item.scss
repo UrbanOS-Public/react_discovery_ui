@@ -2,12 +2,12 @@
 @import "../../styles/mixins.scss";
 
 visualization-list-menu-item {
-
   .folder-icon {
-    fill: $medium-grey;
-    &:hover {
-      fill: $almost-black;
-    }
+    color: inherit;
+  }
+
+  .header-item {
+    color: inherit;
   }
 
   .dialog-open {

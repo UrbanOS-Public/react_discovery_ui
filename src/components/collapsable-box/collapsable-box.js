@@ -5,28 +5,28 @@ import { Component } from 'react'
 import DetailToggleIcon from '../detail-toggle-icon'
 
 export default class extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     const isDesktop = window.matchMedia(variables.aboveMaxBreak).matches
     this.state = { expanded: isDesktop || props.expanded }
   }
 
-  toggleCollapsed () {
+  toggleCollapsed() {
     this.setState({ expanded: !this.state.expanded })
   }
 
-  headerOpenClass () {
+  headerOpenClass() {
     return this.state.expanded ? 'open' : ''
   }
 
-  render () {
+  render() {
     return (
       <collapsable-box>
         <div
           data-testid={this.props.testId}
           className={`header-container ${this.headerOpenClass()}`}
           onClick={e => { this.toggleCollapsed() }}
-          onKeyDown={(event) => { if (event.key === ' ' || event.key === 'Enter') { this.toggleCollapsed() } }}
+          onKeyDown={(event) => { if (event.key === ' ' || event.key === 'Enter') { event.preventDefault(); this.toggleCollapsed() } }}
           role='button'
           tabIndex='0'
           aria-label={`${this.props.title} collapsable box`}

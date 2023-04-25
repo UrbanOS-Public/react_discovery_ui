@@ -10,7 +10,7 @@ const getError = search => {
 const OAuthErrorView = () => {
   return (
     <oauth-error-view>
-      <h2>Oops! We can't process that request. Please click <a href={routes.root}>here</a> to go back to the home page. </h2>
+      <h2>Oops! We can't process that request. Please click <a role="link" href={routes.root}>here</a> to go back to the home page. </h2>
       <p className='error-message'>{getError(window.location.search)}</p>
     </oauth-error-view>
   )

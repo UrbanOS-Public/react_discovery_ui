@@ -88,6 +88,10 @@ login-zone {
       background-color: $light-blue;
       color: white;
     }
+
+    &:focus {
+      background-color: $light-grey;
+    }
   }
 
   .logintext {
