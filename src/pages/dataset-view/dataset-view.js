@@ -96,9 +96,12 @@ export default class extends Component {
               }
               {this.isNotDatasetDetailsTab() &&
                 <>
-                  <a role="link" className='helpLink primary-color' target='_blank' href='https://en.wikipedia.org/wiki/SQL_syntax'>SQL Help&nbsp;&nbsp;</a>
+                  <a role="link" className='helpLink primary-color' target='_blank' href='https://en.wikipedia.org/wiki/SQL_syntax'>SQL Help</a>
                   {this.isVisualizationEnabled() &&
-                    <a role="link" id='plotlyhelp' className='helpLink primary-color' target='_blank' href='https://plotly.com/chart-studio-help/tutorials/#basic'>Plot.ly Help</a>
+                    <>
+                      <p>|</p>
+                      <a role="link" id='plotlyhelp' className='helpLink primary-color' target='_blank' href='https://plotly.com/chart-studio-help/tutorials/#basic'>Plot.ly Help</a>
+                    </>
                   }
 
                 </>}
