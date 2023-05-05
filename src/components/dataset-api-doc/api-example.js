@@ -11,7 +11,6 @@ const defaultHeaders = [
 ]
 
 export default ({ title, descriptionHtml, action, url, params, examples, headers = defaultHeaders }) => {
-  console.log(headers)
   return (
     <api-example>
       <div className='example-container'>
