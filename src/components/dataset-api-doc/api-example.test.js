@@ -32,7 +32,7 @@ describe('api example', () => {
     expect(cells.at(6).text()).toBe('william')
     expect(cells.at(7).text()).toBe('a guy named bill')
     expect(cells.at(8).text()).toBe('api_key')
-    expect(cells.at(9).text()).toBe('')
+    expect(cells.at(9).text()).toBe('No')
     expect(cells.at(10).text()).toBe('')
     expect(cells.at(11).text()).toBe('Include your unique api key as the value. You can generate your key by navigating to the “API Key” item on the “My Account” menu.')
   })

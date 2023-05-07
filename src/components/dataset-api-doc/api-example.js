@@ -96,7 +96,7 @@ function renderHeader(header) {
       <td>
         <span className='pill'>{header.name}</span>
       </td>
-      <td className="required-marker">{header.required && "X"}</td>
+      <td className="required-marker">{header.required ? "Yes" : "No"}</td>
       <td>{header.default}</td>
       <td>{header.description}</td>
     </tr>
