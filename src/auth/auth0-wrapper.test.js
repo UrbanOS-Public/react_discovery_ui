@@ -32,7 +32,7 @@ describe('Auth0 wrapper component', () => {
   it('initializes the client with the correct values', () => {
     expect(createAuth0Client).toBeCalledWith({
       domain: window.AUTH0_DOMAIN,
-      client_id: window.AUTH0_CLIENT_ID,
+      client_id: window.DISCOVERY_AUTH0_CLIENT_ID,
       audience: window.AUTH0_AUDIENCE,
       redirect_uri: `${window.location.origin}/oauth`
     })

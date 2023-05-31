@@ -8,7 +8,7 @@ window.LOGO_URL = 'https://placekitten.com/530/530'
 // omitting mapbox will default plot.ly to use openstreetmap.org
 window.MAPBOX_ACCESS_TOKEN = ''
 window.AUTH0_DOMAIN = 'urbanos-dev.us.auth0.com'
-window.AUTH0_CLIENT_ID = 'SHqaonqYEYiS4El57rGHplqLMG00pQKR'
+window.DISCOVERY_AUTH0_CLIENT_ID = 'SHqaonqYEYiS4El57rGHplqLMG00pQKR'
 window.AUTH0_AUDIENCE = 'discovery_api'
 window.REQUIRE_API_KEY = 'false'
 window.REGENERATE_API_KEY_FF = 'true'

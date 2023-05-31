@@ -11,7 +11,7 @@ window.URL.createObjectURL = jest.fn()
 window.HTMLCanvasElement.prototype.getContext = jest.fn()
 
 window.AUTH0_DOMAIN = 'domainator'
-window.AUTH0_CLIENT_ID = 'client_identifinator'
+window.DISCOVERY_AUTH0_CLIENT_ID = 'client_identifinator'
 window.AUTH0_AUDIENCE = 'audiencinator'
 window.DISC_API_URL = 'http://test.example.com'
 
