@@ -117,7 +117,7 @@ const UserProfileView = (props) => {
         </div>
         <div id='user-visualizations-table'>
           <ReactTable
-            data={[{title: "myTitle", created: "myCreated", updated: "myUpdated"}]}
+            data={visualizations}
             columns={columns}
             defaultSorted={[{ id: 'updated', desc: true }]}
             loading={props.loading}
