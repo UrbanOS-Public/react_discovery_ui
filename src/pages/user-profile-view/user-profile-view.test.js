@@ -4,6 +4,21 @@ import LoadingElement from '../../components/generic-elements/loading-element'
 import ReactTable from 'react-table'
 import ErrorComponent from '../../components/generic-elements/error-component'
 import AriaModal from 'react-aria-modal'
+import createAuth0Client from '@auth0/auth0-spa-js'
+
+jest.mock('@auth0/auth0-spa-js')
+
+createAuth0Client.mockImplementation(() => {
+  const loginWithRedirect = jest.fn()
+  const logout = jest.fn()
+
+  return Promise.resolve({
+    isAuthenticated: jest.fn(() => Promise.resolve(true)),
+    handleRedirectCallback: jest.fn(() => Promise.resolve({})),
+    loginWithRedirect,
+    logout
+  })
+})
 
 describe('user profile view', () => {
   let subject
