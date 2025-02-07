@@ -16,3 +16,15 @@ start:
 stop:
 	npm run stop
 
+outdated:
+	npm outdated
+
+audit:
+	npm audit
+
+fix:
+	npm audit fix
+
+upgrade:
+	npm update
+
