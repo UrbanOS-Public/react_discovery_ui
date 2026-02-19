@@ -57,7 +57,7 @@ export const Routes = {
   ogripDataset: {
     method: 'GET',
     url: '/api/v1/organization/ogrip/dataset/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3',
-    response: {fixture: 'details_page_spec/ogrip_dataset'}
+    response: {fixture: 'details_page_spec/ogrip_dataset.json'}
   },
   '622746a5_4e2a_4a4c_ac18_74cb1fb05ab3': {
     downloadFormatGeojson: {
@@ -89,7 +89,7 @@ export const Routes = {
   sysDataset: {
     method: 'GET',
     url: '/api/v1/organization/SYS_d3bf2154_1cda_11ea_a56a_0242ac110002_ORG/dataset/Cesious_Black_OBWEG',
-    response: {fixture: 'details_page_spec/sysDataset'}
+    response: {fixture: 'details_page_spec/sysDataset.json'}
   },
   SYS_d3bf2154_1cda_11ea_a56a_0242ac110002: {
     previewFormatJson: {
