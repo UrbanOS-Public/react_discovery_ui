@@ -12,10 +12,8 @@ export default defineConfig({
     baseUrl: "http://localhost:9001",
   },
 
-  component: {
-    devServer: {
-      framework: "react",
-      bundler: "webpack",
-    },
-  },
+  // Component testing is disabled: this project uses React 16, which is
+  // incompatible with the cypress/react mount helper in Cypress 13+
+  // (requires react-dom/client from React 18).
+  // Re-enable after upgrading to React 18.
 });
