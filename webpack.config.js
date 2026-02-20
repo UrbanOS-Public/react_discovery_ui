@@ -33,6 +33,13 @@ module.exports = (env, argv) => {
 
   return {
     resolve: {
+      alias: {
+        // Axios 1.x ships ESM modules that reference process/browser via
+        // ProvidePlugin, which breaks webpack 5's ESM resolution and produces
+        // a non-function module factory at runtime. Alias axios to its
+        // pre-built browser CJS bundle which handles process internally.
+        'axios': path.resolve(__dirname, 'node_modules/axios/dist/browser/axios.cjs')
+      },
       fallback: {
         "assert": require.resolve("assert/"),
         "stream": require.resolve("stream-browserify"),
