@@ -28,3 +28,7 @@ fix:
 upgrade:
 	npm update
 
+publish:
+	npm run build:library
+	npm publish --access public
+

@@ -5,7 +5,7 @@
 
 React (also known as React.js or ReactJS) is an open-source, front end, JavaScript library for building user interfaces or UI components.
 
-[react_discovery_ui](https://www.npmjs.com/package/@smartcitiesdata/react-discovery-ui) is a UI component for consuming the [Discovery API](https://github.com/Datastillery/smartcitiesdata/tree/master/apps/discovery_api) of the SmartCitiesData platform. It is exported as a React Component, `<ReactDiscoveryUI>`, and can be imported into another site such as seen in [SmartColumbusOS/Discovery_UI](https://github.com/SmartColumbusOS/discovery_ui).
+[react_discovery_ui](https://www.npmjs.com/package/@urbanos/react-discovery-ui) is a UI component for consuming the [Discovery API](https://github.com/Datastillery/smartcitiesdata/tree/master/apps/discovery_api) of the SmartCitiesData platform. It is exported as a React Component, `<ReactDiscoveryUI>`, and can be imported into another site such as seen in [SmartColumbusOS/Discovery_UI](https://github.com/SmartColumbusOS/discovery_ui).
 
 ## What to Install
 
@@ -99,7 +99,7 @@ with `npm run build:library`
 To consume this component in your react app place the <ReactDiscoveryUI> component into your app or other sub-components such as in the below example:
 
 ```
-import ReactDiscoveryUI from '@smartcitiesdata/react-discovery-ui'
+import ReactDiscoveryUI from '@urbanos/react-discovery-ui'
 
 
 export default class App extends Component {

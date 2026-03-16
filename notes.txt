@@ -1,0 +1,19 @@
+==============================================================================
+Thu Mar  5 04:34:32 PM EST 2026
+==============================================================================
+
+How to push a new react-discovery-ui release.
+
+# create a new branch like 20260306-ada-collapsiblebox-fix
+git push --set-upstream origin 20260305-ada-collaspiblebox-fix
+
+- determine your intended release 2.1.44
+- go create a PR on github
+- Update package.json with the release
+- npm install # to update package.lock
+- create a release for the react-discovery-ui project
+- git tag the files with the release
+- push the release tag to upstream
+- review the PR
+
+https://www.npmjs.com/package/@urbanos/react-discovery-ui
