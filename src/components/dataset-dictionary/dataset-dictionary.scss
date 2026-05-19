@@ -18,8 +18,10 @@ dataset-dictionary {
   .dataset-schema-table {
     color: $almost-black;
 
-    .ReactTable {
-      border-width: 0
+    table {
+      border-width: 0;
+      border-collapse: collapse;
+      width: 100%;
     }
 
     .table-header {

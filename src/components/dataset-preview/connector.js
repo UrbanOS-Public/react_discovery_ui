@@ -1,12 +1,14 @@
 import { connect } from 'react-redux'
 import DatasetPreview from './dataset-preview'
 import { retrieveDatasetPreview } from '../../store/actions'
-import { getDataSetPreview } from '../../store/selectors'
+import { getDataSetPreview, getDataSet } from '../../store/selectors'
 
 const mapStateToProps = (state, { format }) => {
+  const dataset = getDataSet(state)
   return {
     datasetPreview: getDataSetPreview(state, format),
-    previewLoading: state.presentation.previewLoading
+    previewLoading: state.presentation.previewLoading,
+    datasetName: dataset && dataset.title
   }
 }
 

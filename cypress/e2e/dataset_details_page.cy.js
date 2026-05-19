@@ -113,7 +113,7 @@ describe('Write SQL Tab for Ogrip dataset', function () {
     cy.visit('/dataset/ogrip/622746a5_4e2a_4a4c_ac18_74cb1fb05ab3')
     cy.intercept(routes['622746a5_4e2a_4a4c_ac18_74cb1fb05ab3'].query.url).as('getQueryResults')
     const query = 'SELECT * FROM ohio_geographically_referenced_information_program_ogrip__622746a5_4e2a_4a4c_ac18_74cb1fb05ab3\nLIMIT 200'
-    const numberOfRowsPerPage = 50
+    const numberOfRows = 11
     cy.get(writeSqlTab).click()
     cy.wait(['@getQueryResults'])
     cy.contains('Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.')
@@ -123,7 +123,7 @@ describe('Write SQL Tab for Ogrip dataset', function () {
     cy.get(reactTable).should('be.visible')
     cy.get(tableHeader).children().should('have.length', 1)
     cy.get(tableHeader).children().eq(0).contains('feature')
-    cy.get(tableBody).children().should('have.length', numberOfRowsPerPage)
+    cy.get(tableBody).children().should('have.length', numberOfRows)
     cy.get(paginatorInput).should('have.value', '1')
     cy.get(totalPages).contains('1')
   })

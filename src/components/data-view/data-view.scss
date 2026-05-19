@@ -7,8 +7,16 @@
     justify-content: space-between;
   }
 
-  .ReactTable .rt-noData {
+  .no-data-message {
     color: black;
+  }
+
+  tbody tr.striped-row {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.05);
   }
 
   .header-text-items {
@@ -22,10 +30,60 @@
   #data-view-table {
     color: $almost-black;
 
+    table {
+      table-layout: fixed;
+      border-collapse: collapse;
+    }
+
+    .resizer {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      cursor: col-resize;
+      user-select: none;
+      touch-action: none;
+      background: rgba(0, 0, 0, 0.15);
+      opacity: 0;
+
+      &:hover,
+      &.isResizing {
+        opacity: 1;
+        background: #005fcc;
+      }
+    }
+
+    th:hover .resizer {
+      opacity: 1;
+    }
+
+    th, td {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 7px 5px;
+    }
+
     .table-header {
       background-color: $header-grey;
       text-align: left;
       font-weight: 800;
+    }
+
+    tbody th.row-header {
+      font-weight: normal;
+      text-align: left;
+    }
+
+    .active-cell {
+      outline: 2px solid #005fcc;
+      outline-offset: -2px;
+    }
+
+    table:focus {
+      outline: 2px solid #005fcc;
+      outline-offset: 2px;
     }
   }
 

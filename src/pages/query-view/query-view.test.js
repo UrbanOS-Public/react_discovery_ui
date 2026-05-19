@@ -3,7 +3,6 @@ import { shallow } from 'enzyme'
 import QueryView from './query-view'
 import QueryForm from '../../components/query-form'
 import LoadingElement from '../../components/generic-elements/loading-element'
-import ReactTable from 'react-table'
 
 // Currently, shallow rendering is not compatible with React hooks.
 // We've utilized a strategy found here https://blog.carbonfive.com/2019/08/05/shallow-testing-hooks-with-enzyme/

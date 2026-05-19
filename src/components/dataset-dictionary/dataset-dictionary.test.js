@@ -1,7 +1,6 @@
 import { shallow, mount } from 'enzyme'
 import DatasetDictionary from './dataset-dictionary'
 import CollapsableBox from '../collapsable-box'
-import ReactTable from 'react-table'
 import Tooltip from '../tooltip'
 
 describe('dataset dictionary', () => {
@@ -14,7 +13,6 @@ describe('dataset dictionary', () => {
 
   describe('with a basic schema', () => {
     beforeEach(() => {
-      const matchMedia = jest.fn()
       Object.defineProperty(window, 'matchMedia', {
         writable: true,
         value: jest.fn().mockImplementation(query => ({
@@ -26,7 +24,7 @@ describe('dataset dictionary', () => {
 
     it('has the correct table headers', () => {
       const table = subject.find('.dataset-schema-table')
-      const headers = table.find('.rt-th')
+      const headers = table.find('th')
 
       expect(headers.length).toBe(4)
       expect(headers.at(1).text()).toBe('Field')
@@ -36,7 +34,7 @@ describe('dataset dictionary', () => {
 
     it('has the correct table values', () => {
       const table = subject.find('.dataset-schema-table')
-      const cells = table.find('.rt-td')
+      const cells = table.find('td')
 
       const expansionPlaceholder = ''
       const expectedCellValues = [
@@ -47,25 +45,18 @@ describe('dataset dictionary', () => {
       expectCorrectCellValues(expectedCellValues, cells)
     })
 
-    it('does not have pagination', () => {
-      const table = subject.find(ReactTable)
-      expect(table.props().showPagination).toBe(false)
+    it('does not have pagination controls', () => {
+      expect(subject.find('.pagination').length).toBe(0)
     })
 
-    it('has a page size to show the entire schema', () => {
-      const table = subject.find(ReactTable)
-      expect(table.props().defaultPageSize).toBe(Object.keys(basicSchema).length)
+    it('is sortable via column headers', () => {
+      const headers = subject.find('.dataset-schema-table th')
+      expect(headers.at(1).prop('onClick')).toBeTruthy()
     })
 
-    it('is sortable', () => {
-      const table = subject.find(ReactTable)
-      expect(table.props().sortable).toBe(true)
-    })
-
-    it('has no left margin', () => {
-      const table = subject.find(ReactTable)
-
-      expect(table.props().style.marginLeft).toBeFalsy()
+    it('has no left margin on the top-level table', () => {
+      const tableWrapper = subject.find('.dataset-schema-table').first()
+      expect(tableWrapper.prop('style')).toBeFalsy()
     })
   })
 
@@ -78,7 +69,7 @@ describe('dataset dictionary', () => {
       subject = mount(<DatasetDictionary schema={schemaWithList} expanded />)
 
       const table = subject.find('.dataset-schema-table')
-      const cells = table.find('.rt-td')
+      const cells = table.find('td')
 
       const typeIndex = 2
       expect(cells.at(typeIndex).text()).toBe(`list of ${schemaWithList[0].itemType}`)
@@ -112,7 +103,7 @@ describe('dataset dictionary', () => {
     beforeEach(() => {
       subject = mount(<DatasetDictionary schema={schemaWithMaps} expanded />)
       topLevelTable = subject.find('.dataset-schema-table')
-      topLevelCells = topLevelTable.find('.rt-td')
+      topLevelCells = topLevelTable.find('td')
     })
 
     it('has the correct table values', () => {
@@ -136,7 +127,7 @@ describe('dataset dictionary', () => {
         topLevelTable = subject.find('.dataset-schema-table')
 
         subTable = topLevelTable.find('.dataset-schema-table.mother')
-        subTableCells = subTable.find('.rt-td')
+        subTableCells = subTable.find('td')
       })
 
       it('toggles the direction of the arrow', () => {
@@ -159,7 +150,7 @@ describe('dataset dictionary', () => {
       })
 
       it('indents the sub table', () => {
-        expect(subTable.find(ReactTable).props().style.marginLeft).toBe('35px')
+        expect(subTable.prop('style').marginLeft).toBe('35px')
       })
 
       it('toggles the direction of the arrow again when collapsed', () => {
@@ -175,7 +166,7 @@ describe('dataset dictionary', () => {
           subTable = subject.find('.dataset-schema-table.mother')
 
           subSubTable = subTable.find('.dataset-schema-table.children')
-          subSubTableCells = subSubTable.find('.rt-td')
+          subSubTableCells = subSubTable.find('td')
         })
 
         it('renders another sub table for the list of maps with correct values', () => {
@@ -207,8 +198,8 @@ describe('dataset dictionary', () => {
     beforeEach(() => {
       subject = mount(<DatasetDictionary schema={schemaWithMaps} expanded />)
       topLevelTable = subject.find('.dataset-schema-table')
-      const topLevelCells = topLevelTable.find('.rt-td.rt-expandable')
-      topLevelCells.at(1).simulate('click')
+      const expanderCells = topLevelTable.find('td.expander-td')
+      expanderCells.at(1).simulate('click')
       topLevelTable = subject.find('.dataset-schema-table')
     })
 
@@ -276,7 +267,7 @@ describe('dataset dictionary', () => {
 
   const expectCorrectCellValues = (expectedCellValues, cells) => {
     expectedCellValues.forEach((expected, index) => {
-      if (index % 4 == 1) { // handle special rendering for field name tooltip
+      if (index % 4 === 1) { // handle special rendering for field name tooltip
         expect(cells.at(index).find(Tooltip).props().text).toBe(expected)
       } else {
         expect(cells.at(index).text()).toBe(expected)

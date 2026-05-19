@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import './dataset-dictionary.scss'
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
+import { useReactTable, getCoreRowModel, getSortedRowModel, getExpandedRowModel, flexRender } from '@tanstack/react-table'
 import CollapsableBox from '../../components/collapsable-box'
 import Tooltip from '../tooltip'
 
@@ -9,91 +8,126 @@ const expanderWidth = 35
 const expandedArrow = '\u25BE'
 const collapsedArrow = '\u25B8'
 
-const renderFieldNameCell = schemaElement => (
-  <Tooltip text={schemaElement.value} />
-)
-
-const renderTypeCell = schemaElement => (
-  <div>
-    {schemaElement.value === 'list'
-      ? `list of ${schemaElement.original.itemType}`
-      : schemaElement.value}
-  </div>
-)
-
 const isMap = schemaElement => {
   return schemaElement.type === 'map' || schemaElement.itemType === 'map'
 }
 
-const renderExpander = ({ isExpanded, original: schemaElement }) => {
-  let content = ''
-  if (isMap(schemaElement)) {
-    content = isExpanded ? expandedArrow : collapsedArrow
-  }
-  return <div className='expander'>{content}</div>
-}
-
-const renderSubTable = ({ original: schemaElement }) => {
-  return isMap(schemaElement) ? (
-    <SchemaTable
-      schema={schemaElement.subSchema}
-      parentFieldName={schemaElement.name}
-      style={{ marginLeft: `${expanderWidth}px` }}
-    />
-  ) : (
-    <span />
-  )
-}
-
-const columns = [
+const schemaColumns = [
   {
-    Header: 'Field',
-    accessor: 'name',
-    headerClassName: 'table-header',
-    width: 240,
-    className: 'field-name-cell',
-    Cell: renderFieldNameCell
+    id: 'expander',
+    header: () => null,
+    size: expanderWidth,
+    enableSorting: false,
+    cell: ({ row }) => (
+      <div className='expander' style={{ cursor: isMap(row.original) ? 'pointer' : undefined }}>
+        {isMap(row.original) ? (row.getIsExpanded() ? expandedArrow : collapsedArrow) : ''}
+      </div>
+    )
   },
   {
-    Header: 'Type',
-    accessor: 'type',
-    headerClassName: 'table-header',
-    width: 120,
-    Cell: renderTypeCell
+    header: 'Field',
+    accessorKey: 'name',
+    meta: { headerClassName: 'table-header', className: 'field-name-cell' },
+    size: 240,
+    cell: ({ getValue }) => <Tooltip text={getValue()} />
   },
   {
-    Header: 'Description',
-    accessor: 'description',
-    headerClassName: 'table-header',
-    className: 'description-cell'
+    header: 'Type',
+    accessorKey: 'type',
+    meta: { headerClassName: 'table-header' },
+    size: 120,
+    cell: ({ getValue, row }) => (
+      <div>
+        {getValue() === 'list'
+          ? `list of ${row.original.itemType}`
+          : getValue()}
+      </div>
+    )
+  },
+  {
+    header: 'Description',
+    accessorKey: 'description',
+    meta: { headerClassName: 'table-header', className: 'description-cell' }
   }
 ]
 
 const isEmpty = schema => !schema || schema.length < 1
 
 const SchemaTable = ({ schema, parentFieldName = '', style }) => {
-  if (schema) {
-    return (
-      <div className={`dataset-schema-table ${parentFieldName}`}>
-        <ReactTable
-          style={style}
-          data={schema}
-          columns={columns}
-          defaultPageSize={schema.length}
-          className='-highlight'
-          showPagination={false}
-          sortable
-          ExpanderComponent={renderExpander}
-          SubComponent={renderSubTable}
-          expanderDefaults={{ width: expanderWidth }}
-        />
-      </div>
-    )
-  } else {
+  const [sorting, setSorting] = useState([])
+  const [expanded, setExpanded] = useState({})
+
+  const table = useReactTable({
+    data: schema,
+    columns: schemaColumns,
+    state: { sorting, expanded },
+    onSortingChange: setSorting,
+    onExpandedChange: setExpanded,
+    getRowCanExpand: row => isMap(row.original),
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getExpandedRowModel: getExpandedRowModel()
+  })
+
+  if (!schema) {
     return (
       <div className='error'>Schema information not found. Contact the data curator.</div>
     )
   }
+
+  return (
+    <div className={`dataset-schema-table ${parentFieldName}`} style={style}>
+      <table>
+        <thead>
+          {table.getHeaderGroups().map(headerGroup => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map(header => (
+                <th
+                  key={header.id}
+                  scope='col'
+                  className={header.column.columnDef.meta?.headerClassName || ''}
+                  style={{ width: header.column.getSize() !== 150 ? `${header.column.getSize()}px` : undefined, cursor: header.column.getCanSort() ? 'pointer' : undefined }}
+                  onClick={header.column.getCanSort() ? header.column.getToggleSortingHandler() : undefined}
+                  aria-sort={header.column.getIsSorted() === 'asc' ? 'ascending' : header.column.getIsSorted() === 'desc' ? 'descending' : undefined}
+                >
+                  {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                  {header.column.getIsSorted() === 'asc' ? ' ↑' : header.column.getIsSorted() === 'desc' ? ' ↓' : ''}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map(row => (
+            <React.Fragment key={row.id}>
+              <tr>
+                {row.getVisibleCells().map(cell => (
+                  <td
+                    key={cell.id}
+                    className={`${cell.column.id === 'expander' ? 'expander-td' : ''} ${cell.column.columnDef.meta?.className || ''}`}
+                    onClick={cell.column.id === 'expander' && isMap(row.original) ? row.getToggleExpandedHandler() : undefined}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+              {row.getIsExpanded() && (
+                <tr>
+                  <td colSpan={schemaColumns.length}>
+                    <SchemaTable
+                      schema={row.original.subSchema}
+                      parentFieldName={row.original.name}
+                      style={{ marginLeft: `${expanderWidth}px` }}
+                    />
+                  </td>
+                </tr>
+              )}
+            </React.Fragment>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
 }
 
 const viewLink = datasetId => (
@@ -101,7 +135,7 @@ const viewLink = datasetId => (
     <a
       href={`${window.DISC_API_URL}/api/v1/dataset/${datasetId}/dictionary`}
       target='_blank'
-      role="link"
+      role='link'
     >
       <span className='view-text'>View as JSON</span>
     </a>
