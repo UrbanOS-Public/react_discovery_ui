@@ -15,7 +15,7 @@ const MetadataTable = ({ data }) => {
       header: 'Value',
       accessorKey: 'Value',
       meta: { headerClassName: 'table-header' },
-      cell: info => info.getValue() ?? null
+      cell: info => info.getValue() ?? <span>Unavailable</span>
     }
   ], [])
 
@@ -108,9 +108,13 @@ export default ({ dataset }) => {
     {
       Field: 'Data Dictionary URL',
       Value: (
-        <a role='link' href={dataset.describedByUrl} target='_blank'>
-          {dataset.describedByUrl}
-        </a>
+          dataset.describedByUrl ? ( 
+            <a role='link' href={dataset.describedByUrl} target='_blank' aria-label='Data Dictionary URL'>
+              {dataset.describedByUrl}
+            </a>
+          ) : (
+              <span>Unavailable</span>
+          )
       )
     },
     {
@@ -127,24 +131,41 @@ export default ({ dataset }) => {
     },
     {
       Field: 'Homepage URL',
-      Value: <a role='link' href={dataset.homepage} target='_blank'>{dataset.homepage}</a>
+      Value: ( 
+          dataset.homepage ? (
+          <a role='link' href={dataset.homepage} target='_blank' aria-label='Homepage URL'>
+            {dataset.homepage ?? "Unavailable"}
+          </a>
+        ) : (
+          <span>Unavailable</span>
+        )
+      )
     },
     {
       Field: 'Related Documents',
-      Value: referenceUrls.map(url => (
-        <div key={url}>
-          <a role='link' href={url} target='_blank'>
-            {url}
-          </a>
-        </div>
+      Value: (
+        referenceUrls.length === 0 ? (
+          <span>None</span>
+        ) : (
+        referenceUrls.map(url => (
+            <div key={url}>
+              <a role='link' href={url} target='_blank' aria-label='Related Document URL'>
+                {url}
+              </a>
+            </div>
+        ))
       ))
     },
     {
       Field: 'Source URL',
       Value: (
-        <a role='link' href={dataset.sourceUrl} target='_blank'>
-          {dataset.sourceUrl}
-        </a>
+          dataset.sourceUrl ? (
+            <a role='link' href={dataset.sourceUrl} target='_blank' aria-label='Source URL'>
+              {dataset.sourceUrl ?? "Unavailable"}
+            </a>
+          ) : (
+            <span>Unavailable</span>
+          )
       )
     },
     {
@@ -154,9 +175,13 @@ export default ({ dataset }) => {
     {
       Field: 'License',
       Value: (
-        <a role='link' href={dataset.license} target='_blank'>
-          {dataset.license}
-        </a>
+          dataset.license ? (
+            <a role='link' href={dataset.license} target='_blank' aria-label='License URL'>
+              {dataset.license ?? "Unavailable"}
+            </a>
+          ) : (
+            <span>Unavailable</span>
+          )
       )
     },
     {
