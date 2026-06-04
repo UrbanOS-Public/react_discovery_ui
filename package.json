@@ -97,9 +97,9 @@
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.26.7",
     "@babel/preset-react": "^7.26.3",
+    "@svgr/webpack": "^8.1.0",
     "babel-jest": "^29.7.0",
     "babel-loader": "^8.4.1",
-    "babel-plugin-inline-svg": "^1.2.0",
     "copy-webpack-plugin": "^11.0.0",
     "create-react-component-folder": "^0.3.7",
     "cross-env": "^7.0.3",
@@ -144,7 +144,7 @@
     "moduleNameMapper": {
       ".+\\.(jpg|jpeg|png|gif)$": "<rootDir>/test-helpers/image-mock.js",
       "\\.(css|scss)$": "identity-obj-proxy",
-      "\\.(svg)$": "<rootDir>/test-helpers/mock-svg-string.js"
+      "\\.(svg)$": "<rootDir>/test-helpers/mock-svg-element.js"
     },
     "testPathIgnorePatterns": [
       "/node_modules/",
