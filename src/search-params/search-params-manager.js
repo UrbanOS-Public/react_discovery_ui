@@ -34,7 +34,7 @@ class SearchParamsManager {
     this.sortOrder = this.getParam('sort') || defaults.sortOrder
     this.page = Number.parseInt(this.getParam('page')) || defaults.page
     this.searchText = this.getParam('q') || defaults.searchText
-    this.facets = this.getParam('facets') || defaults.facets
+    this.facets = this.getFacets() //this.getParam('facets') || defaults.facets
   }
 
   getParam (name) {
@@ -55,6 +55,19 @@ class SearchParamsManager {
     const updatedApiAccessibleFlag = !this.apiAccessible
 
     this.updateParams({ apiAccessible: updatedApiAccessibleFlag, page: 1 })
+  }
+
+  getFacets () {
+      const facets = this.getParam('facets')
+      if (!facets) return {}
+    
+      const validFacets = Object.entries(facets)
+        .filter(([key, _]) => {
+            const hasInvalidBrackets = /[\[\]{}()]/.test(key) 
+            return !hasInvalidBrackets
+        })
+        .map(([key, value]) => [key, Array.isArray(value) ? value : [value]])     
+      return Object.fromEntries(validFacets)
   }
 
   toggleFacet (name, value) {
