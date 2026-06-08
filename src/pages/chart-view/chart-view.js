@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import './chart-view.scss'
 import React from 'react'
-// import 'react-chart-editor/lib/react-chart-editor.ie.css'
 import PlotlyEditor, { dereference, DefaultEditor } from 'react-chart-editor/lib'
 
 import plotly from 'plotly.js/dist/plotly'
