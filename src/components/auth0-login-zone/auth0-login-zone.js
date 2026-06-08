@@ -51,39 +51,39 @@ export const Auth0LoginZone = ({ auth: { isAuthenticated, isLoading, loginWithRe
         </div>
         {
           (isAuthenticated && isMenuExpanded) &&
-          <div className='user-menu' onMouseEnter={mouseEnterMenu} onMouseLeave={mouseExitMenu}>
-            <ul>
-              <li className='menu-item'>
-                <FolderIcon />
-                <span className='menu-text'><Link to='/user' rel='noopener noreferrer'>Workspaces</Link></span>
-              </li>
-              {(regenerateApiKeyFF === 'true') &&
+            <div className='user-menu' onMouseEnter={mouseEnterMenu} onMouseLeave={mouseExitMenu}>
+              <ul>
                 <li className='menu-item'>
-                  <VpnKeyIcon />
-                  <span className='menu-text'><Link to='/apiKey' rel='noopener noreferrer'>API Key</Link></span>
-                </li>}
-              {
-                (window.CONTRIBUTE_HOST) &&
-                <li className='menu-item'>
-                  <Backup />
-                  <span className='menu-text'><a role="link" href={window.CONTRIBUTE_HOST}>My Datasets</a></span>
+                  <FolderIcon />
+                  <span className='menu-text'><Link to='/user' rel='noopener noreferrer'>Workspaces</Link></span>
                 </li>
+                {(regenerateApiKeyFF === 'true') &&
+                  <li className='menu-item'>
+                    <VpnKeyIcon />
+                    <span className='menu-text'><Link to='/apiKey' rel='noopener noreferrer'>API Key</Link></span>
+                  </li>}
+                {
+                (window.CONTRIBUTE_HOST) &&
+                  <li className='menu-item'>
+                    <Backup />
+                    <span className='menu-text'><a role='link' href={window.CONTRIBUTE_HOST}>My Datasets</a></span>
+                  </li>
               }
-              <li className='menu-item' id='logout-button' onClick={() => { logout({ returnTo }) }}>
-                <ExitIcon />
-                <span className='menu-text'><a role="link" href="#">Log Out</a></span>
-              </li>
-            </ul>
-          </div>
+                <li className='menu-item' id='logout-button' onClick={() => { logout({ returnTo }) }}>
+                  <ExitIcon />
+                  <span className='menu-text'><a role='link' href='#'>Log Out</a></span>
+                </li>
+              </ul>
+            </div>
         }
       </div>
     </login-zone>
   )
 }
 
-function useClickOutWatcher(ref, callback) {
+function useClickOutWatcher (ref, callback) {
   useEffect(() => {
-    function handleClickOutside(event) {
+    function handleClickOutside (event) {
       if (ref.current && !ref.current.contains(event.target)) {
         callback()
       }
