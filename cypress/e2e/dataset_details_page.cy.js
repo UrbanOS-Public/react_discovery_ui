@@ -171,7 +171,7 @@ describe('Write SQL Tab for System dataset', function () {
   it('Writing query and hitting submit returns nothing if cancel is hit before response returns', function () {
     const query = 'SELECT is_alive, name, type FROM Rosa_Lucky__Cesious_Black_OBWEG\nLIMIT 200'
     cy.get(queryInput).clear().type(query)
-    cy.intercept({url: routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query3.url, method: routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query3.method}, (req) => {req.on('response', (res) => {res.setDelay(1000)})}).as('getQueryResults')
+    cy.intercept({ url: routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query3.url, method: routes.SYS_d3bf2154_1cda_11ea_a56a_0242ac110002.query3.method }, (req) => { req.on('response', (res) => { res.setDelay(1000) }) }).as('getQueryResults')
     cy.get(submitQueryButton).click()
     cy.get(cancelQueryButton).click()
     cy.get(errorMessage).should('be.visible')

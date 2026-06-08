@@ -444,8 +444,8 @@ describe('withSearchParamsManager', () => {
   })
 
   it('refocuses any cached element after the search', () => {
-    let fakeElementId = 'fakeElement'
-    let fakeElement = {focus: jest.fn()}
+    const fakeElementId = 'fakeElement'
+    const fakeElement = { focus: jest.fn() }
     sessionStorage.setItem('cachedFocusedElement', fakeElementId)
     document.getElementById = jest.fn(() => fakeElement)
 

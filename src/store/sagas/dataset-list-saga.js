@@ -20,8 +20,8 @@ const queryParamBuilder = action => {
   const offset = (action.value.page - 1) * limit
 
   return {
-    offset: offset,
-    limit: limit,
+    offset,
+    limit,
     sort: action.value.sortOrder === 'start' ? 'name_asc' : action.value.sortOrder,
     query: action.value.searchText,
     facets: action.value.facets,

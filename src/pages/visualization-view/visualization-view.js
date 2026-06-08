@@ -72,9 +72,8 @@ const VisualizationView = (props) => {
             </Tab>
             {isVisualizationEnabled() &&
               <Tab className='header-item tab' selectedClassName='selected'>
-                Visualize <ChartIcon className='chart-icon'/>
-              </Tab>
-            }
+                Visualize <ChartIcon className='chart-icon' />
+              </Tab>}
           </span>
           <span className='action-area'>
             <>

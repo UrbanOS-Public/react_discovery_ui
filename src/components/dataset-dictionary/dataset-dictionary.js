@@ -135,7 +135,7 @@ const viewLink = datasetId => (
     <a
       href={`${window.DISC_API_URL}/api/v1/dataset/${datasetId}/dictionary`}
       target='_blank'
-      role='link'
+      role='link' rel='noreferrer'
     >
       <span className='view-text'>View as JSON</span>
     </a>

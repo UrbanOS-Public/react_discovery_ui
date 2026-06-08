@@ -35,7 +35,7 @@ describe('user profile view', () => {
       ]
 
       subject = createSubject({
-        visualizations: visualizations,
+        visualizations,
         auth: { isAuthenticated: true },
         loadSuccess: true
       }, mount)

@@ -34,7 +34,7 @@ class SearchParamsManager {
     this.sortOrder = this.getParam('sort') || defaults.sortOrder
     this.page = Number.parseInt(this.getParam('page')) || defaults.page
     this.searchText = this.getParam('q') || defaults.searchText
-    this.facets = this.getFacets() //this.getParam('facets') || defaults.facets
+    this.facets = this.getFacets() // this.getParam('facets') || defaults.facets
   }
 
   getParam (name) {
@@ -58,16 +58,16 @@ class SearchParamsManager {
   }
 
   getFacets () {
-      const facets = this.getParam('facets')
-      if (!facets) return {}
-    
-      const validFacets = Object.entries(facets)
-        .filter(([key, _]) => {
-            const hasInvalidBrackets = /[\[\]{}()]/.test(key) 
-            return !hasInvalidBrackets
-        })
-        .map(([key, value]) => [key, Array.isArray(value) ? value : [value]])     
-      return Object.fromEntries(validFacets)
+    const facets = this.getParam('facets')
+    if (!facets) return {}
+
+    const validFacets = Object.entries(facets)
+      .filter(([key, _]) => {
+        const hasInvalidBrackets = /[\[\]{}()]/.test(key)
+        return !hasInvalidBrackets
+      })
+      .map(([key, value]) => [key, Array.isArray(value) ? value : [value]])
+    return Object.fromEntries(validFacets)
   }
 
   toggleFacet (name, value) {
@@ -77,7 +77,7 @@ class SearchParamsManager {
   }
 
   updateSortOrder (sort) {
-    this.updateParams({ sort: sort })
+    this.updateParams({ sort })
   }
 
   updateSearchText (searchText) {
@@ -86,7 +86,7 @@ class SearchParamsManager {
   }
 
   updatePage (page) {
-    this.updateParams({ page: page })
+    this.updateParams({ page })
   }
 
   updateParams (params) {
@@ -100,13 +100,13 @@ class SearchParamsManager {
     this.pushHistory({ search: updatedSearchEncoded })
   }
 
-  cacheFocusedElement(){
-    var focusedElement = document.activeElement;
-    var focusedID = null;
-    if (focusedElement !== null && focusedElement !== document.body){
+  cacheFocusedElement () {
+    const focusedElement = document.activeElement
+    let focusedID = null
+    if (focusedElement !== null && focusedElement !== document.body) {
       focusedID = focusedElement.id
     }
-    sessionStorage.setItem("cachedFocusedElement", focusedID)
+    sessionStorage.setItem('cachedFocusedElement', focusedID)
   }
 }
 
@@ -129,10 +129,10 @@ const withSearchParamsManager = (WrappedComponent) => {
     const searchParamsManager = new SearchParamsManager(history)
 
     const dispatchDatasetSearch = () => {
-      try{
-        var cachedElementID = sessionStorage.getItem("cachedFocusedElement")
-        sessionStorage.removeItem("cachedFocusedElement")
-        var cachedElement = document.getElementById(cachedElementID)
+      try {
+        const cachedElementID = sessionStorage.getItem('cachedFocusedElement')
+        sessionStorage.removeItem('cachedFocusedElement')
+        const cachedElement = document.getElementById(cachedElementID)
         cachedElement.focus()
       } catch (e) {}
 

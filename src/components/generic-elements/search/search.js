@@ -6,7 +6,7 @@ import ClearIcon from '@material-ui/icons/Clear'
 const ENTER = 13
 
 export default class extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = { searchText: props.defaultText || '' }
     this.onChange = this.onChange.bind(this)
@@ -15,7 +15,7 @@ export default class extends Component {
     this.searchBox = createRef()
   }
 
-  render() {
+  render () {
     const clearButtonDisableClass = this.state.searchText ? '' : 'disabled'
 
     return (
@@ -31,17 +31,17 @@ export default class extends Component {
     )
   }
 
-  onChange(event) {
+  onChange (event) {
     this.setState({ searchText: event.target.value })
   }
 
-  onKeyUp(event) {
+  onKeyUp (event) {
     if (event.keyCode === ENTER) {
       this.props.callback(this.state.searchText)
     }
   }
 
-  onClearClicked() {
+  onClearClicked () {
     this.setState({ searchText: '' })
 
     // Shallow rendering does not play nice with refs

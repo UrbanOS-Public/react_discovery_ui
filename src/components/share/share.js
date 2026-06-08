@@ -10,17 +10,17 @@ import {
   LinkedinIcon
 } from 'react-share'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
+import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined'
 
 class Share extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       copyMessage: 'Copy Link'
     }
   }
 
-  render() {
+  render () {
     const shareLocation = window.location.href
     const iconSize = 32
     const iconBgStyle = {}
@@ -30,18 +30,18 @@ class Share extends React.Component {
         <div className='share-header'>SHARE DATASET</div>
         <div className='share-icons'>
           <div data-testid='social-media-twitter'>
-            <TwitterShareButton url={shareLocation} className="shareButton" additionalProps={{'aria-label':'Twitter Share'}}>
-              <TwitterIcon iconBgStyle={iconBgStyle} round iconFillColor="#00aced" size={iconSize} />
+            <TwitterShareButton url={shareLocation} className='shareButton' additionalProps={{ 'aria-label': 'Twitter Share' }}>
+              <TwitterIcon iconBgStyle={iconBgStyle} round iconFillColor='#00aced' size={iconSize} />
             </TwitterShareButton>
           </div>
           <div data-testid='social-media-facebook'>
-            <FacebookShareButton url={shareLocation} className='shareButton' additionalProps={{'aria-label':'Facebook Share'}}>
-              <FacebookIcon iconBgStyle={iconBgStyle} round iconFillColor="#3b5998" className='icon' size={iconSize} />
+            <FacebookShareButton url={shareLocation} className='shareButton' additionalProps={{ 'aria-label': 'Facebook Share' }}>
+              <FacebookIcon iconBgStyle={iconBgStyle} round iconFillColor='#3b5998' className='icon' size={iconSize} />
             </FacebookShareButton>
           </div>
           <div data-testid='social-media-linkedin'>
-            <LinkedinShareButton url={shareLocation} className='shareButton' additionalProps={{'aria-label':'Linked In Share'}}>
-              <LinkedinIcon iconBgStyle={iconBgStyle} round iconFillColor="#3b5998" className='icon' size={iconSize} />
+            <LinkedinShareButton url={shareLocation} className='shareButton' additionalProps={{ 'aria-label': 'Linked In Share' }}>
+              <LinkedinIcon iconBgStyle={iconBgStyle} round iconFillColor='#3b5998' className='icon' size={iconSize} />
             </LinkedinShareButton>
           </div>
         </div>

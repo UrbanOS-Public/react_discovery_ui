@@ -213,11 +213,11 @@ describe('QueryForm', () => {
   })
 })
 
-function createSubject(params) {
+function createSubject (params) {
   const defaults = {
     queryText: 'SELECT * FROM sky',
     queryData: [],
-    recommendations: recommendations,
+    recommendations,
     usedDatasets: [],
     datasetReferences: {},
     queryFailureMessage: '',
@@ -242,7 +242,7 @@ function createSubject(params) {
   )
 }
 
-function getButton(subject, text) {
+function getButton (subject, text) {
   const isButton = x => x.type() === 'button' && x.text() === text
   return subject.findWhere(isButton)
 }

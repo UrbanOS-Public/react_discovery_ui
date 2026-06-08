@@ -65,7 +65,7 @@ const apiHeaders = [
   }
 ]
 
-function getFreestyleApiExamples(dataset) {
+function getFreestyleApiExamples (dataset) {
   return [
     {
       body: `SELECT * FROM ${dataset.systemName} LIMIT 200`,
@@ -82,22 +82,22 @@ function getFreestyleApiExamples(dataset) {
   ]
 }
 
-function freestyleDescription() {
+function freestyleDescription () {
   return (
     <div>
       This query supports the full ANSI SQL syntax, and only selects from the tables specified in the query.<br />
       The query to run must be submitted as plain text in the body of the request.<br />
       Documentation can be found at:
       <ul>
-        <li><a role="link" className="primary-color" href='https://en.wikipedia.org/wiki/SQL_syntax' target='_blank'>SQL Syntax (Wikipedia)</a></li>
-        <li><a role="link" className="primary-color" href='https://www.w3schools.com/sql/sql_quickref.asp' target='_blank'>Quick Reference (W3 Schools)</a></li>
-        <li><a role="link" className="primary-color" href='https://prestodb.github.io/docs/current/sql/select.html' target='_blank'>PrestoDB Specific Syntax</a></li>
+        <li><a role='link' className='primary-color' href='https://en.wikipedia.org/wiki/SQL_syntax' target='_blank' rel='noreferrer'>SQL Syntax (Wikipedia)</a></li>
+        <li><a role='link' className='primary-color' href='https://www.w3schools.com/sql/sql_quickref.asp' target='_blank' rel='noreferrer'>Quick Reference (W3 Schools)</a></li>
+        <li><a role='link' className='primary-color' href='https://prestodb.github.io/docs/current/sql/select.html' target='_blank' rel='noreferrer'>PrestoDB Specific Syntax</a></li>
       </ul>
     </div>
   )
 }
 
-function renderHeader() {
+function renderHeader () {
   return (
     <div>
       Access Operating System data with supported queries. All supported
@@ -106,7 +106,7 @@ function renderHeader() {
   )
 }
 
-function renderExamples(dataset) {
+function renderExamples (dataset) {
   const format = getDefaultFormat(dataset)
   return (
     <div>

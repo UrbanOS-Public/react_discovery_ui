@@ -82,7 +82,7 @@ describe('OAuth View', () => {
       subject = createSubject({
         callLoggedIn: callLoggedInHandler,
         history,
-        auth: { handleRedirectCallback: handleRedirectCallback, isLoading: false },
+        auth: { handleRedirectCallback, isLoading: false },
         setGlobalErrorState: setGlobalErrorStateHandler
       })
     })

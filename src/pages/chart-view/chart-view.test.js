@@ -89,7 +89,7 @@ describe('chart view', () => {
     beforeEach(() => {
       window.LOGO_URL = 'https://placekitten.com/530/530'
       window.MAPBOX_ACCESS_TOKEN = 'secret key'
-      subject = createSubject({ dataSources: dataSources })
+      subject = createSubject({ dataSources })
     })
 
     it('renders a chart editor', () => {
@@ -157,7 +157,7 @@ describe('chart view', () => {
 
     beforeEach(() => {
       setChartInformation = jest.fn()
-      subject = createSubject({ dataSources: dataSources, chart: { data: plotlyData, frames: [], layout: {} }, setChartInformation })
+      subject = createSubject({ dataSources, chart: { data: plotlyData, frames: [], layout: {} }, setChartInformation })
       setChartInformation.mockClear()
     })
 
@@ -186,7 +186,7 @@ describe('chart view', () => {
       subject.find(PlotlyEditor).props().onUpdate(data, {}, [])
 
       expect(setChartInformation).toHaveBeenCalledTimes(1)
-      expect(setChartInformation).toHaveBeenCalledWith({ data: data, layout: {}, frames: [] })
+      expect(setChartInformation).toHaveBeenCalledWith({ data, layout: {}, frames: [] })
     })
   })
 })

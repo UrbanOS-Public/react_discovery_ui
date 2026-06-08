@@ -3,7 +3,7 @@ import { GeoJsonUtils } from './'
 describe('determine bounding box', () => {
   it('returns bbox when present on the dataset', () => {
     const bbox = [5, 4, 3, 2]
-    const geoJsonData = { bbox: bbox }
+    const geoJsonData = { bbox }
 
     const result = GeoJsonUtils.determineBBox(geoJsonData)
 

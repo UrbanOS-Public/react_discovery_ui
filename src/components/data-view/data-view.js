@@ -164,7 +164,7 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
               <tr role='row'>
                 <td role='gridcell' colSpan={columns.length} className='no-data-message'>No rows found</td>
               </tr>
-            )
+              )
             : dataRows.map((row, rowIndex) => {
               const tableRow = rowIndex + 1
               const ariaRowIndex = pageIndex * pageSize + rowIndex + 2 // +1 for header, +1 for 1-based
@@ -186,7 +186,7 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
                           className={`row-header${activeCellId === rowHeaderId(rowIndex) ? ' active-cell' : ''}`}
                         >{content}
                         </th>
-                      )
+                        )
                       : (
                         <td
                           key={cell.id}
@@ -199,7 +199,7 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
                           className={activeCellId === dataCellId(rowIndex, colIndex) ? 'active-cell' : undefined}
                         >{content}
                         </td>
-                      )
+                        )
                   })}
                 </tr>
               )

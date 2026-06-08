@@ -108,13 +108,15 @@ export default ({ dataset }) => {
     {
       Field: 'Data Dictionary URL',
       Value: (
-          dataset.describedByUrl ? ( 
-            <a role='link' href={dataset.describedByUrl} target='_blank' aria-label='Data Dictionary URL'>
+        dataset.describedByUrl
+          ? (
+            <a role='link' href={dataset.describedByUrl} target='_blank' aria-label='Data Dictionary URL' rel='noreferrer'>
               {dataset.describedByUrl}
             </a>
-          ) : (
-              <span>Unavailable</span>
-          )
+            )
+          : (
+            <span>Unavailable</span>
+            )
       )
     },
     {
@@ -131,41 +133,47 @@ export default ({ dataset }) => {
     },
     {
       Field: 'Homepage URL',
-      Value: ( 
-          dataset.homepage ? (
-          <a role='link' href={dataset.homepage} target='_blank' aria-label='Homepage URL'>
-            {dataset.homepage ?? "Unavailable"}
-          </a>
-        ) : (
-          <span>Unavailable</span>
-        )
+      Value: (
+        dataset.homepage
+          ? (
+            <a role='link' href={dataset.homepage} target='_blank' aria-label='Homepage URL' rel='noreferrer'>
+              {dataset.homepage ?? 'Unavailable'}
+            </a>
+            )
+          : (
+            <span>Unavailable</span>
+            )
       )
     },
     {
       Field: 'Related Documents',
       Value: (
-        referenceUrls.length === 0 ? (
-          <span>None</span>
-        ) : (
-        referenceUrls.map(url => (
-            <div key={url}>
-              <a role='link' href={url} target='_blank' aria-label='Related Document URL'>
-                {url}
-              </a>
-            </div>
-        ))
-      ))
+        referenceUrls.length === 0
+          ? (
+            <span>None</span>
+            )
+          : (
+              referenceUrls.map(url => (
+                <div key={url}>
+                  <a role='link' href={url} target='_blank' aria-label='Related Document URL' rel='noreferrer'>
+                    {url}
+                  </a>
+                </div>
+              ))
+            ))
     },
     {
       Field: 'Source URL',
       Value: (
-          dataset.sourceUrl ? (
-            <a role='link' href={dataset.sourceUrl} target='_blank' aria-label='Source URL'>
-              {dataset.sourceUrl ?? "Unavailable"}
+        dataset.sourceUrl
+          ? (
+            <a role='link' href={dataset.sourceUrl} target='_blank' aria-label='Source URL' rel='noreferrer'>
+              {dataset.sourceUrl ?? 'Unavailable'}
             </a>
-          ) : (
+            )
+          : (
             <span>Unavailable</span>
-          )
+            )
       )
     },
     {
@@ -175,13 +183,15 @@ export default ({ dataset }) => {
     {
       Field: 'License',
       Value: (
-          dataset.license ? (
-            <a role='link' href={dataset.license} target='_blank' aria-label='License URL'>
-              {dataset.license ?? "Unavailable"}
+        dataset.license
+          ? (
+            <a role='link' href={dataset.license} target='_blank' aria-label='License URL' rel='noreferrer'>
+              {dataset.license ?? 'Unavailable'}
             </a>
-          ) : (
+            )
+          : (
             <span>Unavailable</span>
-          )
+            )
       )
     },
     {

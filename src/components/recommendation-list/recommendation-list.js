@@ -30,7 +30,7 @@ const RecommendationList = props => {
             <FilterNoneIcon data-for={recommendation.id} data-tip='' />
           </CopyToClipboard>
           <div className='recommendation'>
-            <a role="link" href={RecommendationUtils.getDatasetUrl(recommendation)} target='_blank' className='action'>
+            <a role='link' href={RecommendationUtils.getDatasetUrl(recommendation)} target='_blank' className='action' rel='noreferrer'>
               {recommendation.dataTitle}
             </a>
           </div>

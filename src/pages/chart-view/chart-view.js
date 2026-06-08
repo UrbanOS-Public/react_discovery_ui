@@ -7,7 +7,6 @@ import PlotlyEditor, { dereference, DefaultEditor } from 'react-chart-editor/lib
 import plotly from 'plotly.js/dist/plotly'
 import { cloneDeep } from 'lodash'
 
-
 import LoadingElement from '../../components/generic-elements/loading-element'
 
 const hasDataSources = dataSources => {

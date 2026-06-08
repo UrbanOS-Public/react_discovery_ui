@@ -4,7 +4,7 @@ import { Collapse } from 'react-collapse'
 import { Component } from 'react'
 import DetailToggleIcon from '../detail-toggle-icon'
 
-function extractText(node) {
+function extractText (node) {
   if (!node) return ''
   if (typeof node === 'string' || typeof node === 'number') return String(node)
   if (Array.isArray(node)) return node.map(extractText).join(' ').trim()
@@ -13,21 +13,21 @@ function extractText(node) {
 }
 
 export default class extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     const isDesktop = window.matchMedia(variables.aboveMaxBreak).matches
     this.state = { expanded: isDesktop || props.expanded }
   }
 
-  toggleCollapsed() {
+  toggleCollapsed () {
     this.setState({ expanded: !this.state.expanded })
   }
 
-  headerOpenClass() {
+  headerOpenClass () {
     return this.state.expanded ? 'open' : ''
   }
 
-  render() {
+  render () {
     return (
       <collapsable-box>
         <div

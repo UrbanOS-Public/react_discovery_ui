@@ -108,7 +108,7 @@ const UserProfileView = (props) => {
           </div>
         </div>
       </AriaModal>
-    )
+      )
     : false
 
   return (

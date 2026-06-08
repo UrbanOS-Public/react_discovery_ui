@@ -1,3 +1,3 @@
 export default SvgMock = (props) => {
-    return <svg {...props}/>;
+  return <svg {...props} />
 }

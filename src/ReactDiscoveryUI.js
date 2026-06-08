@@ -1,4 +1,3 @@
-
 import './ReactDiscoveryUI.scss'
 import 'normalize.css'
 

@@ -33,9 +33,9 @@ describe('login-saga', () => {
     const response = {
       status: 200,
       headers: {
-        token: token
+        token
       },
-      data: data
+      data
     }
 
     beforeEach(() => {
@@ -63,7 +63,7 @@ describe('login-saga', () => {
     it('dispatches a LOGIN_FAILURE event based on 401 code', () => {
       const response = {
         status: 401,
-        data: data
+        data
       }
       mockAxios.get.mockImplementationOnce(() => (response))
 

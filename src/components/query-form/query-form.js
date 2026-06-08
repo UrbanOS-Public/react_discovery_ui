@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import './query-form.scss'
 import '@trendmicro/react-buttons/dist/react-buttons.css'
 import '@trendmicro/react-dropdown/dist/react-dropdown.css'
-import Dropdown, { MenuItem } from '@trendmicro/react-dropdown';
+import Dropdown, { MenuItem } from '@trendmicro/react-dropdown'
 import LoadingElement from '../generic-elements/loading-element'
 import RecommendationList from '../recommendation-list'
 import ReactTooltip from 'react-tooltip'
@@ -53,7 +53,7 @@ const QueryForm = props => {
       code={localQueryText}
       onBlur={updateReduxQueryText}
       data-testid='query-input'
-      aria-label="SQL Query Input"
+      aria-label='SQL Query Input'
     />
   )
   const submitButton = <button data-testid='submit-query-button' className='action-button' disabled={isQueryLoading} onClick={submit}>Submit</button>
@@ -123,7 +123,7 @@ const QueryForm = props => {
   let dataObj, data, tempLink
   const queryDataDownloadLinkAsCsv = () => {
     dataObj = queryDataToCSV(queryData)
-    data = new Blob([dataObj], { type: "application/json" })
+    data = new Blob([dataObj], { type: 'application/json' })
     tempLink = document.createElement('a')
     tempLink.href = window.URL.createObjectURL(data)
     tempLink.setAttribute('download', 'query_results.csv')
@@ -132,7 +132,7 @@ const QueryForm = props => {
 
   const queryDataDownloadLinkAsJson = () => {
     dataObj = JSON.stringify(queryData)
-    data = new Blob([dataObj], { type: "text/csv" })
+    data = new Blob([dataObj], { type: 'text/csv' })
     tempLink = document.createElement('a')
     tempLink.href = window.URL.createObjectURL(data)
     tempLink.setAttribute('download', 'query_results.json')
@@ -140,8 +140,8 @@ const QueryForm = props => {
   }
 
   const queryDataDownloadLinkAsXml = () => {
-    dataObj = parse("results", queryData)
-    data = new Blob([dataObj], { type: "application/xml" })
+    dataObj = parse('results', queryData)
+    data = new Blob([dataObj], { type: 'application/xml' })
     tempLink = document.createElement('a')
     tempLink.href = window.URL.createObjectURL(data)
     tempLink.setAttribute('download', 'query_results.xml')
@@ -193,14 +193,14 @@ const QueryForm = props => {
     }
   }
 
-  const downloadButtonColor = window.PRIMARY_COLOR || '#0F64B3';
+  const downloadButtonColor = window.PRIMARY_COLOR || '#0F64B3'
 
   return (
     <query-form>
       <h1>Query Dataset</h1>
       <div className='user-input'>
         <div className='sql-section'>
-          <label for="code-editor" className='sql-title'>Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</label>
+          <label for='code-editor' className='sql-title'>Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</label>
           {textArea}
         </div>
         <div className='query-info'>

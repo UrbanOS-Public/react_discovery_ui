@@ -21,13 +21,13 @@ module.exports = (env, argv) => {
       patterns: [{ from: 'config' }]
     }),
     new webpack.ProvidePlugin({
-      process: 'process/browser',
+      process: 'process/browser'
     }),
     new webpack.ProvidePlugin({
-      Buffer: ['buffer', 'Buffer'],
+      Buffer: ['buffer', 'Buffer']
     }),
     new webpack.ProvidePlugin({
-      process: 'process/browser',
+      process: 'process/browser'
     })
   ]
 
@@ -38,12 +38,12 @@ module.exports = (env, argv) => {
         // ProvidePlugin, which breaks webpack 5's ESM resolution and produces
         // a non-function module factory at runtime. Alias axios to its
         // pre-built browser CJS bundle which handles process internally.
-        'axios': path.resolve(__dirname, 'node_modules/axios/dist/browser/axios.cjs')
+        axios: path.resolve(__dirname, 'node_modules/axios/dist/browser/axios.cjs')
       },
       fallback: {
-        "assert": require.resolve("assert/"),
-        "stream": require.resolve("stream-browserify"),
-        "buffer": require.resolve("buffer/")
+        assert: require.resolve('assert/'),
+        stream: require.resolve('stream-browserify'),
+        buffer: require.resolve('buffer/')
       }
     },
     entry: {
@@ -98,7 +98,7 @@ module.exports = (env, argv) => {
       open: true,
       port: 9001
     },
-    plugins: plugins,
+    plugins,
     optimization: {
       minimize: productionOptimizationsEnabled,
       minimizer: [
