@@ -4,7 +4,7 @@ import { QueryStringBuilder } from '../../utils'
 export default ({ organization }) => (
   <dataset-organization>
     <div className='organization-header'>Organization Info</div>
-    <a role='link' href={`/?${QueryStringBuilder.createFilterQueryString('organization', organization.title)}`}>
+    <a role='link' aria-label={`View ${organization.title} datasets`} href={`/?${QueryStringBuilder.createFilterQueryString('organization', organization.title)}`}>
       <img
         data-testid='organization-logo'
         className='logo'
