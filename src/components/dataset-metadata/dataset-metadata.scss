@@ -31,4 +31,8 @@ dataset-metadata {
   a {
     @include sub-link();
   }
+
+  td {
+    overflow-wrap: anywhere;
+  }
 }
