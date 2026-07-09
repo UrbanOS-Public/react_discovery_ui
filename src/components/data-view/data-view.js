@@ -120,7 +120,7 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
     <div style={{ height: '400px', overflow: 'auto' }}>
       <table
         ref={tableRef}
-        role='grid'
+        role='table'
         tabIndex={0}
         aria-activedescendant={activeCellId}
         aria-rowcount={dataRows.length + 1}
