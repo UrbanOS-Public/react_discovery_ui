@@ -82,7 +82,7 @@ const DatasetListView = (props) => {
       />
       <div className='left-section'>
         <Auth0LoginZone />
-        <div style={{ height: '0.5rem' }}>
+        <div >
           <Checkbox
             id='toggleAPIDatasets'
             clickHandler={searchParamsManager.toggleApiAccessible}
