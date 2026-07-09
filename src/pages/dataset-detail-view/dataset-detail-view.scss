@@ -75,10 +75,9 @@ dataset-detail-view {
       display:block;
     }
     dataset-organization .logo {
-      display:none;
-    }
-    share-zone {
-      display:none;
+      display:block;
+      max-width:120px;
+      margin:0.75rem 0;
     }
     .download-button {
       display:none;
@@ -93,7 +92,7 @@ dataset-detail-view {
       font-weight:normal;
     } 
     dataset-organization .organization-header {
-      display:none;
+      display:block;
     }
     dataset-details .name {
       font-size:1.5rem;
@@ -116,7 +115,9 @@ dataset-detail-view {
       text-transform:uppercase;
     }
     dataset-organization .description {
-      display:none;
+      display:block;
+      font-size:0.9rem;
+      line-height:1.3;
     } 
     api-example .example-table {
       font-size:0.8em;
