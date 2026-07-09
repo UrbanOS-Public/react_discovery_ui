@@ -185,7 +185,7 @@ export default ({ dataset }) => {
       Value: (
         dataset.license
           ? (
-            <a role='link' href={dataset.license} target='_blank' aria-label='License URL' rel='noreferrer'>
+            <a role='link' href={dataset.license} target='_blank' aria-label={dataset.license ?? 'Unavailable'} rel='noreferrer'>
               {dataset.license ?? 'Unavailable'}
             </a>
             )
