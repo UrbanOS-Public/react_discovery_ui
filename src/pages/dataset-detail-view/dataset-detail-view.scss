@@ -2,6 +2,22 @@
 
 dataset-detail-view {
   @include page-with-left-bar();
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+
+  .left-section {
+    float: none;
+    width: min-content;
+    flex: 0 0 auto;
+  }
+
+  .right-section {
+    float: none;
+    width: auto;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
 
   dataset-api-doc {
     margin-top: 2.5rem
@@ -61,6 +77,8 @@ dataset-detail-view {
   }
 
   @media only screen and (max-width: 600px) {
+    display: block;
+
     .dataset-detail-view {
       min-width:400px;
       padding:4%;  
@@ -70,7 +88,7 @@ dataset-detail-view {
     } 
     .left-section, .right-section {
       width:100%;
-      float:left;
+      float:none;
       clear:both;
       display:block;
     }
