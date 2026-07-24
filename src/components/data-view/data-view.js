@@ -125,7 +125,7 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
         <caption>{datasetName ? `${datasetName} Dataset Preview` : 'Dataset Preview'}</caption>
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id} /*role='row' aria-rowindex={1}*/>
+            <tr key={headerGroup.id}>
               {headerGroup.headers.map((header, colIndex) => (
                 <th
                   key={header.id}

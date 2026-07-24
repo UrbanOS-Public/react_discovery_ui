@@ -106,7 +106,11 @@ dataset-view {
     }
 
     .tab-area {
-      display: none;
+      font-size: small;
+    }
+    
+    .react-tabs__tab {
+      padding: 6px 12px;
     }
 
     .mobile-tab-menu {
