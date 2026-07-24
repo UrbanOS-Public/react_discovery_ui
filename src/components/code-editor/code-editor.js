@@ -22,6 +22,7 @@ class CodeEditor extends React.Component {
         highlight={code => highlight(code, languages.sql)}
         padding={10}
         onBlur={this.props.onBlur}
+        ignoreTabKey={true}
         style={{
           fontFamily: '"Fira code", "Fira Mono", monospace',
           fontSize: 12,
