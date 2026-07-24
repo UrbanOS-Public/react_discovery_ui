@@ -19,7 +19,11 @@ import VisualizationSaveMenuItem from '../../components/visualization-save-menu-
 export default class extends Component {
   constructor () {
     super()
-    this.state = { index: 0, localTitle: '' }
+    this.state = { index: 0, localTitle: '', isMobileMenuOpen: false }
+  }
+
+  selectTab (tabIndex) {
+      this.setState({ index: tabIndex, isMobileMenuOpen: false })
   }
 
   generateVisualizationLink () {
@@ -85,7 +89,7 @@ export default class extends Component {
         <Tabs
           className='dataset-view'
           selectedIndex={this.state.index}
-          onSelect={tabIndex => this.setState({ index: tabIndex })}
+          onSelect={tabIndex => this.selectTab(tabIndex)}
         >
           <TabList className='header'>
             <span className='tab-area'>
@@ -104,6 +108,30 @@ export default class extends Component {
 
                 </>}
             </span>
+
+            {/* Mobile menu for smaller screens*/}
+            <div className='mobile-tab-menu'>
+                <button
+                    type='button'  
+                    className='mobile-tab-toggle'
+                    onClick={() => this.setState(({ isMobileMenuOpen }) => ({ isMobileMenuOpen: !isMobileMenuOpen }))}
+                    aria-label='Open tab menu'
+                    aria-expanded={this.state.isMobileMenuOpen}
+                >
+                    ☰
+                </button>
+
+              {this.state.isMobileMenuOpen && (
+                <div className='mobile-tab-dropdown'>
+                    <button type='button' onClick={() => this.selectTab(0)}>Dataset Details</button>
+                    <button type='button' onClick={() => this.selectTab(1)}>Write SQL</button>
+                    {this.isVisualizationEnabled() && (
+                      <button type='button' onClick={() => this.selectTab(2)}>Visualize</button>
+                    )}
+                </div>
+              )}
+            </div>
+
             {this.isNotDatasetDetailsTab() &&
               <span className='action-area'>
                 <VisualizationListMenuItem
