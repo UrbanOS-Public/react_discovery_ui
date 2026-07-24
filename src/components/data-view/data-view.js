@@ -113,34 +113,26 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
   }
 
   const dataRows = table.getRowModel().rows
-  const pageIndex = pagination.pageIndex
-  const pageSize = pagination.pageSize
 
   return (
     <div style={{ height: '400px', overflow: 'auto' }}>
       <table
         ref={tableRef}
-        role='table'
         tabIndex={0}
-        aria-activedescendant={activeCellId}
-        aria-rowcount={dataRows.length + 1}
-        aria-colcount={columns.length}
         style={{ width: table.getTotalSize() }}
         onClick={handleTableClick}
       >
         <caption>{datasetName ? `${datasetName} Dataset Preview` : 'Dataset Preview'}</caption>
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id} role='row' aria-rowindex={1}>
+            <tr key={headerGroup.id} /*role='row' aria-rowindex={1}*/>
               {headerGroup.headers.map((header, colIndex) => (
                 <th
                   key={header.id}
                   id={colHeaderId(colIndex)}
-                  role='columnheader'
                   scope='col'
                   data-row={0}
                   data-col={colIndex}
-                  aria-colindex={colIndex + 1}
                   className={`${header.column.columnDef.meta?.headerClassName || 'table-header'}${activeCellId === colHeaderId(colIndex) ? ' active-cell' : ''}`}
                   style={{ width: header.getSize(), position: 'relative' }}
                 >
@@ -161,15 +153,14 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
         <tbody>
           {dataRows.length === 0
             ? (
-              <tr role='row'>
-                <td role='gridcell' colSpan={columns.length} className='no-data-message'>No rows found</td>
+              <tr>
+                <td colSpan={Math.max(columns.length, 1)} className='no-data-message'>No rows found</td>
               </tr>
               )
             : dataRows.map((row, rowIndex) => {
               const tableRow = rowIndex + 1
-              const ariaRowIndex = pageIndex * pageSize + rowIndex + 2 // +1 for header, +1 for 1-based
               return (
-                <tr key={row.id} role='row' aria-rowindex={ariaRowIndex} className={rowIndex % 2 === 0 ? 'striped-row' : ''}>
+                <tr key={row.id} className={rowIndex % 2 === 0 ? 'striped-row' : ''}>
                   {row.getVisibleCells().map((cell, colIndex) => {
                     const content = flexRender(cell.column.columnDef.cell, cell.getContext())
                     return colIndex === 0
@@ -177,12 +168,10 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
                         <th
                           key={cell.id}
                           id={rowHeaderId(rowIndex)}
-                          role='rowheader'
                           scope='row'
                           headers={colHeaderId(0)}
                           data-row={tableRow}
                           data-col={colIndex}
-                          aria-colindex={1}
                           className={`row-header${activeCellId === rowHeaderId(rowIndex) ? ' active-cell' : ''}`}
                         >{content}
                         </th>
@@ -191,11 +180,9 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
                         <td
                           key={cell.id}
                           id={dataCellId(rowIndex, colIndex)}
-                          role='gridcell'
                           headers={`${colHeaderId(colIndex)} ${rowHeaderId(rowIndex)}`}
                           data-row={tableRow}
                           data-col={colIndex}
-                          aria-colindex={colIndex + 1}
                           className={activeCellId === dataCellId(rowIndex, colIndex) ? 'active-cell' : undefined}
                         >{content}
                         </td>
