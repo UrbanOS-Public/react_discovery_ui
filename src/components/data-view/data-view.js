@@ -119,7 +119,7 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
       <table
         ref={tableRef}
         tabIndex={0}
-        style={{ width: table.getTotalSize() }}
+        style={{ width: table.getTotalSize() == 0 ? '100%' : table.getTotalSize() }}
         onClick={handleTableClick}
       >
         <caption>{datasetName ? `${datasetName} Dataset Preview` : 'Dataset Preview'}</caption>
