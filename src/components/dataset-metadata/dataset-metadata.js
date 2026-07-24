@@ -110,7 +110,7 @@ export default ({ dataset }) => {
       Value: (
         dataset.describedByUrl
           ? (
-            <a role='link' href={dataset.describedByUrl} target='_blank' aria-label='Data Dictionary URL' rel='noreferrer'>
+            <a href={dataset.describedByUrl} target='_blank' rel='noreferrer'>
               {dataset.describedByUrl}
             </a>
             )
@@ -136,8 +136,8 @@ export default ({ dataset }) => {
       Value: (
         dataset.homepage
           ? (
-            <a role='link' href={dataset.homepage} target='_blank' aria-label='Homepage URL' rel='noreferrer'>
-              {dataset.homepage ?? 'Unavailable'}
+            <a href={dataset.homepage} target='_blank' rel='noreferrer'>
+              {dataset.homepage}
             </a>
             )
           : (
@@ -155,7 +155,7 @@ export default ({ dataset }) => {
           : (
               referenceUrls.map(url => (
                 <div key={url}>
-                  <a role='link' href={url} target='_blank' aria-label='Related Document URL' rel='noreferrer'>
+                  <a href={url} target='_blank' rel='noreferrer'>
                     {url}
                   </a>
                 </div>
@@ -167,8 +167,8 @@ export default ({ dataset }) => {
       Value: (
         dataset.sourceUrl
           ? (
-            <a role='link' href={dataset.sourceUrl} target='_blank' aria-label='Source URL' rel='noreferrer'>
-              {dataset.sourceUrl ?? 'Unavailable'}
+            <a href={dataset.sourceUrl} target='_blank' rel='noreferrer'>
+              {dataset.sourceUrl}
             </a>
             )
           : (
@@ -185,8 +185,8 @@ export default ({ dataset }) => {
       Value: (
         dataset.license
           ? (
-            <a role='link' href={dataset.license} target='_blank' aria-label={dataset.license ?? 'Unavailable'} rel='noreferrer'>
-              {dataset.license ?? 'Unavailable'}
+            <a href={dataset.license} target='_blank' rel='noreferrer'>
+              {dataset.license}
             </a>
             )
           : (
@@ -227,7 +227,7 @@ export default ({ dataset }) => {
 
 function mailto (email, name) {
   if (email) {
-    return <a role='link' href={'mailto:' + email}>{name}</a>
+    return <a href={'mailto:' + email}>{name}</a>
   } else {
     return <span>{name}</span>
   }
