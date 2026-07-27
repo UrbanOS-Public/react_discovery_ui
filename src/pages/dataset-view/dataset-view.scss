@@ -105,6 +105,10 @@ dataset-view {
       justify-content: space-between;
     }
 
+    .header-tabs {
+        display: none !important; 
+    }
+
     .tab-area {
       font-size: small;
     }
@@ -127,8 +131,8 @@ dataset-view {
 
     .mobile-tab-dropdown {
       position: absolute;
-      top: calc(100% + 4px);
-      left: 0;
+      top: calc(100% - 28px);
+      left: 34px;
       z-index: 20;
       background: white;
       border: 1px solid $light-grey;
@@ -142,6 +146,11 @@ dataset-view {
       padding: 10px 12px;
       border: 0;
       background: white;
+    }
+    
+    .mobile-tab-dropdown button:hover {
+      background: $super-light-gray;
+      cursor: pointer;
     }
   }
 }

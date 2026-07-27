@@ -92,7 +92,7 @@ export default class extends Component {
           onSelect={tabIndex => this.selectTab(tabIndex)}
         >
           <TabList className='header'>
-            <span className='tab-area'>
+            <span className='tab-area header-tabs'>
               <Tab data-testid='dataset-details'>Dataset Details</Tab>
               <Tab data-testid='dataset-write-sql'>Write SQL <SQLIcon className='sqlIcon' /></Tab>
               {this.isVisualizationEnabled() &&
