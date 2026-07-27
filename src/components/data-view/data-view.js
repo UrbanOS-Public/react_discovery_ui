@@ -204,6 +204,9 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
         <span>
           Page{' '}
           <input
+            id='page-number-input'
+            type='number'   
+            label='Page number input'
             data-testid='page-number-input'
             value={table.getState().pagination.pageIndex + 1}
             onChange={e => {
