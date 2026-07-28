@@ -17,7 +17,11 @@ export default class extends Component {
     super(props)
     const isDesktop = window.matchMedia(variables.aboveMaxBreak).matches
     this.state = { expanded: isDesktop || props.expanded }
-    this.contentId = `collapsable-box-content-${this.props.title.replace(/\s+/g, '-').toLowerCase()}`
+    const title = typeof this.props.title === 'string' || typeof this.props.title === 'number'
+      ? String(this.props.title)
+      : ''
+    const normalizedTitle = title.replace(/\s+/g, '-').toLowerCase()
+    this.contentId = `collapsable-box-content-${normalizedTitle || 'content'}`
   }
 
   toggleCollapsed () {
