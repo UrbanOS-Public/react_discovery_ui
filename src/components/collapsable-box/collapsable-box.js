@@ -1,7 +1,7 @@
 import './collapsable-box.scss'
 import variables from '../../styles/variables.scss'
 import { Collapse } from 'react-collapse'
-import { Component } from 'react'
+import { Children, cloneElement, Component, isValidElement } from 'react'
 import DetailToggleIcon from '../detail-toggle-icon'
 
 function extractText (node) {
@@ -17,6 +17,7 @@ export default class extends Component {
     super(props)
     const isDesktop = window.matchMedia(variables.aboveMaxBreak).matches
     this.state = { expanded: isDesktop || props.expanded }
+    this.contentId = `collapsable-box-content-${this.props.title.replace(/\s+/g, '-').toLowerCase()}`
   }
 
   toggleCollapsed () {
@@ -28,8 +29,13 @@ export default class extends Component {
   }
 
   render () {
+    const childrenWithContentId = Children.map(this.props.children, child => {
+      if (!isValidElement(child)) return child
+      return cloneElement(child, { contentId: this.contentId })
+    })
+
     return (
-      <collapsable-box>
+      <div className={`collapsable-box ${this.props.className || ''}`}>
         <div
           data-testid={this.props.testId}
           className={`header-container ${this.headerOpenClass()}`}
@@ -38,7 +44,8 @@ export default class extends Component {
           role='button'
           tabIndex='0'
           aria-label={[this.props.title, extractText(this.props.headerHtml)].filter(Boolean).join(': ') || 'collapsable box'}
-          aria-pressed={this.state.expanded}
+          aria-controls={this.contentId}
+          aria-expanded={this.state.expanded}
         >
           <div className='header-text-items'>
             <div className='title'>{this.props.title}</div>
@@ -47,9 +54,11 @@ export default class extends Component {
           <DetailToggleIcon expanded={this.state.expanded} />
         </div>
         <Collapse isOpened={this.state.expanded}>
-          {this.props.children}
+          <div id={this.contentId}>
+            {childrenWithContentId}
+          </div>
         </Collapse>
-      </collapsable-box>
+      </div>
     )
   }
 }

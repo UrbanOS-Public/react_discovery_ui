@@ -1,9 +1,7 @@
 @import '../../styles/mixins.scss';
 @import '../../styles/variables.scss';
 
-collapsable-box {
-  @include custom-element();
-
+.collapsable-box {
   border: 1px solid $light-grey;
   width: 100%;
   margin-top: 2.5rem;
