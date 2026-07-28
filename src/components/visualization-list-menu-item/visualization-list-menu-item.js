@@ -14,7 +14,7 @@ const VisualizationListMenuItem = ({ isAuthenticated }) => {
 
   return (
     <visualization-list-menu-item>
-      <TabButton data-testid='visualization-list-menu-item' className={`button-${isAuthenticated ? 'enabled' : 'disabled'} ${userNeedsLoginInfo && 'dialog-open'}`} onClick={showLoginPrompt}>
+      <TabButton aria-label='Saved workspaces' data-testid='visualization-list-menu-item' className={`button-${isAuthenticated ? 'enabled' : 'disabled'} ${userNeedsLoginInfo && 'dialog-open'}`} onClick={showLoginPrompt}>
         <div className='visualization-list-menu-item-icon-holder' title='Saved Workspaces'>
           <FolderIcon className={`header-item link-${isAuthenticated ? 'enabled' : 'disabled'}`} accessibilityDesc='Open Saved Workspaces' />
         </div>
