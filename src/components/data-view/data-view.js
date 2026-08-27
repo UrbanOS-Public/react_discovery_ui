@@ -195,6 +195,7 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
       </table>
       <div className='pagination'>
         <button
+          data-testid='previous-page-button'
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
           aria-label='Previous page'

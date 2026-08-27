@@ -27,8 +27,8 @@ const QueryView = props => {
 
   const [page, setPage] = useState(0)
 
-  const onNextPageClicked = (pageNumber) => {
-    setPage(pageNumber)
+  const onNextPageClicked = () => {
+    setPage(page)
   }
 
   React.useEffect(() => {
