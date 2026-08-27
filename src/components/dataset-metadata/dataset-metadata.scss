@@ -30,6 +30,7 @@ dataset-metadata {
 
   a {
     @include sub-link();
+    color: $dark-blue;
   }
 
   td {
