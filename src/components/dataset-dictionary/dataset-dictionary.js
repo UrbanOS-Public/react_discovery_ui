@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import './dataset-dictionary.scss'
 import { useReactTable, getCoreRowModel, getSortedRowModel, getExpandedRowModel, flexRender } from '@tanstack/react-table'
 import CollapsableBox from '../../components/collapsable-box'
@@ -14,24 +14,36 @@ const isMap = schemaElement => {
 
 const schemaColumns = [
   {
-    id: 'expander',
-    header: () => null,
-    size: expanderWidth,
-    enableSorting: false,
-    cell: ({ row }) => (
-      <div className='expander' style={{ cursor: isMap(row.original) ? 'pointer' : undefined }}>
-        {isMap(row.original) ? (row.getIsExpanded() ? expandedArrow : collapsedArrow) : ''}
-      </div>
-    )
-  },
-  {
+    id: 'field',
     header: 'Field',
     accessorKey: 'name',
     meta: { headerClassName: 'table-header', className: 'field-name-cell' },
     size: 240,
-    cell: ({ getValue }) => <Tooltip text={getValue()} />
+    cell: ({ getValue, row }) => {
+      const fieldName = getValue()
+      const rowIsMap = isMap(row.original)
+      const isExpanded = row.getIsExpanded()
+
+      return (
+        <div className='field-cell-content'>
+          <Tooltip text={fieldName} />
+          {rowIsMap && (
+            <button
+              type='button'
+              className='field-expander-button'
+              onClick={row.getToggleExpandedHandler()}
+              aria-expanded={isExpanded}
+              aria-label={`${isExpanded ? 'Collapse' : 'Expand'} ${fieldName}`}
+            >
+              {isExpanded ? expandedArrow : collapsedArrow}
+            </button>
+          )}
+        </div>
+      )
+    }
   },
   {
+    id: 'type',
     header: 'Type',
     accessorKey: 'type',
     meta: { headerClassName: 'table-header' },
@@ -45,6 +57,7 @@ const schemaColumns = [
     )
   },
   {
+    id: 'description',
     header: 'Description',
     accessorKey: 'description',
     meta: { headerClassName: 'table-header', className: 'description-cell' }
@@ -84,8 +97,9 @@ const SchemaTable = ({ schema, parentFieldName = '', style }) => {
               {headerGroup.headers.map(header => (
                 <th
                   key={header.id}
+                  aria-label={header.id}
                   scope='col'
-                  className={header.column.columnDef.meta?.headerClassName || ''}
+                  className={header.column.columnDef.meta?.headerClassName || 'table-header'}
                   style={{ width: header.column.getSize() !== 150 ? `${header.column.getSize()}px` : undefined, cursor: header.column.getCanSort() ? 'pointer' : undefined }}
                   onClick={header.column.getCanSort() ? header.column.getToggleSortingHandler() : undefined}
                   aria-sort={header.column.getIsSorted() === 'asc' ? 'ascending' : header.column.getIsSorted() === 'desc' ? 'descending' : undefined}
@@ -104,8 +118,7 @@ const SchemaTable = ({ schema, parentFieldName = '', style }) => {
                 {row.getVisibleCells().map(cell => (
                   <td
                     key={cell.id}
-                    className={`${cell.column.id === 'expander' ? 'expander-td' : ''} ${cell.column.columnDef.meta?.className || ''}`}
-                    onClick={cell.column.id === 'expander' && isMap(row.original) ? row.getToggleExpandedHandler() : undefined}
+                    className={cell.column.columnDef.meta?.className || ''}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>

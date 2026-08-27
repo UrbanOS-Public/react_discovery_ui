@@ -26,20 +26,19 @@ describe('dataset dictionary', () => {
       const table = subject.find('.dataset-schema-table')
       const headers = table.find('th')
 
-      expect(headers.length).toBe(4)
-      expect(headers.at(1).text()).toBe('Field')
-      expect(headers.at(2).text()).toBe('Type')
-      expect(headers.at(3).text()).toBe('Description')
+      expect(headers.length).toBe(3)
+      expect(headers.at(0).text()).toBe('Field')
+      expect(headers.at(1).text()).toBe('Type')
+      expect(headers.at(2).text()).toBe('Description')
     })
 
     it('has the correct table values', () => {
       const table = subject.find('.dataset-schema-table')
       const cells = table.find('td')
 
-      const expansionPlaceholder = ''
       const expectedCellValues = [
-        expansionPlaceholder, 'name', 'string', 'the name',
-        expansionPlaceholder, 'age', 'integer', 'the age'
+        'name', 'string', 'the name',
+        'age', 'integer', 'the age'
       ]
       expect(cells.length).toBe(expectedCellValues.length)
       expectCorrectCellValues(expectedCellValues, cells)
@@ -51,7 +50,7 @@ describe('dataset dictionary', () => {
 
     it('is sortable via column headers', () => {
       const headers = subject.find('.dataset-schema-table th')
-      expect(headers.at(1).prop('onClick')).toBeTruthy()
+      expect(headers.at(0).prop('onClick')).toBeTruthy()
     })
 
     it('has no left margin on the top-level table', () => {
@@ -71,7 +70,7 @@ describe('dataset dictionary', () => {
       const table = subject.find('.dataset-schema-table')
       const cells = table.find('td')
 
-      const typeIndex = 2
+      const typeIndex = 1
       expect(cells.at(typeIndex).text()).toBe(`list of ${schemaWithList[0].itemType}`)
     })
   })
@@ -107,23 +106,20 @@ describe('dataset dictionary', () => {
     })
 
     it('has the correct table values', () => {
-      const expansionPlaceholder = ''
-      const expansionArrow = '▸'
       const expectedCellValues = [
-        expansionPlaceholder, 'name', 'string', 'the name',
-        expansionArrow, 'mother', 'map', 'the mother'
+        'name', 'string', 'the name',
+        'mother', 'map', 'the mother'
       ]
       expect(topLevelCells.length).toBe(expectedCellValues.length)
       expectCorrectCellValues(expectedCellValues, topLevelCells)
+      expect(topLevelTable.find('.field-expander-button').at(0).text()).toBe('▸')
     })
 
     describe('with the map type expanded', () => {
-      const expanderCellIndex = 4
-
       let subTable, subTableCells
 
       beforeEach(() => {
-        topLevelCells.at(expanderCellIndex).simulate('click')
+        topLevelTable.find('.field-expander-button').at(0).simulate('click')
         topLevelTable = subject.find('.dataset-schema-table')
 
         subTable = topLevelTable.find('.dataset-schema-table.mother')
@@ -131,7 +127,7 @@ describe('dataset dictionary', () => {
       })
 
       it('toggles the direction of the arrow', () => {
-        expect(topLevelCells.at(expanderCellIndex).text()).toBe('▾')
+        expect(topLevelTable.find('.field-expander-button').at(0).text()).toBe('▾')
       })
 
       it('renders a sub table for the map with correct values', () => {
@@ -139,14 +135,13 @@ describe('dataset dictionary', () => {
       })
 
       it('has the correct values in the sub table', () => {
-        const expansionPlaceholder = ''
-        const expansionArrow = '▸'
         const expectedCellValues = [
-          expansionPlaceholder, 'name', 'string', 'mother\'s name',
-          expansionArrow, 'children', 'list of map', 'the chillins'
+          'name', 'string', 'mother\'s name',
+          'children', 'list of map', 'the chillins'
         ]
         expect(subTableCells.length).toBe(expectedCellValues.length)
         expectCorrectCellValues(expectedCellValues, subTableCells)
+        expect(subTable.find('.field-expander-button').at(0).text()).toBe('▸')
       })
 
       it('indents the sub table', () => {
@@ -154,15 +149,15 @@ describe('dataset dictionary', () => {
       })
 
       it('toggles the direction of the arrow again when collapsed', () => {
-        topLevelCells.at(expanderCellIndex).simulate('click')
-        expect(topLevelCells.at(expanderCellIndex).text()).toBe('▸')
+        topLevelTable.find('.field-expander-button').at(0).simulate('click')
+        expect(subject.find('.dataset-schema-table').find('.field-expander-button').at(0).text()).toBe('▸')
       })
 
       describe('and the list of map type expanded', () => {
         let subSubTable, subSubTableCells
 
         beforeEach(() => {
-          subTableCells.at(expanderCellIndex).simulate('click')
+          subTable.find('.field-expander-button').at(0).simulate('click')
           subTable = subject.find('.dataset-schema-table.mother')
 
           subSubTable = subTable.find('.dataset-schema-table.children')
@@ -174,9 +169,8 @@ describe('dataset dictionary', () => {
         })
 
         it('has the correct values in the sub sub table', () => {
-          const expansionPlaceholder = ''
           const expectedCellValues = [
-            expansionPlaceholder, 'age', 'integer', 'the child\'s age'
+            'age', 'integer', 'the child\'s age'
           ]
           expect(subSubTableCells.length).toBe(expectedCellValues.length)
           expectCorrectCellValues(expectedCellValues, subSubTableCells)
@@ -198,8 +192,8 @@ describe('dataset dictionary', () => {
     beforeEach(() => {
       subject = mount(<DatasetDictionary schema={schemaWithMaps} expanded />)
       topLevelTable = subject.find('.dataset-schema-table')
-      const expanderCells = topLevelTable.find('td.expander-td')
-      expanderCells.at(1).simulate('click')
+      const expanderButtons = topLevelTable.find('.field-expander-button')
+      expanderButtons.at(0).simulate('click')
       topLevelTable = subject.find('.dataset-schema-table')
     })
 
@@ -267,7 +261,7 @@ describe('dataset dictionary', () => {
 
   const expectCorrectCellValues = (expectedCellValues, cells) => {
     expectedCellValues.forEach((expected, index) => {
-      if (index % 4 === 1) { // handle special rendering for field name tooltip
+      if (index % 3 === 0) { // handle special rendering for field name tooltip
         expect(cells.at(index).find(Tooltip).props().text).toBe(expected)
       } else {
         expect(cells.at(index).text()).toBe(expected)

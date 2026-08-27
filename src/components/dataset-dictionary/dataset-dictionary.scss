@@ -8,6 +8,7 @@ dataset-dictionary {
 
     .view-text {
       font-size: 1.2rem;
+      color: $dark-blue;
     }
 
     a {
@@ -33,8 +34,26 @@ dataset-dictionary {
       white-space: unset;
     }
 
-    .expander {
-      text-align: center;
+    .field-cell-content {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-expander-button {
+      border: 0;
+      background: transparent;
+      padding: 0;
+      min-width: 1rem;
+      line-height: 1;
+      cursor: pointer;
+      color: $almost-black;
+      font-size: 1rem;
+    }
+
+    .field-expander-button:focus-visible {
+      outline: 2px solid $dark-blue;
+      outline-offset: 2px;
     }
   }
 
