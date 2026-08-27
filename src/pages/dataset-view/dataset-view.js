@@ -91,46 +91,25 @@ export default class extends Component {
           selectedIndex={this.state.index}
           onSelect={tabIndex => this.selectTab(tabIndex)}
         >
-          <TabList className='header'>
-            <span className='tab-area header-tabs'>
+          <span className='header'>
+            <TabList className='tab-area header-tabs'>
               <Tab data-testid='dataset-details'>Dataset Details</Tab>
               <Tab data-testid='dataset-write-sql'>Write SQL <SQLIcon className='sqlIcon' /></Tab>
               {this.isVisualizationEnabled() &&
                 <Tab data-testid='visualize'>Visualize <ChartIcon className='chartIcon' /></Tab>}
-              {this.isNotDatasetDetailsTab() &&
+            </TabList>
+
+          {this.isNotDatasetDetailsTab() &&
+            <span className='help-area'>
+              <a role={null} className='helpLink primary-color' target='_blank' href='https://en.wikipedia.org/wiki/SQL_syntax' rel='noreferrer'>SQL Help</a>
+              {this.isVisualizationEnabled() &&
                 <>
-                  <a role='link' className='helpLink primary-color' target='_blank' href='https://en.wikipedia.org/wiki/SQL_syntax' rel='noreferrer'>SQL Help</a>
-                  {this.isVisualizationEnabled() &&
-                    <>
-                      <p>|</p>
-                      <a role='link' id='plotlyhelp' className='helpLink primary-color' target='_blank' href='https://plotly.com/chart-studio-help/tutorials/#basic' rel='noreferrer'>Plot.ly Help</a>
-                    </>}
-
+                  <p>|</p>
+                  <a id='plotlyhelp' className='helpLink primary-color' target='_blank' href='https://plotly.com/chart-studio-help/tutorials/#basic' rel='noreferrer'>Plot.ly Help</a>
                 </>}
-            </span>
 
-            {/* Mobile menu for smaller screens*/}
-            <div className='mobile-tab-menu'>
-                <button
-                    type='button'  
-                    className='mobile-tab-toggle'
-                    onClick={() => this.setState(({ isMobileMenuOpen }) => ({ isMobileMenuOpen: !isMobileMenuOpen }))}
-                    aria-label='Open tab menu'
-                    aria-expanded={this.state.isMobileMenuOpen}
-                >
-                    ☰
-                </button>
+            </span>}
 
-              {this.state.isMobileMenuOpen && (
-                <div className='mobile-tab-dropdown'>
-                    <button type='button' onClick={() => this.selectTab(0)}>Dataset Details</button>
-                    <button type='button' onClick={() => this.selectTab(1)}>Write SQL</button>
-                    {this.isVisualizationEnabled() && (
-                      <button type='button' onClick={() => this.selectTab(2)}>Visualize</button>
-                    )}
-                </div>
-              )}
-            </div>
 
             {this.isNotDatasetDetailsTab() &&
               <span className='action-area'>
@@ -148,8 +127,32 @@ export default class extends Component {
                   allowedActions={this.props.allowedActions}
                   isAuthenticated={this.props.auth.isAuthenticated}
                 />
-              </span>}
-          </TabList>
+              </span>
+            }
+
+            {/* Mobile menu for smaller screens*/}
+            <div className='mobile-tab-menu'>
+                <button
+                    type='button'  
+                    className='mobile-tab-toggle'
+                    onClick={() => this.setState(({ isMobileMenuOpen }) => ({ isMobileMenuOpen: !isMobileMenuOpen }))}
+                    aria-controls='mobile-tab-dropdown'
+                    aria-expanded={this.state.isMobileMenuOpen}
+                >
+                    ☰
+                </button>
+
+              {this.state.isMobileMenuOpen && (
+                <div className='mobile-tab-dropdown'>
+                    <button onClick={() => this.selectTab(0)}>Dataset Details</button>
+                    <button onClick={() => this.selectTab(1)}>Write SQL</button>
+                    {this.isVisualizationEnabled() && (
+                      <button type='button' onClick={() => this.selectTab(2)}>Visualize</button>
+                    )}
+                </div>
+              )}
+            </div>
+          </span>
           <TabPanel forceRender>
             <DatasetDetailView />
           </TabPanel>

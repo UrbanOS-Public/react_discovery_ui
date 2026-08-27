@@ -57,7 +57,7 @@ dataset-detail-view {
     border:none;
     padding:0px;
     margin:0;
-    color:#00aeef;
+    color:$dark-blue;
     border-radius:0 !important;
     display:block;
     float:left;
@@ -120,7 +120,8 @@ dataset-detail-view {
       border:none;
       padding:0px;
       margin:0;
-      color:#00aeef;
+      font-size:1.2rem;
+      color:$dark-blue;
     }
     dataset-details .keyword:after {
       content:","
