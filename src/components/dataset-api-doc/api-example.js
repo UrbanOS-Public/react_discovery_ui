@@ -33,7 +33,7 @@ function renderParameters (params) {
   return (
     <div>
       <div className='example-header'>Optional Parameters</div>
-      <div className='example-parameters'>
+      <div className='example-parameters' tabIndex="0">
         <table className='example-table'>
           <thead>
             <tr>
