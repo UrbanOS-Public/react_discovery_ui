@@ -1,6 +1,6 @@
 {
   "name": "@urbanos/react-discovery-ui",
-  "version": "2.1.59",
+  "version": "2.1.60",
   "description": "React component for dataset discovery UI",
   "main": "./lib/ReactDiscoveryUI.js",
   "repository": {
