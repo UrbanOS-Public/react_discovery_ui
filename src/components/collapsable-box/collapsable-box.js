@@ -50,6 +50,8 @@ export default class extends Component {
           aria-label={[this.props.title, extractText(this.props.headerHtml)].filter(Boolean).join(': ') || 'collapsable box'}
           aria-controls={this.contentId}
           aria-expanded={this.state.expanded}
+          aria-hidden={!this.state.expanded}
+          hidden={!this.state.expanded}
         >
           <div className='header-text-items'>
             <div className='title'>{this.props.title}</div>
