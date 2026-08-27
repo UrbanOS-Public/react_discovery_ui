@@ -156,7 +156,7 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
               <tr>
                 <td colSpan={Math.max(columns.length, 1)} className='no-data-message'>No rows found</td>
               </tr>
-              )
+            )
             : dataRows.map((row, rowIndex) => {
               const tableRow = rowIndex + 1
               return (
@@ -175,7 +175,7 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
                           className={`row-header${activeCellId === rowHeaderId(rowIndex) ? ' active-cell' : ''}`}
                         >{content}
                         </th>
-                        )
+                      )
                       : (
                         <td
                           key={cell.id}
@@ -186,7 +186,7 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
                           className={activeCellId === dataCellId(rowIndex, colIndex) ? 'active-cell' : undefined}
                         >{content}
                         </td>
-                        )
+                      )
                   })}
                 </tr>
               )
@@ -203,10 +203,10 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
         </button>
         <span>
           Page{' '}
+          <label htmlFor="page-number-input">Page number</label>
           <input
             id='page-number-input'
-            type='number'   
-            label='Page number input'
+            type='number'
             data-testid='page-number-input'
             value={table.getState().pagination.pageIndex + 1}
             onChange={e => {
