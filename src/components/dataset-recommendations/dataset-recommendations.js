@@ -26,7 +26,7 @@ const DatasetRecommendations = (props) => {
         <div className='recommendation-content'>
           {recommendations.map(rec =>
             <div className='recommended-dataset' key={rec.id}>
-              <a role="link" href={RecommendationUtils.getDatasetUrl(rec)} target='_blank'>{rec.dataTitle}</a>
+              <a role='link' href={RecommendationUtils.getDatasetUrl(rec)} target='_blank' rel='noreferrer'>{rec.dataTitle ?? rec.id}</a>
             </div>)}
         </div>
       </CollapsableBox>

@@ -3,7 +3,6 @@ import {
 } from 'enzyme'
 import DataView from './data-view'
 import { Tab, TabPanel } from 'react-tabs'
-import ReactTable from 'react-table'
 import ReactJson from 'react-json-view'
 import LoadingElement from '../../components/generic-elements/loading-element'
 
@@ -27,21 +26,23 @@ describe('data view', () => {
     })
 
     test('should render table headers including column names with dots in them', () => {
-      const headers = subject.find('.rt-resizable-header-content')
+      const headers = subject.find('#data-view-table th')
       const actual = headers.map(x => x.text())
 
       expect(actual).toContain('firstName', 'lastName', 'enrolled', 'firstName.lastName')
     })
 
     test('should render table rows including data for column names with dots', () => {
-      const table_elements = subject.find('.rt-tr .rt-td')
-      const expected = [
-        'Joe', 'Smith', 'true', 'Joe Smith',
-        'Jane', 'Doe', 'false', 'Jane Doe'
-      ]
-      const actual = table_elements.map((x) => x.text())
+      const rowHeaders = subject.find('#data-view-table tbody .row-header').map(x => x.text())
+      const dataCells = subject.find('#data-view-table tbody td').map(x => x.text())
+      const actual = [...rowHeaders, ...dataCells]
 
-      expect(actual).toContain(...expected)
+      expect(actual).toContain('Joe')
+      expect(actual).toContain('Smith')
+      expect(actual).toContain('true')
+      expect(actual).toContain('Jane')
+      expect(actual).toContain('Doe')
+      expect(actual).toContain('false')
     })
 
     test('should render two tabs', () => {
@@ -52,12 +53,12 @@ describe('data view', () => {
       expect(subject.find(TabPanel).length).toEqual(2)
     })
 
-    it('has a react table component on the first tab, and it is shown by default', () => {
-      expect(subject.find(ReactTable).length).toEqual(1)
+    it('has a data table on the first tab, and it is shown by default', () => {
+      expect(subject.find('#data-view-table table').length).toEqual(1)
     })
 
     it('has a react json component on the second tab', () => {
-      subject.setState({ index: 1 })
+      subject.find('[data-testid="data-json"]').first().simulate('click')
       expect(subject.find(ReactJson).length).toEqual(1)
     })
   })
@@ -78,8 +79,8 @@ describe('data view', () => {
       expect(subject.find(TabPanel).length).toEqual(1)
     })
 
-    it('does not have a react table component', () => {
-      expect(subject.find(ReactTable).length).toEqual(0)
+    it('does not have a data table component', () => {
+      expect(subject.find('#data-view-table').length).toEqual(0)
     })
 
     it('has a react json component on the first tab', () => {
@@ -93,7 +94,7 @@ describe('data view', () => {
       const data = []
       const columns = ['firstName', 'lastName', 'enrolled', 'firstName.lastName']
       subject = mount(<DataView data={data} columns={columns} loading />)
-      subject.setState({ index: 1 })
+      subject.find('[data-testid="data-json"]').first().simulate('click')
     })
 
     it('does not render a react json component', () => {
@@ -106,7 +107,7 @@ describe('data view', () => {
   })
 
   describe('data table', () => {
-    it('converts unrenderable values to strings only for the react table', () => {
+    it('converts unrenderable values to strings for the data table', () => {
       const queryData = [
         { object: { value: 1 }, boolean: true, array: [1], nan: NaN, null: null },
         { object: { value: 2 }, boolean: false, array: [2, 3], nan: NaN, null: null }
@@ -115,16 +116,14 @@ describe('data view', () => {
 
       const subject = mount(<DataView data={queryData} columns={columns} />)
 
-      const expectedData = [
-        { object: '{\"value\":1}', boolean: 'true', array: '[1]', nan: '', null: '' },
-        { object: '{\"value\":2}', boolean: 'false', array: '[2,3]', nan: '', null: '' }
-      ]
-
-      expect(subject.find(ReactTable).prop('data')).toEqual(expectedData)
+      const rowHeaders = subject.find('#data-view-table tbody .row-header').map(c => c.text())
+      const dataCells = subject.find('#data-view-table tbody td').map(c => c.text())
+      expect(rowHeaders).toEqual(['{"value":1}', '{"value":2}'])
+      expect(dataCells).toEqual(['true', '[1]', '', '', 'false', '[2,3]', '', ''])
       expect(subject.prop('data')).toEqual(queryData)
     })
 
-    it('can handle column names with dots (.) by giving a custom accessor', () => {
+    it('can handle column names with dots (.) by rendering correct cell values', () => {
       const queryData = [
         { 'first.name': 'Mark', 'last.name': 'Johnson' },
         { 'first.name': 'George', 'last.name': 'Lakoff' }
@@ -136,20 +135,17 @@ describe('data view', () => {
 
       const subject = mount(<DataView data={queryData} columns={columns} />)
 
-      const stringifyAccessor = column => {
-        column.accessor = column.accessor.toString().replace(/\s/g, '')
-        return column
-      }
+      const headers = subject.find('#data-view-table th').map(h => h.text())
+      expect(headers).toContain('first.name')
+      expect(headers).toContain('last.name')
 
-      const expectedColumns = [
-        { Header: 'first.name', id: 'first.name', accessor: (row) => row[column], headerClassName: 'table-header' },
-        { Header: 'last.name', id: 'last.name', accessor: (row) => row[column], headerClassName: 'table-header' }
-      ]
-      expectedColumns.map(stringifyAccessor)
-
-      const actualColumns = subject.find(ReactTable).prop('columns').map(stringifyAccessor)
-
-      expect(actualColumns).toEqual(expectedColumns)
+      const rowHeaders = subject.find('#data-view-table tbody .row-header').map(c => c.text())
+      const dataCells = subject.find('#data-view-table tbody td').map(c => c.text())
+      const allCells = [...rowHeaders, ...dataCells]
+      expect(allCells).toContain('Mark')
+      expect(allCells).toContain('Johnson')
+      expect(allCells).toContain('George')
+      expect(allCells).toContain('Lakoff')
     })
   })
 })

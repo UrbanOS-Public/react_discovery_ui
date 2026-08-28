@@ -56,6 +56,11 @@ api-example {
     white-space: nowrap;
   }
 
+  .example-parameters {
+    max-height: 50vh;
+    overflow: auto;
+  }
+
   .example-table {
     border-collapse: collapse;
     width: 100%

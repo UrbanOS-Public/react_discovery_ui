@@ -1,5 +1,7 @@
 import Paginator from './paginator'
-import ArrowButton from '../arrow-button'
+// import ArrowButton from '../arrow-button'
+import ArrowRightButton from '../arrow-right-button'
+import ArrowLeftButton from '../arrow-left-button'
 import { shallow } from 'enzyme'
 
 describe('Paginator', () => {
@@ -108,7 +110,7 @@ describe('Paginator', () => {
     test('clicking the left arrow when on the first page does nothing', () => {
       const subject = shallow(<Paginator currentPage={1} numberOfPages={15} pageChangeCallback={pageChangeCallback} />)
 
-      subject.find(ArrowButton).at(0).props().onClick()
+      subject.find(ArrowLeftButton).at(0).props().onClick()
 
       expect(pageChangeCallback).not.toHaveBeenCalled()
     })
@@ -116,7 +118,7 @@ describe('Paginator', () => {
     test('clicking the right arrow when on the last page does nothing', () => {
       const subject = shallow(<Paginator currentPage={15} numberOfPages={15} pageChangeCallback={pageChangeCallback} />)
 
-      subject.find(ArrowButton).at(1).props().onClick()
+      subject.find(ArrowRightButton).at(0).props().onClick()
 
       expect(pageChangeCallback).not.toHaveBeenCalled()
     })
@@ -124,7 +126,7 @@ describe('Paginator', () => {
     test('clicking the left arrow invokes the pageChangeCallback with the previous page', () => {
       const subject = shallow(<Paginator currentPage={4} numberOfPages={15} pageChangeCallback={pageChangeCallback} />)
 
-      subject.find(ArrowButton).at(0).props().onClick()
+      subject.find(ArrowLeftButton).at(0).props().onClick()
 
       expect(pageChangeCallback).toHaveBeenCalledWith(3)
     })
@@ -132,7 +134,7 @@ describe('Paginator', () => {
     test('clicking the right arrow invokes the pageChangeCallback with the next page', () => {
       const subject = shallow(<Paginator currentPage={4} numberOfPages={15} pageChangeCallback={pageChangeCallback} />)
 
-      subject.find(ArrowButton).at(1).props().onClick()
+      subject.find(ArrowRightButton).at(0).props().onClick()
 
       expect(pageChangeCallback).toHaveBeenCalledWith(5)
     })

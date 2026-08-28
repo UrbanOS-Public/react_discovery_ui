@@ -116,3 +116,9 @@ export default class App extends Component {
 ```
 
 # Trigger a build
+
+The primary way to promote react-discovery-ui code to a production environment is to produce an npmjs release (i.e. publish it to npmjs). Previously (before 2026)
+this was triggered by creating a GitHub Release, which ran a GitHub Actions workflow. Currently in 2026 this is being done by publishing from the local environment
+with npmjs credentials. See the publish target in the Makefile for details.
+
+In the future we should re-enable the previous GitHub Actions flow by generating a new npm access token and storing it as the npm_token secret in the GitHub repository settings.

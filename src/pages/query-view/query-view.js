@@ -9,6 +9,7 @@ import _ from 'lodash'
 const QueryView = props => {
   const {
     dataSources,
+    datasetName,
     recommendations,
     usedDatasets,
     datasetReferences,
@@ -26,8 +27,8 @@ const QueryView = props => {
 
   const [page, setPage] = useState(0)
 
-  const onNextPageClicked = (pageNumber) => {
-    setPage(pageNumber)
+  const onNextPageClicked = () => {
+    setPage(page)
   }
 
   React.useEffect(() => {
@@ -74,6 +75,7 @@ const QueryView = props => {
           page={page}
           columns={Object.keys(dataSources)}
           onNextPageClicked={onNextPageClicked}
+          datasetName={datasetName}
         />
       </div>
     </query-view>

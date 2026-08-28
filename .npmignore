@@ -6,3 +6,5 @@
 lib/index.*
 lib/*.test.js
 lib/__mocks__/*
+tmp/*
+

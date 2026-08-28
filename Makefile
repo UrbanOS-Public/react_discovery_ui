@@ -1,4 +1,6 @@
 lint:
+	# Note: Linting is not fully functional
+	# Expect linting errors in the output, but they can be ignored for now
 	npm run lint
 
 deps:
@@ -29,6 +31,11 @@ upgrade:
 	npm update
 
 publish:
+	echo "** npm login if you haven't already **"
+	npm whoami
 	npm run build:library
 	npm publish --access public
 
+release:
+	npm install
+	bat docs/RELEASE_QUESTIONS.md

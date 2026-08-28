@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import Auth0LoginZone from '../../components/auth0-login-zone'
-import ReactTable from 'react-table'
+import { useReactTable, getCoreRowModel, getSortedRowModel, getPaginationRowModel, flexRender } from '@tanstack/react-table'
 import Modal from 'react-modal'
 import AriaModal from 'react-aria-modal'
 import DeleteIcon from '@material-ui/icons/DeleteForever'
@@ -64,17 +64,24 @@ const UserProfileView = (props) => {
   Modal.setAppElement('*')
 
   const columns = [
-    { Header: 'Title', accessor: 'title', headerClassName: 'table-header' },
-    { Header: 'Date Created', accessor: 'created', headerClassName: 'table-header' },
-    { Header: 'Date Modified', accessor: 'updated', headerClassName: 'table-header' },
+    { header: 'Title', accessorKey: 'title', meta: { headerClassName: 'table-header' } },
+    { header: 'Date Created', accessorKey: 'created', meta: { headerClassName: 'table-header' } },
+    { header: 'Date Modified', accessorKey: 'updated', meta: { headerClassName: 'table-header' } },
     {
-      Header: '',
-      accessor: 'delete',
-      headerClassName: 'table-header',
-      className: 'centered',
-      width: 50,
-      Cell: ({ original }) => (
-        <span className='delete-icon' tabIndex='0' aria-label='Delete' role='button' onKeyDownCapture={(event) => { if (event.key === ' ' || event.key === 'Enter') { openDeleteModalForVisualization(original.id) } }} onClick={() => { openDeleteModalForVisualization(original.id) }}>
+      id: 'delete',
+      header: '',
+      meta: { headerClassName: 'table-header', className: 'centered' },
+      size: 50,
+      enableSorting: false,
+      cell: ({ row }) => (
+        <span
+          className='delete-icon'
+          tabIndex='0'
+          aria-label='Delete'
+          role='button'
+          onKeyDownCapture={(event) => { if (event.key === ' ' || event.key === 'Enter') { openDeleteModalForVisualization(row.original.id) } }}
+          onClick={() => { openDeleteModalForVisualization(row.original.id) }}
+        >
           <DeleteIcon />
         </span>
       )
@@ -101,7 +108,7 @@ const UserProfileView = (props) => {
           </div>
         </div>
       </AriaModal>
-    )
+      )
     : false
 
   return (
@@ -116,18 +123,91 @@ const UserProfileView = (props) => {
           </div>
         </div>
         <div id='user-visualizations-table'>
-          <ReactTable
-            data={visualizations}
-            columns={columns}
-            defaultSorted={[{ id: 'updated', desc: true }]}
-            loading={props.loading}
-            defaultPageSize={10}
-            className='-striped -highlight'
-          />
+          <VisualizationsTable visualizations={visualizations} columns={columns} loading={loading} />
         </div>
       </div>
       {modal}
     </user-profile-view>
+  )
+}
+
+const VisualizationsTable = ({ visualizations, columns, loading }) => {
+  const [sorting, setSorting] = useState([{ id: 'updated', desc: true }])
+
+  const table = useReactTable({
+    data: visualizations,
+    columns,
+    state: { sorting },
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: { pagination: { pageSize: 10 } }
+  })
+
+  if (loading) {
+    return <LoadingElement className='spinner' />
+  }
+
+  return (
+    <div>
+      <table>
+        <thead>
+          {table.getHeaderGroups().map(headerGroup => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map(header => (
+                <th
+                  key={header.id}
+                  scope='col'
+                  className={header.column.columnDef.meta?.headerClassName || ''}
+                  style={{ width: header.column.getSize() !== 150 ? `${header.column.getSize()}px` : undefined, cursor: header.column.getCanSort() ? 'pointer' : undefined }}
+                  onClick={header.column.getCanSort() ? header.column.getToggleSortingHandler() : undefined}
+                  aria-sort={header.column.getIsSorted() === 'asc' ? 'ascending' : header.column.getIsSorted() === 'desc' ? 'descending' : undefined}
+                >
+                  {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                  {header.column.getIsSorted() === 'asc' ? ' ↑' : header.column.getIsSorted() === 'desc' ? ' ↓' : ''}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map((row, i) => (
+            <tr key={row.id} className={i % 2 === 0 ? 'striped-row' : ''}>
+              {row.getVisibleCells().map(cell => (
+                <td
+                  key={cell.id}
+                  className={cell.column.columnDef.meta?.className || ''}
+                >
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {table.getPageCount() > 1 && (
+        <div className='pagination'>
+          <button
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+            aria-label='Previous page'
+          >
+            {'<'}
+          </button>
+          <span>
+            Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+          </span>
+          <button
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+            aria-label='Next page'
+          >
+            {'>'}
+          </button>
+        </div>
+      )}
+    </div>
   )
 }
 

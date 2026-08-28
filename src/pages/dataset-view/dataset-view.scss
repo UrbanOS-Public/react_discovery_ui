@@ -24,6 +24,11 @@ dataset-view {
     font-size: 12px;
   }
 
+  .help-area {
+    display: flex;
+    align-items: center;
+  }
+
   .helpLink:first-of-type {
     border-left: 1px solid $light-grey;
     padding-left: 15px;
@@ -41,7 +46,7 @@ dataset-view {
     border: 0;
     position: relative;
     list-style: initial;
-    padding: 12px 24px;
+    padding: 0px 18px;
     cursor: pointer;
     color: $dark-grey;
   }
@@ -91,5 +96,63 @@ dataset-view {
 
   loading-element {
     @include default-loading-icon();
+  }
+
+  .mobile-tab-menu {
+    display: none;
+    position: relative;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-tabs, .action-area, .help-area {
+        display: none !important; 
+    }
+
+    
+    .react-tabs__tab {
+      padding: 6px 12px;
+    }
+
+    .mobile-tab-menu {
+      display: block;
+    }
+
+    .mobile-tab-toggle {
+      border: 0;
+      background: transparent;
+      font-size: 22px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .mobile-tab-dropdown {
+      position: absolute;
+      top: calc(100% - 28px);
+      left: 34px;
+      z-index: 20;
+      background: white;
+      border: 1px solid $light-grey;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .mobile-tab-dropdown button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border: 0;
+      background: white;
+    }
+    
+    .mobile-tab-dropdown button:hover {
+      background: $super-light-gray;
+      cursor: pointer;
+    }
   }
 }

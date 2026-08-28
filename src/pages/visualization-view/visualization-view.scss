@@ -107,9 +107,4 @@ visualization-view {
   .visualization--selected {
     display: flex;
   }
-  @media only screen and (max-width: 600px) {
-    .header {
-      display:none;
-    } 
-  } 
 }

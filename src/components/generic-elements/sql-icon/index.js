@@ -1,6 +1,5 @@
-import sqlSVG from '../../../assets/blk-database.svg'
-import InlineSVG from 'react-svg-inline'
+import SqlSVG from '../../../assets/blk-database.svg'
 
 export default ({ className }) => {
-  return (<span className={className}><InlineSVG svg={sqlSVG} height='14px' width='14px' accessibilityDesc='Sql Icon' /></span>)
+  return (<span className={className}><SqlSVG height='14px' width='14px' accessibilityDesc='Sql Icon' /></span>)
 }

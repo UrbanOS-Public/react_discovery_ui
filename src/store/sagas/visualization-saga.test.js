@@ -158,8 +158,8 @@ describe('visualization-saga', () => {
         it('calls api with parameters that include a dereferenced chart', () => {
           expect(AuthenticatedHTTPClient.post).toHaveBeenCalledWith('/api/v1/visualization',
             {
-              title: title,
-              query: query,
+              title,
+              query,
               chart: { data: [{ x: null, xsrc: 'col1' }], frames: [], layout: {} }
             }
           )
@@ -238,9 +238,9 @@ describe('visualization-saga', () => {
         it('calls api with parameters that include a dereferenced chart', () => {
           expect(AuthenticatedHTTPClient.put).toHaveBeenCalledWith(`/api/v1/visualization/${id}`,
             {
-              id: id,
-              title: title,
-              query: query,
+              id,
+              title,
+              query,
               chart: { data: [{ x: null, xsrc: 'col1' }], frames: [], layout: {} }
             }
           )
@@ -295,8 +295,8 @@ describe('visualization-saga', () => {
         it('calls api with parameters that include a dereferenced chart', () => {
           expect(AuthenticatedHTTPClient.post).toHaveBeenCalledWith('/api/v1/visualization',
             {
-              title: title,
-              query: query,
+              title,
+              query,
               chart: { data: [{ x: null, xsrc: 'col1' }], frames: [], layout: {} }
             }
           )

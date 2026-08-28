@@ -59,8 +59,24 @@ share-zone {
         font-weight: bold;
         font-size: 0.9rem;
         height: 32px;
-        color: white;
         display: flex;
         padding: 6px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .share-icons {
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .shareButton {
+            margin: 0;
+            flex: 0 0 32px;
+        }
+
+        .button.clipboard {
+            width: 100%;
+            justify-content: center;
+        }
     }
 }

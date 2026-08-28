@@ -1,7 +1,6 @@
 import { shallow, mount } from 'enzyme'
 import UserProfileView from './user-profile-view'
 import LoadingElement from '../../components/generic-elements/loading-element'
-import ReactTable from 'react-table'
 import ErrorComponent from '../../components/generic-elements/error-component'
 import AriaModal from 'react-aria-modal'
 import createAuth0Client from '@auth0/auth0-spa-js'
@@ -36,17 +35,15 @@ describe('user profile view', () => {
       ]
 
       subject = createSubject({
-        visualizations: visualizations,
+        visualizations,
         auth: { isAuthenticated: true },
         loadSuccess: true
-      })
+      }, mount)
     })
 
     it("provides a table with the visualizations' information", () => {
-      expect(subject.find(ReactTable)).toHaveLength(1)
-      expect(subject.find(ReactTable).props().data).toHaveLength(2)
-      expect(subject.find(ReactTable).props().data[0].id).toEqual('id1')
-      expect(subject.find(ReactTable).props().data[1].id).toEqual('id2')
+      expect(subject.find('#user-visualizations-table table')).toHaveLength(1)
+      expect(subject.find('#user-visualizations-table tbody tr')).toHaveLength(2)
     })
   })
 
@@ -57,7 +54,7 @@ describe('user profile view', () => {
 
     it('shows an error message', () => {
       expect(subject.find(ErrorComponent)).toHaveLength(1)
-      expect(subject.find(ReactTable)).toHaveLength(0)
+      expect(subject.find('#user-visualizations-table')).toHaveLength(0)
     })
   })
 

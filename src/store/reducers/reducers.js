@@ -177,11 +177,11 @@ const toggleFacetValue = (facets, facetCategory, facetValue) => {
 }
 
 const reducers = {
-  datasetReducer: datasetReducer,
+  datasetReducer,
   presentation: presentationReducer,
-  queryReducer: queryReducer,
+  queryReducer,
   visualization: visualizationReducer,
-  searchReducer: searchReducer
+  searchReducer
 }
 
 const combined = combineReducers(reducers)

@@ -17,16 +17,20 @@ import VisualizationListMenuItem from '../../components/visualization-list-menu-
 import VisualizationSaveMenuItem from '../../components/visualization-save-menu-item'
 
 export default class extends Component {
-  constructor() {
+  constructor () {
     super()
-    this.state = { index: 0, localTitle: '' }
+    this.state = { index: 0, localTitle: '', isMobileMenuOpen: false }
   }
 
-  generateVisualizationLink() {
+  selectTab (tabIndex) {
+      this.setState({ index: tabIndex, isMobileMenuOpen: false })
+  }
+
+  generateVisualizationLink () {
     return this.props.visualizationId && generatePath(routes.visualizationView, { id: this.props.visualizationId })
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.props.reset()
     this.props.retrieveDatasetDetails(
       this.props.match.params.organizationName,
@@ -38,32 +42,32 @@ export default class extends Component {
     }
   }
 
-  getIndexFromQueryParams() {
+  getIndexFromQueryParams () {
     const { selectedIndex } = qs.parse(this.props.location.search, {
       ignoreQueryPrefix: true
     })
     return selectedIndex ? parseInt(selectedIndex) : 0
   }
 
-  handleTitleChange(event) {
+  handleTitleChange (event) {
     if (event.target.value !== this.state.localTitle) {
       this.setState({ localTitle: event.target.value })
     }
   }
 
-  handleSaveOrUpdate({ shouldCreateCopy }) {
+  handleSaveOrUpdate ({ shouldCreateCopy }) {
     this.props.save({ id: this.props.visualizationId, title: this.state.localTitle, query: this.props.query, shouldCreateCopy })
   }
 
-  isNotDatasetDetailsTab() {
+  isNotDatasetDetailsTab () {
     return this.state.index !== 0
   }
 
-  isVisualizationEnabled() {
+  isVisualizationEnabled () {
     return window.DISABLE_VISUALIZATIONS === 'false'
   }
 
-  render() {
+  render () {
     if (!this.props.isDatasetLoaded) {
       return (
         <dataset-view>
@@ -85,27 +89,28 @@ export default class extends Component {
         <Tabs
           className='dataset-view'
           selectedIndex={this.state.index}
-          onSelect={tabIndex => this.setState({ index: tabIndex })}
+          onSelect={tabIndex => this.selectTab(tabIndex)}
         >
-          <TabList className='header'>
-            <span className='tab-area'>
+          <span className='header'>
+            <TabList className='tab-area header-tabs'>
               <Tab data-testid='dataset-details'>Dataset Details</Tab>
               <Tab data-testid='dataset-write-sql'>Write SQL <SQLIcon className='sqlIcon' /></Tab>
               {this.isVisualizationEnabled() &&
-                <Tab data-testid='visualize'>Visualize <ChartIcon className='chartIcon' /></Tab>
-              }
-              {this.isNotDatasetDetailsTab() &&
-                <>
-                  <a role="link" className='helpLink primary-color' target='_blank' href='https://en.wikipedia.org/wiki/SQL_syntax'>SQL Help</a>
-                  {this.isVisualizationEnabled() &&
-                    <>
-                      <p>|</p>
-                      <a role="link" id='plotlyhelp' className='helpLink primary-color' target='_blank' href='https://plotly.com/chart-studio-help/tutorials/#basic'>Plot.ly Help</a>
-                    </>
-                  }
+                <Tab data-testid='visualize'>Visualize <ChartIcon className='chartIcon' /></Tab>}
+            </TabList>
 
+          {this.isNotDatasetDetailsTab() &&
+            <span className='help-area'>
+              <a role={null} className='helpLink primary-color' target='_blank' href='https://en.wikipedia.org/wiki/SQL_syntax' rel='noreferrer'>SQL Help</a>
+              {this.isVisualizationEnabled() &&
+                <>
+                  <p>|</p>
+                  <a id='plotlyhelp' className='helpLink primary-color' target='_blank' href='https://plotly.com/chart-studio-help/tutorials/#basic' rel='noreferrer'>Plot.ly Help</a>
                 </>}
-            </span>
+
+            </span>}
+
+
             {this.isNotDatasetDetailsTab() &&
               <span className='action-area'>
                 <VisualizationListMenuItem
@@ -122,8 +127,32 @@ export default class extends Component {
                   allowedActions={this.props.allowedActions}
                   isAuthenticated={this.props.auth.isAuthenticated}
                 />
-              </span>}
-          </TabList>
+              </span>
+            }
+
+            {/* Mobile menu for smaller screens*/}
+            <div className='mobile-tab-menu'>
+                <button
+                    type='button'  
+                    className='mobile-tab-toggle'
+                    onClick={() => this.setState(({ isMobileMenuOpen }) => ({ isMobileMenuOpen: !isMobileMenuOpen }))}
+                    aria-controls='mobile-tab-dropdown'
+                    aria-expanded={this.state.isMobileMenuOpen}
+                >
+                    ☰
+                </button>
+
+              {this.state.isMobileMenuOpen && (
+                <div className='mobile-tab-dropdown'>
+                    <button onClick={() => this.selectTab(0)}>Dataset Details</button>
+                    <button onClick={() => this.selectTab(1)}>Write SQL</button>
+                    {this.isVisualizationEnabled() && (
+                      <button type='button' onClick={() => this.selectTab(2)}>Visualize</button>
+                    )}
+                </div>
+              )}
+            </div>
+          </span>
           <TabPanel forceRender>
             <DatasetDetailView />
           </TabPanel>
@@ -133,8 +162,7 @@ export default class extends Component {
           {this.isVisualizationEnabled() &&
             <TabPanel className='visualization' selectedClassName='visualization--selected'>
               <ChartView shouldAutoExecuteQuery={this.props.shouldAutoExecuteQuery} />
-            </TabPanel>
-          }
+            </TabPanel>}
 
         </Tabs>
       </dataset-view>

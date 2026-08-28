@@ -7,14 +7,14 @@ import './code-editor.css'
 const code = 'SELECT * FROM ...'
 
 class CodeEditor extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       code: props.code || code
     }
   }
 
-  render() {
+  render () {
     return (
       <Editor
         value={this.state.code}
@@ -22,12 +22,13 @@ class CodeEditor extends React.Component {
         highlight={code => highlight(code, languages.sql)}
         padding={10}
         onBlur={this.props.onBlur}
+        ignoreTabKey={true}
         style={{
           fontFamily: '"Fira code", "Fira Mono", monospace',
           fontSize: 12,
           border: '1px black solid'
         }}
-        textareaId="code-editor"
+        textareaId='code-editor'
       />
     )
   }

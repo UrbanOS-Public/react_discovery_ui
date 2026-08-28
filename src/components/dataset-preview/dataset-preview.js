@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './dataset-preview.scss'
-import 'react-table/react-table.css'
 import CollapsableBox from '../../components/collapsable-box'
 import DataView from '../data-view'
 
@@ -17,7 +16,7 @@ export default class extends Component {
     return (
       <div id='dataset-preview'>
         <CollapsableBox title='Sample' headerHtml='This only shows the first 50 rows, to view the entire dataset please download' expanded>
-          <DataView data={data} columns={columns} loading={this.props.previewLoading} format={this.props.format} />
+          <DataView data={data} columns={columns} loading={this.props.previewLoading} format={this.props.format} datasetName={this.props.datasetName} />
         </CollapsableBox>
       </div>
     )

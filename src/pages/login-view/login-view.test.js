@@ -18,6 +18,6 @@ describe('login view', () => {
     subject.find('.password').simulate('change', { target: { value: password } })
     subject.find('.submit').simulate('click')
 
-    expect(loginSpy).toHaveBeenCalledWith({ username: username, password: password, history: fakeHistory })
+    expect(loginSpy).toHaveBeenCalledWith({ username, password, history: fakeHistory })
   })
 })

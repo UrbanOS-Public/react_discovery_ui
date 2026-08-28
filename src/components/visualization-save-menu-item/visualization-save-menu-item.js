@@ -38,7 +38,7 @@ const VisualizationSaveMenuItem = (props) => {
 
   return (
     <visualization-save-menu-item>
-      <TabButton data-testid='save-icon' disabled={!isSaveable} className={`header-item save-icon ${isDialogOpen && 'saving'}`} onClick={openDialog}>
+      <TabButton aria-label='Save workspace' data-testid='save-icon' disabled={!isSaveable} className={`header-item save-icon ${isDialogOpen && 'saving'}`} onClick={openDialog}>
         <div title='Save Workspace'><SaveIcon /></div>
       </TabButton>
       <AutoAnchoringPopover className='save-prompt popover-anchor' open={isDialogOpen} onClose={closeDialog} classes={{ paper: 'popover', root: 'popover-root' }}>

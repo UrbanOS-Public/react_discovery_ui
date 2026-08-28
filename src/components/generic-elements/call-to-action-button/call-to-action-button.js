@@ -14,7 +14,7 @@ const customStyles = {
   }
 }
 
-export function CallToActionButton({ url, format, sourceType, sourceUrl }) {
+export function CallToActionButton ({ url, format, sourceType, sourceUrl }) {
   const [modalIsOpen, setIsOpen] = useState(false)
   const isRemote = (sourceType && sourceType == 'remote')
 

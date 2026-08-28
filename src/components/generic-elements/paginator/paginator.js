@@ -1,6 +1,7 @@
 import './paginator.scss'
 import _ from 'lodash'
-import ArrowButton from '../arrow-button'
+import ArrowLeftButton from '../arrow-left-button'
+import ArrowRightButton from '../arrow-right-button'
 
 const DISPLAY_SIZE = 7
 // Half the display width minus the first/last element and the elipsis
@@ -11,9 +12,9 @@ export default ({ className, numberOfPages, currentPage, pageChangeCallback }) =
 
   return (
     <paginator-element data-testid='paginator' class={className}>
-      <ArrowButton className='pagination-box arrow' disabled={currentPage === 1} onClick={() => onLeftArrowClick(currentPage, pageChangeCallback)} innerClass='left-arrow' />
+      <ArrowLeftButton className='pagination-box arrow' disabled={currentPage === 1} onClick={() => onLeftArrowClick(currentPage, pageChangeCallback)} innerClass='left-arrow' />
       {options.map((text, index) => createOption(index, text, currentPage, pageChangeCallback))}
-      <ArrowButton className='pagination-box arrow' disabled={currentPage === numberOfPages} onClick={() => onRightArrowClick(currentPage, numberOfPages, pageChangeCallback)} innerClass='right-arrow' />
+      <ArrowRightButton className='pagination-box arrow' disabled={currentPage === numberOfPages} onClick={() => onRightArrowClick(currentPage, numberOfPages, pageChangeCallback)} innerClass='right-arrow' />
     </paginator-element>
   )
 }

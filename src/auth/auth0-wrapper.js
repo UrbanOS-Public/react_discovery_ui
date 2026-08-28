@@ -42,7 +42,7 @@ const withAuth0 = WrappedComponent => {
 
     const auth0Props = {
       loginWithRedirect: (...p) => auth0Client.loginWithRedirect({ appState: callbackState, ...p }),
-      logout: logout,
+      logout,
       handleRedirectCallback,
       isAuthenticated,
       isLoading

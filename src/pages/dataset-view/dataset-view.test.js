@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme'
-import { Tab, TabPanel, TabList } from 'react-tabs'
+import { Tab, TabPanel, TabList, Tabs } from 'react-tabs'
 
 import DatasetView from './dataset-view'
 import QueryView from '../query-view'
@@ -62,6 +62,60 @@ describe('dataset view', () => {
     expect(subject.find(VisualizationSaveMenuItem)).toHaveLength(0)
     expect(subject.find(VisualizationListMenuItem)).toHaveLength(0)
   })
+
+  describe('mobile tab menu', () => {
+    it('renders mobile menu toggle button', () => {
+      const mobileMenuToggle = subject.find('.mobile-tab-toggle')
+      expect(mobileMenuToggle).toHaveLength(1)
+      expect(mobileMenuToggle.prop('aria-expanded')).toBe(false)
+    })
+
+    it('toggles dropdown open and closed when menu button is clicked', () => {
+      subject.find('.mobile-tab-toggle').simulate('click')
+      expect(subject.state('isMobileMenuOpen')).toBe(true)
+      expect(subject.find('.mobile-tab-dropdown')).toHaveLength(1)
+
+      subject.find('.mobile-tab-toggle').simulate('click')
+      expect(subject.state('isMobileMenuOpen')).toBe(false)
+      expect(subject.find('.mobile-tab-dropdown')).toHaveLength(0)
+    })
+
+    it('selecting Dataset Details from dropdown sets index to 0 and closes menu', () => {
+      subject.setState({ index: 2, isMobileMenuOpen: true })
+
+      subject.find('.mobile-tab-dropdown button').at(0).simulate('click')
+
+      expect(subject.state('index')).toBe(0)
+      expect(subject.state('isMobileMenuOpen')).toBe(false)
+    })
+
+    it('selecting Write SQL from dropdown sets index to 1 and closes menu', () => {
+      subject.setState({ index: 0, isMobileMenuOpen: true })
+
+      subject.find('.mobile-tab-dropdown button').at(1).simulate('click')
+
+      expect(subject.state('index')).toBe(1)
+      expect(subject.state('isMobileMenuOpen')).toBe(false)
+    })
+
+    it('selecting Visualize from dropdown sets index to 2 when visualizations are enabled', () => {
+      subject.setState({ index: 0, isMobileMenuOpen: true })
+
+      subject.find('.mobile-tab-dropdown button').at(2).simulate('click')
+
+      expect(subject.state('index')).toBe(2)
+      expect(subject.state('isMobileMenuOpen')).toBe(false)
+    })
+
+    it('closes mobile menu when selecting a tab via Tabs onSelect callback', () => {
+      subject.setState({ isMobileMenuOpen: true })
+
+      subject.find(Tabs).prop('onSelect')(1)
+
+      expect(subject.state('index')).toBe(1)
+      expect(subject.state('isMobileMenuOpen')).toBe(false)
+    })
+  })
 })
 
 describe('Visualizations when DISABLE_VISUALIZATIONS is true', () => {
@@ -86,6 +140,11 @@ describe('Visualizations when DISABLE_VISUALIZATIONS is true', () => {
     subject.setState({ index: 1 })
     const test = subject.find('#plotlyhelp')
     expect(test.length).toEqual(0)
+  })
+
+  it('does not have the visualize option in the mobile tab dropdown', () => {
+    subject.find('.mobile-tab-toggle').simulate('click')
+    expect(subject.find('.mobile-tab-dropdown button')).toHaveLength(2)
   })
 })
 
