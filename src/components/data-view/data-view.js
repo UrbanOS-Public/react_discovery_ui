@@ -204,11 +204,11 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
         </button>
         <span>
           Page{' '}
-          <label htmlFor="page-number-input">Page number</label>
           <input
             id='page-number-input'
             type='number'
             data-testid='page-number-input'
+            aria-label='page-number-input'
             value={table.getState().pagination.pageIndex + 1}
             onChange={e => {
               const pageNum = e.target.value ? Number(e.target.value) - 1 : 0
