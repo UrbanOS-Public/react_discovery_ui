@@ -1,4 +1,6 @@
 lint:
+	# Note: Linting is not fully functional
+	# Expect linting errors in the output, but they can be ignored for now
 	npm run lint
 
 deps:
