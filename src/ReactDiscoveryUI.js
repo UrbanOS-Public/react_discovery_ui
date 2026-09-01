@@ -45,7 +45,7 @@ const noMatch = () => (
 
 const DiscoveryUI = () => {
   return (
-    <main class='main-app-element'>
+    <section class='main-app-element'>
       <NetworkLoadingElement />
       <Router>
         <Switch>
@@ -62,7 +62,7 @@ const DiscoveryUI = () => {
           <Route component={noMatch} />
         </Switch>
       </Router>
-    </main>
+    </section>
   )
 }
 
