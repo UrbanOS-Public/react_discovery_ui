@@ -1,6 +1,6 @@
 import withSearchParamsManager, { SearchParamsManager, defaults } from './search-params-manager'
-import { mount, shallow } from 'enzyme'
-import { createStore, applyMiddleware } from 'redux'
+import { mount } from 'enzyme'
+import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { datasetSearch } from '../store/actions.js'
 import React from 'react'
@@ -420,7 +420,7 @@ describe('withSearchParamsManager', () => {
   })
 
   it('dispatches search on the initial render', () => {
-    const subject = mount(
+    mount(
       <TestableProvider store={store}>
         <Rapper history={{ location: { search: '?apiAccessible=false' } }} />
       </TestableProvider>
@@ -449,7 +449,7 @@ describe('withSearchParamsManager', () => {
     sessionStorage.setItem('cachedFocusedElement', fakeElementId)
     document.getElementById = jest.fn(() => fakeElement)
 
-    const subject = mount(
+    mount(
       <TestableProvider store={store}>
         <Rapper history={{ location: { search: '?apiAccessible=false' } }} />
       </TestableProvider>)
