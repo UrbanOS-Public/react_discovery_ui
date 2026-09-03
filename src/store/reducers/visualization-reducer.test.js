@@ -44,8 +44,16 @@ describe('Visualization Reducer', () => {
     })
 
     it('does not modify other properties', () => {
-      const { loading: _cl, loadSuccess: _cs, loadFailure: _cf, ...previousOthers } = previousState
-      const { loading: _nl, loadSuccess: _ns, loadFailure: _nf, ...newOthers } = newState
+      const previousOthers = { ...previousState }
+      delete previousOthers.loading
+      delete previousOthers.loadSuccess
+      delete previousOthers.loadFailure
+
+      const newOthers = { ...newState }
+      delete newOthers.loading
+      delete newOthers.loadSuccess
+      delete newOthers.loadFailure
+
       expect(newOthers).toEqual(previousOthers)
     })
   })
@@ -75,8 +83,15 @@ describe('Visualization Reducer', () => {
     })
 
     it('does not modify other properties', () => {
-      const { saving: _cl, saveSuccess: _cs, saveFailure: _cf, ...previousOthers } = previousState
-      const { saving: _nl, saveSuccess: _ns, saveFailure: _nf, ...newOthers } = newState
+      const previousOthers = { ...previousState }
+      delete previousOthers.saving
+      delete previousOthers.saveSuccess
+      delete previousOthers.saveFailure
+
+      const newOthers = { ...newState }
+      delete newOthers.saving
+      delete newOthers.saveSuccess
+      delete newOthers.saveFailure
       expect(newOthers).toEqual(previousOthers)
     })
   })
@@ -170,11 +185,6 @@ describe('Visualization Reducer', () => {
   })
 
   describe('VISUALIZATION_LOAD_ALL_FAILURE', () => {
-    const newVisualizations = [
-      { title: 'title1', id: 'id1', created: '2019-12-12T14:33:08', updated: '2019-12-12T14:33:08' },
-      { title: 'title2', id: 'id2', created: '2019-12-09T15:40:15', updated: '2019-12-12T15:53:54' }
-    ]
-
     beforeEach(() => {
       previousState = {
         loading: false,

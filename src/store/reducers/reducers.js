@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-import _ from 'lodash'
 import {
   DISPLAY_ERROR,
   DATASET_DETAILS,
@@ -86,13 +85,14 @@ const presentationReducer = (state = defaultPresentationState, action) => {
     return Object.assign({}, state, {
       previewLoading: false
     })
-  case DATASET_REFERENCE:
+  case DATASET_REFERENCE: {
     const { name, title, id, organization } = action.value
     const clonedReferences = Object.assign({}, state.datasetReferences)
     clonedReferences[action.value.id] = { name, title, id, org: organization.name }
     return Object.assign({}, state, {
       datasetReferences: clonedReferences
     })
+  }
   case RESET_DATASET_REFERENCES:
     return Object.assign({}, state, {
       datasetReferences: {}
@@ -158,22 +158,6 @@ const searchReducer = (state = defaultSearchState, action) => {
   default:
     return state
   }
-}
-
-const updateFacets = (existingFacets, facetUpdates) => {
-  for (const [facetCategory, facetList] of Object.entries(facetUpdates || {})) {
-    facetList.forEach(facetValue => {
-      toggleFacetValue(existingFacets, facetCategory, facetValue)
-    })
-  }
-  return existingFacets
-}
-
-const toggleFacetValue = (facets, facetCategory, facetValue) => {
-  const facetValues = _.get(facets, facetCategory)
-  Object.assign(facets || {}, {
-    [facetCategory]: _.xor(facetValues, [facetValue])
-  })
 }
 
 const reducers = {

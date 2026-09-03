@@ -2,7 +2,6 @@ import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import oAuthSaga from './oauth-saga'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
-import { exportSpecifier, exportAllDeclaration } from '@babel/types'
 import { oAuthCallLoggedIn, setGlobalErrorState } from '../actions'
 
 describe('oauth-saga', () => {
