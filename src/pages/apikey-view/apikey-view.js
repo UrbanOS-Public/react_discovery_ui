@@ -66,7 +66,7 @@ const ApiKeyView = ({ apiKey, isLoading, isError, errorMessage, generate, dismis
             </div>
           </div>
         </AriaModal>
-        )
+      )
       : false
   }
 
@@ -98,7 +98,7 @@ const ApiKeyView = ({ apiKey, isLoading, isError, errorMessage, generate, dismis
         <div className='apiKey-view-paragraph'>This API key will only be displayed once. Please store it somewhere
           secure. If you lose it, you will need to reset your key to get a new one.
         </div>
-        <label className='apiKey-view-sub-title' for='apiKey'>
+        <label className='apiKey-view-sub-title' htmlFor='apiKey'>
           API Key
         </label>
         <div className='apiKey-view-display-page-display-window-container'>

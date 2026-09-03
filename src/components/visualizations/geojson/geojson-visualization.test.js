@@ -16,7 +16,7 @@ describe('<GeoJSONVisualization />', () => {
       previewDataset={previewDataset}
       downloadDataset={downloadDataset}
       datasetId='345'
-                      />)
+    />)
 
     expect(previewDataset).toHaveBeenCalledWith('345', 'geojson')
     expect(downloadDataset).toHaveBeenCalledWith('345', 'geojson')
@@ -28,7 +28,7 @@ describe('<GeoJSONVisualization />', () => {
         previewDataset={previewDataset}
         downloadDataset={downloadDataset}
         downloadedDatasetError
-                        />)
+      />)
     })
 
     it('renders an error component', () => {
@@ -50,7 +50,7 @@ describe('<GeoJSONVisualization />', () => {
       wrapper = shallow(<GeoJSONVisualization
         previewDataset={previewDataset}
         downloadDataset={downloadDataset}
-                        />)
+      />)
 
       expect(wrapper.find('LoadingElement').length).toEqual(1)
     })
@@ -92,7 +92,7 @@ describe('<GeoJSONVisualization />', () => {
           downloadDataset={downloadDataset}
           downloadedGeoJsonData={downloadedGeoJsonData}
           previewedGeoJsonData={previewedGeoJsonData}
-                          />)
+        />)
       })
 
       it('renders map', () => {
@@ -130,7 +130,7 @@ describe('<GeoJSONVisualization />', () => {
           previewDataset={previewDataset}
           downloadDataset={downloadDataset}
           previewedGeoJsonData={previewedGeoJsonData}
-                          />)
+        />)
       })
 
       it('renders map', () => {
@@ -161,7 +161,7 @@ describe('<GeoJSONVisualization />', () => {
           previewDataset={previewDataset}
           downloadDataset={downloadDataset}
           downloadedGeoJsonData={downloadedGeoJsonData}
-                          />)
+        />)
       })
 
       it('renders map', () => {

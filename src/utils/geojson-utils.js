@@ -17,12 +17,12 @@ const calculateBBox = geoJsonData => {
 
 const flattenCoordinateLists = feature => {
   switch (feature.geometry.type) {
-    case 'MultiLineString':
-      return _.flatten(feature.geometry.coordinates)
-    case 'LineString':
-      return feature.geometry.coordinates
-    default:
-      return []
+  case 'MultiLineString':
+    return _.flatten(feature.geometry.coordinates)
+  case 'LineString':
+    return feature.geometry.coordinates
+  default:
+    return []
   }
 }
 

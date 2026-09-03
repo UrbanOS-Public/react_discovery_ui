@@ -24,7 +24,7 @@ describe('dataset preview', () => {
             meta: { columns: [] }
           }
         }
-            />)
+      />)
     })
 
     test('retrieveDatasetPreview should be called', () => {

@@ -17,7 +17,7 @@ const AlertComponent = (props) => {
   return (
     <alert-component>
       {
-     showAlert &&
+        showAlert &&
        <Snackbar
          anchorOrigin={{
            vertical: 'bottom',
@@ -35,7 +35,7 @@ const AlertComponent = (props) => {
                <ErrorIcon className='errorIcon' />
                {errorMessage}
              </span>
-          }
+           }
            action={[
              <IconButton key='close' aria-label='close' color='inherit' onClick={closeFunction}>
                <CloseIcon className='icon' />
@@ -43,7 +43,7 @@ const AlertComponent = (props) => {
            ]}
          />
        </Snackbar>
-    }
+      }
     </alert-component>
   )
 }

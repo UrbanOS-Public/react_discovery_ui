@@ -11,7 +11,7 @@ describe('RecommendationList', () => {
     beforeEach(() => {
       subject = mount(<RecommendationList
         recommendations={recommendations}
-                      />)
+      />)
     })
 
     test('returns urls for each recommended dataset', () => {

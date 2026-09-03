@@ -53,10 +53,10 @@ const OAuthView = (props) => {
   return (
     <oauth-view>
       {
-      isLoading || !handled
-        ? <LoadingElement />
-        : <Redirect to={{ pathname: callbackState.path, search: callbackState.search }} />
-    }
+        isLoading || !handled
+          ? <LoadingElement />
+          : <Redirect to={{ pathname: callbackState.path, search: callbackState.search }} />
+      }
     </oauth-view>
   )
 }

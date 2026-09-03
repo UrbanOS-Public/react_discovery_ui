@@ -33,5 +33,5 @@ function createSubject (recommendations) {
     dataset={{}}
     getRecommendations={jest.fn}
     recommendations={recommendations}
-                 />)
+  />)
 }

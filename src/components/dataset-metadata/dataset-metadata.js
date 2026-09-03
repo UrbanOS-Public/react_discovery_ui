@@ -113,10 +113,10 @@ export default ({ dataset }) => {
             <a href={dataset.describedByUrl} target='_blank' rel='noreferrer'>
               {dataset.describedByUrl}
             </a>
-            )
+          )
           : (
             <span>Unavailable</span>
-            )
+          )
       )
     },
     {
@@ -139,10 +139,10 @@ export default ({ dataset }) => {
             <a href={dataset.homepage} target='_blank' rel='noreferrer'>
               {dataset.homepage}
             </a>
-            )
+          )
           : (
             <span>Unavailable</span>
-            )
+          )
       )
     },
     {
@@ -151,16 +151,16 @@ export default ({ dataset }) => {
         referenceUrls.length === 0
           ? (
             <span>None</span>
-            )
+          )
           : (
-              referenceUrls.map(url => (
-                <div key={url}>
-                  <a href={url} target='_blank' rel='noreferrer'>
-                    {url}
-                  </a>
-                </div>
-              ))
+            referenceUrls.map(url => (
+              <div key={url}>
+                <a href={url} target='_blank' rel='noreferrer'>
+                  {url}
+                </a>
+              </div>
             ))
+          ))
     },
     {
       Field: 'Source URL',
@@ -170,10 +170,10 @@ export default ({ dataset }) => {
             <a href={dataset.sourceUrl} target='_blank' rel='noreferrer'>
               {dataset.sourceUrl}
             </a>
-            )
+          )
           : (
             <span>Unavailable</span>
-            )
+          )
       )
     },
     {
@@ -188,10 +188,10 @@ export default ({ dataset }) => {
             <a href={dataset.license} target='_blank' rel='noreferrer'>
               {dataset.license}
             </a>
-            )
+          )
           : (
             <span>Unavailable</span>
-            )
+          )
       )
     },
     {
