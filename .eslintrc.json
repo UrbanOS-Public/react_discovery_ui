@@ -19,9 +19,13 @@
   },
   "overrides": [
       {
-          "files": ["webpack.config.js"],
+          "files": ["webpack.config.js", "test-helpers/image-mock.js"],
           "env": { "node": true }, 
           "parserOptions": { "sourceType": "script" }
+      },
+      {
+          "files": ["*.test.js", "test-helpers/*"],
+          "env": { "jest": true, "browser": true }
       }
   ]
 }
