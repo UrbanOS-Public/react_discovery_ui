@@ -5,18 +5,18 @@
   "main": "./lib/ReactDiscoveryUI.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/smartcitiesdata/react_discovery_ui.git"
+    "url": "git+https://github.com/UrbanOS-Public/react_discovery_ui.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/smartcitiesdata/react_discovery_ui/issues"
+    "url": "https://github.com/UrbanOS-Public/react_discovery_ui/issues"
   },
   "browserslist": [
     "last 2 version",
     "> 1%"
   ],
-  "homepage": "https://github.com/smartcitiesdata/react_discovery_ui#readme",
+  "homepage": "https://github.com/UrbanOS-Public/react_discovery_ui#readme",
   "dependencies": {
     "@auth0/auth0-spa-js": "1.22.5",
     "@babel/runtime": "^7.26.7",
