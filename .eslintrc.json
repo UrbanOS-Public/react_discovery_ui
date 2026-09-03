@@ -16,5 +16,12 @@
     "indent": ["error", 2],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off"
-  }
+  },
+  "overrides": [
+      {
+          "files": ["webpack.config.js"],
+          "env": { "node": true }, 
+          "parserOptions": { "sourceType": "script" }
+      }
+  ]
 }
