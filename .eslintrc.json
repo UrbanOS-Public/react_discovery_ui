@@ -15,7 +15,14 @@
   "rules": {
     "indent": ["error", 2],
     "react/react-in-jsx-scope": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "no-restricted-properties": [
+      "error",
+      {
+        "object": "React",
+        "message": "do not use React.* APIs directly; use JSX/imported helpers"
+      }
+    ]
   },
   "ignorePatterns": [
       "/lib/*"
@@ -27,8 +34,26 @@
           "parserOptions": { "sourceType": "script" }
       },
       {
-          "files": ["*.test.js", "test-helpers/*"],
-          "env": { "jest": true, "browser": true }
+          "files": ["*.test.js", "test-helpers/*", "src/**/__mocks__/*"],
+          "env": { "jest": true, "browser": true , "node": true}
+      },
+      {
+          "files": ["cypress/e2e/**/*.cy.js", "cypress/support/**/*.js"],
+          "env": { "browser": true, "es2021": true },
+          "globals": { 
+              "cy": "readonly",
+              "Cypress": "readonly",
+              "describe": "readonly",
+              "context": "readonly",
+              "it": "readonly",
+              "require": "readonly",
+              "beforeEach": "readonly"
+          }
+      },
+      {
+          "files": ["cypress/plugins/**/*.js"],
+          "env": { "node": true },
+          "parserOptions": { "sourceType": "script" }
       }
   ]
 }
