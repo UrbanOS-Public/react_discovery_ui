@@ -2,7 +2,7 @@ import { Component } from 'react'
 import './dataset-quality.scss'
 import CollapsableBox from '../../components/collapsable-box'
 
-export default class extends Component {
+class DataSetQuality extends Component {
   streamingHeader () {
     if (!this.props.completeness) {
       return (<div />)
@@ -28,3 +28,5 @@ export default class extends Component {
     )
   }
 }
+
+export default DataSetQuality;

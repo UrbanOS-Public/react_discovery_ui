@@ -1,9 +1,10 @@
-import React from 'react'
 import './tooltip.scss'
 
-export default ({ text }) => (
+const ToolTip = ({ text }) => (
   <span className='tooltip'>
     {text}
     <div className='tooltip-text'>{text}</div>
   </span>
 )
+
+export default ToolTip;

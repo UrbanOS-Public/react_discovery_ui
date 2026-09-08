@@ -5,4 +5,5 @@ const TabButton = React.forwardRef(({ children, className = '', ...props }, ref)
   <button ref={ref} className={`tab-button ${className}`} role='button' {...props}>{children}</button>
 ))
 
-export default TabButton
+TabButton.displayName = 'TabButton';
+export default TabButton;

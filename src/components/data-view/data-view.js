@@ -278,7 +278,7 @@ const cleanseData = (data) => {
   return data.map(row => cleanseRow(row))
 }
 
-export default (props) => {
+const DataView = (props) => {
   const [index, setIndex] = useState(0)
   const isGeojson = props.format === 'geojson'
   const cleanData = isGeojson ? undefined : (props.data ? cleanseData(props.data) : props.data)
@@ -330,3 +330,5 @@ export default (props) => {
     </div>
   )
 }
+
+export default DataView;

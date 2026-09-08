@@ -12,7 +12,7 @@ function extractText (node) {
   return ''
 }
 
-export default class extends Component {
+class CollapsableBox extends Component {
   constructor (props) {
     super(props)
     const isDesktop = window.matchMedia(variables.aboveMaxBreak).matches
@@ -70,3 +70,5 @@ export default class extends Component {
     )
   }
 }
+
+export default CollapsableBox;

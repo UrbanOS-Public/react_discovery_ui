@@ -68,7 +68,7 @@ const MetadataTable = ({ data }) => {
   )
 }
 
-export default ({ dataset }) => {
+const DatasetMetadata = ({ dataset }) => {
   if (!dataset) return <div />
   const referenceUrls = dataset.referenceUrls || []
 
@@ -232,3 +232,5 @@ function mailto (email, name) {
     return <span>{name}</span>
   }
 }
+
+export default DatasetMetadata;

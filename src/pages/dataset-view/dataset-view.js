@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
@@ -16,7 +16,7 @@ import LoadingElement from '../../components/generic-elements/loading-element'
 import VisualizationListMenuItem from '../../components/visualization-list-menu-item'
 import VisualizationSaveMenuItem from '../../components/visualization-save-menu-item'
 
-export default class extends Component {
+class DatasetView extends Component {
   constructor () {
     super()
     this.state = { index: 0, localTitle: '', isMobileMenuOpen: false }
@@ -169,3 +169,5 @@ export default class extends Component {
     )
   }
 }
+
+export default DatasetView;

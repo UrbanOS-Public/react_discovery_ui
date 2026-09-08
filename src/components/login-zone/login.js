@@ -2,7 +2,7 @@ import { Component } from 'react'
 import { Link } from 'react-router-dom'
 import LoginSvgsAndText from './login-svgs-and-text'
 
-export default class extends Component {
+class Login extends Component {
   constructor (props) {
     super(props)
   }
@@ -27,3 +27,5 @@ export default class extends Component {
     )
   }
 }
+
+export default Login;

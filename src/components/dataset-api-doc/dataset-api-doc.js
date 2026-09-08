@@ -134,7 +134,7 @@ function renderExamples (dataset) {
   )
 }
 
-export default ({ expanded, dataset }) => {
+const DatasetApiDoc = ({ expanded, dataset }) => {
   return (
     <dataset-api-doc class='dataset-api-doc'>
       <CollapsableBox
@@ -147,3 +147,5 @@ export default ({ expanded, dataset }) => {
     </dataset-api-doc>
   )
 }
+
+export default DatasetApiDoc;

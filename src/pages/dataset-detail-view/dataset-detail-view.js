@@ -12,7 +12,7 @@ import DatasetQuality from '../../components/dataset-quality'
 import GeoJSONVisualization from '../../components/visualizations/geojson'
 import DatasetRecommendations from '../../components/dataset-recommendations'
 
-export default class extends Component {
+class DatasetDetailView extends Component {
   componentWillUnmount () {
     this.props.clearDatasetPreview()
     this.props.clearDatasetDetails()
@@ -74,3 +74,5 @@ export default class extends Component {
     )
   }
 }
+ 
+export default DatasetDetailView;

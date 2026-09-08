@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import PersonIcon from '@material-ui/icons/Person'
 
-export default class extends Component {
+class LoginSvgsText extends Component {
   constructor (props) {
     super(props)
   }
@@ -16,3 +16,5 @@ export default class extends Component {
     )
   }
 }
+
+export default LoginSvgsText;

@@ -5,7 +5,7 @@ import ClearIcon from '@material-ui/icons/Clear'
 
 const ENTER = 13
 
-export default class extends Component {
+class Search extends Component {
   constructor (props) {
     super(props)
     this.state = { searchText: props.defaultText || '' }
@@ -50,3 +50,5 @@ export default class extends Component {
     }
   }
 }
+
+export default Search;

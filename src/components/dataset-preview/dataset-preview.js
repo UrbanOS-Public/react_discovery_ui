@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import './dataset-preview.scss'
 import CollapsableBox from '../../components/collapsable-box'
 import DataView from '../data-view'
 
-export default class extends Component {
+class DatasetPreview extends Component {
   componentDidMount () {
     this.props.retrieveDatasetPreview(this.props.datasetId)
   }
@@ -22,3 +22,5 @@ export default class extends Component {
     )
   }
 }
+
+export default DatasetPreview;

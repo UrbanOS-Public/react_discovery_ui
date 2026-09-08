@@ -1,6 +1,8 @@
 import './back-button.scss'
 import { GeneratedLink } from '../generated-link'
 
-export default (props) => (
+const BackButton = (props) => (
   <GeneratedLink className='back-button' {...props}>{props.children}</GeneratedLink>
 )
+
+export default BackButton;

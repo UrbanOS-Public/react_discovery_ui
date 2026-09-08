@@ -2,7 +2,7 @@ import './streaming-api-doc.scss'
 import { Component } from 'react'
 import CollapsableBox from '../../components/collapsable-box'
 
-export default class extends Component {
+class StreamingApiDoc extends Component {
   streamingHeader () {
     return (
       <div>Access Operating System data through a websocket.</div>
@@ -50,3 +50,5 @@ export default class extends Component {
     )
   }
 }
+
+export default StreamingApiDoc; 
