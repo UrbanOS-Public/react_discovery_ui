@@ -6,11 +6,13 @@ import LoadingElement from '../../components/generic-elements/loading-element'
 import PropTypes from 'prop-types'
 
 const hasAuthorizationCodeParameter = search => {
-  return qs.parse(search, { ignoreQueryPrefix: true }).hasOwnProperty('code')
+  const parsed = qs.parse(search, { ignoreQueryPrefix: true })
+  return Object.prototype.hasOwnProperty.call(parsed, 'code') 
 }
 
 const hasError = search => {
-  return qs.parse(search, { ignoreQueryPrefix: true }).hasOwnProperty('error')
+  const parsed = qs.parse(search, { ignoreQueryPrefix: true })
+  return Object.prototype.hasOwnProperty.call(parsed, 'error')
 }
 
 const getError = search => {
