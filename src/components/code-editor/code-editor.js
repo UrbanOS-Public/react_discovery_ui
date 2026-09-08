@@ -1,4 +1,4 @@
-import React from 'react'
+import { Component } from 'react'
 import Editor from 'react-simple-code-editor'
 import { highlight, languages } from 'prismjs/components/prism-core'
 import 'prismjs/components/prism-sql'
@@ -6,7 +6,7 @@ import './code-editor.css'
 
 const code = 'SELECT * FROM ...'
 
-class CodeEditor extends React.Component {
+class CodeEditor extends Component {
   constructor (props) {
     super(props)
     this.state = {

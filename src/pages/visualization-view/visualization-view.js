@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { generatePath } from 'react-router'
 
@@ -35,10 +35,10 @@ const VisualizationView = (props) => {
   const [localTitle, setLocalTitle] = useState(title || '')
   const [index, setIndex] = useState(0)
 
-  React.useEffect(() => { return function cleanup () { reset() } }, [])
-  React.useEffect(() => { if (idFromUrl && idFromUrl !== idFromState) load(idFromUrl) }, [idFromUrl])
-  React.useEffect(() => { if (idFromState && idFromUrl !== idFromState) history.push(linkUrl) }, [idFromState])
-  React.useEffect(() => { setLocalTitle(title) }, [title])
+  useEffect(() => { return function cleanup () { reset() } }, [])
+  useEffect(() => { if (idFromUrl && idFromUrl !== idFromState) load(idFromUrl) }, [idFromUrl])
+  useEffect(() => { if (idFromState && idFromUrl !== idFromState) history.push(linkUrl) }, [idFromState])
+  useEffect(() => { setLocalTitle(title) }, [title])
 
   const handleTitleChange = (event) => {
     if (event.target.value !== localTitle) {

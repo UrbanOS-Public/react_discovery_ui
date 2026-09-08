@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import './dataset-metadata.scss'
 import { useReactTable, getCoreRowModel, getSortedRowModel, flexRender } from '@tanstack/react-table'
 import CollapsableBox from '../../components/collapsable-box'
@@ -19,7 +19,7 @@ const MetadataTable = ({ data }) => {
     }
   ], [])
 
-  const [sorting, setSorting] = React.useState([{ id: 'Field', desc: false }])
+  const [sorting, setSorting] = useState([{ id: 'Field', desc: false }])
 
   const table = useReactTable({
     data,

@@ -1,9 +1,9 @@
+import { cloneElement } from 'react'
 import withSearchParamsManager, { SearchParamsManager, defaults } from './search-params-manager'
 import { mount } from 'enzyme'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { datasetSearch } from '../store/actions.js'
-import React from 'react'
 
 describe('SearchParamsManager', () => {
   describe('property access', () => {
@@ -484,7 +484,7 @@ function createFakeHistory (search) {
 function TestableProvider ({ children, store, ...props }) {
   return (
     <Provider store={store}>
-      {React.cloneElement(children, { ...props })}
+      {cloneElement(children, { ...props })}
     </Provider>
   )
 }

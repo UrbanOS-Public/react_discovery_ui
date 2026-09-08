@@ -1,4 +1,4 @@
-import React from 'react'
+import { Component } from 'react'
 import { Map, TileLayer, GeoJSON } from 'react-leaflet'
 import './geojson-visualization.scss'
 import '!style-loader!css-loader!leaflet/dist/leaflet.css'
@@ -7,21 +7,24 @@ import { GeoJsonUtils } from '../../../utils'
 import ErrorComponent from '../../../components/generic-elements/error-component'
 import Checkbox from '../../../components/generic-elements/checkbox'
 import CollapsableBox from '../../../components/collapsable-box'
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
+import markerIcon from 'leaflet/dist/images/marker-icon.png'
+import markerShadow from 'leaflet/dist/images/marker-shadow.png'
 
 // this one weird trick to make leaflet markers show up correctly when webpacked
 import L from 'leaflet'
 delete L.Icon.Default.prototype._getIconUrl
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-  iconUrl: require('leaflet/dist/images/marker-icon.png'),
-  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+  iconRetinaUrl: markerIcon2x,
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow 
 })
 
 const ohioBBox = [-84.811309, 38.483320, -80.541532, 41.971108]
 
 const description = 'This only shows the first 50 features in the dataset, to view all features press the toggle below or download the dataset'
 
-export default class GeoJSONVisualization extends React.Component {
+export default class GeoJSONVisualization extends Component {
   constructor (props) {
     super(props)
     this.state = { showFullMap: false }

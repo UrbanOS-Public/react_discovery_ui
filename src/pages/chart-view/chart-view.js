@@ -1,6 +1,6 @@
+import { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import './chart-view.scss'
-import React from 'react'
 import PlotlyEditor, { dereference, DefaultEditor } from 'react-chart-editor/lib'
 
 import plotly from 'plotly.js/dist/plotly'
@@ -23,13 +23,13 @@ const ChartView = (props) => {
   const { dataSources, isLoading, shouldAutoExecuteQuery, executeQuery, setChartInformation, chart } = props
   const { data, layout, frames } = chart
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (shouldAutoExecuteQuery) {
       executeQuery()
     }
   }, [shouldAutoExecuteQuery])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const clonedData = cloneDeep(data)
     dereference(clonedData, dataSources)
     setChartInformation({ data: clonedData, layout, frames })

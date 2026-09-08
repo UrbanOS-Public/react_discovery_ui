@@ -1,5 +1,5 @@
 import './query-view.scss'
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import QueryForm from '../../components/query-form'
 import DataView from '../../components/data-view'
@@ -30,13 +30,13 @@ const QueryView = props => {
     setPage(page)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (shouldAutoExecuteQuery) {
       executeQuery(freestyleQueryText)
     }
   }, [shouldAutoExecuteQuery])
 
-  React.useEffect(() => {
+  useEffect(() => {
     setPage(0)
   }, [queryData])
 

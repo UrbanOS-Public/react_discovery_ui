@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import './query-form.scss'
 import '@trendmicro/react-buttons/dist/react-buttons.css'
@@ -31,7 +31,7 @@ const QueryForm = props => {
   } = props
 
   const [localQueryText, setLocalQueryText] = useState(queryText)
-  React.useEffect(() => {
+  useEffect(() => {
     setLocalQueryText(queryText)
   }, [queryText])
 

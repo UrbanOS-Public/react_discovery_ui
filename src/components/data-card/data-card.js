@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './data-card.scss'
 import { Link } from 'react-router-dom'
 import SanitizedHTML from 'react-sanitized-html'
@@ -17,7 +18,7 @@ const DataCard = props => {
   }
 
   const dataset = props.dataset
-  const [imageStatus, setImageStatus] = React.useState('loading')
+  const [imageStatus, setImageStatus] = useState('loading')
 
   const logoAltText = (() => {
     if (imageStatus === 'fallback') return `No image available for ${dataset.organization_title}`
