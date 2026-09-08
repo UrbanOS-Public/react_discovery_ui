@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme'
-import { Tab, TabPanel, TabList, Tabs } from 'react-tabs'
+import { Tab, TabPanel, Tabs } from 'react-tabs'
 
 import DatasetView from './dataset-view'
 import QueryView from '../query-view'

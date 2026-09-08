@@ -13,12 +13,11 @@ describe('dataset api doc ', () => {
   let subject
 
   beforeEach(() => {
-    const matchMedia = jest.fn()
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
-      value: jest.fn().mockImplementation(query => ({
+      value: jest.fn().mockImplementation({
         matches: true
-      }))
+      })
     })
     subject = render(<DatasetApiDoc dataset={dataset} />)
   })

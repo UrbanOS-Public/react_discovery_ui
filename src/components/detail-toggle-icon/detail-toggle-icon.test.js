@@ -1,4 +1,4 @@
-import { shallow, render } from 'enzyme'
+import { shallow } from 'enzyme'
 import DetailToggleIcon from './detail-toggle-icon'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'

@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
-import { useDispatch, connect } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import qs from 'qs'
-import _ from 'lodash'
 
 import { datasetSearch } from '../store/actions.js'
 import PropTypes from 'prop-types'
@@ -62,7 +61,7 @@ class SearchParamsManager {
     if (!facets) return {}
 
     const validFacets = Object.entries(facets)
-      .filter(([key, _]) => {
+      .filter(([key, ]) => {
         const hasInvalidBrackets = /[\[\]{}()]/.test(key)
         return !hasInvalidBrackets
       })

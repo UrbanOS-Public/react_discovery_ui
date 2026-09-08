@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import './oauth-error-view.scss'
 import qs from 'qs'
 import routes from '../../routes.js'

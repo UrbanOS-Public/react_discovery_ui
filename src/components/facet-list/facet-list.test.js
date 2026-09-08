@@ -1,6 +1,6 @@
 import FacetList from './facet-list'
 import Checkbox from '../generic-elements/checkbox'
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 
 describe('facet list', () => {
   let subject, mockClickHandler, mockShowMoreHandler

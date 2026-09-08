@@ -2,7 +2,6 @@ import { useState } from 'react'
 import FolderIcon from '../generic-elements/folder-icon'
 import TabButton from '../generic-elements/tab-button'
 import AutoAnchoringPopover from '../generic-elements/auto-anchoring-popover'
-import { Link } from 'react-router-dom'
 import Auth0LoginZone from '../auth0-login-zone'
 
 import './visualization-list-menu-item.scss'

@@ -3,12 +3,11 @@ import CollapsableBox from './collapsable-box'
 
 describe('CollapsableBox ', () => {
   test('desktop default to expanded', () => {
-    const matchMedia = jest.fn()
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
-      value: jest.fn().mockImplementation(query => ({
+      value: jest.fn().mockImplementation({
         matches: true
-      }))
+      })
     })
     const subject = shallow(
       <CollapsableBox headerHtml='<div />'>
@@ -19,12 +18,11 @@ describe('CollapsableBox ', () => {
   })
 
   test('mobile/table default to collapsed', () => {
-    const matchMedia = jest.fn()
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
-      value: jest.fn().mockImplementation(query => ({
+      value: jest.fn().mockImplementation({
         matches: false
-      }))
+      })
     })
     const subject = shallow(
       <CollapsableBox headerHtml='<div />'>
@@ -35,12 +33,11 @@ describe('CollapsableBox ', () => {
   })
 
   test('clicking the header changes the expanded state on mobile/tablet', () => {
-    const matchMedia = jest.fn()
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
-      value: jest.fn().mockImplementation(query => ({
+      value: jest.fn().mockImplementation({
         matches: false
-      }))
+      })
     })
     const subject = shallow(
       <CollapsableBox headerHtml='<div />' expanded={false}>
@@ -52,12 +49,11 @@ describe('CollapsableBox ', () => {
   })
 
   test('clicking the header changes the expanded state on Desktop', () => {
-    const matchMedia = jest.fn()
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
-      value: jest.fn().mockImplementation(query => ({
+      value: jest.fn().mockImplementation({
         matches: true
-      }))
+      })
     })
     const subject = shallow(
       <CollapsableBox headerHtml='<div />' expanded={false}>
@@ -69,12 +65,11 @@ describe('CollapsableBox ', () => {
   })
 
   test('clicking the header changes the expanded state on expanded', () => {
-    const matchMedia = jest.fn()
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
-      value: jest.fn().mockImplementation(query => ({
+      value: jest.fn().mockImplementation({
         matches: undefined
-      }))
+      })
     })
     const subject = shallow(
       <CollapsableBox headerHtml='<div />' expanded>

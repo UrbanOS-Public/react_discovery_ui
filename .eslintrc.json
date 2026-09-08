@@ -17,6 +17,9 @@
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off"
   },
+  "ignorePatterns": [
+      "/lib/*"
+  ],
   "overrides": [
       {
           "files": ["webpack.config.js", "test-helpers/image-mock.js"],

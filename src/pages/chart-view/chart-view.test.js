@@ -3,7 +3,6 @@ import { shallow } from 'enzyme'
 import ChartView from './chart-view'
 import PlotlyEditor, { DefaultEditor } from 'react-chart-editor'
 import LoadingElement from '../../components/generic-elements/loading-element'
-import * as ReactChartLibrary from 'react-chart-editor/lib'
 
 // Currently, shallow rendering is not compatible with React hooks.
 // We've utilized a strategy found here https://blog.carbonfive.com/2019/08/05/shallow-testing-hooks-with-enzyme/

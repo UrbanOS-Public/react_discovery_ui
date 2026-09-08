@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import QueryForm from '../../components/query-form'
 import DataView from '../../components/data-view'
 import LoadingElement from '../../components/generic-elements/loading-element'
-import _ from 'lodash'
 
 const QueryView = props => {
   const {

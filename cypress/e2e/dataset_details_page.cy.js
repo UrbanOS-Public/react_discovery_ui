@@ -8,7 +8,7 @@ const {
   datasetApiExample, activityNodesButton, curlExample0, curlExample1, curlExample2, queryInput,
   successMessage, errorMessage, numRecords, tableHeader, tableBody, reactTable, paginatorInput, pageNumber, nextPageButton, totalPages,
   submitQueryButton, cancelQueryButton, savedVisualizationsIcon, savedVisualizationsPopover,
-  loginButton, saveIcon, savePopover, queryPrompt, saveButton, saveIndicator, clearIcon, cancelButton,
+  loginButton, saveIcon, savePopover, queryPrompt, saveButton, cancelButton,
   plotlyEditor, socialMediaTwitter, socialMediaFacebook, socialMediaLinkedin, clipboard, downloadButton
 } = Selectors
 

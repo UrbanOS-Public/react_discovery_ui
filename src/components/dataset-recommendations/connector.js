@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import DatasetRecommendations from './dataset-recommendations'
-import { getDatasetRecommendations, getDataSet } from '../../store/selectors'
+import { getDatasetRecommendations } from '../../store/selectors'
 import { datasetRecommendations } from '../../store/actions'
 
 const mapStateToProps = state => {
