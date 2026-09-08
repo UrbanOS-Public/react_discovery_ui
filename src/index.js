@@ -11,4 +11,5 @@ if (window.GTM_ID) {
   TagManager.initialize({ gtmId: window.GTM_ID })
 }
 
+// eslint-disable-next-line react/no-deprecated
 ReactDOM.render(<ReactDiscoveryUI />, document.getElementById('root'))
