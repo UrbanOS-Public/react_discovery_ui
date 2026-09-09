@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import LoginSvgsAndText from './login-svgs-and-text'
 
-export default class extends Component {
+class Logout extends Component {
   constructor (props) {
     super(props)
   }
@@ -18,3 +18,5 @@ export default class extends Component {
     )
   }
 }
+
+export default Logout;

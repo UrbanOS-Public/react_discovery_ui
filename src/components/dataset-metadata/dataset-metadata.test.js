@@ -4,7 +4,7 @@ import DatasetMetadata from './dataset-metadata'
 beforeEach(() => {
   Object.defineProperty(window, 'matchMedia', {
     writable: true,
-    value: jest.fn().mockImplementation(query => ({
+    value: jest.fn().mockImplementation(() => ({
       matches: true
     }))
   })

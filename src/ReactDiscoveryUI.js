@@ -45,7 +45,7 @@ const noMatch = () => (
 
 const DiscoveryUI = () => {
   return (
-    <section class='main-app-element'>
+    <section className='main-app-element'>
       <NetworkLoadingElement />
       <Router>
         <Switch>

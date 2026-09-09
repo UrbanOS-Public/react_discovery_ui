@@ -1,3 +1,4 @@
+import { createElement } from 'react'
 import { mount } from 'enzyme'
 import QueryForm from './query-form'
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -232,7 +233,7 @@ function createSubject (params) {
   const paramsWithDefaults = Object.assign({}, defaults, params)
 
   // This allows us to set properties on a component wrapped in a provider
-  return mount(React.createElement(
+  return mount(createElement(
     props => (
       <Router>
         <QueryForm {...props} />

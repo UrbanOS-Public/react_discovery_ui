@@ -1,6 +1,5 @@
+import { Component } from 'react'
 import './share.scss'
-
-import React from 'react'
 import {
   FacebookShareButton,
   LinkedinShareButton,
@@ -9,10 +8,11 @@ import {
   TwitterIcon,
   LinkedinIcon
 } from 'react-share'
+
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined'
 
-class Share extends React.Component {
+class Share extends Component {
   constructor (props) {
     super(props)
     this.state = {

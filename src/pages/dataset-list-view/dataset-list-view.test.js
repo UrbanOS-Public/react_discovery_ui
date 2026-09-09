@@ -132,7 +132,7 @@ describe('dataset list view', () => {
   })
 })
 
-function createSubject (props, queryString = '') {
+function createSubject (props) {
   const defaultProps = {
     isSearchLoading: false,
     searchMetadata: {},

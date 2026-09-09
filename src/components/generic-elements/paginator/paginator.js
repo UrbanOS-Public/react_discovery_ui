@@ -7,7 +7,7 @@ const DISPLAY_SIZE = 7
 // Half the display width minus the first/last element and the elipsis
 const MIDDLE_WIDTH = DISPLAY_SIZE / 2 - 2
 
-export default ({ className, numberOfPages, currentPage, pageChangeCallback }) => {
+const Paginator = ({ className, numberOfPages, currentPage, pageChangeCallback }) => {
   const options = calculateOptions(numberOfPages, currentPage)
 
   return (
@@ -72,3 +72,5 @@ const calculateOptions = (numberOfPages, currentPage) => {
     .compact()
     .value()
 }
+
+export default Paginator;

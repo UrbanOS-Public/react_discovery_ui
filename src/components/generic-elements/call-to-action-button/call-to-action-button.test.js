@@ -55,7 +55,7 @@ describe('call-to-action-button', () => {
   })
 
   test('clicking continues opens a new window with the sourceUrl', () => {
-    global.open = jest.fn()
+    window.open = jest.fn()
 
     const subject = createCallToActionButton({ url: 'abc', format: 'csv', filename: 'dataset.csv', sourceType: 'remote', sourceUrl: 'https://www.google.com/' })
 
@@ -63,6 +63,6 @@ describe('call-to-action-button', () => {
 
     subject.find('.modal-confirm').simulate('click')
 
-    expect(global.open).toBeCalled()
+    expect(window.open).toBeCalled()
   })
 })

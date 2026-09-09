@@ -1,5 +1,5 @@
 import { takeEvery, put, call, fork, all, select } from 'redux-saga/effects'
-import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, VISUALIZATIONS_LOAD_ALL, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText, setChartInformation, executeFreestyleQuery, visualizationsLoadAllSuccess, visualizationsLoadAllFailure, VISUALIZATION_DELETE, visualizationDeleteFailure, visualizationDeleteSuccess, visualizationsLoadAll, retrieveDatasetReference, visualizationLoad, VISUALIZATION_LOAD_SUCCESS, VISUALIZATION_SAVE_SUCCESS } from '../actions'
+import { VISUALIZATION_SAVE, VISUALIZATION_LOAD, VISUALIZATIONS_LOAD_ALL, visualizationLoadSuccess, visualizationLoadFailure, visualizationSaveSuccess, visualizationSaveFailure, setQueryText, setChartInformation, executeFreestyleQuery, visualizationsLoadAllSuccess, visualizationsLoadAllFailure, VISUALIZATION_DELETE, visualizationDeleteFailure, visualizationDeleteSuccess, visualizationsLoadAll, retrieveDatasetReference, VISUALIZATION_LOAD_SUCCESS, VISUALIZATION_SAVE_SUCCESS } from '../actions'
 import { AuthenticatedHTTPClient } from '../../utils/http-clients'
 import { dereferencedChart } from '../visualization-selectors'
 
@@ -71,7 +71,8 @@ export function * deleteVisualization ({ value }) {
 }
 
 function removeId (visualization) {
-  const { id, ...withoutId } = visualization
+  const withoutId = { ...visualization }
+  delete withoutId.id
   return withoutId
 }
 

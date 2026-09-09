@@ -1,8 +1,9 @@
 import { takeLatest, put, call } from 'redux-saga/effects'
 import { LOGOUT, logoutSuccess, logoutFailure } from '../actions'
 import axios from 'axios'
+import _ from 'lodash'
 
-function * logout ({ value: { username, password, history } }) {
+function * logout ({ value: { history } }) {
   try {
     const token = sessionStorage.getItem('api-token')
     const location = _.get(history, 'location.state.from', { pathname: '/', search: '' })

@@ -1,7 +1,7 @@
 import './organization.scss'
 import { QueryStringBuilder } from '../../utils'
 
-export default ({ organization }) => (
+const Organization = ({ organization }) => (
   <dataset-organization>
     <div className='organization-header'>Organization Info</div>
     <a role='link' aria-label={`View ${organization.title} datasets`} href={`/?${QueryStringBuilder.createFilterQueryString('organization', organization.title)}`}>
@@ -16,3 +16,5 @@ export default ({ organization }) => (
     <div data-testid='organization-description' className='description wrapped-text'>{organization.description}</div>
   </dataset-organization>
 )
+
+export default Organization;

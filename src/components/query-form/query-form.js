@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import './query-form.scss'
 import '@trendmicro/react-buttons/dist/react-buttons.css'
@@ -31,7 +31,7 @@ const QueryForm = props => {
   } = props
 
   const [localQueryText, setLocalQueryText] = useState(queryText)
-  React.useEffect(() => {
+  useEffect(() => {
     setLocalQueryText(queryText)
   }, [queryText])
 
@@ -200,7 +200,7 @@ const QueryForm = props => {
       <h1>Query Dataset</h1>
       <div className='user-input'>
         <div className='sql-section'>
-          <label for='code-editor' className='sql-title'>Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</label>
+          <label htmlFor='code-editor' className='sql-title'>Enter your SQL query below. For best performance, you should limit your results to no more than 20,000 rows.</label>
           {textArea}
         </div>
         <div className='query-info'>

@@ -2,12 +2,20 @@ import { mount } from 'enzyme'
 import { Auth0LoginZone as Component } from './auth0-login-zone'
 import LoadingElement from '../generic-elements/loading-element'
 import { BrowserRouter as Router } from 'react-router-dom'
-import * as device from 'react-device-detect'
+
+let mockIsMobile = false
+jest.mock('react-device-detect', () => ({
+  get isMobile() {
+    return mockIsMobile
+  }
+}))
+
 
 describe('OauthLoginZone component', () => {
   let subject, button, loginHandler, logoutHandler
 
   beforeEach(() => {
+    mockIsMobile = false
     loginHandler = jest.fn()
     logoutHandler = jest.fn()
   })
@@ -36,7 +44,7 @@ describe('OauthLoginZone component', () => {
 
   describe('authenticated', () => {
     beforeEach(() => {
-      device.isMobile = false
+      mockIsMobile = false
       subject = createSubject({ isAuthenticated: true, loginWithRedirect: loginHandler, logout: logoutHandler })
       button = subject.find('button')
     })
@@ -114,7 +122,7 @@ describe('OauthLoginZone component', () => {
 
     describe('account menu on mobile', () => {
       beforeEach(() => {
-        device.isMobile = true
+        mockIsMobile = true
         subject = createSubject({ isAuthenticated: true, loginWithRedirect: loginHandler, logout: logoutHandler })
         button = subject.find('button')
       })

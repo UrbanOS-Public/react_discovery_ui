@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import './dataset-recommendations.scss'
 import CollapsableBox from '../collapsable-box'
@@ -10,7 +11,7 @@ const DatasetRecommendations = (props) => {
     getRecommendations(dataset.id)
   }
 
-  React.useEffect(onInit, [])
+  useEffect(onInit, [])
 
   const isContentUnavailable = !recommendations || recommendations.length == 0
 

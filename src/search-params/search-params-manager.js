@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { useDispatch, connect } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import qs from 'qs'
 import _ from 'lodash'
 
@@ -62,8 +62,8 @@ class SearchParamsManager {
     if (!facets) return {}
 
     const validFacets = Object.entries(facets)
-      .filter(([key, _]) => {
-        const hasInvalidBrackets = /[\[\]{}()]/.test(key)
+      .filter(([key, ]) => {
+        const hasInvalidBrackets = /[[\]{}()]/.test(key)
         return !hasInvalidBrackets
       })
       .map(([key, value]) => [key, Array.isArray(value) ? value : [value]])
@@ -129,12 +129,15 @@ const withSearchParamsManager = (WrappedComponent) => {
     const searchParamsManager = new SearchParamsManager(history)
 
     const dispatchDatasetSearch = () => {
-      try {
-        const cachedElementID = sessionStorage.getItem('cachedFocusedElement')
-        sessionStorage.removeItem('cachedFocusedElement')
+      const cachedElementID = sessionStorage.getItem('cachedFocusedElement')
+      sessionStorage.removeItem('cachedFocusedElement')
+
+      if (cachedElementID) {
         const cachedElement = document.getElementById(cachedElementID)
-        cachedElement.focus()
-      } catch (e) {}
+        if (cachedElement && typeof cachedElement.focus === 'function') {
+          cachedElement.focus()
+        }
+      }
 
       const updatedParams = searchParamsManager.getParams()
       dispatch(datasetSearch(updatedParams))

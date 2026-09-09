@@ -63,12 +63,12 @@ export const Auth0LoginZone = ({ auth: { isAuthenticated, isLoading, loginWithRe
                     <span className='menu-text'><Link to='/apiKey' rel='noopener noreferrer'>API Key</Link></span>
                   </li>}
                 {
-                (window.CONTRIBUTE_HOST) &&
+                  (window.CONTRIBUTE_HOST) &&
                   <li className='menu-item'>
                     <Backup />
                     <span className='menu-text'><a role='link' href={window.CONTRIBUTE_HOST}>My Datasets</a></span>
                   </li>
-              }
+                }
                 <li className='menu-item' id='logout-button' onClick={() => { logout({ returnTo }) }}>
                   <ExitIcon />
                   <span className='menu-text'><a role='link' href='#'>Log Out</a></span>

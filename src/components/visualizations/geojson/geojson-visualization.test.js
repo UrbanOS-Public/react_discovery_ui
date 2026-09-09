@@ -16,7 +16,7 @@ describe('<GeoJSONVisualization />', () => {
       previewDataset={previewDataset}
       downloadDataset={downloadDataset}
       datasetId='345'
-                      />)
+    />)
 
     expect(previewDataset).toHaveBeenCalledWith('345', 'geojson')
     expect(downloadDataset).toHaveBeenCalledWith('345', 'geojson')
@@ -28,7 +28,7 @@ describe('<GeoJSONVisualization />', () => {
         previewDataset={previewDataset}
         downloadDataset={downloadDataset}
         downloadedDatasetError
-                        />)
+      />)
     })
 
     it('renders an error component', () => {
@@ -36,8 +36,8 @@ describe('<GeoJSONVisualization />', () => {
     })
 
     it('does not render maps', () => {
-      expect(wrapper.find('[test-id="preview-map"]').length).toEqual(0)
-      expect(wrapper.find('[test-id="downloaded-map"]').length).toEqual(0)
+      expect(wrapper.find('[data-testid="preview-map"]').length).toEqual(0)
+      expect(wrapper.find('[data-testid="downloaded-map"]').length).toEqual(0)
     })
 
     it('does not render a loader', () => {
@@ -50,7 +50,7 @@ describe('<GeoJSONVisualization />', () => {
       wrapper = shallow(<GeoJSONVisualization
         previewDataset={previewDataset}
         downloadDataset={downloadDataset}
-                        />)
+      />)
 
       expect(wrapper.find('LoadingElement').length).toEqual(1)
     })
@@ -92,7 +92,7 @@ describe('<GeoJSONVisualization />', () => {
           downloadDataset={downloadDataset}
           downloadedGeoJsonData={downloadedGeoJsonData}
           previewedGeoJsonData={previewedGeoJsonData}
-                          />)
+        />)
       })
 
       it('renders map', () => {
@@ -102,7 +102,7 @@ describe('<GeoJSONVisualization />', () => {
       })
 
       it('transposes preview data bounding value to appropriate format for leaflet', () => {
-        const previewMapWrapper = wrapper.find('[test-id="preview-map"]')
+        const previewMapWrapper = wrapper.find('[data-testid="preview-map"]')
         expect(previewMapWrapper.find(Map).props().bounds).toEqual([[2, 1], [6, 5]])
       })
 
@@ -130,7 +130,7 @@ describe('<GeoJSONVisualization />', () => {
           previewDataset={previewDataset}
           downloadDataset={downloadDataset}
           previewedGeoJsonData={previewedGeoJsonData}
-                          />)
+        />)
       })
 
       it('renders map', () => {
@@ -141,7 +141,7 @@ describe('<GeoJSONVisualization />', () => {
       })
 
       it('transposes preview data bounding value to appropriate format for leaflet', () => {
-        const previewMapWrapper = wrapper.find('[test-id="preview-map"]')
+        const previewMapWrapper = wrapper.find('[data-testid="preview-map"]')
         expect(previewMapWrapper.find(Map).props().bounds).toEqual([[2, 1], [6, 5]])
       })
 
@@ -161,7 +161,7 @@ describe('<GeoJSONVisualization />', () => {
           previewDataset={previewDataset}
           downloadDataset={downloadDataset}
           downloadedGeoJsonData={downloadedGeoJsonData}
-                          />)
+        />)
       })
 
       it('renders map', () => {
@@ -172,7 +172,7 @@ describe('<GeoJSONVisualization />', () => {
       })
 
       it('transposes downloaded data bounding value to appropriate format for leaflet', () => {
-        const downloadedMapWrapper = wrapper.find('[test-id="downloaded-map"]')
+        const downloadedMapWrapper = wrapper.find('[data-testid="downloaded-map"]')
         expect(downloadedMapWrapper.find(Map).props().bounds).toEqual([[2, 1], [7, 6]])
       })
 
@@ -199,7 +199,7 @@ describe('<GeoJSONVisualization />', () => {
           downloadedGeoJsonData={downloadedGeoJsonData}
         />)
 
-      const previewMapWrapper = wrapper.find('[test-id="preview-map"]')
+      const previewMapWrapper = wrapper.find('[data-testid="preview-map"]')
       expect(previewMapWrapper.find(Map).props().bounds).toEqual([[38.483320, -84.811309], [41.971108, -80.541532]])
     })
   })
@@ -220,19 +220,19 @@ describe('<GeoJSONVisualization />', () => {
 })
 
 function isPreviewMapHidden (wrapper) {
-  const previewMapWrapper = wrapper.find('[test-id="preview-map"]')
+  const previewMapWrapper = wrapper.find('[data-testid="preview-map"]')
   return previewMapWrapper.hasClass('hidden')
 }
 
 function isDownloadedMapHidden (wrapper) {
-  const dowloadedMapWrapper = wrapper.find('[test-id="downloaded-map"]')
+  const dowloadedMapWrapper = wrapper.find('[data-testid="downloaded-map"]')
   return dowloadedMapWrapper.hasClass('hidden')
 }
 
 function isPreviewMapRendered (wrapper) {
-  return wrapper.find('[test-id="preview-map"]').exists()
+  return wrapper.find('[data-testid="preview-map"]').exists()
 }
 
 function isDownloadedMapRendered (wrapper) {
-  return wrapper.find('[test-id="downloaded-map"]').exists()
+  return wrapper.find('[data-testid="downloaded-map"]').exists()
 }

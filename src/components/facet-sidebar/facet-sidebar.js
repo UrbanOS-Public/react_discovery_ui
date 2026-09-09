@@ -4,7 +4,7 @@ import './facet-sidebar.scss'
 import { Component } from 'react'
 import { Dialog } from '@material-ui/core'
 
-export default class extends Component {
+class FacetSidebar extends Component {
   constructor (props) {
     super(props)
 
@@ -63,3 +63,5 @@ export default class extends Component {
     })
   }
 }
+
+export default FacetSidebar;

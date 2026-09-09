@@ -12,7 +12,7 @@ function extractText (node) {
   return ''
 }
 
-export default class extends Component {
+class CollapsableBox extends Component {
   constructor (props) {
     super(props)
     const isDesktop = window.matchMedia(variables.aboveMaxBreak).matches
@@ -43,7 +43,7 @@ export default class extends Component {
         <div
           data-testid={this.props.testId}
           className={`header-container ${this.headerOpenClass()}`}
-          onClick={e => { this.toggleCollapsed() }}
+          onClick={() => this.toggleCollapsed()}
           onKeyDown={(event) => { if (event.key === ' ' || event.key === 'Enter') { event.preventDefault(); this.toggleCollapsed() } }}
           role='button'
           tabIndex='0'
@@ -70,3 +70,5 @@ export default class extends Component {
     )
   }
 }
+
+export default CollapsableBox;

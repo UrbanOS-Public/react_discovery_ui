@@ -5,7 +5,7 @@ const createOption = option => {
   return <option key={option.value} value={option.value}>{option.label}</option>
 }
 
-export default ({ options, label, selectChangeCallback, className, testId = '' }) => {
+const Select =  ({ options, label, selectChangeCallback, className, testId = '' }) => {
   const defaultOption = _.find(options, it => it.default)
 
   return (
@@ -21,3 +21,5 @@ export default ({ options, label, selectChangeCallback, className, testId = '' }
 const onChange = (event, selectChangeCallback) => {
   selectChangeCallback(event.target.value)
 }
+
+export default Select;

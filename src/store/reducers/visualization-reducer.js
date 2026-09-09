@@ -35,90 +35,90 @@ const defaultVisualizationState = {
 
 const visualizationReducer = (state = defaultVisualizationState, action) => {
   switch (action.type) {
-    case VISUALIZATION_LOAD:
-      return Object.assign({}, state, {
-        loading: true,
-        loadSuccess: false,
-        loadFailure: false
-      })
-    case VISUALIZATION_LOAD_SUCCESS:
-      return Object.assign({}, state, {
-        visualization: action.value,
-        loading: false,
-        loadSuccess: true,
-        loadFailure: false
-      })
-    case VISUALIZATION_LOAD_FAILURE:
-      return Object.assign({}, state, {
-        loading: false,
-        loadSuccess: false,
-        loadFailure: true
-      })
-    case VISUALIZATIONS_LOAD_ALL:
-      return Object.assign({}, state, {
-        loading: true,
-        loadSuccess: false,
-        loadFailure: false
-      })
-    case VISUALIZATIONS_LOAD_ALL_SUCCESS:
-      return Object.assign({}, state, {
-        userVisualizations: formatVisualizationsForTable(action.value),
-        loading: false,
-        loadSuccess: true,
-        loadFailure: false
-      })
-    case VISUALIZATIONS_LOAD_ALL_FAILURE:
-      return Object.assign({}, state, {
-        loading: false,
-        loadSuccess: false,
-        loadFailure: true
-      })
-    case VISUALIZATION_DELETE:
-      return Object.assign({}, state, {
-        deleteFailure: false,
-        deleteSuccess: false,
-        deleting: true
-      })
-    case VISUALIZATION_DELETE_FAILURE:
-      return Object.assign({}, state, {
-        deleteFailure: true,
-        deleting: false
-      })
-    case VISUALIZATION_DELETE_SUCCESS:
-      return Object.assign({}, state, {
-        deleteSuccess: true,
-        deleting: false
-      })
-    case VISUALIZATION_DELETE_CLEAR:
-      return Object.assign({}, state, {
-        deleteSuccess: false,
-        deleteFailure: false,
-        deleting: false
-      })
-    case VISUALIZATION_SAVE:
-      return Object.assign({}, state, {
-        saving: true,
-        saveSuccess: false,
-        saveFailure: false
-      })
-    case VISUALIZATION_SAVE_SUCCESS:
-      return Object.assign({}, state, {
-        visualization: action.value,
-        saving: false,
-        saveSuccess: true,
-        saveFailure: false
-      })
-    case VISUALIZATION_SAVE_FAILURE:
-      return Object.assign({}, state, {
-        saving: false,
-        saveSuccess: false,
-        saveFailure: true
-      })
-    case SET_CHART_INFORMATION:
-      return Object.assign({}, state, { chart: constructValidChart(action.value) })
-    case VISUALIZATION_RESET:
-      return defaultVisualizationState
-    default: return state
+  case VISUALIZATION_LOAD:
+    return Object.assign({}, state, {
+      loading: true,
+      loadSuccess: false,
+      loadFailure: false
+    })
+  case VISUALIZATION_LOAD_SUCCESS:
+    return Object.assign({}, state, {
+      visualization: action.value,
+      loading: false,
+      loadSuccess: true,
+      loadFailure: false
+    })
+  case VISUALIZATION_LOAD_FAILURE:
+    return Object.assign({}, state, {
+      loading: false,
+      loadSuccess: false,
+      loadFailure: true
+    })
+  case VISUALIZATIONS_LOAD_ALL:
+    return Object.assign({}, state, {
+      loading: true,
+      loadSuccess: false,
+      loadFailure: false
+    })
+  case VISUALIZATIONS_LOAD_ALL_SUCCESS:
+    return Object.assign({}, state, {
+      userVisualizations: formatVisualizationsForTable(action.value),
+      loading: false,
+      loadSuccess: true,
+      loadFailure: false
+    })
+  case VISUALIZATIONS_LOAD_ALL_FAILURE:
+    return Object.assign({}, state, {
+      loading: false,
+      loadSuccess: false,
+      loadFailure: true
+    })
+  case VISUALIZATION_DELETE:
+    return Object.assign({}, state, {
+      deleteFailure: false,
+      deleteSuccess: false,
+      deleting: true
+    })
+  case VISUALIZATION_DELETE_FAILURE:
+    return Object.assign({}, state, {
+      deleteFailure: true,
+      deleting: false
+    })
+  case VISUALIZATION_DELETE_SUCCESS:
+    return Object.assign({}, state, {
+      deleteSuccess: true,
+      deleting: false
+    })
+  case VISUALIZATION_DELETE_CLEAR:
+    return Object.assign({}, state, {
+      deleteSuccess: false,
+      deleteFailure: false,
+      deleting: false
+    })
+  case VISUALIZATION_SAVE:
+    return Object.assign({}, state, {
+      saving: true,
+      saveSuccess: false,
+      saveFailure: false
+    })
+  case VISUALIZATION_SAVE_SUCCESS:
+    return Object.assign({}, state, {
+      visualization: action.value,
+      saving: false,
+      saveSuccess: true,
+      saveFailure: false
+    })
+  case VISUALIZATION_SAVE_FAILURE:
+    return Object.assign({}, state, {
+      saving: false,
+      saveSuccess: false,
+      saveFailure: true
+    })
+  case SET_CHART_INFORMATION:
+    return Object.assign({}, state, { chart: constructValidChart(action.value) })
+  case VISUALIZATION_RESET:
+    return defaultVisualizationState
+  default: return state
   }
 }
 

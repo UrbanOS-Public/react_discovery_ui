@@ -1,4 +1,4 @@
-import { takeEvery, takeLast } from 'redux-saga/effects'
+import { takeEvery } from 'redux-saga/effects'
 import { DATASET_RECOMMENDATIONS, datasetRecommendationsSucceeded } from '../actions'
 import apiInvoker from './api-invoker'
 

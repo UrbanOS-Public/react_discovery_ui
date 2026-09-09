@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import Auth0LoginZone from '../../components/auth0-login-zone'
 import { useReactTable, getCoreRowModel, getSortedRowModel, getPaginationRowModel, flexRender } from '@tanstack/react-table'
 import Modal from 'react-modal'
@@ -108,7 +108,7 @@ const UserProfileView = (props) => {
           </div>
         </div>
       </AriaModal>
-      )
+    )
     : false
 
   return (
