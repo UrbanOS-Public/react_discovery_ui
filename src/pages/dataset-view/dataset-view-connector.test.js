@@ -25,9 +25,9 @@ describe('visualization view', () => {
   beforeEach(() => {
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
-      value: jest.fn().mockImplementation({
+      value: jest.fn().mockImplementation(() => ({
         matches: true
-      })
+      }))
     })
     Auth0Client.get = jest.fn(() => Promise.resolve(fakeAuth0Client))
     storeMocker = configureStore([])

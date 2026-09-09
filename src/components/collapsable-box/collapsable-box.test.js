@@ -5,9 +5,9 @@ describe('CollapsableBox ', () => {
   test('desktop default to expanded', () => {
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
-      value: jest.fn().mockImplementation({
+      value: jest.fn().mockImplementation(() => ({
         matches: true
-      })
+      }))
     })
     const subject = shallow(
       <CollapsableBox headerHtml='<div />'>
@@ -20,9 +20,9 @@ describe('CollapsableBox ', () => {
   test('mobile/table default to collapsed', () => {
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
-      value: jest.fn().mockImplementation({
+      value: jest.fn().mockImplementation(() => ({
         matches: false
-      })
+      }))
     })
     const subject = shallow(
       <CollapsableBox headerHtml='<div />'>
@@ -35,9 +35,9 @@ describe('CollapsableBox ', () => {
   test('clicking the header changes the expanded state on mobile/tablet', () => {
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
-      value: jest.fn().mockImplementation({
+      value: jest.fn().mockImplementation(() => ({
         matches: false
-      })
+      }))
     })
     const subject = shallow(
       <CollapsableBox headerHtml='<div />' expanded={false}>
@@ -51,9 +51,9 @@ describe('CollapsableBox ', () => {
   test('clicking the header changes the expanded state on Desktop', () => {
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
-      value: jest.fn().mockImplementation({
+      value: jest.fn().mockImplementation(() => ({
         matches: true
-      })
+      }))
     })
     const subject = shallow(
       <CollapsableBox headerHtml='<div />' expanded={false}>
@@ -67,9 +67,9 @@ describe('CollapsableBox ', () => {
   test('clicking the header changes the expanded state on expanded', () => {
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
-      value: jest.fn().mockImplementation({
+      value: jest.fn().mockImplementation(() => ({
         matches: undefined
-      })
+      }))
     })
     const subject = shallow(
       <CollapsableBox headerHtml='<div />' expanded>

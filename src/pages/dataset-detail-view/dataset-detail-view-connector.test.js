@@ -10,9 +10,9 @@ describe('dataset view', () => {
   beforeEach(() => {
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
-      value: jest.fn().mockImplementation({
+      value: jest.fn().mockImplementation(() => ({
         matches: true
-      })
+      }))
     })
     storeMocker = configureStore([])
     state = {

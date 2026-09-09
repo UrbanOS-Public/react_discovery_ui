@@ -43,7 +43,7 @@ class CollapsableBox extends Component {
         <div
           data-testid={this.props.testId}
           className={`header-container ${this.headerOpenClass()}`}
-          onClick={this.toggleCollapsed()}
+          onClick={() => this.toggleCollapsed()}
           onKeyDown={(event) => { if (event.key === ' ' || event.key === 'Enter') { event.preventDefault(); this.toggleCollapsed() } }}
           role='button'
           tabIndex='0'

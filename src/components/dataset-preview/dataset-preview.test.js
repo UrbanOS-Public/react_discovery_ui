@@ -9,9 +9,9 @@ describe('dataset preview', () => {
     beforeEach(() => {
       Object.defineProperty(window, 'matchMedia', {
         writable: true,
-        value: jest.fn().mockImplementation({
+        value: jest.fn().mockImplementation(() => ({
           matches: true
-        })
+        }))
       })
       retrieveDatasetPreviewMock = jest.fn()
       mount(<DatasetPreview

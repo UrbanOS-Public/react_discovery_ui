@@ -15,9 +15,9 @@ describe('dataset api doc ', () => {
   beforeEach(() => {
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
-      value: jest.fn().mockImplementation({
+      value: jest.fn().mockImplementation(() => ({
         matches: true
-      })
+      }))
     })
     subject = render(<DatasetApiDoc dataset={dataset} />)
   })
