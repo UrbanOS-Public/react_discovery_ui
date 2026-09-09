@@ -163,6 +163,7 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
                 <tr key={row.id} className={rowIndex % 2 === 0 ? 'striped-row' : ''}>
                   {row.getVisibleCells().map((cell, colIndex) => {
                     const content = flexRender(cell.column.columnDef.cell, cell.getContext())
+                      console.log('content', content.props.getValue())
                     return colIndex === 0
                       ? (
                         <th
@@ -173,7 +174,7 @@ const DataTable = ({ data, columns, page, onNextPageClicked, datasetName }) => {
                           data-row={tableRow}
                           data-col={colIndex}
                           className={`row-header${activeCellId === rowHeaderId(rowIndex) ? ' active-cell' : ''}`}
-                        >{content}
+                        >{content.props.getValue().length === 0 ? "none" : content}
                         </th>
                       )
                       : (
