@@ -30,6 +30,22 @@ dataset-dictionary {
       font-weight: 800;
     }
 
+    .schema-header-sort-button {
+      border: 0;
+      background: transparent;
+      padding: 0;
+      font: inherit;
+      font-weight: inherit;
+      color: inherit;
+      cursor: pointer;
+      text-align: inherit;
+    }
+
+    .schema-header-sort-button:focus-visible {
+      outline: 2px solid $dark-blue;
+      outline-offset: 2px;
+    }
+
     .description-cell {
       white-space: unset;
     }

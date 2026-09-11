@@ -8,6 +8,8 @@ const expanderWidth = 35
 const expandedArrow = '\u25BE'
 const collapsedArrow = '\u25B8'
 
+const expandedContentId = rowId => `schema-row-${String(rowId).replace(/[^a-zA-Z0-9_-]/g, '-')}-content`
+
 const isMap = schemaElement => {
   return schemaElement.type === 'map' || schemaElement.itemType === 'map'
 }
@@ -24,6 +26,9 @@ const schemaColumns = [
       const rowIsMap = isMap(row.original)
       const isExpanded = row.getIsExpanded()
 
+      const handleToggleExpanded = row.getToggleExpandedHandler()
+      const toggleExpanded = () => row.toggleExpanded()
+
       return (
         <div className='field-cell-content'>
           <Tooltip text={fieldName} />
@@ -31,8 +36,16 @@ const schemaColumns = [
             <button
               type='button'
               className='field-expander-button'
-              onClick={row.getToggleExpandedHandler()}
+              onClick={handleToggleExpanded}
+              onKeyDown={event => {
+                if (event.key === ' ') {
+                  event.preventDefault()
+                  event.stopPropagation()
+                  toggleExpanded()
+                }
+              }}
               aria-expanded={isExpanded}
+              aria-controls={expandedContentId(row.id)}
               aria-label={`${isExpanded ? 'Collapse' : 'Expand'} ${fieldName}`}
             >
               {isExpanded ? expandedArrow : collapsedArrow}
@@ -94,20 +107,51 @@ const SchemaTable = ({ schema, parentFieldName = '', style }) => {
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <th
-                  key={header.id}
-                  aria-label={header.id}
-                  scope='col'
-                  className={header.column.columnDef.meta?.headerClassName || 'table-header'}
-                  style={{ width: header.column.getSize() !== 150 ? `${header.column.getSize()}px` : undefined, cursor: header.column.getCanSort() ? 'pointer' : undefined }}
-                  onClick={header.column.getCanSort() ? header.column.getToggleSortingHandler() : undefined}
-                  aria-sort={header.column.getIsSorted() === 'asc' ? 'ascending' : header.column.getIsSorted() === 'desc' ? 'descending' : undefined}
-                >
-                  {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                  {header.column.getIsSorted() === 'asc' ? ' ↑' : header.column.getIsSorted() === 'desc' ? ' ↓' : ''}
-                </th>
-              ))}
+              {headerGroup.headers.map(header => {
+                const canSort = header.column.getCanSort()
+                const isSorted = header.column.getIsSorted()
+                const toggleSort = header.column.getToggleSortingHandler()
+                const headerLabel = String(header.column.columnDef.header)
+
+                return (
+                  <th
+                    key={header.id}
+                    aria-label={header.id}
+                    scope='col'
+                    className={header.column.columnDef.meta?.headerClassName || 'table-header'}
+                    style={{ width: header.column.getSize() !== 150 ? `${header.column.getSize()}px` : undefined }}
+                    aria-sort={canSort ? (isSorted === 'asc' ? 'ascending' : isSorted === 'desc' ? 'descending' : 'none') : undefined}
+                  >
+                    {header.isPlaceholder
+                      ? null
+                      : canSort
+                        ? (
+                          <button
+                            type='button'
+                            className='schema-header-sort-button'
+                            onClick={toggleSort}
+                            onKeyDown={event => {
+                              if (event.key === ' ') {
+                                event.preventDefault()
+                                event.stopPropagation()
+                                toggleSort(event)
+                              }
+                            }}
+                            aria-label={`Sort by ${headerLabel}`}
+                          >
+                            {flexRender(header.column.columnDef.header, header.getContext())}
+                            {isSorted === 'asc' ? ' ↑' : isSorted === 'desc' ? ' ↓' : ''}
+                          </button>
+                        )
+                        : (
+                          <>
+                            {flexRender(header.column.columnDef.header, header.getContext())}
+                            {isSorted === 'asc' ? ' ↑' : isSorted === 'desc' ? ' ↓' : ''}
+                          </>
+                        )}
+                  </th>
+                )
+              })}
             </tr>
           ))}
         </thead>
@@ -126,7 +170,7 @@ const SchemaTable = ({ schema, parentFieldName = '', style }) => {
               </tr>
               {row.getIsExpanded() && (
                 <tr>
-                  <td colSpan={schemaColumns.length}>
+                  <td id={expandedContentId(row.id)} colSpan={schemaColumns.length}>
                     <SchemaTable
                       schema={row.original.subSchema}
                       parentFieldName={row.original.name}

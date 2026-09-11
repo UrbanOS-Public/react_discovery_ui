@@ -49,8 +49,34 @@ describe('dataset dictionary', () => {
     })
 
     it('is sortable via column headers', () => {
-      const headers = subject.find('.dataset-schema-table th')
-      expect(headers.at(0).prop('onClick')).toBeTruthy()
+      const sortButtons = subject.find('.dataset-schema-table th .schema-header-sort-button')
+      expect(sortButtons.length).toBe(3)
+      expect(sortButtons.at(0).prop('type')).toBe('button')
+    })
+    it('sorts rows when a sort button is activated', () => {
+      const getFieldNames = () => subject.find('.dataset-schema-table tbody tr td:first-child').map(cell => cell.find(Tooltip).prop('text'))
+
+      expect(getFieldNames()).toEqual(['name', 'age'])
+
+      const fieldSortButton = subject.find('.dataset-schema-table th .schema-header-sort-button').at(0)
+      fieldSortButton.simulate('click')
+
+      expect(getFieldNames()).toEqual(['age', 'name'])
+    })
+
+    it('sorts rows when a sort button is activated with space', () => {
+      const getFieldNames = () => subject.find('.dataset-schema-table tbody tr td:first-child').map(cell => cell.find(Tooltip).prop('text'))
+      const preventDefault = jest.fn()
+      const stopPropagation = jest.fn()
+
+      expect(getFieldNames()).toEqual(['name', 'age'])
+
+      const fieldSortButton = subject.find('.dataset-schema-table th .schema-header-sort-button').at(0)
+      fieldSortButton.simulate('keydown', { key: ' ', preventDefault, stopPropagation })
+
+      expect(preventDefault).toHaveBeenCalledTimes(1)
+      expect(stopPropagation).toHaveBeenCalledTimes(1)
+      expect(getFieldNames()).toEqual(['age', 'name'])
     })
 
     it('has no left margin on the top-level table', () => {
@@ -115,6 +141,19 @@ describe('dataset dictionary', () => {
       expect(topLevelTable.find('.field-expander-button').at(0).text()).toBe('▸')
     })
 
+    it('expands map rows when the expander button is activated with space', () => {
+      const expanderButton = topLevelTable.find('.field-expander-button').at(0)
+      expect(subject.find('.dataset-schema-table.mother').length).toBe(0)
+
+      const preventDefault = jest.fn()
+      const stopPropagation = jest.fn()
+      expanderButton.simulate('keydown', { key: ' ', preventDefault, stopPropagation })
+
+      expect(preventDefault).toHaveBeenCalledTimes(1)
+      expect(stopPropagation).toHaveBeenCalledTimes(1)
+      expect(subject.find('.dataset-schema-table.mother').length).toBe(1)
+    })
+
     describe('with the map type expanded', () => {
       let subTable, subTableCells
 
@@ -128,6 +167,14 @@ describe('dataset dictionary', () => {
 
       it('toggles the direction of the arrow', () => {
         expect(topLevelTable.find('.field-expander-button').at(0).text()).toBe('▾')
+      })
+
+      it('connects expander controls to expanded content', () => {
+        const expanderButton = topLevelTable.find('.field-expander-button').at(0)
+        const controlsId = expanderButton.prop('aria-controls')
+
+        expect(controlsId).toBeTruthy()
+        expect(topLevelTable.find(`#${controlsId}`).length).toBe(1)
       })
 
       it('renders a sub table for the map with correct values', () => {
