@@ -47,6 +47,14 @@ describe('data card element with logo', () => {
     expect(subject.find(ReactImageFallback).prop('alt')).toEqual('The logo for Organization Title')
     expect(subject.find(ReactImageFallback).prop('src')).toEqual(dataset.organization_image_url)
   })
+
+  test('card to render fallback alt text when image fails to load', () => {
+    subject.find(ReactImageFallback).prop('onError')()
+
+    expect(subject.find(ReactImageFallback).prop('alt')).toEqual(
+      'No image available for Organization Title'
+    )
+  })
 })
 
 describe('data card element with html description', () => {
