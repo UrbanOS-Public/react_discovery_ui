@@ -18,12 +18,15 @@ const DataCard = props => {
   }
 
   const dataset = props.dataset
-  const [imageStatus, setImageStatus] = useState('loading')
+  const [failedImageUrl, setFailedImageUrl] = useState(null)
 
   const logoAltText = (() => {
-    if (imageStatus === 'fallback') return `No image available for ${dataset.organization_title}`
+    if (failedImageUrl === dataset.organization_image_url) {
+      return `No image available for ${dataset.organization_title}`
+    }
+
     return `The logo for ${dataset.organization_title}`
-  });
+  })()
 
 
   const truncatedDescription = truncateDescription(
@@ -40,8 +43,8 @@ const DataCard = props => {
             src={dataset.organization_image_url}
             fallbackImage={fallbackImage}
             initialImage={<LoadingElement />}
-            alt={logoAltText(imageStatus, dataset)}
-            onError={(errorUrl) => {if (errorUrl === dataset.organization_image_url) setImageStatus('fallback')}}
+            alt={logoAltText}
+            onError={() => setFailedImageUrl(dataset.organization_image_url)}
           />
         </Link>
       </div>
