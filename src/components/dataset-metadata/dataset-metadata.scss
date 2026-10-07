@@ -36,4 +36,12 @@ dataset-metadata {
   td {
     overflow-wrap: anywhere;
   }
+
+  .metadata-row-even {
+    background-color: $super-light-grey;
+  }
+
+  .metadata-row-odd {
+    background-color: $white;
+  }
 }
