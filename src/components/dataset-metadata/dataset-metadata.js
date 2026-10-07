@@ -54,8 +54,8 @@ const MetadataTable = ({ data }) => {
         ))}
       </thead>
       <tbody>
-        {table.getRowModel().rows.map(row => (
-          <tr key={row.id}>
+        {table.getRowModel().rows.map((row, index) => (
+          <tr className={index % 2 === 0 ? 'metadata-row-even' : 'metadata-row-odd'} key={row.id}>
             {row.getVisibleCells().map(cell => (
               <td key={cell.id}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}

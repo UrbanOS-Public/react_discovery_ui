@@ -71,6 +71,14 @@ dataset-dictionary {
       outline: 2px solid $dark-blue;
       outline-offset: 2px;
     }
+
+    .schema-row-even {
+      background-color: $super-light-gray;
+    }
+
+    .schema-row-odd {
+      background-color: $white;
+    }
   }
 
   .error {

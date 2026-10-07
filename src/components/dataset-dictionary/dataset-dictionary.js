@@ -156,9 +156,9 @@ const SchemaTable = ({ schema, parentFieldName = '', style }) => {
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map(row => (
+          {table.getRowModel().rows.map((row, index) => (
             <React.Fragment key={row.id}>
-              <tr>
+              <tr className={index % 2 === 0 ? 'schema-row-even' : 'schema-row-odd' }>
                 {row.getVisibleCells().map(cell => (
                   <td
                     key={cell.id}
