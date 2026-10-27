@@ -100,8 +100,11 @@ function freestyleDescription () {
 function renderHeader () {
   return (
     <div>
-      Access Operating System data with supported queries. All supported
-      clauses follow standard ANSI SQL standards.
+      Access dataset with supported queries. All supported clauses follow 
+      standard ANSI SQL standards. Queries submitted more frequently
+      than the data update frequency (“Frequency”)
+      identified in the Additional Information section may be
+      blocked. Do not distribute your API Key.
     </div>
   )
 }
@@ -138,7 +141,7 @@ const DatasetApiDoc = ({ expanded, dataset }) => {
   return (
     <dataset-api-doc class='dataset-api-doc'>
       <CollapsableBox
-        title='API Examples'
+        title='API Details'
         headerHtml={renderHeader()}
         expanded={expanded}
       >
